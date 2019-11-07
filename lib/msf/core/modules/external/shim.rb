@@ -17,6 +17,10 @@ class Msf::Modules::External::Shim
       single_scanner(mod)
     when 'multi_scanner'
       multi_scanner(mod)
+    when 'evasion'
+      evasion(mod)
+    when 'aux_http'
+      aux_http(mod)
     else
       # TODO have a nice load error show up in the logs
       ''
@@ -83,6 +87,15 @@ class Msf::Modules::External::Shim
   def self.capture_server(mod)
     meta = mod_meta_common(mod)
     render_template('capture_server.erb', meta)
+  end
+
+  def self.aux_http(mod)
+    meta = mod_meta_common(mod)
+    meta[:date] = mod.meta['date'].dump
+    meta[:references] = mod.meta['references'].map do |r|
+      "[#{r['type'].upcase.dump}, #{r['ref'].dump}]"
+    end.join(",\n          ")
+    render_template('aux_http.erb', meta)
   end
 
   def self.single_scanner(mod)

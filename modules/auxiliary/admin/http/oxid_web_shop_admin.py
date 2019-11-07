@@ -36,13 +36,11 @@ metadata = {
         {'type': 'url', 'ref': 'https://blog.ripstech.com/2019/oxid-esales-shop-software/'},
         {'type': 'aka', 'ref': 'Ripstech, vulnerability discovery'}
     ],
-    # 'type': 'remote_exploit',
-    'type': 'single_scanner',
+    'type': 'aux_http',
     'options': {
         'targeturi': {'type': 'string', 'description': 'The path to a detailed item description',
                       'required': True, 'default': '/en/Wakeboarding/Bindings/Binding-O-BRIEN-DECADE-CT-2010.html'},
-        'rhost': {'type': 'address', 'description': 'Target address', 'required': True, 'default': None},
-        'scheme': {'type': 'string', 'description': 'Target address', 'required': True, 'default': "http"},
+        'scheme': {'type': 'string', 'description': 'Protocol scheme', 'required': True, 'default': "http"},
         'email': {'type': 'string', 'description': 'The email address of the OXID user which should gain admin privileges',
                   'required': True, 'default': None},
         'verify_ssl': {'type': 'bool', 'description': 'Perform SSL certificate check', 'required': True, 'default': False},
