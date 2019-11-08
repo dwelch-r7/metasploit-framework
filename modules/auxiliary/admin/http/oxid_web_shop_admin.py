@@ -51,10 +51,10 @@ metadata = {
 }
 
 
-def send_exploit(url, payload, verify_ssl):
+def send_exploit(url, payload, verify_ssl, vhost):
     try:
         # Send out the exploit
-        response = requests.post(url, data=payload, verify=verify_ssl)
+        response = requests.post(url, data=payload, verify=verify_ssl, headers={'host': vhost})
     except requests.exceptions.RequestException as e:
         module.log('{}'.format(e), level="error")
         return
@@ -124,7 +124,8 @@ def run(args):
         # Send out exploit
         url = args['scheme'] + "://" + args['rhost'] + args['targeturi']
         verify_ssl = args['verify_ssl']
-        send_exploit(url, payload, verify_ssl)
+        vhost = args['VHOST'] if args.get('VHOST') else args['rhost']
+        send_exploit(url, payload, verify_ssl, vhost)
     except Exception as e:
         module.log('{}'.format(e), level="error")
         return
