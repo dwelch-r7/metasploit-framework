@@ -2,6 +2,8 @@
 
 require 'json'
 require 'msf/util/document_generator'
+require 'memory_profiler'
+
 
 module Msf
 module RPC
@@ -493,15 +495,19 @@ class RPC_Module < RPC_Base
   # @raise [Msf::RPC::Exception] Module not found (either wrong type or name).
   # @return
   def rpc_check(mtype, mname, opts)
+    MemoryProfiler.start
     mod = _find_module(mtype,mname)
-    case mtype
-    when 'exploit'
-      _check_exploit(mod, opts)
-    when 'auxiliary'
-      _run_auxiliary(mod, opts)
-    else
-      error(500, "Invalid Module Type: #{mtype}")
-    end
+    x = case mtype
+        when 'exploit'
+          _check_exploit(mod, opts)
+        when 'auxiliary'
+          _run_auxiliary(mod, opts)
+        else
+          error(500, "Invalid Module Type: #{mtype}")
+        end
+    #report = MemoryProfiler.stop
+    #report.pretty_print(to_file: "/rapid7/metasploit-framework/reports/#{mtype}_#{mname.gsub(/\//, '_')}_#{opts['RHOSTS'].gsub(/\./, '_')}-#{opts['RPORT']}.txt")
+    return x
   end
 
   # TODO: expand these to take a list of UUIDs or stream with event data if
@@ -531,7 +537,15 @@ class RPC_Module < RPC_Base
   end
 
   def rpc_ack(uuid)
-    {"success" => !!self.framework.results.delete(uuid)}
+    x = {"success" => !!self.framework.results.delete(uuid)}
+    puts framework.results
+    puts framework.ready
+    puts framework.running
+    if x["success"]
+      report = MemoryProfiler.stop
+      report.pretty_print(to_file: "/rapid7/metasploit-framework/reports/#{uuid}-testForBrent.txt")
+    end
+    return x
   end
 
   # Returns a list of executable format names.
