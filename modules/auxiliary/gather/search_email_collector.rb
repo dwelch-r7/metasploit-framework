@@ -7,6 +7,7 @@ require 'net/http'
 
 class MetasploitModule < Msf::Auxiliary
   include Msf::Auxiliary::Report
+  include Msf::Exploit::Remote::HttpClient
 
   def initialize(info = {})
     super(update_info(info,
@@ -25,15 +26,17 @@ class MetasploitModule < Msf::Auxiliary
         OptBool.new('SEARCH_BING', [ true, 'Enable Bing as a backend search engine', true]),
         OptBool.new('SEARCH_YAHOO', [ true, 'Enable Yahoo! as a backend search engine', true]),
         OptString.new('OUTFILE', [ false, "A filename to store the generated email list"]),
+      ]
+    )
 
-      ])
+    # register_advanced_options(
+    #   [
+    #     OptString.new('PROXY', [ false, "Proxy server to route connection. <host>:<port>",nil]),
+    #     OptString.new('PROXY_USER', [ false, "Proxy Server User",nil]),
+    #     OptString.new('PROXY_PASS', [ false, "Proxy Server Password",nil])
+    #   ])
 
-    register_advanced_options(
-      [
-        OptString.new('PROXY', [ false, "Proxy server to route connection. <host>:<port>",nil]),
-        OptString.new('PROXY_USER', [ false, "Proxy Server User",nil]),
-        OptString.new('PROXY_PASS', [ false, "Proxy Server Password",nil])
-      ])
+    deregister_options('RPORT', 'RHOSTS', 'SSL', 'VHOST', 'UserAgent')
 
   end
 
@@ -84,12 +87,13 @@ class MetasploitModule < Msf::Auxiliary
     response = ""
     emails = []
     header = { 'User-Agent' => "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/525.13 (KHTML, like Gecko) Chrome/4.0.221.6 Safari/525.13"}
-    clnt = Net::HTTP::Proxy(@proxysrv,@proxyport,@proxyuser,@proxypass).new("www.bing.com")
+    # clnt = Net::HTTP::Proxy(@proxysrv,@proxyport,@proxyuser,@proxypass).new("www.bing.com")
     searches = 1
     while searches < 201
       begin
-        resp = clnt.get2("/search?q=%40#{targetdom}&first=#{searches.to_s}",header)
-        response << resp.body
+        # resp = clnt.get2("/search?q=%40#{targetdom}&first=#{searches.to_s}",header)
+        resp = request_url("https://www.bing.com/search?q=%40#{targetdom}&first=#{searches.to_s}", false, {:headers => header})
+        response << resp.body if resp
       rescue
       end
       searches = searches + 10
@@ -111,13 +115,13 @@ class MetasploitModule < Msf::Auxiliary
   end
 
   def run
-    if datastore['PROXY']
-      @proxysrv,@proxyport = datastore['PROXY'].split(":")
-      @proxyuser = datastore['PROXY_USER']
-      @proxypass = datastore['PROXY_PASS']
-    else
-      @proxysrv,@proxyport = nil, nil
-    end
+    # if datastore['PROXY']
+    #   @proxysrv,@proxyport = datastore['PROXY'].split(":")
+    #   @proxyuser = datastore['PROXY_USER']
+    #   @proxypass = datastore['PROXY_PASS']
+    # else
+    #   @proxysrv,@proxyport = nil, nil
+    # end
     print_status("Harvesting emails .....")
 
 
