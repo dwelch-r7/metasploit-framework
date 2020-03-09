@@ -2,6 +2,7 @@
 
 require 'json'
 require 'msf/util/document_generator'
+require 'memory_profiler'
 
 module Msf
 module RPC
@@ -136,6 +137,11 @@ class RPC_Module < RPC_Base
     end
 
     { "modules" => data }
+  end
+
+  def rpc_breakpoint
+    require 'pry'
+    binding.pry
   end
 
   # Returns a list of NOP module names or a hash with NOP module names as keys to hashes
@@ -514,6 +520,7 @@ class RPC_Module < RPC_Base
   # @raise [Msf::RPC::Exception] Module not found (either wrong type or name).
   # @return
   def rpc_check(mtype, mname, opts)
+    MemoryProfiler.start
     mod = _find_module(mtype,mname)
     case mtype
     when 'exploit'
@@ -552,7 +559,12 @@ class RPC_Module < RPC_Base
   end
 
   def rpc_ack(uuid)
-    {"success" => !!self.job_status_tracker.ack(uuid)}
+    x = {"success" => !!self.job_status_tracker.ack(uuid)}
+    if x["success"]
+      report = MemoryProfiler.stop
+      report.pretty_print(to_file: "/home/dwelch/Documents/reports/#{uuid}-testForAlanFosterTheGoodOne.txt")
+    end
+    return x
   end
 
   # Returns a list of executable format names.
