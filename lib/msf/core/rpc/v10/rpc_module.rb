@@ -414,7 +414,11 @@ class RPC_Module < RPC_Base
     {
         "waiting" => self.job_status_tracker.waiting_ids,
         "running" => self.job_status_tracker.running_ids,
-        "results" => self.job_status_tracker.result_ids
+        "results" => self.job_status_tracker.result_ids,
+        "waiting_count" => self.job_status_tracker.waiting_ids.length,
+        "running_count" => self.job_status_tracker.running_ids.length,
+        "results_count" => self.job_status_tracker.result_ids.length,
+        "job_id" => framework.jobs.instance_variable_get(:@job_id_pool)
     }
   end
 
