@@ -288,7 +288,7 @@ protected
   private
 
   def get_db
-    unless options['DisableDatabase']
+    unless options['DisableDatabase'] || true
       db_manager = Msf::DBManager.new(self)
       options[:db_manager] = db_manager
       unless options['SkipDatabaseInit']

@@ -6,10 +6,14 @@
 #   # framework.threads created here
 #   Rex::ThreadFactory.spawn("name", false) { ... }
 #
-class Metasploit::Framework::ThreadFactoryProvider < Metasploit::Model::Base
+class Metasploit::Framework::ThreadFactoryProvider # WTF??? < Metasploit::Model::Base
   #
   # Attributes
   #
+
+  def initialize(framework:)
+    self.framework = framework
+  end
 
   # @!attribute framework
   #   The framework managing the spawned threads.

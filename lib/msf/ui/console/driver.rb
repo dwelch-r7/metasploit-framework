@@ -4,7 +4,7 @@ require 'msf/base'
 require 'msf/ui'
 require 'msf/ui/console/framework_event_manager'
 require 'msf/ui/console/command_dispatcher'
-require 'msf/ui/console/command_dispatcher/db'
+# require 'msf/ui/console/command_dispatcher/db'
 require 'msf/ui/console/command_dispatcher/creds'
 require 'msf/ui/console/table'
 require 'find'
@@ -36,7 +36,7 @@ class Driver < Msf::Ui::Driver
     CommandDispatcher::Modules,
     CommandDispatcher::Jobs,
     CommandDispatcher::Resource,
-    CommandDispatcher::Db,
+    # CommandDispatcher::Db,
     CommandDispatcher::Creds,
     CommandDispatcher::Developer
   ]
@@ -232,35 +232,35 @@ class Driver < Msf::Ui::Driver
   end
 
   def load_db_config(path=nil)
-    begin
-      conf = Msf::Config.load(path)
-    rescue
-      wlog("Failed to load configuration: #{$!}")
-      return
-    end
-
-    if conf.group?(DbConfigGroup)
-      conf[DbConfigGroup].each_pair do |k, v|
-        if k.downcase == 'default_db'
-          ilog "Default data service found. Attempting to connect..."
-          default_db_config_path = "#{DbConfigGroup}/#{v}"
-          default_db = conf[default_db_config_path]
-          if default_db
-            connect_string = "db_connect #{v}"
-
-            if framework.db.active && default_db['url'] !~ /http/
-              ilog "Existing local data connection found. Disconnecting first."
-              run_single("db_disconnect")
-            end
-
-            run_single(connect_string)
-          else
-            elog "Config entry for '#{default_db_config_path}' could not be found. Config file might be corrupt."
-            return
-          end
-        end
-      end
-    end
+    # begin
+    #   conf = Msf::Config.load(path)
+    # rescue
+    #   wlog("Failed to load configuration: #{$!}")
+    #   return
+    # end
+    #
+    # if conf.group?(DbConfigGroup)
+    #   conf[DbConfigGroup].each_pair do |k, v|
+    #     if k.downcase == 'default_db'
+    #       ilog "Default data service found. Attempting to connect..."
+    #       default_db_config_path = "#{DbConfigGroup}/#{v}"
+    #       default_db = conf[default_db_config_path]
+    #       if default_db
+    #         connect_string = "db_connect #{v}"
+    #
+    #         if framework.db.active && default_db['url'] !~ /http/
+    #           ilog "Existing local data connection found. Disconnecting first."
+    #           run_single("db_disconnect")
+    #         end
+    #
+    #         run_single(connect_string)
+    #       else
+    #         elog "Config entry for '#{default_db_config_path}' could not be found. Config file might be corrupt."
+    #         return
+    #       end
+    #     end
+    #   end
+    # end
   end
 
   #

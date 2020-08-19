@@ -8,7 +8,7 @@
 require 'active_support'
 require 'bcrypt'
 require 'json'
-require 'msgpack'
+# require 'msgpack'
 require 'metasploit/credential'
 require 'nokogiri'
 require 'packetfu'

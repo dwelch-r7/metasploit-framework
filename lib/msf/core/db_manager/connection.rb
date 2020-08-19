@@ -113,14 +113,15 @@ module Msf::DBManager::Connection
   # @return [true] if an active connection can be made to the database using the current config.
   # @return [false] if an active connection cannot be made to the database.
   def connection_established?
-    begin
-      # use with_connection so the connection doesn't stay pinned to the thread.
-      ApplicationRecord.connection_pool.with_connection {
-        ApplicationRecord.connection.active?
-      }
-    rescue ActiveRecord::ConnectionNotEstablished, PG::ConnectionBad => error
-      false
-    end
+    # begin
+    #   # use with_connection so the connection doesn't stay pinned to the thread.
+    #   ApplicationRecord.connection_pool.with_connection {
+    #     ApplicationRecord.connection.active?
+    #   }
+    # rescue ActiveRecord::ConnectionNotEstablished, PG::ConnectionBad => error
+    #   false
+    # end
+    false
   end
 
   #
