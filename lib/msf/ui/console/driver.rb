@@ -1,11 +1,12 @@
 # -*- coding: binary -*-
 require 'msf/core'
-require 'msf/base'
+# require 'msf/base'
+require 'msf/base/simple/framework'
 require 'msf/ui'
 require 'msf/ui/console/framework_event_manager'
 require 'msf/ui/console/command_dispatcher'
 # require 'msf/ui/console/command_dispatcher/db'
-require 'msf/ui/console/command_dispatcher/creds'
+# require 'msf/ui/console/command_dispatcher/creds'
 require 'msf/ui/console/table'
 require 'find'
 require 'erb'
@@ -37,7 +38,7 @@ class Driver < Msf::Ui::Driver
     CommandDispatcher::Jobs,
     CommandDispatcher::Resource,
     # CommandDispatcher::Db,
-    CommandDispatcher::Creds,
+    # CommandDispatcher::Creds,
     CommandDispatcher::Developer
   ]
 
