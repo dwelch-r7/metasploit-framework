@@ -11,7 +11,7 @@
 
 
 require 'msf/core'
-require 'rex'
+# require 'rex'
 
 module Msf
 module Util

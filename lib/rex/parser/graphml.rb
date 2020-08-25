@@ -1,5 +1,5 @@
 # -*- coding: binary -*-
-
+require 'nokogiri'
 module Rex
   module Parser
     #

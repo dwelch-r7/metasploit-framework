@@ -11,7 +11,7 @@
 ###
 
 # The framework-core depends on Rex
-require 'rex'
+# require 'rex'
 require 'rex/ui'
 require 'rex/arch'
 include Rex::Arch
@@ -42,7 +42,7 @@ require 'msf/events'
 # Framework context and core classes
 require 'msf/core/framework'
 require 'msf/core/feature_manager'
-require 'msf/core/db_manager'
+# require 'msf/core/db_manager'
 require 'msf/core/event_dispatcher'
 require 'msf/core/module_manager'
 require 'msf/core/module_set'

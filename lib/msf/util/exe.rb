@@ -10,7 +10,7 @@ module Util
 
 class EXE
 
-require 'rex'
+# require 'rex'
 require 'rex/peparsey'
 require 'rex/pescan'
 require 'rex/random_identifier'

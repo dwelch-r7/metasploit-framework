@@ -10,7 +10,7 @@ module Msf
 module Auxiliary::Report
   extend Metasploit::Framework::Require
 
-  optionally_include_metasploit_credential_creation
+  # optionally_include_metasploit_credential_creation
 
   def db_warning_given?
     if @warning_issued
