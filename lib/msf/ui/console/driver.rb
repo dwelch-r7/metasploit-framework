@@ -12,7 +12,6 @@ require 'erb'
 require 'rexml/document'
 require 'fileutils'
 require 'digest/md5'
-
 module Msf
 module Ui
 module Console
@@ -134,7 +133,7 @@ class Driver < Msf::Ui::Driver
 
     begin
       FeatureManager.instance.load_config
-    rescue StandardException => e
+    rescue StandardError => e
       elog(e)
     end
 

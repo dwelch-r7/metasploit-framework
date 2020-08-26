@@ -14,6 +14,9 @@ require 'metasploit/framework/version'
 require 'msf/base/config'
 require 'msf/core'
 require 'msf/util'
+require 'metasploit/framework/thread_factory_provider'
+require 'rex/job_container'
+require 'rex/thread_factory'
 
 module Msf
 
@@ -24,6 +27,7 @@ module Msf
 #
 ###
 class Framework
+  autoload :DBManager, 'msf/core/db_manager'
   include MonitorMixin
 
   #
@@ -84,7 +88,7 @@ class Framework
     self.features = FeatureManager.instance
 
     # Configure the thread factory
-    Rex::ThreadFactory.provider = Metasploit::Framework::ThreadFactoryProvider.new(framework: self)
+    Rex::ThreadFactory.provider = Metasploit::Framework::ThreadFactoryProvider.new#(framework: self)
 
     # Configure the SSL certificate generator
     Rex::Socket::Ssl.cert_provider = Msf::Ssl::CertProvider
@@ -276,6 +280,7 @@ protected
 
   def get_db
     unless options['DisableDatabase']
+      require 'msf/core/db_manager'
       db_manager = Msf::DBManager.new(self)
       options[:db_manager] = db_manager
       unless options['SkipDatabaseInit']

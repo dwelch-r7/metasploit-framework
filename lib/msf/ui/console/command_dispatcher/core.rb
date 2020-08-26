@@ -21,7 +21,7 @@ require 'msf/ui/console/command_dispatcher/jobs'
 require 'msf/ui/console/command_dispatcher/resource'
 require 'msf/ui/console/command_dispatcher/modules'
 require 'msf/ui/console/command_dispatcher/developer'
-require 'msf/util/document_generator'
+# require 'msf/util/document_generator'
 
 require 'optparse'
 
@@ -1244,7 +1244,7 @@ class Core
 
     begin
       FeatureManager.instance.save_config
-    rescue StandardException => e
+    rescue StandardError => e
       elog(e)
     end
 

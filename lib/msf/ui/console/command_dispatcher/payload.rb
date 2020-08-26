@@ -1,11 +1,45 @@
 # -*- coding: binary -*-
 
 require 'rex/parser/arguments'
-
+require 'msf/util/exe'
 module Msf
   module Ui
     module Console
       module CommandDispatcher
+        def self.to_executable_fmt_formats
+          [
+              "asp",
+              "aspx",
+              "aspx-exe",
+              "axis2",
+              "dll",
+              "elf",
+              "elf-so",
+              "exe",
+              "exe-only",
+              "exe-service",
+              "exe-small",
+              "hta-psh",
+              "jar",
+              "jsp",
+              "loop-vbs",
+              "macho",
+              "msi",
+              "msi-nouac",
+              "osx-app",
+              "psh",
+              "psh-cmd",
+              "psh-net",
+              "psh-reflection",
+              "python-reflection",
+              "vba",
+              "vba-exe",
+              "vba-psh",
+              "vbs",
+              "war"
+          ]
+        end
+
         ###
         # Payload module command dispatcher.
         ###
@@ -15,8 +49,7 @@ module Msf
           # Load supported formats
           @@supported_formats = \
             Msf::Simple::Buffer.transform_formats + \
-            Msf::Util::EXE.to_executable_fmt_formats
-
+            Msf::Ui::Console::CommandDispatcher.to_executable_fmt_formats
           @@generate_opts = Rex::Parser::Arguments.new(
             "-p" => [ true,  "The platform of the payload" ],
             "-n" => [ true,  "Prepend a nopsled of [length] size on to the payload" ],

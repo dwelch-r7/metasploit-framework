@@ -15,7 +15,7 @@ class Creds
   require 'tempfile'
 
   include Msf::Ui::Console::CommandDispatcher
-  include Metasploit::Credential::Creation
+  # include Metasploit::Credential::Creation
   include Msf::Ui::Console::CommandDispatcher::Common
 
   #

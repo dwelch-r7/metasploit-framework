@@ -1,6 +1,8 @@
 # -*- coding: binary -*-
-require 'rex'
+# require 'rex'
+require 'rex/logging'
 require 'msf/base'
+
 
 module Msf
 

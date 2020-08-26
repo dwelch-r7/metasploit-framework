@@ -4,6 +4,7 @@ require 'msf/base/sessions/scriptable'
 require 'shellwords'
 require 'rex/text/table'
 require "base64"
+require 'rex/parser/arguments'
 
 module Msf
 module Sessions

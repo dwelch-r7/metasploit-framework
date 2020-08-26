@@ -6,7 +6,7 @@
 #   # framework.threads created here
 #   Rex::ThreadFactory.spawn("name", false) { ... }
 #
-class Metasploit::Framework::ThreadFactoryProvider < Metasploit::Model::Base
+class Metasploit::Framework::ThreadFactoryProvider # WTF still < Metasploit::Model::Base
   #
   # Attributes
   #

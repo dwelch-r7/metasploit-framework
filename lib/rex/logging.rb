@@ -1,5 +1,8 @@
 # -*- coding: binary -*-
-
+module Rex
+  Root = File.join(File.expand_path(File.dirname(__FILE__)), 'rex')
+  LogSource = "rex"
+end
 #
 # Log severities
 #

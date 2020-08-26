@@ -7,6 +7,12 @@
 
 require 'pathname'
 
+def time_delta(t1)
+  t2 = Time.now
+  delta = t2 - t1
+  puts delta
+end
+
 begin
 
   # Silences warnings as they only serve to confuse end users
@@ -14,13 +20,31 @@ begin
     Warning[:deprecated] = false
   end
 
-  # @see https://github.com/rails/rails/blob/v3.2.17/railties/lib/rails/generators/rails/app/templates/script/rails#L3-L5
-  require Pathname.new(__FILE__).realpath.expand_path.parent.join('config', 'boot')
-  require 'metasploit/framework/profiler'
-  require 'metasploit/framework/command/console'
+  require 'stackprof'
+  t1 = Time.now
+# processing...
+
+
+  time_delta(t1)
+# @see https://github.com/rails/rails/blob/v3.2.17/railties/lib/rails/generators/rails/app/templates/script/rails#L3-L5
+    require Pathname.new(__FILE__).realpath.expand_path.parent.join('config', 'boot')
+  time_delta(t1)
+    require 'metasploit/framework/command/console'
+  time_delta(t1)
+StackProf.run(mode: :wall, out: 'test_prof_wall_time.dump', ignore_gc: true, raw: true, interval: 100) do
+
   require 'msf/core/payload_generator'
-  Metasploit::Framework::Profiler.start
-  Metasploit::Framework::Command::Console.start
+  # end
+
+  time_delta(t1)
+    # Metasploit::Framework::Profiler.start
+    Metasploit::Framework::Command::Console.start
+  end
+  time_delta(t1)
+  time_delta(t1)
+    # require 'metasploit/framework/profiler'
+
+
 rescue Interrupt
   puts "\nAborting..."
   exit(1)

@@ -20,7 +20,7 @@ end
 end
 
 # Executable generation and encoding
-require 'msf/util/exe'
+# require 'msf/util/exe'
 require 'msf/util/helper'
 
 # Host helpers
