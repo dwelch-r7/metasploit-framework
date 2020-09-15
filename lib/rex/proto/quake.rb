@@ -1,3 +1,3 @@
 # -*- coding: binary -*-
 
-require 'rex/proto/quake/message'
+#require 'rex/proto/quake/message'

@@ -1,7 +1,7 @@
 # -*- coding: binary -*-
 
-require 'msf/core'
-require 'msf/core/payload/python/reverse_tcp'
+#require 'msf/core'
+#require 'msf/core/payload/python/reverse_tcp'
 
 module Msf
 

@@ -3,8 +3,8 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'metasm'
-require 'rex/nop/opty2'
+#require 'metasm'
+#require 'rex/nop/opty2'
 
 class MetasploitModule < Msf::Encoder::Xor
   Rank = ManualRanking

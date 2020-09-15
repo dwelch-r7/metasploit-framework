@@ -1,3 +1,3 @@
 # -*- coding: binary -*-
 
-require 'rex/post/permission'
+#require 'rex/post/permission'

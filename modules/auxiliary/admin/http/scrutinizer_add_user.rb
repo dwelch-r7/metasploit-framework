@@ -58,7 +58,7 @@ class MetasploitModule < Msf::Auxiliary
     end
 
     begin
-      require 'json'
+      #require 'json'
     rescue LoadError
       print_error("Json is not available on your machine")
       return

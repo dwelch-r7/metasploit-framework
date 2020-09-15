@@ -38,7 +38,7 @@ class MetasploitModule < Msf::Post
       cmd_exec("rm #{path}")
     end
 
-    print_status("Device should be unlocked or no longer require a pin")
+    print_status("Device should be unlocked or no longer #require a pin")
   end
 end
 

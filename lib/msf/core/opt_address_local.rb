@@ -1,5 +1,5 @@
 # -*- coding: binary -*-
-require 'network_interface'
+#require 'network_interface'
 
 module Msf
 

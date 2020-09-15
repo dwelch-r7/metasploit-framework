@@ -3,7 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'rex/google/geolocation'
+#require 'rex/google/geolocation'
 
 class MetasploitModule < Msf::Post
 

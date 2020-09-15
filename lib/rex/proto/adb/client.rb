@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
 
-require 'rex/proto/adb/message'
+#require 'rex/proto/adb/message'
 
 module Rex
 module Proto

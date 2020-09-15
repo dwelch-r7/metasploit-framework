@@ -3,7 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'msf/core/exploit/dns'
+#require 'msf/core/exploit/dns'
 
 class MetasploitModule < Msf::Auxiliary
   include Msf::Exploit::Remote::DNS::Enumeration
@@ -658,7 +658,7 @@ class MetasploitModule < Msf::Auxiliary
       vprint_status(" * Fingerprint: #{fingerprint.to_s.gsub("\n", '')}")
       vprint_status
     else
-      # The user-defined comparison string does not require a request to initiate a connection to the target server.
+      # The user-defined comparison string does not #require a request to initiate a connection to the target server.
       # The comparison is made by the check_bypass function in the user-defined TAG (default: <title>).
       fingerprint = datastore['COMPSTR']
     end

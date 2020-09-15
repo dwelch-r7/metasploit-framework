@@ -3,10 +3,10 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'rex/proto/ntlm/constants'
-require 'rex/proto/ntlm/message'
-require 'rex/proto/ntlm/crypt'
-require 'rex/exceptions'
+#require 'rex/proto/ntlm/constants'
+#require 'rex/proto/ntlm/message'
+#require 'rex/proto/ntlm/crypt'
+#require 'rex/exceptions'
 
 
 NTLM_CONST = Rex::Proto::NTLM::Constants

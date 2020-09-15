@@ -3,7 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'msf/base/sessions/hwbridge'
+#require 'msf/base/sessions/hwbridge'
 
 class MetasploitModule < Msf::Auxiliary
   include Msf::Auxiliary::Report

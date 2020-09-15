@@ -1,4 +1,4 @@
-require 'msf/core/modules/external'
+#require 'msf/core/modules/external'
 
 module Msf::Module::External
   include Msf::Auxiliary::Report

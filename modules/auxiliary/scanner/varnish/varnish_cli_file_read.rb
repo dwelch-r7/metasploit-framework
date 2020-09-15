@@ -3,8 +3,8 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'metasploit/framework/tcp/client'
-require 'metasploit/framework/varnish/client'
+#require 'metasploit/framework/tcp/client'
+#require 'metasploit/framework/varnish/client'
 
 class MetasploitModule < Msf::Auxiliary
 

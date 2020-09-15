@@ -1,14 +1,14 @@
 # -*- coding: binary -*-
 
-require 'rex/post/meterpreter/extensions/extapi/tlv'
-require 'rex/post/meterpreter/extensions/extapi/command_ids'
-require 'rex/post/meterpreter/extensions/extapi/window/window'
-require 'rex/post/meterpreter/extensions/extapi/service/service'
-require 'rex/post/meterpreter/extensions/extapi/clipboard/clipboard'
-require 'rex/post/meterpreter/extensions/extapi/adsi/adsi'
-require 'rex/post/meterpreter/extensions/extapi/ntds/ntds'
-require 'rex/post/meterpreter/extensions/extapi/pageant/pageant'
-require 'rex/post/meterpreter/extensions/extapi/wmi/wmi'
+#require 'rex/post/meterpreter/extensions/extapi/tlv'
+#require 'rex/post/meterpreter/extensions/extapi/command_ids'
+#require 'rex/post/meterpreter/extensions/extapi/window/window'
+#require 'rex/post/meterpreter/extensions/extapi/service/service'
+#require 'rex/post/meterpreter/extensions/extapi/clipboard/clipboard'
+#require 'rex/post/meterpreter/extensions/extapi/adsi/adsi'
+#require 'rex/post/meterpreter/extensions/extapi/ntds/ntds'
+#require 'rex/post/meterpreter/extensions/extapi/pageant/pageant'
+#require 'rex/post/meterpreter/extensions/extapi/wmi/wmi'
 
 module Rex
 module Post

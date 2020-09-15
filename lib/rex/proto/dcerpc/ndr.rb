@@ -1,5 +1,5 @@
 # -*- coding: binary -*-
-require "rex/text"
+#require "rex/text"
 
 module Rex
 module Proto

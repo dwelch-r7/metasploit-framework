@@ -1,7 +1,7 @@
-require 'spec_helper'
-require 'json'
+#require 'spec_helper'
+#require 'json'
 
-require 'msf/core/rpc'
+#require 'msf/core/rpc'
 
 RSpec.describe Msf::RPC::JSON::Dispatcher do
   include_context 'Msf::Simple::Framework'

@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
-require 'postgres_msf'
-require 'postgres/byteorder'
+#require 'postgres_msf'
+#require 'postgres/byteorder'
 
 # Namespace for Metasploit branch.
 module Msf

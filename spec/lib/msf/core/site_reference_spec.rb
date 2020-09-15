@@ -1,4 +1,4 @@
-require 'spec_helper'
+#require 'spec_helper'
 
 RSpec.describe Msf::SiteReference do
   it 'is an alias for Msf::Module::SiteReference' do

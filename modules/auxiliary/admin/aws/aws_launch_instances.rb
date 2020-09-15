@@ -3,7 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'metasploit/framework/aws/client'
+#require 'metasploit/framework/aws/client'
 
 class MetasploitModule < Msf::Auxiliary
   include Metasploit::Framework::Aws::Client

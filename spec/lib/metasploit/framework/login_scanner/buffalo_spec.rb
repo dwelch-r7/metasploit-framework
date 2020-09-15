@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'metasploit/framework/login_scanner/buffalo'
+#require 'spec_helper'
+#require 'metasploit/framework/login_scanner/buffalo'
 
 RSpec.describe Metasploit::Framework::LoginScanner::Buffalo do
 

@@ -17,8 +17,8 @@ end
 
 $:.unshift(File.expand_path(File.join(File.dirname(msfbase), '..', '..', 'lib')))
 
-require 'rex'
-require 'json'
+#require 'rex'
+#require 'json'
 
 FILENAME = 'db/modules_metadata_base.json'
 

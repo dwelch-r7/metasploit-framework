@@ -1,9 +1,9 @@
 # -*- coding: binary -*-
 
-require 'msf/core'
-require 'msf/core/payload/transport_config'
-require 'msf/core/payload/uuid/options'
-require 'msf/core/payload/java/payload_options'
+#require 'msf/core'
+#require 'msf/core/payload/transport_config'
+#require 'msf/core/payload/uuid/options'
+#require 'msf/core/payload/java/payload_options'
 
 module Msf
 

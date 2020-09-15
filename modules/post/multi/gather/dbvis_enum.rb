@@ -3,9 +3,9 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'msf/core/auxiliary/report'
-require 'openssl'
-require 'digest/md5'
+#require 'msf/core/auxiliary/report'
+#require 'openssl'
+#require 'digest/md5'
 
 class MetasploitModule < Msf::Post
   include Msf::Post::File

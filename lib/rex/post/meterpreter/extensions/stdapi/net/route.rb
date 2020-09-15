@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
 
-require 'ipaddr'
+#require 'ipaddr'
 
 module Rex
 module Post

@@ -5,8 +5,8 @@ module OSX
 module RubyDL
   def osx_ruby_dl_header
     <<-EOS
-  require 'dl'
-  require 'dl/import'
+  #require 'dl'
+  #require 'dl/import'
 
   #### Patches to DL (for compatibility between 1.8->1.9)
 
@@ -75,7 +75,7 @@ SNAP_FILETYPES = %w(tiff bmp gif jpg png)
 
 snap_filetype_index = SNAP_FILETYPES.index(options[:snap_filetype].to_s)
 
-require 'fileutils'
+#require 'fileutils'
 FileUtils.mkdir_p File.dirname(options[:record_file])
 FileUtils.mkdir_p File.dirname(options[:snap_file])
 

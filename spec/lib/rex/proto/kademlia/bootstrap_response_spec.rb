@@ -1,7 +1,7 @@
 # -*- coding: binary -*-
 
-require 'spec_helper'
-require 'rex/proto/kademlia/bootstrap_response'
+#require 'spec_helper'
+#require 'rex/proto/kademlia/bootstrap_response'
 
 RSpec.describe Rex::Proto::Kademlia::BootstrapResponse do
   describe '#from_data' do

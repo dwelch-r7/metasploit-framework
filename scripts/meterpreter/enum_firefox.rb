@@ -9,7 +9,7 @@
 # Author: Carlos Perez at carlos_perez[at]darkoperator.com
 #-------------------------------------------------------------------------------
 ################## Variable Declarations ##################
-require 'sqlite3'
+#require 'sqlite3'
 @client = client
 kill_frfx = false
 host,port = session.session_host, session.session_port

@@ -3,8 +3,8 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'thread'
-require 'rex/proto/proxy/socks5'
+#require 'thread'
+#require 'rex/proto/proxy/socks5'
 
 class MetasploitModule < Msf::Auxiliary
   include Msf::Auxiliary::Report

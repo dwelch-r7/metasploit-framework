@@ -4,9 +4,9 @@
 # Framework web site for more information on licensing and terms of use.
 # https://metasploit.com/framework/
 
-require 'net/https'
-require 'net/http'
-require 'uri'
+#require 'net/https'
+#require 'net/http'
+#require 'uri'
 
 module Msf
 
@@ -16,7 +16,7 @@ class Fuzzable
 
   # load and include all available analysis/audit techniques
   lib = File.dirname( __FILE__ ) + '/analysis/*.rb'
-  Dir.glob( lib ).each { |f| require f }
+  Dir.glob( lib ).each { |f| #require f }
   Analysis.constants.each { |technique| include Analysis.const_get( technique ) }
 
   attr_accessor :fuzzer

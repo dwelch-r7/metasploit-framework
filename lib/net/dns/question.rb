@@ -3,10 +3,10 @@
 # $Id: Question.rb,v 1.8 2006/07/28 19:00:03 bluemonk Exp $     
 #+++
 
-require 'net/dns/dns'
-require 'net/dns/names/names'
-require 'net/dns/rr/types'
-require 'net/dns/rr/classes'
+#require 'net/dns/dns'
+#require 'net/dns/names/names'
+#require 'net/dns/rr/types'
+#require 'net/dns/rr/classes'
 
 module Net # :nodoc:
   module DNS 
@@ -18,7 +18,7 @@ module Net # :nodoc:
     #
     # =Synopsis
     # 
-    #   require 'net/dns/question'
+    #   #require 'net/dns/question'
     #
     # =Description
     #

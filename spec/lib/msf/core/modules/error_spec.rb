@@ -1,5 +1,5 @@
 # -*- coding:binary -*-
-require 'spec_helper'
+#require 'spec_helper'
 
 RSpec.describe Msf::Modules::Error do
   context 'instance methods' do

@@ -4,7 +4,7 @@
 ##
 
 
-require 'msf/core'
+#require 'msf/core'
 
 class MetasploitModule < Msf::Auxiliary
 
@@ -20,7 +20,7 @@ class MetasploitModule < Msf::Auxiliary
     )
 
     begin
-      require 'pcaprub'
+      #require 'pcaprub'
       @@havepcap = true
     rescue ::LoadError
       @@havepcap = false

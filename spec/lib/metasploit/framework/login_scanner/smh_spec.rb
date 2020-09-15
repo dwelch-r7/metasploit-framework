@@ -1,6 +1,6 @@
 
-require 'spec_helper'
-require 'metasploit/framework/login_scanner/smh'
+#require 'spec_helper'
+#require 'metasploit/framework/login_scanner/smh'
 
 RSpec.describe Metasploit::Framework::LoginScanner::Smh do
 

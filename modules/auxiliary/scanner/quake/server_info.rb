@@ -3,7 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'rex/proto/quake'
+#require 'rex/proto/quake'
 
 class MetasploitModule < Msf::Auxiliary
   include Msf::Auxiliary::Report

@@ -1,4 +1,4 @@
-require 'rex/parser/ini'
+#require 'rex/parser/ini'
 
 RSpec.describe Rex::Parser::Ini do
   let(:ini_contents) { <<EOF

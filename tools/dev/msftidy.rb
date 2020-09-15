@@ -8,15 +8,15 @@
 # by jduck, todb, and friends
 #
 
-require 'fileutils'
-require 'find'
-require 'time'
+#require 'fileutils'
+#require 'find'
+#require 'time'
 
 CHECK_OLD_RUBIES = !!ENV['MSF_CHECK_OLD_RUBIES']
 SUPPRESS_INFO_MESSAGES = !!ENV['MSF_SUPPRESS_INFO_MESSAGES']
 
 if CHECK_OLD_RUBIES
-  require 'rvm'
+  #require 'rvm'
   warn "This is going to take a while, depending on the number of Rubies you have installed."
 end
 
@@ -119,7 +119,7 @@ class Msftidy
   # slower) since it's pure ruby. Unfortunately, there is no pure Ruby
   # HTML parser (except Hpricot which is abandonware) -- easy checks
   # can avoid Nokogiri (most modules use regex anyway), but more complex
-  # checks tends to require Nokogiri for HTML element and value parsing.
+  # checks tends to #require Nokogiri for HTML element and value parsing.
   def check_nokogiri
     msg = "Using Nokogiri in modules can be risky, use REXML instead."
     has_nokogiri = false
@@ -228,7 +228,7 @@ class Msftidy
     end
   end
 
-  # See if 'require "rubygems"' or equivalent is used, and
+  # See if '#require "rubygems"' or equivalent is used, and
   # warn if so. Since Ruby 1.9 this has not been necessary and
   # the framework only suports 1.9+
   def check_rubygems
@@ -801,7 +801,7 @@ if __FILE__ == $PROGRAM_NAME
         msftidy = Msftidy.new(full_filepath)
         # Executable files are now assumed to be external modules
         # but also check for some content to be sure
-        next if File.executable?(full_filepath) && msftidy.source =~ /require ["']metasploit["']/
+        next if File.executable?(full_filepath) && msftidy.source =~ /#require ["']metasploit["']/
         msftidy.run_checks
         @exit_status = msftidy.status if (msftidy.status > @exit_status.to_i)
       end

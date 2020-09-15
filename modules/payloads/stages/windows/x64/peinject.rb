@@ -3,8 +3,8 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'msf/core/payload/windows/peinject'
-require 'msf/core/payload/windows/x64/reflective_pe_loader'
+#require 'msf/core/payload/windows/peinject'
+#require 'msf/core/payload/windows/x64/reflective_pe_loader'
 
 ###
 #

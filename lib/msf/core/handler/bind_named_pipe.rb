@@ -1,7 +1,7 @@
 # -*- coding: binary -*-
-require 'thread'
-require 'msf/core/post_mixin'
-require 'rex/proto/smb/simpleclient'
+#require 'thread'
+#require 'msf/core/post_mixin'
+#require 'rex/proto/smb/simpleclient'
 
 #
 # KNOWN ISSUES
@@ -13,7 +13,7 @@ require 'rex/proto/smb/simpleclient'
 
 #
 # Socket interface for named pipes. Because of the way named pipes work, reads and writes
-# each require both a sock.send (read/write request) and a sock.recv (read/write response).
+# each #require both a sock.send (read/write request) and a sock.recv (read/write response).
 # So, pipe.read and pipe.write need to be synchronized so the responses arent mixed up.
 #
 # The packet dispatcher calls select on the socket to check for packets to read. This is

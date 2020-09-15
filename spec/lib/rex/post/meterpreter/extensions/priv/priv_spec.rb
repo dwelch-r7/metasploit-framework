@@ -1,6 +1,6 @@
-require 'spec_helper'
-require 'rex/post/meterpreter/extension'
-require 'rex/post/meterpreter/extensions/priv/priv'
+#require 'spec_helper'
+#require 'rex/post/meterpreter/extension'
+#require 'rex/post/meterpreter/extensions/priv/priv'
 
 RSpec.describe Rex::Post::Meterpreter::Extensions::Priv::Priv do
 

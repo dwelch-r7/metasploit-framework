@@ -30,10 +30,10 @@ while File.symlink?(msfbase)
   msfbase = File.expand_path(File.readlink(msfbase), File.dirname(msfbase))
 end
 $:.unshift(File.expand_path(File.join(File.dirname(msfbase), '..', '..', 'lib')))
-require 'msfenv'
-require 'rex'
-require 'msf/core'
-require 'optparse'
+#require 'msfenv'
+#require 'rex'
+#require 'msf/core'
+#require 'optparse'
 
 #
 # Basic prints we can't live without

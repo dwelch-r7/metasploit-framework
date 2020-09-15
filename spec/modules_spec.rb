@@ -1,4 +1,4 @@
-require 'spec_helper'
+#require 'spec_helper'
 
 RSpec.describe 'modules', :content do
   modules_pathname = Pathname.new(__FILE__).parent.parent.join('modules')

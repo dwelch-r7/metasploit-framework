@@ -1,6 +1,6 @@
 # frozen_string_literal: true
-require 'spec_helper'
-require 'rubocop/cop/layout/module_hash_on_new_line'
+#require 'spec_helper'
+#require 'rubocop/cop/layout/module_hash_on_new_line'
 
 RSpec.describe RuboCop::Cop::Layout::ModuleHashOnNewLine do
   subject(:cop) { described_class.new(config) }

@@ -1,5 +1,5 @@
 # -*- coding: binary -*-
-require 'msf/core/post/windows/registry'
+#require 'msf/core/post/windows/registry'
 
 module Msf
 module Scripts

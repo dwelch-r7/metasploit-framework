@@ -1,7 +1,7 @@
 # -*- coding: binary -*-
-require 'spec_helper'
+#require 'spec_helper'
 
-require 'rex/proto/natpmp/packet'
+#require 'rex/proto/natpmp/packet'
 RSpec.describe Rex::Proto::NATPMP do
   subject do
     mod = Module.new

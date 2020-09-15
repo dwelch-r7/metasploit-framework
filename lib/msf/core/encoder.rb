@@ -1,5 +1,5 @@
 # -*- coding: binary -*-
-require 'msf/core'
+#require 'msf/core'
 
 module Msf
 
@@ -679,10 +679,10 @@ end
 
 end
 
-require 'msf/core/encoder/xor'
-require 'msf/core/encoder/xor_additive_feedback'
-require 'msf/core/encoder/alphanum'
-require 'msf/core/encoder/nonalpha'
-require 'msf/core/encoder/nonupper'
-require 'msf/core/encoder/xor_dynamic'
+#require 'msf/core/encoder/xor'
+#require 'msf/core/encoder/xor_additive_feedback'
+#require 'msf/core/encoder/alphanum'
+#require 'msf/core/encoder/nonalpha'
+#require 'msf/core/encoder/nonupper'
+#require 'msf/core/encoder/xor_dynamic'
 

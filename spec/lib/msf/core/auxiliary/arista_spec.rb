@@ -1,8 +1,8 @@
 # -*- coding: binary -*-
 
-require 'spec_helper'
+#require 'spec_helper'
 
-require 'msf/core/auxiliary/arista'
+#require 'msf/core/auxiliary/arista'
 
 RSpec.describe Msf::Auxiliary::Arista do
   class DummyAristaClass

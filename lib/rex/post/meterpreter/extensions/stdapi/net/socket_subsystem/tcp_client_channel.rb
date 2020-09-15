@@ -1,9 +1,9 @@
 # -*- coding: binary -*-
 
-require 'thread'
-require 'rex/post/meterpreter/channel'
-require 'rex/post/meterpreter/channels/stream'
-require 'rex/post/meterpreter/extensions/stdapi/tlv'
+#require 'thread'
+#require 'rex/post/meterpreter/channel'
+#require 'rex/post/meterpreter/channels/stream'
+#require 'rex/post/meterpreter/extensions/stdapi/tlv'
 
 module Rex
 module Post

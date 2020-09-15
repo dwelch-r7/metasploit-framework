@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'metasploit/framework/login_scanner/redis'
+#require 'spec_helper'
+#require 'metasploit/framework/login_scanner/redis'
 
 RSpec.describe Metasploit::Framework::LoginScanner::Redis do
 

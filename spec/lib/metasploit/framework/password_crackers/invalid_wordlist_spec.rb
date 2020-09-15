@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'metasploit/framework/password_crackers/invalid_wordlist'
+#require 'spec_helper'
+#require 'metasploit/framework/password_crackers/invalid_wordlist'
 
 RSpec.describe Metasploit::Framework::PasswordCracker::InvalidWordlist do
 

@@ -1,4 +1,4 @@
-require 'rex/post/meterpreter/extensions/stdapi/sys/registry'
+#require 'rex/post/meterpreter/extensions/stdapi/sys/registry'
 
 RSpec.describe Rex::Post::Meterpreter::Extensions::Stdapi::Sys::Registry do
 

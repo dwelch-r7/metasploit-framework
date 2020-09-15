@@ -2,7 +2,7 @@
 # Standard library
 #
 
-require 'fileutils'
+#require 'fileutils'
 
 module Msf::DBManager::Report
   # TODO This method does not attempt to find. It just creates

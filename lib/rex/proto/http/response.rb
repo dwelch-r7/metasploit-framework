@@ -1,9 +1,9 @@
 # -*- coding: binary -*-
-require 'cgi'
-require 'uri'
-require 'rex/proto/http'
-require 'nokogiri'
-require 'rkelly'
+#require 'cgi'
+#require 'uri'
+#require 'rex/proto/http'
+#require 'nokogiri'
+#require 'rkelly'
 
 module Rex
 module Proto

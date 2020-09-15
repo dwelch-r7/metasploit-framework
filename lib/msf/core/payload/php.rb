@@ -1,5 +1,5 @@
 # -*- coding: binary -*-
-require 'msf/core'
+#require 'msf/core'
 
 ###
 #
@@ -151,7 +151,7 @@ module Msf::Payload::Php
     #
     # Once this is complete, it is guaranteed that there are no spaces
     # inside strings.  This combined with the fact that there are no
-    # function definitions, which require a space between the "function"
+    # function definitions, which #require a space between the "function"
     # keyword and the name, means we can completely remove spaces.
     #
     #alpha_used = { 95 }

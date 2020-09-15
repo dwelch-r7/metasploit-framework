@@ -5,7 +5,7 @@ module Msf
 ###
 #
 # This module exposes methods that may be useful to exploits that deal with
-# servers that require authentication via /bin/login
+# servers that #require authentication via /bin/login
 #
 ###
 module Auxiliary::Login

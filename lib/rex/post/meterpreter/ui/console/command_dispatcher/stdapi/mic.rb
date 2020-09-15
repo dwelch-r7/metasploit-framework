@@ -1,7 +1,7 @@
 # -*- coding: binary -*-
-require 'rex/post/meterpreter'
-require 'rex/post/meterpreter/extensions/stdapi/command_ids'
-require 'bindata'
+#require 'rex/post/meterpreter'
+#require 'rex/post/meterpreter/extensions/stdapi/command_ids'
+#require 'bindata'
 
 module Rex
 module Post

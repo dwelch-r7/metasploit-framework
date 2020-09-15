@@ -1,5 +1,5 @@
 # -*- coding: binary -*-
-require 'thread'
+#require 'thread'
 
 module Rex
 module IO

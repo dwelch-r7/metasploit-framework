@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'metasploit/framework/login_scanner/gitlab'
+#require 'spec_helper'
+#require 'metasploit/framework/login_scanner/gitlab'
 
 RSpec.describe Metasploit::Framework::LoginScanner::GitLab do
 

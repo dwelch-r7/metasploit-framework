@@ -35,15 +35,15 @@
 # zeroSteiner - April 2017 - added support for non-windows platforms
 #
 
-require 'pp'
-require 'enumerator'
+#require 'pp'
+#require 'enumerator'
 
-require 'rex/post/meterpreter/extensions/stdapi/railgun/tlv'
-require 'rex/post/meterpreter/extensions/stdapi/railgun/util'
-require 'rex/post/meterpreter/extensions/stdapi/railgun/const_manager'
-require 'rex/post/meterpreter/extensions/stdapi/railgun/multicall'
-require 'rex/post/meterpreter/extensions/stdapi/railgun/library'
-require 'rex/post/meterpreter/extensions/stdapi/railgun/library_wrapper'
+#require 'rex/post/meterpreter/extensions/stdapi/railgun/tlv'
+#require 'rex/post/meterpreter/extensions/stdapi/railgun/util'
+#require 'rex/post/meterpreter/extensions/stdapi/railgun/const_manager'
+#require 'rex/post/meterpreter/extensions/stdapi/railgun/multicall'
+#require 'rex/post/meterpreter/extensions/stdapi/railgun/library'
+#require 'rex/post/meterpreter/extensions/stdapi/railgun/library_wrapper'
 
 module Rex
 module Post
@@ -141,7 +141,7 @@ class Railgun
   #
   def api_constants
     if @api_constants.nil?
-      require "rex/post/meterpreter/extensions/stdapi/railgun/def/#{client.platform}/api_constants"
+      #require "rex/post/meterpreter/extensions/stdapi/railgun/def/#{client.platform}/api_constants"
       @api_constants = Def.const_get('DefApiConstants_' << client.platform)
     end
 
@@ -269,7 +269,7 @@ class Railgun
             raise "Library name #{lib_name} is bad. Correct Railgun::BUILTIN_LIBRARIES['#{client.platform}']"
           end
 
-          require "rex/post/meterpreter/extensions/stdapi/railgun/def/#{client.platform}/def_#{lib_name}"
+          #require "rex/post/meterpreter/extensions/stdapi/railgun/def/#{client.platform}/def_#{lib_name}"
           lib = Def.const_get("Def_#{client.platform}_#{lib_name}").create_library(constant_manager).freeze
 
           @@cached_libraries[cached_lib_name] = lib

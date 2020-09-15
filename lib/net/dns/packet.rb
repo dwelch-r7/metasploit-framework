@@ -1,10 +1,10 @@
 # -*- coding: binary -*-
-require 'logger'
-require 'net/dns/names/names'
-require 'net/dns/dns'
-require 'net/dns/header'
-require 'net/dns/question'
-require 'net/dns/rr'
+#require 'logger'
+#require 'net/dns/names/names'
+#require 'net/dns/dns'
+#require 'net/dns/header'
+#require 'net/dns/question'
+#require 'net/dns/rr'
 
 module Net # :nodoc:
   module DNS 
@@ -15,7 +15,7 @@ module Net # :nodoc:
     #
     # =Synopsis
     # 
-    #   require 'net/dns/packet'
+    #   #require 'net/dns/packet'
     #
     # =Description
     # 

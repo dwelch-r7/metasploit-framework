@@ -7,4 +7,4 @@
 # COPYING file in the Ruby distribution for details.
 #
 
-require 'snmp/manager'
+#require 'snmp/manager'

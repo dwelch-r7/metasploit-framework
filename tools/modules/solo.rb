@@ -11,9 +11,9 @@ while File.symlink?(msfbase)
 end
 
 $:.unshift(File.expand_path(File.join(File.dirname(msfbase), '..', '..', 'lib')))
-require 'msf/core/modules/external'
+#require 'msf/core/modules/external'
 
-require 'json'
+#require 'json'
 
 module_path = ARGV.shift
 

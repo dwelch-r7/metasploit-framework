@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'metasploit/framework/login_scanner/ftp'
+#require 'spec_helper'
+#require 'metasploit/framework/login_scanner/ftp'
 
 RSpec.describe Metasploit::Framework::LoginScanner::FTP do
   let(:public) { 'root' }

@@ -1,5 +1,5 @@
 # -*- coding: binary -*-
-require 'rex/post/meterpreter'
+#require 'rex/post/meterpreter'
 
 module Rex
 module Post
@@ -13,14 +13,14 @@ module Ui
 ###
 class Console::CommandDispatcher::Stdapi
 
-  require 'rex/post/meterpreter/ui/console/command_dispatcher/stdapi/fs'
-  require 'rex/post/meterpreter/ui/console/command_dispatcher/stdapi/net'
-  require 'rex/post/meterpreter/ui/console/command_dispatcher/stdapi/sys'
-  require 'rex/post/meterpreter/ui/console/command_dispatcher/stdapi/stream'
-  require 'rex/post/meterpreter/ui/console/command_dispatcher/stdapi/ui'
-  require 'rex/post/meterpreter/ui/console/command_dispatcher/stdapi/webcam'
-  require 'rex/post/meterpreter/ui/console/command_dispatcher/stdapi/mic'
-  require 'rex/post/meterpreter/ui/console/command_dispatcher/stdapi/audio_output'
+  #require 'rex/post/meterpreter/ui/console/command_dispatcher/stdapi/fs'
+  #require 'rex/post/meterpreter/ui/console/command_dispatcher/stdapi/net'
+  #require 'rex/post/meterpreter/ui/console/command_dispatcher/stdapi/sys'
+  #require 'rex/post/meterpreter/ui/console/command_dispatcher/stdapi/stream'
+  #require 'rex/post/meterpreter/ui/console/command_dispatcher/stdapi/ui'
+  #require 'rex/post/meterpreter/ui/console/command_dispatcher/stdapi/webcam'
+  #require 'rex/post/meterpreter/ui/console/command_dispatcher/stdapi/mic'
+  #require 'rex/post/meterpreter/ui/console/command_dispatcher/stdapi/audio_output'
 
   Klass = Console::CommandDispatcher::Stdapi
 

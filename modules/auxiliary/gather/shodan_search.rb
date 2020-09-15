@@ -3,8 +3,8 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'net/https'
-require 'uri'
+#require 'net/https'
+#require 'uri'
 
 class MetasploitModule < Msf::Auxiliary
   include Msf::Auxiliary::Report

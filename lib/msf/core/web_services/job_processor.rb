@@ -1,4 +1,4 @@
-require 'singleton'
+#require 'singleton'
 
 class JobProcessor
   include Singleton

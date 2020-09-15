@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'rex/post/meterpreter'
+#require 'spec_helper'
+#require 'rex/post/meterpreter'
 
 RSpec.describe MetasploitPayloads do
   it 'is available' do

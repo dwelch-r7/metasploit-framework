@@ -12,12 +12,12 @@
 # Author: sinn3r
 #
 
-require 'net/http'
-require 'optparse'
+#require 'net/http'
+#require 'optparse'
 
 begin
-  require 'octokit'
-  require 'nokogiri'
+  #require 'octokit'
+  #require 'nokogiri'
 rescue LoadError => e
   gem = e.message.split.last
   abort "#{gem} not installed: please run `gem install #{gem}'"

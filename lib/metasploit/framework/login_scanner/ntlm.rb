@@ -1,11 +1,11 @@
-require 'metasploit/framework/login_scanner'
+#require 'metasploit/framework/login_scanner'
 
 module Metasploit
   module Framework
     module LoginScanner
 
       # This Concern provides the basic accessors and validations
-      # for protocols that require the use of NTLM for Authentication.
+      # for protocols that #require the use of NTLM for Authentication.
       module NTLM
         extend ActiveSupport::Concern
         include ActiveModel::Validations

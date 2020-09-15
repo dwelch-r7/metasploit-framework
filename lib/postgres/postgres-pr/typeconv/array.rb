@@ -1,5 +1,5 @@
 # -*- coding: binary -*-
-require 'strscan'
+#require 'strscan'
 
 module Postgres::Conversion
 

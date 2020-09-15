@@ -2,13 +2,13 @@
 # Gems
 #
 
-require 'rails/engine'
+#require 'rails/engine'
 
 #
 # Project
 #
 
-require 'metasploit/framework/common_engine'
+#require 'metasploit/framework/common_engine'
 
 module Metasploit
   module Framework

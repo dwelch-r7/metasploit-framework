@@ -3,7 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'rex/proto/http'
+#require 'rex/proto/http'
 
 class MetasploitModule < Msf::Auxiliary
   include Msf::Exploit::Remote::HttpClient
@@ -107,7 +107,7 @@ class MetasploitModule < Msf::Auxiliary
 
         end
       else
-        print_error("#{rhost}:#{rport} Folder does not require authentication. [#{res.code}]")
+        print_error("#{rhost}:#{rport} Folder does not #require authentication. [#{res.code}]")
       end
     rescue ::Rex::ConnectionRefused, ::Rex::HostUnreachable, ::Rex::ConnectionTimeout
     rescue ::Timeout::Error, ::Errno::E877PIPE

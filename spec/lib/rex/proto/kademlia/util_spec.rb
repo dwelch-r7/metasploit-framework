@@ -1,7 +1,7 @@
 # -*- coding: binary -*-
 #
-require 'spec_helper'
-require 'rex/proto/kademlia/util'
+#require 'spec_helper'
+#require 'rex/proto/kademlia/util'
 
 RSpec.describe Rex::Proto::Kademlia do
 

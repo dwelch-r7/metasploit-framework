@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'msf/core/encoded_payload'
+#require 'spec_helper'
+#require 'msf/core/encoded_payload'
 
 RSpec.describe Msf::EncodedPayload do
   include_context 'Msf::Simple::Framework#modules loading'
@@ -20,7 +20,7 @@ RSpec.describe Msf::EncodedPayload do
   end
 
   let(:ancestor_reference_names) {
-    # A module that doesn't require any datastore junk to generate
+    # A module that doesn't #require any datastore junk to generate
     %w{singles/linux/x86/shell_bind_tcp}
   }
 

@@ -23,11 +23,11 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-require 'pp'
-require 'enumerator'
-require 'rex/post/meterpreter/extensions/stdapi/railgun/tlv'
-require 'rex/post/meterpreter/extensions/stdapi/railgun/library_helper'
-require 'rex/post/meterpreter/extensions/stdapi/railgun/buffer_item'
+#require 'pp'
+#require 'enumerator'
+#require 'rex/post/meterpreter/extensions/stdapi/railgun/tlv'
+#require 'rex/post/meterpreter/extensions/stdapi/railgun/library_helper'
+#require 'rex/post/meterpreter/extensions/stdapi/railgun/buffer_item'
 
 module Rex
 module Post
@@ -110,11 +110,11 @@ class MultiCaller
 
             if @native == 'Q<'
               if buffer_size != 8
-                raise "Please pass 8 for 'out' PDWORDS, since they require a buffer of size 8"
+                raise "Please pass 8 for 'out' PDWORDS, since they #require a buffer of size 8"
               end
             elsif( @native == 'V' )
               if buffer_size != 4
-                raise "Please pass 4 for 'out' PDWORDS, since they require a buffer of size 4"
+                raise "Please pass 4 for 'out' PDWORDS, since they #require a buffer of size 4"
               end
             end
 

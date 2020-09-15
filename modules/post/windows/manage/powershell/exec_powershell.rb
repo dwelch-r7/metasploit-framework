@@ -12,7 +12,7 @@
 # execution of very large scripts. No files are ever written to disk.
 ##
 
-require 'zlib' # TODO: check if this can be done with REX
+#require 'zlib' # TODO: check if this can be done with REX
 
 class MetasploitModule < Msf::Post
   include Msf::Post::Windows::Powershell

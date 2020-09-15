@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'msf/ui/console/table_print/rank_styler'
+#require 'spec_helper'
+#require 'msf/ui/console/table_print/rank_styler'
 
 RSpec.describe Msf::Ui::Console::TablePrint::RankStyler do
   describe 'style' do

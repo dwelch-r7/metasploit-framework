@@ -11,10 +11,10 @@
 #
 
 # openssl before rubygems mac os
-require 'openssl'
-require 'rinda/tuplespace'
-require 'pathname'
-require 'uri'
+#require 'openssl'
+#require 'rinda/tuplespace'
+#require 'pathname'
+#require 'uri'
 
 class MetasploitModule < Msf::Auxiliary
   include Msf::Auxiliary::Scanner

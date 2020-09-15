@@ -1,7 +1,7 @@
 # -*- coding: binary -*-
 
-require 'json'
-require 'msf/util/document_generator'
+#require 'json'
+#require 'msf/util/document_generator'
 
 module Msf
 module RPC

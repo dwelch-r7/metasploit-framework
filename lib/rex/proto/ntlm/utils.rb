@@ -1,7 +1,7 @@
 # -*- coding: binary -*-
-require 'rex/proto/ntlm/constants'
-require 'rex/proto/ntlm/crypt'
-require 'rex/proto/ntlm/exceptions'
+#require 'rex/proto/ntlm/constants'
+#require 'rex/proto/ntlm/crypt'
+#require 'rex/proto/ntlm/exceptions'
 
 module Rex::Proto::NTLM
   class Utils

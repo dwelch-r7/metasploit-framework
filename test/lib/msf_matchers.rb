@@ -1,5 +1,5 @@
 $:.unshift(File.join((File.dirname(__FILE__))))
-require 'regexr'
+#require 'regexr'
 
 module MsfTest
 

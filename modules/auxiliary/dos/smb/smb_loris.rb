@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
 
-require 'socket'
-require 'metasploit'
+#require 'socket'
+#require 'metasploit'
 
-require 'bindata'
+#require 'bindata'
 
 class NbssHeader < BinData::Record
   endian  :little

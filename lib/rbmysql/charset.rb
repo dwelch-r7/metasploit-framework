@@ -2,7 +2,7 @@
 # Copyright (C) 2008 TOMITA Masahiro
 # mailto:tommy@tmtm.org
 
-require "#{File.dirname __FILE__}/error"
+#require "#{File.dirname __FILE__}/error"
 
 class RbMysql
   class Charset

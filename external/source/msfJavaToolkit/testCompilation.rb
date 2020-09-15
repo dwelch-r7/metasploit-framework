@@ -1,7 +1,7 @@
 #!/usr/bin/ruby
 
-require 'rubygems'
-require 'rjb'
+#require 'rubygems'
+#require 'rjb'
 
 #Rjb::load('.', jvmargs=[])
 Rjb::load("#{ENV['JAVA_HOME']}/lib/tools.jar:.",jvmargs=[])

@@ -1,5 +1,5 @@
 # -*- coding: binary -*-
-require 'rex/proto/natpmp'
+#require 'rex/proto/natpmp'
 
 module Msf
 

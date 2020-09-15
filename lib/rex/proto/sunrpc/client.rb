@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
-require 'rex/socket'
-require 'rex/encoder/xdr'
+#require 'rex/socket'
+#require 'rex/encoder/xdr'
 
 module Rex
 module Proto

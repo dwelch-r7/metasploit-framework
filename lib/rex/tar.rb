@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
 
-require 'rubygems/package'
+#require 'rubygems/package'
 
 module Rex::Tar
   class Reader < Gem::Package::TarReader; end

@@ -1,7 +1,7 @@
 # -*- coding: binary -*-
 
-require 'msf/core'
-require 'msf/core/payload/windows/reverse_http'
+#require 'msf/core'
+#require 'msf/core/payload/windows/reverse_http'
 
 module Msf
 

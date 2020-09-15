@@ -1,5 +1,5 @@
-require 'rbconfig'
-require 'yaml'
+#require 'rbconfig'
+#require 'yaml'
 
 module Metasploit
   module Framework

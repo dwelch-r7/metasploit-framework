@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'metasploit/framework/login_scanner/pop3'
+#require 'spec_helper'
+#require 'metasploit/framework/login_scanner/pop3'
 
 RSpec.describe Metasploit::Framework::LoginScanner::POP3 do
   subject(:scanner) { described_class.new }

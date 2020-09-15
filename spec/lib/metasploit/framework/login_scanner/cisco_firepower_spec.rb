@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'metasploit/framework/login_scanner/cisco_firepower'
+#require 'spec_helper'
+#require 'metasploit/framework/login_scanner/cisco_firepower'
 
 RSpec.describe Metasploit::Framework::LoginScanner::CiscoFirepower do
 

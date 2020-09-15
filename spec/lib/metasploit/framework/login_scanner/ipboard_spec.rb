@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'metasploit/framework/login_scanner/ipboard'
+#require 'spec_helper'
+#require 'metasploit/framework/login_scanner/ipboard'
 
 RSpec.describe Metasploit::Framework::LoginScanner::IPBoard do
 

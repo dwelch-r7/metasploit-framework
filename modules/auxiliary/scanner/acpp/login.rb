@@ -3,9 +3,9 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'rex/proto/acpp'
-require 'metasploit/framework/credential_collection'
-require 'metasploit/framework/login_scanner/acpp'
+#require 'rex/proto/acpp'
+#require 'metasploit/framework/credential_collection'
+#require 'metasploit/framework/login_scanner/acpp'
 
 class MetasploitModule < Msf::Auxiliary
   include Msf::Exploit::Remote::Tcp

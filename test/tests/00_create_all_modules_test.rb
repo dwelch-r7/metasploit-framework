@@ -1,4 +1,4 @@
-require 'testbase'
+#require 'testbase'
 
 describe Msf::Simple::Framework do
   $msf.modules.each_module do |name, mod|

@@ -3,8 +3,8 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'metasploit/framework/login_scanner/glassfish'
-require 'metasploit/framework/credential_collection'
+#require 'metasploit/framework/login_scanner/glassfish'
+#require 'metasploit/framework/credential_collection'
 
 class MetasploitModule < Msf::Auxiliary
   include Msf::Exploit::Remote::HttpClient
@@ -183,7 +183,7 @@ class MetasploitModule < Msf::Auxiliary
 
     print_brute :level=>:status, :ip=>rhost, :msg=>('Checking if Glassfish requires a password...')
     if @scanner.version =~ /^[239]\.x$/ && is_password_required?(@scanner.version)
-      print_brute :level => :good, :ip => ip, :msg => "Note: This Glassfish does not require a password"
+      print_brute :level => :good, :ip => ip, :msg => "Note: This Glassfish does not #require a password"
     else
       print_brute :level=>:status, :ip=>rhost, :msg=>("Glassfish is protected with a password")
     end

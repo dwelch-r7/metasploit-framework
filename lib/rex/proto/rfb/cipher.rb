@@ -13,7 +13,7 @@
 ##
 
 # Required for VNC authentication
-require 'openssl'
+#require 'openssl'
 
 module Rex
 module Proto

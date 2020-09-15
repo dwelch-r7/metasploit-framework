@@ -11,8 +11,8 @@
 # Mississippi State University National Forensics Training Center
 #    http://msu-nftc.org
 
-require 'digest/md5'
-require 'digest/sha1'
+#require 'digest/md5'
+#require 'digest/sha1'
 
 class MetasploitModule < Msf::Post
 

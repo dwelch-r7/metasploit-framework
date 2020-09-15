@@ -4,19 +4,19 @@
 # Gems
 #
 
-require 'rex/socket'
+#require 'rex/socket'
 
 #
 # Project
 #
-require 'metasploit/framework/require'
-require 'msf/base/config'
-require 'msf/core'
-require 'msf/core/database_event'
-require 'msf/core/db_import_error'
-require 'msf/core/host_state'
-require 'msf/core/service_state'
-require 'metasploit/framework/data_service'
+#require 'metasploit/framework/require'
+#require 'msf/base/config'
+#require 'msf/core'
+#require 'msf/core/database_event'
+#require 'msf/core/db_import_error'
+#require 'msf/core/host_state'
+#require 'msf/core/service_state'
+#require 'metasploit/framework/data_service'
 
 
 # The db module provides persistent storage and events. This class should be instantiated LAST

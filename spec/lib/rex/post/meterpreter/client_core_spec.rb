@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'rex/post/meterpreter/client_core'
+#require 'spec_helper'
+#require 'rex/post/meterpreter/client_core'
 
 RSpec.describe Rex::Post::Meterpreter::ClientCore do
 

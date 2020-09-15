@@ -3,8 +3,8 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'msf/core/handler/reverse_https'
-require 'msf/core/payload/multi/reverse_https'
+#require 'msf/core/handler/reverse_https'
+#require 'msf/core/payload/multi/reverse_https'
 
 module MetasploitModule
 

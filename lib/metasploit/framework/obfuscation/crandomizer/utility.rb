@@ -1,5 +1,5 @@
-require 'metasm'
-require 'securerandom'
+#require 'metasm'
+#require 'securerandom'
 
 module Metasploit
   module Framework

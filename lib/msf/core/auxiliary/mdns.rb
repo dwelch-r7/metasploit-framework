@@ -1,5 +1,5 @@
 # -*- coding: binary -*-
-require 'net/dns'
+#require 'net/dns'
 
 module Msf
   # This module provides methods for working with mDNS

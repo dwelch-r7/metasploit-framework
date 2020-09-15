@@ -3,8 +3,8 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'net/dns/resolver'
-require 'msf/core/auxiliary/report'
+#require 'net/dns/resolver'
+#require 'msf/core/auxiliary/report'
 
 class MetasploitModule < Msf::Post
   include Msf::Post::Windows::Registry

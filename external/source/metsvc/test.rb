@@ -2,10 +2,10 @@
 
 $:.unshift(File.join(File.dirname(__FILE__), '..', '..', '..', 'lib'))
 
-require 'openssl'
-require 'rex'
+#require 'openssl'
+#require 'rex'
 
-require 'rex/post/meterpreter'
+#require 'rex/post/meterpreter'
 
 ip   = ARGV.shift() || exit
 port = ARGV.shift() || 31337

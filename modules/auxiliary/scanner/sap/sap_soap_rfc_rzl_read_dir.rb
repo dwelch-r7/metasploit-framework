@@ -20,7 +20,7 @@
 # just seem to enjoy hacking SAP :)
 ##
 
-require 'rexml/document'
+#require 'rexml/document'
 
 class MetasploitModule < Msf::Auxiliary
   include Msf::Exploit::Remote::HttpClient

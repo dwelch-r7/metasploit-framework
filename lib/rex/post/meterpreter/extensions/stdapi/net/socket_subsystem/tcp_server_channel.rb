@@ -1,10 +1,10 @@
 # -*- coding: binary -*-
-require 'timeout'
-require 'thread'
-require 'rex/socket/parameters'
-require 'rex/post/meterpreter/channels/stream'
-require 'rex/post/meterpreter/extensions/stdapi/tlv'
-require 'rex/post/meterpreter/extensions/stdapi/net/socket_subsystem/tcp_client_channel'
+#require 'timeout'
+#require 'thread'
+#require 'rex/socket/parameters'
+#require 'rex/post/meterpreter/channels/stream'
+#require 'rex/post/meterpreter/extensions/stdapi/tlv'
+#require 'rex/post/meterpreter/extensions/stdapi/net/socket_subsystem/tcp_client_channel'
 
 module Rex
 module Post

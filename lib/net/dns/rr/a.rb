@@ -7,7 +7,7 @@
 #
 ##
 
-require 'ipaddr'
+#require 'ipaddr'
 
 module Net # :nodoc:
   module DNS 
@@ -20,7 +20,7 @@ module Net # :nodoc:
       #
       # =Synopsis
       #
-      # require "net/dns/rr"
+      # #require "net/dns/rr"
       #
       # =Description
       #

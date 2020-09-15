@@ -3,13 +3,13 @@
 #       $Id: RR.rb,v 1.19 2006/07/28 07:33:36 bluemonk Exp $
 #
 
-require 'net/dns/names/names'
-require 'net/dns/rr/types'
-require 'net/dns/rr/classes'
+#require 'net/dns/names/names'
+#require 'net/dns/rr/types'
+#require 'net/dns/rr/classes'
 
 
 %w[a ns mx cname txt hinfo soa ptr aaaa mr srv].each do |file|
-  require "net/dns/rr/#{file}"
+  #require "net/dns/rr/#{file}"
 end
 
 module Net # :nodoc:
@@ -21,7 +21,7 @@ module Net # :nodoc:
     #
     # =Synopsis
     #
-    #   require 'net/dns/rr'
+    #   #require 'net/dns/rr'
     #
     # =Description
     #

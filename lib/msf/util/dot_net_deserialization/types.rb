@@ -5,9 +5,9 @@ module Types
 
   class Record < BinData::Record; end  # forward definition
 
-  require 'msf/util/dot_net_deserialization/types/primitives'
-  require 'msf/util/dot_net_deserialization/types/general'
-  require 'msf/util/dot_net_deserialization/types/record_values'
+  #require 'msf/util/dot_net_deserialization/types/primitives'
+  #require 'msf/util/dot_net_deserialization/types/general'
+  #require 'msf/util/dot_net_deserialization/types/record_values'
 
   #
   # .NET Serialization Types (Compound-Records)

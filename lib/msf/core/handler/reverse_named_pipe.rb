@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
-require 'thread'
-require 'msf/core/post_mixin'
+#require 'thread'
+#require 'msf/core/post_mixin'
 
 module Msf
 module Handler

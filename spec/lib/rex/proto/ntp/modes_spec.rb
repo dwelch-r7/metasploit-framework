@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
 #
-require 'rex/proto/ntp/modes'
+#require 'rex/proto/ntp/modes'
 
 RSpec.describe "Rex::Proto::NTP mode message handling" do
   before do

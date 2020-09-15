@@ -1,10 +1,10 @@
 #
 # -*- coding: binary -*-
-require 'rex/post/meterpreter/extensions/android/tlv'
-require 'rex/post/meterpreter/extensions/android/command_ids'
-require 'rex/post/meterpreter/packet'
-require 'rex/post/meterpreter/client'
-require 'rex/post/meterpreter/channels/pools/stream_pool'
+#require 'rex/post/meterpreter/extensions/android/tlv'
+#require 'rex/post/meterpreter/extensions/android/command_ids'
+#require 'rex/post/meterpreter/packet'
+#require 'rex/post/meterpreter/client'
+#require 'rex/post/meterpreter/channels/pools/stream_pool'
 
 module Rex
 module Post

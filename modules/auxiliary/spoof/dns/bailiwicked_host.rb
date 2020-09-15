@@ -3,8 +3,8 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'net/dns'
-require 'resolv'
+#require 'net/dns'
+#require 'resolv'
 
 class MetasploitModule < Msf::Auxiliary
   include Msf::Exploit::Capture

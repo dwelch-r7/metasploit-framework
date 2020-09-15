@@ -4,7 +4,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'dnsruby'
+#require 'dnsruby'
 
 class MetasploitModule < Msf::Auxiliary
 

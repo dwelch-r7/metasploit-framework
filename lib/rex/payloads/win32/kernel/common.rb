@@ -4,7 +4,7 @@ module Payloads
 module Win32
 module Kernel
 
-require 'rex/payloads/win32/common'
+#require 'rex/payloads/win32/common'
 
 #
 # This class provides common methods that may be shared across more than

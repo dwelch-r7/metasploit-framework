@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'msf/ui/console/table_print/rank_formatter'
+#require 'spec_helper'
+#require 'msf/ui/console/table_print/rank_formatter'
 
 RSpec.describe Msf::Ui::Console::TablePrint::RankFormatter do
   describe 'format' do

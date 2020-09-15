@@ -1,7 +1,7 @@
 # -*- coding: binary -*-
-require 'spec_helper'
+#require 'spec_helper'
 
-require 'msf/core/auxiliary/brocade'
+#require 'msf/core/auxiliary/brocade'
 
 RSpec.describe Msf::Auxiliary::Brocade do
   class DummyBrocadeClass

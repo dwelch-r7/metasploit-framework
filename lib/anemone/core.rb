@@ -1,11 +1,11 @@
-require 'thread'
-require 'robots'
-require 'anemone/tentacle'
-require 'anemone/page'
-require 'anemone/exceptions'
-require 'anemone/page_store'
-require 'anemone/storage'
-require 'anemone/storage/base'
+#require 'thread'
+#require 'robots'
+#require 'anemone/tentacle'
+#require 'anemone/page'
+#require 'anemone/exceptions'
+#require 'anemone/page_store'
+#require 'anemone/storage'
+#require 'anemone/storage/base'
 
 module Anemone
 

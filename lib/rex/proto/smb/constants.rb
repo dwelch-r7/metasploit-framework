@@ -4,7 +4,7 @@ module Proto
 module SMB
 class Constants
 
-  require 'rex/struct2'
+  #require 'rex/struct2'
 
   # SMB Commands
   SMB_COM_CREATE_DIRECTORY           = 0x00

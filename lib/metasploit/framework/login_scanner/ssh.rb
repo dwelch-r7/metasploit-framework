@@ -1,6 +1,6 @@
-require 'net/ssh'
-require 'metasploit/framework/login_scanner/base'
-require 'rex/socket/ssh_factory'
+#require 'net/ssh'
+#require 'metasploit/framework/login_scanner/base'
+#require 'rex/socket/ssh_factory'
 
 module Metasploit
   module Framework

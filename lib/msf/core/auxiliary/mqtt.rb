@@ -1,7 +1,7 @@
 # -*- coding: binary -*-
 
-require 'msf/core/exploit'
-require 'rex/proto/mqtt'
+#require 'msf/core/exploit'
+#require 'rex/proto/mqtt'
 
 module Msf
   module Auxiliary::MQTT

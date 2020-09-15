@@ -3,7 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'bindata'
+#require 'bindata'
 
 class MetasploitModule < Msf::Post
 
@@ -12,7 +12,7 @@ class MetasploitModule < Msf::Post
       'Name'           => 'Gnome-Keyring Dump',
       'Description'    => %q{
         Use libgnome-keyring to extract network passwords for the current user.
-        This module does not require root privileges to run.
+        This module does not #require root privileges to run.
       },
       'Author'        => 'Spencer McIntyre',
       'License'       => MSF_LICENSE,

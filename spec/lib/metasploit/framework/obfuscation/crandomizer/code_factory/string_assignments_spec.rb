@@ -1,4 +1,4 @@
-require 'metasploit/framework/obfuscation/crandomizer/code_factory'
+#require 'metasploit/framework/obfuscation/crandomizer/code_factory'
 
 RSpec.describe Metasploit::Framework::Obfuscation::CRandomizer::CodeFactory::StringAssignments do
 

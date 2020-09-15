@@ -3,7 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'rex/java/serialization'
+#require 'rex/java/serialization'
 
 class MetasploitModule < Msf::Auxiliary
   include Msf::Exploit::Remote::Java::Rmi::Client

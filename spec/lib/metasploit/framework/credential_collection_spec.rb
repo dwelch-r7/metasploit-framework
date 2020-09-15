@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'metasploit/framework/credential_collection'
+#require 'spec_helper'
+#require 'metasploit/framework/credential_collection'
 
 RSpec.describe Metasploit::Framework::CredentialCollection do
 

@@ -1,7 +1,7 @@
 # -*- coding: binary -*-
 
-require 'rex/socket'
-require 'rex/proto/dhcp'
+#require 'rex/socket'
+#require 'rex/proto/dhcp'
 
 module Rex
 module Proto

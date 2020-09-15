@@ -1,4 +1,4 @@
-require "../serialport.so"
+#require "../serialport.so"
 
 
 if ARGV.size < 4

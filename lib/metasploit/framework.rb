@@ -5,24 +5,24 @@
 # @see https://github.com/bundler/bundler/issues/2018#issuecomment-6819359
 #
 
-require 'active_support'
-require 'bcrypt'
-require 'json'
-require 'msgpack'
-require 'metasploit/credential'
-require 'nokogiri'
-require 'packetfu'
-# railties has not autorequire defined
-# rkelly-remix is a fork of rkelly, so it's autorequire is 'rkelly' and not 'rkelly-remix'
-require 'rkelly'
-require 'robots'
-require 'zip'
+#require 'active_support'
+#require 'bcrypt'
+#require 'json'
+#require 'msgpack'
+#require 'metasploit/credential'
+#require 'nokogiri'
+#require 'packetfu'
+# railties has not auto#require defined
+# rkelly-remix is a fork of rkelly, so it's auto#require is 'rkelly' and not 'rkelly-remix'
+#require 'rkelly'
+#require 'robots'
+#require 'zip'
 
 #
 # Project
 #
 
-require 'msf/core'
+#require 'msf/core'
 
 # Top-level namespace that is shared between {Metasploit::Framework
 # metasploit-framework} and pro, which uses Metasploit::Pro.

@@ -1,7 +1,7 @@
 # -*- coding: binary -*-
 
-require 'rex/post/dir'
-require 'rex/post/meterpreter/extensions/stdapi/stdapi'
+#require 'rex/post/dir'
+#require 'rex/post/meterpreter/extensions/stdapi/stdapi'
 
 module Rex
 module Post

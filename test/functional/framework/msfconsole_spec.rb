@@ -3,10 +3,10 @@ $:.unshift(File.join(File.dirname(__FILE__), '..', '..', 'lib'))
 $:.unshift(File.join(File.dirname(__FILE__), '..', '..', '..', 'lib'))
 $:.unshift(File.join(File.dirname(__FILE__), '..', '..', '..', 'test', 'lib'))
 
-require 'fileutils'
-require 'msf/base'
-require 'msf_matchers'
-require 'msf_test_case'
+#require 'fileutils'
+#require 'msf/base'
+#require 'msf_matchers'
+#require 'msf_test_case'
 
 
 module MsfTest

@@ -3,12 +3,12 @@ $:.unshift(File.join(File.dirname(__FILE__), '..', '..', 'lib'))
 $:.unshift(File.join(File.dirname(__FILE__), '..', '..', '..', 'lib'))
 $:.unshift(File.join(File.dirname(__FILE__), '..', '..', '..', 'test', 'lib'))
 
-require 'fileutils'
-require 'msf/base'
-require 'meterpreter_spec_helper'
-require 'msf_matchers'
-require 'meterpreter_specs'
-require 'windows_meterpreter_specs'
+#require 'fileutils'
+#require 'msf/base'
+#require 'meterpreter_spec_helper'
+#require 'msf_matchers'
+#require 'meterpreter_specs'
+#require 'windows_meterpreter_specs'
 
 module MsfTest
 

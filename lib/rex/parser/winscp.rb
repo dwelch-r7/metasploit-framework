@@ -1,4 +1,4 @@
-require 'rex/parser/ini'
+#require 'rex/parser/ini'
 
 module Rex
 module Parser

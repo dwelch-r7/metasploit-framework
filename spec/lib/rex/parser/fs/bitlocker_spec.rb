@@ -1,4 +1,4 @@
-require 'rex/parser/fs/bitlocker'
+#require 'rex/parser/fs/bitlocker'
 
 volume_header = [%(
 eb58902d4656452d46532d00020800000000000000f800003f00ff008000010000000000e01f0000

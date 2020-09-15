@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'metasploit/framework/login_scanner/mybook_live'
+#require 'spec_helper'
+#require 'metasploit/framework/login_scanner/mybook_live'
 
 RSpec.describe Metasploit::Framework::LoginScanner::MyBookLive do
 

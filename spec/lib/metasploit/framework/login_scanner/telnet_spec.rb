@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'metasploit/framework/login_scanner/telnet'
+#require 'spec_helper'
+#require 'metasploit/framework/login_scanner/telnet'
 
 RSpec.describe Metasploit::Framework::LoginScanner::Telnet do
 

@@ -5,7 +5,7 @@
 ##
 
 
-require "rexml/document"
+#require "rexml/document"
 
 #-------------------------------------------------------------------------------
 #Options and Option Parsing

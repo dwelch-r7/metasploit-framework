@@ -1,7 +1,7 @@
 # -*- coding: binary -*-
 
-require 'spec_helper'
-require 'rex/proto/kademlia/ping'
+#require 'spec_helper'
+#require 'rex/proto/kademlia/ping'
 
 RSpec.describe Rex::Proto::Kademlia::Ping do
   subject(:ping) do

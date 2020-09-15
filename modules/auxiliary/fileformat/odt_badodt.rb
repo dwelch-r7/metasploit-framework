@@ -3,8 +3,8 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'base64'
-require 'rex/zip'
+#require 'base64'
+#require 'rex/zip'
 
 class MetasploitModule < Msf::Auxiliary
   include Msf::Exploit::FILEFORMAT

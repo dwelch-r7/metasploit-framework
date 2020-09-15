@@ -1,5 +1,5 @@
-require 'metasploit/framework/obfuscation/crandomizer/code_factory'
-require 'metasploit/framework/obfuscation/crandomizer/utility'
+#require 'metasploit/framework/obfuscation/crandomizer/code_factory'
+#require 'metasploit/framework/obfuscation/crandomizer/utility'
 
 RSpec.describe Metasploit::Framework::Obfuscation::CRandomizer::CodeFactory::Base do
   let(:stub_code) do

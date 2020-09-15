@@ -3,7 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'csv'
+#require 'csv'
 
 class MetasploitModule < Msf::Post
   include Msf::Post::File
@@ -36,7 +36,7 @@ class MetasploitModule < Msf::Post
 
     # Ensure that SQLite3 gem is installed
     begin
-      require 'sqlite3'
+      #require 'sqlite3'
     rescue LoadError
       print_error("Failed to load sqlite3, try 'gem install sqlite3'")
       return

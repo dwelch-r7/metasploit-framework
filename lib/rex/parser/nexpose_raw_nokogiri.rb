@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
-require "rex/parser/nokogiri_doc_mixin"
-require "date"
+#require "rex/parser/nokogiri_doc_mixin"
+#require "date"
 
 module Rex
   module Parser

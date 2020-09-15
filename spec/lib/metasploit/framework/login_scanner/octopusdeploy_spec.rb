@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'metasploit/framework/login_scanner/octopusdeploy'
+#require 'spec_helper'
+#require 'metasploit/framework/login_scanner/octopusdeploy'
 
 RSpec.describe Metasploit::Framework::LoginScanner::OctopusDeploy do
 

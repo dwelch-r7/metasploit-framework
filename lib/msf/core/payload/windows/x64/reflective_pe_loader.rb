@@ -1,7 +1,7 @@
 # -*- coding: binary -*-
 
-require 'msf/core'
-require 'msf/core/payload/windows/x64/block_api'
+#require 'msf/core'
+#require 'msf/core/payload/windows/x64/block_api'
 
 module Msf
   module Payload::Windows::ReflectivePELoader_x64

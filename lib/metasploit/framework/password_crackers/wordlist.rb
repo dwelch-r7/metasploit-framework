@@ -1,4 +1,4 @@
-require 'metasploit/framework/password_crackers/invalid_wordlist'
+#require 'metasploit/framework/password_crackers/invalid_wordlist'
 
 module Metasploit
   module Framework

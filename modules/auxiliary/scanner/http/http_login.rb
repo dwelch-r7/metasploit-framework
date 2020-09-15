@@ -3,9 +3,9 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'rex/proto/ntlm/message'
-require 'metasploit/framework/credential_collection'
-require 'metasploit/framework/login_scanner/http'
+#require 'rex/proto/ntlm/message'
+#require 'metasploit/framework/credential_collection'
+#require 'metasploit/framework/login_scanner/http'
 
 class MetasploitModule < Msf::Auxiliary
   include Msf::Exploit::Remote::HttpClient

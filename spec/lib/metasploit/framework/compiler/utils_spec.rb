@@ -1,6 +1,6 @@
-require 'spec_helper'
-require 'metasm'
-require 'metasploit/framework/compiler/windows'
+#require 'spec_helper'
+#require 'metasm'
+#require 'metasploit/framework/compiler/windows'
 
 RSpec.describe Metasploit::Framework::Compiler::Utils do
   describe '#self.normalize_code' do

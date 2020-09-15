@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
 
-require 'rex/socket'
+#require 'rex/socket'
 
 module Rex
   module Proto

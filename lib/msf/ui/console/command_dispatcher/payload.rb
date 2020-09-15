@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
 
-require 'rex/parser/arguments'
+#require 'rex/parser/arguments'
 
 module Msf
   module Ui

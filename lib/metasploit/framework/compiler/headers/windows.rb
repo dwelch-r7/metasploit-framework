@@ -1,5 +1,5 @@
 
-require 'metasploit/framework/compiler/headers/base'
+#require 'metasploit/framework/compiler/headers/base'
 
 module Metasploit
   module Framework

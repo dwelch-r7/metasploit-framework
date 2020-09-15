@@ -144,7 +144,7 @@ class MetasploitModule < Msf::Post
   #
   def parse(file)
     begin
-      require 'sqlite3'
+      #require 'sqlite3'
     rescue LoadError
       print_error("Sorry, SQLite3 not available. We'll have to skip the parser.")
       return nil
@@ -231,7 +231,7 @@ mozilla/security/nss/lib/pk11wrap/pk11sdr.c
 Using a 3rd party decryptor is easier because Mozilla uses 2 different databases
 (SQLite and Berkeley DB) to store the crypto information.  This makes proper decryption
 implementation kind of uneasy, because railgun currently doesn't support SQLite3 and
-BDB (require special handling -- it's not like you can do LoadLibrary('mozsqlite3.dll')
+BDB (#require special handling -- it's not like you can do LoadLibrary('mozsqlite3.dll')
 to load the lib).  Not to mention you need to borrow several more Mozilla components to
 do the decryption.  BDB gem unfortunately is kind of busted during my testing, so I guess
 we can pretty much forget about doing the decryption locally... chances are a lot of

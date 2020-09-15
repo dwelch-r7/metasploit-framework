@@ -1,7 +1,7 @@
 # -*- coding:binary -*-
-require 'spec_helper'
+#require 'spec_helper'
 
-require 'rex/proto/kerberos'
+#require 'rex/proto/kerberos'
 
 RSpec.describe Rex::Proto::Kerberos::Pac::ServerChecksum do
 

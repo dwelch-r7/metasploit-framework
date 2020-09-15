@@ -1,4 +1,4 @@
-require 'metasploit/framework/credential'
+#require 'metasploit/framework/credential'
 
 RSpec.shared_examples_for 'Metasploit::Credential::Core::ToCredential' do
   context "methods" do

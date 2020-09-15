@@ -3,7 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'msf/core/payload/generic'
+#require 'msf/core/payload/generic'
 
 module MetasploitModule
 

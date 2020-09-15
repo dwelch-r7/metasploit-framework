@@ -18,7 +18,7 @@ class MetasploitModule < Msf::Auxiliary
         force the service account to authenticate to the system defined in the SMBProxy
         option. In order for the attack to be successful, the SMB capture or relay module
         must be running on the system defined as the SMBProxy.  The database account used
-        to connect to the database should only require the "PUBLIC" role to execute.
+        to connect to the database should only #require the "PUBLIC" role to execute.
         Successful execution of this attack usually results in local administrative access
         to the Windows system.  Specifically, this works great for relaying credentials
         between two SQL Servers using a shared service account to get shells.  However, if

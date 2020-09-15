@@ -1,8 +1,8 @@
 
 # -*- coding: binary -*-
 
-require 'msf/core'
-require 'msf/core/payload/uuid/options'
+#require 'msf/core'
+#require 'msf/core/payload/uuid/options'
 
 module Msf
 

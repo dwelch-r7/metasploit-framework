@@ -91,7 +91,7 @@ class Plugin::EventRSS < Msf::Plugin
 
 
   def initialize(framework, opts)
-    require 'rss'
+    #require 'rss'
     super
 
     @items = []

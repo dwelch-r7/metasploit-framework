@@ -1,6 +1,6 @@
 # -*- coding:binary -*-
 
-require 'rex/parser/nmap_xml'
+#require 'rex/parser/nmap_xml'
 
 xml = '
 <?xml version="1.0" ?>

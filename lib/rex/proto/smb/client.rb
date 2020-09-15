@@ -4,18 +4,18 @@ module Proto
 module SMB
 class Client
 
-  require 'net/ntlm'
+  #require 'net/ntlm'
 
-require 'rex/text'
-require 'rex/struct2'
-require 'rex/proto/smb/constants'
-require 'rex/proto/smb/exceptions'
-require 'rex/proto/smb/evasions'
-require 'rex/proto/smb/utils'
-require 'rex/proto/smb/crypt'
-require 'rex/proto/ntlm/crypt'
-require 'rex/proto/ntlm/constants'
-require 'rex/proto/ntlm/utils'
+#require 'rex/text'
+#require 'rex/struct2'
+#require 'rex/proto/smb/constants'
+#require 'rex/proto/smb/exceptions'
+#require 'rex/proto/smb/evasions'
+#require 'rex/proto/smb/utils'
+#require 'rex/proto/smb/crypt'
+#require 'rex/proto/ntlm/crypt'
+#require 'rex/proto/ntlm/constants'
+#require 'rex/proto/ntlm/utils'
 
 
 # Some short-hand class aliases

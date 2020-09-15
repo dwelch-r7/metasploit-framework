@@ -1,5 +1,5 @@
 # -*- coding: binary -*-
-require 'rex/proto/ssh/hrr_rb_ssh'
+#require 'rex/proto/ssh/hrr_rb_ssh'
 
 module Rex
 module Proto

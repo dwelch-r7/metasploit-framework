@@ -3,11 +3,11 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'net/ssh'
-require 'metasploit/framework/login_scanner/ssh'
-require 'metasploit/framework/credential_collection'
-require 'sshkey'
-require 'net/ssh/command_stream'
+#require 'net/ssh'
+#require 'metasploit/framework/login_scanner/ssh'
+#require 'metasploit/framework/credential_collection'
+#require 'sshkey'
+#require 'net/ssh/command_stream'
 
 class MetasploitModule < Msf::Auxiliary
   include Msf::Auxiliary::AuthBrute

@@ -3,8 +3,8 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'msf/core/handler/bind_tcp'
-require 'msf/core/payload/java/bind_tcp'
+#require 'msf/core/handler/bind_tcp'
+#require 'msf/core/payload/java/bind_tcp'
 
 module MetasploitModule
 

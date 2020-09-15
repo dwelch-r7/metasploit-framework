@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
 
-require 'rex/proto/kademlia'
+#require 'rex/proto/kademlia'
 
 module Msf
 

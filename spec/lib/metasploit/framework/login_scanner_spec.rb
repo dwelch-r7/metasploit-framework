@@ -1,8 +1,8 @@
-require 'spec_helper'
-require 'metasploit/framework/login_scanner'
-require 'metasploit/framework/login_scanner/http'
-require 'metasploit/framework/login_scanner/smb'
-require 'metasploit/framework/login_scanner/vnc'
+#require 'spec_helper'
+#require 'metasploit/framework/login_scanner'
+#require 'metasploit/framework/login_scanner/http'
+#require 'metasploit/framework/login_scanner/smb'
+#require 'metasploit/framework/login_scanner/vnc'
 
 RSpec.describe Metasploit::Framework::LoginScanner do
 

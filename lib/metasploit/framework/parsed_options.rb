@@ -2,7 +2,7 @@
 # Gems
 #
 
-require 'active_support/dependencies/autoload'
+#require 'active_support/dependencies/autoload'
 
 # @note Must use the nested declaration of the
 #   {Metasploit::Framework::ParsedOptions} namespace because commands, which

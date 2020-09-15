@@ -1,6 +1,6 @@
-require 'rex'
-require 'anemone/page'
-require 'anemone/cookie_store'
+#require 'rex'
+#require 'anemone/page'
+#require 'anemone/cookie_store'
 
 
 #

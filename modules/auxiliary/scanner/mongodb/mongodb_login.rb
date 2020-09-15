@@ -14,7 +14,7 @@ class MetasploitModule < Msf::Auxiliary
       'Name'         => 'MongoDB Login Utility',
       'Description'  => %q{
         This module attempts to brute force authentication credentials for MongoDB.
-        Note that, by default, MongoDB does not require authentication.
+        Note that, by default, MongoDB does not #require authentication.
       },
       'References'     =>
         [

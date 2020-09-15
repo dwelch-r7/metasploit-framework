@@ -1,6 +1,6 @@
-require 'net/https'
-require 'net/http'
-require 'uri'
+#require 'net/https'
+#require 'net/http'
+#require 'uri'
 module Msf
   class Plugin::SessionNotifier < Msf::Plugin
 

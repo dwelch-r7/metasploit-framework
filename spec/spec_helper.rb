@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
-require 'stringio'
-require 'factory_bot'
+#require 'stringio'
+#require 'factory_bot'
 
 ENV['RAILS_ENV'] = 'test'
 
@@ -8,21 +8,21 @@ ENV['RAILS_ENV'] = 'test'
 #   `Metasploit::Framework::Application.initialize!` is called.
 #
 # Must be explicit as activerecord is optional dependency
-require 'active_record/railtie'
-require 'rubocop'
-require 'rubocop/rspec/support'
-require 'metasploit/framework/database'
+#require 'active_record/railtie'
+#require 'rubocop'
+#require 'rubocop/rspec/support'
+#require 'metasploit/framework/database'
 # check if database.yml is present
 unless Metasploit::Framework::Database.configurations_pathname.try(:to_path)
   fail 'RSPEC currently needs a configured database'
 end
 
-require File.expand_path('../../config/environment', __FILE__)
+#require File.expand_path('../../config/environment', __FILE__)
 
-# Don't `require 'rspec/rails'` as it includes support for pieces of rails that metasploit-framework doesn't use
-require 'rspec/rails'
+# Don't `#require 'rspec/rails'` as it includes support for pieces of rails that metasploit-framework doesn't use
+#require 'rspec/rails'
 
-require 'metasploit/framework/spec'
+#require 'metasploit/framework/spec'
 
 FILE_FIXTURES_PATH = File.expand_path(File.dirname(__FILE__)) + '/file_fixtures/'
 
@@ -37,7 +37,7 @@ engines = [
 engines.each do |engine|
   support_glob = engine.root.join('spec', 'support', '**', '*.rb')
   Dir[support_glob].each { |f|
-    require f
+    #require f
   }
 end
 
@@ -116,7 +116,7 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
 
   if ENV['REMOTE_DB']
-    require 'metasploit/framework/data_service/remote/managed_remote_data_service'
+    #require 'metasploit/framework/data_service/remote/managed_remote_data_service'
     opts = {}
     opts[:process_name] = File.join('tools', 'dev', 'msfdb_ws')
     opts[:host] = 'localhost'

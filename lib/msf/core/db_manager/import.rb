@@ -2,15 +2,15 @@
 # Standard library
 #
 
-require 'fileutils'
-require 'tmpdir'
-require 'uri'
+#require 'fileutils'
+#require 'tmpdir'
+#require 'uri'
 
 #
 # Gems
 #
 
-require 'packetfu'
+#require 'packetfu'
 
 module Msf::DBManager::Import
   autoload :Acunetix, 'msf/core/db_manager/import/acunetix'

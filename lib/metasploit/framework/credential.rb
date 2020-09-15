@@ -1,4 +1,4 @@
-require 'active_model'
+#require 'active_model'
 
 module Metasploit
   module Framework

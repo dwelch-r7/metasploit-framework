@@ -3,7 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'metasploit/framework/hashes/identify'
+#require 'metasploit/framework/hashes/identify'
 
 class MetasploitModule < Msf::Post
   include Msf::Post::File

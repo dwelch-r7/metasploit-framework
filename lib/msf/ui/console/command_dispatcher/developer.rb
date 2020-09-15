@@ -161,7 +161,7 @@ class Msf::Ui::Console::CommandDispatcher::Developer
     end
 
     begin
-      require 'pry'
+      #require 'pry'
     rescue LoadError
       print_error('Failed to load Pry, try "gem install pry"')
       return

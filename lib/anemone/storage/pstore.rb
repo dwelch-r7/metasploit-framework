@@ -1,5 +1,5 @@
-require 'pstore'
-require 'forwardable'
+#require 'pstore'
+#require 'forwardable'
 
 module Anemone
   module Storage

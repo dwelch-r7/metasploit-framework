@@ -1,7 +1,7 @@
 # -*- coding: binary -*-
 
-require 'snmp'
-require 'metasploit/framework/login_scanner/base'
+#require 'snmp'
+#require 'metasploit/framework/login_scanner/base'
 
 module Metasploit
   module Framework

@@ -1,4 +1,4 @@
-require 'metasploit/framework/credential'
+#require 'metasploit/framework/credential'
 
 module Metasploit
   module Framework
@@ -6,8 +6,8 @@ module Metasploit
     # LoginScanners are the classes that provide functionality for testing
     # authentication against various different protocols and mechanisms.
     module LoginScanner
-      require 'metasploit/framework/login_scanner/result'
-      require 'metasploit/framework/login_scanner/invalid'
+      #require 'metasploit/framework/login_scanner/result'
+      #require 'metasploit/framework/login_scanner/invalid'
 
       # Gather a list of LoginScanner classes that can potentially be
       # used for a given `service`, which should usually be an
@@ -24,7 +24,7 @@ module Metasploit
           # Make sure we've required all the scanner classes
           dir = File.expand_path("../login_scanner/", __FILE__)
           Dir.glob(File.join(dir, "*.rb")).each do |f|
-            require f if File.file?(f)
+            #require f if File.file?(f)
           end
           @required = true
         end

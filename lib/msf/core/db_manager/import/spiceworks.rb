@@ -1,4 +1,4 @@
-require 'csv'
+#require 'csv'
 
 module Msf::DBManager::Import::Spiceworks
   def import_spiceworks_csv(args={}, &block)

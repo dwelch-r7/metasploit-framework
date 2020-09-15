@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
-require 'net/http'
-require 'json'
+#require 'net/http'
+#require 'json'
 
 module Rex
   module Google

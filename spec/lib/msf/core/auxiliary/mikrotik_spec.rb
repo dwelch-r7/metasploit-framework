@@ -1,8 +1,8 @@
 # -*- coding: binary -*-
 
-require 'spec_helper'
+#require 'spec_helper'
 
-require 'msf/core/auxiliary/mikrotik'
+#require 'msf/core/auxiliary/mikrotik'
 
 RSpec.describe Msf::Auxiliary::Mikrotik do
   class DummyMikrotikClass

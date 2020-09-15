@@ -17,7 +17,7 @@ class MetasploitModule < Msf::Auxiliary
         administration web site using username and password combinations indicated
         by the USER_FILE, PASS_FILE, and USERPASS_FILE.
 
-        This module does not require a valid SID, but if one is defined, it will be used.
+        This module does not #require a valid SID, but if one is defined, it will be used.
         Works against Oracle 9.2, 10.1 & 10.2 iSQL*Plus.  This module will attempt to
         fingerprint the version and automatically select the correct POST request.
 

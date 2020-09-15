@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
-require 'msf/core/post/common'
-require 'msf/core/post/windows/registry'
+#require 'msf/core/post/common'
+#require 'msf/core/post/windows/registry'
 
 module Msf::Post::Windows::Dotnet
   include ::Msf::Post::Common

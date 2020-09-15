@@ -5,12 +5,12 @@
 
 
 
-require 'socket'
-require 'timeout'
-require 'ipaddr'
-require 'logger'
-require 'net/dns/packet'
-require 'net/dns/resolver/timeouts'
+#require 'socket'
+#require 'timeout'
+#require 'ipaddr'
+#require 'logger'
+#require 'net/dns/packet'
+#require 'net/dns/resolver/timeouts'
 
 alias old_send send
 
@@ -25,7 +25,7 @@ module Net # :nodoc:
     #
     # =Synopsis
     #
-    #    require 'net/dns/resolver'
+    #    #require 'net/dns/resolver'
     #
     # =Description
     #
@@ -1078,7 +1078,7 @@ module Net # :nodoc:
       #
       def parse_config_file
         if RUBY_PLATFORM =~ /mswin32|cygwin|mingw|bccwin/
-          require 'win32/resolv'
+          #require 'win32/resolv'
           arr = Win32::Resolv.get_resolv_info
           self.domain = arr[0]
           self.nameservers = arr[1]

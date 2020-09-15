@@ -1,6 +1,6 @@
 
-require 'spec_helper'
-require 'metasploit/framework/login_scanner/glassfish'
+#require 'spec_helper'
+#require 'metasploit/framework/login_scanner/glassfish'
 
 RSpec.describe Metasploit::Framework::LoginScanner::Glassfish do
 

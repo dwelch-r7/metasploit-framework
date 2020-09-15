@@ -1,4 +1,4 @@
-require 'rex/text/table'
+#require 'rex/text/table'
 
 module Msf
 

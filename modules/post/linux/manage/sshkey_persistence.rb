@@ -3,9 +3,9 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-#require 'msf/core'
-#require 'msf/core/post/file'
-require 'sshkey'
+##require 'msf/core'
+##require 'msf/core/post/file'
+#require 'sshkey'
 
 class MetasploitModule < Msf::Post
   Rank = ExcellentRanking

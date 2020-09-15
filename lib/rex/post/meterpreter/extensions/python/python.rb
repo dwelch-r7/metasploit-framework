@@ -1,8 +1,8 @@
 # -*- coding: binary -*-
 
-require 'rex/post/meterpreter/extensions/python/tlv'
-require 'rex/post/meterpreter/extensions/python/command_ids'
-require 'set'
+#require 'rex/post/meterpreter/extensions/python/tlv'
+#require 'rex/post/meterpreter/extensions/python/command_ids'
+#require 'set'
 
 module Rex
 module Post

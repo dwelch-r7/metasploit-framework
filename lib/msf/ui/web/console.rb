@@ -1,5 +1,5 @@
 # -*- coding: binary -*-
-require 'rex/ui/text/bidirectional_pipe'
+#require 'rex/ui/text/bidirectional_pipe'
 module Msf
 module Ui
 module Web

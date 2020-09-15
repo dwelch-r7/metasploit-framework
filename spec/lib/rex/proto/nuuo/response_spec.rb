@@ -1,5 +1,5 @@
 # -*- coding:binary -*-
-require 'rex/proto/nuuo/response'
+#require 'rex/proto/nuuo/response'
 
 RSpec.describe Rex::Proto::Nuuo::Response do
   subject(:response) {described_class.new}

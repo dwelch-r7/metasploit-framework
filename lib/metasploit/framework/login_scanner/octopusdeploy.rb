@@ -1,5 +1,5 @@
-require 'metasploit/framework/login_scanner/http'
-require 'json'
+#require 'metasploit/framework/login_scanner/http'
+#require 'json'
 
 module Metasploit
   module Framework

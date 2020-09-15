@@ -1,4 +1,4 @@
-require 'rex/parser/nexpose_simple_nokogiri'
+#require 'rex/parser/nexpose_simple_nokogiri'
 
 module Msf::DBManager::Import::Nexpose::Simple
   def import_nexpose_noko_stream(args, &block)

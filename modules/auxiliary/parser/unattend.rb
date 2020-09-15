@@ -3,7 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'rex/parser/unattend'
+#require 'rex/parser/unattend'
 
 class MetasploitModule < Msf::Auxiliary
 

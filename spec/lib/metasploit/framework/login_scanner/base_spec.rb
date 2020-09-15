@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'metasploit/framework/login_scanner/base'
+#require 'spec_helper'
+#require 'metasploit/framework/login_scanner/base'
 
 RSpec.describe Metasploit::Framework::LoginScanner::Base do
 

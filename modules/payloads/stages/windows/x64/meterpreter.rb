@@ -3,9 +3,9 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'msf/core/payload/windows/x64/meterpreter_loader'
-require 'msf/base/sessions/meterpreter_x64_win'
-require 'msf/base/sessions/meterpreter_options'
+#require 'msf/core/payload/windows/x64/meterpreter_loader'
+#require 'msf/base/sessions/meterpreter_x64_win'
+#require 'msf/base/sessions/meterpreter_options'
 
 ###
 #

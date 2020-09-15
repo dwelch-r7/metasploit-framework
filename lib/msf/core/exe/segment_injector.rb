@@ -2,7 +2,7 @@
 module Msf
 module Exe
 
-  require 'metasm'
+  #require 'metasm'
 
   class SegmentInjector
 

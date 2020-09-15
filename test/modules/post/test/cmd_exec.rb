@@ -1,8 +1,8 @@
-require 'rex'
+#require 'rex'
 
 lib = File.join(Msf::Config.install_root, "test", "lib")
 $LOAD_PATH.push(lib) unless $LOAD_PATH.include?(lib)
-require 'module_test'
+#require 'module_test'
 
 class MetasploitModule < Msf::Post
   include Msf::ModuleTest::PostTest

@@ -7,11 +7,11 @@
 # COPYING file in the Ruby distribution for details.
 #
 
-require 'snmp/pdu'
-require 'snmp/mib'
-require 'socket'
-require 'timeout'
-require 'thread'
+#require 'snmp/pdu'
+#require 'snmp/mib'
+#require 'socket'
+#require 'timeout'
+#require 'thread'
 
 module SNMP
 
@@ -111,7 +111,7 @@ end
 #
 # = Example
 #
-#    require 'snmp'
+#    #require 'snmp'
 #
 #    manager = SNMP::Manager.new(:Host => 'localhost', :Port => 1061)
 #    response = manager.get(["1.3.6.1.2.1.1.1.0", "1.3.6.1.2.1.1.2.0"])
@@ -556,7 +556,7 @@ end
 #
 # === Example
 #
-#   require 'snmp'
+#   #require 'snmp'
 #
 #   m = SNMP::TrapListener.new(:Port => 1062, :Community => 'public') do |manager|
 #     manager.on_trap_default { |trap| p trap }

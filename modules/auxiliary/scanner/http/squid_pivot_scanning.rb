@@ -3,7 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'rex/socket/range_walker'
+#require 'rex/socket/range_walker'
 
 class MetasploitModule < Msf::Auxiliary
 

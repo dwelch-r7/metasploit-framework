@@ -1,6 +1,6 @@
-require 'nokogiri'
-require 'ostruct'
-require 'webrick/cookie'
+#require 'nokogiri'
+#require 'ostruct'
+#require 'webrick/cookie'
 
 module Anemone
 
@@ -74,7 +74,7 @@ module Anemone
       return @extractors if @extractors
 
       lib = File.dirname( __FILE__ ) + '/extractors/*.rb'
-      Dir.glob( lib ).each { |e| require e }
+      Dir.glob( lib ).each { |e| #require e }
 
       @extractors = Extractors.constants.map do |e|
           next if e == :Base

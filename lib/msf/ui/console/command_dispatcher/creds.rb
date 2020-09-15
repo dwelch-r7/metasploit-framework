@@ -1,10 +1,10 @@
 # -*- coding: binary -*-
 
-require 'rexml/document'
-require 'rex/parser/nmap_xml'
-require 'msf/core/db_export'
-require 'metasploit/framework/password_crackers/hashcat/formatter'
-require 'metasploit/framework/password_crackers/jtr/formatter'
+#require 'rexml/document'
+#require 'rex/parser/nmap_xml'
+#require 'msf/core/db_export'
+#require 'metasploit/framework/password_crackers/hashcat/formatter'
+#require 'metasploit/framework/password_crackers/jtr/formatter'
 
 module Msf
 module Ui
@@ -12,7 +12,7 @@ module Console
 module CommandDispatcher
 
 class Creds
-  require 'tempfile'
+  #require 'tempfile'
 
   include Msf::Ui::Console::CommandDispatcher
   include Metasploit::Credential::Creation
@@ -42,7 +42,7 @@ class Creds
   # Returns true if the db is connected, prints an error and returns
   # false if not.
   #
-  # All commands that require an active database should call this before
+  # All commands that #require an active database should call this before
   # doing anything.
   # TODO: abstract the db methods to a mixin that can be used by both dispatchers
   #

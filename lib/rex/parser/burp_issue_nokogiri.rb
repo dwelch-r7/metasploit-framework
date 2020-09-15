@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
-require "rex/parser/nokogiri_doc_mixin"
-require 'uri'
+#require "rex/parser/nokogiri_doc_mixin"
+#require 'uri'
 
 module Rex
   module Parser

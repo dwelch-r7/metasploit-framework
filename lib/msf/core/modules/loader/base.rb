@@ -2,8 +2,8 @@
 #
 # Project
 #
-require 'msf/core/modules/loader'
-require 'msf/core/modules/error'
+#require 'msf/core/modules/loader'
+#require 'msf/core/modules/error'
 
 # Responsible for loading modules for {Msf::ModuleManager}.
 #

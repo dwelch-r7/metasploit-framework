@@ -1,7 +1,7 @@
-require 'rex'
-require 'msf/util/document_generator'
-require 'octokit'
-require 'net/http'
+#require 'rex'
+#require 'msf/util/document_generator'
+#require 'octokit'
+#require 'net/http'
 
 RSpec.describe Msf::Util::DocumentGenerator::PullRequestFinder do
 

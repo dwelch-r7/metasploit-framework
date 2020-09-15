@@ -1,7 +1,7 @@
 module Metasploit
   module Framework
     module NTDS
-      require 'metasploit/framework/ntds/account'
+      #require 'metasploit/framework/ntds/account'
       # This class respresent an NTDS parser. It interacts with the Meterpreter Client
       # to provide a simple interface for enumerating AD user accounts.
       class Parser

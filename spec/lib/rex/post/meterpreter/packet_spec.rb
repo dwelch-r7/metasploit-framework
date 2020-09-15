@@ -1,5 +1,5 @@
 # -*- coding:binary -*-
-require 'rex/post/meterpreter/packet'
+#require 'rex/post/meterpreter/packet'
 
 RSpec.describe Rex::Post::Meterpreter::Tlv do
   subject(:tlv) {

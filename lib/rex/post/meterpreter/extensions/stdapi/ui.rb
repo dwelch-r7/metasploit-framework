@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
 
-require 'rex/post/ui'
+#require 'rex/post/ui'
 
 module Rex
 module Post

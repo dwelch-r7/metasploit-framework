@@ -1,4 +1,4 @@
-require 'rex/parser/ci_nokogiri'
+#require 'rex/parser/ci_nokogiri'
 
 module Msf::DBManager::Import::CI
   def import_ci_noko_stream(args, &block)

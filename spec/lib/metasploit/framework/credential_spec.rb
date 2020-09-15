@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'metasploit/framework/credential'
+#require 'spec_helper'
+#require 'metasploit/framework/credential'
 
 RSpec.describe Metasploit::Framework::Credential do
 

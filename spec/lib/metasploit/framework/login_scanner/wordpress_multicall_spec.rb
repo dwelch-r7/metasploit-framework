@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'metasploit/framework/login_scanner/wordpress_multicall'
+#require 'spec_helper'
+#require 'metasploit/framework/login_scanner/wordpress_multicall'
 
 RSpec.describe Metasploit::Framework::LoginScanner::WordpressMulticall do
 

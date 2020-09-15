@@ -2,8 +2,8 @@
 #
 # Gems
 #
-require 'active_support/concern'
-require 'msf/core/modules/metadata/cache'
+#require 'active_support/concern'
+#require 'msf/core/modules/metadata/cache'
 
 # Concerns the module cache maintained by the {Msf::ModuleManager}.
 module Msf::ModuleManager::Cache

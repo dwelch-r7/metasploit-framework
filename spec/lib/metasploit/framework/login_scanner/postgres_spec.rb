@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'metasploit/framework/login_scanner/postgres'
+#require 'spec_helper'
+#require 'metasploit/framework/login_scanner/postgres'
 
 RSpec.describe Metasploit::Framework::LoginScanner::Postgres do
   let(:public) { 'root' }

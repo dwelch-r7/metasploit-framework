@@ -1,5 +1,5 @@
 # -*- coding: binary -*-
-require 'rex/ui'
+#require 'rex/ui'
 
 module Rex
 module Ui
@@ -20,7 +20,7 @@ begin
     #
     def initialize(tab_complete_proc = nil)
       if(not Object.const_defined?('Readline'))
-        require 'readline'
+        #require 'readline'
       end
 
       self.extend(::Readline)

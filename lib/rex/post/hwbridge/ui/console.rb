@@ -1,7 +1,7 @@
 # -*- coding: binary -*-
-require 'rex/ui'
-require 'rex/post/hwbridge'
-require 'rex/logging'
+#require 'rex/ui'
+#require 'rex/post/hwbridge'
+#require 'rex/logging'
 
 module Rex
 module Post
@@ -18,9 +18,9 @@ class Console
   include Rex::Ui::Text::DispatcherShell
 
   # Dispatchers
-  require 'rex/post/hwbridge/ui/console/interactive_channel'
-  require 'rex/post/hwbridge/ui/console/command_dispatcher'
-  require 'rex/post/hwbridge/ui/console/command_dispatcher/core'
+  #require 'rex/post/hwbridge/ui/console/interactive_channel'
+  #require 'rex/post/hwbridge/ui/console/command_dispatcher'
+  #require 'rex/post/hwbridge/ui/console/command_dispatcher/core'
 
   #
   # Initialize the hardware bridge console.

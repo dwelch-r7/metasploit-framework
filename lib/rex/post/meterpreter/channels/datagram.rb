@@ -1,7 +1,7 @@
 # -*- coding: binary -*-
 
-require 'rex/io/datagram_abstraction'
-require 'rex/post/meterpreter/channels/socket_abstraction'
+#require 'rex/io/datagram_abstraction'
+#require 'rex/post/meterpreter/channels/socket_abstraction'
 
 module Rex
 module Post

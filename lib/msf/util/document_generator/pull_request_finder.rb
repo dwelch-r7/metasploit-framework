@@ -1,6 +1,6 @@
-require 'octokit'
-require 'nokogiri'
-require 'net/http'
+#require 'octokit'
+#require 'nokogiri'
+#require 'net/http'
 
 module Msf
   module Util

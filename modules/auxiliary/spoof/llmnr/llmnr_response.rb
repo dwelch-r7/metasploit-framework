@@ -3,9 +3,9 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'socket'
-require 'ipaddr'
-require 'net/dns'
+#require 'socket'
+#require 'ipaddr'
+#require 'net/dns'
 
 class MetasploitModule < Msf::Auxiliary
 

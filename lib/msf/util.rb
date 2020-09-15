@@ -10,8 +10,8 @@
 ###
 
 
-require 'msf/core'
-require 'rex'
+#require 'msf/core'
+#require 'rex'
 
 module Msf
 module Util
@@ -20,17 +20,17 @@ end
 end
 
 # Executable generation and encoding
-require 'msf/util/exe'
-require 'msf/util/helper'
+#require 'msf/util/exe'
+#require 'msf/util/helper'
 
 # Host helpers
-require 'msf/util/host'
+#require 'msf/util/host'
 
 # DBManager helpers
-require 'msf/util/db_manager'
+#require 'msf/util/db_manager'
 
 # Java deserialization payload generators
-require 'msf/util/java_deserialization'
+#require 'msf/util/java_deserialization'
 
 # .NET deserialization payload generators
-require 'msf/util/dot_net_deserialization'
+#require 'msf/util/dot_net_deserialization'

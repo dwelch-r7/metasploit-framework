@@ -3,7 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'rex/encoder/alpha2/alpha_mixed'
+#require 'rex/encoder/alpha2/alpha_mixed'
 
 class MetasploitModule < Msf::Encoder::Alphanum
   Rank = LowRanking

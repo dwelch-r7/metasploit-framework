@@ -3,7 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'msf/core/auxiliary/report'
+#require 'msf/core/auxiliary/report'
 
 class MetasploitModule < Msf::Post
   include Msf::Post::File
@@ -50,7 +50,7 @@ class MetasploitModule < Msf::Post
 
   #parse the dslocal plist in lion
   def read_ds_xml_plist(plist_content)
-    require "rexml/document"
+    #require "rexml/document"
 
     doc  = REXML::Document.new(plist_content)
     keys = []

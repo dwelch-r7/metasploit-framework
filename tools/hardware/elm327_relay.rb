@@ -20,7 +20,7 @@
 
 ### Non-typical gem ###
 begin
-  require 'serialport'
+  #require 'serialport'
 rescue LoadError => e
   gem = e.message.split.last
   abort "#{gem} gem is not installed. Please install with `gem install #{gem}' or, if using rvm, `rvm gemset install #{gem}' and try again."
@@ -35,10 +35,10 @@ while File.symlink?(msfbase)
   msfbase = File.expand_path(File.readlink(msfbase), File.dirname(msfbase))
 end
 $:.unshift(File.expand_path(File.join(File.dirname(msfbase), '..', '..', 'lib')))
-require 'msfenv'
-require 'rex'
-require 'msf/core'
-require 'optparse'
+#require 'msfenv'
+#require 'rex'
+#require 'msf/core'
+#require 'optparse'
 
 # Prints with [*] that represents the message is a status
 #

@@ -1,7 +1,7 @@
 # -*- coding: binary -*-
 
-require 'msf/core'
-require 'rex/payloads/shuffle'
+#require 'msf/core'
+#require 'rex/payloads/shuffle'
 
 module Msf
 

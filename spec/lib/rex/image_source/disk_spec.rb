@@ -1,7 +1,7 @@
 # -*- coding:binary -*-
-require 'spec_helper'
+#require 'spec_helper'
 
-require 'rex/image_source/disk'
+#require 'rex/image_source/disk'
 
 RSpec.describe Rex::ImageSource::Disk do
 

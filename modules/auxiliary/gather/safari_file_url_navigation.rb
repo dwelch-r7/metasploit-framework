@@ -3,7 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'msf/core/exploit/format/webarchive'
+#require 'msf/core/exploit/format/webarchive'
 
 class MetasploitModule < Msf::Auxiliary
   include Msf::Exploit::Remote::FtpServer

@@ -10,7 +10,7 @@ class MetasploitModule < Msf::Auxiliary
 
   # TODO: figure out what these do:
   #   o: valid command, takes no args, does nothing
-  #   B, c, F, G, I, M, U, x: all require an "instance id" and possibly other args
+  #   B, c, F, G, I, M, U, x: all #require an "instance id" and possibly other args
   ALLOWED_COMMANDS = %w(a A i g l p t T u w Z)
 
   def initialize

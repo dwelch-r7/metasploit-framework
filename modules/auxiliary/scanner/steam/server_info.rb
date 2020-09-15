@@ -3,7 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'rex/proto/steam'
+#require 'rex/proto/steam'
 
 class MetasploitModule < Msf::Auxiliary
   include Msf::Auxiliary::Report

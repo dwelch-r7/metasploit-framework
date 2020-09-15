@@ -1,11 +1,11 @@
 # -*- coding: binary -*-
-require 'timeout'
-require 'rex/sync/thread_safe'
-require 'rex/socket/udp'
-require 'rex/socket/parameters'
-require 'rex/post/meterpreter/extensions/stdapi/tlv'
-require 'rex/post/meterpreter/channel'
-require 'rex/post/meterpreter/channels/datagram'
+#require 'timeout'
+#require 'rex/sync/thread_safe'
+#require 'rex/socket/udp'
+#require 'rex/socket/parameters'
+#require 'rex/post/meterpreter/extensions/stdapi/tlv'
+#require 'rex/post/meterpreter/channel'
+#require 'rex/post/meterpreter/channels/datagram'
 
 module Rex
 module Post

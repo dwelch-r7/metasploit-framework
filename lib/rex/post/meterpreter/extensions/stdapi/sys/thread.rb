@@ -1,8 +1,8 @@
 # -*- coding: binary -*-
 
-require 'rex/post/thread'
-require 'rex/post/meterpreter/client'
-require 'rex/post/meterpreter/extensions/stdapi/constants'
+#require 'rex/post/thread'
+#require 'rex/post/meterpreter/client'
+#require 'rex/post/meterpreter/extensions/stdapi/constants'
 
 module Rex
 module Post

@@ -3,8 +3,8 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'uri'
-require 'msf/core/handler/reverse_hop_http'
+#require 'uri'
+#require 'msf/core/handler/reverse_hop_http'
 
 module MetasploitModule
 

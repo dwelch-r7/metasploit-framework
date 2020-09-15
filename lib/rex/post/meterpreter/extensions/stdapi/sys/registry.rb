@@ -1,13 +1,13 @@
 # -*- coding: binary -*-
 
-require 'rex/post/process'
-require 'rex/post/meterpreter/packet'
-require 'rex/post/meterpreter/client'
-require 'rex/post/meterpreter/extensions/stdapi/constants'
-require 'rex/post/meterpreter/extensions/stdapi/stdapi'
-require 'rex/post/meterpreter/extensions/stdapi/sys/registry_subsystem/registry_key'
-require 'rex/post/meterpreter/extensions/stdapi/sys/registry_subsystem/registry_value'
-require 'rex/post/meterpreter/extensions/stdapi/sys/registry_subsystem/remote_registry_key'
+#require 'rex/post/process'
+#require 'rex/post/meterpreter/packet'
+#require 'rex/post/meterpreter/client'
+#require 'rex/post/meterpreter/extensions/stdapi/constants'
+#require 'rex/post/meterpreter/extensions/stdapi/stdapi'
+#require 'rex/post/meterpreter/extensions/stdapi/sys/registry_subsystem/registry_key'
+#require 'rex/post/meterpreter/extensions/stdapi/sys/registry_subsystem/registry_value'
+#require 'rex/post/meterpreter/extensions/stdapi/sys/registry_subsystem/remote_registry_key'
 
 module Rex
 module Post

@@ -9,7 +9,7 @@
 # http://www.opensource.org/licenses/mit-license.php
 #
 
-require 'openvas-omp'
+#require 'openvas-omp'
 
 module Msf
 class Plugin::OpenVAS < Msf::Plugin

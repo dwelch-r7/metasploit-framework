@@ -1,13 +1,13 @@
 # -*- coding: binary -*-
 
-require 'msf/core'
-require 'rex/text'
-require 'tmpdir'
-require 'nokogiri'
-require 'fileutils'
-require 'optparse'
-require 'open3'
-require 'date'
+#require 'msf/core'
+#require 'rex/text'
+#require 'tmpdir'
+#require 'nokogiri'
+#require 'fileutils'
+#require 'optparse'
+#require 'open3'
+#require 'date'
 
 class Msf::Payload::Apk
 

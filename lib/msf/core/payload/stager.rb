@@ -1,7 +1,7 @@
 # -*- coding: binary -*-
-require 'msf/core'
-require 'msf/core/option_container'
-require 'msf/core/payload/transport_config'
+#require 'msf/core'
+#require 'msf/core/option_container'
+#require 'msf/core/payload/transport_config'
 
 ###
 #

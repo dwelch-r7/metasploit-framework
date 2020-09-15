@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
 # frozen_string_literal: true
-require 'shellwords'
+#require 'shellwords'
 
 module Rex
   module Parser

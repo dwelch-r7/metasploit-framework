@@ -8,8 +8,8 @@
 #   insert all of the evil js and iframes into
 # - caching is busted when different browsers come from the same IP
 
-require 'rex/exploitation/js/detect'
-require 'rex/exploitation/jsobfu'
+#require 'rex/exploitation/js/detect'
+#require 'rex/exploitation/jsobfu'
 
 class MetasploitModule < Msf::Auxiliary
   include Msf::Exploit::Remote::HttpServer::HTML
@@ -567,7 +567,7 @@ class MetasploitModule < Msf::Auxiliary
       # enabled.  Since scripting is disabled, fall back to useragent
       # detection, which is kind of a bummer since it's so easy for the
       # ua string to lie.  It probably doesn't matter that much because
-      # most of our exploits require javascript anyway.
+      # most of our exploits #require javascript anyway.
       print_status("Browser has javascript disabled, trying exploits that don't need it")
       record_detection(cli, request)
       if (action.name == "DefangedDetection")

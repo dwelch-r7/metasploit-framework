@@ -1,8 +1,8 @@
 # -*- coding: binary -*-
-require 'msf/core/modules/external'
-require 'base64'
-require 'json'
-require 'securerandom'
+#require 'msf/core/modules/external'
+#require 'base64'
+#require 'json'
+#require 'securerandom'
 
 class Msf::Modules::External::Message
 

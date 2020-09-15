@@ -1,4 +1,4 @@
 # encoding: binary
 
 # SSH server support
-require 'rex/proto/ssh/server'
+#require 'rex/proto/ssh/server'

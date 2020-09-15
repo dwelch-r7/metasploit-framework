@@ -1,2 +1,2 @@
 # -*- coding: binary -*-
-require "net/dns/resolver"
+#require "net/dns/resolver"

@@ -1,5 +1,5 @@
-require 'metasploit/framework/tcp/client'
-require 'metasploit/framework/mssql/tdssslproxy'
+#require 'metasploit/framework/tcp/client'
+#require 'metasploit/framework/mssql/tdssslproxy'
 
 module Metasploit
   module Framework
@@ -644,7 +644,7 @@ module Metasploit
           # encryption (it's quicker and the default).
           #
           # Per the matrix on the following link, SQL Server will
-          # terminate the connection if it does require TLS,
+          # terminate the connection if it does #require TLS,
           # otherwise it will accept an unencrypted session. As
           # part of this initial response packet, it also returns
           # ENCRYPT_REQ.

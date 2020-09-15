@@ -1,10 +1,10 @@
 # -*- coding: binary -*-
 
-require 'msf/core'
-require 'msf/core/payload/transport_config'
-require 'msf/core/payload/windows/x64/send_uuid'
-require 'msf/core/payload/windows/x64/block_api'
-require 'msf/core/payload/windows/x64/exitfunk'
+#require 'msf/core'
+#require 'msf/core/payload/transport_config'
+#require 'msf/core/payload/windows/x64/send_uuid'
+#require 'msf/core/payload/windows/x64/block_api'
+#require 'msf/core/payload/windows/x64/exitfunk'
 
 module Msf
 

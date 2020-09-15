@@ -3,9 +3,9 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'msf/core/handler/bind_tcp'
-require 'msf/base/sessions/meterpreter_x86_linux'
-require 'msf/base/sessions/meterpreter_options'
+#require 'msf/core/handler/bind_tcp'
+#require 'msf/base/sessions/meterpreter_x86_linux'
+#require 'msf/base/sessions/meterpreter_options'
 
 module MetasploitModule
 

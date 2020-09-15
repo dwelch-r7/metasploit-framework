@@ -3,7 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'metasm'
+#require 'metasm'
 
 class MetasploitModule < Msf::Encoder
 

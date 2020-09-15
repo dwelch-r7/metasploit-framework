@@ -1,4 +1,4 @@
-require 'metasploit/framework/obfuscation/crandomizer/random_statements'
+#require 'metasploit/framework/obfuscation/crandomizer/random_statements'
 
 module Metasploit
   module Framework

@@ -1,9 +1,9 @@
 # -*- coding: binary -*-
 
-require 'msf/core/payload/transport_config'
-require 'msf/core/payload/uuid/options'
-require 'base64'
-require 'securerandom'
+#require 'msf/core/payload/transport_config'
+#require 'msf/core/payload/uuid/options'
+#require 'base64'
+#require 'securerandom'
 
 module Msf
   module Sessions

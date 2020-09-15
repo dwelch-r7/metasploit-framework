@@ -4,7 +4,7 @@
 ##
 
 
-require 'msf/core'
+#require 'msf/core'
 
 
 class MetasploitModule < Msf::Auxiliary

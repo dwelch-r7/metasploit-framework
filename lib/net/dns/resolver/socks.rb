@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
-require 'socket'
-require 'ipaddr'
+#require 'socket'
+#require 'ipaddr'
 
 class RawSocket # :nodoc:
 

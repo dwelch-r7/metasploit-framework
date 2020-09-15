@@ -1,4 +1,4 @@
-require 'rex/parser/burp_session_nokogiri'
+#require 'rex/parser/burp_session_nokogiri'
 
 module Msf::DBManager::Import::BurpSession
   def import_burp_session_noko_stream(args={},&block)

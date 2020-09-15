@@ -3,7 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'rex/encoder/bloxor/bloxor'
+#require 'rex/encoder/bloxor/bloxor'
 
 #
 # BloXor is a cross architecture metamorphic block based xor encoder/decoder for Metasploit.

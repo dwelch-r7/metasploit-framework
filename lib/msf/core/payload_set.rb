@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
-require 'msf/core'
-require 'msf/core/module_manager'
+#require 'msf/core'
+#require 'msf/core/module_manager'
 
 module Msf
 
@@ -48,7 +48,7 @@ class PayloadSet < ModuleSet
     self.singles = {}
 
     # Single instance cache of modules for use with doing quick referencing
-    # of attributes that would require an instance.
+    # of attributes that would #require an instance.
     self._instances = {}
 
     # Initializes an empty blob cache

@@ -165,7 +165,7 @@ class Plugin::PcapLog < Msf::Plugin
       @filter = nil
       @pcaprub_loaded = false
       begin
-        require 'pcaprub'
+        #require 'pcaprub'
         @pcaprub_loaded = true
         @iface = ::Pcap.lookupdev
       rescue ::Exception => e

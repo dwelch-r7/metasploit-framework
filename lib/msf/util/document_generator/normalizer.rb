@@ -1,5 +1,5 @@
-require 'redcarpet'
-require 'erb'
+#require 'redcarpet'
+#require 'erb'
 
 module Redcarpet
   module Render

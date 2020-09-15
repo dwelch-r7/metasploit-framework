@@ -3,8 +3,8 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'msf/core/exploit/format/webarchive'
-require 'uri'
+#require 'msf/core/exploit/format/webarchive'
+#require 'uri'
 
 class MetasploitModule < Msf::Auxiliary
   include Msf::Exploit::FILEFORMAT

@@ -1,4 +1,4 @@
-require 'digest'
+#require 'digest'
 
 #
 # HTTP response helper class

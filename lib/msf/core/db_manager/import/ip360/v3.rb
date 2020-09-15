@@ -1,4 +1,4 @@
-require 'rex/parser/ip360_xml'
+#require 'rex/parser/ip360_xml'
 
 module Msf::DBManager::Import::IP360::V3
   #

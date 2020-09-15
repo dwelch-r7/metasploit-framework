@@ -3,7 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'rkelly'
+#require 'rkelly'
 
 class MetasploitModule < Msf::Auxiliary
   include Msf::Auxiliary::Report

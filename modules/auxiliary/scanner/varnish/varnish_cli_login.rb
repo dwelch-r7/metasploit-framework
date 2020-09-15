@@ -3,9 +3,9 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'metasploit/framework/credential_collection'
-require 'metasploit/framework/login_scanner/varnish'
-require 'metasploit/framework/tcp/client'
+#require 'metasploit/framework/credential_collection'
+#require 'metasploit/framework/login_scanner/varnish'
+#require 'metasploit/framework/tcp/client'
 
 class MetasploitModule < Msf::Auxiliary
   include Msf::Exploit::Remote::Tcp

@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
 #
-require 'rex/post/meterpreter/extensions/stdapi/command_ids'
+#require 'rex/post/meterpreter/extensions/stdapi/command_ids'
 
 module Msf::Post::File
 

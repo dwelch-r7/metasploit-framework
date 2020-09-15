@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'metasploit/framework/login_scanner/db2'
+#require 'spec_helper'
+#require 'metasploit/framework/login_scanner/db2'
 
 RSpec.describe Metasploit::Framework::LoginScanner::DB2 do
   let(:public) { 'root' }

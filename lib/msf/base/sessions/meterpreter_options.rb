@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
 
-require 'shellwords'
+#require 'shellwords'
 
 module Msf
   module Sessions

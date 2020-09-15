@@ -7,7 +7,7 @@ module Proto
   #
   class ADDP
 
-    require "rex/socket"
+    #require "rex/socket"
 
     #
     # See the following URLs for more information:

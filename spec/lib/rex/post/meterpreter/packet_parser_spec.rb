@@ -1,7 +1,7 @@
 # -*- coding:binary -*-
-require 'rex/post/meterpreter/packet'
-require 'rex/post/meterpreter/packet_parser'
-require 'stringio'
+#require 'rex/post/meterpreter/packet'
+#require 'rex/post/meterpreter/packet_parser'
+#require 'stringio'
 
 RSpec.describe Rex::Post::Meterpreter::PacketParser do
   subject(:parser){

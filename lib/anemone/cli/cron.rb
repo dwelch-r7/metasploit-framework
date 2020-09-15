@@ -1,6 +1,6 @@
-require 'anemone'
-require 'optparse'
-require 'ostruct'
+#require 'anemone'
+#require 'optparse'
+#require 'ostruct'
 
 options = OpenStruct.new
 options.relative = false

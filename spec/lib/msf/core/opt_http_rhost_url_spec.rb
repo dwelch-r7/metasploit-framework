@@ -1,4 +1,4 @@
-require 'msf/core/opt_http_rhost_url'
+#require 'msf/core/opt_http_rhost_url'
 
 RSpec.describe Msf::OptHTTPRhostURL do
   subject(:opt) { described_class.new('RHOST_HTTP_URL') }

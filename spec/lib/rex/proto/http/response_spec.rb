@@ -1,5 +1,5 @@
-require 'rex/proto/http/response'
-require 'nokogiri'
+#require 'rex/proto/http/response'
+#require 'nokogiri'
 
 RSpec.describe Rex::Proto::Http::Response do
 

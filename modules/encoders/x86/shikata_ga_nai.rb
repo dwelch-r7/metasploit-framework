@@ -3,7 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'rex/poly'
+#require 'rex/poly'
 
 class MetasploitModule < Msf::Encoder::XorAdditiveFeedback
 

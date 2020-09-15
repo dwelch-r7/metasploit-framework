@@ -3,7 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'zlib'
+#require 'zlib'
 
 class MetasploitModule < Msf::Post
   include Msf::Post::File

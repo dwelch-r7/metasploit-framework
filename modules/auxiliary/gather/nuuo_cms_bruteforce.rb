@@ -3,7 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'benchmark'
+#require 'benchmark'
 
 class MetasploitModule < Msf::Auxiliary
 

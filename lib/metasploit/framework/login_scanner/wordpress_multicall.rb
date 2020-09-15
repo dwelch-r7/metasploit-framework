@@ -1,5 +1,5 @@
-require 'metasploit/framework/login_scanner/http'
-require 'nokogiri'
+#require 'metasploit/framework/login_scanner/http'
+#require 'nokogiri'
 
 module Metasploit
   module Framework

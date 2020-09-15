@@ -3,9 +3,9 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'active_support/inflector'
-require 'json'
-require 'active_support/core_ext/hash'
+#require 'active_support/inflector'
+#require 'json'
+#require 'active_support/core_ext/hash'
 
 class MetasploitModule < Msf::Auxiliary
   class InvocationError < StandardError; end

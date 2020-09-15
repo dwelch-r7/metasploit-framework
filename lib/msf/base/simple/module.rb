@@ -1,5 +1,5 @@
 # -*- coding: binary -*-
-require 'msf/base'
+#require 'msf/base'
 
 module Msf
 module Simple

@@ -3,7 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'bindata'
+#require 'bindata'
 
 class MetasploitModule < Msf::Auxiliary
   include Msf::Exploit::Remote::Udp

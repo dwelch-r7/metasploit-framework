@@ -15,8 +15,8 @@ while File.symlink?(msfbase)
 end
 
 $LOAD_PATH.unshift(File.expand_path(File.join(File.dirname(msfbase), '..', '..','lib')))
-require 'rex/google/geolocation'
-require 'optparse'
+#require 'rex/google/geolocation'
+#require 'optparse'
 
 if ARGV.length < 2
   $stderr.puts("Usage: #{$PROGRAM_NAME} <api_key> <mac> [mac] ...")

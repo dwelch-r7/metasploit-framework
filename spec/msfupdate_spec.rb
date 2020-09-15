@@ -1,4 +1,4 @@
-require 'spec_helper'
+#require 'spec_helper'
 
 load Metasploit::Framework.root.join('msfupdate').to_path
 

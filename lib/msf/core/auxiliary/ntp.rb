@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
-require 'rex/proto/ntp'
-require 'msf/core/exploit'
+#require 'rex/proto/ntp'
+#require 'msf/core/exploit'
 module Msf
 
 ###

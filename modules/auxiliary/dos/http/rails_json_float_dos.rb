@@ -62,7 +62,7 @@ class MetasploitModule < Msf::Auxiliary
     digit_pattern * multiplier
   end
 
-  # The evil_float seems to require some repeating element. Maybe
+  # The evil_float seems to #require some repeating element. Maybe
   # it's just superstition, but straight up 300_002-lenth random
   # numbers don't appear to trigger the vulnerability. Also, these are
   # easier to produce, and slightly better than the static "1.1111..."

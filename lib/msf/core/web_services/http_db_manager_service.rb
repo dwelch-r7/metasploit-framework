@@ -1,7 +1,7 @@
-require 'rack'
-require 'msf/core/web_services/metasploit_api_app'
-require 'metasploit/framework/parsed_options/remote_db'
-require 'rex/ui/text/output/stdio'
+#require 'rack'
+#require 'msf/core/web_services/metasploit_api_app'
+#require 'metasploit/framework/parsed_options/remote_db'
+#require 'rex/ui/text/output/stdio'
 
 class HttpDBManagerService
 
@@ -51,7 +51,7 @@ class HttpDBManagerService
     # allow other Rails::Applications to use this command
     if !defined?(Rails) || Rails.application.nil?
       # @see https://github.com/rails/rails/blob/v3.2.17/railties/lib/rails/commands.rb#L39-L40
-      require Pathname.new(__FILE__).parent.parent.parent.parent.parent.join('config', 'application')
+      #require Pathname.new(__FILE__).parent.parent.parent.parent.parent.join('config', 'application')
     end
 
     # have to configure before requiring environment because
@@ -66,7 +66,7 @@ class HttpDBManagerService
   #   servlet_path = File.dirname(__FILE__) + '/servlet/*'
   #   Dir.glob(servlet_path).collect{|file_path|
   #     servlet_class = File.basename(file_path, '.rb').classify
-  #     require file_path
+  #     #require file_path
   #     servlet_class_constant = servlet_class.constantize
   #     http_server.mount servlet_class_constant.api_path, servlet_class_constant
   #   }

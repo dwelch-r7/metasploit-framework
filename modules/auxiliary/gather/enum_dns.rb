@@ -3,7 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'msf/core/exploit/dns'
+#require 'msf/core/exploit/dns'
 
 class MetasploitModule < Msf::Auxiliary
   include Msf::Exploit::Remote::DNS::Enumeration

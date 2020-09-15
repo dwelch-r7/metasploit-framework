@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
-require 'msf/core'
-require 'msf/core/exploit/tcp'
+#require 'msf/core'
+#require 'msf/core/exploit/tcp'
 
 module Metasploit
   module Framework

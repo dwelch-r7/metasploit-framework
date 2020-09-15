@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'metasploit/framework/login_scanner/wordpress_rpc'
+#require 'spec_helper'
+#require 'metasploit/framework/login_scanner/wordpress_rpc'
 
 RSpec.describe Metasploit::Framework::LoginScanner::WordpressRPC do
 

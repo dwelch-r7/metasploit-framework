@@ -1,7 +1,7 @@
 # -*- coding: binary -*-
 
-require 'rex/post/hwbridge/extension'
-require 'rex/post/hwbridge/object_aliases'
+#require 'rex/post/hwbridge/extension'
+#require 'rex/post/hwbridge/object_aliases'
 
 module Rex
 module Post

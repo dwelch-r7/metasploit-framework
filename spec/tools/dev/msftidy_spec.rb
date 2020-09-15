@@ -1,4 +1,4 @@
-require 'spec_helper'
+#require 'spec_helper'
 
 load Metasploit::Framework.root.join('tools/dev/msftidy.rb').to_path
 

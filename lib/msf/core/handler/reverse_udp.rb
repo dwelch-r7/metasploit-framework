@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
-require 'rex/socket'
-require 'thread'
+#require 'rex/socket'
+#require 'thread'
 
 module Msf
 module Handler

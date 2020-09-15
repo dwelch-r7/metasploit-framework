@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
-require 'rex/post/meterpreter'
-require 'rex/post/meterpreter/extensions/stdapi/command_ids'
+#require 'rex/post/meterpreter'
+#require 'rex/post/meterpreter/extensions/stdapi/command_ids'
 
 module Rex
 module Post
@@ -849,7 +849,7 @@ class Console::CommandDispatcher::Stdapi::Sys
       end
     }
 
-    # All commands require a key.
+    # All commands #require a key.
     if (key == nil)
       print_error("You must specify a key path (-k)")
       return false

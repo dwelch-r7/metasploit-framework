@@ -11,8 +11,8 @@
 # Author: Sven Taute <sven dot taute at gmail com>
 #
 
-require 'sqlite3'
-require 'yaml'
+#require 'sqlite3'
+#require 'yaml'
 
 if client.platform !~ /win32/
   print_error("This version of Meterpreter is not supported with this Script!")
@@ -73,7 +73,7 @@ opts.parse(args) { |opt, idx, val|
 @output_format << "json" if @output_format.empty?
 if @output_format.include?("json")
   begin
-    require 'json'
+    #require 'json'
   rescue LoadError
     print_error("JSON is not available.")
     @output_format.delete("json")

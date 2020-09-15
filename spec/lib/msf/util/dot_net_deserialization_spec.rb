@@ -1,5 +1,5 @@
-require 'rex'
-require 'msf/util/dot_net_deserialization'
+#require 'rex'
+#require 'msf/util/dot_net_deserialization'
 
 RSpec.shared_examples 'a valid serialized stream' do |stream|
   it 'should start with a SerializedStreamHeader record' do

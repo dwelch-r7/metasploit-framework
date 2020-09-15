@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'metasploit/framework/login_scanner/jenkins'
+#require 'spec_helper'
+#require 'metasploit/framework/login_scanner/jenkins'
 
 RSpec.describe Metasploit::Framework::LoginScanner::Jenkins do
 

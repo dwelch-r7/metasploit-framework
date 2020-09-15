@@ -8,6 +8,6 @@
 # thx to scriptjunkie for pointing out option extensions
 #
 
-require 'rex/proto/tftp/constants'
-require 'rex/proto/tftp/server'
-require 'rex/proto/tftp/client'
+#require 'rex/proto/tftp/constants'
+#require 'rex/proto/tftp/server'
+#require 'rex/proto/tftp/client'

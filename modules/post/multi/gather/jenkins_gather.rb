@@ -1,8 +1,8 @@
-require 'nokogiri'
-require 'base64'
-require 'digest'
-require 'openssl'
-require 'sshkey'
+#require 'nokogiri'
+#require 'base64'
+#require 'digest'
+#require 'openssl'
+#require 'sshkey'
 
 class MetasploitModule < Msf::Post
   include Msf::Post::File

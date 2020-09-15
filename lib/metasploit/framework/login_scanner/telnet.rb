@@ -1,6 +1,6 @@
-require 'metasploit/framework/telnet/client'
-require 'metasploit/framework/login_scanner/base'
-require 'metasploit/framework/login_scanner/rex_socket'
+#require 'metasploit/framework/telnet/client'
+#require 'metasploit/framework/login_scanner/base'
+#require 'metasploit/framework/login_scanner/rex_socket'
 
 module Metasploit
   module Framework

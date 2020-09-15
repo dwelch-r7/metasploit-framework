@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
 
-require 'msf/core/payload/windows'
+#require 'msf/core/payload/windows'
 
 module Msf
   class OptInjectablePE < OptPath

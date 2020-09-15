@@ -3,8 +3,8 @@
 # Efrain Torres    - et[ ] metasploit.com  2012
 #
 
-require 'rabal/tree'
-require 'msf/core/rpc/v10/client'
+#require 'rabal/tree'
+#require 'msf/core/rpc/v10/client'
 
 module Msf
 

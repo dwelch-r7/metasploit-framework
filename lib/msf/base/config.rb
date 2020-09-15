@@ -4,14 +4,14 @@
 # Standard Library
 #
 
-require 'fileutils'
+#require 'fileutils'
 
 #
 # Project
 #
 
-require 'metasploit/framework/version'
-require 'rex/compat'
+#require 'metasploit/framework/version'
+#require 'rex/compat'
 
 module Msf
 

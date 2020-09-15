@@ -1,4 +1,4 @@
-require 'rex/parser/mbsa_nokogiri'
+#require 'rex/parser/mbsa_nokogiri'
 
 module Msf::DBManager::Import::MBSA
   def import_mbsa_noko_stream(args={},&block)

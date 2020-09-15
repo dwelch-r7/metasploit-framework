@@ -41,8 +41,8 @@ $:.unshift(File.expand_path(File.join(File.dirname(msfbase), '..', '..', 'lib'))
 
 gem 'rex-text'
 
-require 'msfenv'
-require 'rex'
+#require 'msfenv'
+#require 'rex'
 
 class CPassword
 

@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'metasploit/framework/compiler/windows'
+#require 'spec_helper'
+#require 'metasploit/framework/compiler/windows'
 
 RSpec.describe Metasploit::Framework::Compiler::Windows do
   describe '#self.compile_c' do

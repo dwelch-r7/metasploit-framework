@@ -7,7 +7,7 @@ module Rex
     def self.load_nokogiri
       @nokogiri_loaded = false
       begin
-        require 'nokogiri'
+        #require 'nokogiri'
         major,minor = Nokogiri::VERSION.split(".")[0,2]
         if major.to_i >= 1
           if minor.to_i >= 4

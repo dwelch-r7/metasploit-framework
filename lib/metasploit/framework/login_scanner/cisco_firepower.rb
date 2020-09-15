@@ -1,5 +1,5 @@
-require 'metasploit/framework/login_scanner/http'
-require 'digest'
+#require 'metasploit/framework/login_scanner/http'
+#require 'digest'
 
 module Metasploit
   module Framework

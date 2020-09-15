@@ -5,9 +5,9 @@
 # License:: Same as Ruby's or BSD
 # 
 
-require 'postgres_msf'
-require 'postgres/buffer'
-require 'rex/io/stream'
+#require 'postgres_msf'
+#require 'postgres/buffer'
+#require 'rex/io/stream'
 
 # Monkeypatch to preserve original code intent
 # (postgres-pr originally defined read_exactly_n_bytes on IO

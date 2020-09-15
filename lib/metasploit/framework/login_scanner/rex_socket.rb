@@ -1,4 +1,4 @@
-require 'metasploit/framework/login_scanner'
+#require 'metasploit/framework/login_scanner'
 
 module Metasploit
   module Framework

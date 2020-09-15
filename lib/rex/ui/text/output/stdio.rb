@@ -1,8 +1,8 @@
 # -*- coding: binary -*-
-require 'rex/ui'
+#require 'rex/ui'
 
 begin
-  require 'windows_console_color_support'
+  #require 'windows_console_color_support'
 rescue ::LoadError
 end
 

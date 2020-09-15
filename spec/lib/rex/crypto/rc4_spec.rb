@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'securerandom'
+#require 'spec_helper'
+#require 'securerandom'
 
 
 RSpec.describe Rex::Crypto do

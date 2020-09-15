@@ -1,5 +1,5 @@
-require 'msf/util/helper'
-require 'open3'
+#require 'msf/util/helper'
+#require 'open3'
 
 module Metasploit
   module Framework

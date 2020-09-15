@@ -3,7 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'shellwords'
+#require 'shellwords'
 
 class MetasploitModule < Msf::Post
   include Msf::Post::File
@@ -144,9 +144,9 @@ class MetasploitModule < Msf::Post
     <<-EOS
 # Kick off a child process and let parent die
 child_pid = fork do
-  require 'thread'
-  require 'fiddle'
-  require 'fiddle/import'
+  #require 'thread'
+  #require 'fiddle'
+  #require 'fiddle/import'
 
   options = {
     :duration => #{opts[:duration]},
@@ -161,7 +161,7 @@ child_pid = fork do
     if not @server_listening
       @server_listening = true
       Thread.new do
-        require 'socket'
+        #require 'socket'
         server = TCPServer.new(options[:port])
         client = server.accept
         log_semaphore.synchronize do

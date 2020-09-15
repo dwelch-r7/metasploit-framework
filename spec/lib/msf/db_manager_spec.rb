@@ -2,14 +2,14 @@
 # Specs
 #
 
-require 'spec_helper'
+#require 'spec_helper'
 
 #
 # Project
 #
 
-require 'metasploit/framework/database'
-require 'msf/core'
+#require 'metasploit/framework/database'
+#require 'msf/core'
 
 RSpec.describe Msf::DBManager do
   include_context 'Msf::DBManager'

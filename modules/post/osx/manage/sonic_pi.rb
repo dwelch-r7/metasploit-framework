@@ -132,7 +132,7 @@ class MetasploitModule < Msf::Post
 
   def code
     <<~EOF
-      require 'socket'
+      #require 'socket'
       UDPSocket.new.send("#{msg}", 0, '#{osc_host}', #{osc_port})
     EOF
   end

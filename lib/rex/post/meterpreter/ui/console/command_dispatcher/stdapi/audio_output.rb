@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
-require 'rex/post/meterpreter'
-require 'bindata'
+#require 'rex/post/meterpreter'
+#require 'bindata'
 
 module Rex
 module Post

@@ -1,7 +1,7 @@
 # -*- coding: binary -*-
 # CLI for interaction with modules outside of msfconsole
 
-require 'optparse'
+#require 'optparse'
 
 module Msf::Modules::External::CLI
   def self.parse_options(mod)

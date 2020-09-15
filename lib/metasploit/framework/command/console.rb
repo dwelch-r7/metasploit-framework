@@ -2,8 +2,8 @@
 # Project
 #
 
-require 'metasploit/framework/command'
-require 'metasploit/framework/command/base'
+#require 'metasploit/framework/command'
+#require 'metasploit/framework/command/base'
 
 # Based on pattern used for lib/rails/commands in the railties gem.
 class Metasploit::Framework::Command::Console < Metasploit::Framework::Command::Base
@@ -56,8 +56,8 @@ class Metasploit::Framework::Command::Console < Metasploit::Framework::Command::
   # @return [Msf::Ui::Console::Driver]
   def driver
     unless @driver
-      # require here so minimum loading is done before {start} is called.
-      require 'msf/ui'
+      # #require here so minimum loading is done before {start} is called.
+      #require 'msf/ui'
 
       @driver = Msf::Ui::Console::Driver.new(
           Msf::Ui::Console::Driver::DefaultPrompt,

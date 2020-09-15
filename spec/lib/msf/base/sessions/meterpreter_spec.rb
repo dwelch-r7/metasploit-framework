@@ -1,7 +1,7 @@
-require 'spec_helper'
-require 'msf/base/sessions/meterpreter'
-require 'rex/post/meterpreter/extensions/stdapi/net/interface'
-require 'rex/post/meterpreter/extensions/stdapi/net/route'
+#require 'spec_helper'
+#require 'msf/base/sessions/meterpreter'
+#require 'rex/post/meterpreter/extensions/stdapi/net/interface'
+#require 'rex/post/meterpreter/extensions/stdapi/net/route'
 
 RSpec.describe Msf::Sessions::Meterpreter do
   before do

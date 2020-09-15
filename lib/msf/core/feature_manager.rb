@@ -1,7 +1,7 @@
 # -*- coding: binary -*-
 # frozen_string_literal: true
 
-require 'msf/core/plugin'
+#require 'msf/core/plugin'
 
 module Msf
   ###

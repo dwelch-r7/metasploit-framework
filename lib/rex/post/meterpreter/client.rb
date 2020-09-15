@@ -1,20 +1,20 @@
 # -*- coding: binary -*-
 
-require 'socket'
-require 'openssl'
+#require 'socket'
+#require 'openssl'
 
-require 'rex/script'
-require 'rex/post/meterpreter/extension_mapper'
-require 'rex/post/meterpreter/client_core'
-require 'rex/post/meterpreter/channel'
-require 'rex/post/meterpreter/channel_container'
-require 'rex/post/meterpreter/dependencies'
-require 'rex/post/meterpreter/object_aliases'
-require 'rex/post/meterpreter/packet'
-require 'rex/post/meterpreter/packet_parser'
-require 'rex/post/meterpreter/packet_dispatcher'
-require 'rex/post/meterpreter/pivot'
-require 'rex/post/meterpreter/pivot_container'
+#require 'rex/script'
+#require 'rex/post/meterpreter/extension_mapper'
+#require 'rex/post/meterpreter/client_core'
+#require 'rex/post/meterpreter/channel'
+#require 'rex/post/meterpreter/channel_container'
+#require 'rex/post/meterpreter/dependencies'
+#require 'rex/post/meterpreter/object_aliases'
+#require 'rex/post/meterpreter/packet'
+#require 'rex/post/meterpreter/packet_parser'
+#require 'rex/post/meterpreter/packet_dispatcher'
+#require 'rex/post/meterpreter/pivot'
+#require 'rex/post/meterpreter/pivot_container'
 
 module Rex
 module Post

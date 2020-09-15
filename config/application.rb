@@ -1,5 +1,5 @@
-require 'rails'
-require File.expand_path('../boot', __FILE__)
+#require 'rails'
+#require File.expand_path('../boot', __FILE__)
 
 all_environments = [
     :development,
@@ -20,15 +20,15 @@ Bundler.require(
 #
 
 # For compatibility with jquery-rails (and other engines that need action_view) in pro
-require 'action_controller/railtie'
-require 'action_view/railtie'
+#require 'action_controller/railtie'
+#require 'action_view/railtie'
 
 #
 # Project
 #
 
-require 'metasploit/framework/common_engine'
-require 'metasploit/framework/database'
+#require 'metasploit/framework/common_engine'
+#require 'metasploit/framework/database'
 
 module Metasploit
   module Framework

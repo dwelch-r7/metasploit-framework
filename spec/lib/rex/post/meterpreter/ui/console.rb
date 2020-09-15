@@ -1,7 +1,7 @@
 # -*- coding:binary -*-
-require 'spec_helper'
+#require 'spec_helper'
 
-require 'rex/post/meterpreter/ui/console'
+#require 'rex/post/meterpreter/ui/console'
 
 RSpec.describe Rex::Post::Meterpreter::Ui::Console do
 

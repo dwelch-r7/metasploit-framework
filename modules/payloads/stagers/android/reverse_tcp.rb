@@ -3,8 +3,8 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'msf/core/handler/reverse_tcp'
-require 'msf/core/payload/android/reverse_tcp'
+#require 'msf/core/handler/reverse_tcp'
+#require 'msf/core/payload/android/reverse_tcp'
 
 module MetasploitModule
 

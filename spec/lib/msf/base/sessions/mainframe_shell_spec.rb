@@ -1,6 +1,6 @@
 # -*- coding:binary -*-
-require 'spec_helper'
-require 'msf/base/sessions/mainframe_shell'
+#require 'spec_helper'
+#require 'msf/base/sessions/mainframe_shell'
 
 ##
 #

@@ -1,6 +1,6 @@
-require 'anemone'
-require 'optparse'
-require 'ostruct'
+#require 'anemone'
+#require 'optparse'
+#require 'ostruct'
 
 begin
   # make sure that the first option is a URL we can crawl

@@ -3,8 +3,8 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'json'
-require 'msf/core/payload/firefox'
+#require 'json'
+#require 'msf/core/payload/firefox'
 
 class MetasploitModule < Msf::Post
   include Msf::Payload::Firefox

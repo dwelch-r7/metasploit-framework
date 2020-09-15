@@ -1,4 +1,4 @@
-require 'csv'
+#require 'csv'
 
 ##
 # This module requires Metasploit: https://metasploit.com/download

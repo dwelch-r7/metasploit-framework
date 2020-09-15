@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'metasploit/framework/password_crackers/cracker'
+#require 'spec_helper'
+#require 'metasploit/framework/password_crackers/cracker'
 
 RSpec.describe Metasploit::Framework::PasswordCracker::Cracker do
 

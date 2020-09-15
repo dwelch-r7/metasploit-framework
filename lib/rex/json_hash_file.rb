@@ -1,7 +1,7 @@
 # -*- coding => binary -*-
 
-require 'json'
-require 'fileutils'
+#require 'json'
+#require 'fileutils'
 
 #
 # This class provides a thread-friendly hash file store in JSON format

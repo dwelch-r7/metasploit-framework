@@ -1,7 +1,7 @@
 # -*- coding: binary -*-
 
-require 'rex/post/meterpreter/extensions/stdapi/constants'
-require 'rex/post/meterpreter/extensions/stdapi/sys/registry'
+#require 'rex/post/meterpreter/extensions/stdapi/constants'
+#require 'rex/post/meterpreter/extensions/stdapi/sys/registry'
 
 module Rex
 module Post

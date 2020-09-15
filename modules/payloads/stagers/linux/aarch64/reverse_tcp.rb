@@ -4,7 +4,7 @@
 ##
 
 
-require 'msf/core/handler/reverse_tcp'
+#require 'msf/core/handler/reverse_tcp'
 
 
 ###

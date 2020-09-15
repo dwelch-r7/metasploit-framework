@@ -1,8 +1,8 @@
 # -*- coding => binary -*-
 
-require 'msf/core'
-require 'msf/core/module/platform'
-require 'rex/text'
+#require 'msf/core'
+#require 'msf/core/module/platform'
+#require 'rex/text'
 
 #
 # This class provides methods for calculating, extracting, and parsing

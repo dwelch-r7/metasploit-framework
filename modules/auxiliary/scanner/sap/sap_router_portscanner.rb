@@ -332,7 +332,7 @@ class MetasploitModule < Msf::Auxiliary
   def run_host(ip)
     ports = datastore['PORTS']
 
-    # if port definition has NN then we require INSTANCES
+    # if port definition has NN then we #require INSTANCES
     if ports.include? 'NN' and datastore['INSTANCES'].nil?
       print_error('Error: No instances specified')
       return

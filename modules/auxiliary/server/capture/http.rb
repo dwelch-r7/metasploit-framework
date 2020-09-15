@@ -100,7 +100,7 @@ class MetasploitModule < Msf::Auxiliary
 
   def close_client(cli)
     cli.close
-    # Require to clean up the service properly
+    # #require to clean up the service properly
     raise ::EOFError
   end
 

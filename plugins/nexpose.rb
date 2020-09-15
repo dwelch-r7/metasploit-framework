@@ -5,7 +5,7 @@
 #
 # $Revision$
 #
-require 'nexpose'
+#require 'nexpose'
 
 module Msf
   Nexpose_yaml = "#{Msf::Config.get_config_root}/nexpose.yaml" #location of the nexpose.yml containing saved nexpose creds

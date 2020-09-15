@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'msf/core/exe/segment_injector'
+#require 'spec_helper'
+#require 'msf/core/exe/segment_injector'
 
 RSpec.describe Msf::Exe::SegmentInjector do
 

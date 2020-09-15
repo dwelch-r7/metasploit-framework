@@ -2,14 +2,14 @@
 #
 # Gems
 #
-require 'active_support/concern'
+#require 'active_support/concern'
 
 #
 # Project
 #
 
 # Defines the MODULE_* constants
-require 'msf/core/constants'
+#require 'msf/core/constants'
 
 # Concerns the various type-specific module sets in a {Msf::ModuleManager}
 module Msf::ModuleManager::ModuleSets

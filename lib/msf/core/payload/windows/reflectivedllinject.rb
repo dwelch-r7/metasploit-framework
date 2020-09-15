@@ -1,7 +1,7 @@
 # -*- coding: binary -*-
 
-require 'msf/core'
-require 'msf/core/reflective_dll_loader'
+#require 'msf/core'
+#require 'msf/core/reflective_dll_loader'
 
 module Msf
 

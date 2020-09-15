@@ -43,81 +43,81 @@ end
 #
 
 # Text manipulation library for things like generating random string
-require 'rex/text'
+#require 'rex/text'
 # Library for Generating Randomized strings valid as Identifiers such as variable names
-require 'rex/random_identifier'
+#require 'rex/random_identifier'
 # library for creating Powershell scripts for exploitation purposes
-require 'rex/powershell'
+#require 'rex/powershell'
 # Library for processing and creating Zip compatible archives
-require 'rex/zip'
+#require 'rex/zip'
 # Library for processing and creating tar compatible archives (not really a gem)
-require 'rex/tar'
+#require 'rex/tar'
 # Library for parsing offline Windows Registry files
-require 'rex/registry'
+#require 'rex/registry'
 # Library for parsing Java serialized streams
-require 'rex/java'
+#require 'rex/java'
 # Library for creating C-style Structs
-require 'rex/struct2'
+#require 'rex/struct2'
 # Library for working with OLE
-require 'rex/ole'
+#require 'rex/ole'
 # Library for creating and/or parsing MIME messages
-require 'rex/mime'
+#require 'rex/mime'
 # Library for polymorphic encoders
-require 'rex/encoder'
+#require 'rex/encoder'
 # Architecture subsystem
-require 'rex/arch'
+#require 'rex/arch'
 # Exploit Helper Library
-require 'rex/exploitation'
+#require 'rex/exploitation'
 
 # Generic classes
-require 'rex/exceptions'
-require 'rex/transformer'
-require 'rex/random_identifier'
-require 'rex/time'
-require 'rex/job_container'
-require 'rex/file'
+#require 'rex/exceptions'
+#require 'rex/transformer'
+#require 'rex/random_identifier'
+#require 'rex/time'
+#require 'rex/job_container'
+#require 'rex/file'
 
 # Thread safety and synchronization
-require 'rex/sync'
+#require 'rex/sync'
 
 # Thread factory
-require 'rex/thread_factory'
+#require 'rex/thread_factory'
 
 
 # Assembly
-require 'rex/assembly/nasm'
+#require 'rex/assembly/nasm'
 
 # Logging
-require 'rex/logging/log_dispatcher'
+#require 'rex/logging/log_dispatcher'
 
 # IO
-require 'rex/io/stream'
-require 'rex/io/stream_abstraction'
-require 'rex/io/stream_server'
+#require 'rex/io/stream'
+#require 'rex/io/stream_abstraction'
+#require 'rex/io/stream_server'
 
 # Sockets
-require 'rex/socket'
+#require 'rex/socket'
 
 # Protocols
-require 'rex/proto'
-require 'rex/mac_oui'
+#require 'rex/proto'
+#require 'rex/mac_oui'
 
 # Parsers
-require 'rex/parser/arguments'
-require 'rex/parser/ini'
+#require 'rex/parser/arguments'
+#require 'rex/parser/ini'
 
 
 # Compatibility
-require 'rex/compat'
+#require 'rex/compat'
 
 # SSLScan 
-require 'rex/sslscan/scanner'
-require 'rex/sslscan/result'
+#require 'rex/sslscan/scanner'
+#require 'rex/sslscan/result'
 
 # Cryptography
-require 'rex/crypto/aes256'
-require 'rex/crypto/rc4'
-require 'rex/crypto/chacha20'
+#require 'rex/crypto/aes256'
+#require 'rex/crypto/rc4'
+#require 'rex/crypto/chacha20'
 
 
 # Overload the Kernel.sleep() function to be thread-safe

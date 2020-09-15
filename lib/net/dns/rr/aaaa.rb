@@ -7,7 +7,7 @@
 #
 ##
 
-require 'ipaddr'
+#require 'ipaddr'
 
 module Net 
   module DNS 

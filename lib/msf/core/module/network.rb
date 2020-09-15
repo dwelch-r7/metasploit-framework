@@ -9,7 +9,7 @@ module Msf::Module::Network
 
   #
   # Indicates whether the module supports IPv6. This is true by default,
-  # but certain modules require additional work to be compatible or are
+  # but certain modules #require additional work to be compatible or are
   # hardcoded in terms of application support and should be skipped.
   #
   def support_ipv6?

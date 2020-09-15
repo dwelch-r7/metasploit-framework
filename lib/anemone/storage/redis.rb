@@ -1,4 +1,4 @@
-require 'redis'
+#require 'redis'
 
 module Anemone
   module Storage

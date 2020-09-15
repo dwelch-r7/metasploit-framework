@@ -5,11 +5,11 @@
 # License:: Same as Ruby's or BSD
 #
 
-require 'postgres_msf'
-require 'postgres/postgres-pr/message'
-require 'postgres/postgres-pr/version'
-require 'uri'
-require 'rex/socket'
+#require 'postgres_msf'
+#require 'postgres/postgres-pr/message'
+#require 'postgres/postgres-pr/version'
+#require 'uri'
+#require 'rex/socket'
 
 # Namespace for Metasploit branch.
 module Msf
@@ -81,7 +81,7 @@ class Connection
         @conn << PasswordMessage.new(password.crypt(msg.salt)).dump
       when AuthentificationMD5Password
         raise ArgumentError, "no password specified" if password.nil?
-        require 'digest/md5'
+        #require 'digest/md5'
 
         if md5_hash_match
           m = md5_hash_match[1]

@@ -3,7 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'msf/core/auxiliary/report'
+#require 'msf/core/auxiliary/report'
 
 class MetasploitModule < Msf::Post
   include Msf::Auxiliary::Report
@@ -14,7 +14,7 @@ class MetasploitModule < Msf::Post
       'Name'         => 'Windows Gather Active Directory BitLocker Recovery',
       'Description'  => %q{
         This module will enumerate BitLocker recovery passwords in the default AD
-        directory. This module does require Domain Admin or other delegated privileges.
+        directory. This module does #require Domain Admin or other delegated privileges.
       },
       'License'      => MSF_LICENSE,
       'Author'       => ['Ben Campbell <ben.campbell[at]mwrinfosecurity.com>'],

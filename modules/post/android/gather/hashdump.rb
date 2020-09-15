@@ -3,8 +3,8 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'sqlite3'
-require 'fileutils'
+#require 'sqlite3'
+#require 'fileutils'
 
 class MetasploitModule < Msf::Post
 

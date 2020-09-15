@@ -1,4 +1,4 @@
-require 'metasploit/framework/parsed_options/base'
+#require 'metasploit/framework/parsed_options/base'
 
 class Metasploit::Framework::ParsedOptions::RemoteDB < Metasploit::Framework::ParsedOptions::Base
 

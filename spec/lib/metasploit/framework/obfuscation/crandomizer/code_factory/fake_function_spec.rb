@@ -1,4 +1,4 @@
-require 'metasploit/framework/obfuscation/crandomizer/code_factory/fake_function'
+#require 'metasploit/framework/obfuscation/crandomizer/code_factory/fake_function'
 
 RSpec.describe Metasploit::Framework::Obfuscation::CRandomizer::CodeFactory::FakeFunction do
   let(:function_name) do

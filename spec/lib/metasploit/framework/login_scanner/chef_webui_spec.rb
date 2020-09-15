@@ -1,6 +1,6 @@
 
-require 'spec_helper'
-require 'metasploit/framework/login_scanner/chef_webui'
+#require 'spec_helper'
+#require 'metasploit/framework/login_scanner/chef_webui'
 
 RSpec.describe Metasploit::Framework::LoginScanner::ChefWebUI do
 

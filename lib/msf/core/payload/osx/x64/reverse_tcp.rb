@@ -1,8 +1,8 @@
 # -*- coding: binary -*-
 
-require 'msf/core'
-require 'msf/core/payload/transport_config'
-require 'msf/core/payload/osx/x64/send_uuid'
+#require 'msf/core'
+#require 'msf/core/payload/transport_config'
+#require 'msf/core/payload/osx/x64/send_uuid'
 
 module Msf
 

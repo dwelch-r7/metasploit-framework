@@ -7,7 +7,7 @@ end
 $:.unshift(File.expand_path(File.join(File.dirname(msfbase), '..', '..', 'lib')))
 $:.unshift(ENV['MSF_LOCAL_LIB']) if ENV['MSF_LOCAL_LIB']
 
-require 'nokogiri'
+#require 'nokogiri'
 
 module CVE
   class XRefTable
@@ -178,8 +178,8 @@ class Utility
 
 end
 
-require 'msfenv'
-require 'msf/base'
+#require 'msfenv'
+#require 'msf/base'
 
 def main
   filter  = 'All'

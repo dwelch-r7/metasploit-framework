@@ -1,7 +1,7 @@
 # -*- coding: binary -*-
 
-require 'bindata'
-require 'rex/socket'
+#require 'bindata'
+#require 'rex/socket'
 
 module Rex
 module Proto

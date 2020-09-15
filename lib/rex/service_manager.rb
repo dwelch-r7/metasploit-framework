@@ -1,7 +1,7 @@
 # -*- coding: binary -*-
-require 'singleton'
-require 'rex'
-require 'rex/service'
+#require 'singleton'
+#require 'rex'
+#require 'rex/service'
 
 module Rex
 

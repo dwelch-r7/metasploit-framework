@@ -1,12 +1,12 @@
-require 'singleton'
-require 'msf/events'
-require 'rex/ui/text/output/stdio'
-require 'msf/core/constants'
-require 'msf/core/modules/metadata'
-require 'msf/core/modules/metadata/obj'
-require 'msf/core/modules/metadata/search'
-require 'msf/core/modules/metadata/store'
-require 'msf/core/modules/metadata/maps'
+#require 'singleton'
+#require 'msf/events'
+#require 'rex/ui/text/output/stdio'
+#require 'msf/core/constants'
+#require 'msf/core/modules/metadata'
+#require 'msf/core/modules/metadata/obj'
+#require 'msf/core/modules/metadata/search'
+#require 'msf/core/modules/metadata/store'
+#require 'msf/core/modules/metadata/maps'
 
 #
 # Core service class that provides storage of module metadata as well as operations on the metadata.

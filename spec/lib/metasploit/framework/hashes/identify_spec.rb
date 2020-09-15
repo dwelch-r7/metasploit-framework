@@ -1,6 +1,6 @@
-require 'spec_helper'
-require 'metasploit/framework/hashes/identify'
-require 'bcrypt'
+#require 'spec_helper'
+#require 'metasploit/framework/hashes/identify'
+#require 'bcrypt'
 
 =begin
 #!/usr/bin/python

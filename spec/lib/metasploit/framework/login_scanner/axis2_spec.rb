@@ -1,6 +1,6 @@
 
-require 'spec_helper'
-require 'metasploit/framework/login_scanner/axis2'
+#require 'spec_helper'
+#require 'metasploit/framework/login_scanner/axis2'
 
 RSpec.describe Metasploit::Framework::LoginScanner::Axis2 do
 

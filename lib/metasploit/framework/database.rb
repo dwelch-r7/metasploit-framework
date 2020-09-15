@@ -1,5 +1,5 @@
-require 'metasploit/framework'
-require 'msf/base/config'
+#require 'metasploit/framework'
+#require 'msf/base/config'
 
 module Metasploit
   module Framework

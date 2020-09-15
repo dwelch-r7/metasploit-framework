@@ -1,10 +1,10 @@
 # -*- coding: binary -*-
-require 'uri'
-#require 'rex/proto/http'
-require 'rex/socket'
-require 'rex/text'
+#require 'uri'
+##require 'rex/proto/http'
+#require 'rex/socket'
+#require 'rex/text'
 
-require 'pp'
+#require 'pp'
 
 module Rex
 module Proto

@@ -3,7 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require "net/dns/resolver"
+#require "net/dns/resolver"
 
 class MetasploitModule < Msf::Auxiliary
   include Msf::Auxiliary::Scanner

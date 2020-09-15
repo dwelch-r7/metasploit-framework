@@ -1,8 +1,8 @@
 # -*- coding: binary -*-
 
-require 'spec_helper'
+#require 'spec_helper'
 
-require 'msf/core/auxiliary/f5'
+#require 'msf/core/auxiliary/f5'
 
 RSpec.describe Msf::Auxiliary::F5 do
   class DummyF5Class

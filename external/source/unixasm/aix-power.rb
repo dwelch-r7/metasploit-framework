@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require 'erb'
+#require 'erb'
 
 class Template
   attr_accessor :template, :result

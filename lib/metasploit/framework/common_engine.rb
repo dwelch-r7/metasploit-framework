@@ -2,14 +2,14 @@
 # Standard Library
 #
 
-require 'fileutils'
+#require 'fileutils'
 
 #
 # Metasploit gem engines
 #
 
-require 'metasploit/model/engine'
-require 'metasploit/concern/engine'
+#require 'metasploit/model/engine'
+#require 'metasploit/concern/engine'
 Metasploit::Framework::Require.optionally_require_metasploit_db_gem_engines
 
 # `Rails::Engine` behavior common to both {Metasploit::Framework::Application} and {Metasploit::Framework::Engine}.

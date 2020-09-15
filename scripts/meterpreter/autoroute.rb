@@ -25,7 +25,7 @@ remove_all_routes = false
   "-n" => [true, "Netmask (IPv4, for example, 255.255.255.0"],
   "-p" => [false, "Print active routing table. All other options are ignored"],
   "-d" => [false, "Delete the named route instead of adding it"],
-  "-D" => [false, "Delete all routes (does not require a subnet)"]
+  "-D" => [false, "Delete all routes (does not #require a subnet)"]
 )
 
 # Defines usage

@@ -6,7 +6,7 @@ class RPC_Auth < RPC_Base
 # Dynamic load test for SHA2 (needed for SHA512)
 @@loaded_sha2 = false
 begin
-  require 'digest/sha2'
+  #require 'digest/sha2'
   @@loaded_sha2 = true
 rescue ::LoadError
 end

@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'metasploit/framework/obfuscation/crandomizer/utility'
+#require 'spec_helper'
+#require 'metasploit/framework/obfuscation/crandomizer/utility'
 
 RSpec.describe Metasploit::Framework::Obfuscation::CRandomizer::Utility do
 

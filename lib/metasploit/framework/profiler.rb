@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'pathname'
-require 'tmpdir'
+#require 'pathname'
+#require 'tmpdir'
 
 module Metasploit
   module Framework
@@ -12,7 +12,7 @@ module Metasploit
           raise 'Cannot profile memory and cpu at the same time' if record_global_cpu? && record_global_memory?
 
           if record_global_cpu?
-            require 'ruby-prof'
+            #require 'ruby-prof'
 
             results_path = tmp_cpu_results_path
             profile = RubyProf::Profile.new
@@ -25,7 +25,7 @@ module Metasploit
           end
 
           if record_global_memory?
-            require 'memory_profiler'
+            #require 'memory_profiler'
 
             results_path = tmp_memory_results_path
             profile = MemoryProfiler
@@ -40,7 +40,7 @@ module Metasploit
         end
 
         def record_cpu
-          require 'ruby-prof'
+          #require 'ruby-prof'
 
           results_path = tmp_cpu_results_path
           profile = RubyProf::Profile.new
@@ -55,7 +55,7 @@ module Metasploit
         def record_memory
           raise 'Cannot mix global memory recording and localised memory recording' if record_global_memory?
 
-          require 'memory_profiler'
+          #require 'memory_profiler'
 
           results_path = tmp_memory_results_path
           profile = MemoryProfiler
@@ -93,7 +93,7 @@ module Metasploit
         end
 
         def save_cpu_result(result, path:)
-          require 'rex/compat'
+          #require 'rex/compat'
 
           puts "Generating CPU dump #{path}"
 
@@ -104,7 +104,7 @@ module Metasploit
         end
 
         def save_memory_result(result, path:)
-          require 'rex/compat'
+          #require 'rex/compat'
 
           result.pretty_print(to_file: path)
           Rex::Compat.open_file(path)

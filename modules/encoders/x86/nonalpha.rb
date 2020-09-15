@@ -3,7 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'rex/encoder/nonalpha'
+#require 'rex/encoder/nonalpha'
 
 class MetasploitModule < Msf::Encoder::NonAlpha
   Rank = LowRanking

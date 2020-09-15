@@ -2,13 +2,13 @@
 #
 # Gems
 #
-require 'active_support/concern'
+#require 'active_support/concern'
 
 #
 # Project
 #
-require 'msf/core/modules/loader/directory'
-require 'msf/core/modules/loader/executable'
+#require 'msf/core/modules/loader/directory'
+#require 'msf/core/modules/loader/executable'
 
 # Deals with loading modules for the {Msf::ModuleManager}
 module Msf::ModuleManager::Loading

@@ -1,4 +1,4 @@
-require 'msf/core/db_export'
+#require 'msf/core/db_export'
 
 module Msf::DBManager::DbExport
   def run_db_export(opts)

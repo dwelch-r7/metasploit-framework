@@ -3,8 +3,8 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'metasploit/framework/credential_collection'
-require 'metasploit/framework/login_scanner/mqtt'
+#require 'metasploit/framework/credential_collection'
+#require 'metasploit/framework/login_scanner/mqtt'
 
 class MetasploitModule < Msf::Auxiliary
   include Msf::Exploit::Remote::Tcp
@@ -57,7 +57,7 @@ class MetasploitModule < Msf::Auxiliary
   def default_login
     vprint_status("Testing without credentials")
     if test_login('', '')
-      print_good("Does not require authentication")
+      print_good("Does not #require authentication")
     end
 
   end

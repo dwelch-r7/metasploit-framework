@@ -115,7 +115,7 @@ module Msf::Module::ModuleInfo
 
   #
   # Merges options in the info hash in a sane fashion, as some options
-  # require special attention.
+  # #require special attention.
   #
   def merge_info(info, opts)
     opts.each_pair { |name, val|

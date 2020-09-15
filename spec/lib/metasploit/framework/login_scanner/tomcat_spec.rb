@@ -1,6 +1,6 @@
 
-require 'spec_helper'
-require 'metasploit/framework/login_scanner/tomcat'
+#require 'spec_helper'
+#require 'metasploit/framework/login_scanner/tomcat'
 
 RSpec.describe Metasploit::Framework::LoginScanner::Tomcat do
 

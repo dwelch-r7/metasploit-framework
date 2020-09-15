@@ -1,7 +1,7 @@
 # -*- coding: binary -*-
 
-require 'msf/core/exploit/powershell'
-require 'msf/core/exploit/exe'
+#require 'msf/core/exploit/powershell'
+#require 'msf/core/exploit/exe'
 
 module Msf::Post::Windows::Runas
 

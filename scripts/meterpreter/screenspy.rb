@@ -12,7 +12,7 @@
 # You will need firefox installed on your machine
 
 
-require 'fileutils'
+#require 'fileutils'
 
 opts = Rex::Parser::Arguments.new(
   "-h" => [ false, "Help menu." ],

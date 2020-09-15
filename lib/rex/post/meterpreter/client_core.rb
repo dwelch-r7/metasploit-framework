@@ -1,26 +1,26 @@
 # -*- coding: binary -*-
 
-require 'rex/post/meterpreter/packet'
-require 'rex/post/meterpreter/core_ids'
-require 'rex/post/meterpreter/extension'
-require 'rex/post/meterpreter/extension_mapper'
-require 'rex/post/meterpreter/client'
-require 'msf/core/payload/transport_config'
+#require 'rex/post/meterpreter/packet'
+#require 'rex/post/meterpreter/core_ids'
+#require 'rex/post/meterpreter/extension'
+#require 'rex/post/meterpreter/extension_mapper'
+#require 'rex/post/meterpreter/client'
+#require 'msf/core/payload/transport_config'
 
 # Used to generate a reflective DLL when migrating. This is yet another
 # argument for moving the meterpreter client into the Msf namespace.
-require 'msf/core/payload/windows'
-require 'msf/core/payload/windows/migrate'
-require 'msf/core/payload/windows/x64/migrate'
+#require 'msf/core/payload/windows'
+#require 'msf/core/payload/windows/migrate'
+#require 'msf/core/payload/windows/x64/migrate'
 
 # URI uuid and checksum stuff
-require 'msf/core/payload/uuid'
-require 'rex/payloads/meterpreter/uri_checksum'
+#require 'msf/core/payload/uuid'
+#require 'rex/payloads/meterpreter/uri_checksum'
 
 # certificate hash checking
-require 'rex/socket/x509_certificate'
+#require 'rex/socket/x509_certificate'
 
-require 'openssl'
+#require 'openssl'
 
 module Rex
 module Post

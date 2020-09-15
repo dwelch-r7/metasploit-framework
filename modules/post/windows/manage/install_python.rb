@@ -14,7 +14,7 @@ class MetasploitModule < Msf::Post
                       'Description'   => '
                         This module places an embeddable Python3 distribution onto the target file system,
                         granting pentesters access to a lightweight Python interpreter.
-                        This module does not require administrative privileges or user interaction with
+                        This module does not #require administrative privileges or user interaction with
                         installation prompts.
                       ',
                       'License'       => MSF_LICENSE,

@@ -1,4 +1,4 @@
-require 'rex/parser/wapiti_nokogiri'
+#require 'rex/parser/wapiti_nokogiri'
 
 module Msf::DBManager::Import::Wapiti
   def import_wapiti_xml(args={}, &block)

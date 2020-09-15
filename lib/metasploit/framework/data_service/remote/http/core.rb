@@ -1,8 +1,8 @@
-require 'metasploit/framework/data_service'
-require 'metasploit/framework/data_service/remote/http/data_service_auto_loader'
-require 'net/http'
-require 'net/https'
-require 'uri'
+#require 'metasploit/framework/data_service'
+#require 'metasploit/framework/data_service/remote/http/data_service_auto_loader'
+#require 'net/http'
+#require 'net/https'
+#require 'uri'
 
 #
 # Parent data service for managing metasploit data in/on a separate process/machine over HTTP(s)

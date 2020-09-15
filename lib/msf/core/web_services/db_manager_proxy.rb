@@ -1,9 +1,9 @@
-require 'singleton'
-require 'msf/core/db_manager'
-require 'msf/core/module_manager'
-require 'msf/core/constants'
-require 'metasploit/framework/database'
-require 'rails'
+#require 'singleton'
+#require 'msf/core/db_manager'
+#require 'msf/core/module_manager'
+#require 'msf/core/constants'
+#require 'metasploit/framework/database'
+#require 'rails'
 
 class DBManagerProxy
   include Singleton

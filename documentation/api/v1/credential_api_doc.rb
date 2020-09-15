@@ -1,4 +1,4 @@
-require 'swagger/blocks'
+#require 'swagger/blocks'
 
 # TODO: Complete this documentation when the credential model is fully implemented in the API.
 module CredentialApiDoc

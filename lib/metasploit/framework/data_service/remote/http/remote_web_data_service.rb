@@ -1,4 +1,4 @@
-require 'metasploit/framework/data_service/remote/http/response_data_helper'
+#require 'metasploit/framework/data_service/remote/http/response_data_helper'
 
 module RemoteWebDataService
   include ResponseDataHelper

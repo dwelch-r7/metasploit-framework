@@ -4,7 +4,7 @@ module Proto
 module SMB
 class Evasions
 
-require 'rex/text'
+#require 'rex/text'
 
 EVASION_NONE  = 0
 EVASION_LOW   = 1

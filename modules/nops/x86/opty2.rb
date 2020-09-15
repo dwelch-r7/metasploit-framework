@@ -3,7 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'rex/nop/opty2'
+#require 'rex/nop/opty2'
 
 
 ###

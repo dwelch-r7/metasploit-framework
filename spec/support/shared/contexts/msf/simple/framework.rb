@@ -1,6 +1,6 @@
 # -*- coding:binary -*-
-require 'msf/base/simple/framework'
-require 'metasploit/framework'
+#require 'msf/base/simple/framework'
+#require 'metasploit/framework'
 
 RSpec.shared_context 'Msf::Simple::Framework' do
   let(:dummy_pathname) do

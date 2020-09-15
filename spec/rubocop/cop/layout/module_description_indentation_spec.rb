@@ -1,6 +1,6 @@
 # frozen_string_literal: true
-require 'spec_helper'
-require 'rubocop/cop/layout/module_description_indentation'
+#require 'spec_helper'
+#require 'rubocop/cop/layout/module_description_indentation'
 
 RSpec.describe RuboCop::Cop::Layout::ModuleDescriptionIndentation do
   subject(:cop) { described_class.new(config) }

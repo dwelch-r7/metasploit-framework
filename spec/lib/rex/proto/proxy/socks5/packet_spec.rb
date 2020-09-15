@@ -1,5 +1,5 @@
 # -*- coding:binary -*-
-require 'rex/proto/proxy/socks5/packet'
+#require 'rex/proto/proxy/socks5/packet'
 
 RSpec.describe Rex::Proto::Proxy::Socks5::Packet do
   Socks5 = Rex::Proto::Proxy::Socks5

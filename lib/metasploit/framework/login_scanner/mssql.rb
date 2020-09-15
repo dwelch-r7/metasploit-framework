@@ -1,7 +1,7 @@
-require 'metasploit/framework/mssql/client'
-require 'metasploit/framework/login_scanner/base'
-require 'metasploit/framework/login_scanner/rex_socket'
-require 'metasploit/framework/login_scanner/ntlm'
+#require 'metasploit/framework/mssql/client'
+#require 'metasploit/framework/login_scanner/base'
+#require 'metasploit/framework/login_scanner/rex_socket'
+#require 'metasploit/framework/login_scanner/ntlm'
 
 module Metasploit
   module Framework

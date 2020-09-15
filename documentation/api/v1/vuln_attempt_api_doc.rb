@@ -1,4 +1,4 @@
-require 'swagger/blocks'
+#require 'swagger/blocks'
 
 module VulnAttemptApiDoc
   include Swagger::Blocks

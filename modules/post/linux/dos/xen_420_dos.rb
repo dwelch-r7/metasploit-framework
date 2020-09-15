@@ -146,7 +146,7 @@ class MetasploitModule < Msf::Post
 
   ##
   # Checks for Xen Version
-  #  - Most DoS of Xen require a specific version - here: 4.2.0
+  #  - Most DoS of Xen #require a specific version - here: 4.2.0
   #  - commands need running Xen - so execute after test for xen
   ##
 

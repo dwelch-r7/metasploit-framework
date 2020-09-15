@@ -1,4 +1,4 @@
-require 'metasploit/framework/tcp/client'
+#require 'metasploit/framework/tcp/client'
 
 module Metasploit
   module Framework

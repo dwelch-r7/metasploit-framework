@@ -1,6 +1,6 @@
 # Adds associations to `Metasploit::Credential::Core` which are inverses of association on models under
 # {BruteForce::Reuse}.
-require 'metasploit/framework/credential'
+#require 'metasploit/framework/credential'
 
 module Metasploit::Credential::Core::ToCredential
   extend ActiveSupport::Concern

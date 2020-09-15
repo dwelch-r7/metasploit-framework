@@ -2,13 +2,13 @@
 # by kernelsmith (kernelsmith+\x40+kernelsmith+\.com)
 #
 
-require 'msf/core'
-require 'rex'
-require 'msf/core/post/windows/services'
+#require 'msf/core'
+#require 'rex'
+#require 'msf/core/post/windows/services'
 
 lib = File.join(Msf::Config.install_root, "test", "lib")
 $:.push(lib) unless $:.include?(lib)
-require 'module_test'
+#require 'module_test'
 
 class MetasploitModule < Msf::Post
 

@@ -1,5 +1,5 @@
 # -*- coding: binary -*-
-require 'msf/core'
+#require 'msf/core'
 
 module Msf
 
@@ -28,7 +28,7 @@ module Msf
 #
 ###
 module Handler
-  require 'msf/core/handler/reverse'
+  #require 'msf/core/handler/reverse'
 
   ##
   #
@@ -302,5 +302,5 @@ end
 end
 
 # The default none handler
-require 'msf/core/handler/none'
+#require 'msf/core/handler/none'
 

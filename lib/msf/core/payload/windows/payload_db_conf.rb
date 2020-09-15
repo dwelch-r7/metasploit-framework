@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
 
-require 'msf/core'
+#require 'msf/core'
 
 module Msf::Payload::Windows::PayloadDBConf
   def initialize(*args)

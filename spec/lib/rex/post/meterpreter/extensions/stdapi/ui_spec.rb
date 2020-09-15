@@ -1,6 +1,6 @@
-require 'spec_helper'
-require 'rex/post/meterpreter'
-require 'rex/post/meterpreter/extensions/stdapi/ui'
+#require 'spec_helper'
+#require 'rex/post/meterpreter'
+#require 'rex/post/meterpreter/extensions/stdapi/ui'
 
 RSpec.describe Rex::Post::Meterpreter::Extensions::Stdapi::UI do
 

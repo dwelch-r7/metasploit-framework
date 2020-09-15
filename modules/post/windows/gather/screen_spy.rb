@@ -3,7 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'rbconfig'
+#require 'rbconfig'
 
 class MetasploitModule < Msf::Post
   def initialize(info={})

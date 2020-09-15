@@ -1,5 +1,5 @@
 # -*- coding: binary -*-
-require 'msf/core/exploit'
+#require 'msf/core/exploit'
 module Msf
   ###
   #

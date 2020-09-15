@@ -1,7 +1,7 @@
 # -*- coding: binary -*-
 
-require 'rex/post/meterpreter/inbound_packet_handler'
-require 'securerandom'
+#require 'rex/post/meterpreter/inbound_packet_handler'
+#require 'securerandom'
 
 module Rex
 module Post

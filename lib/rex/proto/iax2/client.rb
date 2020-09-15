@@ -1,12 +1,12 @@
 # -*- coding: binary -*-
-require 'rex/proto/iax2/constants'
-require 'rex/proto/iax2/codecs'
-require 'rex/proto/iax2/call'
+#require 'rex/proto/iax2/constants'
+#require 'rex/proto/iax2/codecs'
+#require 'rex/proto/iax2/call'
 
-require 'rex/socket'
-require 'thread'
-require 'digest/md5'
-require 'timeout'
+#require 'rex/socket'
+#require 'thread'
+#require 'digest/md5'
+#require 'timeout'
 
 module Rex
 module Proto

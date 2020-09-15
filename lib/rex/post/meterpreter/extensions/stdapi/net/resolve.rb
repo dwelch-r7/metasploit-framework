@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
 
-require 'rex/post/meterpreter/extensions/stdapi/tlv'
+#require 'rex/post/meterpreter/extensions/stdapi/tlv'
 
 module Rex
 module Post

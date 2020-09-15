@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
 
-require 'rex/parser/graphml'
+#require 'rex/parser/graphml'
 
 ##
 # This module contains a helper function for generating payloads from a shuffled

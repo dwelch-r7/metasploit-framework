@@ -1,15 +1,15 @@
 # -*- coding: binary -*-
 
-require 'rex/post/process'
-require 'rex/post/meterpreter/packet'
-require 'rex/post/meterpreter/client'
-require 'rex/post/meterpreter/channels/pools/stream_pool'
-require 'rex/post/meterpreter/extensions/stdapi/stdapi'
+#require 'rex/post/process'
+#require 'rex/post/meterpreter/packet'
+#require 'rex/post/meterpreter/client'
+#require 'rex/post/meterpreter/channels/pools/stream_pool'
+#require 'rex/post/meterpreter/extensions/stdapi/stdapi'
 
-require 'rex/post/meterpreter/extensions/stdapi/sys/process_subsystem/image'
-require 'rex/post/meterpreter/extensions/stdapi/sys/process_subsystem/io'
-require 'rex/post/meterpreter/extensions/stdapi/sys/process_subsystem/memory'
-require 'rex/post/meterpreter/extensions/stdapi/sys/process_subsystem/thread'
+#require 'rex/post/meterpreter/extensions/stdapi/sys/process_subsystem/image'
+#require 'rex/post/meterpreter/extensions/stdapi/sys/process_subsystem/io'
+#require 'rex/post/meterpreter/extensions/stdapi/sys/process_subsystem/memory'
+#require 'rex/post/meterpreter/extensions/stdapi/sys/process_subsystem/thread'
 
 module Rex
 module Post

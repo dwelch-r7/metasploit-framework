@@ -1,8 +1,8 @@
 # -*- coding: binary -*-
 
-require 'metasploit/framework/hashes/identify'
-require 'bson'
-require 'zip'
+#require 'metasploit/framework/hashes/identify'
+#require 'bson'
+#require 'zip'
 
 module Msf
   ###

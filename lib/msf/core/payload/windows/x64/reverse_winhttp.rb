@@ -1,8 +1,8 @@
 # -*- coding: binary -*-
 
-require 'msf/core'
-require 'msf/core/payload/windows/x64/reverse_http'
-require 'rex/payloads/meterpreter/config'
+#require 'msf/core'
+#require 'msf/core/payload/windows/x64/reverse_http'
+#require 'rex/payloads/meterpreter/config'
 
 module Msf
 

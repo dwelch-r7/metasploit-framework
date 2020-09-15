@@ -28,7 +28,7 @@ opts.parse(args) { |opt, idx, val|
   end
 }
 
-require 'fileutils'
+#require 'fileutils'
 
 # Some of this script was developed in conjunction with _MAX_ (max[at]remote-exploit.org)
 # The complete version will be released in the future as 'autometer'

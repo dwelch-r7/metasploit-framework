@@ -1,6 +1,6 @@
 
-require 'spec_helper'
-require 'metasploit/framework/login_scanner/http'
+#require 'spec_helper'
+#require 'metasploit/framework/login_scanner/http'
 
 RSpec.describe Metasploit::Framework::LoginScanner::HTTP do
 

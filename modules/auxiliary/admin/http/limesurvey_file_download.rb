@@ -4,7 +4,7 @@
 ##
 
 # for extracting files
-require 'zip'
+#require 'zip'
 
 class MetasploitModule < Msf::Auxiliary
   include Msf::Auxiliary::Report

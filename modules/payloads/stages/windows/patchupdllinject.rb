@@ -3,7 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'msf/core/payload/windows/dllinject'
+#require 'msf/core/payload/windows/dllinject'
 
 ###
 #

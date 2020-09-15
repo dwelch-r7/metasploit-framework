@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
-require 'open3'
-require 'json'
+#require 'open3'
+#require 'json'
 
 module Msf::Modules
   class External
@@ -62,7 +62,7 @@ module Msf::Modules
         input, output, err, status = ::Open3.popen3(self.env, *self.cmd)
         self.ios = [input, output, err]
         self.wait_thread = status
-        # We would call Rex::Threadsafe directly, but that would require rex for standalone use
+        # We would call Rex::Threadsafe directly, but that would #require rex for standalone use
         case select(nil, [input], nil, 0.1)
         when nil
           raise "Cannot run module #{self.path}"
@@ -103,7 +103,7 @@ module Msf::Modules
               self.buf = ''
             end
 
-            # We would call Rex::Threadsafe directly, but that would require Rex for standalone use
+            # We would call Rex::Threadsafe directly, but that would #require Rex for standalone use
             res = select([out, err], nil, nil, timeout)
             if res == nil
               # This is what we would have gotten without Rex and what `readpartial` can also raise

@@ -1,7 +1,7 @@
 # -*- coding: binary -*-
 
-require 'rex/post/meterpreter/channel'
-require 'rex/post/meterpreter/channels/pools/stream_pool'
+#require 'rex/post/meterpreter/channel'
+#require 'rex/post/meterpreter/channels/pools/stream_pool'
 
 module Rex
 module Post

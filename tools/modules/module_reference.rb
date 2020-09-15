@@ -15,14 +15,14 @@ while File.symlink?(msfbase)
 end
 
 $:.unshift(File.expand_path(File.join(File.dirname(msfbase), '..', '..', 'lib')))
-require 'msfenv'
+#require 'msfenv'
 
 $:.unshift(ENV['MSF_LOCAL_LIB']) if ENV['MSF_LOCAL_LIB']
 
-require 'rex'
-require 'msf/ui'
-require 'msf/base'
-require 'uri'
+#require 'rex'
+#require 'msf/ui'
+#require 'msf/base'
+#require 'uri'
 
 
 # See lib/msf/core/module/reference.rb

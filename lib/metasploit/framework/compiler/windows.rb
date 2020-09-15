@@ -1,8 +1,8 @@
-require 'metasm'
-require 'erb'
-require 'metasploit/framework/compiler/utils'
-require 'metasploit/framework/compiler/headers/windows'
-require 'metasploit/framework/obfuscation/crandomizer'
+#require 'metasm'
+#require 'erb'
+#require 'metasploit/framework/compiler/utils'
+#require 'metasploit/framework/compiler/headers/windows'
+#require 'metasploit/framework/obfuscation/crandomizer'
 
 module Metasploit
   module Framework

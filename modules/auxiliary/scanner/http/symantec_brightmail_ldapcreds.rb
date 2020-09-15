@@ -3,8 +3,8 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'digest'
-require "openssl"
+#require 'digest'
+#require "openssl"
 
 
 class MetasploitModule < Msf::Auxiliary

@@ -1,8 +1,8 @@
 # -*- coding: binary -*-
 
-require 'net/dns'
-require 'resolv'
-require 'dnsruby'
+#require 'net/dns'
+#require 'resolv'
+#require 'dnsruby'
 
 module Rex
 module Proto

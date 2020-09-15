@@ -3,11 +3,11 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'msf/core/handler/reverse_http'
-require 'msf/core/payload/python'
-require 'msf/core/payload/python/meterpreter_loader'
-require 'msf/core/payload/python/reverse_http'
-require 'msf/base/sessions/meterpreter_python'
+#require 'msf/core/handler/reverse_http'
+#require 'msf/core/payload/python'
+#require 'msf/core/payload/python/meterpreter_loader'
+#require 'msf/core/payload/python/reverse_http'
+#require 'msf/base/sessions/meterpreter_python'
 
 module MetasploitModule
 

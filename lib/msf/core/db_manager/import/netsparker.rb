@@ -1,4 +1,4 @@
-require 'rex/parser/netsparker_xml'
+#require 'rex/parser/netsparker_xml'
 
 module Msf::DBManager::Import::Netsparker
   # Process NetSparker XML

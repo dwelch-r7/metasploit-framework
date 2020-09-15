@@ -3,7 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'msf/core/exploit/local/linux'
+#require 'msf/core/exploit/local/linux'
 
 class MetasploitModule < Msf::Post
   Rank = ManualRanking

@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
-require 'rex/socket'
-require 'hrr_rb_ssh'
+#require 'rex/socket'
+#require 'hrr_rb_ssh'
 
 ###
 #

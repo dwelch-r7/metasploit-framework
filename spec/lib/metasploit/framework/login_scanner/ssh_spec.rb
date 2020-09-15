@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'metasploit/framework/login_scanner/ssh'
+#require 'spec_helper'
+#require 'metasploit/framework/login_scanner/ssh'
 
 RSpec.describe Metasploit::Framework::LoginScanner::SSH do
   let(:public) { 'root' }

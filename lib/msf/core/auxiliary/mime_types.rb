@@ -1,5 +1,5 @@
 # -*- coding: binary -*-
-require 'action_dispatch/http/mime_type'
+#require 'action_dispatch/http/mime_type'
 
 module Msf
 

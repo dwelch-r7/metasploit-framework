@@ -1,11 +1,11 @@
 # -*- coding: binary -*-
-require 'rex/ui'
+#require 'rex/ui'
 
 module Rex
 module Ui
 module Text
 
-require 'rex/io/stream_abstraction'
+#require 'rex/io/stream_abstraction'
 
 ###
 #

@@ -1,5 +1,5 @@
 # -*- coding: binary -*-
-require 'msf/ui/console/command_dispatcher'
+#require 'msf/ui/console/command_dispatcher'
 
 module Msf
 module Ui

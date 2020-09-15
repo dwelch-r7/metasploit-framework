@@ -4,7 +4,7 @@
 ###
 
 # XXX: This shouldn't be necessary but is now
-require 'net/ssh/command_stream'
+#require 'net/ssh/command_stream'
 
 class MetasploitModule < Msf::Auxiliary
   include Msf::Exploit::Remote::SSH

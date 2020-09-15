@@ -1,4 +1,4 @@
-require 'pathname'
+#require 'pathname'
 
 # @note needs to use explicit nesting. so this file can be loaded directly without loading 'metasploit/framework' which
 #   allows for faster loading of rake tasks.

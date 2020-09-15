@@ -1,7 +1,7 @@
 # -*- coding:binary -*-
-require 'spec_helper'
+#require 'spec_helper'
 
-require 'rex/image_source/memory'
+#require 'rex/image_source/memory'
 
 RSpec.describe Rex::ImageSource::Memory do
 

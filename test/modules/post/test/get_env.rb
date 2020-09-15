@@ -1,7 +1,7 @@
-require 'msf/core'
+#require 'msf/core'
 
 lib = File.join(Msf::Config.install_root, "test", "lib")
-require 'module_test'
+#require 'module_test'
 
 #load 'test/lib/module_test.rb'
 #load 'lib/rex/text.rb'

@@ -1,5 +1,5 @@
-require 'rex/java'
-require 'stringio'
+#require 'rex/java'
+#require 'stringio'
 
 load Metasploit::Framework.root.join('tools/exploit/java_deserializer.rb').to_path
 

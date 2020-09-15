@@ -21,7 +21,7 @@ class MetasploitModule < Msf::Post
         'Name'          => 'OSX Network Share Mounter',
         'Description'   => %q{
           This module lists saved network shares and tries to connect to them using stored
-          credentials. This does not require root privileges.
+          credentials. This does not #require root privileges.
         },
         'License'       => MSF_LICENSE,
         'Author'        =>

@@ -3,7 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'tmpdir'
+#require 'tmpdir'
 
 class MetasploitModule < Msf::Post
   include Msf::Post::Windows::Priv

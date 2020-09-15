@@ -1,4 +1,4 @@
-require 'json'
+#require 'json'
 
 module Sqlmap
   class Manager

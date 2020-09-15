@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
 
-require 'rex/post/meterpreter/extensions/lanattacks/tlv'
+#require 'rex/post/meterpreter/extensions/lanattacks/tlv'
 
 module Rex
 module Post

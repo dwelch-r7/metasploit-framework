@@ -24,7 +24,7 @@ class MetasploitModule < Msf::Auxiliary
         If the machine is missing the MS17-010 patch, the module will check for an
         existing DoublePulsar (ring 0 shellcode/malware) infection.
 
-        This module does not require valid SMB credentials in default server
+        This module does not #require valid SMB credentials in default server
         configurations. It can log on as the user "\" and connect to IPC$.
       },
       'Author'         =>

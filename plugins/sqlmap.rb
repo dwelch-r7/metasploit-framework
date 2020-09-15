@@ -1,6 +1,6 @@
-require 'sqlmap/sqlmap_session'
-require 'sqlmap/sqlmap_manager'
-require 'json'
+#require 'sqlmap/sqlmap_session'
+#require 'sqlmap/sqlmap_manager'
+#require 'json'
 
 module Msf
   class Plugin::Sqlmap < Msf::Plugin

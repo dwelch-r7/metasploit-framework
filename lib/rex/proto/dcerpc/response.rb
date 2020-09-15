@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
-require 'rex/proto/dcerpc/uuid'
-require 'rex/proto/dcerpc/exceptions'
+#require 'rex/proto/dcerpc/uuid'
+#require 'rex/proto/dcerpc/exceptions'
 
 module Rex
 module Proto

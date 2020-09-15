@@ -1,7 +1,7 @@
 # -*- coding: binary -*-
-require 'rex/socket'
-require 'rex/proto/tftp'
-require 'tempfile'
+#require 'rex/socket'
+#require 'rex/proto/tftp'
+#require 'tempfile'
 
 module Rex
 module Proto

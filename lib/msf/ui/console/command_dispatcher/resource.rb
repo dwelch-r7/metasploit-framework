@@ -4,7 +4,7 @@
 # Rex
 #
 
-require 'rex/ui/text/output/buffer/stdout'
+#require 'rex/ui/text/output/buffer/stdout'
 
 
 module Msf

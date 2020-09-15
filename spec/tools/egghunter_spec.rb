@@ -1,5 +1,5 @@
 load Metasploit::Framework.root.join('tools/exploit/egghunter.rb').to_path
-require 'spec_helper'
+#require 'spec_helper'
 
 RSpec.describe Egghunter do
 

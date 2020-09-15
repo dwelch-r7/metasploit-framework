@@ -2,8 +2,8 @@
 # Copyright (C) 2008-2009 TOMITA Masahiro
 # mailto:tommy@tmtm.org
 
-require "enumerator"
-require "uri"
+#require "enumerator"
+#require "uri"
 
 # MySQL connection class.
 # === Example
@@ -16,10 +16,10 @@ require "uri"
 class RbMysql
 
   dir = File.dirname __FILE__
-  require "#{dir}/rbmysql/constants"
-  require "#{dir}/rbmysql/error"
-  require "#{dir}/rbmysql/charset"
-  require "#{dir}/rbmysql/protocol"
+  #require "#{dir}/rbmysql/constants"
+  #require "#{dir}/rbmysql/error"
+  #require "#{dir}/rbmysql/charset"
+  #require "#{dir}/rbmysql/protocol"
 
   VERSION            = 30001               # Version number of this library
   MYSQL_UNIX_PORT    = "/tmp/mysql.sock"   # UNIX domain socket filename

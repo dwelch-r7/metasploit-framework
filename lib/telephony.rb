@@ -1,7 +1,7 @@
-require 'serialport'
+#require 'serialport'
 
 module Telephony
 end
 
-require 'telephony/modem'
+#require 'telephony/modem'
 

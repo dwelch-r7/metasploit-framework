@@ -6,8 +6,8 @@
 # unauthenticated, so realize that you have been warned.
 #
 
-require "msf/core/rpc/v10/service"
-require "fileutils"
+#require "msf/core/rpc/v10/service"
+#require "fileutils"
 
 module Msf
 

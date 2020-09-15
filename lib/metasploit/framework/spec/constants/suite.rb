@@ -64,7 +64,7 @@ module Metasploit::Framework::Spec::Constants::Suite
       leaked_after = Metasploit::Framework::Spec::Constants::Suite.print_leaked_constants(:after)
 
       # leaks after suite can be be cleaned up by {Metasploit::Framework::Spec::Constants::Each.configure!}, but
-      # leaks before suite require user intervention to find the leaks since it's a programming error in how the specs
+      # leaks before suite #require user intervention to find the leaks since it's a programming error in how the specs
       # are written where Modules are being loaded in the context scope.
       if leaked_after
         $stderr.puts

@@ -1,5 +1,5 @@
 # -*- coding:binary -*-
-require 'rex/proto/nuuo/client'
+#require 'rex/proto/nuuo/client'
 
 RSpec.describe Rex::Proto::Nuuo::Client do
   subject(:client) {

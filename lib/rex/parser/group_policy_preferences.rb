@@ -9,8 +9,8 @@ module Parser
 # and uses REXML (as opposed to Nokogiri) for its XML parsing.
 # See: http://msdn.microsoft.com/en-gb/library/cc232587.aspx
 class GPP
-  require 'rex'
-  require 'rexml/document'
+  #require 'rex'
+  #require 'rexml/document'
 
   def self.parse(data)
     if data.nil?

@@ -9,7 +9,7 @@ module Msf
 
 module Auxiliary::Timed
 
-require 'timeout'
+#require 'timeout'
 
 #
 # Initializes an instance of a timed module

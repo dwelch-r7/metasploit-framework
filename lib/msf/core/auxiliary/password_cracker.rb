@@ -1,11 +1,11 @@
 # -*- coding: binary -*-
-require 'open3'
-require 'fileutils'
-require 'rex/proto/ntlm/crypt'
-require 'metasploit/framework/password_crackers/cracker'
-require 'metasploit/framework/password_crackers/wordlist'
-require 'metasploit/framework/password_crackers/jtr/formatter'
-require 'metasploit/framework/password_crackers/hashcat/formatter'
+#require 'open3'
+#require 'fileutils'
+#require 'rex/proto/ntlm/crypt'
+#require 'metasploit/framework/password_crackers/cracker'
+#require 'metasploit/framework/password_crackers/wordlist'
+#require 'metasploit/framework/password_crackers/jtr/formatter'
+#require 'metasploit/framework/password_crackers/hashcat/formatter'
 
 
 module Msf

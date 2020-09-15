@@ -1,5 +1,5 @@
 # -*- coding: binary -*-
-require 'erb'
+#require 'erb'
 
 module Rex
 module Proto

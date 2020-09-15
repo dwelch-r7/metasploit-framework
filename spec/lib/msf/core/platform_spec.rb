@@ -1,4 +1,4 @@
-require 'spec_helper'
+#require 'spec_helper'
 
 RSpec.describe Msf::Platform do
   it 'is an alias for Msf::Module::Platform' do

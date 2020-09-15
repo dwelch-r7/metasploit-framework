@@ -1,5 +1,5 @@
 # -*- coding: binary -*-
-require 'erb'
+#require 'erb'
 include ERB::Util
 
 module Rex

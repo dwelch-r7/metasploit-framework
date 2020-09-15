@@ -2,11 +2,11 @@
 # Copyright (C) 2008-2009 TOMITA Masahiro
 # mailto:tommy@tmtm.org
 
-require "socket"
-require "timeout"
-require "digest/sha1"
-require "thread"
-require "stringio"
+#require "socket"
+#require "timeout"
+#require "digest/sha1"
+#require "thread"
+#require "stringio"
 
 class RbMysql
   # MySQL network protocol

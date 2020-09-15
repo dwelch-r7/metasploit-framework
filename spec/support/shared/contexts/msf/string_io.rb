@@ -1,4 +1,4 @@
-require 'stringio'
+#require 'stringio'
 
 RSpec.shared_context 'Msf::StringIO' do
 

@@ -1,7 +1,7 @@
 #
 # -*- coding: binary -*-
-require 'rex/post/hwbridge/extensions/automotive/uds_errors'
-require 'rex/post/hwbridge/client'
+#require 'rex/post/hwbridge/extensions/automotive/uds_errors'
+#require 'rex/post/hwbridge/client'
 
 module Rex
 module Post

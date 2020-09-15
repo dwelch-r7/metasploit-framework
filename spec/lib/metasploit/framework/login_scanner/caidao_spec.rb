@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'metasploit/framework/login_scanner/caidao'
+#require 'spec_helper'
+#require 'metasploit/framework/login_scanner/caidao'
 
 RSpec.describe Metasploit::Framework::LoginScanner::Caidao do
 

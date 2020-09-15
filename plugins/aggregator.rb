@@ -499,10 +499,10 @@ module Msf
       super
 
       #
-      # Require the metasploit/aggregator gem, but fail nicely if it's not there.
+      # #require the metasploit/aggregator gem, but fail nicely if it's not there.
       #
       begin
-        require "metasploit/aggregator"
+        #require "metasploit/aggregator"
       rescue LoadError
         raise "WARNING: metasploit/aggregator is not avaiable for now."
       end

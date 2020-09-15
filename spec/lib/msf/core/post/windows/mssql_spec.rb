@@ -1,7 +1,7 @@
 # -*- coding: binary -*-
-require 'spec_helper'
+#require 'spec_helper'
 
-require 'msf/core/post/windows/mssql'
+#require 'msf/core/post/windows/mssql'
 
 RSpec.describe Msf::Post::Windows::MSSQL do
   let(:subject) do

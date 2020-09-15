@@ -1,8 +1,8 @@
 
 # -*- coding: binary -*-
 
-require 'msf/core'
-require 'msf/core/payload/php/send_uuid'
+#require 'msf/core'
+#require 'msf/core/payload/php/send_uuid'
 
 module Msf
 

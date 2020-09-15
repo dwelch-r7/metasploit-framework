@@ -1,8 +1,8 @@
 # frozen_string_literal: true
-require 'spec_helper'
+#require 'spec_helper'
 
-require 'msf/ui'
-require 'msf/ui/console/command_dispatcher/creds'
+#require 'msf/ui'
+#require 'msf/ui/console/command_dispatcher/creds'
 
 RSpec.describe Msf::Ui::Console::CommandDispatcher::Creds do
 

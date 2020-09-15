@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
 
-require 'openssl'
+#require 'openssl'
 
 #
 # TDSSSLProxy:

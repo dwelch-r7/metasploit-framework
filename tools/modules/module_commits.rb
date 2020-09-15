@@ -12,7 +12,7 @@
 # Usage: tools/module_commits.rb [module dir | module fname]
 #
 
-require 'find'
+#require 'find'
 
 class GitLogLine < Struct.new(:date, :hash, :author, :message)
 end

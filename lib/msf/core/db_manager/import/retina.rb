@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
 
-require 'rex/parser/retina_xml'
+#require 'rex/parser/retina_xml'
 
 module Msf::DBManager::Import::Retina
   # Process Retina XML

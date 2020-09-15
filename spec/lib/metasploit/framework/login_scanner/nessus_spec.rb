@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'metasploit/framework/login_scanner/nessus'
+#require 'spec_helper'
+#require 'metasploit/framework/login_scanner/nessus'
 
 RSpec.describe Metasploit::Framework::LoginScanner::Nessus do
 

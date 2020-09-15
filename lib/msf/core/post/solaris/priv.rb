@@ -1,5 +1,5 @@
 # -*- coding: binary -*-
-require 'msf/core/post/common'
+#require 'msf/core/post/common'
 
 module Msf
 class Post

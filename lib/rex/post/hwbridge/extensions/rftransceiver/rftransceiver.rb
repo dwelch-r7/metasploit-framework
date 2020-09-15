@@ -1,6 +1,6 @@
 #
 # -*- coding: binary -*-
-require 'rex/post/hwbridge/client'
+#require 'rex/post/hwbridge/client'
 
 module Rex
 module Post

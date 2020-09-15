@@ -7,9 +7,9 @@
 # COPYING file in the Ruby distribution for details.
 #
 
-require 'snmp/varbind'
-require 'fileutils'
-require 'yaml'
+#require 'snmp/varbind'
+#require 'fileutils'
+#require 'yaml'
 
 module SNMP
 

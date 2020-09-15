@@ -1,8 +1,8 @@
 # -*- coding:binary -*-
-require 'spec_helper'
+#require 'spec_helper'
 
-require 'stringio'
-require 'rex/proto/rmi'
+#require 'stringio'
+#require 'rex/proto/rmi'
 
 RSpec.describe Rex::Proto::Rmi::Model::DgcAck do
 

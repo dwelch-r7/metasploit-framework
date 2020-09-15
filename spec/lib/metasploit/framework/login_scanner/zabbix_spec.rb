@@ -1,6 +1,6 @@
 
-require 'spec_helper'
-require 'metasploit/framework/login_scanner/zabbix'
+#require 'spec_helper'
+#require 'metasploit/framework/login_scanner/zabbix'
 
 RSpec.describe Metasploit::Framework::LoginScanner::Zabbix do
 

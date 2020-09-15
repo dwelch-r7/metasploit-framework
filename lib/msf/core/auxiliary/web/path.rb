@@ -4,9 +4,9 @@
 # Framework web site for more information on licensing and terms of use.
 # https://metasploit.com/framework/
 
-require 'net/https'
-require 'net/http'
-require 'uri'
+#require 'net/https'
+#require 'net/http'
+#require 'uri'
 
 module Msf
 

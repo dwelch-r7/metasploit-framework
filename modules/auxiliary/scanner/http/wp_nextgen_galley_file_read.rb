@@ -3,8 +3,8 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'json'
-require 'nokogiri'
+#require 'json'
+#require 'nokogiri'
 
 class MetasploitModule < Msf::Auxiliary
   include Msf::Auxiliary::Report

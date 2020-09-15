@@ -1,17 +1,17 @@
 # -*- coding: binary -*-
-require 'msf/core'
-require 'msf/base'
-require 'msf/ui'
-require 'msf/ui/console/framework_event_manager'
-require 'msf/ui/console/command_dispatcher'
-require 'msf/ui/console/command_dispatcher/db'
-require 'msf/ui/console/command_dispatcher/creds'
-require 'msf/ui/console/table'
-require 'find'
-require 'erb'
-require 'rexml/document'
-require 'fileutils'
-require 'digest/md5'
+#require 'msf/core'
+#require 'msf/base'
+#require 'msf/ui'
+#require 'msf/ui/console/framework_event_manager'
+#require 'msf/ui/console/command_dispatcher'
+#require 'msf/ui/console/command_dispatcher/db'
+#require 'msf/ui/console/command_dispatcher/creds'
+#require 'msf/ui/console/table'
+#require 'find'
+#require 'erb'
+#require 'rexml/document'
+#require 'fileutils'
+#require 'digest/md5'
 
 module Msf
 module Ui
@@ -612,7 +612,7 @@ protected
 
     return false unless val.is_a?(String) && !val.empty?
 
-    require 'net/ssh'
+    #require 'net/ssh'
 
     # HACK: Bypass dynamic constant assignment error
     ::Net::SSH::Transport::ServerVersion.const_set(:PROTO_VERSION, val)
@@ -629,7 +629,7 @@ protected
     $VERBOSE = verbose
   end
 
-  # Require the appropriate readline library based on the user's preference.
+  # #require the appropriate readline library based on the user's preference.
   #
   # @return [void]
   def choose_readline(opts)
@@ -649,10 +649,10 @@ protected
     end
 
     begin
-      require 'readline'
+      #require 'readline'
     rescue ::LoadError => e
       if @rl_err.nil? && index
-        # Then this is the first time the require failed and we have an index
+        # Then this is the first time the #require failed and we have an index
         # for the gem version as a fallback.
         @rl_err = e
         # Put the gem back and see if that works

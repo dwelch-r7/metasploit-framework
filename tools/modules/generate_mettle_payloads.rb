@@ -4,7 +4,7 @@
 # This script generates Mettle payload wrappers
 #
 
-require 'erb'
+#require 'erb'
 
 schemes = [
   'tcp',

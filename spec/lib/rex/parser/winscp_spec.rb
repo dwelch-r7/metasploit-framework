@@ -1,4 +1,4 @@
-require 'rex/parser/winscp'
+#require 'rex/parser/winscp'
 
 INI_SECURITY = "[Configuration\\Security]\nUseMasterPassword=1\nMasterPasswordVerifier=\n"
 

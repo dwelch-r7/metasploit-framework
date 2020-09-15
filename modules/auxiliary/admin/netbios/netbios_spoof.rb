@@ -14,7 +14,7 @@ class MetasploitModule < Msf::Auxiliary
         causing the target to cache a malicious address for this name. On high-speed local
         networks, the PPSRATE value should be increased to speed up this attack. As an
         example, a value of around 30,000 is almost 100% successful when spoofing a
-        response for a 'WPAD' lookup. Distant targets may require more time and lower
+        response for a 'WPAD' lookup. Distant targets may #require more time and lower
         rates for a successful attack.
       },
       'Author'     => [

@@ -1,5 +1,5 @@
 # -*- coding:binary -*-
-require 'rex/proto/proxy/socks5'
+#require 'rex/proto/proxy/socks5'
 
 RSpec.describe Rex::Proto::Proxy::Socks5::Server do
 

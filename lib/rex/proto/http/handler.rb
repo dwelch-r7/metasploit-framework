@@ -10,8 +10,8 @@ module Http
 ###
 class Handler
 
-  require 'rex/proto/http/handler/erb'
-  require 'rex/proto/http/handler/proc'
+  #require 'rex/proto/http/handler/erb'
+  #require 'rex/proto/http/handler/proc'
 
   #
   # Initializes the handler instance as being associated with the supplied
@@ -22,7 +22,7 @@ class Handler
   end
 
   #
-  # By default, handlers do not require a relative resource.
+  # By default, handlers do not #require a relative resource.
   #
   def self.relative_resource_required?
     false

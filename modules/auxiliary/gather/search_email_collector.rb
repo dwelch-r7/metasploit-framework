@@ -3,7 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'net/http'
+#require 'net/http'
 
 class MetasploitModule < Msf::Auxiliary
   include Msf::Auxiliary::Report

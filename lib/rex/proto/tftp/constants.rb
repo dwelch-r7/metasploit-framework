@@ -1,5 +1,5 @@
 # -*- coding: binary -*-
-require 'rex/proto/tftp'
+#require 'rex/proto/tftp'
 
 module Rex
 module Proto

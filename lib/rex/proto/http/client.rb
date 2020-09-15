@@ -1,10 +1,10 @@
 # -*- coding: binary -*-
-require 'rex/socket'
-require 'rex/proto/http'
-require 'rex/text'
-require 'digest'
+#require 'rex/socket'
+#require 'rex/proto/http'
+#require 'rex/text'
+#require 'digest'
 
-require 'rex/proto/http/client_request'
+#require 'rex/proto/http/client_request'
 
 module Rex
 module Proto
@@ -420,7 +420,7 @@ class Client
       "algorithm=#{algstr}",
       "response=\"#{algorithm.hexdigest(request_digest)[0, 32]}\"",
       # The spec says the qop value shouldn't be enclosed in quotes, but
-      # some versions of IIS require it and Apache accepts it.  Chrome
+      # some versions of IIS #require it and Apache accepts it.  Chrome
       # and Firefox both send it without quotes but IE does it this way.
       # Use the non-compliant-but-everybody-does-it to be as compatible
       # as possible by default.  The user can override if they don't like

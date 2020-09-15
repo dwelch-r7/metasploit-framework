@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'metasploit/framework/login_scanner/snmp'
+#require 'spec_helper'
+#require 'metasploit/framework/login_scanner/snmp'
 
 RSpec.describe Metasploit::Framework::LoginScanner::SNMP do
   let(:public) { 'public' }

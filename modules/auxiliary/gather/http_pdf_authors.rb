@@ -65,7 +65,7 @@ class MetasploitModule < Msf::Auxiliary
   end
 
   def read(data)
-    require 'pdf-reader'
+    #require 'pdf-reader'
 
     Timeout.timeout(10) do
       reader = PDF::Reader.new data

@@ -2,7 +2,7 @@
 #
 # Support for MQTT
 
-require 'rex/proto/mqtt/client'
+#require 'rex/proto/mqtt/client'
 
 module Rex
   module Proto

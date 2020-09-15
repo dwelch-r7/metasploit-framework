@@ -4,9 +4,9 @@ module Proto
 module DCERPC
 class Packet
 
-require 'rex/proto/dcerpc/uuid'
-require 'rex/proto/dcerpc/response'
-require 'rex/text'
+#require 'rex/proto/dcerpc/uuid'
+#require 'rex/proto/dcerpc/response'
+#require 'rex/text'
 
   UUID = Rex::Proto::DCERPC::UUID
 

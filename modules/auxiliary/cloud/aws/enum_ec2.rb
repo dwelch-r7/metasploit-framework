@@ -3,7 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'aws-sdk-ec2'
+#require 'aws-sdk-ec2'
 
 class MetasploitModule < Msf::Auxiliary
   def initialize(info = {})

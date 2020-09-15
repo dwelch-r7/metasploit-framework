@@ -3,7 +3,7 @@
 module Msf
 module Util
 
-require 'json'
+#require 'json'
 
 class JavaDeserialization
 
@@ -33,7 +33,7 @@ class JavaDeserialization
     # generate a dynamic payload with modifications at the specified offsets
     case payload['status']
     when 'unsupported'
-      # This exception will occur most commonly with complex payloads that require more than a string
+      # This exception will occur most commonly with complex payloads that #require more than a string
       raise ArgumentError, 'ysoserial payload is unsupported'
     when 'static'
       # TODO: Consider removing 'static' functionality, since ysoserial doesn't currently use it

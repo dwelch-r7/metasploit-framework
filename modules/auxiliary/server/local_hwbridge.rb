@@ -200,7 +200,7 @@ class MetasploitModule < Msf::Auxiliary
       padding = "%02x" % padding.to_i
       bytes += ([ padding ] * (16 - bytes.size)).join
     end
-    # Should we ever require isotpsend for this?
+    # Should we ever #require isotpsend for this?
     `which cansend`
     unless $?.success?
       print_error("cansend from can-utils not found in path")

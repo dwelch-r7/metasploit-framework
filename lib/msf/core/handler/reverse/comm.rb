@@ -1,5 +1,5 @@
 # -*- coding: binary -*-
-require 'rex/socket'
+#require 'rex/socket'
 
 module Msf
 module Handler

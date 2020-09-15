@@ -1,12 +1,12 @@
 # -*- coding: binary -*-
-require 'rex/proto/drda'
+#require 'rex/proto/drda'
 
 module Rex
 module Proto
 module DRDA
 class Constants
 
-require 'rex/text'
+#require 'rex/text'
 
 # DRDA Code Points
 

@@ -1,5 +1,5 @@
-require 'metasploit/framework/obfuscation/crandomizer/random_statements'
-require 'metasploit/framework/obfuscation/crandomizer/code_factory'
+#require 'metasploit/framework/obfuscation/crandomizer/random_statements'
+#require 'metasploit/framework/obfuscation/crandomizer/code_factory'
 
 RSpec.describe Metasploit::Framework::Obfuscation::CRandomizer::RandomStatements do
 

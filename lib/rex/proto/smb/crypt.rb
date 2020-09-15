@@ -1,5 +1,5 @@
 # -*- coding: binary -*-
-require 'rex/text'
+#require 'rex/text'
 
 module Rex
 module Proto
@@ -9,7 +9,7 @@ class Crypt
   @@loaded_openssl = false
 
   begin
-    require 'openssl'
+    #require 'openssl'
     @@loaded_openssl = true
   rescue ::Exception
   end

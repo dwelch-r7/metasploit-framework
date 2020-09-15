@@ -11,7 +11,7 @@
 #	Colin Ames (amesc[at]attackresearch.com) David Kerb (dkerb[at]attackresearch.com)
 #-------------------------------------------------------------------------------
 ################## Variable Declarations ##################
-require 'fileutils'
+#require 'fileutils'
 @client = client
 pid = nil
 name = nil

@@ -6,17 +6,17 @@
 #
 # Standard Library
 #
-require 'tmpdir'
+#require 'tmpdir'
 
 #
 # Gems
 #
-require 'zip'
+#require 'zip'
 
 #
 # Project
 #
-require 'msf/core/auxiliary/report'
+#require 'msf/core/auxiliary/report'
 
 class MetasploitModule < Msf::Post
   include Msf::Post::File

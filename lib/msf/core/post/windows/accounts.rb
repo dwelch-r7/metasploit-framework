@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
 
-require 'msf/core/post/windows/error'
+#require 'msf/core/post/windows/error'
 
 module Msf
   class Post

@@ -1,7 +1,7 @@
 # -*- coding: binary -*-
 
-require 'rex/post/meterpreter/extensions/unhook/tlv'
-require 'rex/post/meterpreter/extensions/unhook/command_ids'
+#require 'rex/post/meterpreter/extensions/unhook/tlv'
+#require 'rex/post/meterpreter/extensions/unhook/command_ids'
 
 module Rex
 module Post

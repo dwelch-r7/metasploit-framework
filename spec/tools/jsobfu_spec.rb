@@ -1,8 +1,8 @@
-require 'spec_helper'
+#require 'spec_helper'
 
 load Metasploit::Framework.root.join('tools/exploit/jsobfu.rb').to_path
 
-require 'stringio'
+#require 'stringio'
 
 RSpec.describe Jsobfu do
 

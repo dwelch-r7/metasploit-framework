@@ -1,8 +1,8 @@
 # -*- coding: binary -*-
-require 'tempfile'
-require 'filesize'
-require 'rex/post/meterpreter'
-require 'rex/post/meterpreter/extensions/stdapi/command_ids'
+#require 'tempfile'
+#require 'filesize'
+#require 'rex/post/meterpreter'
+#require 'rex/post/meterpreter/extensions/stdapi/command_ids'
 
 module Rex
 module Post

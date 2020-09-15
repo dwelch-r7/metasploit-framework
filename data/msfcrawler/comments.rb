@@ -3,9 +3,9 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'pathname'
-require 'nokogiri'
-require 'uri'
+#require 'pathname'
+#require 'nokogiri'
+#require 'uri'
 
 class CrawlerComments < BaseParser
 

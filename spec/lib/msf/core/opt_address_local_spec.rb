@@ -1,7 +1,7 @@
 # -*- coding:binary -*-
 
-require 'spec_helper'
-require 'msf/core/option_container'
+#require 'spec_helper'
+#require 'msf/core/option_container'
 
 RSpec.describe Msf::OptAddressLocal do
   iface = NetworkInterface.interfaces.collect do |iface|

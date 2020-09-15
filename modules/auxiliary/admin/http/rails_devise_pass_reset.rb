@@ -3,7 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'rexml/element'
+#require 'rexml/element'
 
 class MetasploitModule < Msf::Auxiliary
   include Msf::Exploit::Remote::HttpClient
@@ -19,7 +19,7 @@ class MetasploitModule < Msf::Auxiliary
           knowing only the associated email address.
 
           This module defaults to the most common devise URIs and response values,
-          but these may require adjustment for implementations which customize them.
+          but these may #require adjustment for implementations which customize them.
 
           Affects Devise < v2.2.3, 2.1.3, 2.0.5 and 1.5.4 when backed by any database
           except PostgreSQL or SQLite3. Tested with v2.2.2, 2.1.2, and 2.0.4 on Rails

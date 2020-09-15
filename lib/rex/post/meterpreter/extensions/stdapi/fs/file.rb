@@ -1,13 +1,13 @@
 # -*- coding: binary -*-
 
-require 'rex/post/file'
-require 'rex/post/meterpreter/channel'
-require 'rex/post/meterpreter/channels/pools/file'
-require 'rex/post/meterpreter/extensions/stdapi/stdapi'
-require 'rex/post/meterpreter/extensions/stdapi/fs/io'
-require 'rex/post/meterpreter/extensions/stdapi/fs/file_stat'
-require 'fileutils'
-require 'filesize'
+#require 'rex/post/file'
+#require 'rex/post/meterpreter/channel'
+#require 'rex/post/meterpreter/channels/pools/file'
+#require 'rex/post/meterpreter/extensions/stdapi/stdapi'
+#require 'rex/post/meterpreter/extensions/stdapi/fs/io'
+#require 'rex/post/meterpreter/extensions/stdapi/fs/file_stat'
+#require 'fileutils'
+#require 'filesize'
 
 module Rex
 module Post

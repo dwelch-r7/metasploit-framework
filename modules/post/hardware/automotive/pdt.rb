@@ -3,8 +3,8 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'rex'
-require 'msf/core/post/hardware/automotive/uds'
+#require 'rex'
+#require 'msf/core/post/hardware/automotive/uds'
 
 class MetasploitModule < Msf::Post
 

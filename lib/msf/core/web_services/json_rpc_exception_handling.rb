@@ -1,4 +1,4 @@
-require 'msf/core/rpc'
+#require 'msf/core/rpc'
 
 module Msf::WebServices::JsonRpcExceptionHandling
   class RackMiddleware

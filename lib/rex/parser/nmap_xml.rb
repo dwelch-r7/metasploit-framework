@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
 
-require 'rexml/document'
+#require 'rexml/document'
 
 module Rex
 module Parser

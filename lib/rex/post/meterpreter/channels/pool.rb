@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
 
-require 'rex/post/meterpreter/channel'
+#require 'rex/post/meterpreter/channel'
 
 module Rex
 module Post

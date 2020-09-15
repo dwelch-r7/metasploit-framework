@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
 
-require 'rex/proto/sip/response'
+#require 'rex/proto/sip/response'
 
 RSpec.describe 'Rex::Proto::SIP::Response parsing' do
   describe 'Parses vaild responses correctly' do

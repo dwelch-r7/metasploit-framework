@@ -1,10 +1,10 @@
-require 'spec_helper'
+#require 'spec_helper'
 
 load Metasploit::Framework.root.join('tools/exploit/virustotal.rb').to_path
 
-require 'msfenv'
-require 'msf/base'
-require 'digest/sha2'
+#require 'msfenv'
+#require 'msf/base'
+#require 'digest/sha2'
 
 RSpec.describe VirusTotalUtility do
 

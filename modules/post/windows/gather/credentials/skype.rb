@@ -35,7 +35,7 @@ class MetasploitModule < Msf::Post
 # To generate test hashes in ruby use:
 =begin
 
-require 'openssl'
+#require 'openssl'
 
 username = "test"
 passsword = "test"

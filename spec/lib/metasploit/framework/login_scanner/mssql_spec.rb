@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'metasploit/framework/login_scanner/mssql'
+#require 'spec_helper'
+#require 'metasploit/framework/login_scanner/mssql'
 
 RSpec.describe Metasploit::Framework::LoginScanner::MSSQL do
   let(:public) { 'root' }

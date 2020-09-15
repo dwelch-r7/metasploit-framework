@@ -1,4 +1,4 @@
-require 'openssl'
+#require 'openssl'
 
 module Metasploit
   module Framework
@@ -7,7 +7,7 @@ module Metasploit
         USER_AGENT = "aws-sdk-ruby2/2.6.27 ruby/2.3.2 x86_64-darwin15"
         include Msf::Exploit::Remote::HttpClient
 
-        # because Post modules require these to be defined when including HttpClient
+        # because Post modules #require these to be defined when including HttpClient
         def register_autofilter_ports(ports=[]); end
         def register_autofilter_hosts(ports=[]); end
         def register_autofilter_services(services=[]); end

@@ -1,4 +1,4 @@
-require 'swagger/blocks'
+#require 'swagger/blocks'
 load 'documentation/api/v1/root_api_doc.rb'
 load 'documentation/api/v1/auth_api_doc.rb'
 load 'documentation/api/v1/credential_api_doc.rb'

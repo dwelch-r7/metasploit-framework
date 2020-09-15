@@ -14,7 +14,7 @@ class MetasploitModule < Msf::Auxiliary
         a malicious address for this name. On high-speed networks, the PPSRATE value
         should be increased to speed up this attack. As an example, a value of around
         30,000 is almost 100% successful when spoofing a response for a 'WPAD' lookup.
-        Distant targets may require more time and lower rates for a successful attack.
+        Distant targets may #require more time and lower rates for a successful attack.
 
         This module works when the target is behind a NAT gateway, since the stream of
         NetBIOS responses will keep the NAT mapping alive after the initial setup. To

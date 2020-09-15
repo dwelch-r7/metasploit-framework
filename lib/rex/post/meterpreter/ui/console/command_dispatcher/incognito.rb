@@ -1,5 +1,5 @@
 # -*- coding: binary -*-
-require 'rex/post/meterpreter'
+#require 'rex/post/meterpreter'
 
 module Rex
 module Post

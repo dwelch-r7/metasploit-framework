@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'metasploit/framework/login_scanner/manageengine_desktop_central'
+#require 'spec_helper'
+#require 'metasploit/framework/login_scanner/manageengine_desktop_central'
 
 RSpec.describe Metasploit::Framework::LoginScanner::ManageEngineDesktopCentral do
 

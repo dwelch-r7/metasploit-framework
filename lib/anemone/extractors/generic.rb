@@ -1,4 +1,4 @@
-require 'uri'
+#require 'uri'
 
 class Anemone::Extractors::Generic < Anemone::Extractors::Base
 

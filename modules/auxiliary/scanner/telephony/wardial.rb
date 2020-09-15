@@ -3,7 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'zlib'
+#require 'zlib'
 
 
 # Extend Object class to include save_to_file and load_from_file methods
@@ -81,7 +81,7 @@ class MetasploitModule < Msf::Auxiliary
     @commandstate = true
 
     begin
-      require 'telephony'
+      #require 'telephony'
       @telephony_loaded = true
     rescue ::Exception => e
       @telephony_loaded = false

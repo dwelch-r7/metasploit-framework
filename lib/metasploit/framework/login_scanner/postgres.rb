@@ -1,5 +1,5 @@
-require 'metasploit/framework/login_scanner/base'
-require 'postgres_msf'
+#require 'metasploit/framework/login_scanner/base'
+#require 'postgres_msf'
 
 module Metasploit
   module Framework

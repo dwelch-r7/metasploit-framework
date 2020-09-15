@@ -1,5 +1,5 @@
 # encoding: binary
-require 'rex/parser/group_policy_preferences'
+#require 'rex/parser/group_policy_preferences'
 
 xml_group = '
 <?xml version="1.0" encoding="utf-8"?>

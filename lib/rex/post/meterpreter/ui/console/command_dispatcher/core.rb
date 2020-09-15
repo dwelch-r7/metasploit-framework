@@ -1,7 +1,7 @@
 # -*- coding: binary -*-
-require 'set'
-require 'rex/post/meterpreter'
-require 'rex/parser/arguments'
+#require 'set'
+#require 'rex/post/meterpreter'
+#require 'rex/parser/arguments'
 
 module Rex
 module Post
@@ -605,7 +605,7 @@ class Console::CommandDispatcher::Core
     end
 
     begin
-      require 'pry'
+      #require 'pry'
     rescue LoadError
       print_error('Failed to load Pry, try "gem install pry"')
       return

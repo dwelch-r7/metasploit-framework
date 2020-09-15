@@ -314,7 +314,7 @@ class MetasploitModule < Msf::Post
 
     has_sqlite3 = true
     begin
-      require 'sqlite3'
+      #require 'sqlite3'
     rescue LoadError
       print_warning("SQLite3 is not available, and we are not able to parse the database.")
       has_sqlite3 = false

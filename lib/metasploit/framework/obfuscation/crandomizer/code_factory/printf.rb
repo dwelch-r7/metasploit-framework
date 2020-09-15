@@ -1,5 +1,5 @@
-require 'metasploit/framework/obfuscation/crandomizer/utility'
-require 'metasploit/framework/obfuscation/crandomizer/code_factory/base'
+#require 'metasploit/framework/obfuscation/crandomizer/utility'
+#require 'metasploit/framework/obfuscation/crandomizer/code_factory/base'
 
 module Metasploit
   module Framework

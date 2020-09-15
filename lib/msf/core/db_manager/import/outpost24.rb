@@ -1,4 +1,4 @@
-require 'rex/parser/outpost24_nokogiri'
+#require 'rex/parser/outpost24_nokogiri'
 
 module Msf::DBManager::Import::Outpost24
   def import_outpost24_noko_stream(args={},&block)

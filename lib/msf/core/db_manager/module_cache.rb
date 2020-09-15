@@ -2,7 +2,7 @@
 # Standard library
 #
 
-require 'shellwords'
+#require 'shellwords'
 
 module Msf::DBManager::ModuleCache
   #

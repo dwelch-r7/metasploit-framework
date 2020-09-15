@@ -48,7 +48,7 @@ class MetasploitModule < Msf::Auxiliary
 
     print_status("#{rhost}:#{rport} - Checking if authentication is required...")
     unless is_auth_required?
-      print_warning("#{rhost}:#{rport} - Application does not require authentication.")
+      print_warning("#{rhost}:#{rport} - Application does not #require authentication.")
       user = ''
       pass = ''
 
@@ -79,7 +79,7 @@ class MetasploitModule < Msf::Auxiliary
   end
 
   #
-  # The default install of RFCode Reader app does not require authentication. Instead, it'll log the
+  # The default install of RFCode Reader app does not #require authentication. Instead, it'll log the
   # user right in. If that's the case, no point to brute-force, either.
   #
   def is_auth_required?

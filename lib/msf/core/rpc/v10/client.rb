@@ -1,11 +1,11 @@
 # -*- coding: binary -*-
-require 'xmlrpc/client'
-require 'msgpack'
+#require 'xmlrpc/client'
+#require 'msgpack'
 
-require 'rex'
-require 'rex/proto/http'
+#require 'rex'
+#require 'rex/proto/http'
 
-require 'msf/core/rpc/v10/constants'
+#require 'msf/core/rpc/v10/constants'
 
 module Msf
 module RPC

@@ -1,7 +1,7 @@
 # -*- coding:binary -*-
-require 'rex/proto/http/client'
+#require 'rex/proto/http/client'
 
-# Note: Some of these tests require a failed
+# Note: Some of these tests #require a failed
 # connection to 127.0.0.1:1. If you have some crazy local
 # firewall that is dropping packets to this, your tests
 # might be slow. I wonder how Travis-CI will react to this...

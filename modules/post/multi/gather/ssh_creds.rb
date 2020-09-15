@@ -3,7 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'sshkey'
+#require 'sshkey'
 
 class MetasploitModule < Msf::Post
   include Msf::Post::File

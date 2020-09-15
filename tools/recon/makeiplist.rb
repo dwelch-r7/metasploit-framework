@@ -24,8 +24,8 @@ end
 
 $:.unshift(File.expand_path(File.join(File.dirname(msfbase), '..', '..', 'lib')))
 
-require 'rex'
-require 'optparse'
+#require 'rex'
+#require 'optparse'
 
 class OptsConsole
   def self.parse(args)

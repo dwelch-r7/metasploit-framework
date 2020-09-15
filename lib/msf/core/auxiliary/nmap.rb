@@ -1,7 +1,7 @@
 # -*- coding: binary -*-
-require 'rex/parser/nmap_nokogiri'
-require 'rex/parser/nmap_xml'
-require 'open3'
+#require 'rex/parser/nmap_nokogiri'
+#require 'rex/parser/nmap_xml'
+#require 'open3'
 
 module Msf
 

@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
-require 'spec_helper'
-require 'rex/proto/kademlia/message'
+#require 'spec_helper'
+#require 'rex/proto/kademlia/message'
 
 RSpec.describe Rex::Proto::Kademlia::Message do
 

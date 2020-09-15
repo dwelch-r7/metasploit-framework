@@ -1,5 +1,5 @@
-require 'pathname'
-require 'rubygems'
+#require 'pathname'
+#require 'rubygems'
 
 GEMFILE_EXTENSIONS = [
     '.local',
@@ -10,7 +10,7 @@ msfenv_real_pathname = Pathname.new(__FILE__).realpath
 root = msfenv_real_pathname.parent.parent
 
 unless ENV['BUNDLE_GEMFILE']
-  require 'pathname'
+  #require 'pathname'
 
   GEMFILE_EXTENSIONS.each do |extension|
     extension_pathname = root.join("Gemfile#{extension}")
@@ -23,7 +23,7 @@ unless ENV['BUNDLE_GEMFILE']
 end
 
 begin
-  require 'bundler/setup'
+  #require 'bundler/setup'
 rescue LoadError => e
   $stderr.puts "[*] Bundler failed to load and returned this error:"
   $stderr.puts

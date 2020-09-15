@@ -5,9 +5,9 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'net/http'
-require 'nokogiri'
-require 'thread'
+#require 'net/http'
+#require 'nokogiri'
+#require 'thread'
 
 module ReleaseNotesFinder
   # This finds the release notes information based on either:

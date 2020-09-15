@@ -4,8 +4,8 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'msf/core/handler/reverse_tcp'
-require 'msf/core/payload/windows/reverse_tcp_rc4'
+#require 'msf/core/handler/reverse_tcp'
+#require 'msf/core/payload/windows/reverse_tcp_rc4'
 
 
 module MetasploitModule

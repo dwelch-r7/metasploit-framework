@@ -1,5 +1,5 @@
 # -*- coding: binary -*-
-require 'rex/logging'
+#require 'rex/logging'
 
 module Rex
 module Post
@@ -61,7 +61,7 @@ module Console::CommandDispatcher
     if client.framework
       # We have a framework instance so the msf libraries should be
       # available.  Load up the ones we're going to use
-      require 'msf/base/serializer/readable_text'
+      #require 'msf/base/serializer/readable_text'
     end
     @msf_loaded = !!(client.framework)
     @msf_loaded

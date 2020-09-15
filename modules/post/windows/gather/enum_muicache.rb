@@ -3,7 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'rex/registry'
+#require 'rex/registry'
 
 class MetasploitModule < Msf::Post
   include Msf::Post::File

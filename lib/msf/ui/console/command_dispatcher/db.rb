@@ -1,12 +1,12 @@
 # -*- coding: binary -*-
 
-require 'json'
-require 'rexml/document'
-require 'rex/parser/nmap_xml'
-require 'msf/core/db_export'
-require 'msf/ui/console/command_dispatcher/db/analyze'
-require 'metasploit/framework/data_service'
-require 'metasploit/framework/data_service/remote/http/core'
+#require 'json'
+#require 'rexml/document'
+#require 'rex/parser/nmap_xml'
+#require 'msf/core/db_export'
+#require 'msf/ui/console/command_dispatcher/db/analyze'
+#require 'metasploit/framework/data_service'
+#require 'metasploit/framework/data_service/remote/http/core'
 
 module Msf
 module Ui
@@ -15,7 +15,7 @@ module CommandDispatcher
 
 class Db
 
-  require 'tempfile'
+  #require 'tempfile'
 
   include Msf::Ui::Console::CommandDispatcher
   include Msf::Ui::Console::CommandDispatcher::Common
@@ -78,7 +78,7 @@ class Db
   # Returns true if the db is connected, prints an error and returns
   # false if not.
   #
-  # All commands that require an active database should call this before
+  # All commands that #require an active database should call this before
   # doing anything.
   #
   def active?

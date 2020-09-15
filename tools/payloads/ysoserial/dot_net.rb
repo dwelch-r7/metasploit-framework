@@ -10,11 +10,11 @@ while File.symlink?(msfbase)
   msfbase = File.expand_path(File.readlink(msfbase), File.dirname(msfbase))
 end
 $:.unshift(File.expand_path(File.join(File.dirname(msfbase), '..', '..', '..', 'lib')))
-require 'msfenv'
-require 'msf/core'
-require 'msf/base'
-require 'rex'
-require 'optparse'
+#require 'msfenv'
+#require 'msf/core'
+#require 'msf/base'
+#require 'rex'
+#require 'optparse'
 
 DND = Msf::Util::DotNetDeserialization
 BANNER = %Q{

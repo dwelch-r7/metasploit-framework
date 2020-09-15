@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
 
-require 'mqtt'
+#require 'mqtt'
 
 ##
 # MQTT protocol support

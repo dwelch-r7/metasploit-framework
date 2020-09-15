@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'metasploit/framework/login_scanner/invalid'
+#require 'spec_helper'
+#require 'metasploit/framework/login_scanner/invalid'
 
 RSpec.describe Metasploit::Framework::LoginScanner::Invalid do
 

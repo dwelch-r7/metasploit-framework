@@ -1,5 +1,5 @@
 # -*- coding:binary -*-
-require 'builder'
+#require 'builder'
 
 RSpec.shared_examples_for 'Msf::DBManager::Import::MetasploitFramework::XML' do
 

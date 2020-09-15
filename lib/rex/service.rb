@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
-require 'rex'
-require 'rex/proto'
+#require 'rex'
+#require 'rex/proto'
 
 module Rex
 
@@ -14,7 +14,7 @@ module Rex
 module Service
   include Ref
 
-  require 'rex/services/local_relay'
+  #require 'rex/services/local_relay'
 
   #
   # Returns the hardcore, as in porno, alias for this service.  This is used

@@ -3,8 +3,8 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'msf/core/handler/bind_named_pipe'
-require 'msf/core/payload/windows/bind_named_pipe'
+#require 'msf/core/handler/bind_named_pipe'
+#require 'msf/core/payload/windows/bind_named_pipe'
 
 module MetasploitModule
 

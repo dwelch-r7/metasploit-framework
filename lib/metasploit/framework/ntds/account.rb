@@ -44,7 +44,7 @@ module Metasploit
         attr_accessor :name
         #@return [Boolean] If the AD account password does not expire
         attr_accessor :no_expire
-        #@return [Boolean] If the AD account does not require a password
+        #@return [Boolean] If the AD account does not #require a password
         attr_accessor :no_pass
         #@return [String] The NT Hash of the current password
         attr_accessor :nt_hash

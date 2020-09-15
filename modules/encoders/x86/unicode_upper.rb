@@ -3,7 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'rex/encoder/alpha2/unicode_upper'
+#require 'rex/encoder/alpha2/unicode_upper'
 
 class MetasploitModule < Msf::Encoder::Alphanum
   Rank = ManualRanking

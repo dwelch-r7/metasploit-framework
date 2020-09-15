@@ -1,4 +1,4 @@
-require 'rex/parser/ip360_aspl_xml'
+#require 'rex/parser/ip360_aspl_xml'
 
 module Msf::DBManager::Import::IP360::ASPL
   #

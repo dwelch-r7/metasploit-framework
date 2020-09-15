@@ -3,10 +3,10 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'msf/base/sessions/meterpreter_x86_linux'
-require 'msf/base/sessions/meterpreter_options'
-require 'msf/base/sessions/mettle_config'
-require 'rex/elfparsey'
+#require 'msf/base/sessions/meterpreter_x86_linux'
+#require 'msf/base/sessions/meterpreter_options'
+#require 'msf/base/sessions/mettle_config'
+#require 'rex/elfparsey'
 
 module MetasploitModule
   include Msf::Sessions::MeterpreterOptions

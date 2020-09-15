@@ -1,4 +1,4 @@
-require 'monitor'
+#require 'monitor'
 
 module Msf
   module RPC

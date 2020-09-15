@@ -52,7 +52,7 @@ module Auxiliary::HttpCrawler
     register_autofilter_services(%W{ http https })
 
     begin
-      require 'anemone'
+      #require 'anemone'
       @anemone_loaded = true
     rescue ::Exception => e
       @anemone_loaded = false

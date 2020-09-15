@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
-require 'rex/post/meterpreter'
-require 'rex/post/meterpreter/extensions/appapi/command_ids'
+#require 'rex/post/meterpreter'
+#require 'rex/post/meterpreter/extensions/appapi/command_ids'
 
 module Rex
 module Post

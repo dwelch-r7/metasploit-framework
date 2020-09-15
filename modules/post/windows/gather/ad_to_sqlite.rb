@@ -3,7 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'sqlite3'
+#require 'sqlite3'
 
 class MetasploitModule < Msf::Post
   include Msf::Post::Windows::LDAP
@@ -211,7 +211,7 @@ class MetasploitModule < Msf::Post
                                  u_ADS_UF_NOT_DELEGATED: (uac_int & 0x00100000).zero? ? 0 : 1,
                                  # Restrict this principal to use only Data #Encryption Standard (DES) encryption types for keys.
                                  u_ADS_UF_USE_DES_KEY_ONLY: (uac_int & 0x00200000).zero? ? 0 : 1,
-                                 # This account does not require Kerberos pre-authentication for logon.
+                                 # This account does not #require Kerberos pre-authentication for logon.
                                  u_ADS_UF_DONT_REQUIRE_PREAUTH: (uac_int & 0x00400000).zero? ? 0 : 1,
                                  # The password has expired
                                  u_ADS_UF_PASSWORD_EXPIRED: (uac_int & 0x00800000).zero? ? 0 : 1,
@@ -328,7 +328,7 @@ class MetasploitModule < Msf::Post
                                c_ADS_UF_NOT_DELEGATED: (uac_int & 0x00100000).zero? ? 0 : 1,
                                # Restrict this principal to use only Data #Encryption Standard (DES) encryption types for keys.
                                c_ADS_UF_USE_DES_KEY_ONLY: (uac_int & 0x00200000).zero? ? 0 : 1,
-                               # This account does not require Kerberos pre-authentication for logon.
+                               # This account does not #require Kerberos pre-authentication for logon.
                                c_ADS_UF_DONT_REQUIRE_PREAUTH: (uac_int & 0x00400000).zero? ? 0 : 1,
                                # The password has expired
                                c_ADS_UF_PASSWORD_EXPIRED: (uac_int & 0x00800000).zero? ? 0 : 1,

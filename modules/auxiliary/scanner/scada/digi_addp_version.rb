@@ -3,7 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'rex/proto/addp'
+#require 'rex/proto/addp'
 
 class MetasploitModule < Msf::Auxiliary
   include Msf::Auxiliary::Report

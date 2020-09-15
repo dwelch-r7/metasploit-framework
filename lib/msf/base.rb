@@ -14,26 +14,26 @@
 # such as exploitation, into easier to manage functions.
 
 # framework-base depends on framework-core
-require 'msf/core'
+#require 'msf/core'
 
 # Configuration
-require 'msf/base/config'
-require 'msf/base/logging'
+#require 'msf/base/config'
+#require 'msf/base/logging'
 
 # Simple wrapper
-require 'msf/base/simple'
+#require 'msf/base/simple'
 
 # Sessions
-require 'msf/base/sessions/command_shell'
-require 'msf/base/sessions/tty'
+#require 'msf/base/sessions/command_shell'
+#require 'msf/base/sessions/tty'
 
 # Serialization
-require 'msf/base/serializer/readable_text'
-require 'msf/base/serializer/json'
+#require 'msf/base/serializer/readable_text'
+#require 'msf/base/serializer/json'
 
 # Persistent Storage
-require 'msf/base/persistent_storage'
+#require 'msf/base/persistent_storage'
 
 # Utilities
-require 'msf/util'
+#require 'msf/util'
 

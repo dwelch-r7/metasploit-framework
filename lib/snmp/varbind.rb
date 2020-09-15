@@ -7,7 +7,7 @@
 # COPYING file in the Ruby distribution for details.
 #
 
-require 'snmp/ber'
+#require 'snmp/ber'
 
 include SNMP::BER
 

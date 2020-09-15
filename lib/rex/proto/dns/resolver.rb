@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
 
-require 'net/dns/resolver'
+#require 'net/dns/resolver'
 
 module Rex
 module Proto

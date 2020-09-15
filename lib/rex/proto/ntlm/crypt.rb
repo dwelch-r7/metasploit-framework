@@ -44,8 +44,8 @@
 # The third key has to begin from the 14th character of the
 # input string instead of 13th:)
 
-require 'rex/proto/ntlm/constants'
-require 'rex/proto/ntlm/base'
+#require 'rex/proto/ntlm/constants'
+#require 'rex/proto/ntlm/base'
 
 module Rex
 module Proto
@@ -58,8 +58,8 @@ BASE = Rex::Proto::NTLM::Base
   @@loaded_openssl = false
 
   begin
-    require 'openssl'
-    require 'openssl/digest'
+    #require 'openssl'
+    #require 'openssl/digest'
     @@loaded_openssl = true
   rescue ::Exception
   end

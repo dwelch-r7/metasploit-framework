@@ -1,8 +1,8 @@
 # -*- coding: binary -*-
-require 'msf/core/plugin'
+#require 'msf/core/plugin'
 
 =begin
-require 'active_record'
+#require 'active_record'
 #
 # This monkeypatch can help to diagnose errors involving connection pool
 # exhaustion and other strange ActiveRecord including errors like:

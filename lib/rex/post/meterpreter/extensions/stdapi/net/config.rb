@@ -1,10 +1,10 @@
 # -*- coding: binary -*-
 
-require 'rex/post/meterpreter/extensions/stdapi/tlv'
-require 'rex/post/meterpreter/extensions/stdapi/net/arp'
-require 'rex/post/meterpreter/extensions/stdapi/net/route'
-require 'rex/post/meterpreter/extensions/stdapi/net/netstat'
-require 'rex/post/meterpreter/extensions/stdapi/net/interface'
+#require 'rex/post/meterpreter/extensions/stdapi/tlv'
+#require 'rex/post/meterpreter/extensions/stdapi/net/arp'
+#require 'rex/post/meterpreter/extensions/stdapi/net/route'
+#require 'rex/post/meterpreter/extensions/stdapi/net/netstat'
+#require 'rex/post/meterpreter/extensions/stdapi/net/interface'
 
 module Rex
 module Post

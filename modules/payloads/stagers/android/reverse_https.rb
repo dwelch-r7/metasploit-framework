@@ -3,9 +3,9 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'msf/core/handler/reverse_https'
-require 'msf/core/payload/android/reverse_https'
-require 'msf/core/payload/uuid/options'
+#require 'msf/core/handler/reverse_https'
+#require 'msf/core/payload/android/reverse_https'
+#require 'msf/core/payload/uuid/options'
 
 module MetasploitModule
 

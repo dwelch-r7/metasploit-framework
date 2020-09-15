@@ -1,5 +1,5 @@
 # -*- coding: binary -*-
-require 'rex/post/meterpreter/extensions/stdapi/railgun/railgun'
+#require 'rex/post/meterpreter/extensions/stdapi/railgun/railgun'
 
 module Msf
 class Post

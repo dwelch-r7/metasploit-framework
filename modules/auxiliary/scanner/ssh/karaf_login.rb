@@ -3,9 +3,9 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'net/ssh'
-require 'metasploit/framework/login_scanner/ssh'
-require 'metasploit/framework/credential_collection'
+#require 'net/ssh'
+#require 'metasploit/framework/login_scanner/ssh'
+#require 'metasploit/framework/credential_collection'
 
 class MetasploitModule < Msf::Auxiliary
   include Msf::Auxiliary::Scanner

@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
-require 'msf/core'
-require 'msf/core/handler/reverse_tcp'
+#require 'msf/core'
+#require 'msf/core/handler/reverse_tcp'
 
 module Msf
 module Handler

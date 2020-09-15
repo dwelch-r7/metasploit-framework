@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
 
-require 'spec_helper'
+#require 'spec_helper'
 
 RSpec.describe Msf::Modules::Metadata::Search do
   let(:mock_cache) do

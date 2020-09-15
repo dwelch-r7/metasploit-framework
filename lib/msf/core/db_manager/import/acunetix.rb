@@ -1,4 +1,4 @@
-require 'rex/parser/acunetix_nokogiri'
+#require 'rex/parser/acunetix_nokogiri'
 
 module Msf::DBManager::Import::Acunetix
   def import_acunetix_noko_stream(args={},&block)

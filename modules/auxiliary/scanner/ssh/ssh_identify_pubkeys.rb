@@ -3,9 +3,9 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'net/ssh'
-require 'sshkey' # TODO: Actually include this!
-require 'net/ssh/pubkey_verifier'
+#require 'net/ssh'
+#require 'sshkey' # TODO: Actually include this!
+#require 'net/ssh/pubkey_verifier'
 
 class MetasploitModule < Msf::Auxiliary
   include Msf::Auxiliary::Scanner

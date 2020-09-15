@@ -3,8 +3,8 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'rex/struct2'
-require 'rex/proto/smb'
+#require 'rex/struct2'
+#require 'rex/proto/smb'
 
 class MetasploitModule < Msf::Auxiliary
   include Msf::Exploit::Remote::DCERPC

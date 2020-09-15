@@ -94,7 +94,7 @@ class MetasploitModule < Msf::Encoder
     #    system
     #    pack
     #    qq^H*^,qq^whatever^
-    # Since system and pack require arguments (rather than assuming
+    # Since system and pack #require arguments (rather than assuming
     # $_ when no args are given like many other perl functions),
     # this works out to do what we need.
     cmd = "system -e pack -e #{perl_qq(state, qot, hex)}"

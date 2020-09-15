@@ -1,6 +1,6 @@
 
-require 'spec_helper'
-require 'metasploit/framework/login_scanner/afp'
+#require 'spec_helper'
+#require 'metasploit/framework/login_scanner/afp'
 
 RSpec.describe Metasploit::Framework::LoginScanner::AFP do
 

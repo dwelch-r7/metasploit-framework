@@ -8,9 +8,9 @@ require 'active_support/core_ext/module/introspection'
 # Project
 #
 
-require 'metasploit/framework/command'
-require 'metasploit/framework/parsed_options'
-require 'metasploit/framework/require'
+#require 'metasploit/framework/command'
+#require 'metasploit/framework/parsed_options'
+#require 'metasploit/framework/require'
 
 # Based on pattern used for lib/rails/commands in the railties gem.
 class Metasploit::Framework::Command::Base
@@ -52,7 +52,7 @@ class Metasploit::Framework::Command::Base
     # allow other Rails::Applications to use this command
     if !defined?(Rails) || Rails.application.nil?
       # @see https://github.com/rails/rails/blob/v3.2.17/railties/lib/rails/commands.rb#L39-L40
-      require Pathname.new(__FILE__).parent.parent.parent.parent.parent.join('config', 'application')
+      #require Pathname.new(__FILE__).parent.parent.parent.parent.parent.join('config', 'application')
     end
 
     # have to configure before requiring environment because

@@ -1,7 +1,7 @@
 # -*- coding: binary -*-
-require 'spec_helper'
+#require 'spec_helper'
 
-require 'msf/core/post/windows/runas'
+#require 'msf/core/post/windows/runas'
 
 RSpec.describe Msf::Post::Windows::Runas do
   let(:process_info) do

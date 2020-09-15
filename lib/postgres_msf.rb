@@ -8,6 +8,6 @@
 # http://www.ruby-lang.org/en/LICENSE.txt
 #
 
-require 'postgres/postgres-pr/postgres-compat'
-require 'stringio'
+#require 'postgres/postgres-pr/postgres-compat'
+#require 'stringio'
 

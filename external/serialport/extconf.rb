@@ -1,4 +1,4 @@
-require 'mkmf'
+#require 'mkmf'
 
 printf("checking for OS... ")
 STDOUT.flush

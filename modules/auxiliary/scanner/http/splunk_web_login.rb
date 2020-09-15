@@ -14,7 +14,7 @@ class MetasploitModule < Msf::Auxiliary
       'Name'           => 'Splunk Web Interface Login Utility',
       'Description'    => %{
         This module simply attempts to login to a Splunk web interface.  Please note the
-        free version of Splunk actually does not require any authentication, in that case
+        free version of Splunk actually does not #require any authentication, in that case
         the module will abort trying.  Also, some Splunk applications still have the
         default credential 'admin:changeme' written on the login page.  If this default
         credential is found, the module will also store that information, and then move on
@@ -49,7 +49,7 @@ class MetasploitModule < Msf::Auxiliary
 
     print_status("Checking if authentication is required...")
     if not is_auth_required?
-      print_warning("Application does not require authentication.")
+      print_warning("Application does not #require authentication.")
       return
     end
 
@@ -111,7 +111,7 @@ class MetasploitModule < Msf::Auxiliary
 
 
   #
-  # The free version of Splunk does not require authentication. Instead, it'll log the
+  # The free version of Splunk does not #require authentication. Instead, it'll log the
   # user right in as 'admin'. If that's the case, no point to brute-force, either.
   #
   def is_auth_required?

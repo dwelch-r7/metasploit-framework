@@ -8,7 +8,7 @@ module Metasploit
       # Module Methods
       #
 
-      # Tries to require `name`.  If a `LoadError` occurs, then `without_warning` is printed to standard error using
+      # Tries to #require `name`.  If a `LoadError` occurs, then `without_warning` is printed to standard error using
       # `Kernel#warn`, along with instructions for reinstalling the bundle.  If a `LoadError` does not occur, then
       # `with_block` is called.
       #
@@ -19,7 +19,7 @@ module Metasploit
       # @return [void]
       def self.optionally(name, without_warning)
         begin
-          require name
+          #require name
         rescue LoadError
           warn without_warning
           warn "Bundle installed '--without #{Bundler.settings.without.join(' ')}'"
@@ -34,10 +34,10 @@ module Metasploit
         end
       end
 
-      # Tries to `require 'active_record/railtie'` to define the activerecord Rails initializers and rake tasks.
+      # Tries to `#require 'active_record/railtie'` to define the activerecord Rails initializers and rake tasks.
       #
       # @example Optionally requiring 'active_record/railtie'
-      #   require 'metasploit/framework/require'
+      #   #require 'metasploit/framework/require'
       #
       #   class MyClass
       #     def setup
@@ -59,7 +59,7 @@ module Metasploit
         end
       end
 
-      # Tries to `require 'metasploit/credential'` and include `Metasploit::Credential::Creation` in the
+      # Tries to `#require 'metasploit/credential'` and include `Metasploit::Credential::Creation` in the
       # `including_module`.
       #
       # @param including_module [Module] `Class` or `Module` that wants to `include Metasploit::Credential::Creation`.
@@ -73,7 +73,7 @@ module Metasploit
         end
       end
 
-      # Tries to require gems necessary for using a database with the framework.
+      # Tries to #require gems necessary for using a database with the framework.
       #
       # @example
       #   Metasploit::Framework::Require.optionally_require_metasploit_db_gems
@@ -84,14 +84,14 @@ module Metasploit
             'metasploit/credential',
             'metasploit-credential not in the bundle',
         ) do
-          require 'metasploit/credential/engine'
+          #require 'metasploit/credential/engine'
         end
 
         optionally(
           'metasploit_data_models',
           'metasploit_data_models not in the bundle'
         ) do
-          require 'metasploit_data_models/engine'
+          #require 'metasploit_data_models/engine'
         end
       end
 
@@ -99,10 +99,10 @@ module Metasploit
       # Instance Methods
       #
 
-      # Tries to `require 'metasploit/credential/creation'` and include it in this `Class` or `Module`.
+      # Tries to `#require 'metasploit/credential/creation'` and include it in this `Class` or `Module`.
       #
       # @example Using in a `Module`
-      #   require 'metasploit/framework/require'
+      #   #require 'metasploit/framework/require'
       #
       #   module MyModule
       #     extend Metasploit::Framework::Require

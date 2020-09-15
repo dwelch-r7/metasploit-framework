@@ -1,4 +1,4 @@
-require 'msf/core/web_services'
+#require 'msf/core/web_services'
 
 module ModuleSearchServlet
 

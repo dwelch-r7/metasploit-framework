@@ -1,8 +1,8 @@
 # -*- coding: binary -*-
 
-require 'rex/proto/nuuo/client_request'
-require 'rex/proto/nuuo/response'
-require 'rex/socket'
+#require 'rex/proto/nuuo/client_request'
+#require 'rex/proto/nuuo/response'
+#require 'rex/socket'
 
 module Rex
 module Proto

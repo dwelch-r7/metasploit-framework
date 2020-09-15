@@ -1,8 +1,8 @@
 # -*- coding: binary -*-
 
-require 'msf/base'
-require 'msf/base/sessions/scriptable'
-require 'rex/post/hwbridge'
+#require 'msf/base'
+#require 'msf/base/sessions/scriptable'
+#require 'rex/post/hwbridge'
 
 module Msf
 module Sessions

@@ -1,4 +1,4 @@
-require 'rex/socket/ssl'
+#require 'rex/socket/ssl'
 
 module Msf
 module Ssl

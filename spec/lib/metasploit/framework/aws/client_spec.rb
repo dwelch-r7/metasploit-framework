@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'metasploit/framework/aws/client'
+#require 'spec_helper'
+#require 'metasploit/framework/aws/client'
 
 RSpec.describe Metasploit::Framework::Aws::Client do
 

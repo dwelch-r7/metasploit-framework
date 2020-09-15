@@ -1,6 +1,6 @@
 
-require 'spec_helper'
-require 'metasploit/framework/login_scanner/winrm'
+#require 'spec_helper'
+#require 'metasploit/framework/login_scanner/winrm'
 
 RSpec.describe Metasploit::Framework::LoginScanner::WinRM do
 

@@ -3,7 +3,7 @@
 # $Id: Header.rb,v 1.5 2006/07/30 16:54:28 bluemonk Exp $
 #+++
 
-require 'net/dns/dns'
+#require 'net/dns/dns'
 
 module Net # :nodoc:
   module DNS 
@@ -15,7 +15,7 @@ module Net # :nodoc:
     #
     # =Synopsis
     # 
-    #   require 'net/dns/header'
+    #   #require 'net/dns/header'
     #
     # =Description
     # 
@@ -83,7 +83,7 @@ module Net # :nodoc:
       # It should be used internally by Net::DNS::Header class. However, it's still
       # possible to instantiate it directly.
       #
-      #   require 'net/dns/header'
+      #   #require 'net/dns/header'
       #   rcode = Net::DNS::Header::RCode.new 0
       #
       # =Description

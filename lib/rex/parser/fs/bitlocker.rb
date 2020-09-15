@@ -1,7 +1,7 @@
 # -*- coding: binary -*-
 
-require 'openssl/ccm'
-require 'metasm'
+#require 'openssl/ccm'
+#require 'metasm'
 
 ##
 # This module requires Metasploit: https://metasploit.com/download

@@ -15,7 +15,7 @@ class MetasploitModule < Msf::Auxiliary
         SickRage < v2018-09-03 allows an attacker to view a user's saved Github credentials in HTTP
         responses unless the user has set login information for SickRage.
 
-        By default, SickRage does not require login information for the installation.
+        By default, SickRage does not #require login information for the installation.
       },
       'Author'         =>
       [

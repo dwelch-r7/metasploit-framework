@@ -30,7 +30,7 @@
 #
 # @example Using 'payload can be instantiated' with `Metasploit::Framework::Spec::UntestedPayloads.define_task` and 'untested payloads' shared context
 #   # Rakefile
-#   require 'metasploit/framework/spec/untested_payloads'
+#   #require 'metasploit/framework/spec/untested_payloads'
 #
 #   # defined spec task with rspec-rails
 #   My::Application.load_tasks
@@ -38,7 +38,7 @@
 #   Metasploit::Framework::Spec::UntestedPayloads.define_task
 #
 #   # spec/modules/payloads_spec.rb
-#   require 'spec_helper'
+#   #require 'spec_helper'
 #
 #   describe 'modules/payloads' do
 #      modules_pathname = Pathname.new(__FILE__).parent.parent.parent.join('modules')

@@ -1,7 +1,7 @@
 # -*- coding: binary -*-
 
-require 'timeout'
-require 'thread'
+#require 'timeout'
+#require 'thread'
 
 module Rex
 module Post

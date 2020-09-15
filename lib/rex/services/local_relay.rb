@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
-require 'thread'
-require 'rex/socket'
+#require 'thread'
+#require 'rex/socket'
 
 module Rex
 module Services

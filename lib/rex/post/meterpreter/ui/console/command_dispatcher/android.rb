@@ -1,9 +1,9 @@
 # -*- coding: binary -*-
-require 'rex/post/meterpreter'
-require 'rex/post/meterpreter/extensions/android/command_ids'
-require 'msf/core/auxiliary/report'
-require 'rex/google/geolocation'
-require 'date'
+#require 'rex/post/meterpreter'
+#require 'rex/post/meterpreter/extensions/android/command_ids'
+#require 'msf/core/auxiliary/report'
+#require 'rex/google/geolocation'
+#require 'date'
 
 module Rex
 module Post

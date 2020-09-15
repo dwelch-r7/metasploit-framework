@@ -3,7 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'rex/parser/apple_backup_manifestdb'
+#require 'rex/parser/apple_backup_manifestdb'
 
 class MetasploitModule < Msf::Post
   include Msf::Post::File

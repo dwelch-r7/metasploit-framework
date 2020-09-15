@@ -1,20 +1,20 @@
 # -*- coding:binary -*-
-require 'spec_helper'
+#require 'spec_helper'
 
 #
 # Core
 #
 
 # Temporary files
-require 'tempfile'
+#require 'tempfile'
 # add mktmpdir to Dir
-require 'tmpdir'
+#require 'tmpdir'
 
 #
 # Project
 #
 
-require 'msf/core'
+#require 'msf/core'
 
 RSpec.describe Msf::ModuleManager do
   include_context 'Msf::Simple::Framework'

@@ -1,8 +1,8 @@
 # -*- coding: binary -*-
 
-require 'msf/core'
-require 'msf/core/payload/transport_config'
-require 'msf/core/payload/linux/send_uuid'
+#require 'msf/core'
+#require 'msf/core/payload/transport_config'
+#require 'msf/core/payload/linux/send_uuid'
 
 module Msf
 

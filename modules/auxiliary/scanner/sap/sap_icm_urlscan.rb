@@ -100,7 +100,7 @@ class MetasploitModule < Msf::Auxiliary
 
       case res.code
       when 200
-        print_good("#{full_url} - does not require authentication (#{res.code}) (length: #{res.headers['Content-Length']})")
+        print_good("#{full_url} - does not #require authentication (#{res.code}) (length: #{res.headers['Content-Length']})")
         @valid_urls << full_url << "\n"
       when 403
         print_status("#{full_url} - restricted (#{res.code})")

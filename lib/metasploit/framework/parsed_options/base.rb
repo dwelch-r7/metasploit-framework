@@ -2,20 +2,20 @@
 # Standard Library
 #
 
-require 'optparse'
+#require 'optparse'
 
 #
 # Gems
 #
 
-require 'active_support/ordered_options'
+#require 'active_support/ordered_options'
 
 #
 # Project
 #
 
-require 'metasploit/framework/database'
-require 'metasploit/framework/parsed_options'
+#require 'metasploit/framework/database'
+#require 'metasploit/framework/parsed_options'
 
 # Options parsed from the command line that can be used to change the
 # `Metasploit::Framework::Application.config` and `Rails.env`

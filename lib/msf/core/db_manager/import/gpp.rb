@@ -1,4 +1,4 @@
-require 'rex/parser/group_policy_preferences'
+#require 'rex/parser/group_policy_preferences'
 
 module Msf::DBManager::Import::GPP
   def import_gpp_xml(args = {}, &block)

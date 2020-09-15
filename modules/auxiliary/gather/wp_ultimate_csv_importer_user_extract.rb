@@ -3,7 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'csv'
+#require 'csv'
 
 class MetasploitModule < Msf::Auxiliary
   include Msf::Exploit::Remote::HTTP::Wordpress

@@ -2,13 +2,13 @@
 # Standard Library
 #
 
-require 'securerandom'
+#require 'securerandom'
 
 #
 # Project
 #
 
-require 'metasploit/framework/spec/threads/suite'
+#require 'metasploit/framework/spec/threads/suite'
 
 original_thread_new = Thread.method(:new)
 

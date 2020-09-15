@@ -204,7 +204,7 @@ class Call
       return
     end
 
-    # Technically these all require an ACK reply
+    # Technically these all #require an ACK reply
     # NEW, HANGUP, REJECT, ACCEPT, PONG, AUTHREP, REGREL, REGACK, REGREJ, TXREL
 
     case itype

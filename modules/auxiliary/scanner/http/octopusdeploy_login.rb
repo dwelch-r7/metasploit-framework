@@ -3,8 +3,8 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'metasploit/framework/credential_collection'
-require 'metasploit/framework/login_scanner/octopusdeploy'
+#require 'metasploit/framework/credential_collection'
+#require 'metasploit/framework/login_scanner/octopusdeploy'
 
 class MetasploitModule < Msf::Auxiliary
   include Msf::Exploit::Remote::HttpClient

@@ -4,26 +4,26 @@
 # Rex
 #
 
-require 'rex/ui/text/output/buffer/stdout'
+#require 'rex/ui/text/output/buffer/stdout'
 
 #
 # Project
 #
 
-require 'msf/ui/console/command_dispatcher/encoder'
-require 'msf/ui/console/command_dispatcher/exploit'
-require 'msf/ui/console/command_dispatcher/nop'
-require 'msf/ui/console/command_dispatcher/payload'
-require 'msf/ui/console/command_dispatcher/auxiliary'
-require 'msf/ui/console/command_dispatcher/post'
-require 'msf/ui/console/command_dispatcher/evasion'
-require 'msf/ui/console/command_dispatcher/jobs'
-require 'msf/ui/console/command_dispatcher/resource'
-require 'msf/ui/console/command_dispatcher/modules'
-require 'msf/ui/console/command_dispatcher/developer'
-require 'msf/util/document_generator'
+#require 'msf/ui/console/command_dispatcher/encoder'
+#require 'msf/ui/console/command_dispatcher/exploit'
+#require 'msf/ui/console/command_dispatcher/nop'
+#require 'msf/ui/console/command_dispatcher/payload'
+#require 'msf/ui/console/command_dispatcher/auxiliary'
+#require 'msf/ui/console/command_dispatcher/post'
+#require 'msf/ui/console/command_dispatcher/evasion'
+#require 'msf/ui/console/command_dispatcher/jobs'
+#require 'msf/ui/console/command_dispatcher/resource'
+#require 'msf/ui/console/command_dispatcher/modules'
+#require 'msf/ui/console/command_dispatcher/developer'
+#require 'msf/util/document_generator'
 
-require 'optparse'
+#require 'optparse'
 
 module Msf
 module Ui
@@ -1822,7 +1822,7 @@ class Core
 
     # If the new SSL value already set in datastore[name] is different from the old value, warn the user
     if name.casecmp('SSL') == 0 && datastore[name] != old_value
-      print_warning("Changing the SSL option's value may require changing RPORT!")
+      print_warning("Changing the SSL option's value may #require changing RPORT!")
     end
 
     print_line("#{name} => #{datastore[name]}")

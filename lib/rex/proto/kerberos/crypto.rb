@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
-require 'rex/proto/kerberos/crypto/rc4_hmac'
-require 'rex/proto/kerberos/crypto/rsa_md5'
+#require 'rex/proto/kerberos/crypto/rc4_hmac'
+#require 'rex/proto/kerberos/crypto/rsa_md5'
 
 module Rex
   module Proto

@@ -4,7 +4,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'nokogiri'
+#require 'nokogiri'
 
 class MetasploitModule < Msf::Post
   include Msf::Post::File

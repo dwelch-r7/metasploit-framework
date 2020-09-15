@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
-require 'spec_helper'
-require 'rex/proto/steam/message'
+#require 'spec_helper'
+#require 'rex/proto/steam/message'
 
 RSpec.describe Rex::Proto::Steam do
   subject(:steam) do

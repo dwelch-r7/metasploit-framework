@@ -74,4 +74,4 @@ end
 
 end
 
-require 'msf/base/persistent_storage/flatfile'
+#require 'msf/base/persistent_storage/flatfile'

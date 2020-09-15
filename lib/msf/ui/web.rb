@@ -12,4 +12,4 @@ end
 end
 end
 
-require 'msf/ui/web/driver'
+#require 'msf/ui/web/driver'

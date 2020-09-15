@@ -1,9 +1,9 @@
 # -*- coding: binary -*-
-require 'msf/base'
-require 'msf/base/sessions/scriptable'
-require 'shellwords'
-require 'rex/text/table'
-require "base64"
+#require 'msf/base'
+#require 'msf/base/sessions/scriptable'
+#require 'shellwords'
+#require 'rex/text/table'
+#require "base64"
 
 module Msf
 module Sessions
@@ -561,7 +561,7 @@ class CommandShell
     end
 
     begin
-      require 'pry'
+      #require 'pry'
     rescue LoadError
       print_error('Failed to load Pry, try "gem install pry"')
       return

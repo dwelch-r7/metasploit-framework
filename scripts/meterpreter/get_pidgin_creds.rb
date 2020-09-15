@@ -7,7 +7,7 @@
 
 # Author: Carlos Perez at carlos_perez[at]darkoperator.com
 #-------------------------------------------------------------------------------
-require "rexml/document"
+#require "rexml/document"
 
 #-------------------------------------------------------------------------------
 #Options and Option Parsing

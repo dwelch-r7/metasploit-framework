@@ -10,4 +10,4 @@
 #   - Username/Password Authentication for SOCKS V5
 #     https://tools.ietf.org/html/rfc1929
 
-require 'rex/proto/proxy/socks5/server'
+#require 'rex/proto/proxy/socks5/server'

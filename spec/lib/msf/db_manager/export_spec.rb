@@ -1,6 +1,6 @@
-require 'spec_helper'
+#require 'spec_helper'
 
-require 'msf/core/db_export'
+#require 'msf/core/db_export'
 
 RSpec.describe Msf::DBManager::Export do
   include_context 'Msf::DBManager'

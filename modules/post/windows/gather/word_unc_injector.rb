@@ -8,14 +8,14 @@
 #
 
 # for extracting files
-require 'zip'
+#require 'zip'
 
 #
 # Project
 #
 
 # for creating files
-require 'rex/zip'
+#require 'rex/zip'
 
 class MetasploitModule < Msf::Post
   include Msf::Post::File

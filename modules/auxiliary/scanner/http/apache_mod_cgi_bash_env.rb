@@ -22,7 +22,7 @@ class MetasploitModule < Msf::Auxiliary
         sessions on vulnerable hosts.
 
         Note that this is not the recommended method for obtaining shells.
-        If you require sessions, please use the apache_mod_cgi_bash_env_exec
+        If you #require sessions, please use the apache_mod_cgi_bash_env_exec
         exploit module instead.
       },
       'Author' => [

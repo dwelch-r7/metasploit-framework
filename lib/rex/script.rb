@@ -36,7 +36,7 @@ end
 
 end
 
-require 'rex/script/base'
-require 'rex/script/shell'
-require 'rex/script/meterpreter'
+#require 'rex/script/base'
+#require 'rex/script/shell'
+#require 'rex/script/meterpreter'
 

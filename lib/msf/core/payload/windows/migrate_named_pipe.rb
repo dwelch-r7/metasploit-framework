@@ -1,7 +1,7 @@
 # -*- coding: binary -*-
 
-require 'msf/core'
-require 'msf/core/payload/windows/migrate_common'
+#require 'msf/core'
+#require 'msf/core/payload/windows/migrate_common'
 
 module Msf
 

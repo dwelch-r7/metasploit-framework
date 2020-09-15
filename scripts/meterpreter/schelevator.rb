@@ -22,7 +22,7 @@
 #
 ##
 
-require 'zlib'
+#require 'zlib'
 
 #
 # Filter out sessions that this definitely won't work on.

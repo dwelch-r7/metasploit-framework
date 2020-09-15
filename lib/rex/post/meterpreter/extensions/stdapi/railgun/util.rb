@@ -1,5 +1,5 @@
 # -*- coding: binary -*-
-require 'rex/post/meterpreter/extensions/stdapi/railgun/library_helper'
+#require 'rex/post/meterpreter/extensions/stdapi/railgun/library_helper'
 
 module Rex
 module Post

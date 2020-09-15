@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
 
-require 'rex/post/meterpreter/inbound_packet_handler'
+#require 'rex/post/meterpreter/inbound_packet_handler'
 
 module Rex
 module Post

@@ -1,5 +1,5 @@
-require 'msf/core/modules/metadata'
-require 'json'
+#require 'msf/core/modules/metadata'
+#require 'json'
 
 #
 # Simple object for storing a modules metadata.

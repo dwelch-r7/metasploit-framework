@@ -1,4 +1,4 @@
-require 'anemone/storage/exceptions'
+#require 'anemone/storage/exceptions'
 
 module Anemone
   module Storage

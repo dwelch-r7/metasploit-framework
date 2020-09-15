@@ -7,9 +7,9 @@
 # COPYING file in the Ruby distribution for details.
 #
 
-require 'snmp'
-require 'socket'
-require 'logger'
+#require 'snmp'
+#require 'socket'
+#require 'logger'
 
 module SNMP
 

@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
-require 'spec_helper'
-require 'rex/proto/sms/model'
+#require 'spec_helper'
+#require 'rex/proto/sms/model'
 
 RSpec.describe Rex::Proto::Sms::Model::Smtp do
 

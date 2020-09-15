@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'metasploit/framework/login_scanner/vmauthd'
+#require 'spec_helper'
+#require 'metasploit/framework/login_scanner/vmauthd'
 
 RSpec.describe Metasploit::Framework::LoginScanner::VMAUTHD do
   subject(:scanner) { described_class.new }

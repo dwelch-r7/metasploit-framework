@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
-require 'rex/text'
-require 'rex/proto/smb/constants'
+#require 'rex/text'
+#require 'rex/proto/smb/constants'
 
 module Rex
 module Proto

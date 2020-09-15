@@ -1,7 +1,7 @@
 # -*- coding: binary -*-
 
-require 'msf/core/post/windows/accounts'
-require 'msf/core/post/windows/registry'
+#require 'msf/core/post/windows/accounts'
+#require 'msf/core/post/windows/registry'
 
 module Msf::Post::Windows::Priv
   include ::Msf::Post::Windows::Accounts

@@ -3,9 +3,9 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'bcrypt'
-require 'digest'
-require 'openssl'
+#require 'bcrypt'
+#require 'digest'
+#require 'openssl'
 
 class MetasploitModule < Msf::Auxiliary
   include Msf::Exploit::Remote::HttpClient

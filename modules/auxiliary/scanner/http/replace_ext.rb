@@ -3,8 +3,8 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'rex/proto/http'
-require 'pathname'
+#require 'rex/proto/http'
+#require 'pathname'
 
 
 

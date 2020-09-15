@@ -1,4 +1,4 @@
-require 'metasploit/framework/credential'
+#require 'metasploit/framework/credential'
 
 module Metasploit
   module Framework

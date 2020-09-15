@@ -6,7 +6,7 @@
 # https://metasploit.com/framework/
 ##
 
-require 'uri'
+#require 'uri'
 
 module Msf
 class Auxiliary::Web::HTTP

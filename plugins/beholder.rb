@@ -1,6 +1,6 @@
 # -*- coding:binary -*-
 
-require 'fileutils'
+#require 'fileutils'
 
 module Msf
 

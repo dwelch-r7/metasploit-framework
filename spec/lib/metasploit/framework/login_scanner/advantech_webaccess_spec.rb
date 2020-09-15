@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'metasploit/framework/login_scanner/advantech_webaccess'
+#require 'spec_helper'
+#require 'metasploit/framework/login_scanner/advantech_webaccess'
 
 RSpec.describe Metasploit::Framework::LoginScanner::AdvantechWebAccess do
 

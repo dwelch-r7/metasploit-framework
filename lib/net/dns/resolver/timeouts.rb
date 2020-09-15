@@ -1,5 +1,5 @@
 # -*- coding: binary -*-
-require 'timeout'
+#require 'timeout'
 
 module SecondsHandle #:nodoc: all
   def transform(secs)

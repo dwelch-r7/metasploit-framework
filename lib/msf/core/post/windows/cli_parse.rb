@@ -6,9 +6,9 @@ module Windows
 
 module CliParse
 
-  require 'msf/windows_error'
-  require 'rex/logging'
-  require 'rex/exceptions'
+  #require 'msf/windows_error'
+  #require 'rex/logging'
+  #require 'rex/exceptions'
 
   #Msf::Post::Windows::CliParse::ParseError
   class ParseError < ArgumentError

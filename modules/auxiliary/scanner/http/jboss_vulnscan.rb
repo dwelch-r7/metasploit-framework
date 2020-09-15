@@ -3,7 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'rex/proto/http'
+#require 'rex/proto/http'
 
 class MetasploitModule < Msf::Auxiliary
   include Msf::Exploit::Remote::HttpClient
@@ -103,7 +103,7 @@ class MetasploitModule < Msf::Auxiliary
 
     case
     when res.code == 200
-      print_good("#{rhost}:#{rport} #{app} does not require authentication (200)")
+      print_good("#{rhost}:#{rport} #{app} does not #require authentication (200)")
     when res.code == 403
       print_status("#{rhost}:#{rport} #{app} restricted (403)")
     when res.code == 401

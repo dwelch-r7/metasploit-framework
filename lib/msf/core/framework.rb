@@ -4,16 +4,16 @@
 # Standard Library
 #
 
-require 'monitor'
+#require 'monitor'
 
 #
 # Project
 #
 
-require 'metasploit/framework/version'
-require 'msf/base/config'
-require 'msf/core'
-require 'msf/util'
+#require 'metasploit/framework/version'
+#require 'msf/base/config'
+#require 'msf/core'
+#require 'msf/util'
 
 module Msf
 
@@ -54,14 +54,14 @@ class Framework
     attr_accessor :framework
   end
 
-  require 'msf/core/thread_manager'
-  require 'msf/core/module_manager'
-  require 'msf/core/session_manager'
-  require 'msf/core/plugin_manager'
-  require 'metasploit/framework/data_service/proxy/core'
-  require 'msf/core/event_dispatcher'
-  require 'rex/json_hash_file'
-  require 'msf/core/cert_provider'
+  #require 'msf/core/thread_manager'
+  #require 'msf/core/module_manager'
+  #require 'msf/core/session_manager'
+  #require 'msf/core/plugin_manager'
+  #require 'metasploit/framework/data_service/proxy/core'
+  #require 'msf/core/event_dispatcher'
+  #require 'rex/json_hash_file'
+  #require 'msf/core/cert_provider'
 
   #
   # Creates an instance of the framework context.
@@ -369,7 +369,7 @@ class FrameworkEventSubscriber
     report_event(:name => "ui_start", :info => info)
   end
 
-  require 'msf/core/session'
+  #require 'msf/core/session'
 
   include ::Msf::SessionEvent
 
@@ -529,7 +529,7 @@ class FrameworkEventSubscriber
   #
   # This is covered by on_module_run and on_session_open, so don't bother
   #
-  #require 'msf/core/exploit'
+  ##require 'msf/core/exploit'
   #include ExploitEvent
   #def on_exploit_success(exploit, session)
   #end

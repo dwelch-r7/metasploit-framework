@@ -3,9 +3,9 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'msf/core/post/windows/netapi'
-require 'msf/core/post/windows/kiwi'
-require 'msf/core/post/windows/error'
+#require 'msf/core/post/windows/netapi'
+#require 'msf/core/post/windows/kiwi'
+#require 'msf/core/post/windows/error'
 
 class MetasploitModule < Msf::Post
   include Msf::Post::Windows::NetAPI

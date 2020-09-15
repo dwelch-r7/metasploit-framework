@@ -1,5 +1,5 @@
 # -*- coding: binary -*-
-require 'rex/ui'
+#require 'rex/ui'
 
 module Msf
 module Session

@@ -10,9 +10,9 @@
 #Provided by Milo at keith.lee2012[at]gmail.com
 #Verion: 0.1.0
 
-require 'fileutils'
-require 'net/http'
-require 'digest/sha1'
+#require 'fileutils'
+#require 'net/http'
+#require 'digest/sha1'
 
 @session = client
 @host,@port = @session.session_host, session.session_port

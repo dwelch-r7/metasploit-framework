@@ -7,10 +7,10 @@
 # by h00die
 #
 
-require 'digest'
-require 'open-uri'
-require 'optparse'
-require 'tempfile'
+#require 'digest'
+#require 'open-uri'
+#require 'optparse'
+#require 'tempfile'
 
 options = {}
 optparse = OptionParser.new do |opts|

@@ -1,8 +1,8 @@
 # -*- coding: binary -*-
 
-require 'msf/core'
-require 'msf/core/payload/windows/x64/bind_tcp'
-require 'msf/core/payload/windows/x64/rc4'
+#require 'msf/core'
+#require 'msf/core/payload/windows/x64/bind_tcp'
+#require 'msf/core/payload/windows/x64/rc4'
 
 module Msf
 

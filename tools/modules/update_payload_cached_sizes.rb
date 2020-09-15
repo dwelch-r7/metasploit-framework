@@ -15,16 +15,16 @@ while File.symlink?(msfbase)
 end
 
 $:.unshift(File.expand_path(File.join(File.dirname(msfbase), '..', '..', 'lib')))
-require 'msfenv'
+#require 'msfenv'
 
 $:.unshift(ENV['MSF_LOCAL_LIB']) if ENV['MSF_LOCAL_LIB']
 
 gem 'rex-text'
 
-require 'rex'
-require 'msf/ui'
-require 'msf/base'
-require 'msf/util/payload_cached_size'
+#require 'rex'
+#require 'msf/ui'
+#require 'msf/base'
+#require 'msf/util/payload_cached_size'
 
 # Initialize the simplified framework instance.
 framework = Msf::Simple::Framework.create('DisableDatabase' => true)

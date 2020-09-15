@@ -18,10 +18,10 @@ while File.symlink?(msfbase)
 end
 
 $:.unshift(File.expand_path(File.join(File.dirname(msfbase), '..', '..', 'lib')))
-require 'msfenv'
+#require 'msfenv'
 
 $:.unshift(ENV['MSF_LOCAL_LIB']) if ENV['MSF_LOCAL_LIB']
-require 'rex'
+#require 'rex'
 
 def usage
   $stderr.puts("\n" + "    Usage: #{$0} <options>\n" + $args.usage)

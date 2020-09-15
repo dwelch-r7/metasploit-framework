@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
 
-require 'diff-lcs'
-require 'json'
-require 'base64'
-require 'open3'
+#require 'diff-lcs'
+#require 'json'
+#require 'base64'
+#require 'open3'
 
 YSOSERIAL_RANDOMIZED_HEADER = 'ysoserial/Pwner'
 PAYLOAD_TEST_MIN_LENGTH = 4

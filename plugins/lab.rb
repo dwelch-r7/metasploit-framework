@@ -5,7 +5,7 @@
 
 $:.unshift(File.join(File.expand_path(File.dirname(__FILE__)), '..', 'lib', 'lab'))
 
-require 'yaml'
+#require 'yaml'
 
 module Msf
 
@@ -20,10 +20,10 @@ class Plugin::Lab < Msf::Plugin
       @controller = nil
       
       #
-      # Require the lab gem, but fail nicely if it's not there. 
+      # #require the lab gem, but fail nicely if it's not there.
       #
       begin
-        require 'lab'
+        #require 'lab'
       rescue LoadError
         raise "WARNING: Lab gem not found, Please 'gem install lab'"
       end

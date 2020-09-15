@@ -3,9 +3,9 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'openssl'
-require 'metasploit/framework/credential_collection'
-require 'metasploit/framework/login_scanner/afp'
+#require 'openssl'
+#require 'metasploit/framework/credential_collection'
+#require 'metasploit/framework/login_scanner/afp'
 
 class MetasploitModule < Msf::Auxiliary
   include Msf::Auxiliary::Report

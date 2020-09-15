@@ -1,5 +1,5 @@
-require 'base64'
-require 'msf/core/rpc'
+#require 'base64'
+#require 'msf/core/rpc'
 
 module Msf::RPC::JSON
   module V1_0

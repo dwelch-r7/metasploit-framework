@@ -1,7 +1,7 @@
 # -*- coding:binary -*-
-require 'spec_helper'
+#require 'spec_helper'
 
-require 'rex/proto/http/client_request'
+#require 'rex/proto/http/client_request'
 
 
 RSpec.shared_context "with no evasions" do

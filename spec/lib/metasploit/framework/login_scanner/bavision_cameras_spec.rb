@@ -1,4 +1,4 @@
-require 'metasploit/framework/login_scanner/bavision_cameras'
+#require 'metasploit/framework/login_scanner/bavision_cameras'
 
 RSpec.describe Metasploit::Framework::LoginScanner::BavisionCameras do
 

@@ -1,4 +1,4 @@
-require 'rex/parser/openvas_nokogiri'
+#require 'rex/parser/openvas_nokogiri'
 
 module Msf::DBManager::Import::OpenVAS
   def import_openvas_noko_stream(args={}, &block)

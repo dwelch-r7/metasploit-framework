@@ -3,7 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'metasploit/framework/compiler/windows'
+#require 'metasploit/framework/compiler/windows'
 
 class MetasploitModule < Msf::Evasion
 

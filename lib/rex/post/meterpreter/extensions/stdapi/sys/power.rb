@@ -1,10 +1,10 @@
 # -*- coding: binary -*-
 
-require 'rex/post/process'
-require 'rex/post/meterpreter/packet'
-require 'rex/post/meterpreter/client'
-require 'rex/post/meterpreter/extensions/stdapi/constants'
-require 'rex/post/meterpreter/extensions/stdapi/stdapi'
+#require 'rex/post/process'
+#require 'rex/post/meterpreter/packet'
+#require 'rex/post/meterpreter/client'
+#require 'rex/post/meterpreter/extensions/stdapi/constants'
+#require 'rex/post/meterpreter/extensions/stdapi/stdapi'
 
 module Rex
 module Post

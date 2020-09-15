@@ -1,5 +1,5 @@
 # -*- coding: binary -*-
-require 'openssl'
+#require 'openssl'
 
 module Rex
 module Post

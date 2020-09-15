@@ -3,11 +3,11 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'rex/proto/http'
+#require 'rex/proto/http'
 #
 # May I reuse some methods?
 #
-require 'cgi'
+#require 'cgi'
 
 
 

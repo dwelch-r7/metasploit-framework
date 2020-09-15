@@ -1,7 +1,7 @@
 # -*- coding: binary -*-
 # make sure the classes are defined before opening it to define submodule
-require 'rex/ui/text/output'
-require 'rex/ui/text/output/buffer'
+#require 'rex/ui/text/output'
+#require 'rex/ui/text/output/buffer'
 
 module Rex
   module Ui

@@ -1,13 +1,13 @@
 # -*- coding: binary -*-
 
-require 'rex/proto/ipmi/utils'
+#require 'rex/proto/ipmi/utils'
 
 module Rex
 module Proto
 module IPMI
-  require 'rex/proto/ipmi/channel_auth_reply'
-  require 'rex/proto/ipmi/open_session_reply'
-  require 'rex/proto/ipmi/rakp2'
+  #require 'rex/proto/ipmi/channel_auth_reply'
+  #require 'rex/proto/ipmi/open_session_reply'
+  #require 'rex/proto/ipmi/rakp2'
 
   #
   # Move these into an IPMI stack or mixin at some point

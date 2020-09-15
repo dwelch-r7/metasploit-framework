@@ -3,7 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'rex/encoder/nonupper'
+#require 'rex/encoder/nonupper'
 
 class MetasploitModule < Msf::Encoder::NonUpper
   Rank = LowRanking

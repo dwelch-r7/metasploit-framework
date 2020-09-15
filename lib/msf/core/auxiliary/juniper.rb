@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
 
-require 'metasploit/framework/hashes/identify'
+#require 'metasploit/framework/hashes/identify'
 
 module Msf
 

@@ -1,5 +1,5 @@
 # -*- coding: binary -*-
-require 'rex/post/meterpreter/extensions/stdapi/railgun/const_manager'
+#require 'rex/post/meterpreter/extensions/stdapi/railgun/const_manager'
 
 module Rex
 module Post

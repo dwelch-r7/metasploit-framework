@@ -1,7 +1,7 @@
 # -*- coding: binary -*-
-require 'postgres_msf'
-require 'postgres/binary_writer'
-require 'postgres/binary_reader'
+#require 'postgres_msf'
+#require 'postgres/binary_writer'
+#require 'postgres/binary_reader'
 
 # Namespace for Metasploit branch.
 module Msf

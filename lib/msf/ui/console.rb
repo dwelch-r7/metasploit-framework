@@ -8,4 +8,4 @@ end
 end
 end
 
-require 'msf/ui/console/driver'
+#require 'msf/ui/console/driver'

@@ -1,4 +1,4 @@
-require 'metasploit/framework/version'
+#require 'metasploit/framework/version'
 
 module Metasploit
   module Framework
