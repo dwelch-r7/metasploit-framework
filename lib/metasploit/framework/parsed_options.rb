@@ -17,10 +17,10 @@ module Metasploit
     # name of the `Class` in the {Metasploit::Framework::Command} namespace
     # for which this namespace's `Class` parses options.
     module ParsedOptions
-      extend ActiveSupport::Autoload
-
-      autoload :Base
-      autoload :Console
+      # extend ActiveSupport::Autoload
+      #
+      # autoload :Base
+      # autoload :Console
     end
   end
 end

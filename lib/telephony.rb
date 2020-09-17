@@ -1,4 +1,4 @@
-#require 'serialport'
+# require 'serialport'
 
 module Telephony
 end

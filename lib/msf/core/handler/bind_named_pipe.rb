@@ -1,7 +1,7 @@
 # -*- coding: binary -*-
 #require 'thread'
 #require 'msf/core/post_mixin'
-#require 'rex/proto/smb/simpleclient'
+# require 'rex/proto/smb/simpleclient/open_pipe'
 
 #
 # KNOWN ISSUES

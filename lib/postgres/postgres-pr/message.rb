@@ -7,7 +7,7 @@
 
 #require 'postgres_msf'
 #require 'postgres/buffer'
-#require 'rex/io/stream'
+require 'rex/io/stream'
 
 # Monkeypatch to preserve original code intent
 # (postgres-pr originally defined read_exactly_n_bytes on IO
@@ -19,8 +19,8 @@ module Rex::IO::Stream
 end
 
 # Namespace for Metasploit branch.
-module Msf
-module Db
+module Postgres
+
 
 module PostgresPR
 
@@ -558,5 +558,4 @@ end
 
 end # module PostgresPR
 
-end
 end

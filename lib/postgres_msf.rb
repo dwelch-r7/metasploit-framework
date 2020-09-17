@@ -11,3 +11,6 @@
 #require 'postgres/postgres-pr/postgres-compat'
 #require 'stringio'
 
+module PostgresMsf
+
+end

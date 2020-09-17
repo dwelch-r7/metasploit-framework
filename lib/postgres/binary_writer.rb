@@ -3,8 +3,7 @@
 #require 'postgres/byteorder'
 
 # Namespace for Metasploit branch.
-module Msf
-module Db
+module Postgres
 
 module BinaryWriterMixin
 
@@ -105,5 +104,4 @@ module BinaryWriterMixin
   end
 end
 
-end
 end

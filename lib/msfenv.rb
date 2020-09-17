@@ -17,3 +17,6 @@ config = root.join('config')
 unless defined?(Rails) && !Rails.application.nil?
   #require config.join('environment')
 end
+module Msfenv
+
+end

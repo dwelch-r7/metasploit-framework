@@ -1,6 +1,7 @@
 #require 'rails'
 #require File.expand_path('../boot', __FILE__)
-
+require 'bundler'
+require 'rails'
 all_environments = [
     :development,
     :production,

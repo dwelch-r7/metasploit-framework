@@ -2,8 +2,8 @@
 #require 'postgres_msf'
 
 # Namespace for Metasploit branch.
-module Msf
-module Db
+module Postgres
+
 
 module ByteOrder 
   Native = :Native
@@ -38,5 +38,4 @@ module ByteOrder
   module_function :big_endian?, :big?, :network?
 end
 
-end
 end

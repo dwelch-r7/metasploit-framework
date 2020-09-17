@@ -7,7 +7,7 @@
 #require 'msf/base/sessions/powershell'
 #require 'msf/core/payload/windows/powershell'
 #require 'msf/core/handler/bind_tcp'
-
+require 'rex/powershell'
 module MetasploitModule
 
   CachedSize = 1553
@@ -31,7 +31,7 @@ module MetasploitModule
       'Platform'      => 'windows',
       'Arch'          => ARCH_CMD,
       'Handler'       => Msf::Handler::BindTcp,
-      'Session'       => Msf::Sessions::PowerShell,
+      'Session'       => Msf::Sessions::Powershell,
       'RequiredCmd'   => 'generic',
       'Payload'       => { 'Payload' => '' }
       ))

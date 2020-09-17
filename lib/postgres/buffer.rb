@@ -4,8 +4,8 @@
 #require 'postgres/binary_reader'
 
 # Namespace for Metasploit branch.
-module Msf
-module Db
+module Postgres
+
 
 # Fixed size buffer.
 class Buffer
@@ -98,9 +98,8 @@ class Buffer
     read(self.size-@position)
   end
 
-  include BinaryWriterMixin
-  include BinaryReaderMixin
+  include Postgres::BinaryWriterMixin
+  include Postgres::BinaryReaderMixin
 end
 
-end
 end

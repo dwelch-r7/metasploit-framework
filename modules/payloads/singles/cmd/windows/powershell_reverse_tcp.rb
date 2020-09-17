@@ -33,7 +33,7 @@ module MetasploitModule
       'Platform'      => 'windows',
       'Arch'          => ARCH_CMD,
       'Handler'       => Msf::Handler::ReverseTcpSsl,
-      'Session'       => Msf::Sessions::PowerShell,
+      'Session'       => Msf::Sessions::Powershell,
       'RequiredCmd'   => 'generic',
       'Payload'       =>
         {

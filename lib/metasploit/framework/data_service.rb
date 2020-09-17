@@ -25,7 +25,7 @@ module DataService
   include NoteDataService
   include ServiceDataService
   include SessionDataService
-  include SessionEventDataService
+  include SessionEventService
   include ExploitDataService
   include LootDataService
   include MsfDataService

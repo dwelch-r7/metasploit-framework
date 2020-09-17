@@ -1,4 +1,4 @@
-module Anemone
+module Anemone::Exceptions
   class Error < ::StandardError
     attr_accessor :wrapped_exception
   end

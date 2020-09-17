@@ -1,7 +1,7 @@
 #require 'rex/socket/ssl'
 
 module Msf
-module Ssl
+# module Ssl
   module CertProvider
     autoload :Faker, 'faker'
 
@@ -97,4 +97,4 @@ module Ssl
     end
   end
 end
-end
+# end

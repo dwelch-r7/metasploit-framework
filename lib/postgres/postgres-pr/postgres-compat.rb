@@ -6,8 +6,8 @@
 #require 'postgres/postgres-pr/connection'
 
 # Namespace for Metasploit branch.
-module Msf
-module Db
+module Postgres::PostgresPR
+
 
 class PGconn
   class << self
@@ -158,5 +158,4 @@ end
 class PGError < ::Exception
 end
 
-end
 end

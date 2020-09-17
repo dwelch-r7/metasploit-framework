@@ -3,8 +3,8 @@
 #require 'postgres/byteorder'
 
 # Namespace for Metasploit branch.
-module Msf
-module Db
+module Postgres
+
 
 # This mixin solely depends on method read(n), which must be defined
 # in the class/module where you mixin this module.
@@ -125,5 +125,4 @@ module BinaryReaderMixin
   end
 end
 
-end
 end

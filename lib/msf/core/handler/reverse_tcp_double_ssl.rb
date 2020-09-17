@@ -245,6 +245,7 @@ protected
   #
   ###
   class TcpReverseDoubleSSLSessionChannel
+    require 'rex/io/stream_abstraction'
 
     include Rex::IO::StreamAbstraction
 

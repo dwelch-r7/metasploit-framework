@@ -19,12 +19,12 @@
 module Rex
 module Post
 module Meterpreter
-
 #
-# Just to get it in there...
-#
-module Extensions
-end
+# #
+# # Just to get it in there...
+# #
+# module Extensions
+# end
 
 ###
 #

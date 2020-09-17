@@ -1,4 +1,4 @@
-#require 'singleton'
+require 'singleton'
 #require 'msf/core/db_manager'
 #require 'msf/core/module_manager'
 #require 'msf/core/constants'

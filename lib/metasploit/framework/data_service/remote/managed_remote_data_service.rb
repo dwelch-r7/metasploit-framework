@@ -1,4 +1,4 @@
-#require 'singleton'
+require 'singleton'
 #require 'metasploit/framework/data_service/remote/http/core'
 
 module Metasploit

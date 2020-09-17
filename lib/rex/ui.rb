@@ -22,3 +22,6 @@
 # Ui subscriber
 #require 'rex/ui/subscriber'
 #require 'rex/ui/interactive'
+module Rex::Ui
+
+end

@@ -38,7 +38,7 @@ module MetasploitModule
       'Platform'      => 'win',
       'Arch'          => ARCH_X64,
       'Handler'       => Msf::Handler::BindTcp,
-      'Session'       => Msf::Sessions::PowerShell,
+      'Session'       => Msf::Sessions::Powershell,
       ))
 
     # Register command execution options

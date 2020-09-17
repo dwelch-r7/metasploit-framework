@@ -1,5 +1,5 @@
 # -*- coding: binary -*-
-#require 'abbrev'
+require 'abbrev'
 
 #
 # This is the definitions of which Platforms the framework knows about.  The

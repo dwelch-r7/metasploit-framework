@@ -11,7 +11,7 @@
 #
 
 #require 'metasploit/framework/version'
-#require 'rex/compat'
+require 'rex/compat'
 
 module Msf
 

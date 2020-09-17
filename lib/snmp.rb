@@ -8,3 +8,6 @@
 #
 
 #require 'snmp/manager'
+module SNMP
+
+end

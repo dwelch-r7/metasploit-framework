@@ -1,5 +1,5 @@
 # -*- coding: binary -*-
-
+require 'open3'
 class Msf::Ui::Console::CommandDispatcher::Developer
 
   include Msf::Ui::Console::CommandDispatcher

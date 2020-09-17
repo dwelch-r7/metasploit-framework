@@ -1,4 +1,4 @@
-#require 'singleton'
+require 'singleton'
 #require 'msf/events'
 #require 'rex/ui/text/output/stdio'
 #require 'msf/core/constants'

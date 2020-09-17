@@ -1,7 +1,7 @@
 # -*- coding: binary -*-
 #require 'rex'
 #require 'rex/proto'
-
+require 'rex/sync/ref'
 module Rex
 
 ###

@@ -2,13 +2,13 @@
 # Standard Library
 #
 
-#require 'optparse'
+require 'optparse'
 
 #
 # Gems
 #
 
-#require 'active_support/ordered_options'
+require 'active_support/ordered_options'
 
 #
 # Project

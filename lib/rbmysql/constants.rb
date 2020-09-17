@@ -164,3 +164,6 @@ class RbMysql
   end
 end
 
+module RbMysql::Constants
+
+end

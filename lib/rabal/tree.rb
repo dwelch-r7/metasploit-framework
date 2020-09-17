@@ -3,7 +3,7 @@
 # A basic Tree structure
 #
 
-class Tree
+class Rabal::Tree
 
   include Enumerable
 

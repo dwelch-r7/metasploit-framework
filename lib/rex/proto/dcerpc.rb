@@ -5,3 +5,6 @@
 #require 'rex/proto/dcerpc/packet'
 #require 'rex/proto/dcerpc/handle'
 #require 'rex/proto/dcerpc/ndr'
+module Rex::Proto::DCERPC
+
+end

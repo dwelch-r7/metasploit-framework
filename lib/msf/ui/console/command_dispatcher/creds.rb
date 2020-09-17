@@ -5,7 +5,7 @@
 #require 'msf/core/db_export'
 #require 'metasploit/framework/password_crackers/hashcat/formatter'
 #require 'metasploit/framework/password_crackers/jtr/formatter'
-
+require 'metasploit/credential'
 module Msf
 module Ui
 module Console

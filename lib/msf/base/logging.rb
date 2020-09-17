@@ -1,11 +1,11 @@
 # -*- coding: binary -*-
 #require 'rex'
 #require 'msf/base'
-
+require 'msf/core'
 module Msf
 
 # This module provides an initialization interface for logging.
-class Logging
+class Logging < Rex::Logging::LogDispatcher
 
   #Is logging initialized
   #@private

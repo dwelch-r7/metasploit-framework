@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
 #require 'rex/ui'
-
+require 'readline'
 module Rex
 module Ui
 module Text

@@ -1,6 +1,6 @@
 #require 'metasploit/framework'
 #require 'msf/base/config'
-
+require 'active_support/core_ext/hash'
 module Metasploit
   module Framework
     module Database

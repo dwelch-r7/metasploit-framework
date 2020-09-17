@@ -6,3 +6,6 @@
 #require 'rex/proto/smb/utils'
 #require 'rex/proto/smb/client'
 #require 'rex/proto/smb/simpleclient'
+module Rex::Proto::SMB
+
+end

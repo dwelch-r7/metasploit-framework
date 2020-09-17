@@ -8,3 +8,6 @@
 
 # Hardware Bridge clients
 #require 'rex/post/hwbridge'
+module Rex::Post
+
+end

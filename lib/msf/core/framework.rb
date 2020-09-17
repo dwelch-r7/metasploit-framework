@@ -14,7 +14,7 @@
 #require 'msf/base/config'
 #require 'msf/core'
 #require 'msf/util'
-
+require 'metasploit/framework/data_service/proxy/core'
 module Msf
 
 ###
@@ -87,7 +87,7 @@ class Framework
     Rex::ThreadFactory.provider = Metasploit::Framework::ThreadFactoryProvider.new(framework: self)
 
     # Configure the SSL certificate generator
-    Rex::Socket::Ssl.cert_provider = Msf::Ssl::CertProvider
+    Rex::Socket::Ssl.cert_provider = Msf::CertProvider
 
     subscriber = FrameworkEventSubscriber.new(self)
     events.add_exploit_subscriber(subscriber)

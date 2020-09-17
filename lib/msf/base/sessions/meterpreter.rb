@@ -3,7 +3,7 @@
 #require 'msf/base'
 #require 'msf/base/sessions/scriptable'
 #require 'rex/post/meterpreter'
-
+# require 'rex/post/meterpreter/client'
 module Msf
 module Sessions
 

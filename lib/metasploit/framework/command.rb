@@ -17,10 +17,10 @@ module Metasploit
       # Namespace for commands for metasploit-framework.  There are
       # corresponding classes in the {Metasploit::Framework::ParsedOptions}
       # namespace, which handle for parsing the options for each command.
-      extend ActiveSupport::Autoload
-
-      autoload :Base
-      autoload :Console
+      # extend ActiveSupport::Autoload
+      #
+      # autoload :Base
+      # autoload :Console
     end
   end
 end

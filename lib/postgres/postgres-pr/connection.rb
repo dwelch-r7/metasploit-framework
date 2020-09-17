@@ -12,8 +12,8 @@
 #require 'rex/socket'
 
 # Namespace for Metasploit branch.
-module Msf
-module Db
+module Postgres
+
 
 module PostgresPR
 
@@ -200,5 +200,4 @@ end
 
 end # module PostgresPR
 
-end
 end

@@ -13,15 +13,15 @@
 # The framework-core depends on Rex
 #require 'rex'
 #require 'rex/ui'
-#require 'rex/arch'
+require 'rex/arch'
 include Rex::Arch
 
 module Msf
-  autoload :Author, 'msf/core/author'
-  autoload :Platform, 'msf/core/platform'
-  autoload :Reference, 'msf/core/reference'
-  autoload :SiteReference, 'msf/core/site_reference'
-  autoload :Target, 'msf/core/target'
+  # autoload :Author, 'msf/core/author'
+  # autoload :Platform, 'msf/core/platform'
+  # autoload :Reference, 'msf/core/reference'
+  # autoload :SiteReference, 'msf/core/site_reference'
+  # autoload :Target, 'msf/core/target'
 
   #
   # Constants

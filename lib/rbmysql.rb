@@ -16,10 +16,10 @@
 class RbMysql
 
   dir = File.dirname __FILE__
-  #require "#{dir}/rbmysql/constants"
-  #require "#{dir}/rbmysql/error"
-  #require "#{dir}/rbmysql/charset"
-  #require "#{dir}/rbmysql/protocol"
+  require "#{dir}/rbmysql/constants"
+  require "#{dir}/rbmysql/error"
+  require "#{dir}/rbmysql/charset"
+  require "#{dir}/rbmysql/protocol"
 
   VERSION            = 30001               # Version number of this library
   MYSQL_UNIX_PORT    = "/tmp/mysql.sock"   # UNIX domain socket filename

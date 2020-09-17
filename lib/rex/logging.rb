@@ -62,3 +62,6 @@ LEV_2     = 2
 LEV_3     = 3
 
 #require 'rex/logging/log_dispatcher'
+module Rex::Logging
+
+end

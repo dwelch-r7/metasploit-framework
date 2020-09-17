@@ -1,4 +1,4 @@
-module SessionEventDataService
+module SessionEventService
 
   def session_events(opts)
     raise 'SessionEventDataService#session_events is not implemented'

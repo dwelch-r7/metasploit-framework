@@ -1,4 +1,5 @@
 # -*- coding: binary -*-
+require 'rex/struct2'
 module Rex
 module Proto
 module SMB

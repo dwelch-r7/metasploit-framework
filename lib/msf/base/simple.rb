@@ -15,3 +15,6 @@
 
 # Simplified framework interface
 #require 'msf/base/simple/framework'
+module Msf::Simple
+
+end

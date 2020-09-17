@@ -23,10 +23,65 @@ begin
   require "zeitwerk"
   loader = Zeitwerk::Loader.new
   loader.push_dir('lib/')
-  # loader.collapse("#{__dir__}/msf/core")
-  # loader.collapse("#{__dir__}/msf/base", "#{__dir__}/msf/core")
-  loader.setup # ready!
+  loader.ignore("lib/expect.rb", "lib/rbmysql/compat.rb", "lib/telephony.rb", "lib/telephony/")
+  loader.collapse("lib/msf/base", "lib/msf/core", "lib/msf/ui/console/command_dispatcher/db", "lib/metasploit/framework/data_service/stubs")
+  loader.inflector.inflect(
+      "exe"   => "EXE",
+      "db_manager" => "DBManager",
+      "uuid" => "UUID",
+      "reflective_dll_loader" => "ReflectiveDLLLoader",
+      "payload_db_conf" => "PayloadDBConf",
+      "smb" => "SMB",
+      "tty" => "TTY",
+      "jsp" => "JSP",
+      "nodejs" => "NodeJS",
+      "reverse_tcp_double_ssl" => "ReverseTcpDoubleSSL",
+      "exec_x64" => "Exec_x64",
+      "postgres-pr" => "PostgresPR",
+      "rbmysql" => "RbMysql",
+      "binary_writer" => "BinaryWriterMixin",
+      "binary_reader" => "BinaryReaderMixin",
+      "postgres-compat" => "PGconn",
+      "json_hash_file" => "JSONHashFile",
+      "mac_oui" => "Oui",
+      "cli" => "CLI",
+      "rex_http" => "HTTP",
+      "http" => "HTTP",
+      "dns" => "DNS",
+      "snmp" => "SNMP",
+      "mib" => "MIB",
+      "ber" => "BER",
+      "varbind" => "VarBindList",
+      "pdu" => "PDU",
+      "dcerpc" => "DCERPC",
+      "meterpreter_x86_linux" => "Meterpreter_x86_Linux",
+      "meterpreter_x64_linux" => "Meterpreter_x64_Linux",
+      "meterpreter_mipsle_linux" => "Meterpreter_mipsle_Linux",
+      "meterpreter_armle_linux" => "Meterpreter_armle_Linux",
+      "meterpreter_aarch64_linux" => "Meterpreter_aarch64_Linux",
+      "meterpreter_php" => "Meterpreter_Php_Php",
+      "meterpreter_x86_win" => "Meterpreter_x86_Win",
+      "meterpreter_python" => "Meterpreter_Python_Python",
+      "meterpreter_java" => "Meterpreter_Java_Java",
+      "meterpreter_android" => "Meterpreter_Java_Android",
+      "meterpreter_x64_osx" => "Meterpreter_x64_OSX",
+      "meterpreter_multi" => "Meterpreter_Multi",
+      "meterpreter_armbe_linux" => "Meterpreter_armbe_Linux",
+      "meterpreter_mipsbe_linux" => "Meterpreter_mipsbe_Linux",
+      "meterpreter_ppc64le_linux" => "Meterpreter_ppc64le_Linux",
+      "meterpreter_zarch_linux" => "Meterpreter_zarch_Linux",
+      "meterpreter_ppc_linux" => "Meterpreter_ppc_Linux",
+      "meterpreter_ppce500v2_linux" => "Meterpreter_ppce500v2_Linux",
+      "meterpreter_mips64_linux" => "Meterpreter_mips64_Linux",
+      "meterpreter_armle_apple_ios" => "Meterpreter_armle_Apple_iOS",
+      "meterpreter_aarch64_apple_ios" => "Meterpreter_aarch64_Apple_iOS",
+      "meterpreter_x86_bsd" => "Meterpreter_x86_BSD",
+      "meterpreter_loader" => "MeterpreterLoader",
+      "meterpreter_x64_win" => "Meterpreter_x64_Win"
 
+  )
+  loader.setup # ready!
+  # loader.eager_load
   Metasploit::Framework::Profiler.start
   Metasploit::Framework::Command::Console.start
 rescue Interrupt
