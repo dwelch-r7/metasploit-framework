@@ -201,7 +201,7 @@ class RbMysql
         "tis620"   => nil,
         "ucs2"     => Encoding::UTF_16BE,
         "ujis"     => Encoding::EucJP_ms,
-        "utf8"     => Encoding::UTF_8,
+        "utf8"     => ::Encoding::UTF_8,
       }
 
       def self.to_binary(value)

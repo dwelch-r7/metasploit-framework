@@ -168,7 +168,7 @@ class MetasploitModule < Msf::Post
     hex_chars = encoded.scan(/../)
     hex_chars.each do |entry|
       x = entry.to_i(16) - shift
-      decoded += x.chr(Encoding::UTF_8)
+      decoded += x.chr(::Encoding::UTF_8)
     end
 
     return decoded

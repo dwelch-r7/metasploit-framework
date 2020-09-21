@@ -1,0 +1,3 @@
+module Msf::Encoding
+
+end

@@ -54,6 +54,9 @@ begin
       "varbind" => "VarBindList",
       "pdu" => "PDU",
       "dcerpc" => "DCERPC",
+      "dcerpc_mgmt" => "DCERPC_MGMT",
+      "dcerpc_epm" => "DCERPC_EPM",
+      "dcerpc_lsa" => "DCERPC_LSA",
       "meterpreter_x86_linux" => "Meterpreter_x86_Linux",
       "meterpreter_x64_linux" => "Meterpreter_x64_Linux",
       "meterpreter_mipsle_linux" => "Meterpreter_mipsle_Linux",
@@ -81,7 +84,7 @@ begin
 
   )
   loader.setup # ready!
-  # loader.eager_load
+  loader.eager_load
   Metasploit::Framework::Profiler.start
   Metasploit::Framework::Command::Console.start
 rescue Interrupt

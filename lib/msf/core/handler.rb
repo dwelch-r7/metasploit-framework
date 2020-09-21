@@ -1,6 +1,6 @@
 # -*- coding: binary -*-
 #require 'msf/core'
-
+require 'rex/sync'
 module Msf
 
 ###
