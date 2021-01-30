@@ -46,21 +46,21 @@ class Metasploit::Framework::Command::Base
   def self.require_environment!
     parsed_options = self.parsed_options
     # RAILS_ENV must be set before requiring 'config/application.rb'
-    parsed_options.environment!
-    ARGV.replace(parsed_options.positional)
-
-    # allow other Rails::Applications to use this command
-    if !defined?(Rails) || Rails.application.nil?
-      # @see https://github.com/rails/rails/blob/v3.2.17/railties/lib/rails/commands.rb#L39-L40
-      require Pathname.new(__FILE__).parent.parent.parent.parent.parent.join('config', 'application')
-    end
-
-    # have to configure before requiring environment because
-    # config/environment.rb calls initialize! and the initializers will use
-    # the configuration from the parsed options.
-    parsed_options.configure(Rails.application)
-
-    Rails.application.require_environment!
+    # parsed_options.environment!
+    # ARGV.replace(parsed_options.positional)
+    #
+    # # allow other Rails::Applications to use this command
+    # if !defined?(Rails) || Rails.application.nil?
+    #   # @see https://github.com/rails/rails/blob/v3.2.17/railties/lib/rails/commands.rb#L39-L40
+    #   require Pathname.new(__FILE__).parent.parent.parent.parent.parent.join('config', 'application')
+    # end
+    #
+    # # have to configure before requiring environment because
+    # # config/environment.rb calls initialize! and the initializers will use
+    # # the configuration from the parsed options.
+    # parsed_options.configure(Rails.application)
+    #
+    # Rails.application.require_environment!
 
     parsed_options
   end
@@ -79,7 +79,8 @@ class Metasploit::Framework::Command::Base
 
   def self.start
     parsed_options = require_environment!
-    new(application: Rails.application, parsed_options: parsed_options).start
+    # new(application: Rails.application, parsed_options: parsed_options).start
+    new(application: nil, parsed_options: parsed_options).start
   end
 
   #

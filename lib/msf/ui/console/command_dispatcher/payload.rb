@@ -1,6 +1,7 @@
 # -*- coding: binary -*-
 
 require 'rex/parser/arguments'
+require 'msf/base/simple/buffer.rb'
 
 module Msf
   module Ui

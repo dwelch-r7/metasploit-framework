@@ -1,7 +1,10 @@
 # -*- coding: binary -*-
-require 'msf/base/simple'
+# require 'msf/base/simple'
 require 'msf/base/simple/framework/module_paths'
 require 'msf/base/simple/noop_job_listener'
+require 'msf/base/simple/statistics'
+require 'msf/base/logging'
+
 
 module Msf
 module Simple
@@ -50,18 +53,19 @@ module Framework
   # Simplifies module instances when they're created.
   #
   def on_module_created(instance)
-    Msf::Simple::Framework.simplify_module(instance)
+    # Msf::Simple::Framework.simplify_module(instance)
+    instance
   end
 
   ModuleSimplifiers =
     {
-      Msf::MODULE_ENCODER => Msf::Simple::Encoder,
-      Msf::MODULE_EXPLOIT => Msf::Simple::Exploit,
-      Msf::MODULE_NOP     => Msf::Simple::Nop,
-      Msf::MODULE_PAYLOAD => Msf::Simple::Payload,
-      Msf::MODULE_AUX     => Msf::Simple::Auxiliary,
-      Msf::MODULE_POST    => Msf::Simple::Post,
-      Msf::MODULE_EVASION => Msf::Simple::Evasion
+      # Msf::MODULE_ENCODER => Msf::Simple::Encoder,
+      # Msf::MODULE_EXPLOIT => Msf::Simple::Exploit,
+      # Msf::MODULE_NOP     => Msf::Simple::Nop,
+      # Msf::MODULE_PAYLOAD => Msf::Simple::Payload,
+      # Msf::MODULE_AUX     => Msf::Simple::Auxiliary,
+      # Msf::MODULE_POST    => Msf::Simple::Post,
+      # Msf::MODULE_EVASION => Msf::Simple::Evasion
     }
 
   # Create a simplified instance of the framework.  This routine takes a hash
@@ -131,12 +135,13 @@ module Framework
   # with the simplified module interface.
   #
   def self.simplify_module(instance, load_saved_config = true)
-    if ((ModuleSimplifiers[instance.type]) and
-        (instance.class.include?(ModuleSimplifiers[instance.type]) == false))
-      instance.extend(ModuleSimplifiers[instance.type])
-
-      instance.init_simplified(load_saved_config)
-    end
+  #   if ((ModuleSimplifiers[instance.type]) and
+  #       (instance.class.include?(ModuleSimplifiers[instance.type]) == false))
+  #     instance.extend(ModuleSimplifiers[instance.type])
+  #
+  #     instance.init_simplified(load_saved_config)
+  #   end
+    instance
   end
 
 

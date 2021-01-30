@@ -6,7 +6,7 @@
 #
 
 require 'pathname'
-
+require 'stackprof'
 begin
 
   # Silences warnings as they only serve to confuse end users
@@ -19,8 +19,10 @@ begin
   require 'metasploit/framework/profiler'
   require 'metasploit/framework/command/console'
   require 'msf/core/payload_generator'
-  Metasploit::Framework::Profiler.start
-  Metasploit::Framework::Command::Console.start
+  # Metasploit::Framework::Profiler.start
+  # StackProf.run(mode: :wall, out: 'test_prof_wall_time.dump', raw: true, ignore_gc: true) do
+    Metasploit::Framework::Command::Console.start
+  # end
 rescue Interrupt
   puts "\nAborting..."
   exit(1)
