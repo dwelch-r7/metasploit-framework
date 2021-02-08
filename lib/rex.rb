@@ -36,77 +36,76 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 module Rex
   Root = File.join(File.expand_path(File.dirname(__FILE__)), 'rex')
   LogSource = "rex"
+
+  #
+  # REX Gems
+  #
+
+  # Text manipulation library for things like generating random string
+  autoload :Text, 'rex/text'
+  # Library for Generating Randomized strings valid as Identifiers such as variable names
+  autoload :RandomIdentifier, 'rex/random_identifier'
+  # library for creating Powershell scripts for exploitation purposes
+  autoload :Powershell, 'rex/powershell'
+  # Library for processing and creating Zip compatible archives
+  autoload :Zip, 'rex/zip'
+  # Library for processing and creating tar compatible archives (not really a gem)
+  autoload :Tar, 'rex/tar'
+  # Library for parsing offline Windows Registry files
+  autoload :Registry, 'rex/registry'
+  # Library for parsing Java serialized streams
+  autoload :Java, 'rex/java'
+  # Library for creating C-style Structs
+  autoload :Struct2,'rex/struct2'
+  # Library for working with OLE
+  autoload :OLE, 'rex/ole'
+  # Library for creating and/or parsing MIME messages
+  autoload :MIME, 'rex/mime'
+  # Library for polymorphic encoders
+  autoload :Encoder, 'rex/encoder'
+  # Architecture subsystem
+  autoload :Arch, 'rex/arch'
+  # Exploit Helper Library
+  autoload :Exploitation, 'rex/exploitation'
+
+  # Generic classes
+
+  autoload :Transformer, 'rex/transformer'
+  autoload :File, 'rex/file'
+
+  # Thread safety and synchronization
+  autoload :Sync, 'rex/sync'
+  autoload :ThreadSafe, 'rex/sync'
+  autoload :Ref, 'rex/sync'
+  autoload :ReadWriteLock, 'rex/sync'
+
+
+  # Thread factory
+  autoload :ThreadFactory, 'rex/thread_factory'
+
+
+  # Assembly
+  autoload :Assembly, 'rex/assembly/nasm'
+
+  module IO
+    # IO
+    autoload :Stream, 'rex/io/stream'
+    autoload :StreamAbstraction, 'rex/io/stream_abstraction'
+    autoload :StreamServer, 'rex/io/stream_server'
+  end
+  # Sockets
+  autoload :Socket, 'rex/socket'
+
+
+  # Compatibility
+  autoload :Compat, 'rex/compat'
+
+  module SSLScan
+    # SSLScan
+    autoload :Scanner, 'rex/sslscan/scanner'
+    autoload :Result, 'rex/sslscan/result'
+  end
 end
-
-#
-# REX Gems
-#
-
-# Text manipulation library for things like generating random string
-require 'rex/text'
-# Library for Generating Randomized strings valid as Identifiers such as variable names
-require 'rex/random_identifier'
-# library for creating Powershell scripts for exploitation purposes
-require 'rex/powershell'
-# Library for processing and creating Zip compatible archives
-require 'rex/zip'
-# Library for processing and creating tar compatible archives (not really a gem)
-require 'rex/tar'
-# Library for parsing offline Windows Registry files
-require 'rex/registry'
-# Library for parsing Java serialized streams
-require 'rex/java'
-# Library for creating C-style Structs
-require 'rex/struct2'
-# Library for working with OLE
-require 'rex/ole'
-# Library for creating and/or parsing MIME messages
-require 'rex/mime'
-# Library for polymorphic encoders
-require 'rex/encoder'
-# Architecture subsystem
-require 'rex/arch'
-# Exploit Helper Library
-require 'rex/exploitation'
-
-# Generic classes
-
-require 'rex/transformer'
-require 'rex/random_identifier'
-require 'rex/ext_time'
-require 'rex/job_container'
-require 'rex/file'
-
-# Thread safety and synchronization
-require 'rex/sync'
-
-# Thread factory
-require 'rex/thread_factory'
-
-
-# Assembly
-require 'rex/assembly/nasm'
-
-# Logging
-require 'rex/logging/log_dispatcher'
-
-# IO
-require 'rex/io/stream'
-require 'rex/io/stream_abstraction'
-require 'rex/io/stream_server'
-
-# Sockets
-require 'rex/socket'
-
-# Protocols
-require 'rex/oui'
-
-# Compatibility
-require 'rex/compat'
-
-# SSLScan
-require 'rex/sslscan/scanner'
-require 'rex/sslscan/result'
 
 # Overload the Kernel.sleep() function to be thread-safe
 Kernel.class_eval("
