@@ -1,3 +1,5 @@
+require 'activerecord-import'
+
 module Msf::DBManager::Service
   # Deletes a port and associated vulns matching this port
   def delete_service(opts)
@@ -121,7 +123,7 @@ module Msf::DBManager::Service
 
     if (service and service.changed?)
       msf_import_timestamps(opts,service)
-      service.save!
+      # service.save!
     end
 
     if opts[:task]
@@ -133,6 +135,14 @@ module Msf::DBManager::Service
 
     ret[:service] = service
   }
+  end
+
+  def report_services(services)
+    ::ApplicationRecord.connection_pool.with_connection { |connection|
+      db_services = services.map { |service| report_service service }
+      # require 'pry'; binding.pry
+      Mdm::Service.import db_services
+    }
   end
 
   # Returns a list of all services in the database

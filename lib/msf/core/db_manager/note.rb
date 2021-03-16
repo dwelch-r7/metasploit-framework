@@ -1,3 +1,4 @@
+require 'activerecord-import'
 module Msf::DBManager::Note
   #
   # This method iterates the notes table calling the supplied block with the
@@ -192,9 +193,17 @@ module Msf::DBManager::Note
       note.vuln_id = opts[:vuln_id]
     end
     msf_import_timestamps(opts,note)
-    note.save!
+    # note.save!
     ret[:note] = note
   }
+  end
+
+  def report_notes(notes)
+    ::ApplicationRecord.connection_pool.with_connection { |connection|
+      db_notes = notes.map { |note| report_note note }
+      # require 'pry'; binding.pry
+      Mdm::Note.import db_notes
+    }
   end
 
   # Update the attributes of a note entry with the values in opts.

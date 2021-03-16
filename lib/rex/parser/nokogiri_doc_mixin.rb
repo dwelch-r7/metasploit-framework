@@ -51,6 +51,10 @@ module Parser
       @block = block if block
       @report_data = {:workspace => args[:workspace]}
       @nx_console_id = args[:nx_console_id]
+      @hosts = []
+      @services = []
+      @vulns = []
+      @notes = []
       super()
     end
 
@@ -149,7 +153,12 @@ module Parser
       return nil if just_the_facts.empty?
       just_the_facts[:task] = @args[:task]
       just_the_facts[:workspace] = @args[:workspace] # workspace context is a required `fact`
-      db.send("report_#{table}", just_the_facts)
+      # if table == :note
+      #   track_notes just_the_facts
+      # else
+      #   db.send("report_#{table}", just_the_facts)
+      # end
+      track_stuff table, just_the_facts
     end
 
     # XXX: It would be better to either have a single registry of acceptable
@@ -221,6 +230,7 @@ module Parser
     end
 
     def end_document
+      save_all
       block = @block
       return unless @report_type_ok
       unless @state[:current_tag].empty?
@@ -231,6 +241,27 @@ module Parser
       end
     end
 
+    def track_stuff(table, data)
+      case table
+      # when :note
+      #   @notes << data
+      # when :host
+      #   @hosts << data
+      # when :service
+      #   @services << data
+      when :vuln
+        @vulns << data
+      else
+        db.send("report_#{table}", data)
+      end
+    end
+
+    def save_all
+      # db.report_hosts(hosts)
+      # db.report_services(@services)
+      db.report_vulns(@vulns)
+      # db.report_notes(@notes)
+    end
   end
 
 end

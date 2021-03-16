@@ -1435,10 +1435,19 @@ class Db
     print_line
   end
 
+  def record_time
+    starting = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+    result = yield
+    ending = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+    elapsed = ending - starting
+    [result, elapsed]
+  end
+
   #
   # Generic import that automatically detects the file type
   #
   def cmd_db_import(*args)
+    result, elapsed = record_time do
     return unless active?
   ::ApplicationRecord.connection_pool.with_connection {
     if args.include?("-h") || ! (args && args.length > 0)
@@ -1512,6 +1521,8 @@ class Db
       }
     }
   }
+    end
+    $stderr.puts elapsed
   end
 
   def cmd_db_export_help

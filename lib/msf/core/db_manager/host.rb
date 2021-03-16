@@ -256,7 +256,7 @@ module Msf::DBManager::Host
 
       if host.changed?
         msf_import_timestamps(opts, host)
-        host.save!
+        # host.save!
       end
     rescue ActiveRecord::RecordNotUnique, ActiveRecord::RecordInvalid
       # two concurrent report requests for a new host could result in a RecordNotUnique or
@@ -274,6 +274,14 @@ module Msf::DBManager::Host
 
     host
   }
+  end
+
+  def report_hosts(hosts)
+    ::ApplicationRecord.connection_pool.with_connection { |connection|
+      # db_hosts = hosts.map { |host| report_host host }
+      # require 'pry'; binding.pry
+      Mdm::Host.import hosts, recursive: true
+    }
   end
 
   def update_host(opts)
