@@ -372,20 +372,19 @@ module Rex
         notes = []
         scripts.each do |script|
           script.each_pair do |k,v|
-            notes << {
+            nse_note = {
               :workspace => @args[:workspace],
               :host => host_object,
-              # :type => "nmap.nse.#{k}.host",
+              :type => "nmap.nse.#{k}.host",
               :data => { 'output' => v },
-              # :update => :unique_data
+              :update => :unique_data
             }
-            # db_report(:note, nse_note)
+            notes << db_report(:note, nse_note)
           end
 
         end
-        mdm_notes = notes.map { |note| host_object.workspace.notes.new(note)}
 
-        host_object.notes = mdm_notes
+        host_object.notes = notes
         @hosts << host_object
         host_object
       end
@@ -403,20 +402,19 @@ module Rex
         notes = []
         scripts.each do |script|
           script.each_pair do |k,v|
-              notes << {
+            nse_note = {
               :workspace => wspace,
               :host => host_object,
               :service => svc_obj,
-              # :type => "nmap.nse.#{k}." + (svc[:proto] || "tcp") +".#{svc[:port]}",
+              :type => "nmap.nse.#{k}." + (svc[:proto] || "tcp") +".#{svc[:port]}",
               :data => { 'output' => v },
-              # :update => :unique_data
+              :update => :unique_data
             }
-            # db_report(:note, nse_note)
+              notes << db_report(:note, nse_note)
           end
         end
-        mdm_notes = notes.map { |note| wspace.notes.new(note)}
 
-        svc_obj.notes = mdm_notes
+        svc_obj.notes = notes
         # host_object.services << svc_obj
         reported << svc_obj
       end
