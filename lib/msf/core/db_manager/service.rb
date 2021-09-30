@@ -49,90 +49,135 @@ module Msf::DBManager::Service
   # +:state+:: The current listening state of the service (one of: open, closed, filtered, unknown)
   #
   def report_service(opts)
+    report_services([opts]).first
+  end
+
+  def report_services(services)
     return if !active
-  ::ApplicationRecord.connection_pool.with_connection { |conn|
-    opts = opts.clone() # protect the original caller's opts
-    addr  = opts.delete(:host) || return
-    hname = opts.delete(:host_name)
-    hmac  = opts.delete(:mac)
-    host  = nil
-    wspace = Msf::Util::DBManager.process_opts_workspace(opts, framework)
-    opts.delete(:workspace) # this may not be needed however the service creation below might complain if missing
-    hopts = {:workspace => wspace, :host => addr}
-    hopts[:name] = hname if hname
-    hopts[:mac]  = hmac  if hmac
 
-    # Other report_* methods take :sname to mean the service name, so we
-    # map it here to ensure it ends up in the right place despite not being
-    # a real column.
-    if opts[:sname]
-      opts[:name] = opts.delete(:sname)
-    end
+    ::ApplicationRecord.connection_pool.with_connection { |conn|
+      mdm_services = services.map do |opts|
 
-    if addr.kind_of? ::Mdm::Host
-      host = addr
-      addr = host.address
-    else
-      host = report_host(hopts)
-    end
+        opts = opts.clone() # protect the original caller's opts
+        addr  = opts.delete(:host) || return
+        hname = opts.delete(:host_name)
+        hmac  = opts.delete(:mac)
+        host  = nil
+        wspace = Msf::Util::DBManager.process_opts_workspace(opts, framework)
+        opts.delete(:workspace) # this may not be needed however the service creation below might complain if missing
+        hopts = {:workspace => wspace, :host => addr}
+        hopts[:name] = hname if hname
+        hopts[:mac]  = hmac  if hmac
 
-    if opts[:port].to_i.zero?
-      dlog("Skipping port zero for service '%s' on host '%s'" % [opts[:name],host.address])
-      return nil
-    end
 
-    ret  = {}
-=begin
-    host = get_host(:workspace => wspace, :address => addr)
-    if host
-      host.updated_at = host.created_at
-      host.state      = HostState::Alive
-      host.save!
-    end
-=end
+        # Other report_* methods take :sname to mean the service name, so we
+        # map it here to ensure it ends up in the right place despite not being
+        # a real column.
+        if opts[:sname]
+          opts[:name] = opts.delete(:sname)
+        end
 
-    proto = opts[:proto] || Msf::DBManager::DEFAULT_SERVICE_PROTO
+        if addr.kind_of? ::Mdm::Host
+          host = addr
+          addr = host.address
+        else
+          host = report_host(hopts)
+        end
 
-    service = host.services.where(port: opts[:port].to_i, proto: proto).first_or_initialize
-    ostate = service.state
-    opts.each { |k,v|
-      if (service.attribute_names.include?(k.to_s))
-        service[k] = ((v and k == :name) ? v.to_s.downcase : v)
-      elsif !v.blank?
-        dlog("Unknown attribute for Service: #{k}")
+        # TODO: This should be in the model, and already is?
+        # if opts[:port].to_i.zero?
+        #   dlog("Skipping port zero for service '%s' on host '%s'" % [opts[:name],host.address])
+        #   return nil
+        # end
+
+        ret  = {}
+  # =begin
+  #     host = get_host(:workspace => wspace, :address => addr)
+  #     if host
+  #       host.updated_at = host.created_at
+  #       host.state      = HostState::Alive
+  #       host.save!
+  #     end
+  # =end
+
+        proto = opts[:proto] || Msf::DBManager::DEFAULT_SERVICE_PROTO
+
+        service = host.services.where(port: opts[:port].to_i, proto: proto).first_or_initialize
+        ostate = service.state
+        opts.each { |k,v|
+          if (service.attribute_names.include?(k.to_s))
+            service[k] = ((v and k == :name) ? v.to_s.downcase : v)
+          elsif !v.blank?
+            dlog("Unknown attribute for Service: #{k}")
+          end
+        }
+        service.state ||= Msf::ServiceState::Open
+        service.info  ||= ""
+
+        begin
+          framework.events.on_db_service(service) if service.new_record?
+        rescue ::Exception => e
+          wlog("Exception in on_db_service event handler: #{e.class}: #{e}")
+          wlog("Call Stack\n#{e.backtrace.join("\n")}")
+        end
+
+        begin
+          framework.events.on_db_service_state(service, service.port, ostate) if service.state != ostate
+        rescue ::Exception => e
+          wlog("Exception in on_db_service_state event handler: #{e.class}: #{e}")
+          wlog("Call Stack\n#{e.backtrace.join("\n")}")
+        end
+
+        if (service and service.changed?)
+          msf_import_timestamps(opts,service)
+          service.validate!
+        end
+
+        # TODO: Why is this done manually, is this not default rails behavior
+        if opts[:task]
+          Mdm::TaskService.create(
+            :task => opts[:task],
+            :service => service
+          )
+        end
+
+        service
+      end
+
+      #  TODO: Filter ids correctly
+      new_serialized_services = []
+      updated_serialized_services = []
+      new_mdm_services = []
+      updated_mdm_services = []
+      mdm_services.each do |x|
+        hash = x.serializable_hash
+        if hash["id"].nil?
+          hash.delete("id")
+          new_mdm_services << x
+          new_serialized_services << hash
+          next
+        end
+        updated_mdm_services << x
+        updated_serialized_services << hash
+      end
+      new_ids = []
+      updated_ids = []
+      new_ids = Mdm::Service.upsert_all(new_serialized_services) unless new_serialized_services.empty?
+      updated_ids = Mdm::Service.upsert_all(updated_serialized_services) unless updated_serialized_services.empty?
+
+      # Manually assign the bulk IDs, and run save callbacks
+      new_mdm_services.zip(new_ids).each do |service, id|
+        service.id = id
+        service.changes_applied
+        service.run_callbacks(:save) { true }
+      end
+      # Manually assign the bulk IDs, and run save callbacks
+      updated_mdm_services.zip(updated_ids).each do |service, id|
+        service.id = id
+        service.changes_applied
+        service.run_callbacks(:save) { true }
       end
     }
-    service.state ||= Msf::ServiceState::Open
-    service.info  ||= ""
-
-    begin
-      framework.events.on_db_service(service) if service.new_record?
-    rescue ::Exception => e
-      wlog("Exception in on_db_service event handler: #{e.class}: #{e}")
-      wlog("Call Stack\n#{e.backtrace.join("\n")}")
-    end
-
-    begin
-      framework.events.on_db_service_state(service, service.port, ostate) if service.state != ostate
-    rescue ::Exception => e
-      wlog("Exception in on_db_service_state event handler: #{e.class}: #{e}")
-      wlog("Call Stack\n#{e.backtrace.join("\n")}")
-    end
-
-    if (service and service.changed?)
-      msf_import_timestamps(opts,service)
-      service.save!
-    end
-
-    if opts[:task]
-      Mdm::TaskService.create(
-          :task => opts[:task],
-          :service => service
-      )
-    end
-
-    ret[:service] = service
-  }
   end
 
   # Returns a list of all services in the database

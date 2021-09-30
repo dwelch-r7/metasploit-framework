@@ -385,28 +385,39 @@ module Rex
       return unless host_object.kind_of? ::Mdm::Host
       return unless @report_data[:ports]
       return if @report_data[:ports].empty?
-      reported = []
-      @report_data[:ports].each do |svc|
-        scripts = svc.delete(:scripts) || []
-        wspace = db.workspaces({:id => host_object.workspace.id}).first
-        svc_obj = db_report(:service, svc.merge(:host => host_object, :workspace => wspace.name))
+
+      wspace = db.workspaces({:id => host_object.workspace.id}).first
+
+      nmap_services = @report_data[:ports]
+      services_to_report = nmap_services.map do |svc|
+        svc.merge(:host => host_object, :workspace => wspace.name)
+      end
+      # TODO: It does not instantiate any models nor does it trigger Active Record callbacks or validations.
+      # TODO: See performance of manually validating the models ourselves still, to ensure data integrity
+      reported_services = db_report(:service, services_to_report) # Assumes the db services can return us in order, and with IDs attached
+      notes_to_report = []
+      nmap_services.zip(services_to_report).map do |(nmap_service, reported_service)|
+        scripts = nmap_service[:scripts] || []
+
         scripts.each do |script|
           script.each_pair do |k,v|
-            ntype =
             nse_note = {
               :workspace => wspace,
               :host => host_object,
-              :service => svc_obj,
-              :type => "nmap.nse.#{k}." + (svc[:proto] || "tcp") +".#{svc[:port]}",
+              :service => reported_service,
+              :type => "nmap.nse.#{k}." + (reported_service[:proto] || "tcp") +".#{reported_service[:port]}",
               :data => { 'output' => v },
               :update => :unique_data
             }
-            db_report(:note, nse_note)
+
+            notes_to_report << nse_note
           end
         end
-        reported << svc_obj
       end
-      reported
+      # require 'pry'; binding.pry
+      db_report(:note, notes_to_report)
+
+      reported_services
     end
 
     def report_vulns

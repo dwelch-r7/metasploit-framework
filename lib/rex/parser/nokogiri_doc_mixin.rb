@@ -136,20 +136,38 @@ module Parser
     # Circumvent the unknown attribute logging by the various reporters. They
     # seem to be there just for debugging anyway.
     def db_report(table, data)
-      raise "Data should be a hash" unless data.kind_of? Hash
-      nonempty_data = data.compact
-      valid_attrs = db_valid_attributes(table)
-      raise "Unknown table `#{table}'" if valid_attrs.empty?
-      case table
-      when :note, :web_site, :web_page, :web_form, :web_vuln
-        just_the_facts = nonempty_data
-      else
-        just_the_facts = nonempty_data.select {|k,v| valid_attrs.include? k.to_s.to_sym}
+      # TODO: Array support
+      # raise "Data should be a hash" unless data.kind_of? Hash
+
+      temp_wrapper = data.is_a?(Hash) ? [data] : data
+      just_the_facts = temp_wrapper.map do |data|
+        nonempty_data = data.compact # double compact if array
+        valid_attrs = db_valid_attributes(table)
+        raise "Unknown table `#{table}'" if valid_attrs.empty?
+        case table
+        when :note, :web_site, :web_page, :web_form, :web_vuln
+          result = nonempty_data
+        else
+          result = nonempty_data.select {|k,v| valid_attrs.include? k.to_s.to_sym}
+        end
+        #TODO: Won't work
+        return nil if result.empty?
+        #TODO: Learn what task is
+        begin
+          result[:task] = @args[:task]
+        rescue
+          require 'pry'; binding.pry
+        end
+        result[:workspace] = @args[:workspace] # workspace context is a required `fact`
+        result
       end
-      return nil if just_the_facts.empty?
-      just_the_facts[:task] = @args[:task]
-      just_the_facts[:workspace] = @args[:workspace] # workspace context is a required `fact`
-      db.send("report_#{table}", just_the_facts)
+
+      if data.is_a? Array
+        db.send("report_#{table}s", just_the_facts)
+      else
+        just_the_facts = just_the_facts.first
+        db.send("report_#{table}", just_the_facts)
+      end
     end
 
     # XXX: It would be better to either have a single registry of acceptable

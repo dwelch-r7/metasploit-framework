@@ -81,7 +81,13 @@ module Msf::DBManager::Import
   def emit(sym,data,&block)
     yield(sym,data)
   end
-
+  def record_time
+    starting = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+    result = yield
+    ending = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+    elapsed = ending - starting
+    [result, elapsed]
+  end
   # A dispatcher method that figures out the data's file type,
   # and sends it off to the appropriate importer. Note that
   # import_file_detect will raise an error if the filetype
@@ -98,6 +104,7 @@ module Msf::DBManager::Import
     opts = args.clone()
     opts.delete(:workspace)
     self.send "import_#{ftype}".to_sym, opts.merge(workspace: wspace.name), &block
+    result, elapsed = record_time do
     # post process the import here for missing default port maps
     mrefs, mports, _mservs = Msf::Modules::Metadata::Cache.instance.all_exploit_maps
     # the map build above is a little expensive, another option is to do
@@ -166,6 +173,9 @@ module Msf::DBManager::Import
       Mdm::Host.where(workspace: wspace).each(&:normalize_os)
     end
     wspace.update_attribute(:import_fingerprint, false)
+    end
+    $stderr.puts elapsed
+
   end
 
   #
