@@ -70,6 +70,7 @@ module Rex
         record_host_hop(attrs)
       end
     end
+    @hosts = []
 
     # When we exit a tag, this is triggered.
     def end_element(name=nil)
@@ -357,26 +358,34 @@ module Rex
       db_report(:note, fp_note)
     end
 
+    def end_document
+      $stderr.puts "herhehehehehhehehe"
+      db.report_hosts(@hosts)
+      super
+    end
+
     def report_host(&block)
       if host_is_okay
         scripts = @report_data.delete(:scripts) || []
         host_object = db_report(:host, @report_data.merge( :workspace => @args[:workspace] ) )
         db.emit(:address,@report_data[:host],&block) if block
-
+        notes = []
         scripts.each do |script|
           script.each_pair do |k,v|
-            ntype =
             nse_note = {
-              :workspace => host_object.workspace,
+              :workspace => @args[:workspace],
               :host => host_object,
               :type => "nmap.nse.#{k}.host",
               :data => { 'output' => v },
               :update => :unique_data
             }
-            db_report(:note, nse_note)
+            notes << db_report(:note, nse_note)
           end
+
         end
 
+        host_object.notes = notes
+        @hosts << host_object
         host_object
       end
     end
@@ -390,9 +399,9 @@ module Rex
         scripts = svc.delete(:scripts) || []
         wspace = db.workspaces({:id => host_object.workspace.id}).first
         svc_obj = db_report(:service, svc.merge(:host => host_object, :workspace => wspace.name))
+        notes = []
         scripts.each do |script|
           script.each_pair do |k,v|
-            ntype =
             nse_note = {
               :workspace => wspace,
               :host => host_object,
@@ -401,9 +410,12 @@ module Rex
               :data => { 'output' => v },
               :update => :unique_data
             }
-            db_report(:note, nse_note)
+              notes << db_report(:note, nse_note)
           end
         end
+
+        svc_obj.notes = notes
+        # host_object.services << svc_obj
         reported << svc_obj
       end
       reported

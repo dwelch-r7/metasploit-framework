@@ -113,6 +113,8 @@ GEM
     activerecord (6.1.4.1)
       activemodel (= 6.1.4.1)
       activesupport (= 6.1.4.1)
+    activerecord-import (1.2.0)
+      activerecord (>= 3.2)
     activesupport (6.1.4.1)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 1.6, < 2)
@@ -501,6 +503,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord-import
   factory_bot_rails
   fivemat
   memory_profiler

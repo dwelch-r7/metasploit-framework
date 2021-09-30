@@ -1,3 +1,5 @@
+require 'activerecord-import'
+
 module Msf::DBManager::Vuln
   #
   # This method iterates the vulns table calling the supplied block with the
@@ -204,7 +206,7 @@ module Msf::DBManager::Vuln
         }
 
         vinf[:service_id] = service.id if service
-        vuln = Mdm::Vuln.create(vinf)
+        vuln = Mdm::Vuln.new(vinf)
 
         begin
           framework.events.on_db_vuln(vuln) if vuln
@@ -227,7 +229,7 @@ module Msf::DBManager::Vuln
     # Finalize
     if vuln.changed?
       msf_import_timestamps(opts,vuln)
-      vuln.save!
+      # vuln.save!
     end
 
     # Handle vuln_details parameters
@@ -235,6 +237,14 @@ module Msf::DBManager::Vuln
 
     vuln
   }
+  end
+
+  def report_vulns(vulns)
+    ::ApplicationRecord.connection_pool.with_connection { |connection|
+      db_vulns = vulns.map { |vuln| report_vuln vuln }
+      # require 'pry'; binding.pry
+      Mdm::Vuln.import db_vulns, on_duplicate_key_ignore: true
+    }
   end
 
   #
