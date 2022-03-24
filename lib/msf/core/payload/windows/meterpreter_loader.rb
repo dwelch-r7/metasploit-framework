@@ -81,9 +81,9 @@ module Payload::Windows::MeterpreterLoader
       uuid:              opts[:uuid],
       transports:        opts[:transport_config] || [transport_config(opts)],
       extensions:        [],
-      stageless:         opts[:stageless] == true
+      stageless:         opts[:stageless] == true,
+      log_path: "C:/Users/windows/logtest.txt"
     }
-
     # create the configuration instance based off the parameters
     config = Rex::Payloads::Meterpreter::Config.new(config_opts)
 

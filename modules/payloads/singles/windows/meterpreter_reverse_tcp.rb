@@ -50,7 +50,9 @@ module MetasploitModule
       transports: [transport_config_reverse_tcp(opts)],
       extensions: (datastore['EXTENSIONS'] || '').split(','),
       ext_init:   (datastore['EXTINIT'] || ''),
-      stageless:  true
+      stageless:  true,
+      log_path: "C:/Users/windows/logtest.txt"
+
     }
 
     # create the configuration instance based off the parameters
