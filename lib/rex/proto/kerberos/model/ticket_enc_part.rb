@@ -36,7 +36,18 @@ module Rex::Proto::Kerberos::Model
       self
     end
 
+    # Encodes a Rex::Proto::Kerberos::Model::TicketEncPart into an ASN.1 String
+    #
+    # @return [String]
     def encode
+      to_asn1.to_der
+    end
+
+
+    # Encodes a Rex::Proto::Kerberos::Model::TicketEncPart into ASN.1
+    #
+    # @return [OpenSSL::ASN1::ASN1Data] The TicketEncPart ASN1Data
+    def to_asn1
       elems = []
       elems << OpenSSL::ASN1::ASN1Data.new([encode_flags], 0, :CONTEXT_SPECIFIC)
       elems << OpenSSL::ASN1::ASN1Data.new([encode_key], 1, :CONTEXT_SPECIFIC)
@@ -51,9 +62,7 @@ module Rex::Proto::Kerberos::Model
       elems << OpenSSL::ASN1::ASN1Data.new([encode_authorization_data], 10, :CONTEXT_SPECIFIC) if authorization_data
 
       seq = OpenSSL::ASN1::Sequence.new(elems)
-      seq.to_der
-      x = OpenSSL::ASN1::ASN1Data.new([seq], 3, :APPLICATION)
-      x.to_der
+      OpenSSL::ASN1::ASN1Data.new([seq], 3, :APPLICATION)
     end
 
     private
@@ -116,90 +125,167 @@ module Rex::Proto::Kerberos::Model
       end
     end
 
+    # Decodes the flags from an OpenSSL::ASN1::ASN1Data
+    #
+    # @param input [OpenSSL::ASN1::ASN1Data] the input to decode from
+    # @return [TicketFlags]
     def decode_flags(input)
       Rex::Proto::Kerberos::Helper.decode_ticket_flags(input)
     end
 
+    # Encodes the flags
+    #
+    # @return [OpenSSL::ASN1::BitString]
     def encode_flags
       Rex::Proto::Kerberos::Helper.encode_ticket_flags(flags)
     end
 
+    # Decodes the key from an OpenSSL::ASN1::ASN1Data
+    #
+    # @param input [OpenSSL::ASN1::ASN1Data] the input to decode from
+    # @return [EncryptionKey]
     def decode_key(input)
       Rex::Proto::Kerberos::Helper.decode_encryption_key(input)
     end
 
+    # Encodes the key
+    #
+    # @return [OpenSSL::ASN1::Sequence]
     def encode_key
       Rex::Proto::Kerberos::Helper.encode_encryption_key(key)
     end
 
+    # Decodes the crealm from an OpenSSL::ASN1::ASN1Data
+    #
+    # @param input [OpenSSL::ASN1::ASN1Data] the input to decode from
+    # @return [String]
     def decode_crealm(input)
       Rex::Proto::Kerberos::Helper.decode_realm(input)
     end
 
+    # Encodes the crealm
+    #
+    # @return [OpenSSL::ASN1::GeneralString]
     def encode_crealm
       Rex::Proto::Kerberos::Helper.encode_realm(crealm)
     end
 
+    # Decodes the cname from an OpenSSL::ASN1::ASN1Data
+    #
+    # @param input [OpenSSL::ASN1::ASN1Data] the input to decode from
+    # @return [PrincipalName]
     def decode_cname(input)
       Rex::Proto::Kerberos::Helper.decode_principal_name(input)
     end
 
+    # Encodes the cname
+    #
+    # @return [String]
     def encode_cname
       Rex::Proto::Kerberos::Helper.encode_principal_name(cname)
     end
 
+    # Decodes the transited from an OpenSSL::ASN1::ASN1Data
+    #
+    # @param input [OpenSSL::ASN1::ASN1Data] the input to decode from
+    # @return [TransitedEncoding]
     def decode_transited(input)
       Rex::Proto::Kerberos::Helper.decode_transited_encoding(input)
     end
 
+    # Encodes the transited
+    #
+    # @return [String]
     def encode_transited
       Rex::Proto::Kerberos::Helper.encode_transited_encoding(transited)
     end
 
+    # Decodes the authtime from an OpenSSL::ASN1::ASN1Data
+    #
+    # @param input [OpenSSL::ASN1::ASN1Data] the input to decode from
+    # @return [Time]
     def decode_authtime(input)
       Rex::Proto::Kerberos::Helper.decode_kerberos_time(input)
     end
 
+    # Encodes the authtime
+    #
+    # @return [OpenSSL::ASN1::GeneralizedTime]
     def encode_authtime
       Rex::Proto::Kerberos::Helper.encode_kerberos_time(authtime)
     end
 
+    # Decodes the starttime from an OpenSSL::ASN1::ASN1Data
+    #
+    # @param input [OpenSSL::ASN1::ASN1Data] the input to decode from
+    # @return [Time]
     def decode_starttime(input)
       Rex::Proto::Kerberos::Helper.decode_kerberos_time(input)
     end
 
+    # Encodes the starttime
+    #
+    # @return [OpenSSL::ASN1::GeneralizedTime]
     def encode_starttime
       Rex::Proto::Kerberos::Helper.encode_kerberos_time(starttime)
     end
 
+    # Decodes the endtime from an OpenSSL::ASN1::ASN1Data
+    #
+    # @param input [OpenSSL::ASN1::ASN1Data] the input to decode from
+    # @return [Time]
     def decode_endtime(input)
       Rex::Proto::Kerberos::Helper.decode_kerberos_time(input)
     end
 
+    # Encodes the endtime
+    #
+    # @return [OpenSSL::ASN1::GeneralizedTime]
     def encode_endtime
       Rex::Proto::Kerberos::Helper.encode_kerberos_time(endtime)
     end
 
+    # Decodes the renew_till from an OpenSSL::ASN1::ASN1Data
+    #
+    # @param input [OpenSSL::ASN1::ASN1Data] the input to decode from
+    # @return [Time]
     def decode_renew_till(input)
       Rex::Proto::Kerberos::Helper.decode_kerberos_time(input)
     end
 
+    # Encodes the renew_till
+    #
+    # @return [OpenSSL::ASN1::GeneralizedTime]
     def encode_renew_till
       Rex::Proto::Kerberos::Helper.encode_kerberos_time(renew_till)
     end
 
+    # Decodes the caddr from an OpenSSL::ASN1::ASN1Data
+    #
+    # @param input [OpenSSL::ASN1::ASN1Data] the input to decode from
+    # @return [HostAddress]
     def decode_caddr(input)
       Rex::Proto::Kerberos::Helper.decode_host_address(input)
     end
 
+    # Encodes the caddr
+    #
+    # @return [String]
     def encode_caddr
       Rex::Proto::Kerberos::Helper.encode_host_address(caddr)
     end
 
+    # Decodes the authorization_data from an OpenSSL::ASN1::ASN1Data
+    #
+    # @param input [OpenSSL::ASN1::ASN1Data] the input to decode from
+    # @return [AuthorizationData]
     def decode_authorization_data(input)
       Rex::Proto::Kerberos::Helper.decode_authorization_data(input)
     end
 
+    # Encodes the authorization_data
+    #
+    # @return [String]
     def encode_authorization_data
       Rex::Proto::Kerberos::Helper.encode_authorization_data(authorization_data)
     end

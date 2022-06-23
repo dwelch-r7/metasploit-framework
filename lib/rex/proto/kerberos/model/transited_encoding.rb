@@ -27,14 +27,22 @@ module Rex::Proto::Kerberos::Model
       self
     end
 
+    # Encodes a Rex::Proto::Kerberos::Model::TransitedEncoding into an ASN.1 String
+    #
+    # @return [String]
     def encode
+      to_asn1.to_der
+    end
+
+    # Encodes a Rex::Proto::Kerberos::Model::TransitedEncoding into ASN.1
+    #
+    # @return [OpenSSL::ASN1::ASN1Data] The TransitedEncoding ASN1Data
+    def to_asn1
       elems = []
       elems << OpenSSL::ASN1::ASN1Data.new([encode_tr_type], 0, :CONTEXT_SPECIFIC)
       elems << OpenSSL::ASN1::ASN1Data.new([encode_contents], 1, :CONTEXT_SPECIFIC)
 
-      seq = OpenSSL::ASN1::Sequence.new(elems)
-
-      seq.to_der
+      OpenSSL::ASN1::Sequence.new(elems)
     end
 
     private
@@ -70,18 +78,32 @@ module Rex::Proto::Kerberos::Model
       end
     end
 
+    # Decodes the type from an OpenSSL::ASN1::ASN1Data
+    #
+    # @param input [OpenSSL::ASN1::ASN1Data] the input to decode from
+    # @return [Integer]
     def decode_tr_type(input)
       Rex::Proto::Kerberos::Helper.parse_int_32(input)
     end
 
+    # Encodes the type
+    #
+    # @return [OpenSSL::ASN1::Integer]
     def encode_tr_type
       Rex::Proto::Kerberos::Helper.encode_int_32(tr_type)
     end
 
+    # Decodes the address from an OpenSSL::ASN1::ASN1Data
+    #
+    # @param input [OpenSSL::ASN1::ASN1Data] the input to decode from
+    # @return [String]
     def decode_contents(input)
       Rex::Proto::Kerberos::Helper.parse_octet_string(input)
     end
 
+    # Encodes the contents
+    #
+    # @return [OpenSSL::ASN1::OctetString]
     def encode_contents
       Rex::Proto::Kerberos::Helper.encode_octet_string(contents)
     end

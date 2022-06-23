@@ -102,6 +102,10 @@ module Rex
 
           private
 
+          # Decodes the type from an OpenSSL::ASN1::ASN1Data
+          #
+          # @param input [OpenSSL::ASN1::ASN1Data] the input to decode from
+          # @return [Integer]
           def decode_type(input)
             Rex::Proto::Kerberos::Helper.parse_int_32(input)
           end
@@ -116,6 +120,10 @@ module Rex
             int
           end
 
+          # Decodes the value from an OpenSSL::ASN1::ASN1Data
+          #
+          # @param input [OpenSSL::ASN1::ASN1Data] the input to decode from
+          # @return [String]
           def decode_data(input)
             Rex::Proto::Kerberos::Helper.parse_octet_string(input)
           end
