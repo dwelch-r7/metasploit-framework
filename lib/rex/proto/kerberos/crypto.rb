@@ -86,6 +86,19 @@ module Rex
 
             result.new
           end
+
+          def self.type_from_value(value)
+            enc_types = {
+              3 => "DES_CBC_MD5",
+              16 => "DES3_CBC_SHA1",
+              17 => "AES128",
+              18 => "AES256",
+              23 => "RC4_HMAC"
+            }
+            result = enc_types[value]
+            raise ::NotImplementedError, "#{value} is not a supported encryption type" if result == nil
+            result
+          end
         end
       end
     end

@@ -28,11 +28,12 @@ class MetasploitModule < Msf::Auxiliary
           'Stability' => [],
           'SideEffects' => [],
           'Reliability' => [],
-          'AKA' => ['Silver Ticket', 'Golden Ticket', 'Ticketer']
+          'AKA' => ['Silver Ticket', 'Golden Ticket', 'Ticketer', 'Klist']
         },
         'Actions' => [
           ['FORGE_SILVER', { 'Description' => 'Forge a Silver Ticket' } ],
           ['FORGE_GOLDEN', { 'Description' => 'Forge a Golden Ticket' } ],
+          ['DEBUG', { 'Description' => 'Print out the contents of a ticket for debugging' }]
         ],
         'DefaultAction' => 'FORGE_SILVER'
       )
@@ -46,7 +47,8 @@ class MetasploitModule < Msf::Auxiliary
         OptString.new('DOMAIN', [ true, 'The Domain (upper case) Ex: DEMO.LOCAL' ]),
         OptString.new('DOMAIN_SID', [ true, 'The Domain SID, Ex: S-1-5-21-1755879683-3641577184-3486455962']),
         OptString.new('SPN', [ false, 'The Service Principal Name (Only used for silver ticket)'], regex: %r{.*/.*}),
-        OptInt.new('DURATION', [ false, 'Duration of the ticket in days', 3650])
+        OptInt.new('DURATION', [ false, 'Duration of the ticket in days', 3650]),
+        OptString.new('TICKET_PATH', [false, 'Path to the ticket you wish to debug'])
       ]
     )
     deregister_options('RHOSTS', 'RPORT', 'Timeout')
@@ -67,6 +69,12 @@ class MetasploitModule < Msf::Auxiliary
     when 'FORGE_GOLDEN'
       sname = ['krbtgt', datastore['DOMAIN'].upcase]
       flags = Rex::Proto::Kerberos::Model::TicketFlags.from_flags(golden_ticket_flags)
+    when 'DEBUG'
+      header = File.binread(datastore['TICKET_PATH'], 2)
+      if ccache?(header)
+        print_ccache_contents(datastore['TICKET_PATH'])
+        return
+      end
     else
       fail_with(Msf::Module::Failure::BadConfig, "Invalid action #{action.name}")
     end
