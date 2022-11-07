@@ -93,7 +93,7 @@ module Msf::ModuleManager::Cache
         end
       end
     end
-
+    require 'pry'; binding.pry
     loaded
   end
 
@@ -162,7 +162,6 @@ module Msf::ModuleManager::Cache
       # The load path is assumed to be the next level above the type directory
       type_dir = File.join('', Mdm::Module::Detail::DIRECTORY_BY_TYPE[type], '')
       parent_path = path.split(type_dir)[0..-2].join(type_dir) # TODO: rewrite
-
       module_info_by_path[path] = {
           :reference_name => reference_name,
           :type => type,
@@ -185,7 +184,7 @@ module Msf::ModuleManager::Cache
         end
       end
     end
-
+    require 'pry'; binding.pry
     self.module_info_by_path
   end
 end

@@ -26,6 +26,7 @@ group :development do
   gem 'memory_profiler'
   # cpu profiling
   gem 'ruby-prof', '1.4.2'
+  gem 'stackprof'
   # Metasploit::Aggregator external session proxy
   # disabled during 2.5 transition until aggregator is available
   # gem 'metasploit-aggregator'

@@ -453,6 +453,7 @@ GEM
     sqlite3 (1.5.3)
       mini_portile2 (~> 2.8.0)
     sshkey (2.0.0)
+    stackprof (0.2.22)
     swagger-blocks (3.0.0)
     thin (1.8.1)
       daemons (~> 1.0, >= 1.0.9)
@@ -516,6 +517,7 @@ DEPENDENCIES
   rubocop
   ruby-prof (= 1.4.2)
   simplecov (= 0.18.2)
+  stackprof
   timecop
   yard
 

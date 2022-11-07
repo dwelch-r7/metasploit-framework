@@ -2,7 +2,7 @@
 
 require 'pathname'
 require 'tmpdir'
-
+require 'stackprof'
 module Metasploit
   module Framework
     module Profiler
@@ -12,15 +12,21 @@ module Metasploit
           raise 'Cannot profile memory and cpu at the same time' if record_global_cpu? && record_global_memory?
 
           if record_global_cpu?
+            puts 'profiling global cpu'
             require 'ruby-prof'
 
-            results_path = tmp_cpu_results_path
-            profile = RubyProf::Profile.new
-            profile.start
+            # results_path = tmp_cpu_results_path
+            # profile = RubyProf::Profile.new
+            # profile.start
+            StackProf.start(mode: :cpu, raw: true, ignore_gc: true, interval: 100)
+
 
             at_exit do
-              result = profile.stop
-              save_cpu_result(result, path: results_path)
+              # result = profile.stop
+              StackProf.stop
+              StackProf.results('/Users/dwelch/dev/metasploit-framework/stackprof_results/output')
+
+              # save_cpu_result(result, path: results_path)
             end
           end
 
@@ -97,7 +103,7 @@ module Metasploit
 
           puts "Generating CPU dump #{path}"
 
-          printer = RubyProf::MultiPrinter.new(result, %i[flat graph_html tree stack])
+          printer = RubyProf::MultiPrinter.new(result, %i[flat graph_html tree stack dot graph])
           printer.print(path: path)
 
           Rex::Compat.open_file(path)

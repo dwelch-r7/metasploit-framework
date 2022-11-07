@@ -248,23 +248,23 @@ class Msf::Modules::Loader::Base
     count_by_type = {}
     recalculate_by_type = {}
 
-    each_module_reference_name(path, options) do |parent_path, type, module_reference_name|
-      load_module(
-          parent_path,
-          type,
-          module_reference_name,
-          :recalculate_by_type => recalculate_by_type,
-          :count_by_type => count_by_type,
-          :force => force
-      )
-    end
-
-    recalculate_by_type.each do |type, recalculate|
-      if recalculate
-        module_set = module_manager.module_set(type)
-        module_set.recalculate
-      end
-    end
+    # each_module_reference_name(path, options) do |parent_path, type, module_reference_name|
+    #   load_module(
+    #       parent_path,
+    #       type,
+    #       module_reference_name,
+    #       :recalculate_by_type => recalculate_by_type,
+    #       :count_by_type => count_by_type,
+    #       :force => force
+    #   )
+    # end
+    #
+    # recalculate_by_type.each do |type, recalculate|
+    #   if false #recalculate
+    #     module_set = module_manager.module_set(type)
+    #     module_set.recalculate
+    #   end
+    # end
 
     count_by_type
   end

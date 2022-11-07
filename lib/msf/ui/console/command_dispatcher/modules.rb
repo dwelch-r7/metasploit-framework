@@ -715,6 +715,8 @@ module Msf
             mod_name = trim_path(mod_name, "modules")
 
             begin
+              # require 'pry'; binding.pry
+              framework.modules.load_cached_module('payload', mod_name)
               mod = framework.modules.create(mod_name)
 
               unless mod

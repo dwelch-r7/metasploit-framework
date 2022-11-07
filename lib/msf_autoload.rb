@@ -1,5 +1,4 @@
 require 'zeitwerk'
-
 ###
 # TODO:
 # Apply zeitwerk to the rest of framework
@@ -42,8 +41,8 @@ class MsfAutoload
       elsif basename == 'rftransceiver' && abspath.end_with?("#{__dir__}/rex/post/hwbridge/ui/console/command_dispatcher/rftransceiver.rb")
         'RFtransceiver'
       else
-       super
-    end
+        super
+      end
     end
   end
 
@@ -324,6 +323,7 @@ class MsfAutoload
   # Enables :prepend to suppress the loader finalization
   def finalize_loader(loader)
     loader.setup # ready!
+    # loader.eager_load
   end
 end
 
