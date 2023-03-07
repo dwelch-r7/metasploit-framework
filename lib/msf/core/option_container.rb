@@ -132,6 +132,20 @@ module Msf
       end
     end
 
+    def add_action_options(action_name, opts, owner = nil)
+
+      if opts.kind_of?(Array)
+        opts.each { |opt|
+          add_action_option(action_name, opt, nil, owner)
+        }
+      else
+        opts.each_pair { |name, opt|
+          add_action_option(action_name, opt, name, owner)
+        }
+      end
+
+    end
+
     #
     # Add options from a hash of names.
     #
@@ -149,6 +163,23 @@ module Msf
         add_option(opt, nil, owner, advanced, evasion)
       }
     end
+
+    def add_action_option(action_name, option, name, owner)
+      if option.kind_of?(Array)
+        option = option.shift.new(name, option)
+      elsif !option.kind_of?(OptBase)
+        raise ArgumentError,
+              "The option named #{name} did not come in a compatible format.",
+              caller
+      end
+      option.advanced = false
+      option.evasion  = false
+      option.owner    = owner
+      option.action = action_name
+
+      self.store(option.name, option)
+    end
+
 
     #
     # Adds an option.
@@ -242,6 +273,13 @@ module Msf
       else
         error_options = []
         each_pair do |name, option|
+
+          # TODO: This is ugly and hard to read, make it less terrible
+          # If the options action is not blank AND it doesn't match the modules action, do not validate
+          if !option.action.blank? && !option.action.casecmp?(datastore['Action'])
+            next
+          end
+
           unless option.valid?(datastore[name])
             error_options << name
           end

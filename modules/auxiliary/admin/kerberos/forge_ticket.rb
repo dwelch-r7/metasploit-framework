@@ -38,15 +38,32 @@ class MetasploitModule < Msf::Auxiliary
       )
     )
 
+    # register_action_options('FORGE_SILVER',
+    #                         [
+    #                           OptString.new('SPN', [ true, 'The Service Principal Name (Only used for silver ticket)'],
+    #                                         conditions: %w[ACTION == FORGE_SILVER])
+    #                         ]
+    # )
+    #
+    # register_action_options(
+    #   'FORGE_other',
+    #                         [
+    #                           OptString.new('SPN', [ true, 'The Service Principal Name (Only used for silver ticket)'],
+    #                                         conditions:)
+    #                         ]
+    # )
+
+    datastore['SPN'].validate
+
     register_options(
       [
-        OptString.new('USER', [ true, 'The Domain User' ]),
+        OptString.new('USER', [ { conditions: %w[ACTION == FORGE_SILVER] }, 'The Domain User' ]),
         OptInt.new('USER_RID', [ true, "The Domain User's relative identifier(RID)", Rex::Proto::Kerberos::Pac::DEFAULT_ADMIN_RID]),
         OptString.new('NTHASH', [ false, 'The krbtgt/service nthash' ]),
         OptString.new('AES_KEY', [ false, 'The krbtgt/service AES key' ]),
         OptString.new('DOMAIN', [ true, 'The Domain (upper case) Ex: DEMO.LOCAL' ]),
         OptString.new('DOMAIN_SID', [ true, 'The Domain SID, Ex: S-1-5-21-1755879683-3641577184-3486455962']),
-        OptString.new('SPN', [ false, 'The Service Principal Name (Only used for silver ticket)'], conditions: %w[ACTION == FORGE_SILVER]),
+        # OptString.new('SPN', [ false, 'The Service Principal Name (Only used for silver ticket)'], conditions: %w[ACTION == FORGE_SILVER]),
         OptInt.new('DURATION', [ true, 'Duration of the ticket in days', 3650]),
       ]
     )

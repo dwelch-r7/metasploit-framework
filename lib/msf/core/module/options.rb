@@ -67,4 +67,9 @@ module Msf::Module::Options
     self.options.add_options(options, owner)
     import_defaults(false)
   end
+
+  def register_action_options(action_name, options, owner = self.class)
+    self.options.add_action_options(action_name, options, owner)
+    import_defaults(false)
+  end
 end

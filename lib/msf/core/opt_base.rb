@@ -26,7 +26,7 @@ module Msf
     #
     def initialize(in_name, attrs = [],
                    required: false, desc: nil, default: nil, conditions: [], enums: [], regex: nil, aliases: [], max_length: nil,
-                   fallbacks: [])
+                   fallbacks: [], action: nil)
       self.name     = in_name
       self.advanced = false
       self.evasion  = false
@@ -34,6 +34,7 @@ module Msf
       self.max_length = max_length
       self.conditions = conditions
       self.fallbacks = fallbacks
+      self.action = action
 
       if attrs.is_a?(String) || attrs.length == 0
         self.required = required
@@ -229,6 +230,8 @@ module Msf
     # The max length of the input value
     #
     attr_accessor :max_length
+
+    attr_accessor :action
 
     protected
 

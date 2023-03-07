@@ -5,7 +5,7 @@ module Msf
     # Check a condition's result
     # @param [Msf::Module] mod The module module
     # @param [Msf::OptBase] opt the option which has conditions present
-    # @return [String]
+    # @return [Boolean]
     def self.eval_condition(left_value, operator, right_value)
       case operator.to_sym
       when :==
@@ -16,6 +16,11 @@ module Msf
         right_value.include?(left_value)
       when :nin
         !right_value.include?(left_value)
+      when :is
+        case right_value.to_sym
+        when :blank?
+          left_value.blank?
+        end
       end
     end
 

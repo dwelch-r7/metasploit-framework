@@ -34,8 +34,8 @@ class MetasploitModule < Msf::Auxiliary
 
     register_options(
       [
-        OptString.new('NTHASH', [ false, 'The krbtgt/service nthash' ]),
-        OptString.new('AES_KEY', [ false, 'The krbtgt/service AES key' ]),
+        OptString.new('NTHASH', [ false, 'The krbtgt/service nthash' ], conditions: %w[AES_KEY is blank]),
+        OptString.new('AES_KEY', [ false, 'The krbtgt/service AES key' ], conditions: %w[NTHASH is blank]),
         OptString.new('TICKET_PATH', [true, 'Path to the ticket (ccache/kirbi format) you wish to inspect'])
       ]
     )
