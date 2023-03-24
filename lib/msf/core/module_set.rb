@@ -42,7 +42,7 @@ class Msf::ModuleSet < Hash
     # load it.
     if klass.nil? or klass == Msf::SymbolicModule
       if framework.modules.load_cached_module(module_type, reference_name) || empty?
-        recalculate
+        # recalculate
       end
 
       klass = fetch(reference_name, nil)

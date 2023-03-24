@@ -34,6 +34,13 @@ class Cache
     }
   end
 
+
+  def get_metadata_hash
+    @mutex.synchronize {
+      wait_for_load
+      @module_metadata_cache
+    }
+  end
   #
   # Checks for modules loaded that are not a part of the cache and updates the underlying store
   # if there are changes.

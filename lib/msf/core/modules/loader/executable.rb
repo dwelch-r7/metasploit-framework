@@ -104,4 +104,30 @@ class Msf::Modules::Loader::Executable < Msf::Modules::Loader::Base
       ''
     end
   end
+
+  def read_module_content2(path)
+    full_path = path
+    unless File.executable?(full_path)
+      load_error(full_path, Errno::ENOENT.new)
+      return ''
+    end
+    begin
+      content = Msf::Modules::External::Shim.generate(full_path, @module_manager.framework)
+      if content
+        return content
+      else
+        elog "Unable to load module #{full_path}, unknown module type"
+        return ''
+      end
+    rescue LoadError => e
+      load_error(full_path, e)
+      return ''
+    rescue ::Exception => e
+      elog("Unable to load module #{full_path}", error: e)
+      # XXX migrate this to a full load_error when we can tell the user why the
+      # module did not load and/or how to resolve it.
+      # load_error(full_path, e)
+      ''
+    end
+  end
 end

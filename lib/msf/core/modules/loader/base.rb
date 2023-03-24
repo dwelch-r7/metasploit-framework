@@ -123,9 +123,13 @@ class Msf::Modules::Loader::Base
 
     reload ||= force || file_changed
 
-    module_content = read_module_content(parent_path, type, module_reference_name)
+    if module_path
+      module_content = read_module_content2(module_path)
+    else
+      module_content = read_module_content(parent_path, type, module_reference_name)
+    end
 
-    if module_content.empty?
+      if module_content.empty?
       # read_module_content is responsible for calling {#load_error}, so just return here.
       return false
     end
@@ -229,6 +233,140 @@ class Msf::Modules::Loader::Base
     return true
   end
 
+  def load_module2(cached_mod, parent_path)#(parent_path, type, module_reference_name, options={})
+    # options.assert_valid_keys(:count_by_type, :force, :recalculate_by_type, :reload)
+    force = true #options[:force] || false
+    reload = false #options[:reload] || false
+
+    module_reference_name = cached_mod.ref_name
+    type = cached_mod.type
+    module_path = cached_mod.path #options[:module_path] #self.module_path(parent_path, type, module_reference_name)
+    file_changed = module_manager.file_changed?(module_path)
+
+    unless force or file_changed
+      dlog("Cached module from #{module_path} has not changed.", 'core', LEV_2)
+
+      return false
+    end
+
+    reload ||= force || file_changed
+
+    if module_path
+      module_content = read_module_content2(module_path)
+    else
+      module_content = read_module_content(parent_path, type, module_reference_name)
+    end
+
+    if module_content.empty?
+      # read_module_content is responsible for calling {#load_error}, so just return here.
+      return false
+    end
+
+    klass = nil
+    try_eval_module = lambda { |namespace_module|
+      # set the parent_path so that the module can be reloaded with #load_module
+      namespace_module.parent_path = parent_path
+
+      begin
+        namespace_module.module_eval_with_lexical_scope(module_content, module_path)
+        # handle interrupts as pass-throughs unlike other Exceptions so users can bail with Ctrl+C
+      rescue ::Interrupt
+        raise
+      rescue ::Exception => error
+        load_error(module_path, error)
+        return false
+      end
+
+      if namespace_module.const_defined?('Metasploit3', false)
+        klass = namespace_module.const_get('Metasploit3', false)
+        load_warning(module_path, "Please change the module's class name from Metasploit3 to MetasploitModule")
+      elsif namespace_module.const_defined?('Metasploit4', false)
+        klass = namespace_module.const_get('Metasploit4', false)
+        load_warning(module_path, "Please change the module's class name from Metasploit4 to MetasploitModule")
+      elsif namespace_module.const_defined?('MetasploitModule', false)
+        klass = namespace_module.const_get('MetasploitModule', false)
+      else
+        load_error(module_path, Msf::Modules::Error.new(
+          module_path:           module_path,
+          module_reference_name: module_reference_name,
+          causal_message:        'invalid module class name (must be MetasploitModule)'
+        ))
+        return false
+      end
+
+      if reload
+        ilog("Reloading #{type} module #{module_reference_name}. Ambiguous module warnings are safe to ignore", 'core', LEV_2)
+      else
+        ilog("Loaded #{type} module #{module_reference_name} under #{parent_path}", 'core', LEV_2)
+      end
+
+      module_manager.module_load_error_by_path.delete(module_path)
+
+      true
+    }
+    # require 'pry-byebug'; binding.pry
+
+    begin
+      loaded = namespace_module_transaction("#{type}/#{module_reference_name}", reload: reload, &try_eval_module)
+      return false unless loaded
+    rescue NameError
+      load_error(module_path, Msf::Modules::Error.new(
+        module_path:           module_path,
+        module_reference_name: module_reference_name,
+        causal_message:        'invalid module filename (must be lowercase alphanumeric snake case)'
+      ))
+      return false
+    rescue => e
+      load_error(module_path, Msf::Modules::Error.new(
+        module_path:           module_path,
+        module_reference_name: module_reference_name,
+        causal_message:        "unknown error #{e.message}"
+      ))
+      return false
+    end
+
+    if $control
+      # require 'pry-byebug'; binding.pry
+    end
+
+    # Do some processing on the loaded module to get it into the right associations
+    module_manager.on_module_load(
+      klass,
+      type,
+      module_reference_name,
+      {
+        # files[0] is stored in the {Msf::Module#file_path} and is used to reload the module, so it needs to be a
+        # full path
+        'files' => [
+          module_path
+        ],
+        'paths' => [
+          module_reference_name
+        ],
+        'type' => type,
+        'cached_mod' => cached_mod,
+        'parent_path' => parent_path
+      }
+    )
+
+    # Set this module type as needing recalculation
+    # recalculate_by_type = options[:recalculate_by_type]
+    #
+    # if recalculate_by_type
+    #   recalculate_by_type[type] = true
+    # end
+    #
+    # # The number of loaded modules this round
+    # count_by_type = options[:count_by_type]
+    #
+    # if count_by_type
+    #   count_by_type[type] ||= 0
+    #   count_by_type[type] += 1
+    # end
+
+    return true
+  end
+
   # Loads all of the modules from the supplied path.
   #
   # @note Only paths where {#loadable?} returns true should be passed to
@@ -259,12 +397,12 @@ class Msf::Modules::Loader::Base
       )
     end
 
-    recalculate_by_type.each do |type, recalculate|
-      if recalculate
-        module_set = module_manager.module_set(type)
-        module_set.recalculate
-      end
-    end
+    # recalculate_by_type.each do |type, recalculate|
+    #   if recalculate
+    #     module_set = module_manager.module_set(type)
+    #     module_set.recalculate
+    #   end
+    # end
 
     count_by_type
   end
@@ -578,6 +716,10 @@ class Msf::Modules::Loader::Base
   # @param module_reference_name (see #load_module)
   # @return [String] module content that can be module_evaled into the {#create_namespace_module}
   def read_module_content(parent_path, type, module_reference_name)
+    raise ::NotImplementedError
+  end
+
+  def read_module_content2(module_path)
     raise ::NotImplementedError
   end
 

@@ -222,6 +222,9 @@ class PayloadSet < ModuleSet
   #   +type+ argument.
   # @return [void]
   def add_module(payload_module, reference_name, modinfo={})
+    if modinfo['cached_mod']
+      return add_cached_module(modinfo['cached_mod'], modinfo)
+    end
 
     if (md = reference_name.match(/^(adapters|singles|stagers|stages)#{File::SEPARATOR}(.*)$/))
       ptype = md[1]
@@ -252,6 +255,54 @@ class PayloadSet < ModuleSet
     # also convey other information about the module, such as
     # the platforms and architectures it supports
     payload_type_modules[instance.payload_type][reference_name] = pinfo
+  end
+
+  def add_cached_module(cached_module, modinfo)
+    # require 'pry-byebug'; binding.pry if $control
+    # We're in the payload_set so this should always be "payloads", but can't be too careful
+    mod_dir = Msf::Modules::Loader::Base::DIRECTORY_BY_TYPE[cached_module.type]
+    remove_path = "#{modinfo['parent_path']}/#{mod_dir}/" #'/Users/dwelch/dev/metasploit-framework/modules/payloads/'
+    module_rel_path = cached_module.path.gsub(remove_path, '')
+    md = module_rel_path.match(/^(adapters|singles|stagers|stages)#{File::SEPARATOR}(.*)$/)
+    ptype = md[1]
+    reference_name = md[2]
+
+    case ptype
+    when 'singles'
+      name = cached_module.ref_name
+      op = _singles[name]
+      mod, handler = op
+
+      # Build the payload dupe using the determined handler
+      # and module
+      p = build_payload(handler, mod)
+
+      # Add it to the set
+      add_single(p, name, op[5])
+    when 'stagers'
+      # require 'pry-byebug'; binding.pry
+      op = _stagers[reference_name.chomp('.rb')]
+      stager_mod, handler, stager_platform, stager_arch, stager_inst = op
+
+      handler_type = handler.handler_type
+
+      stage_name = cached_module.ref_name.chomp("/#{handler_type}")
+      ip = _stages[stage_name]
+      stage_mod, _, stage_platform, stage_arch, stage_inst = ip
+
+      p = build_payload(handler, stager_mod, stage_mod)
+      p.refname = cached_module.ref_name
+
+      add_stage(p, cached_module.ref_name, stage_name, handler_type, {
+        'files' => op[5]['files'] + ip[5]['files'],
+        'paths' => op[5]['paths'] + ip[5]['paths'],
+        'type'  => op[5]['type']})
+
+      # cached_module
+    when 'stages'
+      # require 'pry-byebug'; binding.pry
+      cached_module
+    end
   end
 
   #

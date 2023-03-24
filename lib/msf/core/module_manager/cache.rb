@@ -73,25 +73,29 @@ module Msf::ModuleManager::Cache
   # @return (see Msf::Modules::Loader::Base#load_module)
   def load_cached_module(type, reference_name)
     loaded = false
+    # require 'pry-byebug'; binding.pry if $control
+    # module_info = self.module_info_by_path.values.find { |inner_info|
+    #   inner_info[:type] == type and inner_info[:reference_name] == reference_name
+    # }
+    cached_mod = Msf::Modules::Metadata::Cache.instance.get_metadata_hash[type + '_' + reference_name]
 
-    module_info = self.module_info_by_path.values.find { |inner_info|
-      inner_info[:type] == type and inner_info[:reference_name] == reference_name
-    }
-
-    if module_info
-      parent_path = module_info[:parent_path]
+    if cached_mod
+      parent_path = File.join(Msf::Config.install_root,'modules')
+      module_path = cached_mod.path #self.module_info_by_path.key(module_info)
 
       # XXX borked
       loaders.each do |loader|
-        if loader.loadable_module?(parent_path, type, reference_name)
-          type = module_info[:type]
-          reference_name = module_info[:reference_name]
+        # if loader.loadable_module?(parent_path, type, reference_name)
+        #   type = module_info[:type]
+        #   reference_name = module_info[:reference_name]
 
-          loaded = loader.load_module(parent_path, type, reference_name, :force => true)
+          # loaded = loader.load_module(parent_path, type, reference_name, :force => true, module_path: module_path)
+        loaded = loader.load_module2(cached_mod, parent_path)
 
-          break if loaded
+
+        break if loaded
         end
-      end
+      # end
     end
 
     loaded
