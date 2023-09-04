@@ -60,7 +60,7 @@ class Msf::Sessions::SMB # < Msf::Sessions::CommandShell
     'SMB'
   end
 
-  protected
+  # protected
 
   ##
   # :category: Msf::Session::Interactive implementors
@@ -93,7 +93,7 @@ class Msf::Sessions::SMB # < Msf::Sessions::CommandShell
   # shell_write instead of operating on rstream directly.
   def _interact
     framework.events.on_session_interact(self)
-    Rex::Ui::Text::Shell::HistoryManager.with_context(name: self.type.to_sym) {
+    Rex::Ui::Text::Shell::HistoryManager.instance.with_context(name: self.type.to_sym) {
       _interact_stream
     }
   end
