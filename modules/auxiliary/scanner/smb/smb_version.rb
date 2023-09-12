@@ -12,6 +12,7 @@ class MetasploitModule < Msf::Auxiliary
   include Msf::Exploit::Remote::SMB::Client
   include Msf::Exploit::Remote::Kerberos::Ticket::Storage
   include Msf::Exploit::Remote::Kerberos::ServiceAuthenticator::Options
+  include Msf::PostMixin
 
   # Scanner mixin should be near last
   include Msf::Auxiliary::Scanner
@@ -40,6 +41,11 @@ class MetasploitModule < Msf::Auxiliary
       'License' => MSF_LICENSE
     )
 
+    register_options(
+      [
+        OptInt.new('SESSION', [ false, 'The SMB session id to run this module on' ])
+      ]
+    )
     register_advanced_options(
       [
         *kerberos_storage_options(protocol: 'SMB'),
@@ -84,7 +90,11 @@ class MetasploitModule < Msf::Auxiliary
     versions = [1, 2, 3]
     while !versions.empty?
       begin
-        simple = connect(false, versions: versions)
+        # if session
+        #   simple = self.simple
+        # else
+          simple = connect(false, versions: versions)
+        # end
         protocol = simple.client.negotiate
       rescue Rex::Proto::SMB::Exceptions::Error, RubySMB::Error::RubySMBError
         break
@@ -191,9 +201,18 @@ class MetasploitModule < Msf::Auxiliary
   def run_host(ip)
     smb_ports = [445, 139]
     lines = [] # defer status output to the very end to group lines together by host
+
+    if session
+      print_status("Using existing session #{session.sid}")
+      client = session.client
+      self.simple = ::Rex::Proto::SMB::SimpleClient.new(client.dispatcher.tcp_socket, client: client)
+      smb_ports = [simple.port]
+      # self.simple.connect("\\\\#{simple.address}\\IPC$") # smb_login connects to this share for some reason and it doesn't work unless we do too
+    end
+
     smb_ports.each do |pnum|
       @smb_port = pnum
-      self.simple = nil
+      # self.simple = nil
 
       begin
         res = smb_fingerprint

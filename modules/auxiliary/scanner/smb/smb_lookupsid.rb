@@ -10,6 +10,7 @@ class MetasploitModule < Msf::Auxiliary
   include Msf::Exploit::Remote::SMB::Client::Authenticated
 
   include Msf::Exploit::Remote::DCERPC
+  include Msf::PostMixin
 
   # Scanner mixin should be near last
   include Msf::Auxiliary::Report
@@ -40,7 +41,8 @@ class MetasploitModule < Msf::Auxiliary
     register_options(
       [
         OptInt.new('MinRID', [ false, "Starting RID to check", 500 ]),
-        OptInt.new('MaxRID', [ false, "Maximum RID to check", 4000 ])
+        OptInt.new('MaxRID', [ false, "Maximum RID to check", 4000 ]),
+        OptInt.new('SESSION', [ false, 'The SMB session id to run this module on' ])
       ],
       self.class
     )
@@ -66,15 +68,17 @@ class MetasploitModule < Msf::Auxiliary
     found_pipe   = nil
     found_handle = nil
     pipes.each do |pipe_name|
-      connected = false
+      connected = session ? true : false
       begin
-        connect
-        smb_login
-        connected = true
+        unless connected
+          connect
+          smb_login
+          connected = true
+        end
 
-        handle = dcerpc_handle(
+        handle = dcerpc_handle_target(
           uuid, vers,
-          'ncacn_np', ["\\#{pipe_name}"]
+          'ncacn_np', ["\\#{pipe_name}"], simple.address
         )
 
         dcerpc_bind(handle)
@@ -141,10 +145,21 @@ class MetasploitModule < Msf::Auxiliary
 
   # Fingerprint a single host
   def run_host(ip)
-    [[139, false], [445, true]].each do |info|
 
-    @rport = info[0]
-    @smbdirect = info[1]
+    ports = [139, 445]
+
+    if session
+      print_status("Using existing session #{session.sid}")
+      client = session.client
+      self.simple = ::Rex::Proto::SMB::SimpleClient.new(client.dispatcher.tcp_socket, client: client)
+      ports = [simple.port]
+      self.simple.connect("\\\\#{simple.address}\\IPC$") # smb_login connects to this share for some reason and it doesn't work unless we do too
+    end
+
+    ports.each do |port|
+
+    @rport = port
+    # @smbdirect = info[1]
 
     lsa_pipe   = nil
     lsa_handle = nil

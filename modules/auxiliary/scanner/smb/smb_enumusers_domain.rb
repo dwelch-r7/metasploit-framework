@@ -9,6 +9,8 @@ class MetasploitModule < Msf::Auxiliary
   include Msf::Exploit::Remote::SMB::Client
   include Msf::Exploit::Remote::SMB::Client::Authenticated
   include Msf::Exploit::Remote::DCERPC
+  include Msf::PostMixin
+
 
   # Scanner mixin should be near last
   include Msf::Auxiliary::Scanner
@@ -29,6 +31,10 @@ class MetasploitModule < Msf::Auxiliary
         ],
       'License'     => MSF_LICENSE
     )
+
+    register_options([
+                       OptInt.new('SESSION', [ false, 'The SMB session id to run this module on' ])
+                     ])
 
     deregister_options('RPORT')
 
@@ -121,25 +127,36 @@ class MetasploitModule < Msf::Auxiliary
   end
 
   def run_host(ip)
+    ports = [139, 445]
 
-    [[139, false], [445, true]].each do |info|
+    if session
+      print_status("Using existing session #{session.sid}")
+      client = session.client
+      self.simple = ::Rex::Proto::SMB::SimpleClient.new(client.dispatcher.tcp_socket, client: client)
+      ports = [simple.port]
+      self.simple.connect("\\\\#{simple.address}\\IPC$") # smb_login connects to this share for some reason and it doesn't work unless we do too
+    end
 
-    @rport = info[0]
-    @smbdirect = info[1]
+    ports.each do |port|
+
+    @rport = port
+    # @smbdirect = info[1]
 
     begin
-      connect()
-      smb_login()
+      unless session
+        connect()
+        smb_login()
+      end
 
       uuid = [ '6bffd098-a112-3610-9833-46c3f87e345a', '1.0' ]
 
-      handle = dcerpc_handle(
-        uuid[0], uuid[1], 'ncacn_np', ["\\wkssvc"]
+      handle = dcerpc_handle_target(
+        uuid[0], uuid[1], 'ncacn_np', ["\\wkssvc"], simple.address
       )
       begin
         dcerpc_bind(handle)
         stub =
-          NDR.uwstring("\\\\" + ip) + # Server Name
+          NDR.uwstring("\\\\" + simple.address) + # Server Name
           NDR.long(1) +           # Level
           NDR.long(1) +           # Ctr
           NDR.long(rand(0xffffffff)) +  # ref id
@@ -178,7 +195,7 @@ class MetasploitModule < Msf::Auxiliary
           end
 
           print_good("Found user: #{comp_user}")
-          store_username(comp_user, resp, ip, rport)
+          store_username(comp_user, resp, simple.address, rport)
         end
 
       rescue ::Rex::Proto::SMB::Exceptions::ErrorCode => e

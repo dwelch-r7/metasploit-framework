@@ -11,6 +11,7 @@ class MetasploitModule < Msf::Auxiliary
   include Msf::Exploit::Remote::SMB::Client::RemotePaths
   include Msf::Auxiliary::Report
   include Msf::Auxiliary::Scanner
+  include Msf::PostMixin
 
   # Aliases for common classes
   SIMPLE = Rex::Proto::SMB::SimpleClient
@@ -34,17 +35,25 @@ class MetasploitModule < Msf::Auxiliary
     )
 
     register_options([
-      OptString.new('SMBSHARE', [true, 'The name of a share on the RHOST', 'C$'])
+      OptString.new('SMBSHARE', [true, 'The name of a share on the RHOST', 'C$']),
+      OptInt.new('SESSION', [ false, 'The SMB session id to run this module on' ])
     ])
   end
 
   def smb_delete_files
-    vprint_status("Connecting to the server...")
-    connect()
-    smb_login()
+    if session
 
-    vprint_status("Mounting the remote share \\\\#{datastore['RHOST']}\\#{datastore['SMBSHARE']}'...")
-    self.simple.connect("\\\\#{rhost}\\#{datastore['SMBSHARE']}")
+      print_status("Using existing session #{session.sid}")
+      client = session.client
+      self.simple = ::Rex::Proto::SMB::SimpleClient.new(client.dispatcher.tcp_socket, client: client)
+    else
+      vprint_status("Connecting to the server...")
+      connect()
+      smb_login()
+    end
+
+    vprint_status("Mounting the remote share \\\\#{simple.address}\\#{datastore['SMBSHARE']}'...")
+    self.simple.connect("\\\\#{simple.address}\\#{datastore['SMBSHARE']}")
 
     remote_paths.each do |remote_path|
       begin

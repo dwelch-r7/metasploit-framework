@@ -35,7 +35,7 @@ class MetasploitModule < Msf::Auxiliary
     register_options(
       [
         OptString.new('SMBSHARE', [true, 'The name of a writeable share on the server', 'C$']),
-        OptInt.new('SESSION', [ false, 'The session to run this module on' ])
+        OptInt.new('SESSION', [ false, 'The SMB session id to run this module on' ])
       ]
     )
 
@@ -47,7 +47,6 @@ class MetasploitModule < Msf::Auxiliary
     begin
       if session
         print_status("Using existing session #{session.sid}")
-        require 'pry-byebug'; binding.pry
         client = session.client
         self.simple = ::Rex::Proto::SMB::SimpleClient.new(client.dispatcher.tcp_socket, client: client)
 

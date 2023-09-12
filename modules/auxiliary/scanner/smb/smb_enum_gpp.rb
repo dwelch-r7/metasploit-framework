@@ -8,6 +8,8 @@ class MetasploitModule < Msf::Auxiliary
   include Msf::Exploit::Remote::SMB::Client::Authenticated
   include Msf::Auxiliary::Scanner
   include Msf::Auxiliary::Report
+  include Msf::PostMixin
+
 
   # Aliases for common classes
   SIMPLE = Rex::Proto::SMB::Client
@@ -41,7 +43,8 @@ class MetasploitModule < Msf::Auxiliary
     register_options([
       OptString.new('SMBSHARE', [true, 'The name of the share on the server', 'SYSVOL']),
       OptPort.new('RPORT', [true, 'The Target port', 445]),
-      OptBool.new('STORE', [true, 'Store the enumerated files in loot.', true])
+      OptBool.new('STORE', [true, 'Store the enumerated files in loot.', true]),
+      OptInt.new('SESSION', [ false, 'The SMB session id to run this module on' ])
     ])
   end
 
@@ -164,10 +167,17 @@ class MetasploitModule < Msf::Auxiliary
   def run_host(ip)
     print_status('Connecting to the server...')
     begin
-      connect
-      smb_login
-      print_status("Mounting the remote share \\\\#{ip}\\#{datastore['SMBSHARE']}'...")
-      tree = simple.client.tree_connect("\\\\#{ip}\\#{datastore['SMBSHARE']}")
+      if session
+        print_status("Using existing session #{session.sid}")
+        client = session.client
+        self.simple = ::Rex::Proto::SMB::SimpleClient.new(client.dispatcher.tcp_socket, client: client)
+      else
+        connect
+        smb_login
+      end
+
+      print_status("Mounting the remote share \\\\#{simple.address}\\#{datastore['SMBSHARE']}'...")
+      tree = simple.client.tree_connect("\\\\#{simple.address}\\#{datastore['SMBSHARE']}")
 
       corp_domain = tree.list.map { |entry| entry.file_name.value.to_s.encode }.detect { |entry| entry != '.' && entry != '..' }
       fail_with(Failure::NotFound, 'Could not find the domain folder') if corp_domain.nil?
@@ -188,11 +198,11 @@ class MetasploitModule < Msf::Auxiliary
       sub_folders.each do |sub_folder|
         next if sub_folder == '.' || sub_folder == '..'
         gpp_locations.each do |gpp_l|
-          check_path(ip,"#{corp_domain}\\Policies\\#{sub_folder}\\#{gpp_l}")
+          check_path(simple.address,"#{corp_domain}\\Policies\\#{sub_folder}\\#{gpp_l}")
         end
       end
     rescue ::Exception => e
-      print_error("#{rhost}: #{e.class} #{e}")
+      print_error("#{simple.address}: #{e.class} #{e}")
     ensure
       disconnect
     end

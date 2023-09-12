@@ -8,6 +8,7 @@ class MetasploitModule < Msf::Auxiliary
   # Exploit mixins should be called first
   include Msf::Exploit::Remote::SMB::Client
   include Msf::Auxiliary::Report
+  include Msf::PostMixin
 
   # Aliases for common classes
   SIMPLE = Rex::Proto::SMB::Client
@@ -37,7 +38,8 @@ class MetasploitModule < Msf::Auxiliary
     register_options([
       OptString.new('SMBSHARE', [true, 'The name of a writeable share on the server', 'C$']),
       OptString.new('RPATH', [false, 'The name of the remote directory relative to the share']),
-    ])
+      OptInt.new('SESSION', [ false, 'The SMB session id to run this module on' ])
+                     ])
 
     deregister_options('SMB::ProtocolVersion')
   end
@@ -56,8 +58,18 @@ class MetasploitModule < Msf::Auxiliary
   def run
     print_status("Connecting to the server...")
     begin
-      connect(versions: [1])
-      smb_login()
+      if session
+
+        print_status("Using existing session #{session.sid}")
+        client = session.client
+        self.simple = ::Rex::Proto::SMB::SimpleClient.new(client.dispatcher.tcp_socket, client: client)
+      else
+        connect
+        smb_login()
+      end
+
+      # connect(versions: [1])
+      # smb_login()
       print_status("Mounting the remote share \\\\#{datastore['RHOST']}\\#{datastore['SMBSHARE']}'...")
             self.simple.connect("\\\\#{datastore['RHOST']}\\#{datastore['SMBSHARE']}")
       if datastore['RPATH']
@@ -89,4 +101,3 @@ class MetasploitModule < Msf::Auxiliary
     end
   end
 end
-

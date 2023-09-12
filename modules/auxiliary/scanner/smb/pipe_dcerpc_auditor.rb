@@ -9,6 +9,7 @@ class MetasploitModule < Msf::Auxiliary
   include Msf::Exploit::Remote::SMB::Client
   include Msf::Exploit::Remote::SMB::Client::Authenticated
   include Msf::Exploit::Remote::DCERPC
+  include Msf::PostMixin
 
   # Scanner mixin should be near last
   include Msf::Auxiliary::Scanner
@@ -26,6 +27,7 @@ class MetasploitModule < Msf::Auxiliary
     register_options(
       [
         OptString.new('SMBPIPE', [ true,  "The pipe name to use (BROWSER)", 'BROWSER']),
+        OptInt.new('SESSION', [ false, 'The SMB session id to run this module on' ])
       ])
   end
 
@@ -251,21 +253,32 @@ class MetasploitModule < Msf::Auxiliary
 
   # Fingerprint a single host
   def run_host(ip)
+    ports = [139, 445]
 
-    [[139, false], [445, true]].each do |info|
+    if session
+      print_status("Using existing session #{session.sid}")
+      client = session.client
+      self.simple = ::Rex::Proto::SMB::SimpleClient.new(client.dispatcher.tcp_socket, client: client)
+      ports = [simple.port]
+      self.simple.connect("\\\\#{simple.address}\\IPC$") # smb_login connects to this share for some reason and it doesn't work unless we do too
+    end
 
-    datastore['RPORT'] = info[0]
-    datastore['SMBDirect'] = info[1]
+    ports.each do |port|
+
+    datastore['RPORT'] = port
+    # datastore['SMBDirect'] = info[1]
 
     begin
-      connect()
-      smb_login()
+      unless session
+        connect()
+        smb_login()
+      end
 
       @@target_uuids.each do |uuid|
 
-        handle = dcerpc_handle(
+        handle = dcerpc_handle_target(
           uuid[0], uuid[1],
-          'ncacn_np', ["\\#{datastore['SMBPIPE']}"]
+          'ncacn_np', ["\\#{datastore['SMBPIPE']}"], self.simple.address
         )
 
         begin
@@ -281,9 +294,9 @@ class MetasploitModule < Msf::Auxiliary
             :data	=> "UUID #{uuid[0]} #{uuid[1]} OPEN VIA #{datastore['SMBPIPE']}"
           )
         rescue ::Rex::Proto::SMB::Exceptions::ErrorCode => e
-          #print_line("UUID #{uuid[0]} #{uuid[1]} ERROR 0x%.8x" % e.error_code)
+          print_line("UUID #{uuid[0]} #{uuid[1]} ERROR 0x%.8x" % e.error_code)
         rescue ::Exception => e
-          #print_line("UUID #{uuid[0]} #{uuid[1]} ERROR #{$!}")
+          print_line("UUID #{uuid[0]} #{uuid[1]} ERROR #{$!}")
         end
       end
 

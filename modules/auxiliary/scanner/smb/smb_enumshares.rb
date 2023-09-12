@@ -13,6 +13,7 @@ class MetasploitModule < Msf::Auxiliary
   # Scanner mixin should be near last
   include Msf::Auxiliary::Report
   include Msf::Auxiliary::Scanner
+  include Msf::PostMixin
 
   def initialize(info = {})
     super(
@@ -51,6 +52,7 @@ class MetasploitModule < Msf::Auxiliary
         OptBool.new('SpiderProfiles', [false, 'Spider only user profiles when share is a disk share', true]),
         OptEnum.new('LogSpider', [false, '0 = disabled, 1 = CSV, 2 = table (txt), 3 = one liner (txt)', 3, [0, 1, 2, 3]]),
         OptInt.new('MaxDepth', [true, 'Max number of subdirectories to spider', 999]),
+        OptInt.new('SESSION', [ false, 'The SMB session id to run this module on' ])
       ]
     )
 
@@ -293,15 +295,26 @@ class MetasploitModule < Msf::Auxiliary
       @rport = info[:port]
 
       begin
-        print_status 'Starting module'
-        if rport == SMB1_PORT
-          # force library in smb1 mode otherwise simple.client is a
-          # `Rex::Proto::SMB::Client` that does not supply `net_share_enum_all`
-          connect(versions: [1], backend: :ruby_smb)
+        if session
+
+        print_status("Using existing session #{session.sid}")
+        client = session.client
+        self.simple = ::Rex::Proto::SMB::SimpleClient.new(client.dispatcher.tcp_socket, client: client)
+
         else
-          connect(versions: [1, 2, 3])
+          vprint_status("Connecting to the server...")
+          if rport == SMB1_PORT
+            # force library in smb1 mode otherwise simple.client is a
+            # `Rex::Proto::SMB::Client` that does not supply `net_share_enum_all`
+            connect(versions: [1], backend: :ruby_smb)
+          else
+            connect(versions: [1, 2, 3])
+          end
+          smb_login
         end
-        smb_login
+
+        print_status 'Starting module'
+
 
         begin
           # Return all shares if `Shares` option has not been set
