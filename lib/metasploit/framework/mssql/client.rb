@@ -17,7 +17,9 @@ module Metasploit
         # The global socket is used and left connected after auth
         #
         def mssql_login(user='sa', pass='', db='', domain_name='')
-
+          if self.sock
+            $stderr.puts "oh no"
+          end
           disconnect if self.sock
           connect
           mssql_prelogin
@@ -357,7 +359,7 @@ module Metasploit
           info = {:errors => []}
           info = mssql_parse_reply(resp, info)
 
-          disconnect
+          # disconnect
 
           return false if not info
           info[:login_ack] ? true : false

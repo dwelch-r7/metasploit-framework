@@ -8,6 +8,7 @@ require 'yaml'
 class MetasploitModule < Msf::Auxiliary
   include Msf::Exploit::Remote::MSSQL
   include Msf::Auxiliary::Report
+  include Msf::PostMixin
 
   include Msf::Auxiliary::Scanner
 
@@ -26,13 +27,15 @@ class MetasploitModule < Msf::Auxiliary
     )
 
     register_options([
-      OptBool.new('DISPLAY_RESULTS', [true, "Display the Results to the Screen", true])
+      OptBool.new('DISPLAY_RESULTS', [true, "Display the Results to the Screen", true]),
+      OptInt.new('SESSION', [false, 'The MSSQL session to run the module against'])
       ])
   end
 
   def run_host(ip)
-
-    if !mssql_login_datastore
+    if session
+      self.sock = session.socket
+    elsif !mssql_login_datastore
       print_error("#{rhost}:#{rport} - Invalid SQL Server credentials")
       return
     end
@@ -65,6 +68,8 @@ class MetasploitModule < Msf::Auxiliary
           )
     store_loot('mssql_schema', "text/plain", datastore['RHOST'], output, "#{datastore['RHOST']}_mssql_schema.txt", "MS SQL Schema", this_service)
     print_good output if datastore['DISPLAY_RESULTS']
+
+    self.sock = nil
   end
 
   def get_mssql_schema
@@ -72,7 +77,7 @@ class MetasploitModule < Msf::Auxiliary
     mssql_schema=[]
     unless mssql_db_names.nil?
       mssql_db_names.each do |dbname|
-        next if dbname[0] == 'model' or dbname[0] == 'master' or dbname[0] == 'msdb' or dbname[0] == 'tempdb'
+        # next if dbname[0] == 'model' or dbname[0] == 'master' or dbname[0] == 'msdb' or dbname[0] == 'tempdb'
         tmp_db = {}
         tmp_tblnames = get_tbl_names(dbname[0])
         unless tmp_tblnames.nil?

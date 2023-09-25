@@ -25,6 +25,14 @@ module Metasploit
         PRIVATE_TYPES        = [ :password, :ntlm_hash ]
         REALM_KEY           = Metasploit::Model::Realm::Key::ACTIVE_DIRECTORY_DOMAIN
 
+        # @returns [Boolean] If a login is successful and this attribute is true - a PostgreSQL::Client instance is used as proof,
+        #   and the socket is not immediately closed
+        attr_accessor :use_client_as_proof
+
+        # @!attribute dispatcher
+        #   @return [PostgreSQL::Dispatcher::Socket]
+        attr_accessor :dispatcher
+
         # @!attribute auth
         #   @return [Array<String>] Auth The Authentication mechanism to use
         #   @see Msf::Exploit::Remote::AuthOption::MSSQL_OPTIONS
@@ -68,6 +76,8 @@ module Metasploit
           begin
             if mssql_login(credential.public, credential.private, '', credential.realm)
               result_options[:status] = Metasploit::Model::Login::Status::SUCCESSFUL
+              result_options[:proof] = self.sock
+              self.sock = nil
             else
               result_options[:status] = Metasploit::Model::Login::Status::INCORRECT
             end
