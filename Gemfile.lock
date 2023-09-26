@@ -137,6 +137,11 @@ GEM
       require_all (>= 2, < 4)
       rspec-expectations (~> 3.12)
       uuid (>= 2.3, < 3)
+    appmap (0.102.1)
+      activesupport
+      method_source
+      rack
+      reverse_markdown
     arel-helpers (2.14.0)
       activerecord (>= 3.1.0, < 8)
     ast (2.4.2)
@@ -376,6 +381,8 @@ GEM
     reline (0.3.5)
       io-console (~> 0.5)
     require_all (3.0.0)
+    reverse_markdown (2.1.1)
+      nokogiri
     rex-arch (0.1.14)
       rex-text
     rex-bin_tools (0.1.8)
@@ -546,6 +553,7 @@ PLATFORMS
 
 DEPENDENCIES
   allure-rspec
+  appmap
   debug (>= 1.0.0)
   factory_bot_rails
   fivemat
@@ -559,10 +567,11 @@ DEPENDENCIES
   rspec-rerun
   rubocop
   ruby-prof (= 1.4.2)
+  ruby_smb
   simplecov (= 0.18.2)
   test-prof
   timecop
   yard
 
 BUNDLED WITH
-   2.1.4
+   2.2.33

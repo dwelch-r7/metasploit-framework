@@ -325,9 +325,9 @@ module Rex::Proto::Http::WebSocket
 
     default_parameter assert: -> { !Opcode.name(value).nil? }
 
-    def self.name(value)
-      constants.select { |c| c.upcase == c }.find { |c| const_get(c) == value }
-    end
+    # def self.name(value)
+    #   constants.select { |c| c.upcase == c }.find { |c| const_get(c) == value }
+    # end
 
     def to_sym
       self.class.name(value)

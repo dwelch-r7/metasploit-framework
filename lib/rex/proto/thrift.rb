@@ -21,9 +21,9 @@ module Rex::Proto::Thrift
 
     default_parameter assert: -> { !ThriftDataType.name(value).nil? }
 
-    def self.name(value)
-      constants.select { |c| c.upcase == c }.find { |c| const_get(c) == value }
-    end
+    # def self.name(value)
+    #   constants.select { |c| c.upcase == c }.find { |c| const_get(c) == value }
+    # end
 
     def to_sym
       self.class.name(value)
@@ -108,9 +108,9 @@ module Rex::Proto::Thrift
 
     default_parameter assert: -> { !ThriftMessageType.name(value).nil? }
 
-    def self.name(value)
-      constants.select { |c| c.upcase == c }.find { |c| const_get(c) == value }
-    end
+    # def self.name(value)
+    #   constants.select { |c| c.upcase == c }.find { |c| const_get(c) == value }
+    # end
 
     def to_sym
       self.class.name(value)

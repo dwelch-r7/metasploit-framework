@@ -46,9 +46,9 @@ module Rex
             enabled_flag_names
           end
 
-          def self.name(value)
-            constants.select { |c| c.upcase == c }.find { |c| const_get(c) == value }
-          end
+          # def self.name(value)
+          #   constants.select { |c| c.upcase == c }.find { |c| const_get(c) == value }
+          # end
 
           # Override the equality test for KdcOptionFlags. Equality is
           # always tested against the #value of the KdcOptionFlags.

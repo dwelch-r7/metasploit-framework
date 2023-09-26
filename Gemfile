@@ -1,4 +1,8 @@
 source 'https://rubygems.org'
+gem 'ruby_smb'
+# This should be the first gem listed, so that appmap is loaded first
+gem 'appmap', group: %i[test development]
+
 # Add default group gems to `metasploit-framework.gemspec`:
 #   spec.add_runtime_dependency '<name>', [<version requirements>]
 gemspec name: 'metasploit-framework'
