@@ -7,6 +7,7 @@ class Msf::Sessions::SMB # < Msf::Sessions::CommandShell
   # This interface supports basic interaction.
   #
   include Msf::Session::Basic
+  include Msf::Sessions::Scriptable
 
   # @return [Rex::Post::SMB::Ui::Console] The interactive console
   attr_accessor :console
@@ -14,11 +15,13 @@ class Msf::Sessions::SMB # < Msf::Sessions::CommandShell
   attr_accessor :client
   attr_accessor :platform
   attr_accessor :arch
+  attr_reader :framework
 
   # TODO: Confirm existig terminology, smb_client vs client vs dispatcher vs something else
   # @param [RubySMB::Client] client
   def initialize(rstream, opts={})
     @client = opts.fetch(:client)
+    @framework = opts.fetch(:framework)
     # @info = "SMB TODO"
     self.console = Rex::Post::SMB::Ui::Console.new(self)
     super(rstream, opts)
@@ -33,8 +36,23 @@ class Msf::Sessions::SMB # < Msf::Sessions::CommandShell
     session.init_ui(self.user_input, self.user_output)
 
     @info = "SMB #{datastore['USERNAME']} @ #{@peer_info}"
+
+    ['InitialAutoRunScript', 'AutoRunScript'].each do |key|
+      unless datastore[key].nil? || datastore[key].empty?
+        args = Shellwords.shellwords(datastore[key])
+        print_status("Session ID #{session.sid} (#{session.tunnel_to_s}) processing #{key} '#{datastore[key]}'")
+        session.execute_script(args.shift, *args)
+      end
+    end
   end
 
+  def execute_file(full_path, args)
+    if File.extname(full_path) == '.rb'
+      Rex::Script::Shell.new(self, full_path).run(args)
+    else
+      console.load_resource(full_path)
+    end
+  end
   def process_autoruns(datastore)
     # TODO - Implemented for now to keep things happy
   end
@@ -60,6 +78,17 @@ class Msf::Sessions::SMB # < Msf::Sessions::CommandShell
     'SMB'
   end
 
+  def address
+    # TODO: How do we accurately get the target smb address when pivoting? Also Needs ipv6 support
+    address, port = self.client.dispatcher.tcp_socket.peerinfo.split(':')
+    address
+  end
+
+  def port
+    # TODO: How do we accurately get the target smb address when pivoting? Also Needs ipv6 support
+    address, port = self.client.dispatcher.tcp_socket.peerinfo.split(':')
+    port
+  end
   # protected
 
   ##

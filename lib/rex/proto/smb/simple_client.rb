@@ -55,17 +55,6 @@ attr_accessor :socket, :client, :direct, :shares, :last_share, :versions
     end
   end
 
-def address
-  # TOOD: How do we accurately get the target smb address when pivoting? Also Needs ipv6 support
-  address, port = self.client.dispatcher.tcp_socket.peerinfo.split(':')
-  address
-end
-
-def port
-  # TOOD: How do we accurately get the target smb address when pivoting? Also Needs ipv6 support
-  address, port = self.client.dispatcher.tcp_socket.peerinfo.split(':')
-  port
-end
   def login(name = '', user = '', pass = '', domain = '',
       verify_signature = false, usentlmv2 = false, usentlm2_session = true,
       send_lm = true, use_lanman_key = false, send_ntlm = true,
@@ -263,6 +252,18 @@ end
   def negotiated_smb_version
     return 1 if self.client.is_a?(Rex::Proto::SMB::Client)
     self.client.negotiated_smb_version || -1
+  end
+
+  def address
+    # TODO: How do we accurately get the target smb address when pivoting? Also Needs ipv6 support
+    address, port = self.client.dispatcher.tcp_socket.peerinfo.split(':')
+    address
+  end
+
+  def port
+    # TODO: How do we accurately get the target smb address when pivoting? Also Needs ipv6 support
+    address, port = self.client.dispatcher.tcp_socket.peerinfo.split(':')
+    port
   end
 
 end

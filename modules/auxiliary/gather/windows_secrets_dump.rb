@@ -12,6 +12,7 @@ class MetasploitModule < Msf::Auxiliary
   include Msf::Util::WindowsRegistry
   include Msf::Util::WindowsCryptoHelpers
   include Msf::PostMixin
+  include Msf::OptionalSession
 
   # Mapping of MS-SAMR encryption keys to IANA Kerberos Parameter values
   #

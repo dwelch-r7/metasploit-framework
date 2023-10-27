@@ -122,7 +122,7 @@ module Console::CommandDispatcher
     return @msf_loaded unless @msf_loaded.nil?
     # if we get here we must not have initialized yet
 
-    @msf_loaded = !!(client.framework)
+    @msf_loaded = !!(session.framework)
     @msf_loaded
   end
 

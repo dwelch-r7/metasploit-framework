@@ -30,6 +30,8 @@ module Msf::Post::Common
       session.sock.peerhost
     when 'shell', 'powershell'
       session.session_host
+    else
+      session.address
     end
   rescue
     return nil
@@ -43,6 +45,8 @@ module Msf::Post::Common
       session.sock.peerport
     when 'shell', 'powershell'
       session.session_port
+    else
+      session.port
     end
   rescue
     return nil

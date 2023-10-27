@@ -266,6 +266,7 @@ class MetasploitModule < Msf::Auxiliary
       rstream,
       {
         client: client,
+        framework: self.framework
       }
     )
 

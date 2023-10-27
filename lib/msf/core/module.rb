@@ -397,6 +397,8 @@ module Msf
       false
     end
 
+    def setup; end
+
     #
     # The array of zero or more platforms.
     #

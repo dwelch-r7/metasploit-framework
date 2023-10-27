@@ -14,7 +14,7 @@ class MetasploitModule < Msf::Auxiliary
   include Msf::Auxiliary::Scanner
   include Msf::Auxiliary::Report
 
-  include Msf::PostMixin
+  include Msf::OptionalSession
 
   def initialize
     super(
@@ -24,25 +24,20 @@ class MetasploitModule < Msf::Auxiliary
       'License'     => MSF_LICENSE
     )
 
-    register_options([OptInt.new('SESSION', [ false, 'The SMB session id to run this module on' ])])
-
     deregister_options('RPORT', 'SMBDirect')
   end
 
   # Fingerprint a single host
   def run_host(ip)
-
     pipes = []
-
     if session
 
       print_status("Using existing session #{session.sid}")
       client = session.client
+      datastore['RPORT'] = session.port
       self.simple = ::Rex::Proto::SMB::SimpleClient.new(client.dispatcher.tcp_socket, client: client)
-      self.simple.connect("\\\\#{simple.address}\\IPC$")
-      check_named_pipes.each do |pipe_name, _|
-        pipes.push(pipe_name)
-      end
+      self.simple.connect("\\\\#{session.address}\\IPC$")
+      pipes += check_pipes
     else
       [[139, false], [445, true]].each do |info|
 
@@ -52,9 +47,8 @@ class MetasploitModule < Msf::Auxiliary
         begin
           connect
           smb_login()
-          check_named_pipes.each do |pipe_name, _|
-            pipes.push(pipe_name)
-          end
+
+          pipes += check_pipes
 
           disconnect()
 
@@ -77,6 +71,14 @@ class MetasploitModule < Msf::Auxiliary
         :data	=> "Pipes: #{pipes.join(", ")}"
       )
     end
+  end
+
+  def check_pipes
+    pipes = []
+    check_named_pipes.each do |pipe_name, _|
+      pipes.push(pipe_name)
+    end
+    pipes
   end
 
 
