@@ -20,6 +20,7 @@ module Msf
     MANAGER_COMMANDS = 'manager_commands'
     METASPLOIT_PAYLOAD_WARNINGS = 'metasploit_payload_warnings'
     DEFER_MODULE_LOADS = 'defer_module_loads'
+    SMB_SESSION_TYPE = 'smb_session_type'
     DEFAULTS = [
       {
         name: WRAPPED_TABLES,
@@ -51,6 +52,12 @@ module Msf
       {
         name: DEFER_MODULE_LOADS,
         description: 'When enabled will not eagerly load all modules',
+        requires_restart: true,
+        default_value: false
+      }.freeze,
+      {
+        name: SMB_SESSION_TYPE,
+        description: 'When enabled will allow for the creation/use of smb sessions',
         requires_restart: true,
         default_value: false
       }.freeze
