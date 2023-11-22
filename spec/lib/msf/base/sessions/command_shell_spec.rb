@@ -1,43 +1,44 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-
+require 'lib/msf/base/sessions/smb_spec'
 RSpec.describe Msf::Sessions::CommandShell do
   let(:type) { 'shell' }
+  let(:can_cleanup_files) { true }
+  let(:description) { 'Command shell' }
+  subject(:session) { described_class.new(nil) }
 
-  describe '.type' do
-    it 'should have the correct type' do
-      expect(described_class.type).to eq(type)
-    end
-  end
-
-  describe '.can_cleanup_files' do
-    it 'should be able to cleanup files' do
-      expect(described_class.can_cleanup_files).to eq(true)
-    end
-  end
+  # describe '.type' do
+  #   it 'should have the correct type' do
+  #     expect(described_class.type).to eq(type)
+  #   end
+  # end
+  #
+  # describe '.can_cleanup_files' do
+  #   it 'should be able to cleanup files' do
+  #     expect(described_class.can_cleanup_files).to eq(true)
+  #   end
+  # end
 
   context 'when we have a command shell session' do
-    subject(:command_shell) { described_class.new(nil) }
     let(:command_functions) do
       %i[help background sessions resource shell download upload source irb pry].map { |command| "cmd_#{command}" }
     end
     let(:command_help_functions) do
       command_functions.map { |command| "#{command}_help" }
     end
-    let(:description) { 'Command shell' }
 
-    describe '#type' do
-      it 'should have the correct type' do
-        expect(subject.type).to eq(type)
-      end
-    end
-
-    describe '#desc' do
-      it 'should have the correct description' do
-        expect(subject.desc).to eq(description)
-      end
-    end
+    # describe '#type' do
+    #   it 'should have the correct type' do
+    #     expect(subject.type).to eq(type)
+    #   end
+    # end
+    #
+    # describe '#desc' do
+    #   it 'should have the correct description' do
+    #     expect(subject.desc).to eq(description)
+    #   end
+    # end
 
     describe '#abort_foreground_supported' do
       it 'should not support aborting the process running in the session' do
@@ -181,4 +182,7 @@ RSpec.describe Msf::Sessions::CommandShell do
       end
     end
   end
+
+  it_behaves_like Msf::Sessions
+
 end

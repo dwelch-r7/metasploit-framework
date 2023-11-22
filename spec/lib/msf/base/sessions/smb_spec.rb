@@ -2,6 +2,32 @@
 
 require 'spec_helper'
 
+RSpec.shared_examples Msf::Sessions do
+  describe '.type' do
+    it 'should have the correct type' do
+      expect(described_class.type).to eq(type)
+    end
+  end
+
+  describe '.can_cleanup_files' do
+    it 'should be able to cleanup files' do
+      expect(described_class.can_cleanup_files).to eq(can_cleanup_files)
+    end
+  end
+
+  describe '#desc' do
+    it 'should have the correct description' do
+      expect(subject.desc).to eq(description)
+    end
+  end
+
+  describe '#type' do
+    it 'should have the correct type' do
+      expect(subject.type).to eq(type)
+    end
+  end
+end
+
 RSpec.describe Msf::Sessions::SMB do
   let(:rstream) { instance_double(Rex::Socket) }
   let(:client) { instance_double(RubySMB::Client) }
@@ -33,30 +59,6 @@ RSpec.describe Msf::Sessions::SMB do
     smb_session.user_output = user_output
     smb_session.name = name
     smb_session
-  end
-
-  describe '.type' do
-    it 'should have the correct type' do
-      expect(described_class.type).to eq(type)
-    end
-  end
-
-  describe '.can_cleanup_files' do
-    it 'should be able to cleanup files' do
-      expect(described_class.can_cleanup_files).to eq(can_cleanup_files)
-    end
-  end
-
-  describe '#desc' do
-    it 'should have the correct description' do
-      expect(subject.desc).to eq(description)
-    end
-  end
-
-  describe '#type' do
-    it 'should have the correct type' do
-      expect(subject.type).to eq(type)
-    end
   end
 
   describe '#initialize' do
@@ -145,4 +147,6 @@ RSpec.describe Msf::Sessions::SMB do
 
     it { is_expected.to eq(port) }
   end
+
+  it_behaves_like Msf::Sessions
 end

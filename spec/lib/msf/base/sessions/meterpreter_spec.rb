@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'rex/post/meterpreter/extensions/stdapi/net/interface'
 require 'rex/post/meterpreter/extensions/stdapi/net/route'
-
+require 'lib/msf/base/sessions/smb_spec'
 RSpec.describe Msf::Sessions::Meterpreter do
   before do
     allow_any_instance_of(Rex::Post::Meterpreter::PacketDispatcher).to receive(:monitor_socket)
@@ -28,6 +28,9 @@ RSpec.describe Msf::Sessions::Meterpreter do
       )
     ]
   end
+  let(:type) { 'meterpreter' }
+  let(:can_cleanup_files) { true }
+  let(:description) { 'Meterpreter' }
 
   describe "#find_internet_connected_address" do
 
@@ -164,5 +167,9 @@ RSpec.describe Msf::Sessions::Meterpreter do
       subject.exit
     end
   end
+
+  subject(:session) { described_class.new(StringIO.new(""), skip_ssl: true) }
+
+  it_behaves_like Msf::Sessions
 
 end
