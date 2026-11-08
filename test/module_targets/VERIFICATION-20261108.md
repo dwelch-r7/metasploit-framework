@@ -455,3 +455,42 @@ run. TLS, authentication, EXPN and other MTAs remain unqualified.
 
 The cumulative passing profiles cover **56 modules, sixteen families, 195 cases**.
 SMTP was added after the fifteen-family invocation began and has a separate run.
+
+## Combined fifteen-family regression
+
+The invocation at `tmp/module-target-tests/20261108T233229-e3e685/` returned
+exit status 0: **186 examples passed across all fifteen selected families**.
+It ran from 23:32:29 to 23:49:00 UTC, including setup and teardown, while separate
+native fixture and payload investigations ran concurrently. RSpec durations:
+
+| Family | Examples | Seconds, including console startup |
+|---|---:|---:|
+| Apache normalization | 16 | 75.99 |
+| Axis2 | 12 | 241.71 |
+| FTP | 13 | 17.28 |
+| HTTP | 14 | 10.27 |
+| LDAP | 10 | 14.50 |
+| MariaDB | 10 | 12.40 |
+| Memcached | 4 | 8.34 |
+| SQL Server 2019 | 15 | 15.89 |
+| SQL Server 2022 | 15 | 16.91 |
+| MySQL 8 | 10 | 16.15 |
+| PostgreSQL | 9 | 18.15 |
+| Redis | 22 | 99.88 |
+| Samba | 20 | 50.16 |
+| SSH | 2 | 19.30 |
+| Tomcat | 14 | 121.29 |
+
+The separately passing SMTP run contributes nine more cases. All sixteen
+family results were checked for exact expected counts, zero failures/pending/
+outside-example errors and successful cleanup. Every recorded tested-input hash
+still matches the current file; the aggregate is retained in
+`tmp/module-target-verified-checkpoint.json`. This checkpoint is **56 production
+runtime modules, sixteen families and 195 functional cases**.
+
+The newer specs and inventory tool pass RuboCop, and the SMTP module-document
+link introduces no new msftidy_docs diagnostics. Fork lint passed at
+`df93379ef5b`; other hosted workflows were still queued/in progress when checked.
+The full repository RSpec suite was not run, and the repository-wide campaign
+remains active. Further modules, target/session/authentication variants,
+individually justified exclusions and recorded defects remain to be reviewed.

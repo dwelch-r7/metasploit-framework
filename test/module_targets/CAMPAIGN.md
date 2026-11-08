@@ -70,12 +70,18 @@ including eight real Java Meterpreter/command-shell sessions with default Spawn=
 FTP passed thirteen cases across anonymous read/write, read-only and denied
 policies, including PASV/EPSV listing loot and repeated cleanup. These passing
 profiles bring cumulative coverage to **53 modules, fifteen families, 186 cases**.
-A combined fifteen-family regression is running; SMTP is a separate new profile.
+A combined fifteen-family regression subsequently passed; SMTP has a separate
+passing result because its profile was added after that invocation began.
 
 SMTP subsequently passed nine cases on four Exim policies, with native recipient
 verification and fresh per-message delivery-log evidence. Cumulative passing
 profiles now cover **56 modules, sixteen families and 195 cases**. SMTP was not
 selected by the already-running fifteen-family invocation and has its own result.
+
+The final cross-check matched every passing result's input SHA-256 against the
+current files, with exact example counts, no pending/outside-example errors and
+successful teardown. MongoDB is the next family under native qualification;
+its definition alone is not included in the verified count.
 
 ## November 8 baseline findings
 
