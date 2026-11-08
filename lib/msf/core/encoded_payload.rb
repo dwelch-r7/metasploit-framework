@@ -396,6 +396,8 @@ class EncodedPayload
   #
   # see +Msf::Exploit::EXE+
   #
+  # @param opts [Hash] Architecture, platform and executable-template options.
+  # @return [String, nil] The executable, or nil for an unsupported architecture/platform combination.
   def encoded_exe(opts={})
     # Ensure arch and platform are in the format that to_executable expects
     if opts[:arch] and not opts[:arch].kind_of? Array
@@ -435,7 +437,7 @@ class EncodedPayload
     opts[:platform] ||= pinst.platform if pinst.respond_to? :platform
     opts[:arch] ||= pinst.arch         if pinst.respond_to? :arch
 
-    Msf::Util::EXE.to_executable(framework, opts[:arch], opts[:platform], encoded, opts)
+    Msf::Util::EXE.to_executable(framework, opts[:arch], opts[:platform], encoded, '', opts)
   end
 
   #
