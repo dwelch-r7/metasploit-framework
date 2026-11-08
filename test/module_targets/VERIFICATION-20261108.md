@@ -428,3 +428,30 @@ symlink log path and the distribution's default welcome file) were resolved
 before module qualification; they are not module failures. The cumulative passing
 profiles total **53 modules, fifteen families and 186 cases**. The new nine-case
 SMTP profile and combined fifteen-family regression are still separate work.
+
+## SMTP addition
+
+Four Exim 4.95 profiles passed **nine examples** in 62.05 seconds, including a
+cold isolated console. Evidence:
+`tmp/module-target-tests/20261108T234115-3b7ffa/smtp/`. Native smtplib first
+verified real recipient routing, known/missing local users, disabled/enabled
+VRFY and open/closed remote acceptance. Framework tested the actual banner,
+VRFY enumeration, RCPT fallback, absent users and unreliable catch-all detection.
+
+Standard and sixteen-form extended relay scans ran twice per open/closed policy.
+The extended cases must produce all sixteen outcome records. A positive result
+also requires a previously unseen recipient to appear in Exim's native delivery
+log as discarded by its local blackhole router. There is no configured forwarding
+transport, so messages never go to an external recipient. This proves
+acceptance/queueing detection, not forwarding across mail systems. Input hashes,
+expected count, zero failures/pending/outside-example errors and teardown passed.
+
+Native preflight caught configuration issues before module testing: bare VRFY
+addresses needed explicit qualification permission; Exim's alternative-config
+privilege behavior required its canonical config path; disabled VRFY returns
+252; and the open relay ACL needed to preserve local recipient verification.
+These are fixture corrections. All module examples passed on their first managed
+run. TLS, authentication, EXPN and other MTAs remain unqualified.
+
+The cumulative passing profiles cover **56 modules, sixteen families, 195 cases**.
+SMTP was added after the fifteen-family invocation began and has a separate run.

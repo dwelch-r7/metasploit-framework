@@ -1,0 +1,14 @@
+spec: spec/acceptance/module_targets/smtp_spec.rb
+expected_examples: 9
+console: true
+modules:
+  - auxiliary/scanner/smtp/smtp_version
+  - auxiliary/scanner/smtp/smtp_enum
+  - auxiliary/scanner/smtp/smtp_relay
+ports:
+  vrfy: 25
+  rcpt: 25
+  catchall: 25
+  open_relay: 25
+support_files:
+  - lib/msf/core/exploit/remote/smtp.rb

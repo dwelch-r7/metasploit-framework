@@ -33,3 +33,15 @@ In this case, we don't need to configure all the users and set up the server ful
   
   [+] 10.168.202.216:25     - 10.168.202.216:25 SMTP 220 rageKali.ragegroup ESMTP Postfix (Debian/GNU)\x0d\x0a
   ```
+
+
+## Automated container tests
+
+The [managed SMTP lab](../../../../../test/module_targets/smtp/README.md) supplies real Exim
+profiles for VRFY, RCPT fallback, catch-all recipients and relay acceptance.
+Native SMTP controls and message-specific delivery logs verify results; accepted
+remote test mail is discarded locally. Run from the repository root:
+
+```sh
+bundle exec ruby tools/dev/run_module_target_tests.rb smtp
+```

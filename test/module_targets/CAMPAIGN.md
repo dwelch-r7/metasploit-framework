@@ -72,6 +72,11 @@ policies, including PASV/EPSV listing loot and repeated cleanup. These passing
 profiles bring cumulative coverage to **53 modules, fifteen families, 186 cases**.
 A combined fifteen-family regression is running; SMTP is a separate new profile.
 
+SMTP subsequently passed nine cases on four Exim policies, with native recipient
+verification and fresh per-message delivery-log evidence. Cumulative passing
+profiles now cover **56 modules, sixteen families and 195 cases**. SMTP was not
+selected by the already-running fifteen-family invocation and has its own result.
+
 ## November 8 baseline findings
 
 | Family | Functional result | Scope |
@@ -166,6 +171,10 @@ Reverse payload sessions and TLS remain untested in this family.
 - FTP: three modules passed thirteen cases on ProFTPD 1.3.7c. Native controls
   established each permission mode; framework banner normalization is intentional.
   Extend TLS, active-mode data, other servers and credential persistence.
+- SMTP: three modules passed nine cases on Exim 4.95, including VRFY, RCPT
+  fallback, a catch-all negative, and repeated standard/sixteen-form relay
+  detection. Accepted remote test messages are discarded locally by the real
+  MTA. This does not qualify external delivery, TLS, SMTP authentication or EXPN.
 - Executable generators: separate owner controls found failures in Mac x86
   explicit Mach-O signing and Linux x86 custom ELF templates. These are deferred
   generator issues, separate from the corrected EncodedPayload argument order;

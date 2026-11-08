@@ -1,0 +1,27 @@
+x-smtp: &smtp
+  build: .
+  ports: ["127.0.0.1::25"]
+  healthcheck:
+    test: ["CMD", "python3", "/opt/native_probe.py", "--health"]
+    interval: 5s
+    timeout: 5s
+    retries: 20
+
+services:
+  vrfy:
+    <<: *smtp
+    environment:
+      SMTP_PROFILE: vrfy
+  rcpt:
+    <<: *smtp
+    environment:
+      SMTP_PROFILE: rcpt
+  catchall:
+    <<: *smtp
+    environment:
+      SMTP_PROFILE: catchall
+  open_relay:
+    <<: *smtp
+    environment:
+      SMTP_PROFILE: open_relay
+
