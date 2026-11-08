@@ -1,0 +1,15 @@
+spec: spec/acceptance/module_targets/mongodb_spec.rb
+expected_examples: 31
+console: true
+modules:
+  - auxiliary/scanner/mongodb/mongodb_version
+  - auxiliary/scanner/mongodb/mongodb_login
+  - auxiliary/scanner/mongodb/mongodb_hashdump
+  - auxiliary/scanner/mongodb/mongodb_schemadump
+ports:
+  open44: 27017
+  auth44: 27017
+  open83: 27017
+  auth83: 27017
+support_files:
+  - lib/msf/core/exploit/remote/mongodb.rb

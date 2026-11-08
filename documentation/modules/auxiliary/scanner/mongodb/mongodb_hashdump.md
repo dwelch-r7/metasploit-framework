@@ -458,3 +458,15 @@ Hardware.Mon.#01.: Util: 20%
 Started: Fri Aug 14 14:31:42 2026
 Stopped: Fri Aug 14 14:31:47 2026
 ```
+
+
+## Automated container tests
+
+The [managed MongoDB lab](../../../../../test/module_targets/mongodb/README.md) supplies pinned
+4.4.30 and 8.3.11 instances with authentication enabled and disabled. Native
+clients verify exact hashes, seeded data and account permissions before module
+assertions. Run from the repository root:
+
+```sh
+bundle exec ruby tools/dev/run_module_target_tests.rb mongodb
+```

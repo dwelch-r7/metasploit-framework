@@ -83,6 +83,13 @@ current files, with exact example counts, no pending/outside-example errors and
 successful teardown. MongoDB is the next family under native qualification;
 its definition alone is not included in the verified count.
 
+MongoDB then passed 31 cases across 4.4.30/8.3.11 with authentication enabled
+and disabled. Fresh native clients verify enforcement and database-scoped
+permissions; module output must match the actual SCRAM hashes, 111 cursor
+records and stored nested/empty schema. Verified coverage now totals **60
+modules, seventeen families and 226 cases**. Legacy authentication remains a
+separate next profile rather than an assumed consequence of these passes.
+
 ## November 8 baseline findings
 
 | Family | Functional result | Scope |
@@ -181,6 +188,11 @@ Reverse payload sessions and TLS remain untested in this family.
   fallback, a catch-all negative, and repeated standard/sixteen-form relay
   detection. Accepted remote test messages are discarded locally by the real
   MTA. This does not qualify external delivery, TLS, SMTP authentication or EXPN.
+- MongoDB: four modules passed 31 cases on 4.4.30/8.3.11, including open/authenticated
+  services, the buildInfo authentication boundary, exact native SCRAM hashes,
+  scoped/incorrect credentials, permission denials, cursor continuation and
+  schema loot. Legacy MONGODB-CR, SHA-256-only authentication, other versions,
+  TLS, cracking/persistence and Mongobleed are not yet qualified.
 - Executable generators: separate owner controls found failures in Mac x86
   explicit Mach-O signing and Linux x86 custom ELF templates. These are deferred
   generator issues, separate from the corrected EncodedPayload argument order;

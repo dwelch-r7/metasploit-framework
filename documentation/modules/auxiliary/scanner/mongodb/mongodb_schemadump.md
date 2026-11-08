@@ -1105,3 +1105,15 @@ msf auxiliary(scanner/mongodb/mongodb_schemadump) > run RPORT=27028 USERNAME=adm
 [*] 127.0.0.1:27028       - Scanned 1 of 1 hosts (100% complete)
 [*] Auxiliary module execution completed
 ```
+
+
+## Automated container tests
+
+The [managed MongoDB lab](../../../../../test/module_targets/mongodb/README.md) supplies pinned
+4.4.30 and 8.3.11 instances with authentication enabled and disabled. Native
+clients verify exact hashes, seeded data and account permissions before module
+assertions. Run from the repository root:
+
+```sh
+bundle exec ruby tools/dev/run_module_target_tests.rb mongodb
+```

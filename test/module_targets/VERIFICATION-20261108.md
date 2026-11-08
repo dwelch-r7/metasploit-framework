@@ -494,3 +494,32 @@ link introduces no new msftidy_docs diagnostics. Fork lint passed at
 The full repository RSpec suite was not run, and the repository-wide campaign
 remains active. Further modules, target/session/authentication variants,
 individually justified exclusions and recorded defects remain to be reviewed.
+
+## MongoDB addition
+
+The digest-pinned 4.4.30 and 8.3.11 images, each open and authentication-enabled,
+passed **31 examples**. The first complete run passed in 63.13 seconds. The
+strengthened run at `tmp/module-target-tests/20261108T235411-da08ea/mongodb/`
+passed in 68.87 seconds after a lint-only correction and fresh native restricted
+account controls. All expected cases, zero failures/pending/outside-example errors,
+unchanged inputs and teardown passed.
+
+Native clients authenticate as root and read actual SCRAM-SHA-1/SHA-256 records,
+seeded nested documents, an empty collection and 111 application records. Fresh
+unauthenticated connections prove enforcement independently. A different fresh
+CLI login as the database-scoped user reads its own marker while receiving
+Unauthorized for admin.system.users; it never inherits a root login's rights.
+
+Framework assertions cover version discovery and 8.1+'s gated buildInfo boundary,
+root/scoped/wrong credentials, exact native hash equality, permission and rejected
+authentication paths, all 111 application records across the first 101-record
+batch, nested schema loot and the empty collection. Failed schema authentication
+must not produce loot. Application data uses public fixture values, including
+the MD5 of an empty string; production credentials are not involved.
+
+RuboCop passes, and four documentation links introduce no new msftidy_docs
+diagnostics. No module/library change was needed. The cumulative checkpoint is
+**60 modules, seventeen families, 226 cases**. Legacy MONGODB-CR, SHA-256-only
+authentication, TLS, other versions, database persistence/cracking and Mongobleed
+remain unqualified. The original 2.6 image can run, but requires separate native
+provisioning because its entrypoint predates initialization hooks.

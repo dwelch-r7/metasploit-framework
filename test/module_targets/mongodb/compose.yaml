@@ -1,0 +1,48 @@
+x-mongo: &mongo
+  command: ["mongod", "--bind_ip_all"]
+  ports: ["127.0.0.1::27017"]
+  volumes:
+    - ./seed.js:/docker-entrypoint-initdb.d/seed.js:ro
+    - ./native_health.js:/opt/native_health.js:ro
+    - ./native_inspect.js:/opt/native_inspect.js:ro
+    - ./native_unauth.js:/opt/native_unauth.js:ro
+    - ./native_limited.js:/opt/native_limited.js:ro
+
+x-legacy: &legacy
+  <<: *mongo
+  image: mongo:4.4.30@sha256:4be76f674fc4b27859816811b8baa3c51830eb1dbf4ca81a51e26b79edd662ef
+  healthcheck:
+    test: ["CMD", "mongo", "--quiet", "/opt/native_health.js"]
+    interval: 3s
+    timeout: 5s
+    retries: 30
+
+x-modern: &modern
+  <<: *mongo
+  image: mongo:8.3.11@sha256:d731d77bfd7afd66bd487bdf627b5bf7ce4c3602ec461d635977021db529ebbc
+  healthcheck:
+    test: ["CMD", "mongosh", "--quiet", "/opt/native_health.js"]
+    interval: 3s
+    timeout: 5s
+    retries: 30
+
+x-auth: &auth
+  MONGO_INITDB_DATABASE: admin
+  MONGO_INITDB_ROOT_USERNAME: admin
+  MONGO_INITDB_ROOT_PASSWORD: adminpassword
+
+services:
+  open44:
+    <<: *legacy
+    environment:
+      MONGO_INITDB_DATABASE: admin
+  auth44:
+    <<: *legacy
+    environment: *auth
+  open83:
+    <<: *modern
+    environment:
+      MONGO_INITDB_DATABASE: admin
+  auth83:
+    <<: *modern
+    environment: *auth
