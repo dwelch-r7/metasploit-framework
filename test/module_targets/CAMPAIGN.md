@@ -30,6 +30,11 @@ hash/account assertions. Verified coverage now totals 25 registered runtime
 modules in seven families and 81 cases; the same verification snapshot records
 its evidence and limits.
 
+Redis recovery qualification expanded its suite to 22 cases, corrected a native
+configuration-query assertion, and reproduced/fixed upload failure cleanup.
+The current verified checkpoint is 25 modules, seven families and **85 cases**.
+The snapshot records the corrected baseline, final run and transport limitations.
+
 ## November 8 baseline findings
 
 | Family | Functional result | Scope |
@@ -77,8 +82,10 @@ Reverse payload sessions and TLS remain untested in this family.
 - Redis file upload: a fresh Redis 6.2.14 target independently accepted directory
   `/proc` but rejected SAVE there. A real module run left the directory, snapshot
   filename and compression setting changed, plus a generated key. The existing
-  sentinel value survived. The separate fix worktree is implementing and testing
-  failure cleanup followed by another successful upload.
+  sentinel value survived. Separate fixes were integrated as `9ca9bfcb642` and
+  `61bf769077f`. The corrected native-query suite verifies state restoration and
+  subsequent successful uploads. Real lost-acknowledgement tests also verified
+  ownership warnings; unavailable connectivity can still prevent restoration.
 - Redis extraction: add bounded-result, binary/large-response and ACL cases.
 - Apache HTTP: add TLS, Digest/WebDAV and disabled-TRACE configurations.
 - Memcached: add large/fragmented values, key limits and non-loopback loot proof.
@@ -90,6 +97,9 @@ Reverse payload sessions and TLS remain untested in this family.
   qualified; an extraction message alone does not prove downstream cracking.
 - Next reusable labs: SSH, SMB, then the existing Tomcat/Axis2 target sources;
   independently validate each setup and expand useful module/session cases.
+- Add a Framework console container on the target's isolated network for reverse
+  shell, Meterpreter and post-module cases, reusing the repository Dockerfile and
+  entrypoint. Keep explicit coverage of applicable session types and delivery paths.
 
 ## Remaining work
 

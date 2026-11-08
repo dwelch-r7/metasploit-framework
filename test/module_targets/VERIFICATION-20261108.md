@@ -101,3 +101,52 @@ actual loot file.
 The existing MySQL spec retains 16 baseline RuboCop style offenses with zero new
 offenses. Both added module-document links introduced no new msftidy_docs
 diagnostics. No project dependency was added.
+
+## Redis recovery qualification
+
+Later review found that the initial Redis upload test compared output from a
+multi-pattern CONFIG GET that Redis 6.2 does not support. Redis-cli returned zero
+with an error string, so that assertion did not itself prove configuration
+preservation. Independent verification in the fix worktree used individual
+queries, but the committed suite needed correction. It now validates each
+setting's field/value response before comparing configuration, exact keys and
+sentinel data.
+
+The expanded suite covers authenticated as well as open uploads, missing-directory
+rejection and failed saves to `/proc` and a directory destination. Native Redis
+commands independently establish each failure first. The `/tmp/..` case accepts
+its filename setting and fails during SAVE; it is not a CONFIG filename rejection.
+After each failed module run, state must be restored and two fresh uploads must
+succeed. A fixture ensure path prevents a regression from contaminating later
+examples.
+
+Before integration, the corrected 22-case suite produced three expected failures:
+two residual-state failures and a missing actionable directory error. Evidence:
+`tmp/module-target-tests/20261108T213707-90bac7/`. The intermediate run whose
+`/tmp/..` preflight incorrectly expected a CONFIG rejection was classified as a
+test-setup mistake and corrected before this baseline.
+
+The separately developed fixes were integrated as `9ca9bfcb642` (restore attempted
+configuration changes and acknowledged keys) and `61bf769077f` (name a potentially
+retained key when SETNX acknowledgement is lost). Native passthrough transport
+tests forwarded genuine Redis traffic and dropped acknowledgements; they verified
+that ownership warnings appear without deleting unacknowledged keys. A closed
+module route prevented restoration and produced explicit cleanup warnings. These
+transport experiments are retained as local evidence, not claimed as portable
+container-suite cases.
+
+The final Redis run passed **22 examples**, zero failures/pending/outside-example
+errors, stable input digests and successful cleanup. RSpec duration including
+console startup was 130.29 seconds. Evidence:
+`tmp/module-target-tests/20261108T214044-1189ef/`. The focused unit run passed
+40 examples (33 module and seven existing support examples). Current module bytes
+match the independently tested fix exactly. Module lint retains three existing
+UNKNOWN Notes warnings; changed specs and module documentation pass.
+
+The current verified total is **25 modules, seven families and 85 cases**.
+Each family's latest passing result was checked against the current source and
+fixture digests, expected count and teardown status; the aggregate is recorded
+locally in `tmp/module-target-verified-checkpoint.json`. No full-coverage claim is
+made. Restore operations remain dependent on Redis connectivity and permissions;
+uncertain key ownership requires operator inspection. Further module families,
+session/payload variants and database-backed reporting remain in the campaign.
