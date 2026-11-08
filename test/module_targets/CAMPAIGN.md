@@ -39,8 +39,12 @@ Managed SSH and Samba labs subsequently passed two and 20 cases respectively.
 The verified checkpoint is now **33 runtime modules, nine families and 107 cases**.
 The new console-container path reuses the canonical Dockerfile with a small
 dependency context and read-only current source. It enables normal service ports
-and reverse listeners on the isolated target network. Tomcat and SQL Server
-qualification is in progress; their registrations do not yet count as passes.
+and reverse listeners on the isolated target network. Tomcat qualification is separate and does not yet count as a pass.
+
+The SQL Server 2022 addition then passed 15 cases, including exact native hash
+comparison and seeded schema/query results. The current verified checkpoint is
+**39 runtime modules, ten families and 122 cases**. Tomcat remains under
+investigation after seven failures in its first complete 12-case run.
 
 ## November 8 baseline findings
 
@@ -105,10 +109,14 @@ Reverse payload sessions and TLS remain untested in this family.
 - SSH and Samba: managed fixtures passed. Extend incorrect/key credentials and
   specialist modules. Samba's version detector independently probes dialects;
   its repeated protocol-context case does not prove it honors SMB::ProtocolVersion.
-- Tomcat/Axis2 and SQL Server: qualification is in progress. Tomcat has opened a
-  real Java Meterpreter session, but the complete repeat/cleanup suite is pending.
-  SQL Server 2022 passed native authenticated queries; module assertions remain
-  pending. Keep unqualified registrations separate from passing coverage.
+- Tomcat: separate worktrees are fixing automatic target/HTTP401 handling and
+  JSP WAR generation after real-target reproductions. Command-proof capture was
+  a test issue and has been replaced with a fresh target file. Upload Java staged
+  session delivery and repeat/cleanup qualification remain under investigation.
+- SQL Server 2022: all 15 cases passed, including independent native hash equality,
+  schema results and real session/direct-host queries. Extend authentication,
+  restricted roles and version boundaries; this Linux target does not prove
+  Windows-specific exploitation. Axis2 is the next existing application fixture.
 - The isolated Framework console now works with Samba. Extend reverse shell,
   Meterpreter and post-module coverage across declared session types and useful
   delivery families.

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require 'acceptance_spec_helper'
+require 'json'
+require 'open3'
 
 RSpec.describe 'MSSQL sessions and MSSQL modules' do
   include_context 'protocol_session_acceptance'
@@ -123,6 +125,34 @@ RSpec.describe 'MSSQL sessions and MSSQL modules' do
       ]
     }
   }
+
+  if ENV['MSSQL_MODULE_TARGET'] == 'true'
+    tests[:mssql][:module_tests] << {
+      name: 'auxiliary/admin/mssql/mssql_sql',
+      platforms: %i[linux osx windows],
+      targets: %i[session rhost],
+      datastore: { SQL: 'SELECT id, evidence FROM module_target_test.dbo.module_target_evidence' },
+      lines: { all: { required: ['module-target-sql-marker'] } }
+    }
+
+    before(:all) do
+      runtime = JSON.parse(File.read(ENV.fetch('MODULE_TARGET_RUNTIME')))
+      command = runtime.fetch('compose') + ['exec', '-T', 'mssql', '/opt/mssql-tools18/bin/sqlcmd', '-U', 'sa', '-P', 'yourStrong(!)Password', '-C', '-b', '-i', '/opt/module-target-seed.sql']
+      output, status = Open3.capture2e(*command)
+      File.write(File.join(runtime.fetch('artifacts'), 'native-seed.log'), "$ #{command.inspect}\n#{output}")
+      expect(status.success?).to be(true), output
+      expect(output).to include('module-target-sql-marker')
+      password_hash = output[/^MODULE_TARGET_HASH=(0x[0-9a-fA-F]+)\s*$/, 1]
+      expect(password_hash).to match(/\A0x0200[0-9a-fA-F]+\z/)
+
+      # Compare the module's hash with an independent native query, rather than
+      # accepting a generic save message or a well-shaped but unrelated hash.
+      hashes = tests[:mssql][:module_tests].find { |entry| entry[:name].end_with?('/mssql_hashdump') }
+      hashes[:lines][:all][:required] << "Saving mssql12 = sa:0x#{password_hash.delete_prefix('0x').upcase}"
+      schema = tests[:mssql][:module_tests].find { |entry| entry[:name].end_with?('/mssql_schemadump') }
+      schema[:lines][:all][:required] += ['DBName: module_target_test', 'TableName: module_target_evidence', 'ColumnName: evidence']
+    end
+  end
 
   run_protocol_session_tests(tests, features: %w[mssql_session_type])
 end

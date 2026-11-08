@@ -1,0 +1,18 @@
+services:
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest@sha256:cf8f0ab2ebe61feec2eed2629061a07d247f791c2a8ddda74a4ac9f06a291718
+    environment:
+      ACCEPT_EULA: 'Y'
+      MSSQL_PID: Developer
+      MSSQL_SA_PASSWORD: 'yourStrong(!)Password'
+      MSSQL_MEMORY_LIMIT_MB: '2048'
+    mem_limit: 3g
+    ports: ["127.0.0.1::1433"]
+    volumes:
+      - ./seed.sql:/opt/module-target-seed.sql:ro
+    healthcheck:
+      test: ["CMD", "/opt/mssql-tools18/bin/sqlcmd", "-S", "localhost", "-U", "sa", "-P", "yourStrong(!)Password", "-C", "-Q", "SELECT 1", "-b", "-o", "/dev/null"]
+      interval: 2s
+      timeout: 5s
+      retries: 40
+      start_period: 20s

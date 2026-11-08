@@ -1,0 +1,18 @@
+spec: spec/acceptance/mssql_spec.rb
+expected_examples: 15
+test_env:
+  MSSQL_MODULE_TARGET: 'true'
+modules:
+  - auxiliary/scanner/mssql/mssql_login
+  - auxiliary/scanner/mssql/mssql_hashdump
+  - auxiliary/scanner/mssql/mssql_version
+  - auxiliary/scanner/mssql/mssql_schemadump
+  - auxiliary/admin/mssql/mssql_enum
+  - auxiliary/admin/mssql/mssql_sql
+ports:
+  mssql: 1433
+connection_env:
+  mssql: MSSQL
+support_files:
+  - spec/support/acceptance/protocol_session_shared_context.rb
+  - test/modules/post/test/mssql.rb

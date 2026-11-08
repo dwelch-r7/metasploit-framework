@@ -92,3 +92,12 @@ Run with hashcat, based on the MSSQL Version:
 `hashcat --force -m 131 ./hashes.txt ./passwords.txt` (MSSQL 2000)
 `hashcat --force -m 132 ./hashes.txt ./passwords.txt` (MSSQL 2005)
 `hashcat --force -m 1731 ./hashes.txt ./passwords.txt` (MSSQL 2012 and later)
+
+## Automated container tests
+
+See the [mssql2022 target lab](../../../../../test/module_targets/mssql2022/README.md) for a managed real service,
+native preflight and functional acceptance tests. From the repository root:
+
+```sh
+bundle exec ruby tools/dev/run_module_target_tests.rb mssql2022
+```

@@ -237,3 +237,12 @@ msf auxiliary(scanner/mssql/mssql_login) > run
 [*] Auxiliary module execution completed
 msf auxiliary(scanner/mssql/mssql_login) >
 ```
+
+## Automated container tests
+
+See the [mssql2022 target lab](../../../../../test/module_targets/mssql2022/README.md) for a managed real service,
+native preflight and functional acceptance tests. From the repository root:
+
+```sh
+bundle exec ruby tools/dev/run_module_target_tests.rb mssql2022
+```

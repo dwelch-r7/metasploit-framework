@@ -218,3 +218,41 @@ The full repository test suite was not run. Fork CI remains separately qualified
 an earlier Verify run failed in an untouched certificate/SID spec, and its MySQL
 output-prefix failure passed on retry; neither has been labeled a campaign
 regression without a baseline reproduction.
+
+
+## SQL Server 2022 addition
+
+The managed Microsoft Linux image, pinned by digest, independently authenticated
+with native sqlcmd and reported SQL Server 2022 RTM-CU27-GDR, build 16.0.4305.5
+(KB5126934), on Ubuntu 22.04.5. It uses Developer edition and the public SA fixture
+credential already used by the repository's acceptance workflow. The native
+preflight creates a small database/table, reads a marker and extracts the current
+SA hash. Framework must return that exact hash, discover the seeded schema and
+query the real row through both direct-host and MSSQL-session paths.
+
+```sh
+bundle exec ruby tools/dev/run_module_target_tests.rb mssql2022
+```
+
+All **15 examples passed**, zero failures/pending/outside-example errors, unchanged
+recorded inputs and successful cleanup. RSpec took 45.32 seconds including console
+startup. Evidence: `tmp/module-target-tests/20261108T220931-692f38/mssql2022/`,
+including `native-seed.log`, RSpec JSON and console output. The six additional
+production modules bring the verified checkpoint to **39 runtime modules, ten
+families and 122 cases**. The existing MSSQL spec retains 21 baseline RuboCop
+style offenses; no new offense was introduced. Existing module-document links
+introduce no new msftidy_docs diagnostics.
+
+This target does not qualify Windows host operations, integrated authentication,
+restricted database roles or other SQL Server releases. Database credential
+persistence and downstream password cracking were not tested. The standard
+non-managed acceptance invocation keeps its original 13 examples; only the
+managed target enables the native seed/hash checks and two extra row queries.
+
+Tomcat is not counted as verified. Its first complete 12-case run had seven
+failures and successful cleanup. Two automatic-target cases and an HTTP401 reason
+are being fixed separately; JSP generation raised ArgumentError before upload.
+A Meterpreter command-output assertion was a harness issue, and upload staged
+session delivery still needs investigation. Raw evidence:
+`tmp/module-target-tests/20261108T220931-692f38/tomcat/`. These failures have not been
+lumped together as seven module defects.
