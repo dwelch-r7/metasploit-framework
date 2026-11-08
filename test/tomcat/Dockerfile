@@ -1,4 +1,5 @@
-FROM tomcat:9.0
+ARG BASE_IMAGE=tomcat:9.0
+FROM ${BASE_IMAGE}
 
 # The manager app lives in webapps.dist in modern Tomcat images — move it into place
 RUN cp -r /usr/local/tomcat/webapps.dist/. /usr/local/tomcat/webapps/

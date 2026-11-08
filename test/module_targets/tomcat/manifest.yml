@@ -1,0 +1,19 @@
+spec: spec/acceptance/module_targets/tomcat_spec.rb
+expected_examples: 14
+console: true
+modules:
+  - auxiliary/scanner/http/tomcat_mgr_login
+  - exploit/multi/http/tomcat_mgr_upload
+  - exploit/multi/http/tomcat_mgr_deploy
+ports:
+  tomcat: 8080
+support_files:
+  - test/tomcat/Dockerfile
+  - spec/support/shared/contexts/wait_for_expect.rb
+  - lib/msf/core/encoded_payload.rb
+  - lib/msf/core/payload/java.rb
+  - lib/msf/core/payload/jsp.rb
+  - modules/payloads/singles/java/jsp_shell_reverse_tcp.rb
+  - modules/payloads/stagers/java/reverse_tcp.rb
+  - modules/payloads/stages/java/meterpreter.rb
+  - modules/payloads/singles/linux/x86/exec.rb

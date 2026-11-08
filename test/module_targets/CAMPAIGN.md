@@ -46,6 +46,19 @@ comparison and seeded schema/query results. The current verified checkpoint is
 **39 runtime modules, ten families and 122 cases**. Tomcat remains under
 investigation after seven failures in its first complete 12-case run.
 
+SQL Server 2019 then passed the same 15-case suite on its native authentication
+defaults, bringing the verified checkpoint to **39 modules, eleven families and
+137 cases**. Within one invocation, source-metadata reuse cuts repeated console
+startup while retaining fresh configuration and normal checksum validation.
+Ten families passed the eleven-family regression invocation; Redis encountered
+a binary-output logging defect in the harness, then passed all 22 cases after
+lossless logging was corrected. The invocation itself did not return success.
+
+Tomcat subsequently passed all fourteen session/login/check/native-executable
+cases after four separately reproduced corrections. The cumulative verified
+checkpoint is **42 modules, twelve families and 151 cases**. Axis2 is being
+qualified next; its current presence in the repository is not a passing result.
+
 ## November 8 baseline findings
 
 | Family | Functional result | Scope |
@@ -109,14 +122,22 @@ Reverse payload sessions and TLS remain untested in this family.
 - SSH and Samba: managed fixtures passed. Extend incorrect/key credentials and
   specialist modules. Samba's version detector independently probes dialects;
   its repeated protocol-context case does not prove it honors SMB::ProtocolVersion.
-- Tomcat: separate worktrees are fixing automatic target/HTTP401 handling and
-  JSP WAR generation after real-target reproductions. Command-proof capture was
-  a test issue and has been replaced with a fresh target file. Upload Java staged
-  session delivery and repeat/cleanup qualification remain under investigation.
+- Tomcat: JSP archive options, Manager target/HTTP401 handling, delayed WAR
+  cleanup and executable option forwarding have separate before/after evidence.
+  Java session cases now pass with explicit Meterpreter Spawn=0; default Spawn=2
+  remains intermittent and unqualified. Deferred WAR cleanup fixed actual
+  in-process class-loading failures but did not resolve the default Spawn=2 path.
+  Neither SIGPIPE/JDK options nor a generic undeployment race has been proven
+  to explain those remaining failures.
 - SQL Server 2022: all 15 cases passed, including independent native hash equality,
   schema results and real session/direct-host queries. Extend authentication,
   restricted roles and version boundaries; this Linux target does not prove
-  Windows-specific exploitation. Axis2 is the next existing application fixture.
+  Windows-specific exploitation. SQL Server 2019 passed the same suite. Axis2
+  is the next existing application fixture, with native LFI/login controls.
+- Executable generators: separate owner controls found failures in Mac x86
+  explicit Mach-O signing and Linux x86 custom ELF templates. These are deferred
+  generator issues, separate from the corrected EncodedPayload argument order;
+  ordinary native Tomcat command payloads were verified in the fix worktree.
 - The isolated Framework console now works with Samba. Extend reverse shell,
   Meterpreter and post-module coverage across declared session types and useful
   delivery families.

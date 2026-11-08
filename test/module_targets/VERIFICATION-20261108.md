@@ -256,3 +256,76 @@ A Meterpreter command-output assertion was a harness issue, and upload staged
 session delivery still needs investigation. Raw evidence:
 `tmp/module-target-tests/20261108T220931-692f38/tomcat/`. These failures have not been
 lumped together as seven module defects.
+
+## SQL Server 2019 and eleven-family regression
+
+SQL Server 2019 RTM-CU32-GDR, build 15.0.4500.2 (KB5128494), passed the same
+15-case native-hash/schema/row and session/direct-host suite as SQL Server 2022.
+Its Compose service extends the 2022 fixture, changing only the digest-pinned
+image. The refactor's rendered configuration was compared with the independently
+passing original configuration before the final run.
+
+The eleven-family invocation at `tmp/module-target-tests/20261108T223836-aa3e46/`
+passed every family except Redis. Five Redis cases failed while recording genuine
+binary RDB output as JSON, before the assertions could finish. This was a harness
+logging defect, not evidence of a Redis module failure. Native command logs now
+mark UTF-8 text explicitly and encode invalid UTF-8 losslessly as Base64, while
+returning the original bytes to the test. The corrected Redis run at
+`tmp/module-target-tests/20261108T225149-10f7e8/redis/` passed all 22 cases in
+137.69 seconds. Ten retained binary records decoded to genuine RDB data and
+round-tripped exactly. Both runs completed target cleanup.
+
+The cumulative verified checkpoint is **39 modules, eleven families, 137 cases**;
+the first eleven-family invocation itself returned failure. All selected passing
+results have exact expected counts, no pending/outside-example errors, stable
+tested inputs and successful teardown. SQL Server 2019/2022 took 18.46/19.05
+seconds in the eleven-family invocation. Authentication restrictions and Windows
+host behavior remain unqualified.
+
+The runner reuses only the two owning Framework source-metadata JSON files within
+an invocation, before tests add module loadpaths. Each family still has its own
+configuration directory. Native/container caches are separate; normal Framework
+checksum refresh remains enabled. Cold/warm native and container workflows passed
+against real targets. Recorded seeds and SHA-256 values make reuse inspectable.
+Warm HTTP and SSH suites took 12.48 and 13.82 seconds respectively; these are
+observations across different workloads, not a controlled speed benchmark.
+
+## Tomcat fixes and Java profile
+
+The integrated 12-case Java/login/check suite passed in 167.67 seconds at
+`tmp/module-target-tests/20261108T225844-fe4ddf/tomcat/`, with stable inputs and
+successful cleanup. The real target was Tomcat 9.0.123 with Java 17. Every exploit
+ran twice, opened a session and created a previously absent native proof file;
+Manager application state and deployment files were restored.
+
+Four focused fixes were developed in separate worktrees with before/after
+evidence: JSP WAR options (`a4a9ebbb588`), Manager identity/target/check handling
+(`b0aec76c83a`), WAR cleanup after payload bootstrap (`af3cd7a91dd`), and executable
+options forwarded after the format argument (`671799f3a9d`). The integrated
+focused unit run passed **92 examples**, including existing support/stage specs,
+with zero failures. Ordinary ELF/PE/Mach-O output and archive generation were
+tested; this does not claim runtime execution on every advertised platform.
+
+Java Meterpreter qualification explicitly uses Spawn=0. Immediate undeployment
+caused captured in-process Java class-loading errors; delayed cleanup corrected
+that path. Default Spawn=2 remains intermittent despite deferred cleanup. Native
+transport controls connected with both spawn settings, so SIGPIPE/JDK options
+and a universal undeployment-race explanation remain unproven. The payload's
+default has not been changed. External handlers bypassing Framework's session
+wait, Windows targets, Mac x86 explicit Mach-O signing and Linux x86 custom ELF
+templates remain separate follow-ups.
+
+The expanded Tomcat run at
+`tmp/module-target-tests/20261108T231505-6bca03/tomcat/` passed all **14 cases** in
+174.20 seconds, with stable inputs and successful cleanup. Both Manager APIs
+also executed the Linux x86 command payload twice, each producing a fresh native
+proof file. Manager state, deployed WAR/expanded application files and temporary
+executables returned to their original state. This adds three runtime modules,
+bringing the cumulative checkpoint to **42 modules, twelve families, 151 cases**.
+Native execution was observed on Linux/amd64; ARM/emulation remains unqualified.
+
+All eight changed module-document links introduced no new msftidy_docs diagnostics.
+New specs/tool/helper files pass RuboCop; the older libraries and modules retain
+baseline style warnings, including the existing hash/string styles on expressions
+whose local deployment name became instance state. Eight existing child-process
+examples also passed. The full repository RSpec suite was not run.

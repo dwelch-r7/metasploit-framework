@@ -143,3 +143,12 @@ msf auxiliary(tomcat_mgr_login) > run
 [*] Scanned 1 of 1 hosts (100% complete)
 [*] Auxiliary module execution completed
 ```
+
+## Automated container tests
+
+See the [tomcat target lab](../../../../../test/module_targets/tomcat/README.md) for a managed real service,
+native preflight and functional acceptance tests. From the repository root:
+
+```sh
+bundle exec ruby tools/dev/run_module_target_tests.rb tomcat
+```
