@@ -1,7 +1,10 @@
-FROM ubuntu:20.04
+ARG BASE_IMAGE=ubuntu:20.04
+ARG CA_IMAGE=alpine:3.24
+FROM ${CA_IMAGE} AS certificates
+FROM ${BASE_IMAGE}
 
 # Bootstrap HTTPS before APT can install Ubuntu's CA certificates.
-COPY --from=alpine:3.24 /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
+COPY --from=certificates /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
 RUN sed -i 's|http://|https://|g' /etc/apt/sources.list
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install ca-certificates samba krb5-config winbind smbclient

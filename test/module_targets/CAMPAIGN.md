@@ -59,6 +59,12 @@ cases after four separately reproduced corrections. The cumulative verified
 checkpoint is **42 modules, twelve families and 151 cases**. Axis2 is being
 qualified next; its current presence in the repository is not a passing result.
 
+The managed LDAP suite then passed ten cases using the existing seeded Samba
+fixture, covering five more modules through session and direct-host read paths.
+The current cumulative checkpoint is **47 modules, thirteen families, 161 cases**.
+Its documented SYS_ADMIN requirement was established by native provisioning
+failure without that capability and success with the original fixture setting.
+
 ## November 8 baseline findings
 
 | Family | Functional result | Scope |
@@ -134,6 +140,11 @@ Reverse payload sessions and TLS remain untested in this family.
   restricted roles and version boundaries; this Linux target does not prove
   Windows-specific exploitation. SQL Server 2019 passed the same suite. Axis2
   is the next existing application fixture, with native LFI/login controls.
+- LDAP: all ten session/direct-host read cases passed, including LAPS values,
+  schema queries and empty shadow-credential/RBCD attributes. The LDAP-only Samba
+  fixture does not qualify a complete Windows AD controller, Kerberos, TLS or
+  state-changing actions. Its original extra capability is retained for native
+  domain provisioning; no host cluster or live directory is used.
 - Executable generators: separate owner controls found failures in Mac x86
   explicit Mach-O signing and Linux x86 custom ELF templates. These are deferred
   generator issues, separate from the corrected EncodedPayload argument order;

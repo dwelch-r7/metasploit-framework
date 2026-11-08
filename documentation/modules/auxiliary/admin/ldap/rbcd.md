@@ -256,3 +256,15 @@ msf exploit(windows/smb/psexec) > run lhost=192.168.123.1 rhost=192.168.159.10 u
 
 meterpreter >
 ```
+
+
+## Automated container tests
+
+The [managed LDAP lab](../../../../../test/module_targets/ldap/README.md) reuses the existing
+Samba fixture and LAPS data. It covers real LDAP sessions and direct-host read
+actions. Windows AD and state-changing attacks remain unqualified. Run from the
+repository root:
+
+```sh
+bundle exec ruby tools/dev/run_module_target_tests.rb ldap
+```

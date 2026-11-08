@@ -1,0 +1,22 @@
+spec: spec/acceptance/ldap_spec.rb
+expected_examples: 10
+console: true
+modules:
+  - auxiliary/scanner/ldap/ldap_login
+  - auxiliary/gather/ldap_query
+  - auxiliary/gather/ldap_passwords
+  - auxiliary/admin/ldap/shadow_credentials
+  - auxiliary/admin/ldap/rbcd
+ports:
+  ldap: 389
+connection_env:
+  ldap: LDAP
+support_files:
+  - test/ldap/Dockerfile
+  - test/ldap/samba-ad-setup.sh
+  - test/ldap/samba-ad-run.sh
+  - test/ldap/laps-schema-add.ldif
+  - test/ldap/laps-schema-modify.ldif
+  - test/ldap/laps-accounts.ldif
+  - spec/support/acceptance/protocol_session_shared_context.rb
+  - data/auxiliary/gather/ldap_query/ldap_queries_default.yaml

@@ -150,3 +150,15 @@ msf auxiliary(gather/ldap_passwords) > run ldap://msflab.local;smcintyre:Passwor
 [*] Auxiliary module execution completed
 msf auxiliary(gather/ldap_passwords) >
 ```
+
+
+## Automated container tests
+
+The [managed LDAP lab](../../../../test/module_targets/ldap/README.md) reuses the existing
+Samba fixture and LAPS data. It covers real LDAP sessions and direct-host read
+actions. Windows AD and state-changing attacks remain unqualified. Run from the
+repository root:
+
+```sh
+bundle exec ruby tools/dev/run_module_target_tests.rb ldap
+```

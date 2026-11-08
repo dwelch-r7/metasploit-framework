@@ -275,3 +275,15 @@ msf auxiliary(admin/ldap/shadow_credentials) > run rhost=20.92.148.129 ldapusern
 [+] Successfully updated the msDS-KeyCredentialLink attribute; certificate with device ID 1107833b-0eb6-0477-a7c6-3590b326851a
 [*] Auxiliary module execution completed
 ```
+
+
+## Automated container tests
+
+The [managed LDAP lab](../../../../../test/module_targets/ldap/README.md) reuses the existing
+Samba fixture and LAPS data. It covers real LDAP sessions and direct-host read
+actions. Windows AD and state-changing attacks remain unqualified. Run from the
+repository root:
+
+```sh
+bundle exec ruby tools/dev/run_module_target_tests.rb ldap
+```

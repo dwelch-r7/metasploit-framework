@@ -1,0 +1,27 @@
+services:
+  ldap:
+    build:
+      context: ../../ldap
+      args:
+        BASE_IMAGE: ubuntu:20.04@sha256:8feb4d8ca5354def3d8fce243717141ce31e2c428701f6682bd2fafe15388214
+        CA_IMAGE: alpine:3.24@sha256:f59abe656b692d901e184be3445e084786602108599d2a51d229c0f5a48c71bf
+    hostname: ldap.example.com
+    # The existing Samba AD fixture sets security.NTACL xattrs during provision.
+    # Native setup without this capability fails before LDAP starts.
+    cap_add: [SYS_ADMIN]
+    environment:
+      SMB_ADMIN_PASSWORD: admin123!
+    command: ['bash', '-c', 'bash samba-ad-setup.sh && bash samba-ad-run.sh']
+    ports: ["127.0.0.1::389"]
+    volumes:
+      - ../../ldap:/opt/ad-scripts:ro
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - >-
+          ldapsearch -LLL -x -H ldap://127.0.0.1:389 -D 'DEV-AD\Administrator' -w 'admin123!'
+          -b 'DC=ldap,DC=example,DC=com' '(sAMAccountName=BASICMACHINE$$)' ms-Mcs-AdmPwd
+          | grep -Fq '[LAPSv1]SuperSecretPassword!'
+      interval: 2s
+      timeout: 5s
+      retries: 40

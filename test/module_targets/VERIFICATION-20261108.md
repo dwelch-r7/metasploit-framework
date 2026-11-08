@@ -329,3 +329,30 @@ New specs/tool/helper files pass RuboCop; the older libraries and modules retain
 baseline style warnings, including the existing hash/string styles on expressions
 whose local deployment name became instance state. Eight existing child-process
 examples also passed. The full repository RSpec suite was not run.
+
+## Managed LDAP addition
+
+The existing Samba LDAP fixture passed **ten examples** in 14.58 seconds with a
+warm isolated console. It was Samba 4.15.13-Ubuntu, built from the pinned Ubuntu
+20.04 image. Native LDAP authenticated, enumerated five actual account objects,
+read both seeded LAPS values and confirmed empty shadow-credential/RBCD values.
+Framework then exercised five production modules through direct-host and real
+LDAP-session paths. Evidence:
+`tmp/module-target-tests/20261108T232404-50b9fc/ldap/`. The exact expected count,
+zero failures/pending/outside-example errors, stable inputs and teardown passed.
+
+The initial manifest expected eleven cases, while the existing suite defines
+ten; that first invocation was rejected despite all ten assertions passing.
+The count was corrected and the complete suite rerun. A native provisioning
+attempt without the original fixture's SYS_ADMIN capability failed while setting
+security.NTACL extended attributes, before LDAP started. With that capability,
+native provisioning and health checks succeeded. No privileged flag, Docker
+socket, host network or writable host-source mount is used. Setup evidence is
+retained in `tmp/ldap-native-preflight-target.log` and
+`tmp/ldap-native-capability-target.log`.
+
+The cumulative checkpoint is **47 modules, thirteen families, 161 cases**.
+Four module-document links introduce no new msftidy_docs diagnostics; the
+existing Shadow Credentials document's CRLF content was preserved. This
+LDAP-only fixture deliberately lacks full AD service advertisement and does not
+qualify Windows AD, Kerberos, TLS, replication or state-changing actions.
