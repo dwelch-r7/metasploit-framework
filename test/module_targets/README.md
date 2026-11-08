@@ -73,8 +73,10 @@ ruby tools/dev/module_target_inventory.rb
 ruby tools/dev/module_target_inventory.rb --json > tmp/module-target-inventory.json
 ```
 
-The inventory enumerates every current Ruby module source and records its digest,
-module-document path, container hints and registered labs. Registration means a
+The inventory enumerates current Ruby, Python and Go module sources and records
+their digests, module-document paths, container hints and registered labs. Payload
+components and external helper source are distinguished from selectable module
+candidates. Registration means a
 test exists, not that it passed. Neither a keyword match nor its absence settles
 feasibility. Prioritize existing reproducible labs and service families that can
 cover several valuable workflows, then version-specific vulnerable applications.

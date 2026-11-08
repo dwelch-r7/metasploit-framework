@@ -19,6 +19,12 @@ source files on upstream revision `7673832c306`; 392 module documents initially
 contained container hints. Neither figure is a count of viable target labs.
 No module has been excluded as infeasible yet.
 
+The first stable checkpoint passed all 61 cases across five families and 20
+registered modules. See [the verification snapshot](VERIFICATION-20261108.md)
+for exact versions, durations, evidence paths and remaining limits. The source
+inventory now also includes Python and Go, distinguishing supporting code and
+payload components from selectable module candidates.
+
 ## November 8 baseline findings
 
 | Family | Functional result | Scope |
@@ -45,8 +51,8 @@ targets reproduced the interface issue. The separate `redis-file-upload-check`
 worktree produced focused fix `2f335268630`, with real before/after verification
 and 17 focused module examples (24 examples including existing loaded support
 specs) passing. The campaign branch incorporates the fix as `28d429e92c0`.
-The corrected Redis suite subsequently passed all 18 assertions; a final stable
-input run across every current family remains required after harness changes.
+The corrected Redis suite subsequently passed all 18 assertions. The final
+stable-input run across all five checkpoint families also passed.
 
 ### Apache traversal/RCE batch
 
@@ -71,6 +77,10 @@ Reverse payload sessions and TLS remain untested in this family.
 - Memcached: add large/fragmented values, key limits and non-loopback loot proof.
 - PostgreSQL: extend beyond the first version and privileged role; keep session
   and direct-host paths. Review default credential lists to shorten login work.
+- MySQL/MariaDB: the next two managed targets are being validated against the
+  existing protocol suite, retaining each implementation's default authentication.
+- Next reusable labs: SSH, SMB, then the existing Tomcat/Axis2 target sources;
+  independently validate each setup and expand useful module/session cases.
 
 ## Remaining work
 

@@ -14,23 +14,33 @@ registered = labs.each_with_object({}) do |path, result|
   end
 end
 types = { 'exploits' => 'exploit', 'payloads' => 'payload', 'encoders' => 'encoder', 'nops' => 'nop' }
-inventory = Dir[File.join(root, 'modules/**/*.rb')].map do |path|
+inventory = Dir[File.join(root, 'modules/**/*.{rb,py,go}')].map do |path|
   relative = path.delete_prefix("#{root}/")
-  parts = relative.delete_prefix('modules/').delete_suffix('.rb').split('/')
+  language = File.extname(path).delete_prefix('.')
+  source = File.read(path)
+  parts = relative.delete_prefix('modules/').delete_suffix(".#{language}").split('/')
   parts[0] = types.fetch(parts[0], parts[0])
   source_reference = parts.join('/')
   # Stage/stager files are components; their source path is not a selectable
   # payload fullname. Review composed payloads with the existing session suites.
-  fullname = parts.first == 'payload' ? nil : source_reference
+  source_role = if parts.first == 'payload'
+                  'payload_component'
+                elsif File.basename(path).start_with?('_') || (language == 'go' && !source.match?(/^package main$/))
+                  'supporting_code'
+                else
+                  'module_candidate'
+                end
+  fullname = source_role == 'module_candidate' ? source_reference : nil
   document = "documentation/modules/#{fullname}.md" if fullname
   document ||= ''
   doc_path = File.join(root, document)
   documentation = File.file?(doc_path) ? File.read(doc_path) : ''
-  source = File.read(path)
   {
     fullname: fullname,
     source_reference: source_reference,
     source: relative,
+    language: language,
+    source_role: source_role,
     source_sha256: Digest::SHA256.hexdigest(source),
     documentation: File.file?(doc_path) ? document : nil,
     documented_container_hint: documentation.match?(/docker|podman|container|compose/i),
@@ -43,6 +53,7 @@ if ARGV == ['--json']
   puts JSON.pretty_generate(inventory)
 elsif ARGV.empty?
   puts "Module source files: #{inventory.length}"
+  puts "By language: #{inventory.group_by { |entry| entry[:language] }.transform_values(&:length)}"
   puts "Registered in a lab: #{inventory.count { |entry| !entry[:labs].empty? }}"
   puts "Documentation mentions containers: #{inventory.count { |entry| entry[:documented_container_hint] }}"
   puts 'Prioritize existing reproducible labs, reusable service families, then version-specific applications.'
