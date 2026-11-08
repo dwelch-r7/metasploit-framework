@@ -1,0 +1,14 @@
+spec: spec/acceptance/module_targets/ftp_spec.rb
+expected_examples: 13
+console: true
+modules:
+  - auxiliary/scanner/ftp/ftp_version
+  - auxiliary/scanner/ftp/ftp_login
+  - auxiliary/scanner/ftp/ftp_anonymous
+ports:
+  read_write: 21
+  read_only: 21
+  denied: 21
+support_files:
+  - lib/msf/core/exploit/remote/ftp.rb
+  - lib/metasploit/framework/login_scanner/ftp.rb

@@ -91,3 +91,15 @@ Service Info: OS: Unix
 root@kali:~# 
 ```
 
+
+
+## Automated container tests
+
+The [managed FTP lab](../../../../../test/module_targets/ftp/README.md) supplies real ProFTPD
+instances with anonymous read/write, read-only and denied access. Native clients
+validate the fixture; module tests check authentication, listing loot and
+cleanup. Run from the repository root:
+
+```sh
+bundle exec ruby tools/dev/run_module_target_tests.rb ftp
+```

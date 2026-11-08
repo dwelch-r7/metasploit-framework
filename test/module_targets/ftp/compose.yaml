@@ -1,0 +1,23 @@
+x-ftp: &ftp
+  build: .
+  ports: ["127.0.0.1::21"]
+  healthcheck:
+    test: ["CMD", "python3", "/opt/native_probe.py", "--health"]
+    interval: 10s
+    timeout: 8s
+    retries: 10
+    start_period: 2s
+
+services:
+  read_write:
+    <<: *ftp
+    environment:
+      ANONYMOUS_MODE: read_write
+  read_only:
+    <<: *ftp
+    environment:
+      ANONYMOUS_MODE: read_only
+  denied:
+    <<: *ftp
+    environment:
+      ANONYMOUS_MODE: denied

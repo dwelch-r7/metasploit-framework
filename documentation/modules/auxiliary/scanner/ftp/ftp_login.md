@@ -149,3 +149,15 @@ msf auxiliary(scanner/ftp/ftp_login) > run
 [*] 10.0.0.10:21 - Scanned 1 of 1 hosts (100% complete)
 [*] Auxiliary module execution completed
 ```
+
+
+## Automated container tests
+
+The [managed FTP lab](../../../../../test/module_targets/ftp/README.md) supplies real ProFTPD
+instances with anonymous read/write, read-only and denied access. Native clients
+validate the fixture; module tests check authentication, listing loot and
+cleanup. Run from the repository root:
+
+```sh
+bundle exec ruby tools/dev/run_module_target_tests.rb ftp
+```
