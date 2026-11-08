@@ -51,7 +51,7 @@ RSpec.describe 'MySQL sessions and MySQL modules' do
           lines: {
             all: {
               required: [
-                /Saving HashString as Loot/
+                /Saving HashString as Loot: #{Regexp.escape(ENV.fetch('MYSQL_USERNAME', 'root'))}:\S+/
               ]
             },
           }
@@ -77,7 +77,7 @@ RSpec.describe 'MySQL sessions and MySQL modules' do
           lines: {
             all: {
               required: [
-                /\| \d+.\d+.*/,
+                /\| \d+\.\d+.*/,
               ]
             },
           }
@@ -90,7 +90,10 @@ RSpec.describe 'MySQL sessions and MySQL modules' do
           lines: {
             all: {
               required: [
-                /MySQL Version: \d+.\d+.*/,
+                /MySQL Version: \d+\.\d+.*/,
+                /Server Hostname: \S+/,
+                'Enumerating Accounts:',
+                /User: #{Regexp.escape(ENV.fetch('MYSQL_USERNAME', 'root'))} Host: \S+ Password Hash: \S+/,
               ]
             },
           }

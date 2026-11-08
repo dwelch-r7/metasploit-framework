@@ -25,6 +25,11 @@ for exact versions, durations, evidence paths and remaining limits. The source
 inventory now also includes Python and Go, distinguishing supporting code and
 payload components from selectable module candidates.
 
+The subsequent MySQL/MariaDB addition passed 20 more cases with strengthened
+hash/account assertions. Verified coverage now totals 25 registered runtime
+modules in seven families and 81 cases; the same verification snapshot records
+its evidence and limits.
+
 ## November 8 baseline findings
 
 | Family | Functional result | Scope |
@@ -69,22 +74,25 @@ Reverse payload sessions and TLS remain untested in this family.
 
 ### Investigation queue
 
-- Redis file upload: pre-existing early returns in `send_file` may leave changed
-  configuration on intermediate failures. This is source-observed; reproduce
-  before classifying it as a demonstrated target failure.
+- Redis file upload: a fresh Redis 6.2.14 target independently accepted directory
+  `/proc` but rejected SAVE there. A real module run left the directory, snapshot
+  filename and compression setting changed, plus a generated key. The existing
+  sentinel value survived. The separate fix worktree is implementing and testing
+  failure cleanup followed by another successful upload.
 - Redis extraction: add bounded-result, binary/large-response and ACL cases.
 - Apache HTTP: add TLS, Digest/WebDAV and disabled-TRACE configurations.
 - Memcached: add large/fragmented values, key limits and non-loopback loot proof.
 - PostgreSQL: extend beyond the first version and privileged role; keep session
   and direct-host paths. Review default credential lists to shorten login work.
-- MySQL/MariaDB: the next two managed targets are being validated against the
-  existing protocol suite, retaining each implementation's default authentication.
+- MySQL/MariaDB: both managed targets passed ten cases with strengthened
+  account/hash assertions, retaining each implementation's default authentication.
+  MySQL 8 credential hash-format metadata and database persistence remain to be
+  qualified; an extraction message alone does not prove downstream cracking.
 - Next reusable labs: SSH, SMB, then the existing Tomcat/Axis2 target sources;
   independently validate each setup and expand useful module/session cases.
 
 ## Remaining work
 
-- Validate and document the runner and first target family.
 - Review existing protocol suites and supply reusable managed containers.
 - Review container hints across module documentation and reuse viable labs.
 - Expand through reusable network service and web application families.

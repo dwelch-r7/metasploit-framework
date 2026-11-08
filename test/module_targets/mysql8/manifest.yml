@@ -1,0 +1,15 @@
+spec: spec/acceptance/mysql_spec.rb
+expected_examples: 10
+modules:
+  - auxiliary/scanner/mysql/mysql_login
+  - auxiliary/scanner/mysql/mysql_hashdump
+  - auxiliary/scanner/mysql/mysql_version
+  - auxiliary/admin/mysql/mysql_sql
+  - auxiliary/admin/mysql/mysql_enum
+ports:
+  mysql: 3306
+connection_env:
+  mysql: MYSQL
+support_files:
+  - spec/support/acceptance/protocol_session_shared_context.rb
+  - test/modules/post/test/mysql.rb

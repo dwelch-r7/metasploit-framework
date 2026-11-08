@@ -212,3 +212,13 @@ Response
 
 SQL >>
 ```
+
+## Automated container tests
+
+The [MariaDB lab](../../../../../test/module_targets/mariadb/README.md) and
+[MySQL 8 lab](../../../../../test/module_targets/mysql8/README.md) exercise real
+services through the existing protocol session acceptance suite:
+
+```sh
+bundle exec ruby tools/dev/run_module_target_tests.rb mariadb mysql8
+```

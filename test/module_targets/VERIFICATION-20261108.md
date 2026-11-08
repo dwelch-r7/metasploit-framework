@@ -71,3 +71,33 @@ The new inventory also includes Python/Go sources and distinguishes helper files
 and payload components. This is an initial checkpoint, not completion of the
 repository-wide campaign. The remaining queue and limitations are in
 [the campaign record](CAMPAIGN.md). No pull request was created.
+
+## MySQL/MariaDB addition
+
+The next batch reuses `spec/acceptance/mysql_spec.rb` with managed MariaDB 11.2.2
+and Oracle MySQL 8.0.36 targets, both retaining default authentication plugins.
+Native authenticated SQL health checks establish service readiness. Assertions
+were strengthened from actual captures to require the configured user's hash,
+returned account data and the server hostname, rather than only a generic save
+message or version line.
+
+```sh
+bundle exec ruby tools/dev/run_module_target_tests.rb mariadb mysql8
+```
+
+The strengthened run returned exit status 0: ten examples passed on each target,
+zero failures/pending/outside-example errors, unchanged tested inputs and
+successful cleanup. RSpec durations including console startup were 49.27 seconds
+for MariaDB and 58.55 seconds for MySQL. Evidence is local at
+`tmp/module-target-tests/20261108T212122-ddc203/`.
+
+The two families cover five additional registered runtime modules, bringing the
+verified checkpoint total to **25 modules, seven families and 81 cases**. Real
+MySQL sessions, direct-host paths, queries, hash extraction and account enumeration
+were observed. Framework credential persistence and downstream cracking were not
+tested; the hash module's "Loot" message refers to its credential API, not an
+actual loot file.
+
+The existing MySQL spec retains 16 baseline RuboCop style offenses with zero new
+offenses. Both added module-document links introduced no new msftidy_docs
+diagnostics. No project dependency was added.
