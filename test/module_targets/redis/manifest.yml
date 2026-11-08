@@ -1,5 +1,5 @@
 spec: spec/acceptance/module_targets/redis_spec.rb
-expected_examples: 18
+expected_examples: 22
 modules:
   - auxiliary/scanner/redis/redis_server
   - auxiliary/scanner/redis/redis_login

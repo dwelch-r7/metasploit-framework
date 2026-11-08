@@ -20,11 +20,19 @@ and invokes real module entry points:
 | `auxiliary/scanner/redis/redis_server` | INFO and PING on all three services |
 | `auxiliary/scanner/redis/redis_login` | Authenticated and unauthenticated services, wrong password |
 | `auxiliary/gather/redis_extractor` | All seeded types and both databases, actual loot contents, empty keyspace |
-| `auxiliary/scanner/redis/file_upload` | Two consecutive real RDB writes, original data/configuration preserved, modern protected-config check |
+| `auxiliary/scanner/redis/file_upload` | Repeated open/authenticated writes, failure recovery, original state preserved, protected-config check |
 
 Lab password on `authenticated`: `module-test-password`. The file-upload target
 is `/tmp/module-target-upload.rdb` inside the disposable container. Its contents
 must include a known marker; a success message alone is insufficient.
+
+Upload state uses separate native CONFIG GET requests with validated field names
+and values. Redis 6.2 rejects multiple patterns while returning a zero CLI exit
+status, so equality of unvalidated command output would not prove preservation.
+The suite also independently establishes failed saves to `/proc` and a directory
+destination, plus rejection of a missing directory. After each module failure,
+configuration, exact key set and sentinel data must match their initial state,
+and two fresh uploads must succeed.
 
 The initial upstream baseline exposed no public file-upload check even though
 the module defined one. The accompanying correction exposes the scanner check,

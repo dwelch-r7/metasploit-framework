@@ -70,22 +70,51 @@ RSpec.describe 'Redis module targets' do
     expect(output).not_to include('Login Successful', 'No password is required.')
   end
 
-  it 'uploads a file twice, preserves data and restores Redis configuration' do
-    service = 'open'
-    expect(target_exec(service, 'redis-cli', 'FLUSHALL').strip).to eq('OK')
-    expect(target_exec(service, 'redis-cli', 'SET', 'preserve-me', 'original-value').strip).to eq('OK')
-    original = target_exec(service, 'redis-cli', 'CONFIG', 'GET', 'dir', 'dbfilename', 'rdbcompression')
-    local_file = File.join(target_runtime.fetch('artifacts'), 'upload.txt')
-    File.write(local_file, "module-target-upload-marker\n")
-    2.times do
-      output = run_target_module('auxiliary/scanner/redis/file_upload', service, {
-        'PASSWORD' => '', 'LocalFile' => local_file, 'RemoteFile' => '/tmp/module-target-upload.rdb'
-      })
-      expect(output).to include('bytes inside of redis DB at /tmp/module-target-upload.rdb')
-      expect(target_exec(service, 'cat', '/tmp/module-target-upload.rdb')).to include('module-target-upload-marker')
-      expect(target_exec(service, 'redis-cli', 'GET', 'preserve-me').strip).to eq('original-value')
-      expect(target_exec(service, 'redis-cli', 'CONFIG', 'GET', 'dir', 'dbfilename', 'rdbcompression')).to eq(original)
-      expect(target_exec(service, 'redis-cli', 'DBSIZE').strip).to eq('1')
+  %w[open authenticated].each do |service|
+    it "uploads twice on #{service}, preserving real data and configuration" do
+      password = service == 'authenticated' ? 'module-test-password' : ''
+      cli, original, local_file = prepare_upload(service, password)
+      2.times do
+        expect_file_upload(service, password, cli, original, local_file)
+      end
+    end
+  end
+
+  {
+    '/proc/module-target-failure.rdb' => /Failed to save/i,
+    '/tmp/..' => /Failed to save/i,
+    '/module-target-missing/failure.rdb' => /Failed to set the Redis snapshot directory/i
+  }.each do |destination, error|
+    it "restores state after #{destination} fails and permits another two uploads" do
+      cli, original, local_file = prepare_upload('open', '')
+      begin
+        # Establish the intended server-side failure with the native client.
+        begin
+          if destination.start_with?('/proc/')
+            expect(target_exec('open', *cli, 'CONFIG', 'SET', 'dir', '/proc').strip).to eq('OK')
+            expect(target_exec('open', *cli, 'SAVE')).to include('ERR')
+          elsif destination == '/tmp/..'
+            expect(target_exec('open', *cli, 'CONFIG', 'SET', 'dir', '/tmp').strip).to eq('OK')
+            expect(target_exec('open', *cli, 'CONFIG', 'SET', 'dbfilename', '..').strip).to eq('OK')
+            expect(target_exec('open', *cli, 'SAVE')).to include('ERR')
+          else
+            expect(target_exec('open', *cli, 'CONFIG', 'SET', 'dir', File.dirname(destination))).to include('ERR')
+          end
+        ensure
+          restore_fixture_configuration('open', cli, original.fetch(:config))
+        end
+        expect(redis_upload_state('open', cli)).to eq(original)
+        output = run_target_module('auxiliary/scanner/redis/file_upload', 'open', {
+          'PASSWORD' => '', 'LocalFile' => local_file, 'RemoteFile' => destination
+        }, allow_errors: true)
+        expect(redis_upload_state('open', cli)).to eq(original)
+        expect(output).to match(error)
+        2.times { expect_file_upload('open', '', cli, original, local_file) }
+      ensure
+        # A regression must fail this example without contaminating later cases.
+        restore_fixture_configuration('open', cli, original.fetch(:config))
+        expect(target_exec('open', *cli, 'FLUSHALL').strip).to eq('OK')
+      end
     end
   end
 
@@ -95,6 +124,53 @@ RSpec.describe 'Redis module targets' do
     output = run_target_module('auxiliary/scanner/redis/file_upload', 'modern', { 'PASSWORD' => '' }, action: 'check')
     expect(output).to include('The target is not exploitable.', 'Redis protected configuration prevents changing dir and dbfilename')
     expect(output).not_to include('The target is vulnerable.')
+  end
+
+  def redis_upload_state(service, cli)
+    # Redis 6.2 rejects multiple CONFIG GET patterns, with a zero CLI exit status.
+    # Validate each response's shape so an error cannot masquerade as state.
+    config = %w[dir dbfilename rdbcompression].to_h do |name|
+      fields = target_exec(service, *cli, '--raw', 'CONFIG', 'GET', name).lines.map(&:chomp)
+      expect(fields.length).to eq(2)
+      expect(fields.first).to eq(name)
+      [name, fields.last]
+    end
+    {
+      config: config,
+      keys: target_exec(service, *cli, '--raw', 'KEYS', '*').lines.map(&:chomp).reject(&:empty?).sort,
+      sentinel: target_exec(service, *cli, '--raw', 'GET', 'preserve-me').strip
+    }
+  end
+
+  def prepare_upload(service, password)
+    cli = password.empty? ? ['redis-cli'] : ['redis-cli', '--no-auth-warning', '-a', password]
+    expect(target_exec(service, *cli, 'PING').strip).to eq('PONG')
+    expect(target_exec(service, *cli, 'FLUSHALL').strip).to eq('OK')
+    expect(target_exec(service, *cli, 'SET', 'preserve-me', 'original-value').strip).to eq('OK')
+    original = redis_upload_state(service, cli)
+    expect(original.fetch(:keys)).to eq(['preserve-me'])
+    expect(original.fetch(:sentinel)).to eq('original-value')
+    local_file = File.join(target_runtime.fetch('artifacts'), "upload-#{service}.txt")
+    File.write(local_file, "module-target-upload-marker\n")
+    [cli, original, local_file]
+  end
+
+  def expect_file_upload(service, password, cli, original, local_file)
+    destination = '/tmp/module-target-upload.rdb'
+    target_exec(service, 'rm', '-f', destination)
+    target_exec(service, 'test', '!', '-e', destination)
+    output = run_target_module('auxiliary/scanner/redis/file_upload', service, {
+      'PASSWORD' => password, 'LocalFile' => local_file, 'RemoteFile' => destination
+    })
+    expect(output).to include("bytes inside of redis DB at #{destination}")
+    expect(target_exec(service, 'cat', destination)).to include('module-target-upload-marker')
+    expect(redis_upload_state(service, cli)).to eq(original)
+  end
+
+  def restore_fixture_configuration(service, cli, config)
+    config.each do |name, value|
+      expect(target_exec(service, *cli, 'CONFIG', 'SET', name, value).strip).to eq('OK')
+    end
   end
 
   def seed_redis(service, cli)
