@@ -1,0 +1,24 @@
+spec: spec/acceptance/smb_spec.rb
+expected_examples: 20
+console: true
+test_env:
+  SMB_MAX_RID: '514'
+modules:
+  - auxiliary/scanner/smb/smb_login
+  - auxiliary/scanner/smb/smb_lookupsid
+  - auxiliary/scanner/smb/smb_enumusers
+  - auxiliary/scanner/smb/pipe_auditor
+  - auxiliary/scanner/smb/smb_enumshares
+  - auxiliary/scanner/smb/smb_version
+ports:
+  samba: 445
+connection_env:
+  samba: SMB
+support_files:
+  - test/smb/Dockerfile
+  - test/smb/config/smb.conf
+  - test/smb/shares/modifiable/text_files/hello_world.txt
+  - test/smb/shares/modifiable/recursive/admin_root/readme.md
+  - test/smb/shares/readonly/my_directory/accessible_file.txt
+  - spec/support/acceptance/protocol_session_shared_context.rb
+  - test/modules/post/test/smb.rb

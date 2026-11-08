@@ -150,3 +150,71 @@ locally in `tmp/module-target-verified-checkpoint.json`. No full-coverage claim 
 made. Restore operations remain dependent on Redis connectivity and permissions;
 uncertain key ownership requires operator inspection. Further module families,
 session/payload variants and database-backed reporting remain in the campaign.
+
+
+## Managed SSH and Samba addition
+
+The SSH target reuses the existing Ubuntu/OpenSSH fixture and authenticates with
+its native client before Framework runs. Two examples passed with a real SSH
+session, Unix session tests and version detection. The observed service was
+OpenSSH 8.9p1, Ubuntu package 3ubuntu0.18. The later native-console regression run
+also passed all 14 HTTP examples and both SSH examples, with unchanged recorded
+inputs and successful cleanup:
+
+```sh
+bundle exec ruby tools/dev/run_module_target_tests.rb http ssh
+```
+
+Evidence: `tmp/module-target-tests/20261108T215921-f2b9f9/`. RSpec durations were
+73.71 seconds for HTTP and 81.69 seconds for SSH, including console startup while
+an independent image build was running. The first SSH run took 62.98 seconds.
+
+Samba passed all **20 examples**, zero failures/pending/outside-example errors,
+unchanged input digests and successful cleanup. Evidence:
+`tmp/module-target-tests/20261108T220931-692f38/smb/`; RSpec duration 72.59 seconds.
+It exercised six production modules, real SMB sessions, direct-host enumeration,
+file read/write operations through `post/test/smb`, default protocols and explicit
+SMB 2/3 options where supported. The version scanner independently probes dialects
+and does not accept that protocol option; its repeated suite case is not proof
+of protocol restriction. The target was Samba 4.15.13 on the pinned Ubuntu base.
+OS package versions may drift on rebuild; image IDs and native health output are
+retained.
+
+The verified checkpoint is **33 runtime modules, nine families and 107 cases**.
+Tomcat and SQL Server qualification is separate and is not included in this count.
+
+### Console infrastructure and setup corrections
+
+The runner can now build the canonical Framework Dockerfile using a small
+recorded dependency/build context and mount current source read-only at runtime.
+The Ruby base is digest-pinned in the lab; normal Docker build defaults remain
+unchanged. The console uses the host UID/GID and a per-run writable artifact
+mount, joins only the lab's network, and publishes no reverse-listener port.
+Warm builds reuse the dependency image despite module/spec edits. Container
+inspection preserves native health output; fixture exec calls retain their
+arguments, status and output. Eight existing child-process examples also passed.
+
+The following setup failures were investigated rather than counted as module
+defects:
+
+- A host port mapping could not test `smb_enumshares`, which deliberately scans
+  ports 139/445. The initial run was stopped after observing this mismatch; its
+  partial assertions and cleanup are in `20261108T215200-c41ff2/smb`.
+- Alpine's `id` rejected a numeric UID despite the account existing. Native
+  `getent` verified the account and replaced that health check. The failed setup
+  and successful cleanup are retained in `20261108T220303-683633/smb`.
+- Tomcat opened a Java Meterpreter session, but the console entered it
+  interactively while the harness expected its normal prompt. The interrupted
+  run was cleaned up. Session tests now use background mode before explicit
+  command proof; that observation alone is not full Tomcat qualification.
+- A minimal build context initially omitted the public Gemfile example, causing
+  an avoidable dependency-cache miss. The setup was stopped and corrected;
+  `20261108T220902-08b782/smb` records interruption and cleanup.
+
+Changed new tool/helper/spec files pass RuboCop. The older console helper and
+SMB spec retain 15 and 22 baseline offenses respectively, with no new offenses.
+All eight SSH/SMB module-document links introduce no new msftidy_docs diagnostics.
+The full repository test suite was not run. Fork CI remains separately qualified:
+an earlier Verify run failed in an untouched certificate/SID spec, and its MySQL
+output-prefix failure passed on retry; neither has been labeled a campaign
+regression without a baseline reproduction.

@@ -411,3 +411,12 @@ AaZna5YokhaNvfGGbO5N8YoYShIpGdvWI+dIT8xYvPkJmYdnTz7/dmBUcwLtNVx/
 [*] Auxiliary module execution completed
 ```
 
+## Automated container tests
+
+See the [ssh target lab](../../../../../test/module_targets/ssh/README.md) for a managed real service,
+native credential preflight and protocol/session acceptance tests. From the
+repository root:
+
+```sh
+bundle exec ruby tools/dev/run_module_target_tests.rb ssh
+```

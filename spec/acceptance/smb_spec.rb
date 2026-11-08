@@ -34,7 +34,7 @@ RSpec.describe 'SMB sessions and SMB modules' do
           platforms: [:linux, :osx, :windows],
           targets: [:session, :rhost],
           skipped: false,
-          datastore: { 'MinRID' => 500, 'MaxRID' => 1001 },
+          datastore: { 'MinRID' => 500, 'MaxRID' => ENV.fetch('SMB_MAX_RID', 1001) },
           lines: {
             all: {
               required: [

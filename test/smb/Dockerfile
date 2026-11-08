@@ -1,5 +1,6 @@
 # syntax=docker/dockerfile:1
-FROM ubuntu:22.04 AS build
+ARG BASE_IMAGE=ubuntu:22.04
+FROM ${BASE_IMAGE} AS build
 MAINTAINER metasploit-framework <https://github.com/rapid7/metasploit-framework>
 WORKDIR /opt
 

@@ -465,7 +465,8 @@ module Acceptance
   end
 
   class ConsoleDriver
-    def initialize
+    def initialize(console_command: nil)
+      @console_command = console_command
       @console = nil
       @payload_processes = []
       ObjectSpace.define_finalizer(self, self.class.finalizer_proc_for(self))
@@ -486,7 +487,7 @@ module Acceptance
 
     # @return [Acceptance::Console]
     def open_console
-      @console = Console.new
+      @console = Console.new(command: @console_command)
       @console.run
       @console.recvuntil(Console.prompt, timeout: 120)
 
@@ -519,8 +520,8 @@ module Acceptance
   end
 
   class Console < ChildProcess
-    def initialize
-      super
+    def initialize(command: nil)
+      super()
 
       framework_root = Dir.pwd
       @debug = true
@@ -528,7 +529,7 @@ module Acceptance
         'BUNDLE_GEMFILE' => File.join(framework_root, 'Gemfile'),
         'PATH' => "#{framework_root.shellescape}:#{ENV['PATH']}"
       }
-      @cmd = [
+      @cmd = command || [
         'bundle', 'exec', 'ruby', 'msfconsole',
         '--no-readline',
         # '--logger', 'Stdout',

@@ -1,0 +1,17 @@
+services:
+  samba:
+    build:
+      context: ../../smb
+      args:
+        BASE_IMAGE: ubuntu:22.04@sha256:076e7bf82319619f28dd0aa9c02ab34b055ad37100395b4f49a2ffba04fb5e11
+    ports: ["127.0.0.1::445"]
+    healthcheck:
+      # A native authenticated file read validates the user and share together.
+      test:
+        - CMD-SHELL
+        - >-
+          smbclient //127.0.0.1/readonly -U acceptance_tests_user%acceptance_tests_password
+          -c 'get my_directory/accessible_file.txt /dev/null'
+      interval: 2s
+      timeout: 5s
+      retries: 30

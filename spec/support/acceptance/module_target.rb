@@ -9,7 +9,7 @@ RSpec.shared_context 'module target' do
   let_it_be(:target_runtime) do
     JSON.parse(File.read(ENV.fetch('MODULE_TARGET_RUNTIME')))
   end
-  let_it_be(:driver) { Acceptance::ConsoleDriver.new }
+  let_it_be(:driver) { Acceptance::ConsoleDriver.new(console_command: target_runtime['console_command']) }
   let_it_be(:console) do
     instance = driver.open_console
     instance.sendline(%q{irb -e 'puts "MODULE_TARGET_CONFIG=" + Msf::Config.config_directory'})
@@ -35,8 +35,15 @@ RSpec.shared_context 'module target' do
     target_runtime.fetch('endpoints').fetch(service)
   end
 
+  def listener_host
+    target_runtime.fetch('listener_host')
+  end
+
   def target_exec(service, *arguments, expected_exit: 0)
     output, status = Open3.capture2e(*target_runtime.fetch('compose'), 'exec', '-T', service, *arguments)
+    File.open(File.join(target_runtime.fetch('artifacts'), 'native-commands.jsonl'), 'a') do |log|
+      log.puts(JSON.generate(service: service, argv: arguments, exitstatus: status.exitstatus, output: output))
+    end
     raise "Fixture command failed: #{service} #{arguments.inspect}: #{output}" unless status.exitstatus == expected_exit
 
     output
@@ -51,7 +58,7 @@ RSpec.shared_context 'module target' do
   end
 
   def run_target_module(fullname, service, options = {}, action: 'run', allow_errors: false)
-    endpoint = target_endpoint(service)
+    endpoint = target_runtime.fetch('module_endpoints', target_runtime.fetch('endpoints')).fetch(service)
     console_command('back')
     selected = console_command("use #{fullname}")
     expect(selected).not_to match(/Failed to load|Unknown command|No results/)

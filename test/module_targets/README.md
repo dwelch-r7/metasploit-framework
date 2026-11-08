@@ -33,6 +33,20 @@ counts, pending examples, changed inputs and cleanup failures cannot produce a p
 is recorded as **unclassified**, not automatically a module defect. Inspect its
 independent fixture preflight, target logs and raw console output first.
 
+Labs using `console: true` reuse the canonical repository Dockerfile and
+entrypoint through `framework.compose.yaml`. A small, recorded build context holds
+the canonical dependency/build inputs; the complete current worktree is mounted
+at runtime. Changes to modules or tests therefore reuse the dependency image.
+The first build compiles gems and Go; subsequent labs share Docker's build cache.
+Setup has a separate 30-minute
+bound for that cold build, while functional tests keep their ten-minute bound.
+The console sees read-only current source and a writable artifact directory at
+its host path, so loot can be checked directly. Its process uses the host UID/GID.
+Framework connects to internal service addresses and can receive reverse sessions
+without publishing a listener. Independent host probes still use random loopback
+ports. Container inspection retains image IDs and native health-check output;
+native fixture exec commands are recorded in `native-commands.jsonl`.
+
 ## Layout and contribution contract
 
 - `test/module_targets/<family>/compose.yaml`: real targets, configuration,
@@ -41,6 +55,8 @@ independent fixture preflight, target logs and raw console output first.
   example count, module fullnames and service ports. Several modules may share
   one target family. `connection_env` maps services to an existing protocol
   suite's environment-variable prefix, avoiding duplicate suites.
+  `console: true` adds the shared Framework console service; `test_env` supplies
+  a suite's bounded fixture options without changing its ordinary defaults.
 - `spec/acceptance/module_targets/<family>_spec.rb`: short functional cases,
   independent target validation and assertions on meaningful results.
 - Module documentation links to its family's lab instructions; keep target
@@ -61,8 +77,9 @@ reuse. Document gaps rather than suggesting a narrow passing case proves every
 supported target works.
 
 All published ports must bind to `127.0.0.1` with random host ports. Avoid
-privileged containers, Docker socket mounts and host mounts except read-only lab
-configuration. Container breakout, kernel, hardware and licensed targets need
+privileged containers and Docker socket mounts. Host mounts are limited to
+read-only source/configuration and the current run's writable artifact directory.
+Container breakout, kernel, hardware and licensed targets need
 individual feasibility assessment; a service container does not model a complete
 operating system. Keep uncertain modules in the review queue.
 

@@ -1,0 +1,21 @@
+# Included by the runner only for labs that need a console on the target network.
+services:
+  framework:
+    build:
+      context: ${MODULE_TARGET_BUILD_CONTEXT:?Set by the module target runner}
+      dockerfile: ${MODULE_TARGET_ROOT:?Set by the module target runner}/Dockerfile
+      args:
+        RUBY_IMAGE: ruby:3.3.13-alpine3.24@sha256:d33a40da6163631d03b560c797e44fa242b8727eb4a4062d8a645f2cdd69e659
+    environment:
+      MSF_UID: ${MODULE_TARGET_UID:?Set by the module target runner}
+      MSF_GID: ${MODULE_TARGET_GID:?Set by the module target runner}
+    volumes:
+      - ${MODULE_TARGET_ROOT}:/usr/src/metasploit-framework:ro
+      - ${MODULE_TARGET_ARTIFACTS}:${MODULE_TARGET_ARTIFACTS}
+    command: ["sleep", "infinity"]
+    healthcheck:
+      # Alpine's id treats a numeric UID as a username; getent accepts the UID.
+      test: ["CMD-SHELL", "getent passwd \"$$MSF_UID\" >/dev/null"]
+      interval: 2s
+      timeout: 3s
+      retries: 30

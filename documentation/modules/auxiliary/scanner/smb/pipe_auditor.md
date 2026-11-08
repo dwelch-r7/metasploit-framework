@@ -59,3 +59,13 @@ msf auxiliary(pipe_auditor) > run
 [*] Auxiliary module execution completed
 msf auxiliary(pipe_auditor) >
 ```
+
+## Automated container tests
+
+See the [smb target lab](../../../../../test/module_targets/smb/README.md) for a managed real service,
+native credential preflight and protocol/session acceptance tests. From the
+repository root:
+
+```sh
+bundle exec ruby tools/dev/run_module_target_tests.rb smb
+```

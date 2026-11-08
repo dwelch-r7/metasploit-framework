@@ -1,5 +1,6 @@
 # syntax=docker/dockerfile:1
-FROM ubuntu:22.04
+ARG BASE_IMAGE=ubuntu:22.04
+FROM ${BASE_IMAGE}
 MAINTAINER metasploit-framework <https://github.com/rapid7/metasploit-framework>
 
 EXPOSE 22

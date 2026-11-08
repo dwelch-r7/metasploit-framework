@@ -121,3 +121,13 @@ msf auxiliary(scanner/smb/smb_enumshares) > run smb://<Account>:<Password>@<Targ
 [*] smb://<Account>:<Password>@<TargetIP>: - Scanned 1 of 1 hosts (100% complete)
 [*] Auxiliary module execution completed
 ```
+
+## Automated container tests
+
+See the [smb target lab](../../../../../test/module_targets/smb/README.md) for a managed real service,
+native credential preflight and protocol/session acceptance tests. From the
+repository root:
+
+```sh
+bundle exec ruby tools/dev/run_module_target_tests.rb smb
+```

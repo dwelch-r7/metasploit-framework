@@ -46,7 +46,12 @@ RSpec.shared_context 'protocol_session_acceptance' do
   let_it_be(:current_platform) { Acceptance::Session.current_platform }
 
   # Driver instance — keeps track of all open processes/payloads/etc so they can be closed cleanly
-  let_it_be(:driver) { Acceptance::ConsoleDriver.new }
+  let_it_be(:driver) do
+    command = if ENV['MODULE_TARGET_RUNTIME']
+                JSON.parse(File.read(ENV.fetch('MODULE_TARGET_RUNTIME')))['console_command']
+              end
+    Acceptance::ConsoleDriver.new(console_command: command)
+  end
 
   # Opens a test console with the test loadpath configured.
   # Feature flags are enabled by passing them to run_protocol_session_tests.

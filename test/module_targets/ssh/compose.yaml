@@ -1,0 +1,22 @@
+services:
+  ssh:
+    build:
+      context: ../../ssh
+      args:
+        BASE_IMAGE: ubuntu:22.04@sha256:076e7bf82319619f28dd0aa9c02ab34b055ad37100395b4f49a2ffba04fb5e11
+    ports: ["127.0.0.1::22"]
+    volumes:
+      - ./askpass.sh:/opt/module-target-askpass.sh:ro
+    healthcheck:
+      # Authenticate with the native client before testing Framework's client.
+      test:
+        - CMD-SHELL
+        - >-
+          SSH_ASKPASS=/opt/module-target-askpass.sh SSH_ASKPASS_REQUIRE=force DISPLAY=:0
+          ssh -n -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no
+          -o ConnectTimeout=2 -o NumberOfPasswordPrompts=1
+          -o PreferredAuthentications=password -o PubkeyAuthentication=no
+          acceptance_tests_user@127.0.0.1 id -un | grep -qx acceptance_tests_user
+      interval: 2s
+      timeout: 5s
+      retries: 30

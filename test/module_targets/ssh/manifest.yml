@@ -1,0 +1,13 @@
+spec: spec/acceptance/ssh_spec.rb
+expected_examples: 2
+modules:
+  - auxiliary/scanner/ssh/ssh_login
+  - auxiliary/scanner/ssh/ssh_version
+ports:
+  ssh: 22
+connection_env:
+  ssh: SSH
+support_files:
+  - test/ssh/Dockerfile
+  - spec/support/acceptance/protocol_session_shared_context.rb
+  - test/modules/post/test/unix.rb

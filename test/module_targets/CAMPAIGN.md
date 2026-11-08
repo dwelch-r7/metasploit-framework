@@ -35,6 +35,13 @@ configuration-query assertion, and reproduced/fixed upload failure cleanup.
 The current verified checkpoint is 25 modules, seven families and **85 cases**.
 The snapshot records the corrected baseline, final run and transport limitations.
 
+Managed SSH and Samba labs subsequently passed two and 20 cases respectively.
+The verified checkpoint is now **33 runtime modules, nine families and 107 cases**.
+The new console-container path reuses the canonical Dockerfile with a small
+dependency context and read-only current source. It enables normal service ports
+and reverse listeners on the isolated target network. Tomcat and SQL Server
+qualification is in progress; their registrations do not yet count as passes.
+
 ## November 8 baseline findings
 
 | Family | Functional result | Scope |
@@ -95,11 +102,16 @@ Reverse payload sessions and TLS remain untested in this family.
   account/hash assertions, retaining each implementation's default authentication.
   MySQL 8 credential hash-format metadata and database persistence remain to be
   qualified; an extraction message alone does not prove downstream cracking.
-- Next reusable labs: SSH, SMB, then the existing Tomcat/Axis2 target sources;
-  independently validate each setup and expand useful module/session cases.
-- Add a Framework console container on the target's isolated network for reverse
-  shell, Meterpreter and post-module cases, reusing the repository Dockerfile and
-  entrypoint. Keep explicit coverage of applicable session types and delivery paths.
+- SSH and Samba: managed fixtures passed. Extend incorrect/key credentials and
+  specialist modules. Samba's version detector independently probes dialects;
+  its repeated protocol-context case does not prove it honors SMB::ProtocolVersion.
+- Tomcat/Axis2 and SQL Server: qualification is in progress. Tomcat has opened a
+  real Java Meterpreter session, but the complete repeat/cleanup suite is pending.
+  SQL Server 2022 passed native authenticated queries; module assertions remain
+  pending. Keep unqualified registrations separate from passing coverage.
+- The isolated Framework console now works with Samba. Extend reverse shell,
+  Meterpreter and post-module coverage across declared session types and useful
+  delivery families.
 
 ## Remaining work
 
