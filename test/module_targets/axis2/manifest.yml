@@ -1,0 +1,19 @@
+spec: spec/acceptance/module_targets/axis2_spec.rb
+expected_examples: 12
+console: true
+modules:
+  - auxiliary/scanner/http/axis_login
+  - auxiliary/scanner/http/axis_local_file_include
+  - exploit/multi/http/axis2_deployer
+ports:
+  axis141: 8080
+  axis162: 8080
+support_files:
+  - test/axis2/Dockerfile
+  - spec/support/shared/contexts/wait_for_expect.rb
+  - lib/metasploit/framework/login_scanner/axis2.rb
+  - lib/msf/core/exploit/file_dropper.rb
+  - lib/msf/core/payload/java.rb
+  - modules/payloads/stagers/java/reverse_tcp.rb
+  - modules/payloads/stages/java/meterpreter.rb
+  - modules/payloads/stages/java/shell.rb

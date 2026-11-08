@@ -138,3 +138,15 @@ msf auxiliary(scanner/http/axis_login) > run
 [*] Auxiliary module execution completed
 msf auxiliary(scanner/http/axis_login) >
 ```
+
+
+## Automated container tests
+
+The [Axis2 target lab](../../../../../test/module_targets/axis2/README.md) uses
+the original 1.4.1 and 1.6.2 applications, native authentication/LFI controls
+and repeated Java payload execution. Check the campaign record for qualification
+status and unresolved failures. Run from the repository root:
+
+```sh
+bundle exec ruby tools/dev/run_module_target_tests.rb axis2
+```

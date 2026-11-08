@@ -1,0 +1,30 @@
+x-build: &axis2_build
+  context: ../../axis2
+  args: &axis2_args
+    BASE_IMAGE: tomcat:9.0-jre8-temurin@sha256:e521a7fda5e83868191e1629d3cf36afe93b739629f15f09342b70f94c5272e8
+
+x-healthcheck: &axis2_health
+  test:
+    - CMD-SHELL
+    - >-
+      curl --fail --silent http://127.0.0.1:8080/axis2/services/Version/getVersion >/dev/null &&
+      curl --fail --silent -d 'userName=admin&password=axis2&submit=+Login+'
+      http://127.0.0.1:8080/axis2/axis2-admin/login | grep -q 'Welcome to Axis2 Web'
+  interval: 2s
+  timeout: 5s
+  retries: 50
+
+services:
+  axis141:
+    build:
+      <<: *axis2_build
+      args:
+        <<: *axis2_args
+        AXIS2_WAR_URL: https://archive.apache.org/dist/ws/axis2/1_4_1/axis2-1.4.1-war.zip
+        AXIS2_WAR_SHA256: 7562a9d41ee2826d32fcdc8974cdc5d62b8184298b3531725f99c65fc0467f66
+    ports: ["127.0.0.1::8080"]
+    healthcheck: *axis2_health
+  axis162:
+    build: *axis2_build
+    ports: ["127.0.0.1::8080"]
+    healthcheck: *axis2_health

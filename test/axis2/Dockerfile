@@ -1,10 +1,13 @@
-FROM tomcat:9.0
+ARG BASE_IMAGE=tomcat:9.0
+FROM ${BASE_IMAGE}
 
-# Download Axis2 1.6.2 WAR (last version verified by the Metasploit module)
-RUN apt-get update -qq && apt-get install -y --no-install-recommends wget && rm -rf /var/lib/apt/lists/*
-RUN wget -q https://archive.apache.org/dist/axis/axis2/java/core/1.6.2/axis2-1.6.2-war.zip \
+# Default to the original acceptance target; labs can pin other releases.
+RUN apt-get update -qq && apt-get install -y --no-install-recommends wget unzip && rm -rf /var/lib/apt/lists/*
+ARG AXIS2_WAR_URL=https://archive.apache.org/dist/axis/axis2/java/core/1.6.2/axis2-1.6.2-war.zip
+ARG AXIS2_WAR_SHA256=65a156e93077d3cf59d1168ee95fca263a0fa1ca50d90ee544c868591c1a75ef
+RUN wget -q "$AXIS2_WAR_URL" \
     -O /tmp/axis2.zip && \
-    apt-get update -qq && apt-get install -y --no-install-recommends unzip && rm -rf /var/lib/apt/lists/* && \
+    printf '%s  /tmp/axis2.zip\n' "$AXIS2_WAR_SHA256" | sha256sum --check && \
     unzip -q /tmp/axis2.zip -d /tmp/axis2 && \
     cp /tmp/axis2/axis2.war /usr/local/tomcat/webapps/ && \
     rm -rf /tmp/axis2 /tmp/axis2.zip
