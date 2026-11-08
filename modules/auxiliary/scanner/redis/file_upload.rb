@@ -90,7 +90,7 @@ class MetasploitModule < Msf::Auxiliary
 
     key = Rex::Text.rand_text_alpha(32)
     # SETNX prevents a collision from overwriting, then deleting, an existing key.
-    return false unless redis_upload_command("create temporary Redis key #{key}", 'SETNX', key, content, expected: ':1')
+    return false unless redis_upload_command("create temporary Redis key #{key}", 'SETNX', key, content, expected: ':1', unacknowledged_key: key)
 
     temporary_key = key
     return false unless redis_upload_command("save #{content.size} bytes to #{path}", 'SAVE')
@@ -117,19 +117,29 @@ class MetasploitModule < Msf::Auxiliary
     end
   end
 
-  def redis_upload_command(operation, *command, expected: '+OK', cleanup: false)
+  def redis_upload_command(operation, *command, expected: '+OK', cleanup: false, unacknowledged_key: nil)
     response = redis_command(*command)
     matches = expected.is_a?(Regexp) ? expected.match?(response.to_s) : response == expected
     return true if matches
 
     message = "Failed to #{operation}: #{redis_response_detail(response)}"
     cleanup ? print_warning(message) : print_error(message)
+    if unacknowledged_key && response != ':0' && !response&.start_with?('-')
+      warn_unacknowledged_redis_key(unacknowledged_key)
+    end
     false
   rescue Rex::ConnectionError, IOError, Errno::ECONNRESET, Errno::EPIPE, ::Timeout::Error, Msf::Auxiliary::Failed => e
     elog("Failed to #{operation}", error: e)
     message = "Failed to #{operation}: #{e.class}: #{e.message}"
     cleanup ? print_warning(message) : print_error(message)
+    warn_unacknowledged_redis_key(unacknowledged_key) unless e.is_a?(Msf::Auxiliary::Failed)
     false
+  end
+
+  def warn_unacknowledged_redis_key(key)
+    return unless key
+
+    print_warning("Redis key #{key} may remain because creation was not acknowledged. Inspect it manually; automatic cleanup requires confirmed ownership.")
   end
 
   def redis_response_detail(response)

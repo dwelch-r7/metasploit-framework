@@ -207,6 +207,26 @@ RSpec.describe 'Redis File Upload' do
       mod.send_file('/tmp/upload.rdb', 'file content')
     end
 
+    it 'warns that the named key may remain when creation is not acknowledged' do
+      allow(mod).to receive(:redis_command).with('SETNX', temporary_key, 'file content').and_return(nil)
+      expect(mod).to receive(:print_warning).with(include(temporary_key, 'may remain', 'ownership'))
+      expect(mod).not_to receive(:redis_command).with('DEL', temporary_key)
+      mod.send_file('/tmp/upload.rdb', 'file content')
+    end
+
+    it 'warns about uncertain ownership after a connection loss during key creation' do
+      allow(mod).to receive(:redis_command).with('SETNX', temporary_key, 'file content').and_raise(EOFError)
+      expect(mod).to receive(:print_warning).with(include(temporary_key, 'may remain', 'ownership'))
+      expect(mod).not_to receive(:redis_command).with('DEL', temporary_key)
+      mod.send_file('/tmp/upload.rdb', 'file content')
+    end
+
+    it 'does not describe a rejected key collision as an unacknowledged creation' do
+      allow(mod).to receive(:redis_command).with('SETNX', temporary_key, 'file content').and_return(':0')
+      expect(mod).not_to receive(:print_warning).with(include('may remain'))
+      mod.send_file('/tmp/upload.rdb', 'file content')
+    end
+
     it 'does not mutate target settings when the original configuration is unavailable' do
       allow(mod).to receive(:redis_command).with('CONFIG', 'GET', 'dir').and_return(nil)
       expect(mod).not_to receive(:redis_command).with('CONFIG', 'SET', anything, anything)

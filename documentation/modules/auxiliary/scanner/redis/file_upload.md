@@ -30,6 +30,10 @@ to perform the requested upload.
 The module attempts to restore the original snapshot settings and remove its
 temporary key after successful or failed uploads. Cleanup failures are reported
 as warnings. A failed upload can be retried after correcting the destination.
+If Redis does not acknowledge key creation, the module names the key for manual
+inspection and leaves it untouched because ownership is unconfirmed. A lost
+connection can also prevent configuration restoration; cleanup warnings identify
+the operations that failed.
 
 ## Verification Steps
 
