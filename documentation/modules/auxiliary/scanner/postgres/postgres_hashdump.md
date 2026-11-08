@@ -68,3 +68,12 @@ postgres=# SELECT usename, passwd FROM pg_shadow;
  msf_documentation_superuser | md5e7ce29c6b3acd4d39bec5e527da21aba
 (4 rows)
 ```
+
+## Automated container tests
+
+See the [PostgreSQL target lab](../../../../../test/module_targets/postgres/README.md) for container setup and the existing
+protocol session acceptance suite. From the repository root:
+
+```sh
+bundle exec ruby tools/dev/run_module_target_tests.rb postgres
+```

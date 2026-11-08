@@ -1,0 +1,29 @@
+# Intentionally permissive Redis instances, reachable only on host loopback.
+services:
+  open:
+    image: redis:6.2.14@sha256:90a6e70bbef8b9ca4aa4108bf2e24040bd68aa5c669a8bd568766c962a911f3d
+    command: [redis-server, --save, "", --appendonly, "no"]
+    ports: ["127.0.0.1::6379"]
+    healthcheck:
+      test: [CMD, redis-cli, ping]
+      interval: 1s
+      timeout: 2s
+      retries: 30
+  authenticated:
+    image: redis:6.2.14@sha256:90a6e70bbef8b9ca4aa4108bf2e24040bd68aa5c669a8bd568766c962a911f3d
+    command: [redis-server, --save, "", --appendonly, "no", --requirepass, module-test-password]
+    ports: ["127.0.0.1::6379"]
+    healthcheck:
+      test: [CMD, redis-cli, --no-auth-warning, -a, module-test-password, ping]
+      interval: 1s
+      timeout: 2s
+      retries: 30
+  modern:
+    image: redis:7.2.4@sha256:5a93f6b2e391b78e8bd3f9e7e1e1e06aeb5295043b4703fb88392835cec924a0
+    command: [redis-server, --save, "", --appendonly, "no"]
+    ports: ["127.0.0.1::6379"]
+    healthcheck:
+      test: [CMD, redis-cli, ping]
+      interval: 1s
+      timeout: 2s
+      retries: 30

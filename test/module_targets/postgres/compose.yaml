@@ -1,0 +1,12 @@
+services:
+  postgres:
+    image: postgres:16@sha256:933463a6c8eba2b9f5cd414138738cd8d5519cd2c471214c222652f547a66a32
+    environment:
+      POSTGRES_PASSWORD: password
+    ports: ["127.0.0.1::5432"]
+    healthcheck:
+      # A real authenticated SQL query, rather than just a listening socket.
+      test: [CMD-SHELL, "PGPASSWORD=password psql --host=127.0.0.1 --username=postgres --tuples-only --command='SELECT current_user' | grep -qx ' postgres'"]
+      interval: 1s
+      timeout: 3s
+      retries: 60

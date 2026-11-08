@@ -54,3 +54,12 @@ msf auxiliary(scanner/redis/file_upload) > run
 [*] 172.17.0.2:6379       - Scanned 1 of 1 hosts (100% complete)
 [*] Auxiliary module execution completed
   ```
+
+## Automated container tests
+
+See the [redis target lab](../../../../../test/module_targets/redis/README.md) for reproducible container setup and
+functional tests. From the repository root:
+
+```sh
+bundle exec ruby tools/dev/run_module_target_tests.rb redis
+```

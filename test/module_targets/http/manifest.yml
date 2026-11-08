@@ -1,0 +1,13 @@
+spec: spec/acceptance/module_targets/http_spec.rb
+expected_examples: 14
+modules:
+  - auxiliary/scanner/http/http_version
+  - auxiliary/scanner/http/title
+  - auxiliary/scanner/http/robots_txt
+  - auxiliary/scanner/http/options
+  - auxiliary/scanner/http/dir_listing
+  - auxiliary/scanner/http/http_header
+  - auxiliary/scanner/http/trace
+  - auxiliary/scanner/http/http_login
+ports:
+  apache: 80

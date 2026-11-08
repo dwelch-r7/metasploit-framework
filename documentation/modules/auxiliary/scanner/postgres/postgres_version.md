@@ -60,3 +60,12 @@ postgres=# SELECT version();
 (1 row)
 
 ```
+
+## Automated container tests
+
+See the [PostgreSQL target lab](../../../../../test/module_targets/postgres/README.md) for container setup and the existing
+protocol session acceptance suite. From the repository root:
+
+```sh
+bundle exec ruby tools/dev/run_module_target_tests.rb postgres
+```

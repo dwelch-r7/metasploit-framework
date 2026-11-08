@@ -56,3 +56,12 @@ PORT    STATE SERVICE  VERSION
 Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 Nmap done: 1 IP address (1 host up) scanned in 13.53 seconds
 ```
+
+## Automated container tests
+
+See the [http target lab](../../../../../test/module_targets/http/README.md) for reproducible container setup and
+functional tests. From the repository root:
+
+```sh
+bundle exec ruby tools/dev/run_module_target_tests.rb http
+```

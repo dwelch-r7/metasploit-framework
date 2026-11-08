@@ -1,0 +1,7 @@
+spec: spec/acceptance/module_targets/memcached_spec.rb
+expected_examples: 4
+modules:
+  - auxiliary/gather/memcached_extractor
+ports:
+  legacy: 11211
+  modern: 11211

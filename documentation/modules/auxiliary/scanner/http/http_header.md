@@ -44,3 +44,12 @@ msf auxiliary(http_header) > run
 msf auxiliary(http_header) > 
 
 ```
+
+## Automated container tests
+
+See the [http target lab](../../../../../test/module_targets/http/README.md) for reproducible container setup and
+functional tests. From the repository root:
+
+```sh
+bundle exec ruby tools/dev/run_module_target_tests.rb http
+```

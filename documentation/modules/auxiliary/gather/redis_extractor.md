@@ -82,3 +82,12 @@ Data from 172.22.12.168:6379    database 0
 [*] Auxiliary module execution completed
 msf auxiliary(gather/redis_extractor) >
 ```
+
+## Automated container tests
+
+See the [redis target lab](../../../../test/module_targets/redis/README.md) for reproducible container setup and
+functional tests. From the repository root:
+
+```sh
+bundle exec ruby tools/dev/run_module_target_tests.rb redis
+```

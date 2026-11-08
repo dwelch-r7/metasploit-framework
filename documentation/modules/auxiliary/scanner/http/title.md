@@ -109,3 +109,12 @@ This will use `grep` to filter for just the content between the title tags.
 # curl -s 127.0.0.1:80 | grep \&lt;title\>
 &lt;title>Apache2 Debian Default Page: It works&lt;/title>
 ```
+
+## Automated container tests
+
+See the [http target lab](../../../../../test/module_targets/http/README.md) for reproducible container setup and
+functional tests. From the repository root:
+
+```sh
+bundle exec ruby tools/dev/run_module_target_tests.rb http
+```

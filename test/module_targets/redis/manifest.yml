@@ -1,0 +1,11 @@
+spec: spec/acceptance/module_targets/redis_spec.rb
+expected_examples: 18
+modules:
+  - auxiliary/scanner/redis/redis_server
+  - auxiliary/scanner/redis/redis_login
+  - auxiliary/gather/redis_extractor
+  - auxiliary/scanner/redis/file_upload
+ports:
+  open: 6379
+  authenticated: 6379
+  modern: 6379

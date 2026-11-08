@@ -1,0 +1,15 @@
+spec: spec/acceptance/postgres_spec.rb
+expected_examples: 9
+modules:
+  - auxiliary/scanner/postgres/postgres_login
+  - auxiliary/scanner/postgres/postgres_hashdump
+  - auxiliary/scanner/postgres/postgres_version
+  - auxiliary/admin/postgres/postgres_readfile
+  - auxiliary/admin/postgres/postgres_sql
+ports:
+  postgres: 5432
+connection_env:
+  postgres: POSTGRES
+support_files:
+  - spec/support/acceptance/protocol_session_shared_context.rb
+  - test/modules/post/test/postgres.rb
