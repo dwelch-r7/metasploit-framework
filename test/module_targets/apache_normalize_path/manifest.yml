@@ -1,0 +1,10 @@
+spec: spec/acceptance/module_targets/apache_normalize_path_spec.rb
+expected_examples: 16
+modules:
+  - auxiliary/scanner/http/apache_normalize_path
+  - exploit/multi/http/apache_normalize_path_rce
+ports:
+  vulnerable49: 80
+  vulnerable50: 80
+  fixed: 80
+  guarded49: 80

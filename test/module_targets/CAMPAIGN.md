@@ -44,7 +44,22 @@ Real Redis 6.2.14 open/authenticated and Redis 7.2.4 protected/permissive/local
 targets reproduced the interface issue. The separate `redis-file-upload-check`
 worktree produced focused fix `2f335268630`, with real before/after verification
 and 17 focused module examples (24 examples including existing loaded support
-specs) passing. Integration and campaign rerun are pending.
+specs) passing. The campaign branch incorporates the fix as `28d429e92c0`.
+The corrected Redis suite subsequently passed all 18 assertions; a final stable
+input run across every current family remains required after harness changes.
+
+### Apache traversal/RCE batch
+
+The second target batch adds both Apache normalization modules, using 2.4.49,
+2.4.50, 2.4.62 and a guarded 2.4.49 configuration. Independent HTTP probes first
+confirmed the actual flaw/configuration. All 16 examples passed, including real
+file reads/loot and two consecutive command, x86 binary and x64 binary executions
+on each affected release. Fresh proof files and temporary-file cleanup were
+checked inside the targets. Four negative controls cover fixed code, guarded
+configuration and the older CVE encoding on 2.4.50. Initial exploit attempts were
+stopped by FileDropper's expected no-session cleanup gate; selecting the payload
+first and explicitly setting AllowNoCleanup corrected the test configuration.
+Reverse payload sessions and TLS remain untested in this family.
 
 ### Investigation queue
 

@@ -1,0 +1,38 @@
+services:
+  vulnerable49:
+    platform: linux/amd64
+    build:
+      context: .
+      args:
+        HTTPD_IMAGE: httpd:2.4.49@sha256:dcba0d12e2362fb0c50ec524ae8aa1cca4a4ba7216617a57e7bbca20767e79cc
+    ports: ["127.0.0.1::80"]
+    healthcheck: &health
+      test: [CMD-SHELL, "httpd -t && kill -0 1"]
+      interval: 1s
+      timeout: 2s
+      retries: 30
+  vulnerable50:
+    platform: linux/amd64
+    build:
+      context: .
+      args:
+        HTTPD_IMAGE: httpd:2.4.50@sha256:b73a8591d3f1f170568b501ce645dc900f8f1c4c697fbc2420cae3502ab5e02c
+    ports: ["127.0.0.1::80"]
+    healthcheck: *health
+  fixed:
+    platform: linux/amd64
+    build:
+      context: .
+      args:
+        HTTPD_IMAGE: httpd:2.4.62@sha256:4c7788695c832bf415a662dfb5160f1895e65fc65c025e85f436ee2c9e7d7f3e
+    ports: ["127.0.0.1::80"]
+    healthcheck: *health
+  guarded49:
+    platform: linux/amd64
+    build:
+      context: .
+      args:
+        HTTPD_IMAGE: httpd:2.4.49@sha256:dcba0d12e2362fb0c50ec524ae8aa1cca4a4ba7216617a57e7bbca20767e79cc
+        ROOT_ACCESS: denied
+    ports: ["127.0.0.1::80"]
+    healthcheck: *health

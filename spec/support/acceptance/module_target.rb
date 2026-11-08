@@ -55,6 +55,14 @@ RSpec.shared_context 'module target' do
     console_command('back')
     selected = console_command("use #{fullname}")
     expect(selected).not_to match(/Failed to load|Unknown command|No results/)
+    # Select the payload before passing payload-specific run options such as CMD.
+    # Otherwise the console validates those options against the default payload.
+    %w[TARGET PAYLOAD].each do |name|
+      next unless options.key?(name)
+
+      configured = console_command("set #{name} #{options.fetch(name)}")
+      expect(configured).not_to match(/Failed|Invalid|not found/)
+    end
     datastore = { 'RHOSTS' => endpoint.fetch('host'), 'RPORT' => endpoint.fetch('port'), 'VERBOSE' => true }.merge(options)
     output = console_command("#{action} #{format_datastore_options(datastore)}")
     expect(output).not_to match(/Exception|undefined method|Unknown command|Msf::OptionValidateError/)

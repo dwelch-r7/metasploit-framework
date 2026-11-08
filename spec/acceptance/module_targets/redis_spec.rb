@@ -93,6 +93,7 @@ RSpec.describe 'Redis module targets' do
     # Redis 7 refuses CONFIG SET dir by default. CONFIG GET alone cannot prove a write.
     expect(target_exec('modern', 'redis-cli', 'CONFIG', 'SET', 'dir', '/tmp')).to include("can't set protected config")
     output = run_target_module('auxiliary/scanner/redis/file_upload', 'modern', { 'PASSWORD' => '' }, action: 'check')
+    expect(output).to include('The target is not exploitable.', 'Redis protected configuration prevents changing dir and dbfilename')
     expect(output).not_to include('The target is vulnerable.')
   end
 

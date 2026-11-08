@@ -221,3 +221,12 @@ msf auxiliary(scanner/http/apache_normalize_path) >
   3. <https://github.com/projectdiscovery/nuclei-templates/blob/master/vulnerabilities/apache/apache-httpd-rce.yaml>
   4. <https://github.com/projectdiscovery/nuclei-templates/commit/9384dd235ec5107f423d930ac80055f2ce2bff74>
   5. <https://attackerkb.com/topics/1RltOPCYqE/cve-2021-41773/rapid7-analysis>
+
+## Automated container tests
+
+See the [Apache normalization target lab](../../../../../test/module_targets/apache_normalize_path/README.md) for affected/fixed
+containers, independent setup probes and automated functional tests:
+
+```sh
+bundle exec ruby tools/dev/run_module_target_tests.rb apache_normalize_path
+```

@@ -26,8 +26,9 @@ Lab password on `authenticated`: `module-test-password`. The file-upload target
 is `/tmp/module-target-upload.rdb` inside the disposable container. Its contents
 must include a known marker; a success message alone is insufficient.
 
-The public file-upload check currently fails on the initial upstream baseline:
-its scanner exposes no check even though the module defines one. This is an
-active regression/investigation case, not a pending example or accepted success.
-See [the campaign record](../CAMPAIGN.md). ACL users, TLS, replication exploits,
+The initial upstream baseline exposed no public file-upload check even though
+the module defined one. The accompanying correction exposes the scanner check,
+reports protected Redis 7 defaults as Safe, and uses Appears for readable settings
+that have not demonstrated a write. See [the campaign record](../CAMPAIGN.md).
+ACL users, TLS, replication exploits,
 large/fragmented responses and extraction limits remain to be covered.

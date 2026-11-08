@@ -39,7 +39,8 @@ independent fixture preflight, target logs and raw console output first.
   health checks and optional source-built images. Pin versions and image digests.
 - `test/module_targets/<family>/manifest.yml`: acceptance spec path, expected
   example count, module fullnames and service ports. Several modules may share
-  one target family.
+  one target family. `connection_env` maps services to an existing protocol
+  suite's environment-variable prefix, avoiding duplicate suites.
 - `spec/acceptance/module_targets/<family>_spec.rb`: short functional cases,
   independent target validation and assertions on meaningful results.
 - Module documentation links to its family's lab instructions; keep target
