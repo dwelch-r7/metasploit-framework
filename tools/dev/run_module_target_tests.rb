@@ -105,7 +105,7 @@ class ModuleTargetTests
       type, path = fullname.split('/', 2)
       "modules/#{source_types.fetch(type, type)}/#{path}.rb"
     end
-    files = sources + [manifest.fetch('spec'), 'spec/support/acceptance/module_target.rb', 'spec/support/acceptance/child_process.rb', 'tools/dev/run_module_target_tests.rb']
+    files = sources + [manifest.fetch('spec'), 'spec/support/acceptance/module_target.rb', 'spec/support/acceptance/child_process.rb', 'lib/msf/core/modules/metadata/store.rb', 'tools/dev/run_module_target_tests.rb']
     files += CONSOLE_BUILD_FILES + %w[Dockerfile test/module_targets/framework.compose.yaml] if manifest['console']
     files += manifest.fetch('support_files', [])
     files += Dir[File.join(TARGETS, family, '**/*')].select { |path| File.file?(path) }.map { |path| path.delete_prefix("#{ROOT}/") }
@@ -145,7 +145,20 @@ class ModuleTargetTests
 
           [service, { 'host' => '127.0.0.1', 'port' => binding.split(':').last.to_i }]
         end
-        runtime = { 'compose' => compose, 'endpoints' => endpoints, 'artifacts' => directory }
+        cache = File.join(@results, '.metadata-cache', manifest['console'] ? 'container' : 'native')
+        config = File.join(directory, 'msf-config')
+        FileUtils.mkdir_p(File.join(config, 'store'))
+        cached_files = Dir[File.join(cache, '*.json')]
+        unless cached_files.empty?
+          seed = File.join(directory, 'metadata-seed')
+          FileUtils.mkdir_p(seed)
+          cached_files.each do |path|
+            FileUtils.cp(path, File.join(config, 'store'), preserve: true)
+            FileUtils.cp(path, seed, preserve: true)
+          end
+          result[:metadata_cache_seed_sha256] = cached_files.to_h { |path| [File.basename(path), Digest::SHA256.file(path).hexdigest] }
+        end
+        runtime = { 'compose' => compose, 'endpoints' => endpoints, 'artifacts' => directory, 'metadata_cache' => cache }
         if manifest['console']
           runtime['module_endpoints'] = manifest.fetch('ports').to_h do |service, port|
             [service, { 'host' => container_ip(compose, service), 'port' => port }]
@@ -156,7 +169,7 @@ class ModuleTargetTests
         File.write(File.join(directory, 'runtime.json'), JSON.pretty_generate(runtime))
         env = manifest.fetch('test_env', {}).merge(
           'MODULE_TARGET_RUNTIME' => File.join(directory, 'runtime.json'),
-          'MSF_CFGROOT_CONFIG' => File.join(directory, 'msf-config'),
+          'MSF_CFGROOT_CONFIG' => config,
           'SPEC_HELPER_LOAD_METASPLOIT' => 'false',
           'SPEC_OPTS' => '--tag acceptance'
         )

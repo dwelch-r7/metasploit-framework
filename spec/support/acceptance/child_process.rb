@@ -5,6 +5,7 @@ require 'tempfile'
 require 'fileutils'
 require 'timeout'
 require 'shellwords'
+require 'json'
 require_relative 'datastore_formatting'
 
 module Acceptance
@@ -490,6 +491,7 @@ module Acceptance
       @console = Console.new(command: @console_command)
       @console.run
       @console.recvuntil(Console.prompt, timeout: 120)
+      cache_target_metadata if ENV['MODULE_TARGET_RUNTIME']
 
       @console
     end
@@ -507,6 +509,30 @@ module Acceptance
     end
 
     private
+
+    def cache_target_metadata
+      @console.sendline(%q{irb -e 'puts "MODULE_TARGET_BOOT=" + {config: Msf::Config.config_directory, metadata: [Msf::Modules::Metadata::Store::UserMetaDataFile, Msf::Modules::Metadata::Store::CacheMetaDataFile]}.to_json'})
+      output = @console.recvuntil(Console.prompt)
+      boot = JSON.parse(output.to_s[/^MODULE_TARGET_BOOT=(\{.*\})\r?$/, 1] || '{}')
+      config = ENV.fetch('MSF_CFGROOT_CONFIG')
+      raise "Console configuration isolation failed: #{output}" unless boot['config'] == config
+
+      runtime = JSON.parse(File.read(ENV.fetch('MODULE_TARGET_RUNTIME')))
+      return unless runtime['metadata_cache']
+
+      # Copy only the framework-owned source metadata, before any test loadpath
+      # or module can add state. Keep checksum validation enabled so changed
+      # source still triggers Framework's normal refresh on the next bootstrap.
+      destination = runtime.fetch('metadata_cache')
+      FileUtils.mkdir_p(destination)
+      boot.fetch('metadata').each do |name|
+        raise "Unexpected metadata filename: #{name}" unless File.basename(name) == name && name.end_with?('.json')
+
+        source = File.join(config, 'store', name)
+        JSON.parse(File.read(source))
+        FileUtils.cp(source, destination, preserve: true)
+      end
+    end
 
     def close_processes(processes)
       while (process = processes.pop)

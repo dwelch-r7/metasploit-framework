@@ -1,5 +1,6 @@
 spec: spec/acceptance/ssh_spec.rb
 expected_examples: 2
+console: true
 modules:
   - auxiliary/scanner/ssh/ssh_login
   - auxiliary/scanner/ssh/ssh_version

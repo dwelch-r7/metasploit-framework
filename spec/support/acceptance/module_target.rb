@@ -2,6 +2,7 @@
 
 require 'json'
 require 'open3'
+require 'base64'
 
 RSpec.shared_context 'module target' do
   include Acceptance::DatastoreFormatting
@@ -10,15 +11,7 @@ RSpec.shared_context 'module target' do
     JSON.parse(File.read(ENV.fetch('MODULE_TARGET_RUNTIME')))
   end
   let_it_be(:driver) { Acceptance::ConsoleDriver.new(console_command: target_runtime['console_command']) }
-  let_it_be(:console) do
-    instance = driver.open_console
-    instance.sendline(%q{irb -e 'puts "MODULE_TARGET_CONFIG=" + Msf::Config.config_directory'})
-    output = instance.recvuntil(Acceptance::Console.prompt)
-    expected = "MODULE_TARGET_CONFIG=#{ENV.fetch('MSF_CFGROOT_CONFIG')}"
-    raise "Console configuration isolation failed: #{output}" unless output&.include?(expected)
-
-    instance
-  end
+  let_it_be(:console) { driver.open_console }
 
   after(:all) do
     driver.close
@@ -41,10 +34,13 @@ RSpec.shared_context 'module target' do
 
   def target_exec(service, *arguments, expected_exit: 0)
     output, status = Open3.capture2e(*target_runtime.fetch('compose'), 'exec', '-T', service, *arguments)
+    text = output.dup.force_encoding(Encoding::UTF_8)
+    encoding = text.valid_encoding? ? 'utf-8' : 'base64'
+    recorded_output = encoding == 'utf-8' ? text : Base64.strict_encode64(output)
     File.open(File.join(target_runtime.fetch('artifacts'), 'native-commands.jsonl'), 'a') do |log|
-      log.puts(JSON.generate(service: service, argv: arguments, exitstatus: status.exitstatus, output: output))
+      log.puts(JSON.generate(service: service, argv: arguments, exitstatus: status.exitstatus, output_encoding: encoding, output: recorded_output))
     end
-    raise "Fixture command failed: #{service} #{arguments.inspect}: #{output}" unless status.exitstatus == expected_exit
+    raise "Fixture command failed: #{service} #{arguments.inspect} (#{encoding} output): #{recorded_output}" unless status.exitstatus == expected_exit
 
     output
   end

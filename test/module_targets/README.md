@@ -47,6 +47,15 @@ without publishing a listener. Independent host probes still use random loopback
 ports. Container inspection retains image IDs and native health-check output;
 native fixture exec commands are recorded in `native-commands.jsonl`.
 
+Within one invocation, the runner also reuses Framework's two source-metadata
+JSON files between families with the same console mode. They are captured before
+tests add loadpaths or run modules, and copied into each fresh configuration
+directory. Native and container caches are separate because their source paths
+differ. Framework performs its normal checksum validation, and the runner records
+the tested input SHA256 values. Seed files and their hashes are retained under
+each family's `metadata-seed/` directory. A new invocation starts with a cold
+metadata cache; settings, credentials and session state are never copied.
+
 ## Layout and contribution contract
 
 - `test/module_targets/<family>/compose.yaml`: real targets, configuration,
