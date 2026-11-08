@@ -1,0 +1,6 @@
+services:
+  mssql:
+    extends:
+      file: ../mssql2022/compose.yaml
+      service: mssql
+    image: mcr.microsoft.com/mssql/server:2019-latest@sha256:07d7dedecdbfcf6776035dc5eefb5bfd9aa1804b2f6b99f7dedb397d8a599069

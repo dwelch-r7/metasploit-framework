@@ -240,9 +240,10 @@ msf auxiliary(scanner/mssql/mssql_login) >
 
 ## Automated container tests
 
-See the [mssql2022 target lab](../../../../../test/module_targets/mssql2022/README.md) for a managed real service,
-native preflight and functional acceptance tests. From the repository root:
+The [SQL Server 2022 lab](../../../../../test/module_targets/mssql2022/README.md) and
+[SQL Server 2019 lab](../../../../../test/module_targets/mssql2019/README.md) share native
+preflight and functional acceptance tests. From the repository root:
 
 ```sh
-bundle exec ruby tools/dev/run_module_target_tests.rb mssql2022
+bundle exec ruby tools/dev/run_module_target_tests.rb mssql2022 mssql2019
 ```
