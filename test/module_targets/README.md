@@ -94,6 +94,12 @@ operating system. Keep uncertain modules in the review queue.
 
 ## Campaign queue
 
+Individual source-reviewed target requirements live in `reviews.yml`, with a
+source SHA-256 and concrete reason. The inventory marks a decision stale when
+its source changes. A separate kernel, OS or device requirement does not mean
+the module is broken or universally untestable; it identifies work that cannot
+be qualified by a generic service container. Unreviewed modules stay pending.
+
 ```sh
 ruby tools/dev/module_target_inventory.rb
 ruby tools/dev/module_target_inventory.rb --json > tmp/module-target-inventory.json

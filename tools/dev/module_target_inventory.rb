@@ -13,11 +13,12 @@ registered = labs.each_with_object({}) do |path, result|
     (result[fullname] ||= []) << File.basename(File.dirname(path))
   end
 end
+reviews = YAML.safe_load_file(File.join(root, 'test/module_targets/reviews.yml')).fetch('modules')
 types = { 'exploits' => 'exploit', 'payloads' => 'payload', 'encoders' => 'encoder', 'nops' => 'nop' }
 inventory = Dir[File.join(root, 'modules/**/*.{rb,py,go}')].map do |path|
   relative = path.delete_prefix("#{root}/")
   language = File.extname(path).delete_prefix('.')
-  source = File.read(path)
+  source = File.binread(path)
   parts = relative.delete_prefix('modules/').delete_suffix(".#{language}").split('/')
   parts[0] = types.fetch(parts[0], parts[0])
   source_reference = parts.join('/')
@@ -35,18 +36,30 @@ inventory = Dir[File.join(root, 'modules/**/*.{rb,py,go}')].map do |path|
   document ||= ''
   doc_path = File.join(root, document)
   documentation = File.file?(doc_path) ? File.read(doc_path) : ''
+  digest = Digest::SHA256.hexdigest(source)
+  review = reviews[fullname]
+  review_state = if review && review.fetch('source_sha256') != digest
+                   'review_stale'
+                 elsif registered.key?(fullname)
+                   'registered_not_proof_of_pass'
+                 elsif review
+                   review.fetch('disposition')
+                 else
+                   'pending_review'
+                 end
   {
     fullname: fullname,
     source_reference: source_reference,
     source: relative,
     language: language,
     source_role: source_role,
-    source_sha256: Digest::SHA256.hexdigest(source),
+    source_sha256: digest,
     documentation: File.file?(doc_path) ? document : nil,
     documented_container_hint: documentation.match?(/docker|podman|container|compose/i),
     check_implementation: source.match?(/^\s*def check(?:_host)?\b/),
     labs: registered.fetch(fullname, []),
-    review_state: registered.key?(fullname) ? 'registered_not_proof_of_pass' : 'pending_review'
+    feasibility_review: review,
+    review_state: review_state
   }
 end
 if ARGV == ['--json']
@@ -56,6 +69,7 @@ elsif ARGV.empty?
   puts "By language: #{inventory.group_by { |entry| entry[:language] }.transform_values(&:length)}"
   puts "Registered in a lab: #{inventory.count { |entry| !entry[:labs].empty? }}"
   puts "Documentation mentions containers: #{inventory.count { |entry| entry[:documented_container_hint] }}"
+  puts "Individual target reviews: #{inventory.count { |entry| entry[:feasibility_review] }} (#{inventory.count { |entry| entry[:review_state] == 'review_stale' }} stale)"
   puts 'Prioritize existing reproducible labs, reusable service families, then version-specific applications.'
   puts 'Container hints require review; missing hints do not establish infeasibility.'
   puts 'Use --json for the complete queue, including source digests to identify changed modules.'
