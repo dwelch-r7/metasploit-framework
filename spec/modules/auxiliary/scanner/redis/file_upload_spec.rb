@@ -141,4 +141,101 @@ RSpec.describe 'Redis File Upload' do
       mod.run_host(ip)
     end
   end
+
+  describe '#send_file' do
+    let(:temporary_key) { 'module-upload-key' }
+    let(:save_error) { '-ERR' }
+
+    before do
+      mod.datastore['RHOSTS'] = ip
+      allow(Rex::Text).to receive(:rand_text_alpha).with(32).and_return(temporary_key)
+      allow(mod).to receive(:redis_command).with('CONFIG', 'GET', 'dir').and_return("*2\r\n$3\r\ndir\r\n$5\r\n/data")
+      allow(mod).to receive(:redis_command).with('CONFIG', 'GET', 'rdbcompression').and_return("*2\r\n$14\r\nrdbcompression\r\n$3\r\nyes")
+      allow(mod).to receive(:redis_command).with('CONFIG', 'SET', anything, anything).and_return('+OK')
+      allow(mod).to receive(:redis_command).with('SET', temporary_key, 'file content').and_return('+OK')
+      allow(mod).to receive(:redis_command).with('SETNX', temporary_key, 'file content').and_return(':1')
+      allow(mod).to receive(:redis_command).with('DEL', temporary_key).and_return(':1')
+      allow(mod).to receive(:redis_command).with('SAVE').and_return('+OK')
+    end
+
+    context 'when saving the uploaded file fails' do
+      before do
+        allow(mod).to receive(:redis_command).with('SAVE').and_return(save_error)
+      end
+
+      it 'restores the snapshot directory' do
+        expect(mod).to receive(:redis_command).with('CONFIG', 'SET', 'dir', '/data').and_return('+OK')
+        mod.send_file('/proc/upload.rdb', 'file content')
+      end
+
+      it 'restores the snapshot filename' do
+        expect(mod).to receive(:redis_command).with('CONFIG', 'SET', 'dbfilename', 'dump.rdb').and_return('+OK')
+        mod.send_file('/proc/upload.rdb', 'file content')
+      end
+
+      it 'restores compression' do
+        expect(mod).to receive(:redis_command).with('CONFIG', 'SET', 'rdbcompression', 'yes').and_return('+OK')
+        mod.send_file('/proc/upload.rdb', 'file content')
+      end
+
+      it 'deletes only the temporary key' do
+        expect(mod).to receive(:redis_command).with('DEL', temporary_key).and_return(':1')
+        mod.send_file('/proc/upload.rdb', 'file content')
+      end
+
+      it 'reports the actual save error' do
+        expect(mod).to receive(:print_error).with(include('Failed to save', save_error))
+        mod.send_file('/proc/upload.rdb', 'file content')
+      end
+
+      it 'continues cleanup after a configuration restore error' do
+        allow(mod).to receive(:redis_command).with('CONFIG', 'SET', 'dir', '/data').and_raise(Rex::ConnectionRefused)
+        expect(mod).to receive(:redis_command).with('DEL', temporary_key).and_return(':1')
+        mod.send_file('/proc/upload.rdb', 'file content')
+      end
+    end
+
+    it 'restores configuration if setting the destination filename fails' do
+      allow(mod).to receive(:redis_command).with('CONFIG', 'SET', 'dbfilename', '..').and_return('-ERR Invalid filename')
+      expect(mod).to receive(:redis_command).with('CONFIG', 'SET', 'dir', '/data').and_return('+OK')
+      mod.send_file('/tmp/..', 'file content')
+    end
+
+    it 'does not delete an existing key when temporary key creation is rejected' do
+      allow(mod).to receive(:redis_command).with('SETNX', temporary_key, 'file content').and_return(':0')
+      expect(mod).not_to receive(:redis_command).with('DEL', temporary_key)
+      mod.send_file('/tmp/upload.rdb', 'file content')
+    end
+
+    it 'does not mutate target settings when the original configuration is unavailable' do
+      allow(mod).to receive(:redis_command).with('CONFIG', 'GET', 'dir').and_return(nil)
+      expect(mod).not_to receive(:redis_command).with('CONFIG', 'SET', anything, anything)
+      mod.send_file('/tmp/upload.rdb', 'file content')
+    end
+
+    it 'leaves compression alone when disabling it was not requested' do
+      mod.datastore['DISABLE_RDBCOMPRESSION'] = false
+      expect(mod).not_to receive(:redis_command).with('CONFIG', 'GET', 'rdbcompression')
+      mod.send_file('/tmp/upload.rdb', 'file content')
+    end
+
+    it 'leaves compression alone when it is already disabled' do
+      allow(mod).to receive(:redis_command).with('CONFIG', 'GET', 'rdbcompression').and_return("*2\r\n$14\r\nrdbcompression\r\n$2\r\nno")
+      expect(mod).not_to receive(:redis_command).with('CONFIG', 'SET', 'rdbcompression', anything)
+      mod.send_file('/tmp/upload.rdb', 'file content')
+    end
+
+    it 'persists the cleaned dataset only after a successful upload and key removal' do
+      expect(mod).to receive(:redis_command).with('SAVE').ordered.and_return('+OK')
+      expect(mod).to receive(:redis_command).with('DEL', temporary_key).ordered.and_return(':1')
+      expect(mod).to receive(:redis_command).with('SAVE').ordered.and_return('+OK')
+      mod.send_file('/tmp/upload.rdb', 'file content')
+    end
+
+    it 'does not persist a temporary key when cleanup cannot remove it' do
+      allow(mod).to receive(:redis_command).with('DEL', temporary_key).and_return('-NOPERM Permission denied')
+      expect(mod).to receive(:redis_command).with('SAVE').once.and_return('+OK')
+      mod.send_file('/tmp/upload.rdb', 'file content')
+    end
+  end
 end

