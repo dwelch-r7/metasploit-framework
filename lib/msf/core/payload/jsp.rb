@@ -160,9 +160,11 @@ module Msf::Payload::JSP
 
   # Wraps the jsp payload into a war
   #
+  # @param opts [Hash] archive options forwarded by EncodedPayload
+  # @option opts [String] :jsp_name JSP basename without the .jsp extension; defaults to random
   # @return [Rex::Zip::Jar] a war to execute the jsp payload
-  def generate_war
-    jsp_name = "#{Rex::Text.rand_text_alpha_lower(rand(8)+8)}.jsp"
+  def generate_war(opts = {})
+    jsp_name = "#{opts[:jsp_name] || Rex::Text.rand_text_alpha_lower(rand(8..15))}.jsp"
 
     zip = Rex::Zip::Jar.new
 
