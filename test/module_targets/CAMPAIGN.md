@@ -65,6 +65,13 @@ The current cumulative checkpoint is **47 modules, thirteen families, 161 cases*
 Its documented SYS_ADMIN requirement was established by native provisioning
 failure without that capability and success with the original fixture setting.
 
+Axis2 then passed twelve cases on the original 1.4.1 and 1.6.2 applications,
+including eight real Java Meterpreter/command-shell sessions with default Spawn=2.
+FTP passed thirteen cases across anonymous read/write, read-only and denied
+policies, including PASV/EPSV listing loot and repeated cleanup. These passing
+profiles bring cumulative coverage to **53 modules, fifteen families, 186 cases**.
+A combined fifteen-family regression is running; SMTP is a separate new profile.
+
 ## November 8 baseline findings
 
 | Family | Functional result | Scope |
@@ -133,8 +140,12 @@ Reverse payload sessions and TLS remain untested in this family.
   Java session cases now pass with explicit Meterpreter Spawn=0; default Spawn=2
   remains intermittent and unqualified. Deferred WAR cleanup fixed actual
   in-process class-loading failures but did not resolve the default Spawn=2 path.
-  Neither SIGPIPE/JDK options nor a generic undeployment race has been proven
-  to explain those remaining failures.
+  Later same-JVM native controls and strace established a separate failure in
+  metasploit-payloads 2.0.257: a spawned Java17 launcher writes its inherited
+  JDK_JAVA_OPTIONS diagnostic to a pipe the parent already closed, then dies
+  with SIGPIPE. A source-backed external candidate passed eight default2
+  sessions; it is not integrated or production-qualified. Its thread/loader
+  lifecycle and broader compatibility require owning-repository review.
 - SQL Server 2022: all 15 cases passed, including independent native hash equality,
   schema results and real session/direct-host queries. Extend authentication,
   restricted roles and version boundaries; this Linux target does not prove
@@ -145,6 +156,16 @@ Reverse payload sessions and TLS remain untested in this family.
   fixture does not qualify a complete Windows AD controller, Kerberos, TLS or
   state-changing actions. Its original extra capability is retained for native
   domain provisioning; no host cluster or live directory is used.
+- Axis2: login, actual configuration LFI on 1.4.1, rejection on 1.6.2 and Java
+  deployment all passed. Both Meterpreter and command-shell deliveries ran twice
+  per version with actual command proof and restored files/service registry.
+  Native Windows/Linux executable targets, SAP BusinessObjects, TLS and restricted
+  accounts remain unqualified. The native target branch currently constructs
+  upload contents only for Java; that source observation needs a real regression
+  before it is classified as a defect.
+- FTP: three modules passed thirteen cases on ProFTPD 1.3.7c. Native controls
+  established each permission mode; framework banner normalization is intentional.
+  Extend TLS, active-mode data, other servers and credential persistence.
 - Executable generators: separate owner controls found failures in Mac x86
   explicit Mach-O signing and Linux x86 custom ELF templates. These are deferred
   generator issues, separate from the corrected EncodedPayload argument order;
@@ -160,6 +181,10 @@ Reverse payload sessions and TLS remain untested in this family.
 - Expand through reusable network service and web application families.
 - Review post modules using suitable real sessions and cover declared types.
 - Review other module categories and record justified exclusions individually.
+- Three source-hashed reviews now identify separate Linux-kernel, macOS and Xerox
+  device/firmware requirements in `reviews.yml`; these do not establish universal
+  infeasibility. Existing Kubernetes fixtures require a host cluster and are not
+  a self-contained lab; create an isolated cluster before qualifying those modules.
 - Investigate failures with target evidence before classifying module defects.
 - Repeat meaningful state-changing paths and retain concise evidence summaries.
 

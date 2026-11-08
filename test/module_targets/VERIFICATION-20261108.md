@@ -356,3 +356,75 @@ Four module-document links introduce no new msftidy_docs diagnostics; the
 existing Shadow Credentials document's CRLF content was preserved. This
 LDAP-only fixture deliberately lacks full AD service advertisement and does not
 qualify Windows AD, Kerberos, TLS, replication or state-changing actions.
+
+## Tomcat default Spawn=2 diagnosis
+
+Later native controls reproduced the distinction missed by earlier cold-JVM
+experiments. Four payload calls from one long-lived JVM produced one connection
+with the released class and inherited Catalina JDK_JAVA_OPTIONS, versus four
+when that variable was cleared or Spawn=0 was selected. strace independently
+captured a spawned Java17 process writing its startup diagnostic to an already
+closed stderr pipe, receiving EPIPE and dying from SIGPIPE; parent wait4 confirmed
+the signal. This establishes a cause in this fixture, not a universal Java fault.
+
+The owning source is metasploit-payloads Payload.java. Its clean 2.0.257 source
+at `74c28abb12135ad7dbdcdca2e934f414701f3c30` rebuilt to the exact installed class
+SHA-256. A Java5-compatible experimental candidate drains output pipes instead
+of closing them immediately. Warm baseline/candidate/release-recheck controls
+gave **1/4, 4/4, 1/4** connections. Native Java8 controls passed for both classes.
+
+The candidate also passed eight real default2 Meterpreter executions, four per
+Manager API, with fresh native proof files and restored app/files state. It used
+the existing per-run payload override, asserted the loaded class SHA and retained
+the target's original Java options. No installed gem, production default or
+external repository source was changed. Candidate source, patch, build commands,
+native controls and baseline/trace/functional evidence are preserved locally in
+`tmp/tomcat-spawn-evidence/`.
+
+This candidate is not production-qualified: Tomcat reports running threads at
+undeploy, and long-lived class-loader cleanup, Java5 runtime, SecurityManager
+policies, other platforms/transports and owning-repository tests remain open.
+An owning payload release and fresh integrated qualification are needed. The
+routine Framework lab continues to select explicit Spawn=0 and retains the
+default2 diagnostic. No experimental binary or external fix was committed.
+
+## Axis2 and FTP additions
+
+Axis2 1.4.1 and 1.6.2, original checksum-verified Apache WAR distributions on
+pinned Tomcat/Java8, passed **twelve cases** in 176.57 seconds. Evidence:
+`tmp/module-target-tests/20261108T232925-174571/axis2/`. Native controls establish
+valid/invalid administration credentials and actual configuration disclosure on
+1.4.1 versus rejection of the identical path on 1.6.2. Module HTTP traces must
+show that path; a generic 404 cannot satisfy the negative case.
+
+Both Java Meterpreter and command-shell payloads ran twice per release using
+default Spawn=2: eight sessions, each with a fresh native file proving command
+execution. Uploaded archives and Axis2's asynchronously refreshed service list
+returned to baseline. Rejected deployment credentials must leave archives
+unchanged. Input hashes, exact counts, zero pending/outside errors and cleanup
+passed. No Windows/Linux native payload, SAP BusinessObjects, TLS or restricted
+account qualification is claimed.
+
+Initial Axis2 test corrections were kept separate from module defects: an
+incorrect Ruby keyword argument prevented one LFI invocation; stale service-list
+entries needed bounded native cleanup polling; handler-disabled negative cases
+needed explicit AllowNoCleanup to reach authentication. The final complete
+profile was rerun after these corrections.
+
+FTP passed **thirteen cases** on ProFTPD 1.3.7c. The corrected initial run took
+54.46 seconds at `tmp/module-target-tests/20261108T232925-174571/ftp/`; the combined
+regression also includes explicit native version capture. Three independently
+verified targets permit anonymous read/write, read-only or no access. Tests cover
+the product banner, public login check, valid/invalid local credentials, anonymous
+credential collection, access checks, FEAT/STAT/SYST and actual listing loot.
+PASV and EPSV are both exercised. State-changing paths run twice and leave only
+the original marker file. TLS, active data mode and database persistence remain
+unqualified.
+
+The first FTP module run had two over-specific banner assertions; Framework
+intentionally normalizes the native ProFTPD banner to its product name. Eleven
+other examples passed. Native fixture issues (an unavailable directive, a rejected
+symlink log path and the distribution's default welcome file) were resolved
+before module qualification; they are not module failures. The cumulative passing
+profiles total **53 modules, fifteen families and 186 cases**. The new nine-case
+SMTP profile and combined fifteen-family regression are still separate work.

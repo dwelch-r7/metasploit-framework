@@ -16,7 +16,11 @@ API WAR deployment. Java Meterpreter and JSP command-shell payloads must open re
 sessions and execute a command, with two consecutive exploits per delivery path.
 Java Meterpreter uses the explicitly configured `Spawn=0` in-process profile;
 the module/payload defaults are unchanged. The default `Spawn=2` profile has an
-intermittent no-session failure under investigation. To reproduce that diagnostic:
+intermittent no-session failure in the bundled payload's Java spawning path.
+Same-JVM native controls and strace captured a Java17 startup diagnostic writing
+to an already-closed stderr pipe and dying with SIGPIPE. An external source fix
+candidate passed repeated sessions but still needs thread/lifecycle and broader
+qualification in metasploit-payloads. To reproduce the released-payload diagnostic:
 
 ```sh
 TOMCAT_JAVA_SPAWN=2 bundle exec ruby tools/dev/run_module_target_tests.rb tomcat
