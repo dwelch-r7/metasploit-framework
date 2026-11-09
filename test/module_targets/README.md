@@ -204,3 +204,5 @@ Every selected count, recorded hash and owned teardown passes. Ansible/Erlang
 execution and WordPress admin remain separate qualification work.
 The full campaign remains incomplete while feasible, valuable modules await review
 or functional verification.
+See [deferred investigations](DEFERRED.md) for retained failures that remain
+unqualified after bounded investigation.

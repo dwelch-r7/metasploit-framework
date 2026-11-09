@@ -534,6 +534,12 @@ selected checkpoint is **119 modules, 53 families and 746 cases**; see the
 Ansible/Erlang execution and WordPress admin remain unqualified; genuine Solr
 delivery is under separate native preparation.
 
+Ansible node deployment is now deferred with a checksum-verified diagnostic
+checkpoint. Raw split-profile green counters were rejected after a positive
+operator abort; a final redirected native comparison does not explain the
+ordinary markerless call. No experimental module or shared-helper repair is
+integrated. See [the deferred finding](DEFERRED.md#ansible-node-deployment).
+
 ## Remaining work
 
 - Review existing protocol suites and supply reusable managed containers.
