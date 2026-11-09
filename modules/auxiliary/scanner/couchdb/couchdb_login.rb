@@ -57,32 +57,14 @@ class MetasploitModule < Msf::Auxiliary
     user = datastore['HttpUsername'].to_s
     pass = datastore['HttpPassword'].to_s
 
-    if user.nil? || user.strip == ''
-      each_user_pass do |u, p|
-        do_login(u, p)
+    if user.strip.empty?
+      each_user_pass do |username, password|
+        do_login(username, password)
       end
-      return
+    else
+      do_login(user, pass)
     end
-
-    vprint_status("#{Rex::Socket.to_authority(rhost, rport)} - Trying to login with '#{user}' : '#{pass}'")
-
-    uri = target_uri.path
-
-    res = send_request_cgi({
-      'uri' => normalize_uri(uri, '_users/_all_docs'),
-      'method' => 'GET',
-      'authorization' => basic_auth(user, pass)
-    })
-
-    return if res.nil?
-    return if res.headers['Server'].nil? || res.headers['Server'] !~ /CouchDB/
-    return if res.code == 404
-
-    if [200, 301, 302].include?(res.code)
-      vprint_good("#{Rex::Socket.to_authority(rhost, rport)} - Successful login with '#{user}' : '#{pass}'")
-    end
-  rescue ::Rex::ConnectionError
-    vprint_error("'#{rhost}':'#{rport}' - Failed to connect to the web server")
+    nil
   end
 
   def report_cred(opts)
@@ -104,7 +86,7 @@ class MetasploitModule < Msf::Auxiliary
 
     login_data = {
       core: create_credential(credential_data),
-      status: Metasploit::Model::Login::Status::UNTRIED,
+      status: Metasploit::Model::Login::Status::SUCCESSFUL,
       proof: opts[:proof]
     }.merge(service_data)
 
@@ -114,10 +96,11 @@ class MetasploitModule < Msf::Auxiliary
   def do_login(user, pass)
     vprint_status("Trying username:'#{user}' with password:'#{pass}'")
 
+    # User records require admin privileges; the identity endpoint validates
+    # ordinary accounts too: https://docs.couchdb.org/en/stable/api/server/authn.html#session
     res = send_request_cgi({
-      'uri' => normalize_uri(target_uri.path, '_users/_all_docs'),
+      'uri' => normalize_uri(target_uri.path, '_session'),
       'method' => 'GET',
-      'ctype' => 'text/plain',
       'authorization' => basic_auth(user, pass)
     })
 
@@ -128,6 +111,12 @@ class MetasploitModule < Msf::Auxiliary
 
     return :skip_pass unless res.code == 200
 
+    document = res.get_json_document
+    return :skip_pass unless document.is_a?(Hash) && document['ok'] == true
+
+    identity = document['userCtx']
+    return :skip_pass unless identity.is_a?(Hash) && !user.to_s.empty? && identity['name'] == user
+
     print_good("#{peer} - Successful login with: '#{user}' : '#{pass}'")
 
     report_cred(
@@ -136,15 +125,13 @@ class MetasploitModule < Msf::Auxiliary
       service_name: 'couchdb',
       user: user,
       password: pass,
-      proof: res.code.to_s
+      proof: res.body
     )
 
     :next_user
-  rescue ::Rex::ConnectionError, ::Errno::ECONNREFUSED, ::Errno::ETIMEDOUT
+  rescue ::Rex::ConnectionError, ::Errno::ECONNREFUSED, ::Errno::ETIMEDOUT => e
+    elog('CouchDB authentication request failed', error: e)
     print_error('HTTP connection failed, aborting')
     return :abort
-  rescue StandardError => e
-    print_error("Error: #{e}")
-    return nil
   end
 end

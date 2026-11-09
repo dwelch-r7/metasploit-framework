@@ -1,0 +1,66 @@
+{
+  "administrator_session": {
+    "code": 200,
+    "headers": {
+      "Server": "CouchDB/3.3.1 (Erlang OTP/24)",
+      "Content-Type": "application/json"
+    },
+    "body": "{\"ok\":true,\"userCtx\":{\"name\":\"labadmin\",\"roles\":[\"_admin\"]},\"info\":{\"authentication_handlers\":[\"cookie\",\"default\"],\"authenticated\":\"default\"}}\n"
+  },
+  "reader_session": {
+    "code": 200,
+    "headers": {
+      "Server": "CouchDB/3.3.1 (Erlang OTP/24)",
+      "Content-Type": "application/json"
+    },
+    "body": "{\"ok\":true,\"userCtx\":{\"name\":\"labreader\",\"roles\":[]},\"info\":{\"authentication_handlers\":[\"cookie\",\"default\"],\"authenticated\":\"default\"}}\n"
+  },
+  "administrator_users": {
+    "code": 200,
+    "headers": {
+      "Server": "CouchDB/3.3.1 (Erlang OTP/24)",
+      "Content-Type": "application/json"
+    },
+    "body": "{\"total_rows\":2,\"offset\":0,\"rows\":[\r\n{\"id\":\"_design/_auth\",\"key\":\"_design/_auth\",\"value\":{\"rev\":\"1-753ae0157a8b1a22339f3c0ef4f1bf19\"}},\r\n{\"id\":\"org.couchdb.user:labreader\",\"key\":\"org.couchdb.user:labreader\",\"value\":{\"rev\":\"1-0deabf6de72d6e3d85f429fccefa0521\"}}\r\n]}\n"
+  },
+  "reader_users": {
+    "code": 401,
+    "headers": {
+      "Server": "CouchDB/3.3.1 (Erlang OTP/24)",
+      "Content-Type": "application/json"
+    },
+    "body": "{\"error\":\"unauthorized\",\"reason\":\"You are not a server admin.\"}\n"
+  },
+  "wrong_session": {
+    "code": 401,
+    "headers": {
+      "Server": "CouchDB/3.3.1 (Erlang OTP/24)",
+      "Content-Type": "application/json"
+    },
+    "body": "{\"error\":\"unauthorized\",\"reason\":\"Name or password is incorrect.\"}\n"
+  },
+  "wrong_users": {
+    "code": 401,
+    "headers": {
+      "Server": "CouchDB/3.3.1 (Erlang OTP/24)",
+      "Content-Type": "application/json"
+    },
+    "body": "{\"error\":\"unauthorized\",\"reason\":\"Name or password is incorrect.\"}\n"
+  },
+  "anonymous_session": {
+    "code": 200,
+    "headers": {
+      "Server": "CouchDB/3.3.1 (Erlang OTP/24)",
+      "Content-Type": "application/json"
+    },
+    "body": "{\"ok\":true,\"userCtx\":{\"name\":null,\"roles\":[]},\"info\":{\"authentication_handlers\":[\"cookie\",\"default\"]}}\n"
+  },
+  "unrelated_session": {
+    "code": 200,
+    "headers": {
+      "Server": "Apache/2.4.62 (Unix)",
+      "Content-Type": "text/html"
+    },
+    "body": "<!doctype html><html><head><title>Module target &amp; Apache</title></head><body>module-target-http-marker</body></html>\n"
+  }
+}
