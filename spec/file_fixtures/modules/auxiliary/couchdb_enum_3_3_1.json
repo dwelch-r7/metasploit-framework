@@ -1,0 +1,79 @@
+{
+  "origin": {
+    "image": "couchdb:3.3.1@sha256:04d9b3ef9406112a9903484fbbaf1497e1b5fce892bd214e1135565ab97aa48b",
+    "capture": "Native Net::HTTP controls on November 9, 2026; public disposable fixture accounts only",
+    "paths": [
+      "/",
+      "/_all_dbs",
+      "/module_evidence/_all_docs?include_docs=true&attachments=true"
+    ]
+  },
+  "server_info": {
+    "couchdb": "Welcome",
+    "version": "3.3.1",
+    "git_sha": "1fd50b82a",
+    "uuid": "835441cad76abd043d40820a8e99cf9b",
+    "features": [
+      "access-ready",
+      "partitioned",
+      "pluggable-storage-engines",
+      "reshard",
+      "scheduler"
+    ],
+    "vendor": {
+      "name": "The Apache Software Foundation"
+    }
+  },
+  "databases": [
+    "_global_changes",
+    "_replicator",
+    "_users",
+    "module_evidence"
+  ],
+  "documents": {
+    "total_rows": 2,
+    "offset": 0,
+    "rows": [
+      {
+        "id": "proof-one",
+        "key": "proof-one",
+        "value": {
+          "rev": "1-11ec05f7f926619478a1bba02e5d9ba9"
+        },
+        "doc": {
+          "_id": "proof-one",
+          "_rev": "1-11ec05f7f926619478a1bba02e5d9ba9",
+          "marker": "native-couchdb-proof",
+          "nested": {
+            "value": 42
+          },
+          "_attachments": {
+            "proof.txt": {
+              "content_type": "text/plain",
+              "revpos": 1,
+              "digest": "md5-03PxYHtCqdd7itcDu4aHJQ==",
+              "data": "bmF0aXZlLWF0dGFjaG1lbnQtcHJvb2YK"
+            }
+          }
+        }
+      },
+      {
+        "id": "proof-two",
+        "key": "proof-two",
+        "value": {
+          "rev": "1-62bd2a29dba35844e70d948ce0200bc6"
+        },
+        "doc": {
+          "_id": "proof-two",
+          "_rev": "1-62bd2a29dba35844e70d948ce0200bc6",
+          "marker": "second-native-proof",
+          "enabled": true
+        }
+      }
+    ]
+  },
+  "unauthorized": {
+    "error": "unauthorized",
+    "reason": "You are not a server admin."
+  }
+}
