@@ -1,0 +1,31 @@
+x-mqtt: &mqtt
+  build: .
+  ports: ["127.0.0.1::1883"]
+  healthcheck:
+    test: [CMD, mosquitto_pub, -h, 127.0.0.1, -p, '1883', -V, mqttv311, -i, module-target-health, -t, module-target/health, -m, ready, -u, lab-mqtt-user, -P, lab-mqtt-password]
+    interval: 3s
+    timeout: 4s
+    retries: 30
+
+services:
+  unrelated:
+    extends:
+      file: ../http/compose.yaml
+      service: apache
+  open:
+    <<: *mqtt
+  auth:
+    <<: *mqtt
+    command: [mosquitto, -c, /mosquitto/config/auth.conf]
+  prefix:
+    <<: *mqtt
+    command: [mosquitto, -c, /mosquitto/config/prefix.conf]
+  tls:
+    <<: *mqtt
+    ports: ["127.0.0.1::8883"]
+    command: [mosquitto, -c, /mosquitto/config/tls.conf]
+    healthcheck:
+      test: [CMD, mosquitto_pub, -h, 127.0.0.1, -p, '8883', -V, mqttv311, -i, module-target-health, -t, module-target/health, -m, ready, -u, lab-mqtt-user, -P, lab-mqtt-password, --cafile, /mosquitto/config/certificates/server.crt]
+      interval: 3s
+      timeout: 4s
+      retries: 30

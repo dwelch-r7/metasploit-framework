@@ -1,0 +1,18 @@
+spec: spec/acceptance/module_targets/mqtt_spec.rb
+expected_examples: 10
+modules:
+  - auxiliary/scanner/mqtt/connect
+ports:
+  open: 1883
+  auth: 1883
+  prefix: 1883
+  tls: 8883
+  unrelated: 80
+support_files:
+  - lib/msf/core/auxiliary/mqtt.rb
+  - lib/metasploit/framework/login_scanner/mqtt.rb
+  - lib/rex/proto/mqtt/client.rb
+  - test/module_targets/http/compose.yaml
+  - test/module_targets/http/Dockerfile
+  - test/module_targets/http/module-target.conf
+  - test/module_targets/http/htdocs/index.html

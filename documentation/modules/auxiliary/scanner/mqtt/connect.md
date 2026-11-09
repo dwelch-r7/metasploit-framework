@@ -2,6 +2,14 @@
 
 Most any MQTT instance will work.  Instructions for testing against a Dockerized endpoint are provided below.
 
+### Automated local targets
+
+The [managed Mosquitto lab](../../../../../test/module_targets/mqtt/README.md)
+tests anonymous, password, client-ID-prefix and TLS authentication policies with
+independent broker clients. Run
+`bundle exec ruby tools/dev/run_module_target_tests.rb mqtt` from the repository
+root. See the lab guide and campaign for tested versions and remaining limits.
+
 ### Docker Install
 
 A dockerized version of [mosquitto](https://mosquitto.org/) is available
