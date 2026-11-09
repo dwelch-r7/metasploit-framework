@@ -91,6 +91,19 @@ ordered-case controls have not established the cause. Session shutdown and
 cold-start ordering remain under investigation, with no production session
 change justified yet.
 
+The narrow upload-access check repair is integrated independently. It reuses
+the existing authenticated upload-nonce helper, returns reason-bearing Detected
+when upload access cannot be verified, and retains valid credential reporting.
+The matched ordered diagnostic changes only the owning production module and
+passes **20/5 -> 20/0**; focused capture-backed examples pass **21/9 -> 21/0**.
+An independent integrated-source rerun passes all 21 examples. All 95 files in
+the separate permission evidence export were checksum-verified. This repair
+does not add the admin module to the qualified totals. A subsequent explicit
+remote-exit control confirms the first connection closes before the second
+execution still fails TLV encryption negotiation; an active old connection
+alone does not explain the burst. Raw stage/handler diagnostics remain separate
+from a full passing module result.
+
 At published revision `d8d9d622536`, Lint, SMB, PostgreSQL, SSH, MSSQL, LDAP
 and MySQL CI passed; Meterpreter and Command Shell remained queued.
 [Verify failed](https://github.com/dwelch-r7/metasploit-framework/actions/runs/42656220295)
