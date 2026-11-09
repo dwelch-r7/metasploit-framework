@@ -550,6 +550,17 @@ inputs, exact counts and owned teardown establish **120 runtime modules,
 [verification record](VERIFICATION-20261109-zookeeper.md) retains the original
 passing narrow profile, failed transport profile and both repaired results.
 
+Kubernetes then qualified enumeration and all four pod-execution delivery
+targets against a genuine isolated K3s/containerd cluster. Native projected-token
+and certificate-verified API controls expose two modules discarding a namespace
+already discovered from a real Meterpreter session. Five owning calls now use
+the existing accessor; nine shared API helpers remain unchanged. Final twenty-five
+cases pass with exact loot, fresh pod/session proofs, repeated state restoration,
+current inputs and owned teardown. Coverage reaches **122 runtime modules,
+57 families and 780 functional cases**; the
+[verification record](VERIFICATION-20261109-kubernetes.md) documents its privileged
+nested-runtime isolation and inherited lint limitations.
+
 ## Remaining work
 
 - Review existing protocol suites and supply reusable managed containers.
@@ -559,8 +570,8 @@ passing narrow profile, failed transport profile and both repaired results.
 - Review other module categories and record justified exclusions individually.
 - Twelve source-hashed reviews now identify separate Linux-kernel/container-host,
   macOS, Windows, Xerox, Cisco and AWS control-plane requirements in `reviews.yml`; these do not
-  establish universal infeasibility. Existing Kubernetes fixtures require a host cluster and are not
-  a self-contained lab; create an isolated cluster before qualifying those modules.
+  establish universal infeasibility. Kubernetes now has a genuine isolated
+  nested-runtime lab; other OS/device requirements still need individual targets.
 - The four AWS reviews cover their actual EC2, IAM and SSM operations; they do
   not exclude S3-compatible services. Alternate endpoints or API emulators alone
   do not prove an AWS guest launch or SSM session. No cloud resources are created.

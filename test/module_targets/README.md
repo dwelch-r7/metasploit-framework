@@ -112,6 +112,12 @@ Container breakout, kernel, hardware and licensed targets need
 individual feasibility assessment; a service container does not model a complete
 operating system. Keep uncertain modules in the review queue.
 
+The [Kubernetes profiles](kubernetes/README.md) are a documented privileged
+exception for a genuine nested runtime. They share the engine kernel/devices
+and use task-owned volumes and private namespaces, with no host bind mounts,
+existing kubeconfig or Docker socket. Review that profile before selecting it
+individually or through `--all`.
+
 ## Campaign queue
 
 Individual source-reviewed target requirements live in `reviews.yml`, with a
@@ -202,12 +208,18 @@ version and exact JSON key collection. Sixteen cases pass after separately
 captured discovery, serialization, authentication and error-handling repairs.
 Every selected count, recorded hash and owned teardown passes. Ansible/Erlang
 execution and WordPress admin remain separate qualification work.
-The [current qualification record](VERIFICATION-20261109-zookeeper.md) records
+The [earlier qualification record](VERIFICATION-20261109-zookeeper.md) records
 **120 runtime modules, 55 families and 755 functional cases**, adding native
 ZooKeeper version/permission controls and a genuine sliced TCP regression.
 The original module silently stores six of eighteen environment fields; the
 owning stream-read repair passes all nine final cases without assertion changes.
 Every selected count, recorded hash and owned teardown passes.
+The [current qualification record](VERIFICATION-20261109-kubernetes.md) records
+**122 runtime modules, 57 families and 780 functional cases**, adding genuine
+K3s enumeration and all four pod-execution delivery targets. Real Meterpreter
+session discovery/routing exposes two owning namespace defects; five call sites
+now use the existing accessor. All twenty-five cases, recorded hashes and
+owned teardown pass, with no shared Kubernetes API changes.
 The full campaign remains incomplete while feasible, valuable modules await review
 or functional verification.
 See [deferred investigations](DEFERRED.md) for retained failures that remain
