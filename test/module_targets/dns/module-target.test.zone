@@ -1,0 +1,16 @@
+$ORIGIN module-target.test.
+$TTL 60
+@ IN SOA ns.module-target.test. hostmaster.module-target.test. (
+    2026110901 60 60 3600 60
+)
+@ IN NS ns.module-target.test.
+@ IN A 192.0.2.10
+@ IN AAAA 2001:db8::10
+@ IN MX 10 mail.module-target.test.
+@ IN TXT "module-target-native-dns-proof"
+ns IN A 192.0.2.53
+mail IN A 192.0.2.25
+ldap IN A 192.0.2.89
+www IN CNAME module-target.test.
+_ldap._tcp IN SRV 0 100 389 ldap.module-target.test.
+*.wild IN A 192.0.2.99

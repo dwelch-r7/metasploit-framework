@@ -37,6 +37,7 @@ module Net
           @txt_pack
         end
 
+        # @return [String, nil] Parsed TXT data for RR#inspect, or nil for an uninitialized record.
         def get_inspect
           @txt
         end

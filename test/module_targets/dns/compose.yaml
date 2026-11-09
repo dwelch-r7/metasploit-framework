@@ -1,0 +1,19 @@
+x-dns: &dns
+  build: .
+  ports: ["127.0.0.1::53/tcp", "127.0.0.1::53/udp"]
+  healthcheck:
+    test: ["CMD-SHELL", "dig +time=1 +tries=1 +short @127.0.0.1 module-target.test A | grep -qx 192.0.2.10"]
+    interval: 2s
+    timeout: 3s
+    retries: 30
+
+services:
+  open:
+    <<: *dns
+  closed:
+    <<: *dns
+    command: ["-g", "-n", "2", "-c", "/etc/bind/closed.conf"]
+
+networks:
+  default:
+    enable_ipv6: true

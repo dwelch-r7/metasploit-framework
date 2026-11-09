@@ -29,6 +29,7 @@ module Net
           @type = Net::DNS::RR::Types.new("SRV")
         end
 
+        # @return [String] Parsed priority, weight, port and target for RR#inspect.
         def get_inspect
           "#{@priority} #{@weight} #{@port} #{@host}"
         end

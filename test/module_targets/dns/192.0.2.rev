@@ -1,0 +1,8 @@
+$ORIGIN 2.0.192.in-addr.arpa.
+$TTL 60
+@ IN SOA ns.module-target.test. hostmaster.module-target.test. (
+    2026110901 60 60 3600 60
+)
+@ IN NS ns.module-target.test.
+10 IN PTR module-target.test.
+25 IN PTR mail.module-target.test.

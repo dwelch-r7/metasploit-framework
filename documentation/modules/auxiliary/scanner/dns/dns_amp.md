@@ -6,6 +6,14 @@ BIND 9.4.1-P1: [source](ftp://ftp.isc.org/isc/bind9/9.4.1-P1/bind-9.4.1-P1.tar.g
 Ubuntu 7.10: [Gutsy Gibbon](http://old-releases.ubuntu.com/releases/7.10/)
 
 
+## Automated local target
+
+The [managed authoritative DNS lab](../../../../../test/module_targets/dns/README.md)
+checks measured IPv4/IPv6 response sizes and recursion refusal using actual packet
+captures. It sends one unspoofed request per target; no flood or external resolver
+is needed. Run `bundle exec ruby tools/dev/run_module_target_tests.rb dns` from
+the repository root. See the lab guide for coverage and remaining limits.
+
 ## Verification Steps
 
   1. Start msfconsole

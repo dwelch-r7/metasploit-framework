@@ -1,0 +1,24 @@
+spec: spec/acceptance/module_targets/dns_spec.rb
+expected_examples: 28
+console: true
+modules:
+  - auxiliary/gather/enum_dns
+  - auxiliary/admin/dns/dyn_dns_update
+  - auxiliary/scanner/dns/dns_amp
+ports:
+  open: 53
+  closed: 53
+support_files:
+  - lib/msf/core/exploit/remote/dns/client.rb
+  - lib/msf/core/exploit/remote/dns/common.rb
+  - lib/msf/core/exploit/remote/dns/enumeration.rb
+  - lib/rex/proto/dns/resolver.rb
+  - lib/net/dns/resolver.rb
+  - lib/net/dns/rr/txt.rb
+  - lib/net/dns/rr/srv.rb
+  - lib/net/dns/packet.rb
+  - lib/net/dns/rr.rb
+  - lib/net/dns/names/names.rb
+  - lib/net/dns/resolver/timeouts.rb
+  - lib/msf/core/auxiliary/udp_scanner.rb
+  - lib/msf/core/auxiliary/drdos.rb
