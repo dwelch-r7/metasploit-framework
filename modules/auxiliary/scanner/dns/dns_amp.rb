@@ -5,11 +5,23 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
+require 'ipaddr'
+require 'packetfu'
+
 class MetasploitModule < Msf::Auxiliary
   include Msf::Auxiliary::Report
   include Msf::Exploit::Capture
   include Msf::Auxiliary::UDPScanner
   include Msf::Auxiliary::DRDoS
+
+  # Retain the existing Ethernet-without-FCS accounting. PacketFu supplies the
+  # base headers; VLAN tags, IP options/extensions and fragmentation are not
+  # observable from the UDP payload callback. IPv6's base header is specified
+  # in https://www.rfc-editor.org/rfc/rfc8200#section-3.
+  PACKET_OVERHEAD = {
+    ipv4: PacketFu::EthHeader.new.sz + PacketFu::IPHeader.new.sz + PacketFu::UDPHeader.new.sz,
+    ipv6: PacketFu::EthHeader.new.sz + PacketFu::IPv6Header.new.sz + PacketFu::UDPHeader.new.sz
+  }.freeze
 
   def initialize
     super(
@@ -87,10 +99,28 @@ class MetasploitModule < Msf::Auxiliary
 
   def scanner_prescan(batch)
     print_status("Sending DNS probes to #{batch[0]}->#{batch[-1]} (#{batch.length} hosts)")
-    # Standard packet is 60 bytes. Add the domain size to this
-    sendpacketsize = 60 + datastore['DOMAINNAME'].length
-    print_status("Sending #{sendpacketsize} bytes to each host using the IN #{datastore['QUERYTYPE']} #{datastore['DOMAINNAME']} request")
+    families = batch.group_by { |address| packet_family(address) }
+    families.each do |family, addresses|
+      recipient = if families.one?
+                    'each host'
+                  elsif family == :ipv6
+                    'each IPv6 host'
+                  else
+                    'each IPv4 host'
+                  end
+      sendpacketsize = packet_size(@msearch_probe, addresses.first)
+      print_status("Sending #{sendpacketsize} bytes to #{recipient} using the IN #{datastore['QUERYTYPE']} #{datastore['DOMAINNAME']} request")
+    end
     @results = {}
+  end
+
+  def packet_family(address)
+    parsed = IPAddr.new(address)
+    parsed.ipv6? && !parsed.ipv4_mapped? ? :ipv6 : :ipv4
+  end
+
+  def packet_size(payload, address)
+    payload.bytesize + PACKET_OVERHEAD.fetch(packet_family(address))
   end
 
   def scan_host(ip)
@@ -113,15 +143,18 @@ class MetasploitModule < Msf::Auxiliary
       ra = flags[8]
       # Response Code
       rcode = flags[12] + flags[13] + flags[14] + flags[15]
+      # Batch callbacks have no single rhost for Tcp#print_prefix. Identify the
+      # actual responder once for both success and refusal messages.
+      authority = Rex::Socket.to_authority(shost, rport)
 
       # If these flags are set, we get a valid response
       # don't test recursion available if correct answer received
       # at least the case with bind and "additional-from-cache no" or version < 9.5+
       if qr == "1" and rcode == "0000"
-        sendlength = 60 + datastore['DOMAINNAME'].length
-        receivelength = 42 + data.length
+        sendlength = packet_size(@msearch_probe, shost)
+        receivelength = packet_size(data, shost)
         amp = receivelength / sendlength.to_f
-        print_good("#{shost}:#{datastore['RPORT']} - Response is #{receivelength} bytes [#{amp.round(2)}x Amplification]")
+        print_good("#{authority} - Response is #{receivelength} bytes [#{amp.round(2)}x Amplification]")
         report_service(:host => shost, :port => datastore['RPORT'], :proto => 'udp', :name => "dns")
         report_vuln(
           :host => shost,
@@ -135,7 +168,7 @@ class MetasploitModule < Msf::Auxiliary
 
       # If these flags are set, we get a valid response but recursion is not available
       if qr == "1" and ra == "0" and rcode == "0101"
-        print_status("#{shost}:#{datastore['RPORT']} - Recursion not allowed")
+        print_status("#{authority} - Recursion not allowed")
         report_service(:host => shost, :port => datastore['RPORT'], :proto => 'udp', :name => "dns")
       end
     end

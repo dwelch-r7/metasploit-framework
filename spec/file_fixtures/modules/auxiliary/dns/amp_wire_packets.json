@@ -1,0 +1,24 @@
+{
+  "ipv4": {
+    "family": "ipv4",
+    "address": "172.27.0.4",
+    "request_dns_bytes": 36,
+    "response_dns_bytes": 112,
+    "request_frame_bytes": 78,
+    "response_frame_bytes": 154,
+    "request_frame_base64": "yn+iifxAEkEEybx2CABFAABARRFAAEARnV6sGwADrBsABNtCADUALFh7CY0BAAABAAAAAAAADW1vZHVsZS10YXJnZXQEdGVzdAAAEAAB",
+    "response_frame_base64": "EkEEybx2yn+iifxACABFAACMAe4AAEARIDasGwAErBsAAwA120IAeFjHCY2FAAABAAEAAQABDW1vZHVsZS10YXJnZXQEdGVzdAAAEAABwAwAEAABAAAAPAAfHm1vZHVsZS10YXJnZXQtbmF0aXZlLWRucy1wcm9vZsAMAAIAAQAAADwABQJuc8AMwFsAAQABAAAAPAAEwAACNQ==",
+    "response_dns_base64": "CY2FAAABAAEAAQABDW1vZHVsZS10YXJnZXQEdGVzdAAAEAABwAwAEAABAAAAPAAfHm1vZHVsZS10YXJnZXQtbmF0aXZlLWRucy1wcm9vZsAMAAIAAQAAADwABQJuc8AMwFsAAQABAAAAPAAEwAACNQ=="
+  },
+  "ipv6": {
+    "family": "ipv6",
+    "address": "fd85:d75c:44c3:1::4",
+    "request_dns_bytes": 36,
+    "response_dns_bytes": 112,
+    "request_frame_bytes": 98,
+    "response_frame_bytes": 174,
+    "request_frame_base64": "yn+iifxAEkEEybx2ht1gCN4BACwRQP2F11xEwwABAAAAAAAAAAP9hddcRMMAAQAAAAAAAAAE4R8ANQAsM5IJjQEAAAEAAAAAAAANbW9kdWxlLXRhcmdldAR0ZXN0AAAQAAE=",
+    "response_frame_base64": "EkEEybx2yn+iifxAht1gA2ObAHgRQP2F11xEwwABAAAAAAAAAAT9hddcRMMAAQAAAAAAAAADADXhHwB4M94JjYUAAAEAAQABAAENbW9kdWxlLXRhcmdldAR0ZXN0AAAQAAHADAAQAAEAAAA8AB8ebW9kdWxlLXRhcmdldC1uYXRpdmUtZG5zLXByb29mwAwAAgABAAAAPAAFAm5zwAzAWwABAAEAAAA8AATAAAI1",
+    "response_dns_base64": "CY2FAAABAAEAAQABDW1vZHVsZS10YXJnZXQEdGVzdAAAEAABwAwAEAABAAAAPAAfHm1vZHVsZS10YXJnZXQtbmF0aXZlLWRucy1wcm9vZsAMAAIAAQAAADwABQJuc8AMwFsAAQABAAAAPAAEwAACNQ=="
+  }
+}
