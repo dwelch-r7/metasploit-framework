@@ -342,3 +342,6 @@ assertions. Run from the repository root:
 ```sh
 bundle exec ruby tools/dev/run_module_target_tests.rb mongodb
 ```
+
+For the older MONGODB-CR authentication and wire protocol, see the
+[MongoDB 2.6 container tests](../../../../../test/module_targets/mongodb_legacy/README.md).

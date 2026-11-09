@@ -1,0 +1,26 @@
+x-legacy: &legacy
+  image: mongo:2.6.12@sha256:08e199598f4f874d14b4f90727dade0384b0fcfe8479355ed2cc5391c46e8ece
+  command: ["bash", "/opt/bootstrap.sh"]
+  ports: ["127.0.0.1::27017"]
+  volumes:
+    - ./bootstrap.sh:/opt/bootstrap.sh:ro
+    - ./seed.js:/opt/seed.js:ro
+    - ./native_health.js:/opt/native_health.js:ro
+    - ./native_inspect.js:/opt/native_inspect.js:ro
+    - ./native_unauth.js:/opt/native_unauth.js:ro
+    - ./native_limited.js:/opt/native_limited.js:ro
+  healthcheck:
+    test: ["CMD", "mongo", "--quiet", "/opt/native_health.js"]
+    interval: 3s
+    timeout: 5s
+    retries: 30
+
+services:
+  open26:
+    <<: *legacy
+    environment:
+      AUTH_ENABLED: 'false'
+  auth26:
+    <<: *legacy
+    environment:
+      AUTH_ENABLED: 'true'

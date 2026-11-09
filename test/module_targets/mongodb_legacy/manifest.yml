@@ -1,0 +1,14 @@
+spec: spec/acceptance/module_targets/mongodb_spec.rb
+expected_examples: 12
+console: true
+test_env:
+  MONGODB_TARGET_PROFILE: legacy
+modules:
+  - auxiliary/scanner/mongodb/mongodb_version
+  - auxiliary/scanner/mongodb/mongodb_login
+  - auxiliary/scanner/mongodb/mongodb_hashdump
+ports:
+  open26: 27017
+  auth26: 27017
+support_files:
+  - lib/msf/core/exploit/remote/mongodb.rb

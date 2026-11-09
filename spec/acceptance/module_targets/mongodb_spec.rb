@@ -4,12 +4,22 @@ require 'base64'
 RSpec.describe 'MongoDB module targets' do
   include_context 'module target'
 
-  profiles = {
-    'open44' => { version: '4.4.30', shell: 'mongo', auth: false },
-    'auth44' => { version: '4.4.30', shell: 'mongo', auth: true },
-    'open83' => { version: '8.3.11', shell: 'mongosh', auth: false },
-    'auth83' => { version: '8.3.11', shell: 'mongosh', auth: true }
-  }
+  profiles = case ENV.fetch('MONGODB_TARGET_PROFILE', 'modern')
+             when 'legacy'
+               {
+                 'open26' => { version: '2.6.12', shell: 'mongo', auth: false, legacy: true, schema: false, mechanism: 'MONGODB-CR' },
+                 'auth26' => { version: '2.6.12', shell: 'mongo', auth: true, legacy: true, schema: false, mechanism: 'MONGODB-CR' }
+               }
+             when 'modern'
+               {
+                 'open44' => { version: '4.4.30', shell: 'mongo', auth: false },
+                 'auth44' => { version: '4.4.30', shell: 'mongo', auth: true },
+                 'open83' => { version: '8.3.11', shell: 'mongosh', auth: false },
+                 'auth83' => { version: '8.3.11', shell: 'mongosh', auth: true }
+               }
+             else
+               raise ArgumentError, 'Unknown MONGODB_TARGET_PROFILE'
+             end
 
   let_it_be(:native_mongodb) do
     profiles.to_h do |service, profile|
@@ -26,6 +36,8 @@ RSpec.describe 'MongoDB module targets' do
         ])
         expect(limited.fetch('marker')).to eq('native-mongodb-proof')
         expect(limited.fetch('system_users').slice('ok', 'code')).to eq('ok' => 0, 'code' => 13)
+      elsif profile[:legacy]
+        expect(policy.slice('ok', 'n')).to eq('ok' => 1, 'n' => 1)
       else
         expect(policy.fetch('cursor').fetch('firstBatch').first.fetch('marker')).to eq('native-mongodb-proof')
       end
@@ -50,17 +62,21 @@ RSpec.describe 'MongoDB module targets' do
       it 'distinguishes required authentication before attempting configured credentials' do
         output = run_target_module('auxiliary/scanner/mongodb/mongodb_login', service, login_options.merge(credentials))
         if profile.fetch(:auth)
-          expect(output).to include("SUCCESSFUL LOGIN 'rootuser' : 'rootpass' (SCRAM-SHA-1)")
+          expect(output).to include("SUCCESSFUL LOGIN 'rootuser' : 'rootpass' (#{profile.fetch(:mechanism, 'SCRAM-SHA-1')})")
           expect(output).not_to include("doesn't use authentication")
         else
           expect(output).to include("doesn't use authentication")
         end
       end
 
-      it 'extracts the exact native SCRAM hashes' do
+      it 'extracts the exact native credential hashes' do
         output = run_target_module('auxiliary/scanner/mongodb/mongodb_hashdump', service, credentials.merge('DB' => 'admin', 'COLLECTION' => nil))
         native_mongodb.fetch(service).fetch('users').each do |user|
           user.fetch('credentials').each do |mechanism, fields|
+            if mechanism == 'MONGODB-CR'
+              expect(output).to include(user.fetch('user'), fields)
+              next
+            end
             next unless %w[SCRAM-SHA-1 SCRAM-SHA-256].include?(mechanism)
 
             kind = mechanism == 'SCRAM-SHA-1' ? 0 : 1
@@ -80,7 +96,7 @@ RSpec.describe 'MongoDB module targets' do
         expect(rows.map(&:last).uniq).to eq([native_mongodb.fetch(service).fetch('app_first').fetch('hash')])
       end
 
-      it 'stores the actual nested schema and preserves the empty collection' do
+      it 'stores the actual nested schema and preserves the empty collection', if: profile.fetch(:schema, true) do
         schema_credentials = profile.fetch(:auth) ? { 'USERNAME' => 'testuser', 'PASSWORD' => 'testpass', 'AUTH_DB' => 'intranet' } : credentials
         output = run_target_module('auxiliary/scanner/mongodb/mongodb_schemadump', service, schema_credentials.merge('DB_NAME' => 'intranet', 'SAMPLE_SIZE' => 2))
         path = output[/Schema dumped to loot: (.+)$/, 1]&.strip
@@ -104,7 +120,7 @@ RSpec.describe 'MongoDB module targets' do
         output = run_target_module('auxiliary/scanner/mongodb/mongodb_login', service, login_options.merge(
           'USERNAME' => 'testuser', 'PASSWORD' => 'testpass', 'AUTH_DB' => 'intranet'
         ))
-        expect(output).to include("SUCCESSFUL LOGIN 'testuser' : 'testpass' (SCRAM-SHA-1)")
+        expect(output).to include("SUCCESSFUL LOGIN 'testuser' : 'testpass' (#{profile.fetch(:mechanism, 'SCRAM-SHA-1')})")
       end
 
       it 'does not expose system hashes to the database-scoped account' do
@@ -113,7 +129,7 @@ RSpec.describe 'MongoDB module targets' do
         }, allow_errors: true)
         expect(output).to include('Query on admin.system.users failed:')
         expect(output).to match(/not authorized|Unauthorized/)
-        expect(output).not_to include('$mongodb-scram$')
+        expect_no_system_hashes(output, service)
       end
 
       it 'does not dump hashes after rejected authentication' do
@@ -121,10 +137,10 @@ RSpec.describe 'MongoDB module targets' do
           'PASSWORD' => 'wrong-password', 'DB' => 'admin', 'COLLECTION' => nil
         ), allow_errors: true)
         expect(output).to include('Login failed')
-        expect(output).not_to include('$mongodb-scram$')
+        expect_no_system_hashes(output, service)
       end
 
-      it 'does not create schema loot after rejected authentication' do
+      it 'does not create schema loot after rejected authentication', if: profile.fetch(:schema, true) do
         output = run_target_module('auxiliary/scanner/mongodb/mongodb_schemadump', service, credentials.merge(
           'PASSWORD' => 'wrong-password', 'DB_NAME' => 'intranet'
         ), allow_errors: true)
@@ -134,11 +150,13 @@ RSpec.describe 'MongoDB module targets' do
     end
   end
 
-  it 'authenticates to retrieve the exact version beyond the buildInfo boundary' do
-    output = run_target_module('auxiliary/scanner/mongodb/mongodb_version', 'auth83', {
-      'USERNAME' => 'rootuser', 'PASSWORD' => 'rootpass', 'AUTH_DB' => 'admin'
-    })
-    expect(output).to include('MongoDB version: 8.3.11')
+  if profiles.key?('auth83')
+    it 'authenticates to retrieve the exact version beyond the buildInfo boundary' do
+      output = run_target_module('auxiliary/scanner/mongodb/mongodb_version', 'auth83', {
+        'USERNAME' => 'rootuser', 'PASSWORD' => 'rootpass', 'AUTH_DB' => 'admin'
+      })
+      expect(output).to include('MongoDB version: 8.3.11')
+    end
   end
 
   def native_document(service, profile, path, prefix, arguments: [])
@@ -153,5 +171,13 @@ RSpec.describe 'MongoDB module targets' do
       'USER_FILE' => nil, 'PASS_FILE' => nil, 'USERPASS_FILE' => nil,
       'BLANK_PASSWORDS' => false, 'USER_AS_PASS' => false, 'STOP_ON_SUCCESS' => true
     }
+  end
+
+  def expect_no_system_hashes(output, service)
+    expect(output).not_to include('$mongodb-scram$', 'db (MONGODB-CR)')
+    native_mongodb.fetch(service).fetch('users').each do |user|
+      digest = user.fetch('credentials')['MONGODB-CR']
+      expect(output).not_to include(digest) if digest
+    end
   end
 end
