@@ -463,6 +463,16 @@ with current recorded hashes, exact counts and owned cleanup. See the
 Ansible node deployment, Drupal and JBoss remain separate investigations; native
 controls or a focused helper repair alone do not qualify their functional cases.
 
+Consul discovery subsequently passed eleven cases on official 1.20.6/2.0.4
+agents, including ACL token acceptance/refusal, public API and UI fallbacks,
+repeated discovery, a proxy subpath and unrelated HTTP. An initial console
+startup timeout preceded module execution; unchanged selected Consul inputs
+passed on retry. No Consul source repair was needed. Independently proven PHP
+executable-wrapper variable/scope repairs are integrated, while full Drupal
+qualification continues in bounded profiles. The selected checkpoint is
+**105 modules, 45 families and 640 cases**; see the
+[Consul/PHP verification](VERIFICATION-20261109-consul-php.md).
+
 ## Remaining work
 
 - Review existing protocol suites and supply reusable managed containers.
