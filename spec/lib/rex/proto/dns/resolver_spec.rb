@@ -202,6 +202,12 @@ RSpec.describe Rex::Proto::DNS::Resolver do
       end.to raise_error(IOError, 'Consumer failed to persist the response')
     end
 
+    it 'tries the next nameserver when a socket factory returns nil' do
+      allow(Rex::Socket::Tcp).to receive(:create).and_return(nil, tcp_socket)
+
+      expect(resolver.send_tcp(nil, 'query', [['192.0.2.53', {}], ['192.0.2.54', {}]])&.first).to eq(axfr_body)
+    end
+
     it 'closes its socket after a read timeout' do
       allow(tcp_socket).to receive(:recv).and_raise(Timeout::Error)
       expect(tcp_socket).to receive(:close)

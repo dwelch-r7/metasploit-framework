@@ -239,6 +239,8 @@ module DNS
           # Match the base resolver's exchange deadline, including partial reads.
           @config[:tcp_timeout].timeout do
             socket = Rex::Socket::Tcp.create(config)
+            next unless socket
+
             socket.write(framed_request)
             loop do
               # DNS/TCP uses a two-octet length prefix; TCP may split either
