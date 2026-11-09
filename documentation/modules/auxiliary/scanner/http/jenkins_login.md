@@ -1,5 +1,9 @@
 ## Vulnerable Application
 
+For isolated Jenkins targets with native authentication controls and automated
+module tests, see the [container lab](../../../../../test/module_targets/jenkins/README.md).
+The lab guide records its current qualification state and limits.
+
 Jenkins is an open source continuous integration/continuous delivery and deployment (CI/CD) automation software DevOps 
 tool written in the Java programming language. It is used to implement CI/CD workflows, called pipelines, with packages 
 for Windows, Linux, macOS and other Unix-like operating systems. This module attempts to login to Jenkins with username 

@@ -1,0 +1,56 @@
+x-jenkins: &jenkins
+  build: &build
+    context: .
+  environment:
+    JAVA_OPTS: -Xms128m -Xmx256m -Djenkins.install.runSetupWizard=false -Dhudson.model.UpdateCenter.never=true
+    JENKINS_OPTS: --prefix=/jenkins
+  ports: ["127.0.0.1::8080"]
+  mem_limit: 640m
+  healthcheck:
+    test: [CMD-SHELL, 'test -f /var/jenkins_home/module-target-ready && curl --fail --silent http://127.0.0.1:8080/jenkins/login >/dev/null']
+    interval: 3s
+    timeout: 5s
+    retries: 40
+
+services:
+  unrelated:
+    extends:
+      file: ../http/compose.yaml
+      service: apache
+  native_client:
+    image: jenkins/jenkins:2.442-jdk17@sha256:c80c93820944076423853cfd833d83c2bbd6e2000506eb4ff193b577edf8b017
+    entrypoint: [/usr/bin/sleep]
+    command: [infinity]
+    environment:
+      JAVA_TOOL_OPTIONS: -Xms16m -Xmx64m
+    mem_limit: 192m
+  weekly_vulnerable:
+    <<: *jenkins
+  weekly_fixed:
+    <<: *jenkins
+    build:
+      <<: *build
+      args:
+        JENKINS_IMAGE: jenkins/jenkins:2.442-jdk17@sha256:c80c93820944076423853cfd833d83c2bbd6e2000506eb4ff193b577edf8b017
+  lts_vulnerable:
+    <<: *jenkins
+    build:
+      <<: *build
+      args:
+        JENKINS_IMAGE: jenkins/jenkins:2.426.2-lts-jdk17@sha256:186a48ae298e34a21b27fe737bf0a854c3e73421ce858c4d40c403802589e23f
+  lts_fixed:
+    <<: *jenkins
+    build:
+      <<: *build
+      args:
+        JENKINS_IMAGE: jenkins/jenkins:2.426.3-lts-jdk17@sha256:a786794ea0a2429e65d67a88fe497cbd97a0d73d73a39f2fd0eae3b380eb70ff
+  open:
+    <<: *jenkins
+    build:
+      <<: *build
+      args:
+        JENKINS_IMAGE: jenkins/jenkins:2.442-jdk17@sha256:c80c93820944076423853cfd833d83c2bbd6e2000506eb4ff193b577edf8b017
+    environment:
+      JAVA_OPTS: -Xms128m -Xmx256m -Djenkins.install.runSetupWizard=false -Dhudson.model.UpdateCenter.never=true
+      JENKINS_OPTS: --prefix=/jenkins
+      LAB_OPEN: 'true'

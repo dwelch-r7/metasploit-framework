@@ -1,6 +1,10 @@
 # Jenkins Enumeration Auxiliary Module
 
 ## Vulnerable Application
+
+For isolated open and secured Jenkins targets with native policy controls and
+automated module tests, see the [container lab](../../../../../test/module_targets/jenkins/README.md).
+The lab guide records its current qualification state and limits.
 This module performs unauthenticated enumeration on Jenkins servers. It attempts to discover the Jenkins version, identify unauthenticated accessible endpoints, and gather useful system information when possible.
 
 Jenkins servers that do not enforce strict authentication on certain URLs (such as `/script`) are susceptible to this enumeration. This module helps penetration testers quickly identify such information leakage.

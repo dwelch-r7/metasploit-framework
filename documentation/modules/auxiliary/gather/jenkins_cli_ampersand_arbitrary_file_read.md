@@ -1,5 +1,9 @@
 ## Vulnerable Application
 
+For isolated vulnerable/fixed weekly and LTS targets, native CLI controls and
+automated module tests, see the [container lab](../../../../test/module_targets/jenkins/README.md).
+The lab guide records its current qualification state and limits.
+
 This module utilizes the Jenkins cli protocol to run the `help` command.
 The cli is accessible with read-only permissions by default, which are
 all thats required.

@@ -1,0 +1,9 @@
+{
+  "one": {"path": "/opt/module-target/one.txt", "content": "module-target-single-line\n"},
+  "two": {"path": "/opt/module-target/two.txt", "content": "module-target-first-line\nmodule-target-second-line\nmodule-target-third-line\n"},
+  "unicode": {"path": "/opt/module-target/café.txt", "content": "module-target-café-漢字\nmodule-target-unicode-second\n"},
+  "long": {"path": "/opt/module-target/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/proof.txt", "content": "module-target-long-first\nmodule-target-long-second\n"},
+  "empty": {"path": "/opt/module-target/empty.txt", "content": ""},
+  "missing": {"path": "/opt/module-target/missing.txt", "content": null},
+  "denied": {"path": "/opt/module-target-denied.txt", "content": null}
+}

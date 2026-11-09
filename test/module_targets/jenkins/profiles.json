@@ -1,0 +1,7 @@
+{
+  "weekly_vulnerable": {"version": "2.441", "vulnerable": true},
+  "weekly_fixed": {"version": "2.442", "vulnerable": false},
+  "lts_vulnerable": {"version": "2.426.2", "vulnerable": true},
+  "lts_fixed": {"version": "2.426.3", "vulnerable": false},
+  "open": {"version": "2.442", "vulnerable": false}
+}

@@ -1,0 +1,30 @@
+spec: spec/acceptance/module_targets/jenkins_spec.rb
+expected_examples: 51
+console: true
+modules:
+  - auxiliary/gather/jenkins_cli_ampersand_arbitrary_file_read
+  - auxiliary/scanner/http/jenkins_login
+  - auxiliary/scanner/http/jenkins_enum
+  - exploit/multi/http/jenkins_script_console
+ports:
+  weekly_vulnerable: 8080
+  weekly_fixed: 8080
+  lts_vulnerable: 8080
+  lts_fixed: 8080
+  open: 8080
+  unrelated: 80
+support_files:
+  - lib/msf/core/exploit/remote/http/jenkins.rb
+  - lib/metasploit/framework/login_scanner/jenkins.rb
+  - lib/msf/core/exploit/cmd_stager.rb
+  - lib/msf/core/exploit/file_dropper.rb
+  - lib/msf/core/encoded_payload.rb
+  - spec/support/shared/contexts/wait_for_expect.rb
+  - modules/payloads/singles/linux/x86/exec.rb
+  - modules/payloads/singles/linux/x64/exec.rb
+  - modules/payloads/singles/cmd/unix/generic.rb
+  - modules/payloads/singles/cmd/unix/reverse_bash.rb
+  - test/module_targets/http/compose.yaml
+  - test/module_targets/http/Dockerfile
+  - test/module_targets/http/module-target.conf
+  - test/module_targets/http/htdocs/index.html
