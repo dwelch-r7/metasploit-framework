@@ -54,7 +54,9 @@ class MetasploitModule < Msf::Auxiliary
     # Send the update to the zone's primary master.
     domain = datastore['DOMAIN']
     fqdn = "#{datastore['HOSTNAME']}.#{domain}"
-    opts = { nameserver: datastore['RHOST'] }
+    # Read-modify-write decisions must reflect the current authoritative state,
+    # including deletions performed by an earlier run in the same console.
+    opts = { nameserver: datastore['RHOST'], do_caching: false }
 
     if datastore['CHOST'] && datastore['CHOST'] != ''
       if Rex::Socket.is_ipv4?(datastore['CHOST'])
