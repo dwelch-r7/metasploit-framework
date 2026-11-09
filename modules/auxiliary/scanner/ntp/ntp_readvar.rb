@@ -39,8 +39,20 @@ class MetasploitModule < Msf::Auxiliary
   end
 
   def scanner_process(data, shost, _sport)
+    # Match a complete successful control reply to our READVAR request before
+    # reporting it; unrelated UDP responses can also parse as NTPControl records.
+    # https://www.rfc-editor.org/rfc/rfc9327.html#name-ntp-control-message-format
+    response = Rex::Proto::NTP::NTPControl.new
+    return if data.bytesize < response.num_bytes
+
+    response.read(data)
+    return unless response.mode == @probe.mode && response.response == 1 && response.error == 0
+    return unless response.version == @probe.version && response.operation == @probe.operation
+    return unless response.sequence == @probe.sequence
+    return if response.payload_size > response.payload.bytesize
+
     @results[shost] ||= []
-    @results[shost] << Rex::Proto::NTP::NTPControl.new.read(data)
+    @results[shost] << response
   end
 
   def scan_host(ip)
@@ -62,7 +74,6 @@ class MetasploitModule < Msf::Auxiliary
 
   def scanner_postscan(_batch)
     @results.keys.each do |k|
-      # TODO: check to see if any of the responses are actually NTP before reporting
       report_service(
         host: k,
         proto: 'udp',

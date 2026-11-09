@@ -1,0 +1,53 @@
+{
+  "provenance": {
+    "source_capture": "20261109T144445-29fa86/ntp/native-ntp-before.json",
+    "source_sha256": "67860fad2bba2a8bf6ca211476d2397842d9773abdf38af1773edab73ecba87a",
+    "capture_time": "2026-11-09",
+    "producer": "Independent Ruby stdlib UDP probe; ntpd4.2.8p15 Ubuntu22.04 and BIND9.20.30 unrelated control",
+    "packet_bytes": "Unmodified complete UDP payloads. Native queries use transaction23, not the module default0."
+  },
+  "captures": {
+    "2": {
+      "request_base64": "FgIAFwAAAAAAAAAA",
+      "response_base64": "1oIAF8AWAAAAAAGldmVyc2lvbj0ibnRwZCA0LjIuOHAxNUAxLjM3MjgtbyBXZWQgRmViIDE2IDE3OjEzOjAyIFVUQyAyMDIyICgxKSIsDQpwcm9jZXNzb3I9Ing4Nl82NCIsIHN5c3RlbT0iTGludXgvNy4wLjE0LWxpbnV4a2l0IiwgbGVhcD0zLCBzdHJhdHVtPTE2LA0KcHJlY2lzaW9uPS0yNCwgcm9vdGRlbGF5PTAuMDAwLCByb290ZGlzcD0xLjE1NSwgcmVmaWQ9SU5JVCwNCnJlZnRpbWU9MHgwMDAwMDAwMC4wMDAwMDAwMCwgY2xvY2s9MHhlZTljNWIyZi5kZDkyZGVlMiwgcGVlcj0wLCB0Yz0zLA0KbWludGM9Mywgb2Zmc2V0PTAuMDAwMDAwLCBmcmVxdWVuY3k9MC4wMDAsIHN5c19qaXR0ZXI9MC4wMDAwMDAsDQpjbGtfaml0dGVyPTAuMDAwLCBjbGtfd2FuZGVyPTAuMDAwLA0KbW9kdWxlX3RhcmdldD1tb2R1bGUtdGFyZ2V0LW5hdGl2ZS1udHAtcHJvb2YNCgAAAA==",
+      "response_sha256": "d7f32e7d019fb98f21d6c01d4690c51581fc69a359e47c123f7d85530699e5a7",
+      "response_bytes": 436,
+      "properties": {
+        "version": "ntpd 4.2.8p15@1.3728-o Wed Feb 16 17:13:02 UTC 2022 (1)",
+        "processor": "x86_64",
+        "system": "Linux/7.0.14-linuxkit",
+        "module_target": "module-target-native-ntp-proof"
+      }
+    },
+    "3": {
+      "request_base64": "HgIAFwAAAAAAAAAA",
+      "response_base64": "3oIAF8AWAAAAAAGldmVyc2lvbj0ibnRwZCA0LjIuOHAxNUAxLjM3MjgtbyBXZWQgRmViIDE2IDE3OjEzOjAyIFVUQyAyMDIyICgxKSIsDQpwcm9jZXNzb3I9Ing4Nl82NCIsIHN5c3RlbT0iTGludXgvNy4wLjE0LWxpbnV4a2l0IiwgbGVhcD0zLCBzdHJhdHVtPTE2LA0KcHJlY2lzaW9uPS0yNCwgcm9vdGRlbGF5PTAuMDAwLCByb290ZGlzcD0xLjE1NSwgcmVmaWQ9SU5JVCwNCnJlZnRpbWU9MHgwMDAwMDAwMC4wMDAwMDAwMCwgY2xvY2s9MHhlZTljNWIzMC4yNzE1NjBkNywgcGVlcj0wLCB0Yz0zLA0KbWludGM9Mywgb2Zmc2V0PTAuMDAwMDAwLCBmcmVxdWVuY3k9MC4wMDAsIHN5c19qaXR0ZXI9MC4wMDAwMDAsDQpjbGtfaml0dGVyPTAuMDAwLCBjbGtfd2FuZGVyPTAuMDAwLA0KbW9kdWxlX3RhcmdldD1tb2R1bGUtdGFyZ2V0LW5hdGl2ZS1udHAtcHJvb2YNCgAAAA==",
+      "response_sha256": "c6c653c236108bbaff618a126be97812001a63ed44f50acb8bd150eb01ae7425",
+      "response_bytes": 436,
+      "properties": {
+        "version": "ntpd 4.2.8p15@1.3728-o Wed Feb 16 17:13:02 UTC 2022 (1)",
+        "processor": "x86_64",
+        "system": "Linux/7.0.14-linuxkit",
+        "module_target": "module-target-native-ntp-proof"
+      }
+    },
+    "4": {
+      "request_base64": "JgIAFwAAAAAAAAAA",
+      "response_base64": "5oIAF8AWAAAAAAGldmVyc2lvbj0ibnRwZCA0LjIuOHAxNUAxLjM3MjgtbyBXZWQgRmViIDE2IDE3OjEzOjAyIFVUQyAyMDIyICgxKSIsDQpwcm9jZXNzb3I9Ing4Nl82NCIsIHN5c3RlbT0iTGludXgvNy4wLjE0LWxpbnV4a2l0IiwgbGVhcD0zLCBzdHJhdHVtPTE2LA0KcHJlY2lzaW9uPS0yNCwgcm9vdGRlbGF5PTAuMDAwLCByb290ZGlzcD0xLjE3MCwgcmVmaWQ9SU5JVCwNCnJlZnRpbWU9MHgwMDAwMDAwMC4wMDAwMDAwMCwgY2xvY2s9MHhlZTljNWIzMC43MzUwNjdlYywgcGVlcj0wLCB0Yz0zLA0KbWludGM9Mywgb2Zmc2V0PTAuMDAwMDAwLCBmcmVxdWVuY3k9MC4wMDAsIHN5c19qaXR0ZXI9MC4wMDAwMDAsDQpjbGtfaml0dGVyPTAuMDAwLCBjbGtfd2FuZGVyPTAuMDAwLA0KbW9kdWxlX3RhcmdldD1tb2R1bGUtdGFyZ2V0LW5hdGl2ZS1udHAtcHJvb2YNCgAAAA==",
+      "response_sha256": "b9844b2aa25c7712b535ee801b8dd684ea9d1fbd0b01396e112e4a6a57c9610b",
+      "response_bytes": 436,
+      "properties": {
+        "version": "ntpd 4.2.8p15@1.3728-o Wed Feb 16 17:13:02 UTC 2022 (1)",
+        "processor": "x86_64",
+        "system": "Linux/7.0.14-linuxkit",
+        "module_target": "module-target-native-ntp-proof"
+      }
+    },
+    "dns": {
+      "request_base64": "FgIAFwAAAAAAAAAA",
+      "response_base64": "FgKAEQAAAAAAAAAA",
+      "response_sha256": "2b79762622b7b31ec7b407f95f89fe4e18595f5795847709259289a3e9fa6e69",
+      "response_bytes": 12
+    }
+  }
+}
