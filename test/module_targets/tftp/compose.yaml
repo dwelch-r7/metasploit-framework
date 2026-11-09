@@ -1,0 +1,15 @@
+services:
+  tftp:
+    build: .
+    ports: ["127.0.0.1::69/udp"]
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - rm -f /tmp/module-target-health && timeout 3 tftp -m octet 127.0.0.1 -c get public.txt /tmp/module-target-health && cmp -s /tmp/module-target-health /srv/tftp/public.txt
+      interval: 5s
+      timeout: 4s
+      retries: 30
+  unrelated:
+    extends:
+      file: ../dns/compose.yaml
+      service: open

@@ -112,6 +112,20 @@ class ModuleTargetTests
     files.sort.to_h { |path| [path, Digest::SHA256.file(File.join(ROOT, path)).hexdigest] }
   end
 
+  def service_ports(definitions)
+    definitions.to_h do |service, definition|
+      values = definition.is_a?(Hash) ? definition : { 'port' => definition }
+      port = values.fetch('port')
+      protocol = values.fetch('protocol', 'tcp')
+      unknown = values.keys - %w[port protocol]
+      raise ArgumentError, "Unknown port settings for #{service}: #{unknown.join(', ')}" unless unknown.empty?
+      raise ArgumentError, "Invalid target port for #{service}: #{port.inspect}" unless port.is_a?(Integer) && (1..65_535).cover?(port)
+      raise ArgumentError, "Invalid target protocol for #{service}: #{protocol.inspect}" unless %w[tcp udp].include?(protocol)
+
+      [service, { 'port' => port, 'protocol' => protocol }]
+    end
+  end
+
   def run_family(family)
     directory = File.join(@results, family)
     FileUtils.mkdir_p(directory)
@@ -119,6 +133,7 @@ class ModuleTargetTests
     result = { family: family, status: 'setup_failed', started_at: Time.now.utc.iso8601 }
     begin
       manifest = YAML.safe_load_file(File.join(TARGETS, family, 'manifest.yml'))
+      ports = service_ports(manifest.fetch('ports'))
       if manifest['console']
         # Compose interpolation uses the process environment, including for later
         # exec/down commands emitted in runtime.json and the reproduction logs.
@@ -139,8 +154,10 @@ class ModuleTargetTests
       # is cached; the functional suite itself retains its separate short bound.
       setup_timeout = manifest['console'] ? 1800 : 600
       if command(compose + ['up', '--detach', '--build', '--wait', '--wait-timeout', '120'], path: File.join(directory, 'setup.log'), timeout: setup_timeout)
-        endpoints = manifest.fetch('ports').to_h do |service, port|
-          binding = compose_output(compose, 'port', service, port.to_s).strip
+        endpoints = ports.to_h do |service, definition|
+          arguments = ['port']
+          arguments += ['--protocol', definition.fetch('protocol')] unless definition.fetch('protocol') == 'tcp'
+          binding = compose_output(compose, *arguments, service, definition.fetch('port').to_s).strip
           raise "Expected a loopback port for #{service}, got #{binding}" unless binding.match?(/\A127\.0\.0\.1:\d+\z/)
 
           [service, { 'host' => '127.0.0.1', 'port' => binding.split(':').last.to_i }]
@@ -158,10 +175,10 @@ class ModuleTargetTests
           end
           result[:metadata_cache_seed_sha256] = cached_files.to_h { |path| [File.basename(path), Digest::SHA256.file(path).hexdigest] }
         end
-        runtime = { 'compose' => compose, 'endpoints' => endpoints, 'artifacts' => directory, 'metadata_cache' => cache }
+        runtime = { 'compose' => compose, 'endpoints' => endpoints, 'artifacts' => directory, 'metadata_cache' => cache, 'transports' => ports.transform_values { |definition| definition.fetch('protocol') } }
         if manifest['console']
-          runtime['module_endpoints'] = manifest.fetch('ports').to_h do |service, port|
-            [service, { 'host' => container_ip(compose, service), 'port' => port }]
+          runtime['module_endpoints'] = ports.to_h do |service, definition|
+            [service, { 'host' => container_ip(compose, service), 'port' => definition.fetch('port') }]
           end
           runtime['listener_host'] = container_ip(compose, 'framework')
           runtime['console_command'] = compose + ['exec', '-T', '--user', "#{Process.uid}:#{Process.gid}", '--env', "MSF_CFGROOT_CONFIG=#{directory}/msf-config", 'framework', 'bundle', 'exec', 'ruby', 'msfconsole', '--no-readline', '--quiet']

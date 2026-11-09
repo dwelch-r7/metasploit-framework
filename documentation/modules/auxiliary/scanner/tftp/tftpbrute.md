@@ -1,6 +1,9 @@
 
 ## Vulnerable Application
 
+For a genuine tftpd-hpa target, native transfer/permission controls and automated
+discovery tests, see the [container lab](../../../../../test/module_targets/tftp/README.md).
+
 This module attempts to find files on a TFTP server.  The default wordlist is [tftp.txt](https://github.com/rapid7/metasploit-framework/blob/master/data/wordlists/tftp.txt).
 This module will NOT attempt to download the entire file, it simply pulls the first 3 bytes to verify the file exists.
 

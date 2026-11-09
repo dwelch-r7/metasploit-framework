@@ -67,6 +67,10 @@ snapshot remains a setup failure and cannot qualify a module.
   example count, module fullnames and service ports. Several modules may share
   one target family. `connection_env` maps services to an existing protocol
   suite's environment-variable prefix, avoiding duplicate suites.
+  Integer port values retain ordinary TCP discovery. UDP-only targets use a
+  mapping such as `open: {port: 69, protocol: udp}`; the runner asks Compose for
+  the UDP mapping explicitly. Both host and internal module endpoints retain
+  their `host`/integer `port` shape; `runtime.json` also records `transports`.
   `console: true` adds the shared Framework console service; `test_env` supplies
   a suite's bounded fixture options without changing its ordinary defaults.
 - `spec/acceptance/module_targets/<family>_spec.rb`: short functional cases,
@@ -128,8 +132,9 @@ cover several valuable workflows, then version-specific vulnerable applications.
 Record evidence-backed exclusions and failures in [the campaign record](CAMPAIGN.md).
 The [earlier November 9 checkpoint](VERIFICATION-20261109.md) records its qualified
 profiles and separate before/after module findings.
-The [current follow-up checkpoint](VERIFICATION-20261109-follow-up.md) records
+The [published follow-up checkpoint](VERIFICATION-20261109-follow-up.md) records
 86 modules, 31 families and 416 cases, including DNS, Linux, VNC, WebDAV, MQTT and mail
-qualification and complete source-current revalidation of registered families.
+qualification at `e16b4bc4157`, with matching recorded inputs for its 31 families.
+Later fixture/runner changes require fresh validation before updating that total.
 The full campaign remains incomplete while feasible, valuable modules await review
 or functional verification.

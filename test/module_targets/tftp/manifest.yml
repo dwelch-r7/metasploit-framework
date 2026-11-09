@@ -1,0 +1,16 @@
+spec: spec/acceptance/module_targets/tftp_spec.rb
+expected_examples: 6
+console: true
+modules:
+  - auxiliary/scanner/tftp/tftpbrute
+ports:
+  tftp: {port: 69, protocol: udp}
+  unrelated: {port: 53, protocol: udp}
+support_files:
+  - test/module_targets/dns/compose.yaml
+  - test/module_targets/dns/Dockerfile
+  - test/module_targets/dns/common.conf
+  - test/module_targets/dns/open.conf
+  - test/module_targets/dns/closed.conf
+  - test/module_targets/dns/module-target.test.zone
+  - test/module_targets/dns/192.0.2.rev
