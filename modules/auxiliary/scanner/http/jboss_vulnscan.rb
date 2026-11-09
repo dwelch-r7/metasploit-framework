@@ -162,7 +162,7 @@ class MetasploitModule < Msf::Auxiliary
       port: rport,
       service_name: 'jboss',
       protocol: 'tcp',
-      workspace_id: framework.db.workspace.id
+      workspace_id: myworkspace_id
     }
 
     credential_data = {
