@@ -1,0 +1,211 @@
+{
+  "provenance": {
+    "source": "Parent tmp/msf-target-proxy-native-ce396f30/native.json",
+    "sha256": "9455910b79975336f07c37b9ded4caf64f5a18e0c2c2589fa5702f0bfbf5213b",
+    "producer": "test/module_targets/http_proxy/native_probe.rb",
+    "target": "Apache 2.4.62 mod_proxy_http/mod_proxy_connect, actual HTTP and HTTPS origin",
+    "note": "Native TLS entries contain the origin HTTPS response after a successful CONNECT, not a separately captured CONNECT response body."
+  },
+  "native_operations": [
+    {
+      "service": "open",
+      "destination_port": 80,
+      "tls": false,
+      "code": "200",
+      "headers": {
+        "date": [
+          "Mon, 09 Nov 2026 17:58:23 GMT"
+        ],
+        "server": [
+          "Apache/2.4.62 (Unix) OpenSSL/3.0.15"
+        ],
+        "last-modified": [
+          "Mon, 09 Nov 2026 17:53:48 GMT"
+        ],
+        "etag": [
+          "\"77-65fdba4de8ed9\""
+        ],
+        "accept-ranges": [
+          "bytes"
+        ],
+        "content-length": [
+          "119"
+        ],
+        "content-type": [
+          "text/html"
+        ],
+        "via": [
+          "1.1 module-target-proxy"
+        ]
+      },
+      "body": "<!doctype html>\n<html><title>Native proxy destination</title><body>module-target-proxy-destination-proof</body></html>\n"
+    },
+    {
+      "service": "open",
+      "destination_port": 8080,
+      "tls": false,
+      "code": "200",
+      "headers": {
+        "date": [
+          "Mon, 09 Nov 2026 17:58:23 GMT"
+        ],
+        "server": [
+          "Apache/2.4.62 (Unix) OpenSSL/3.0.15"
+        ],
+        "last-modified": [
+          "Mon, 09 Nov 2026 17:53:48 GMT"
+        ],
+        "etag": [
+          "\"77-65fdba4de8ed9\""
+        ],
+        "accept-ranges": [
+          "bytes"
+        ],
+        "content-length": [
+          "119"
+        ],
+        "content-type": [
+          "text/html"
+        ],
+        "via": [
+          "1.1 module-target-proxy:8080"
+        ]
+      },
+      "body": "<!doctype html>\n<html><title>Native proxy destination</title><body>module-target-proxy-destination-proof</body></html>\n"
+    },
+    {
+      "service": "open",
+      "destination_port": 443,
+      "tls": true,
+      "code": "200",
+      "headers": {
+        "date": [
+          "Mon, 09 Nov 2026 17:58:23 GMT"
+        ],
+        "server": [
+          "Apache/2.4.62 (Unix) OpenSSL/3.0.15"
+        ],
+        "last-modified": [
+          "Mon, 09 Nov 2026 17:53:48 GMT"
+        ],
+        "etag": [
+          "\"77-65fdba4de8ed9\""
+        ],
+        "accept-ranges": [
+          "bytes"
+        ],
+        "content-length": [
+          "119"
+        ],
+        "content-type": [
+          "text/html"
+        ]
+      },
+      "body": "<!doctype html>\n<html><title>Native proxy destination</title><body>module-target-proxy-destination-proof</body></html>\n",
+      "certificate_subject": "/CN=destination"
+    },
+    {
+      "service": "open",
+      "destination_port": 8443,
+      "tls": true,
+      "code": "200",
+      "headers": {
+        "date": [
+          "Mon, 09 Nov 2026 17:58:23 GMT"
+        ],
+        "server": [
+          "Apache/2.4.62 (Unix) OpenSSL/3.0.15"
+        ],
+        "last-modified": [
+          "Mon, 09 Nov 2026 17:53:48 GMT"
+        ],
+        "etag": [
+          "\"77-65fdba4de8ed9\""
+        ],
+        "accept-ranges": [
+          "bytes"
+        ],
+        "content-length": [
+          "119"
+        ],
+        "content-type": [
+          "text/html"
+        ]
+      },
+      "body": "<!doctype html>\n<html><title>Native proxy destination</title><body>module-target-proxy-destination-proof</body></html>\n",
+      "certificate_subject": "/CN=destination"
+    },
+    {
+      "service": "denied",
+      "destination_port": 8080,
+      "tls": false,
+      "code": "403",
+      "headers": {
+        "date": [
+          "Mon, 09 Nov 2026 17:58:23 GMT"
+        ],
+        "server": [
+          "Apache/2.4.62 (Unix)"
+        ],
+        "content-length": [
+          "199"
+        ],
+        "content-type": [
+          "text/html; charset=iso-8859-1"
+        ]
+      },
+      "body": "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">\n<html><head>\n<title>403 Forbidden</title>\n</head><body>\n<h1>Forbidden</h1>\n<p>You don't have permission to access this resource.</p>\n</body></html>\n"
+    },
+    {
+      "service": "denied",
+      "destination_port": 443,
+      "tls": true,
+      "code": "403",
+      "connect_refusal": true
+    },
+    {
+      "service": "unrelated",
+      "destination_port": 8080,
+      "tls": false,
+      "code": "200",
+      "headers": {
+        "date": [
+          "Mon, 09 Nov 2026 17:58:23 GMT"
+        ],
+        "server": [
+          "Apache/2.4.62 (Unix)"
+        ],
+        "last-modified": [
+          "Sun, 08 Nov 2026 20:57:45 GMT"
+        ],
+        "etag": [
+          "\"79-65fca18e3b1e2\""
+        ],
+        "accept-ranges": [
+          "bytes"
+        ],
+        "content-length": [
+          "121"
+        ],
+        "content-type": [
+          "text/html"
+        ]
+      },
+      "body": "<!doctype html><html><head><title>Module target &amp; Apache</title></head><body>module-target-http-marker</body></html>\n"
+    },
+    {
+      "service": "unrelated",
+      "destination_port": 443,
+      "tls": true,
+      "code": "405",
+      "connect_refusal": true
+    },
+    {
+      "service": "open",
+      "destination_port": 8444,
+      "tls": true,
+      "code": "503",
+      "connect_refusal": true
+    }
+  ]
+}

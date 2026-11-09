@@ -56,11 +56,7 @@ class MetasploitModule < Msf::Auxiliary
 
     if datastore['VERIFYCONNECT']
       target_method = 'CONNECT'
-      # CONNECT doesn't need <scheme> but need port
-      check_url = check_url.gsub(/[http:\/\/|https:\/\/]/, '')
-      if check_url !~ /:443$/
-        check_url = check_url + ":443"
-      end
+      check_url = connect_authority(check_url)
     else
       target_method = 'GET'
       # GET only http request
@@ -83,6 +79,25 @@ class MetasploitModule < Msf::Auxiliary
     target_ports.each do |target_port|
       verify_target(target_host, target_port, target_method, check_url, target_proxy_headers)
     end
+  end
+
+  def connect_authority(check_url)
+    authority = check_url.sub(%r{\Ahttps?://}i, '')
+    if authority.match?(%r{\A[a-z][a-z0-9+.-]*://}i)
+      fail_with(Failure::BadConfig, 'CHECKURL must be an HTTP(S) URL or a host authority for CONNECT')
+    end
+
+    # A scheme-less URI keeps an absent port distinct from an explicit :80.
+    # CONNECT historically defaults to 443, including for an http:// CHECKURL.
+    uri = URI.parse("//#{authority}")
+    port = uri.port || 443
+    unless uri.hostname && uri.userinfo.nil? && (1..65_535).cover?(port)
+      fail_with(Failure::BadConfig, 'CHECKURL must include a host and a port between 1 and 65535, without user information')
+    end
+
+    Rex::Socket.to_authority(uri.hostname, port)
+  rescue URI::InvalidURIError
+    fail_with(Failure::BadConfig, 'CHECKURL is not a valid HTTP(S) URL or host authority for CONNECT')
   end
 
   def verify_target(target_host, target_port, target_method, check_url, target_proxy_headers)
