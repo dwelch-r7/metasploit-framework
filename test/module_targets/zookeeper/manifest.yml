@@ -1,0 +1,17 @@
+spec: spec/acceptance/module_targets/zookeeper_spec.rb
+expected_examples: 8
+console: true
+modules:
+  - auxiliary/gather/zookeeper_info_disclosure
+ports:
+  legacy: 2181
+  modern: 2181
+  environment_only: 2181
+  statistics_only: 2181
+  restricted: 2181
+  unrelated: 80
+support_files:
+  - test/module_targets/http/compose.yaml
+  - test/module_targets/http/Dockerfile
+  - test/module_targets/http/module-target.conf
+  - test/module_targets/http/htdocs/index.html

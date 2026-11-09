@@ -1,0 +1,43 @@
+x-environment: &environment
+  JVMFLAGS: -Xms32m -Xmx128m
+  ZK_SERVER_HEAP: '128'
+  ZK_CLIENT_HEAP: '32'
+  ZOO_4LW_COMMANDS_WHITELIST: ''
+  ZOO_CFG_EXTRA: 4lw.commands.whitelist=srvr,ruok,envi,stat
+
+x-zookeeper: &zookeeper
+  image: zookeeper:3.9.3@sha256:9980cafbff742c15b339811ae829faa61c69154606ec504223560da9d31acd43
+  environment: *environment
+  ports: ["127.0.0.1::2181"]
+  mem_limit: 256m
+  healthcheck:
+    test: [CMD, zkServer.sh, status]
+    interval: 3s
+    timeout: 5s
+    retries: 35
+
+services:
+  legacy:
+    <<: *zookeeper
+    image: zookeeper:3.4.14@sha256:3882d9493d387ba77b7b69e2a031b9396477ec29483d51ceaed645c1389182e5
+    platform: linux/amd64
+  modern:
+    <<: *zookeeper
+  environment_only:
+    <<: *zookeeper
+    environment:
+      <<: *environment
+      ZOO_CFG_EXTRA: 4lw.commands.whitelist=srvr,ruok,envi
+  statistics_only:
+    <<: *zookeeper
+    environment:
+      <<: *environment
+      ZOO_CFG_EXTRA: 4lw.commands.whitelist=srvr,ruok,stat
+  restricted:
+    <<: *zookeeper
+    environment:
+      <<: *environment
+      ZOO_CFG_EXTRA: ''
+      ZOO_4LW_COMMANDS_WHITELIST: srvr
+  unrelated:
+    extends: {file: ../http/compose.yaml, service: apache}

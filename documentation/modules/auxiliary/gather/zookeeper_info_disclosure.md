@@ -1,8 +1,31 @@
-### Description
+## Vulnerable Application
 
 This module targets Apache ZooKeeper service instances to extract information about the system environment, and service statistics.
 
-### Verification Steps
+The [managed ZooKeeper lab](../../../../test/module_targets/zookeeper/README.md)
+keeps digest-pinned Docker targets and automated native/module tests in this
+repository. It exercises ZooKeeper 3.4.14 and 3.9.3 with both, either or neither
+information command permitted. Modern image defaults restrict these commands;
+an open TCP port alone does not prove environment or statistics disclosure.
+
+## Verification Steps
+
+1. Start an owned ZooKeeper target with the desired four-letter command policy.
+2. In msfconsole, use `auxiliary/gather/zookeeper_info_disclosure`.
+3. Set `RHOSTS` and, if needed, `RPORT` to the owned target.
+4. Run the module.
+5. Verify environment/statistics loot for permitted commands, or explicit
+   permission-denied output when the target blocks them.
+
+## Options
+
+### TIMEOUT
+
+Maximum probe duration in seconds. The default is 30; zero also selects 30.
+
+## Scenarios
+
+### Historical ZooKeeper 3.4.x example
 
 ```
 msf > use auxiliary/gather/zookeeper_info_disclosure
