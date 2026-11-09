@@ -1,0 +1,10 @@
+services:
+  proxy:
+    image: ghcr.io/shopify/toxiproxy:2.9.0@sha256:b44c283298cea49e2defaba1b3028783798346f2a926684e3a345fd8441af3b8
+    ports: ["127.0.0.1::8474"]
+    mem_limit: 64m
+    healthcheck:
+      test: [CMD, /toxiproxy-cli, list]
+      interval: 2s
+      timeout: 3s
+      retries: 25

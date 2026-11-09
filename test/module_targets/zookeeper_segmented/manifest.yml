@@ -1,0 +1,12 @@
+spec: spec/acceptance/module_targets/zookeeper_segmented_spec.rb
+expected_examples: 1
+console: true
+modules:
+  - auxiliary/gather/zookeeper_info_disclosure
+ports:
+  backend: 2181
+  sliced: 2181
+support_files:
+  - test/module_targets/zookeeper/compose.yaml
+  - test/module_targets/tcp_proxy/compose.yaml
+  - test/module_targets/tcp_proxy/README.md

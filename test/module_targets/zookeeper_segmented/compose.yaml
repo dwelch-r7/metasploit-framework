@@ -1,0 +1,7 @@
+services:
+  backend:
+    extends: {file: ../zookeeper/compose.yaml, service: modern}
+  sliced:
+    extends: {file: ../tcp_proxy/compose.yaml, service: proxy}
+    ports: ["127.0.0.1::2181"]
+    depends_on: {backend: {condition: service_healthy}}
