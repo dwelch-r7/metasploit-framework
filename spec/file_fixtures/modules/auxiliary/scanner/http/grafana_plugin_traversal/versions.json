@@ -1,0 +1,64 @@
+{
+  "source": "tmp/module-target-tests/20261109T232206-b77e59/grafana_traversal/native-grafana.json",
+  "source_sha256": "ae5b04d40ac548d67c0d79279c9bcd01d37407a0e872c1e37489815d4451f731",
+  "profiles": {
+    "v806": {
+      "version": "8.0.6",
+      "vulnerable": true,
+      "traversal_status": 200,
+      "version_fragment": "\"subTitle\":\"Grafana v8.0.6 (68fe9e3431)\",",
+      "full_login_sha256": "9ddfad7f009dc320aaf5fff4078adf023b34228c6598ce4ab17661eca5f58e7c"
+    },
+    "v807": {
+      "version": "8.0.7",
+      "vulnerable": false,
+      "traversal_status": 404,
+      "version_fragment": "\"subTitle\":\"Grafana v8.0.7 (822ff7595e)\",",
+      "full_login_sha256": "84917b1b09df36802c9499fb4db9b91f2353e1504122b6f8c0418a90ee05437a"
+    },
+    "v817": {
+      "version": "8.1.7",
+      "vulnerable": true,
+      "traversal_status": 200,
+      "version_fragment": "\"subTitle\":\"Grafana v8.1.7 (34b8880d53)\",",
+      "full_login_sha256": "f045b572ce87f823df553d1fc95afca317942340bef80e9784388ba917c7e3ff"
+    },
+    "v818": {
+      "version": "8.1.8",
+      "vulnerable": false,
+      "traversal_status": 404,
+      "version_fragment": "\"subTitle\":\"Grafana v8.1.8 (52edcff798)\",",
+      "full_login_sha256": "5e9b690c2ab612c2ef2b8e2a2705eb2e9ed579221d317a15adad0c00486fabce"
+    },
+    "v826": {
+      "version": "8.2.6",
+      "vulnerable": true,
+      "traversal_status": 200,
+      "version_fragment": "\"subTitle\":\"Grafana v8.2.6 (c3cc4da7a5)\",",
+      "full_login_sha256": "c237bee4bc1da921443c75e2914e6c6f61e25c56edb3c609d064177f7e198707"
+    },
+    "v827": {
+      "version": "8.2.7",
+      "vulnerable": false,
+      "traversal_status": 404,
+      "version_fragment": "\"subTitle\":\"Grafana v8.2.7 (d2cccfe91e)\",",
+      "full_login_sha256": "61bcec4ff6670c93e23f5321028932665e5b201fc7b565a49e70b2b5460dab46"
+    },
+    "v830": {
+      "version": "8.3.0",
+      "vulnerable": true,
+      "traversal_status": 200,
+      "version_fragment": "\"subTitle\":\"Grafana v8.3.0 (914fcedb72)\",",
+      "full_login_sha256": "a92615fd00bb3ed18f2d9424bf192ba52352cf34a0349e954e9faf58da79e9f7"
+    },
+    "v831": {
+      "version": "8.3.1",
+      "vulnerable": false,
+      "traversal_status": 404,
+      "version_fragment": "\"subTitle\":\"Grafana v8.3.1 (b9eacd93e9)\",",
+      "full_login_sha256": "3f3b8fffce9880d4e08f24ce9f56fc24cfc2331ad0ea43117d06be15b1235e02"
+    }
+  },
+  "unrelated_body": "<!doctype html><html><head><title>Module target &amp; Apache</title></head><body>module-target-http-marker</body></html>\n",
+  "note": "Version fragments are exact projections of full actual pages; they are not complete HTML documents. Full pages and independent traversal responses remain in the raw source report."
+}
