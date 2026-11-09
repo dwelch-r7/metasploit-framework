@@ -129,7 +129,7 @@ Record evidence-backed exclusions and failures in [the campaign record](CAMPAIGN
 The [earlier November 9 checkpoint](VERIFICATION-20261109.md) records its qualified
 profiles and separate before/after module findings.
 The [current follow-up checkpoint](VERIFICATION-20261109-follow-up.md) records
-83 modules, 30 families and 403 cases, including DNS, Linux, VNC, WebDAV and MQTT
+86 modules, 31 families and 416 cases, including DNS, Linux, VNC, WebDAV, MQTT and mail
 qualification and complete source-current revalidation of registered families.
 The full campaign remains incomplete while feasible, valuable modules await review
 or functional verification.

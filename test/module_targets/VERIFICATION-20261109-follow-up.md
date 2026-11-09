@@ -1,7 +1,7 @@
 # November 9 container module verification follow-up
 
-The current verified checkpoint is **83 production runtime modules, 30 families
-and 403 functional cases**. Every selected result has the exact expected count,
+The current verified checkpoint is **86 production runtime modules, 31 families
+and 416 functional cases**. Every selected result has the exact expected count,
 zero failures/pending/outside-example errors, matching current recorded input
 hashes and successful owned cleanup. The repository-wide campaign remains active;
 most modules still await individual feasibility review and functional testing.
@@ -171,8 +171,9 @@ seven existing shared examples pass; fifteen inherited helper lint signatures
 remain, with none added. The fresh Memcached four-case rerun passed.
 The final broader rerun passed all 26 selected families at
 `tmp/module-target-tests/20261109T115940-3c7bd2/`. Separate current-source results
-qualify SMB, SMTP, WebDAV and MQTT, bringing the checkpoint to all 30 registered
-families. Every retained result matches current input hashes. Earlier cold-console
+qualify SMB, SMTP, WebDAV and MQTT, bringing the pre-mail checkpoint to 30
+families. The mail profile below adds the thirty-first family. Every retained
+result matches current input hashes. Earlier cold-console
 startup 120-second failures under concurrent cold loads are setup failures; a
 single invocation reuses metadata without copying credentials/settings/sessions.
 
@@ -203,6 +204,45 @@ than the current MQTT 3.1 packet gem's 23-byte limit remains a follow-up: the
 invalid positive fixture exposed a packet-gem RuntimeError, and this campaign
 does not add a different protocol version or claim that input is supported.
 
+## POP3 and IMAP
+
+Three modules passed thirteen cases on genuine Dovecot 2.3.16 (7e2e900c1a), using
+Ubuntu package `1:2.3.16+dfsg1-3ubuntu2.9` on the digest-pinned Ubuntu 22.04 base.
+Five listeners cover cleartext/implicit TLS POP3 and IMAP, plus required-TLS POP3.
+Independent stdlib clients authenticate, retrieve the actual seeded message,
+reject wrong/unknown/blank credentials and prove cleartext refusal followed by
+successful STARTTLS access on the protected listener. TLS clients validate the
+explicit lab certificate. Eighteen native executable controls run before and
+after the module cases, alongside the protocol reads/rejections.
+
+The final parent result is thirteen cases, zero failures/pending/outside errors,
+matching inputs and owned cleanup at
+`tmp/module-target-tests/20261109T131147-4fad9b/mail/` (158.37s). Native message
+counts and SHA-256 values are unchanged before/after in each profile. Module cases
+cover both actual greetings over cleartext/TLS, repeated valid logins, wrong
+passwords, absent users, blank/anonymous credentials, policy denial and an unrelated real IMAP
+listener for the POP3 login scanner. Banner modules return greetings, which do
+not necessarily disclose a numeric software version.
+
+Initial failures were fixture/control issues: the authentication process lacked
+read access to the password file; five-second native reads were shorter than
+the retained per-IP failure penalty; and master CLI overrides did not enforce
+the intended TLS policy. A dedicated included configuration and direct native
+probe establish actual cleartext refusal and successful STARTTLS mailbox access.
+No module ran before those failing preflights, and no production fix was needed.
+Diagnostic evidence is retained in `tmp/mail-policy-review/` and the preceding
+mail runs `20261109T125715-9f7fc1`, `20261109T130017-a5a03f` and
+`20261109T130242-7c307f`.
+
+Native authentication waits allow twenty seconds; ordinary connects/readback
+stay at five seconds and the module retains its sixteen-second PASS wait.
+Framework uses explicit `SSLVerifyMode NONE` for this public self-signed lab;
+module certificate validation, STARTTLS, APOP/SASL, other servers/versions,
+IPv6/proxies, large messages and database persistence remain unqualified.
+RuboCop found no offenses in the new spec; syntax/Compose/diff checks passed.
+The three linked module documents retain their thirteen existing diagnostics,
+with none added. Existing human Scenarios were preserved.
+
 ## Remaining qualification and CI
 
 Six source-hashed individual reviews now record Linux/Windows kernel, macOS,
@@ -215,10 +255,19 @@ conversion in `cert_request.rb` under Ruby 3.4. The same failure was seen at ear
 campaign checkpoints, but its initial-base attribution is unclassified. Lint and
 seven service/session workflows passed. Meterpreter also failed: the mettle job
 finished 51 examples with two timeouts in `post/test/search` over HTTP/HTTPS with
-`minimal_uris_headers.profile` (seed 2239). Those transport/search failures remain
-unclassified; passing container profiles do not establish a green CI result.
+`minimal_uris_headers.profile` (seed 2239). The retained HTTP trace shows all eight
+search assertions passed, followed by a cleanup delete request without a matching
+reply. HTTPS stopped in setup with an unanswered stat request before search
+assertions ran. This establishes where the traces stop, not the root cause of the
+missing replies. A separate-worktree transport investigation remains active;
+passing container profiles do not establish a green CI result.
 Raw failed logs are retained in
 `tmp/module-container-ci-399d88-{verify,meterpreter}-failed.log`.
+Readable CI console/TLV captures and their original attachment mapping are under
+`tmp/meterpreter-search-ci-evidence/`. On the subsequent published `abfbaf48aa6`
+checkpoint, lint and all seven non-Meterpreter acceptance workflows passed.
+Verify repeats the same OID exception; Meterpreter had not finished at inspection.
+Its Verify log is `tmp/module-container-ci-abfbaf-verify-failed.log`.
 
 ## Current-source result index
 
@@ -240,6 +289,7 @@ under the ignored `tmp/` directory.
 | ldap | 10 | 77.87 | `tmp/module-target-tests/20261109T115940-3c7bd2/ldap/` |
 | linux_post | 8 | 184.64 | `tmp/module-target-tests/20261109T115940-3c7bd2/linux_post/` |
 | linux_system | 12 | 503.73 | `tmp/module-target-tests/20261109T115940-3c7bd2/linux_system/` |
+| mail | 13 | 158.37 | `tmp/module-target-tests/20261109T131147-4fad9b/mail/` |
 | mariadb | 10 | 57.70 | `tmp/module-target-tests/20261109T115940-3c7bd2/mariadb/` |
 | memcached | 4 | 70.17 | `tmp/module-target-tests/20261109T115940-3c7bd2/memcached/` |
 | mongobleed | 11 | 48.68 | `tmp/module-target-tests/20261109T115940-3c7bd2/mongobleed/` |
@@ -262,6 +312,6 @@ under the ignored `tmp/` directory.
 
 The independent result selector rechecked each manifest's exact count, terminal
 status, current recorded SHA-256 values and owned cleanup. Registration alone
-does not qualify any additional module. These 403 cases are functional examples;
+does not qualify any additional module. These 416 cases are functional examples;
 the focused unit-run counts above overlap through shared support and are not
 added to that total.

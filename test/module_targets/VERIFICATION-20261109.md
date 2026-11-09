@@ -7,7 +7,7 @@ modern CouchDB native control and qualify the corrected command-execution profil
 At that checkpoint every selected result had the exact expected count, zero failures/pending/
 outside-example errors, matching recorded input hashes and successful owned
 cleanup. The [follow-up checkpoint](VERIFICATION-20261109-follow-up.md) supersedes
-these totals with 83 modules, 30 families and 403 source-current cases. The
+these totals with 86 modules, 31 families and 416 source-current cases. The
 repository-wide campaign remains active.
 
 ## MongoDB 2.6 findings and fixes

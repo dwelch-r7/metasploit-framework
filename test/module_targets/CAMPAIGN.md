@@ -183,6 +183,16 @@ errors, matching input hashes and successful owned teardown. See the
 [follow-up verification](VERIFICATION-20261109-follow-up.md)
 for exact evidence, separate fix commits and qualification limits.
 
+The shared Dovecot profile then passed thirteen cases across POP3 authentication
+and POP3/IMAP discovery over cleartext and implicit TLS. Independent clients also
+prove real mailbox content, credential rejection, TLS-policy refusal and native
+STARTTLS access. Initial password-file permission, native-wait and TLS-policy
+configuration failures were corrected as fixture issues before module execution.
+The checkpoint is now **86 runtime modules, 31 families and 416 functional cases**,
+all with current recorded inputs and owned cleanup. Meterpreter CI transport
+timeouts have a separate active worktree investigation; the full campaign remains
+unfinished.
+
 ## November 8 baseline findings
 
 | Family | Functional result | Scope |
