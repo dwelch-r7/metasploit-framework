@@ -3,6 +3,8 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
+require 'csv'
+
 class MetasploitModule < Msf::Auxiliary
   include Msf::Exploit::Remote::HttpClient
   include Msf::Auxiliary::Report
@@ -29,7 +31,8 @@ class MetasploitModule < Msf::Auxiliary
         ],
         'License' => MSF_LICENSE,
         'DefaultOptions' => {
-          'SSL' => true
+          'SSL' => true,
+          'RPORT' => 9200
         },
         'Notes' => {
           'Stability' => [CRASH_SAFE],
@@ -41,10 +44,9 @@ class MetasploitModule < Msf::Auxiliary
 
     register_options(
       [
-        Opt::RPORT(9200),
         OptString.new('USERNAME', [false, 'A specific username to authenticate as', '']),
         OptString.new('PASSWORD', [false, 'A specific password to authenticate as', '']),
-        OptInt.new('DOWNLOADROWS', [true, 'Number of beginning and ending rows to download per index', 5])
+        OptInt.new('DOWNLOADROWS', [true, 'Maximum number of rows to download per index', 5])
       ]
     )
   end
@@ -63,33 +65,29 @@ class MetasploitModule < Msf::Auxiliary
     }
     request['authorization'] = basic_auth(datastore['USERNAME'], datastore['PASSWORD']) if datastore['USERNAME'] || datastore['PASSWORD']
 
-    res = send_request_cgi(request)
-    vprint_error('Unable to establish connection') if res.nil?
+    json_body = elasticsearch_response(send_request_cgi(request), operation: "download rows from index #{index}", expected_type: Hash, optional: true)
+    return unless json_body
 
-    if res && res.code == 200 && !res.body.empty?
-      json_body = res.get_json_document
-      if json_body.empty?
-        vprint_error('Unable to parse JSON')
-        return
-      end
-    else
-      vprint_error('Timeout or unexpected response...')
+    result = json_body['hits']
+    hits = result['hits'] if result.is_a?(Hash)
+    unless hits.is_a?(Array) && hits.all? { |hit| hit.is_a?(Hash) && hit['_source'].is_a?(Hash) }
+      vprint_error("Unable to download rows from index #{index}: The search response has no usable source documents")
+      return
+    end
+    if hits.empty?
+      vprint_status("No documents returned from index #{index}")
       return
     end
 
-    columns = json_body.dig('hits', 'hits')[0]['_source'].keys
-    elastic_table = Rex::Text::Table.new(
-      'Header' => "#{index} Data",
-      'Indent' => 2,
-      # we know at least 1 row since we wouldn't query an index w/o a row
-      'Columns' => columns
-    )
-    json_body.dig('hits', 'hits').each do |hash|
-      elastic_table << columns.map { |column| hash['_source'][column] }
+    columns = hits.first['_source'].keys
+    # Table CSV output normalizes whitespace for display; extracted values must
+    # retain their actual newlines, quotes and other literal text.
+    data = CSV.generate(force_quotes: true) do |csv|
+      csv << columns
+      hits.each { |hit| csv << columns.map { |column| hit['_source'][column] } }
     end
-
-    l = store_loot('elasticserch.index.data', 'application/csv', rhost, elastic_table.to_csv, "#{index}_data.csv", nil, @service)
-    print_good("#{index} data stored to #{l}")
+    loot = store_loot('elasticserch.index.data', 'application/csv', rhost, data, "#{index}_data.csv", nil, @service)
+    print_good("#{index} data stored to #{loot}")
   end
 
   def get_indices
@@ -108,19 +106,8 @@ class MetasploitModule < Msf::Auxiliary
     }
     request['authorization'] = basic_auth(datastore['USERNAME'], datastore['PASSWORD']) if datastore['USERNAME'] || datastore['PASSWORD']
 
-    res = send_request_cgi(request)
-    vprint_error('Unable to establish connection') if res.nil?
-
-    if res && res.code == 200 && !res.body.empty?
-      json_body = res.get_json_document
-      if json_body.empty?
-        vprint_error('Unable to parse JSON')
-        return
-      end
-    else
-      vprint_error('Timeout or unexpected response...')
-      return
-    end
+    json_body = elasticsearch_response(send_request_cgi(request), operation: 'query index information', expected_type: Array, optional: true)
+    return unless json_body
 
     elastic_table = Rex::Text::Table.new(
       'Header' => 'Indicies Information',
@@ -155,7 +142,7 @@ class MetasploitModule < Msf::Auxiliary
         port: rport,
         proto: 'tcp',
         type: 'elasticsearch.index',
-        data: { index: index[0] },
+        data: { index: index['index'] },
         update: :unique_data
       )
     end
@@ -174,18 +161,7 @@ class MetasploitModule < Msf::Auxiliary
     }
     request['authorization'] = basic_auth(datastore['USERNAME'], datastore['PASSWORD']) if datastore['USERNAME'] || datastore['PASSWORD']
 
-    res = send_request_cgi(request)
-
-    fail_with(Failure::Unreachable, "#{peer} - Could not connect to web service - no response") if res.nil?
-    fail_with(Failure::NoAccess, 'Credentials required, or incorrect') if res.code == 401
-
-    if res.code == 200 && !res.body.empty?
-      json_body = res.get_json_document
-      if json_body.empty?
-        vprint_error('Unable to parse JSON')
-        return
-      end
-    end
+    json_body = elasticsearch_response(send_request_cgi(request), operation: 'query cluster information', expected_type: Hash)
 
     elastic_table = Rex::Text::Table.new(
       'Header' => 'Cluster Information',
@@ -220,18 +196,7 @@ class MetasploitModule < Msf::Auxiliary
     }
     request['authorization'] = basic_auth(datastore['USERNAME'], datastore['PASSWORD']) if datastore['USERNAME'] || datastore['PASSWORD']
 
-    res = send_request_cgi(request)
-
-    fail_with(Failure::Unreachable, "#{peer} - Could not connect to web service - no response") if res.nil?
-    fail_with(Failure::NoAccess, 'Credentials required, or incorrect') if res.code == 401
-
-    if res.code == 200 && !res.body.empty?
-      json_body = res.get_json_document
-      if json_body.empty?
-        vprint_error('Unable to parse JSON')
-        return
-      end
-    end
+    json_body = elasticsearch_response(send_request_cgi(request), operation: 'query node information', expected_type: Array)
 
     elastic_table = Rex::Text::Table.new(
       'Header' => 'Node Information',
@@ -289,24 +254,8 @@ class MetasploitModule < Msf::Auxiliary
     }
     request['authorization'] = basic_auth(datastore['USERNAME'], datastore['PASSWORD']) if datastore['USERNAME'] || datastore['PASSWORD']
 
-    res = send_request_cgi(request)
-
-    fail_with(Failure::Unreachable, "#{peer} - Could not connect to web service - no response") if res.nil?
-    fail_with(Failure::NoAccess, 'Credentials required, or incorrect') if res.code == 401
-
-    # leaving this here for future travelers, this header was added in 7.14.0 https://www.elastic.co/guide/en/elasticsearch/reference/7.17/release-notes-7.14.0.html
-    # so it isn't too reliable to check for
-    # fail_with(Failure::Unreachable, "#{peer} - Elasticsearch not detected in X-elastic-product header") unless res.headers['X-elastic-product'] == 'Elasticsearch'
-
-    if res.code == 200 && !res.body.empty?
-      json_body = res.get_json_document
-      if json_body.empty?
-        vprint_error('Unable to parse JSON')
-        return
-      end
-    end
-
-    fail_with(Failure::Unreachable, "#{peer} - Elasticsearch cluster name not found, likely not Elasticsearch server") unless json_body['cluster_name']
+    json_body = elasticsearch_response(send_request_cgi(request), operation: 'query version information', expected_type: Hash)
+    fail_with(Failure::UnexpectedReply, 'Elasticsearch cluster name not found, likely not Elasticsearch server') unless json_body['cluster_name']
 
     elastic_table = Rex::Text::Table.new(
       'Header' => 'Elastic Information',
@@ -346,20 +295,8 @@ class MetasploitModule < Msf::Auxiliary
     }
     request['authorization'] = basic_auth(datastore['USERNAME'], datastore['PASSWORD']) if datastore['USERNAME'] || datastore['PASSWORD']
 
-    res = send_request_cgi(request)
-
-    fail_with(Failure::Unreachable, "#{peer} - Could not connect to web service - no response") if res.nil?
-    fail_with(Failure::NoAccess, 'Credentials required, or incorrect') if res.code == 401
-
-    if res.code == 200 && !res.body.empty?
-      json_body = res.get_json_document
-      if json_body.empty?
-        vprint_error('Unable to parse JSON')
-        return
-      end
-    end
-
-    if json_body.nil?
+    json_body = elasticsearch_response(send_request_cgi(request), operation: 'query user information', expected_type: Hash, optional: true)
+    unless json_body
       print_bad('Unable to pull user data')
       return
     end
@@ -387,6 +324,45 @@ class MetasploitModule < Msf::Auxiliary
       ]
     end
     print_good(elastic_table.to_s)
+  end
+
+  # Optional collection failures preserve earlier results; discovery failures
+  # must stop before a missing response reaches the remaining parsers.
+  def elasticsearch_response(response, operation:, expected_type:, optional: false)
+    unless response
+      message = "Unable to #{operation}: The target did not respond"
+      if optional
+        vprint_error(message)
+        return
+      end
+
+      fail_with(Failure::Unreachable, message)
+    end
+    fail_with(Failure::NoAccess, 'Credentials required, or incorrect') if response.code == 401
+    if response.code == 403 && !optional
+      fail_with(Failure::NoAccess, "Permission denied while attempting to #{operation} (HTTP 403)")
+    end
+    unless response.code == 200 && !response.body.to_s.empty?
+      message = "Unable to #{operation}: Unexpected HTTP #{response.code} response"
+      if optional
+        vprint_error(message)
+        return
+      end
+
+      fail_with(Failure::UnexpectedReply, message)
+    end
+
+    json = response.get_json_document
+    return json if json.is_a?(expected_type) && !(json.is_a?(Hash) && json.empty?)
+
+    shape = expected_type == Hash ? 'object' : 'array'
+    message = "Unable to parse JSON while attempting to #{operation}: Expected a JSON #{shape}"
+    if optional
+      vprint_error(message)
+      return
+    end
+
+    fail_with(Failure::UnexpectedReply, message)
   end
 
   def run
