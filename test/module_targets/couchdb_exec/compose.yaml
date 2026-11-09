@@ -1,0 +1,14 @@
+services:
+  open:
+    extends:
+      file: ../couchdb_legacy/compose.yaml
+      service: open
+  auth:
+    extends:
+      file: ../couchdb_legacy/compose.yaml
+      service: auth
+  fixed:
+    extends:
+      file: ../couchdb/compose.yaml
+      service: couchdb
+    build: ../couchdb

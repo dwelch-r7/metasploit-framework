@@ -1,0 +1,21 @@
+spec: spec/acceptance/module_targets/couchdb_exec_spec.rb
+expected_examples: 9
+console: true
+modules:
+  - exploit/linux/http/apache_couchdb_cmd_exec
+ports:
+  open: 5984
+  auth: 5984
+  fixed: 5984
+support_files:
+  - test/module_targets/couchdb_legacy/compose.yaml
+  - test/module_targets/couchdb/compose.yaml
+  - test/module_targets/couchdb/Dockerfile
+  - test/module_targets/couchdb/single-node.ini
+  - test/module_targets/couchdb/native_client.rb
+  - lib/msf/core/exploit/cmd_stager.rb
+  - lib/msf/core/exploit/file_dropper.rb
+  - modules/payloads/singles/linux/x86/shell_reverse_tcp.rb
+  - modules/payloads/singles/linux/x64/shell_reverse_tcp.rb
+  - modules/payloads/singles/linux/x64/meterpreter_reverse_tcp.rb
+  - spec/support/shared/contexts/wait_for_expect.rb
