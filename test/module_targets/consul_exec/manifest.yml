@@ -1,0 +1,16 @@
+spec: spec/acceptance/module_targets/consul_exec_spec.rb
+expected_examples: 16
+console: true
+modules:
+  - exploit/multi/misc/consul_service_exec
+  - exploit/multi/misc/consul_rexec_exec
+ports:
+  open: 8500
+  secured: 8500
+  disabled: 8500
+support_files:
+  - test/module_targets/consul/compose.yaml
+  - lib/msf/core/exploit/cmd_stager.rb
+  - lib/msf/core/exploit/exe.rb
+  - lib/msf/core/encoded_payload.rb
+  - modules/payloads/singles/linux/x86/exec.rb

@@ -1,0 +1,12 @@
+x-execution: &execution
+  command: [agent, -dev, -client=0.0.0.0, -enable-script-checks, -hcl, 'disable_remote_exec = false']
+
+services:
+  open:
+    <<: *execution
+    extends: {file: ../consul/compose.yaml, service: open_old}
+  secured:
+    <<: *execution
+    extends: {file: ../consul/compose.yaml, service: acl_old}
+  disabled:
+    extends: {file: ../consul/compose.yaml, service: open_old}
