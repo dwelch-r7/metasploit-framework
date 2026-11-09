@@ -511,6 +511,17 @@ command proof and exact deployment restoration. The selected checkpoint is
 [JBoss session verification](VERIFICATION-20261109-jboss-sessions.md).
 Ansible deployment and Linux credential-file collection continue separately.
 
+Linux credential collection subsequently passed two six-case profiles covering
+SSH through shell/Meterpreter and Docker/RubyGems through their declared shell
+sessions. Real client-produced files, native authentication and direct SQL
+separated three owning defects from target setup. Recovered values pass sixteen
+SSH, eight Registry and eight private-gem authentications; exact loot, permission,
+empty/missing and repeat checks pass. Separate source repairs preserve spaced
+home paths/account names, complete Docker passwords and exact RubyGems keys.
+The selected checkpoint is **117 modules, 52 families and 730 cases**; see the
+[credential-file verification](VERIFICATION-20261109-credential-files.md).
+Ansible deployment, Erlang execution and WordPress admin remain unqualified.
+
 ## Remaining work
 
 - Review existing protocol suites and supply reusable managed containers.

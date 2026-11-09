@@ -184,11 +184,17 @@ actual Consul service/rexec command execution and a captured ACL-refusal repair.
 Every selected count, recorded hash and owned teardown passes. Reverse Consul
 sessions, Ansible deployment, JBoss payload sessions and WordPress admin remain
 separate qualification work.
-The [current qualification record](VERIFICATION-20261109-jboss-sessions.md)
+The [earlier qualification record](VERIFICATION-20261109-jboss-sessions.md)
 records **114 runtime modules, 50 families and 718 functional cases**, adding
 sixteen actual JBoss Java sessions across twelve cases with default Spawn=2.
 Native controls distinguish the original target compiler failure from module
 behavior. Every selected count, recorded hash and owned teardown passes.
 Ansible deployment and WordPress admin remain separate qualification work.
+The [current qualification record](VERIFICATION-20261109-credential-files.md)
+records **117 runtime modules, 52 families and 730 functional cases**, adding
+Linux SSH, Docker and RubyGems credential collection. All 32 recovered-credential
+authentications pass after three separately reproduced module repairs. Every
+selected count, recorded hash and owned teardown passes. Ansible deployment,
+Erlang execution and WordPress admin remain separate qualification work.
 The full campaign remains incomplete while feasible, valuable modules await review
 or functional verification.
