@@ -1,0 +1,26 @@
+spec: spec/acceptance/module_targets/erlang_cookie_spec.rb
+expected_examples: 12
+console: true
+modules:
+  - exploit/multi/misc/erlang_cookie_rce
+ports: {old: 25672, new: 25672}
+support_files:
+  - lib/msf/core/payload.rb
+  - lib/msf/core/exploit/remote.rb
+  - lib/msf/core/exploit/remote/tcp.rb
+  - lib/rex/proto/erlang.rb
+  - spec/support/shared/contexts/wait_for_expect.rb
+  - test/module_targets/mqtt/certificates.rb
+  - test/module_targets/rabbitmq/Dockerfile
+  - test/module_targets/rabbitmq/client.Dockerfile
+  - test/module_targets/rabbitmq/client.py
+  - test/module_targets/rabbitmq/distribution.py
+  - test/module_targets/rabbitmq/compose.yaml
+  - test/module_targets/rabbitmq/rabbitmq.conf
+  - test/module_targets/rabbitmq/definitions.json
+  - test/module_targets/rabbitmq/native_probe.rb
+  - lib/msf/core/exploit/cmd_stager.rb
+  - modules/payloads/singles/cmd/unix/generic.rb
+  - modules/payloads/singles/cmd/unix/reverse_bash.rb
+  - modules/payloads/stagers/linux/x64/reverse_tcp.rb
+  - modules/payloads/stages/linux/x64/meterpreter.rb

@@ -1,0 +1,13 @@
+{
+  "users": [
+    {"name":"lab-amqp-user", "password":"module-target-amqp-password", "tags":""},
+    {"name":"lab-amqp-limited", "password":"module-target-limited-password", "tags":""},
+    {"name":"guest", "password":"guest", "tags":""}
+  ],
+  "vhosts": [{"name":"/"}, {"name":"module-target"}],
+  "permissions": [
+    {"user":"lab-amqp-user", "vhost":"/", "configure":".*", "write":".*", "read":".*"},
+    {"user":"lab-amqp-limited", "vhost":"module-target", "configure":".*", "write":".*", "read":".*"},
+    {"user":"guest", "vhost":"/", "configure":".*", "write":".*", "read":".*"}
+  ]
+}

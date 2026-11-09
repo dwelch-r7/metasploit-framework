@@ -1,0 +1,7 @@
+services:
+  old:
+    extends: {file: ../rabbitmq/compose.yaml, service: old}
+  new:
+    extends: {file: ../rabbitmq/compose.yaml, service: new}
+  client:
+    extends: {file: ../rabbitmq/compose.yaml, service: client}

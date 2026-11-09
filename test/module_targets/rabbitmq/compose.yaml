@@ -1,0 +1,50 @@
+x-broker: &broker
+  platform: linux/amd64
+  environment:
+    RABBITMQ_ERLANG_COOKIE: MODULE_TARGET_ERLANG_COOKIE
+    RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS: +S 2:2 +A 2
+    RABBITMQ_CTL_ERL_ARGS: +S 1:1 +A 1
+  mem_limit: 768m
+  ports: ["127.0.0.1::5672", "127.0.0.1::5671", "127.0.0.1::25672"]
+  healthcheck:
+    test: [CMD-SHELL, "rabbitmq-diagnostics -q check_running && rabbitmq-diagnostics -q check_port_connectivity"]
+    interval: 3s
+    timeout: 15s
+    retries: 30
+
+services:
+  old:
+    <<: *broker
+    hostname: old
+    build:
+      context: ..
+      dockerfile: rabbitmq/Dockerfile
+      args:
+        BROKER_IMAGE: rabbitmq:3.8.16-management@sha256:bc14bbd079acbc02af3aa04b57469bd0f4343ba2686b97415dfb507050351f5f
+  new:
+    <<: *broker
+    hostname: new
+    build:
+      context: ..
+      dockerfile: rabbitmq/Dockerfile
+      args:
+        BROKER_IMAGE: rabbitmq:3.12.14-management@sha256:b8ce508521a7361caa281bb1d1327e5c26b9d488e056de80a7ef725953820ccb
+  client:
+    platform: linux/amd64
+    build:
+      context: .
+      dockerfile: client.Dockerfile
+    mem_limit: 128m
+  reporting_db:
+    image: postgres:16@sha256:933463a6c8eba2b9f5cd414138738cd8d5519cd2c471214c222652f547a66a32
+    environment:
+      POSTGRES_USER: module_framework
+      POSTGRES_PASSWORD: module-target-framework-db-password
+      POSTGRES_DB: module_targets
+      POSTGRES_INITDB_ARGS: --auth-host=scram-sha-256 --auth-local=trust
+    mem_limit: 256m
+    healthcheck:
+      test: [CMD-SHELL, "PGPASSWORD=module-target-framework-db-password psql -h 127.0.0.1 -U module_framework -d module_targets -Atc 'SELECT current_database()' | grep -qx module_targets"]
+      interval: 2s
+      timeout: 3s
+      retries: 40

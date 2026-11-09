@@ -9,6 +9,9 @@ specification, the "server-properties":
 
 *See: https://www.rabbitmq.com/amqp-0-9-1-reference.html#connection.start.server-properties*
 
+An isolated reusable container lab with independent native controls is available in
+[test/module_targets/rabbitmq](../../../../../test/module_targets/rabbitmq/README.md).
+
 ## Verification Steps
 
 1. Do: `use auxiliary/scanner/amqp/amqp_version`

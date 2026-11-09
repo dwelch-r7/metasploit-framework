@@ -3,6 +3,9 @@
 This module will test AMQP logins on a range of machines and report successful logins.  If you have loaded a database
 plugin and connected to a database this module will record successful logins and hosts so you can track your access.
 
+An isolated reusable container lab with independent native controls is available in
+[test/module_targets/rabbitmq](../../../../../test/module_targets/rabbitmq/README.md).
+
 ## Verification Steps
 
 1. Install RabbitMQ and start it
