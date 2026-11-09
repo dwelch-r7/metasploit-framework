@@ -1,0 +1,54 @@
+{
+  "origin": "Genuine WordPress 6.8.3 / PHP 8.3.28 and unrelated Apache, parent native-wordpress.json from 20261109T160148-15bea4; no mocked target HTTP handler. Extra pretty-route 404, single-author object and permission fault were captured from worker native HTTP in 20261109T160732-690ade.",
+  "responses": {
+    "pretty_root": {
+      "service": "root",
+      "path": "/wp-json/wp/v2/users",
+      "code": 200,
+      "body": "[{\"id\":2,\"name\":\"Module caf\\u00e9 author\",\"url\":\"\",\"description\":\"\",\"link\":\"http:\\/\\/127.0.0.1:59234\\/author\\/module_author\\/\",\"slug\":\"module_author\",\"avatar_urls\":{\"24\":\"https:\\/\\/secure.gravatar.com\\/avatar\\/96248935c5c78423e1dd663ee8e4807c1083cf1819cc04d199830c7579bbc943?s=24&d=mm&r=g\",\"48\":\"https:\\/\\/secure.gravatar.com\\/avatar\\/96248935c5c78423e1dd663ee8e4807c1083cf1819cc04d199830c7579bbc943?s=48&d=mm&r=g\",\"96\":\"https:\\/\\/secure.gravatar.com\\/avatar\\/96248935c5c78423e1dd663ee8e4807c1083cf1819cc04d199830c7579bbc943?s=96&d=mm&r=g\"},\"meta\":[],\"_links\":{\"self\":[{\"href\":\"http:\\/\\/127.0.0.1:59234\\/wp-json\\/wp\\/v2\\/users\\/2\",\"targetHints\":{\"allow\":[\"GET\"]}}],\"collection\":[{\"href\":\"http:\\/\\/127.0.0.1:59234\\/wp-json\\/wp\\/v2\\/users\"}]}}]",
+      "content_type": "application/json; charset=UTF-8"
+    },
+    "pretty_prefix": {
+      "service": "prefix",
+      "path": "/wordpress/wp-json/wp/v2/users",
+      "code": 200,
+      "body": "[{\"id\":2,\"name\":\"Module caf\\u00e9 author\",\"url\":\"\",\"description\":\"\",\"link\":\"http:\\/\\/127.0.0.1:59237\\/wordpress\\/author\\/module_author\\/\",\"slug\":\"module_author\",\"avatar_urls\":{\"24\":\"https:\\/\\/secure.gravatar.com\\/avatar\\/96248935c5c78423e1dd663ee8e4807c1083cf1819cc04d199830c7579bbc943?s=24&d=mm&r=g\",\"48\":\"https:\\/\\/secure.gravatar.com\\/avatar\\/96248935c5c78423e1dd663ee8e4807c1083cf1819cc04d199830c7579bbc943?s=48&d=mm&r=g\",\"96\":\"https:\\/\\/secure.gravatar.com\\/avatar\\/96248935c5c78423e1dd663ee8e4807c1083cf1819cc04d199830c7579bbc943?s=96&d=mm&r=g\"},\"meta\":[],\"_links\":{\"self\":[{\"href\":\"http:\\/\\/127.0.0.1:59237\\/wordpress\\/wp-json\\/wp\\/v2\\/users\\/2\",\"targetHints\":{\"allow\":[\"GET\"]}}],\"collection\":[{\"href\":\"http:\\/\\/127.0.0.1:59237\\/wordpress\\/wp-json\\/wp\\/v2\\/users\"}]}}]",
+      "content_type": "application/json; charset=UTF-8"
+    },
+    "query_plain": {
+      "service": "plain",
+      "path": "/index.php?rest_route=/wp/v2/users",
+      "code": 200,
+      "body": "[{\"id\":2,\"name\":\"Module caf\\u00e9 author\",\"url\":\"\",\"description\":\"\",\"link\":\"http:\\/\\/127.0.0.1:59236\\/?author=2\",\"slug\":\"module_author\",\"avatar_urls\":{\"24\":\"https:\\/\\/secure.gravatar.com\\/avatar\\/96248935c5c78423e1dd663ee8e4807c1083cf1819cc04d199830c7579bbc943?s=24&d=mm&r=g\",\"48\":\"https:\\/\\/secure.gravatar.com\\/avatar\\/96248935c5c78423e1dd663ee8e4807c1083cf1819cc04d199830c7579bbc943?s=48&d=mm&r=g\",\"96\":\"https:\\/\\/secure.gravatar.com\\/avatar\\/96248935c5c78423e1dd663ee8e4807c1083cf1819cc04d199830c7579bbc943?s=96&d=mm&r=g\"},\"meta\":[],\"_links\":{\"self\":[{\"href\":\"http:\\/\\/127.0.0.1:59236\\/index.php?rest_route=\\/wp\\/v2\\/users\\/2\",\"targetHints\":{\"allow\":[\"GET\"]}}],\"collection\":[{\"href\":\"http:\\/\\/127.0.0.1:59236\\/index.php?rest_route=\\/wp\\/v2\\/users\"}]}}]",
+      "content_type": "application/json; charset=UTF-8"
+    },
+    "unrelated": {
+      "service": "unrelated",
+      "path": "/",
+      "code": 200,
+      "body": "<!doctype html><html><head><title>Module target &amp; Apache</title></head><body>module-target-http-marker</body></html>\n",
+      "content_type": "text/html"
+    },
+    "plain_pretty_missing": {
+      "service": "plain",
+      "path": "/wp-json/wp/v2/users",
+      "code": 404,
+      "content_type": "text/html; charset=iso-8859-1",
+      "body": "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">\n<html><head>\n<title>404 Not Found</title>\n</head><body>\n<h1>Not Found</h1>\n<p>The requested URL was not found on this server.</p>\n<hr>\n<address>Apache/2.4.65 (Debian) Server at 127.0.0.1 Port 59844</address>\n</body></html>\n"
+    },
+    "single_author": {
+      "service": "root",
+      "path": "/wp-json/wp/v2/users/2",
+      "code": 200,
+      "content_type": "application/json; charset=UTF-8",
+      "body": "{\"id\":2,\"name\":\"Module caf\\u00e9 author\",\"url\":\"\",\"description\":\"\",\"link\":\"http:\\/\\/127.0.0.1:59843\\/author\\/module_author\\/\",\"slug\":\"module_author\",\"avatar_urls\":{\"24\":\"https:\\/\\/secure.gravatar.com\\/avatar\\/96248935c5c78423e1dd663ee8e4807c1083cf1819cc04d199830c7579bbc943?s=24&d=mm&r=g\",\"48\":\"https:\\/\\/secure.gravatar.com\\/avatar\\/96248935c5c78423e1dd663ee8e4807c1083cf1819cc04d199830c7579bbc943?s=48&d=mm&r=g\",\"96\":\"https:\\/\\/secure.gravatar.com\\/avatar\\/96248935c5c78423e1dd663ee8e4807c1083cf1819cc04d199830c7579bbc943?s=96&d=mm&r=g\"},\"meta\":[],\"_links\":{\"self\":[{\"href\":\"http:\\/\\/127.0.0.1:59843\\/wp-json\\/wp\\/v2\\/users\\/2\",\"targetHints\":{\"allow\":[\"GET\"]}}],\"collection\":[{\"href\":\"http:\\/\\/127.0.0.1:59843\\/wp-json\\/wp\\/v2\\/users\"}]}}"
+    },
+    "query_forbidden_context": {
+      "service": "plain",
+      "path": "/index.php?rest_route=/wp/v2/users&context=edit",
+      "code": 401,
+      "content_type": "application/json; charset=UTF-8",
+      "body": "{\"code\":\"rest_forbidden_context\",\"message\":\"Sorry, you are not allowed to edit users.\",\"data\":{\"status\":401}}"
+    }
+  }
+}

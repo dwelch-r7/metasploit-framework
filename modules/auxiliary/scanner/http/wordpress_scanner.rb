@@ -134,14 +134,28 @@ class MetasploitModule < Msf::Auxiliary
           'method' => 'GET',
           'uri' => normalize_uri(wordpress_url_rest_api, 'users')
         })
+        # Plain permalinks do not expose /wp-json/. WordPress also provides the
+        # same REST resource through index.php's rest_route query parameter.
+        if res&.code == 404
+          res = send_request_cgi({
+            'method' => 'GET',
+            'uri' => normalize_uri(target_uri.path, 'index.php'),
+            'vars_get' => { 'rest_route' => '/wp/v2/users' }
+          })
+        end
         if res.nil?
           print_error('Error getting response.')
         elsif res.code == 200
           parsed = res.get_json_document
-          if parsed.empty?
-            print_error('Response received, but no JSON content was provided.')
+          if !parsed.is_a?(Array) || parsed.empty?
+            print_error('Response received, but no JSON user list was provided.')
           else
-            parsed.map do |child|
+            parsed.each do |child|
+              unless child.is_a?(Hash) && child['name'].is_a?(String) && child['slug'].is_a?(String) && !child['slug'].empty?
+                vprint_error('Skipping a malformed REST user entry')
+                next
+              end
+
               name = child['name']
               wp_username = child['slug']
               print_good("#{target_host} - Detected user: #{name} with username: #{wp_username}")
