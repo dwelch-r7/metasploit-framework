@@ -7,7 +7,7 @@
 # Some of this code was taken from the "jboss_vulnscan" module by: Tyler Krpata
 ##
 
-require 'rexml/document'
+require 'nokogiri'
 
 class MetasploitModule < Msf::Auxiliary
   include Msf::Exploit::Remote::HttpClient
@@ -120,7 +120,7 @@ class MetasploitModule < Msf::Auxiliary
       })
       case app
       when "systemInfo"
-        parse_system_info(res.body)
+        parse_system_info(res.get_html_document)
       when "script"
         report_vuln(
           :host => rhost,
@@ -166,14 +166,17 @@ class MetasploitModule < Msf::Auxiliary
       "SHELL" => nil
     }
 
-    # remove unclosed tags for REXML
-    body.gsub!('<wbr>', '')
-    body.gsub!('<br>', '')
-    doc = REXML::Document.new(body)
-    tds = doc.get_elements("//td")
-    tds.each_index do |idx|
-      td = tds[idx].get_text.to_s.strip
-      infos[td] = tds[idx + 1].get_text.to_s.strip if infos.has_key?(td)
+    # Preserve direct String callers while HTTP callers reuse their parsed HTML.
+    doc = body.respond_to?(:css) ? body : Nokogiri::HTML(body.to_s)
+    doc.css('tr').each do |row|
+      key_cell, value_cell = row.css('> td')
+      next unless key_cell && value_cell
+
+      key = key_cell.text.strip
+      next unless infos.key?(key)
+
+      value = value_cell.at_css('.app-hidden-info-hide') || value_cell
+      infos[key] = value.text.strip
     end
 
     fprint = {}
