@@ -573,6 +573,17 @@ Current counts, input hashes and owned teardown establish **125 runtime modules,
 baseline, native/derived distinction and explicit platform limit. Grafana, Solr,
 Prometheus and ActiveMQ continue separately.
 
+Grafana subsequently qualifies twenty-three cases against eight actual branch
+releases plus a subpath installation and unrelated Apache. Setup failures for
+wordlist paths and console startup are retained separately from nine original
+unsupported checks and observed false vulnerability messages on fixed releases.
+Separate owning repairs implement the scanner interface and exclusive fixed
+upper bounds; all final checks and exact repeated collection pass. Coverage is
+**126 runtime modules, 60 families and 832 functional cases**, with current
+recorded inputs and owned teardown. The
+[verification record](VERIFICATION-20261109-grafana.md) retains full failure
+classification, assertion strengthening and two inherited lint limitations.
+
 ## Remaining work
 
 - Review existing protocol suites and supply reusable managed containers.

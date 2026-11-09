@@ -220,12 +220,18 @@ K3s enumeration and all four pod-execution delivery targets. Real Meterpreter
 session discovery/routing exposes two owning namespace defects; five call sites
 now use the existing accessor. All twenty-five cases, recorded hashes and
 owned teardown pass, with no shared Kubernetes API changes.
-The [current qualification record](VERIFICATION-20261109-rabbitmq-erlang.md)
+The [earlier qualification record](VERIFICATION-20261109-rabbitmq-erlang.md)
 records **125 runtime modules, 59 families and 809 functional cases**, adding
 native RabbitMQ discovery/authentication and Erlang commands plus eight real
 shell/Meterpreter sessions. Independent controls separate framing, completion,
 session-lifecycle and broker-startup failures. All twenty-nine final cases,
 recorded hashes and owned teardown pass. AMQP production source is unchanged.
+The [current qualification record](VERIFICATION-20261109-grafana.md) records
+**126 runtime modules, 60 families and 832 functional cases**, adding genuine
+Grafana affected/fixed release pairs across all four branches. Separate owning
+repairs expose the public scanner check and exclude fixed releases. All
+twenty-three cases pass with exact repeated file bytes, current hashes and
+owned teardown; two inherited source-lint offenses remain documented.
 The full campaign remains incomplete while feasible, valuable modules await review
 or functional verification.
 See [deferred investigations](DEFERRED.md) for retained failures that remain
