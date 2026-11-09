@@ -9,17 +9,18 @@ class CouchDBNativeClient
 
   attr_reader :commands
 
-  def initialize(host, port, credentials: DEFAULT_CREDENTIALS)
+  def initialize(host, port, credentials: DEFAULT_CREDENTIALS, read_timeout: 5)
     @host = host
     @port = Integer(port.to_s, 10)
     @credentials = credentials
+    @read_timeout = read_timeout
     @commands = []
   end
 
   def request(method, path, data = nil, credentials = @credentials)
     client = Net::HTTP.new(@host, @port, nil)
     client.open_timeout = 3
-    client.read_timeout = 5
+    client.read_timeout = @read_timeout
     message = Net::HTTP.const_get(method.capitalize).new(path)
     message.basic_auth(*credentials) if credentials
     if data

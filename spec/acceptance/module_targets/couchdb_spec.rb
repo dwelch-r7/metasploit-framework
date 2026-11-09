@@ -21,11 +21,14 @@ RSpec.describe 'CouchDB module targets' do
     client = Net::HTTP.new(endpoint.fetch('host'), endpoint.fetch('port'), nil)
     client.open_timeout = 3
     client.read_timeout = 3
-    response = client.get('/_users/_all_docs')
-    expect(response.code).to eq('200')
-    expect(response['server']).to start_with('Apache/')
-    expect(response.body).to eq(File.binread('test/module_targets/http/htdocs/index.html'))
-    File.write(File.join(target_runtime.fetch('artifacts'), 'native-unrelated-http.json'), JSON.pretty_generate(status: response.code, headers: response.to_hash, body: response.body))
+    responses = %w[/_users/_all_docs /_session].map do |path|
+      response = client.get(path)
+      expect(response.code).to eq('200')
+      expect(response['server']).to start_with('Apache/')
+      expect(response.body).to eq(File.binread('test/module_targets/http/htdocs/index.html'))
+      { path: path, status: response.code, headers: response.to_hash, body: response.body }
+    end
+    File.write(File.join(target_runtime.fetch('artifacts'), 'native-unrelated-http.json'), JSON.pretty_generate(responses))
   end
 
   it 'validates the native administrator login' do
