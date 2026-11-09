@@ -17,6 +17,9 @@ module Msf
       register_autofilter_ports([TCP_PORT])
     end
 
+    # Identify the version document before reporting an etcd service.
+    # @param target_uri [String] Base path of the etcd API
+    # @return [Hash, nil] Validated version fields, or nil when not identified
     def fingerprint_service(target_uri)
       res = send_request_raw(
         'uri'    => normalize_uri(target_uri, 'version'),
@@ -34,6 +37,11 @@ module Msf
         return
       else
         vprint_error("No response for etcd version probe")
+        return
+      end
+
+      unless banner.is_a?(Hash) && %w[etcdserver etcdcluster].all? { |field| banner[field].is_a?(String) && banner[field].match?(/\A\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?\z/) }
+        vprint_error('Version response does not identify etcd server and cluster versions')
         return
       end
 

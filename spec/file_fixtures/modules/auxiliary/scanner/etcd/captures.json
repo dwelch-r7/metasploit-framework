@@ -1,0 +1,229 @@
+{
+  "version-3.4.35.json": {
+    "service": "old",
+    "path": "/version",
+    "method": "GET",
+    "code": 200,
+    "headers": {
+      "access-control-allow-headers": [
+        "accept, content-type, authorization"
+      ],
+      "access-control-allow-methods": [
+        "POST, GET, OPTIONS, PUT, DELETE"
+      ],
+      "access-control-allow-origin": [
+        "*"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "date": [
+        "Mon, 09 Nov 2026 21:51:52 GMT"
+      ],
+      "content-length": [
+        "45"
+      ],
+      "connection": [
+        "close"
+      ]
+    }
+  },
+  "version-3.5.18.json": {
+    "service": "modern",
+    "path": "/version",
+    "method": "GET",
+    "code": 200,
+    "headers": {
+      "access-control-allow-headers": [
+        "accept, content-type, authorization"
+      ],
+      "access-control-allow-methods": [
+        "POST, GET, OPTIONS, PUT, DELETE"
+      ],
+      "access-control-allow-origin": [
+        "*"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "date": [
+        "Mon, 09 Nov 2026 21:51:53 GMT"
+      ],
+      "content-length": [
+        "45"
+      ],
+      "connection": [
+        "close"
+      ]
+    }
+  },
+  "recursive-keys.json": {
+    "service": "modern",
+    "path": "/v2/keys/?recursive=true",
+    "method": "GET",
+    "code": 200,
+    "headers": {
+      "access-control-allow-headers": [
+        "accept, content-type, authorization"
+      ],
+      "access-control-allow-methods": [
+        "POST, GET, OPTIONS, PUT, DELETE"
+      ],
+      "access-control-allow-origin": [
+        "*"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "x-etcd-cluster-id": [
+        "1c45a069f3a1d796"
+      ],
+      "x-etcd-index": [
+        "6"
+      ],
+      "x-raft-index": [
+        "12"
+      ],
+      "x-raft-term": [
+        "2"
+      ],
+      "date": [
+        "Mon, 09 Nov 2026 21:51:53 GMT"
+      ],
+      "content-length": [
+        "502"
+      ],
+      "connection": [
+        "close"
+      ]
+    }
+  },
+  "auth-denied.json": {
+    "service": "secured",
+    "path": "/v2/keys/?recursive=true",
+    "method": "GET",
+    "code": 401,
+    "headers": {
+      "access-control-allow-headers": [
+        "accept, content-type, authorization"
+      ],
+      "access-control-allow-methods": [
+        "POST, GET, OPTIONS, PUT, DELETE"
+      ],
+      "access-control-allow-origin": [
+        "*"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "x-etcd-cluster-id": [
+        "1c45a069f3a1d796"
+      ],
+      "x-etcd-index": [
+        "0"
+      ],
+      "date": [
+        "Mon, 09 Nov 2026 21:51:54 GMT"
+      ],
+      "content-length": [
+        "116"
+      ],
+      "connection": [
+        "close"
+      ]
+    }
+  },
+  "v2-disabled.txt": {
+    "service": "v2_disabled",
+    "path": "/v2/keys/?recursive=true",
+    "method": "GET",
+    "code": 404,
+    "headers": {
+      "access-control-allow-headers": [
+        "accept, content-type, authorization"
+      ],
+      "access-control-allow-methods": [
+        "POST, GET, OPTIONS, PUT, DELETE"
+      ],
+      "access-control-allow-origin": [
+        "*"
+      ],
+      "content-type": [
+        "text/plain; charset=utf-8"
+      ],
+      "x-content-type-options": [
+        "nosniff"
+      ],
+      "date": [
+        "Mon, 09 Nov 2026 21:51:56 GMT"
+      ],
+      "content-length": [
+        "19"
+      ],
+      "connection": [
+        "close"
+      ]
+    }
+  },
+  "unrelated-version.json": {
+    "service": "unrelated",
+    "path": "/version",
+    "method": "GET",
+    "code": 200,
+    "headers": {
+      "date": [
+        "Mon, 09 Nov 2026 21:51:56 GMT"
+      ],
+      "server": [
+        "Apache/2.4.62 (Unix)"
+      ],
+      "last-modified": [
+        "Mon, 09 Nov 2026 21:47:20 GMT"
+      ],
+      "etag": [
+        "\"40-65fdee804b844\""
+      ],
+      "accept-ranges": [
+        "bytes"
+      ],
+      "content-length": [
+        "64"
+      ],
+      "connection": [
+        "close"
+      ]
+    }
+  },
+  "unrelated-keys.json": {
+    "service": "unrelated",
+    "path": "/v2/keys/?recursive=true",
+    "method": "GET",
+    "code": 200,
+    "headers": {
+      "date": [
+        "Mon, 09 Nov 2026 21:51:56 GMT"
+      ],
+      "server": [
+        "Apache/2.4.62 (Unix)"
+      ],
+      "last-modified": [
+        "Mon, 09 Nov 2026 21:51:35 GMT"
+      ],
+      "etag": [
+        "\"46-65fdef73ae31f\""
+      ],
+      "accept-ranges": [
+        "bytes"
+      ],
+      "content-length": [
+        "70"
+      ],
+      "connection": [
+        "close"
+      ],
+      "content-type": [
+        "text/html"
+      ]
+    }
+  }
+}
