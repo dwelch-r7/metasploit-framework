@@ -1,0 +1,29 @@
+x-target: &target
+  ports: ["127.0.0.1::8009", "127.0.0.1::8080"]
+  mem_limit: 384m
+  healthcheck:
+    test: [CMD-SHELL, 'curl --fail --silent http://127.0.0.1:8080/index.txt | grep -q module-target-ghostcat-http']
+    interval: 2s
+    timeout: 3s
+    retries: 40
+
+services:
+  vulnerable:
+    <<: *target
+    build:
+      context: .
+      args:
+        BASE_IMAGE: tomcat:8.5.50-jdk8-openjdk@sha256:d53c2079ea67db92f6d7c39e9450f641610336016fdddef5392c5afd41518e5e
+        AJP_ATTRIBUTES: ''
+  fixed:
+    <<: *target
+    build:
+      context: .
+      args:
+        BASE_IMAGE: tomcat:8.5.51-jdk8-openjdk@sha256:2c90303e910d7d5323935b6dc4f8ba59cc1ec99cf1b71fd6ca5158835cffdc9c
+        AJP_ATTRIBUTES: 'secretRequired="false"'
+  unrelated:
+    extends:
+      file: ../http/compose.yaml
+      service: apache
+    command: [httpd-foreground, -c, 'RequestReadTimeout header=2']

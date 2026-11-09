@@ -1,0 +1,15 @@
+spec: spec/acceptance/module_targets/tomcat_ghostcat_spec.rb
+expected_examples: 13
+console: true
+modules:
+  - auxiliary/admin/http/tomcat_ghostcat
+ports:
+  vulnerable: 8009
+  fixed: 8009
+  unrelated: 80
+support_files:
+  - lib/rex/proto/apache_j_p.rb
+  - test/module_targets/http/compose.yaml
+  - test/module_targets/http/Dockerfile
+  - test/module_targets/http/module-target.conf
+  - test/module_targets/http/htdocs/index.html

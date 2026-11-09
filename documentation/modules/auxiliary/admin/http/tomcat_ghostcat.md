@@ -1,5 +1,8 @@
 ## Vulnerable Application
 
+For automated affected/fixed private-file checks, see the
+[Tomcat AJP container lab](../../../../../test/module_targets/tomcat_ghostcat/README.md).
+
 ### Description
 
 This module can be used to retrieve arbitrary files from anywhere in the web application, including the `WEB-INF` and `META-INF`
