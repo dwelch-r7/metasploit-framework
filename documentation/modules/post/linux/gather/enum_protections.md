@@ -16,6 +16,15 @@ It checks for:
 
 Results are saved as notes in the database when a database is connected.
 
+## Automated local target
+
+The [managed Linux collection lab](../../../../../test/module_targets/linux_system/README.md)
+compares real kernel settings and installed applications over shell and Meterpreter
+sessions, running as root and an unprivileged user. Run
+`bundle exec ruby tools/dev/run_module_target_tests.rb linux_system` from the
+repository root. Docker's Linux VM supplies the tested kernel; results do not
+qualify arbitrary host kernels or distributions.
+
 ## Verification Steps
 
 1. Start msfconsole

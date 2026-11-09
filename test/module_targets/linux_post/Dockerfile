@@ -1,6 +1,9 @@
 FROM ubuntu:22.04@sha256:076e7bf82319619f28dd0aa9c02ab34b055ad37100395b4f49a2ffba04fb5e11
 
-RUN apt-get update -qq && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends python3=3.10.6-1~22.04.1 ca-certificates \
+# Additional native tools are selected by extended collection profiles.
+ARG EXTRA_PACKAGES=""
+
+RUN apt-get update -qq && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends python3=3.10.6-1~22.04.1 ca-certificates ${EXTRA_PACKAGES} \
     && rm -rf /var/lib/apt/lists/* \
     && mkdir -p /opt/health /opt/module-target-tools \
     && printf 'Native Linux module target\n' > /opt/health/index.html \

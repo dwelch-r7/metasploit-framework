@@ -1,0 +1,25 @@
+services:
+  linux:
+    extends:
+      file: ../linux_post/compose.yaml
+      service: linux
+    build:
+      context: ../linux_post
+      args:
+        EXTRA_PACKAGES: >-
+          cron=3.0pl1-137ubuntu3 net-tools=1.60+git20181103.0eebece-1ubuntu5.4
+          iproute2=5.15.0-1ubuntu2.2 lsof=4.93.2+dfsg-1.1build2
+          wireless-tools=30~pre9-13.1ubuntu4 iptables=1.8.7-1ubuntu5.2
+          openssh-server=1:8.9p1-3ubuntu0.18
+    hostname: module-target-linux-system
+    # Reading/provisioning real rules requires this capability, confined to this
+    # target's own network namespace. No host network or Docker socket is used.
+    cap_add: [NET_ADMIN]
+    volumes:
+      - ./seed.sh:/opt/system-seed.sh:ro
+      - ./native_probe.py:/opt/system-native-probe.py:ro
+    command: ["sh", "/opt/system-seed.sh"]
+
+networks:
+  default:
+    enable_ipv6: true

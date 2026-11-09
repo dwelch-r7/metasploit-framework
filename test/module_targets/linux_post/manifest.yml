@@ -14,3 +14,4 @@ support_files:
   - modules/payloads/singles/linux/x64/shell_reverse_tcp.rb
   - modules/payloads/singles/linux/x64/meterpreter_reverse_tcp.rb
   - spec/support/shared/contexts/wait_for_expect.rb
+  - spec/support/acceptance/linux_session.rb
