@@ -1,0 +1,20 @@
+x-couchdb: &couchdb
+  image: couchdb:1.6.1@sha256:03f65e23bd3155bca91fc51e04b9b231e54ea5505e8820bb3928dc38d08077d3
+  environment:
+    ERL_FLAGS: '+S 2:2 +A 4'
+  ports: ["127.0.0.1::5984"]
+  healthcheck:
+    test: ["CMD", "curl", "--fail", "--silent", "http://127.0.0.1:5984/"]
+    interval: 3s
+    timeout: 4s
+    retries: 40
+
+services:
+  open:
+    <<: *couchdb
+  auth:
+    <<: *couchdb
+    environment:
+      ERL_FLAGS: '+S 2:2 +A 4'
+      COUCHDB_USER: labadmin
+      COUCHDB_PASSWORD: labpassword

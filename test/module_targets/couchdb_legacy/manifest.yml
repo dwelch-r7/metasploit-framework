@@ -1,0 +1,10 @@
+spec: spec/acceptance/module_targets/couchdb_legacy_spec.rb
+expected_examples: 9
+modules:
+  - auxiliary/scanner/couchdb/couchdb_login
+  - auxiliary/scanner/couchdb/couchdb_enum
+ports:
+  open: 5984
+  auth: 5984
+support_files:
+  - test/module_targets/couchdb/native_client.rb

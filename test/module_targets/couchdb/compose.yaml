@@ -1,0 +1,16 @@
+services:
+  couchdb:
+    build: .
+    ports: ["127.0.0.1::5984"]
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "--silent", "--user", "labadmin:labpassword", "http://127.0.0.1:5984/_up"]
+      interval: 3s
+      timeout: 4s
+      retries: 40
+  apache:
+    extends:
+      file: ../http/compose.yaml
+      service: apache
+    build: ../http
+    # A normal SPA-style fallback on a real HTTP server, not a CouchDB stub.
+    command: ["httpd-foreground", "-c", "FallbackResource /index.html"]

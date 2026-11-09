@@ -40,6 +40,14 @@ The following was done on Ubuntu 16.04, and is largely based on [1and1.com](http
   6. Restart the service: `sudo service couchdb restart`
   7. Create an admin user `curl -X PUT http://127.0.0.1:5984/_config/admins/anna -d '"secret"'`
 
+### Managed container tests
+
+The [CouchDB 3.3.1 lab](../../../../../test/module_targets/couchdb/README.md)
+and [CouchDB 1.6.1 lab](../../../../../test/module_targets/couchdb_legacy/README.md)
+provide digest-pinned targets, independent native controls and short automated
+checks. They use random loopback ports and remove their owned containers/data.
+See each lab for tested authentication, data, account-creation and version limits.
+
 ## Verification Steps
 
   1. Install and configure couchdb

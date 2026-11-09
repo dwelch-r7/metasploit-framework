@@ -1,0 +1,13 @@
+spec: spec/acceptance/module_targets/couchdb_spec.rb
+expected_examples: 8
+modules:
+  - auxiliary/scanner/couchdb/couchdb_login
+  - auxiliary/scanner/couchdb/couchdb_enum
+ports:
+  couchdb: 5984
+  apache: 80
+support_files:
+  - test/module_targets/http/compose.yaml
+  - test/module_targets/http/Dockerfile
+  - test/module_targets/http/module-target.conf
+  - test/module_targets/http/htdocs/index.html

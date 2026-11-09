@@ -105,7 +105,7 @@ class ModuleTargetTests
       type, path = fullname.split('/', 2)
       "modules/#{source_types.fetch(type, type)}/#{path}.rb"
     end
-    files = sources + [manifest.fetch('spec'), 'spec/support/acceptance/module_target.rb', 'spec/support/acceptance/child_process.rb', 'lib/msf/core/modules/metadata/store.rb', 'tools/dev/run_module_target_tests.rb']
+    files = sources + [manifest.fetch('spec'), 'spec/support/acceptance/module_target.rb', 'spec/support/acceptance/child_process.rb', 'lib/msf/core/modules/metadata/store.rb', 'lib/msf/core/option_container.rb', 'tools/dev/run_module_target_tests.rb']
     files += CONSOLE_BUILD_FILES + %w[Dockerfile test/module_targets/framework.compose.yaml] if manifest['console']
     files += manifest.fetch('support_files', [])
     files += Dir[File.join(TARGETS, family, '**/*')].select { |path| File.file?(path) }.map { |path| path.delete_prefix("#{ROOT}/") }
