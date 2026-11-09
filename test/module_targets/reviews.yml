@@ -1,6 +1,46 @@
 # Individual source-reviewed target requirements; these are not blanket exclusions.
 ---
 modules:
+  auxiliary/cloud/aws/enum_ssm:
+    source_sha256: 867756d2f657d86bd78c2b7f26e75a1d9f42deeebfb327cc5a5a4f698968f051
+    disposition: separate_cloud_target
+    reason: The module enumerates EC2 resources through SSM GetInventory and can
+      start an SSM-SessionManagerRunShell session using the returned stream URL
+      and token. Qualifying that main session path requires an owned managed
+      instance and actual SSM control/data planes. Running only an SSM agent in
+      Docker does not supply those services. Emulator API responses would be
+      compatibility evidence, not proof of the AWS session path; defer this
+      module to a separately provisioned cloud target.
+  auxiliary/cloud/aws/enum_ec2:
+    source_sha256: d2618839aa32d55ee6d57976bdcb6e14ee1bf6c081999d3383e483c75aadc98c
+    disposition: separate_cloud_target
+    reason: The owning run enumerates AWS regions and EC2 instances, reporting
+      network interfaces, tags, security groups and actual instance attributes.
+      A local service container cannot supply the EC2 control plane or genuine
+      EC2 resources. Qualify against owned cloud instances with native account
+      and reporting controls; emulator-only enumeration would establish a
+      different API compatibility result. No cloud credentials or resources
+      are created by this review.
+  auxiliary/cloud/aws/enum_iam:
+    source_sha256: 3b152ace8fa788f593eaa52263369570aedc0cf124e980858323834a1ca7d9af
+    disposition: separate_cloud_target
+    reason: Successful collection uses IAM account authorization details and
+      real user policies, access keys, signing certificates, login profiles and
+      MFA devices. An invented IAM data set in a container would not confirm
+      collection against the owning AWS identity service. Defer to a separate
+      owned-account target with accepted and denied policies; no AWS account
+      operations are performed here. This does not exclude S3-compatible
+      services or other independently runnable cloud products.
+  auxiliary/admin/aws/aws_launch_instances:
+    source_sha256: 4ff4630f806bd021126d4bd1e6288cde2335b786b3606a2b733875debe945eae
+    disposition: separate_cloud_target
+    reason: The main function imports a key, selects or creates EC2 network
+      resources, calls RunInstances, polls instance status and reads the actual
+      instance IP. RHOST permits an alternate endpoint, but an emulator returning
+      instance records would not establish a launched guest or working userdata.
+      Qualify with an owned disposable cloud guest and explicit resource cleanup
+      in a separate cloud campaign; an ordinary Compose service is insufficient
+      for those positive-path claims. No instances are launched by this review.
   exploit/linux/local/docker_cgroup_escape:
     source_sha256: 79da55cad312aa93a357f70a47eab3fe0145933b7dbba8482b4e4b10d6e6c747
     disposition: separate_kernel_target

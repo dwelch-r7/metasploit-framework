@@ -529,10 +529,13 @@ Ansible deployment, Erlang execution and WordPress admin remain unqualified.
 - Expand through reusable network service and web application families.
 - Review post modules using suitable real sessions and cover declared types.
 - Review other module categories and record justified exclusions individually.
-- Eight source-hashed reviews now identify separate Linux-kernel/container-host,
-  macOS, Windows, Xerox and Cisco device/firmware requirements in `reviews.yml`; these do not
+- Twelve source-hashed reviews now identify separate Linux-kernel/container-host,
+  macOS, Windows, Xerox, Cisco and AWS control-plane requirements in `reviews.yml`; these do not
   establish universal infeasibility. Existing Kubernetes fixtures require a host cluster and are not
   a self-contained lab; create an isolated cluster before qualifying those modules.
+- The four AWS reviews cover their actual EC2, IAM and SSM operations; they do
+  not exclude S3-compatible services. Alternate endpoints or API emulators alone
+  do not prove an AWS guest launch or SSM session. No cloud resources are created.
 - Investigate failures with target evidence before classifying module defects.
 - Repeat meaningful state-changing paths and retain concise evidence summaries.
 
