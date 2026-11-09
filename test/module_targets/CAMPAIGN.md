@@ -268,6 +268,34 @@ responses. The [current verification matrix](VERIFICATION-20261109-jenkins-udp.m
 records every selected run and remaining qualification limits. This checkpoint
 does not complete the repository-wide goal; most modules still await review.
 
+## WordPress and Tomcat AJP follow-up
+
+The next verified selection covers **98 production runtime modules, 38 families
+and 550 functional cases**, with every selected input hash current and owned
+teardown passing. WordPress adds three modules/39 cases; Tomcat AJP adds one
+module/13 cases. The [verification matrix](VERIFICATION-20261109-wordpress-ajp.md)
+records all selected evidence and limits. This does not complete the broader goal.
+
+Native controls caught an Akismet readme-access assumption and WordPress CLI
+rewrite setup before classifying production failures. The native-ready parent
+WordPress baseline39/11 led to isolated scanner8/1->8/0 and XML-RPC12/10->12/0
+repairs; the integrated parent39/0 and relevant unit106/0 pass. Genuine responses
+and exact generated-request/native-response proof distinguish endpoint, XML
+escaping and REST routing faults from fixture assumptions.
+
+The initial Tomcat13/4 run included one over-specific refusal assertion. After
+correcting only that assertion, unchanged source reproduced13/3; the isolated
+fix passed13/0 with source-only recorded input differences. Complete large-file
+bytes and absence of error-page loot are now asserted, alongside empty, binary,
+Unicode and default web.xml reads. Focused captured-frame regressions29/14->29/0
+also cover explicitly derived malformed/incomplete responses. The final worker
+artifacts were imported unchanged and independently audited against parent bytes;
+no redundant identical suite was rerun merely to relabel its provenance.
+
+WordPress administrator upload/session and Multicall paths remain next candidates;
+a source hint in Multicall is not yet a verified production-module failure.
+Other versions, transport timing, TLS and database persistence remain unqualified.
+
 ## November 8 baseline findings
 
 | Family | Functional result | Scope |

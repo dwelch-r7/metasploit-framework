@@ -138,9 +138,14 @@ The [earlier published follow-up checkpoint](VERIFICATION-20261109-follow-up.md)
 86 modules, 31 families and 416 cases, including DNS, Linux, VNC, WebDAV, MQTT and mail
 qualification at `e16b4bc4157`, with matching recorded inputs for its 31 families.
 Later fixture/runner changes require fresh validation before updating that total.
-The [current qualification record](VERIFICATION-20261109-jenkins-udp.md) records
+The [earlier qualification record](VERIFICATION-20261109-jenkins-udp.md) records
 **94 runtime modules, 36 families and 498 functional cases**, including the
 subsequent Jenkins, TFTP, NTP, Jenkins-command and Elasticsearch profiles.
 All recorded inputs are current, exact counts match and owned cleanup passes.
+The [current qualification record](VERIFICATION-20261109-wordpress-ajp.md) records
+**98 runtime modules, 38 families and 550 functional cases**, adding WordPress
+discovery/login and Tomcat AJP file reads with independently verified repairs.
+All selected recorded inputs remain current, exact counts match and owned cleanup
+passes.
 The full campaign remains incomplete while feasible, valuable modules await review
 or functional verification.
