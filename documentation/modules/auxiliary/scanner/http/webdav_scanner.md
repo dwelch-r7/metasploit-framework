@@ -2,6 +2,14 @@
 
 This module scans a server or range of servers and attempts to determine if WebDav is enabled. This allows us to better fine-tune our attacks.
 
+## Automated local targets
+
+The [managed Apache WebDAV lab](../../../../../test/module_targets/webdav/README.md)
+provides real services and independent native controls. Run
+`bundle exec ruby tools/dev/run_module_target_tests.rb webdav` from the
+repository root. See the lab guide and campaign for qualification results,
+known failures and remaining limits.
+
 ## Verification Steps
 
 1. Do: ```use auxiliary/scanner/http/webdav_scanner```

@@ -1,0 +1,10 @@
+spec: spec/acceptance/module_targets/webdav_spec.rb
+expected_examples: 22
+modules:
+  - auxiliary/scanner/http/webdav_scanner
+  - auxiliary/scanner/http/webdav_website_content
+  - auxiliary/scanner/http/http_put
+ports:
+  apache: 80
+support_files:
+  - lib/rex/proto/http/response.rb

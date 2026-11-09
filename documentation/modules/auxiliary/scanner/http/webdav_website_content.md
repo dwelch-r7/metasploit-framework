@@ -2,6 +2,14 @@
 
 This auxiliary module scans a host or range of hosts for servers that disclose their content via WebDav.
 
+## Automated local targets
+
+The [managed Apache WebDAV lab](../../../../../test/module_targets/webdav/README.md)
+provides real services and independent native controls. Run
+`bundle exec ruby tools/dev/run_module_target_tests.rb webdav` from the
+repository root. See the lab guide and campaign for qualification results,
+known failures and remaining limits.
+
 ## Verification Steps
 
 1. Do: ```use auxiliary/scanner/http/webdav_website_content```

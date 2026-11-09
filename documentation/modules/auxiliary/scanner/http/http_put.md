@@ -18,6 +18,14 @@ To test this module:
 2. Ensure HTTP PUT/DELETE methods are enabled
 3. Confirm lack of authentication or access control
 
+## Automated local targets
+
+The [managed Apache WebDAV lab](../../../../../test/module_targets/webdav/README.md)
+provides real services and independent native controls. Run
+`bundle exec ruby tools/dev/run_module_target_tests.rb webdav` from the
+repository root. See the lab guide and campaign for qualification results,
+known failures and remaining limits.
+
 ## Verification Steps
 
 1. Start Metasploit: `msfconsole`
