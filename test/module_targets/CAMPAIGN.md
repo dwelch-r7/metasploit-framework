@@ -90,6 +90,17 @@ records and stored nested/empty schema. Verified coverage now totals **60
 modules, seventeen families and 226 cases**. Legacy authentication remains a
 separate next profile rather than an assumed consequence of these passes.
 
+MongoDB 2.6.12 then exposed two real defects: missing MONGODB-CR hashes and
+truncated cursors at 101 records. Separate worktrees reproduced and fixed both;
+the combined modern/legacy run passed 43 cases, including stronger permission
+and rejected-password negatives. A separate Mongobleed profile passed eleven
+cases against open/authenticated vulnerable, fixed, compression-mitigated and
+unrelated services, with actual bounded leak loot and independent wire probes.
+The cumulative verified checkpoint is **61 modules, nineteen families and 249
+cases**. See the [November 9 verification](VERIFICATION-20261109.md) for evidence,
+fix commits and qualification limits. SNMP and rsync definitions are currently
+under qualification; their presence alone does not add passing coverage.
+
 ## November 8 baseline findings
 
 | Family | Functional result | Scope |
@@ -191,8 +202,12 @@ Reverse payload sessions and TLS remain untested in this family.
 - MongoDB: four modules passed 31 cases on 4.4.30/8.3.11, including open/authenticated
   services, the buildInfo authentication boundary, exact native SCRAM hashes,
   scoped/incorrect credentials, permission denials, cursor continuation and
-  schema loot. Legacy MONGODB-CR, SHA-256-only authentication, other versions,
-  TLS, cracking/persistence and Mongobleed are not yet qualified.
+  schema loot. MongoDB 2.6.12 adds twelve passing legacy-authentication/cursor
+  cases after two separately reproduced fixes. SHA-256-only authentication,
+  intermediate versions, TLS, cracking/persistence and old command cursors remain
+  unqualified. Mongobleed adds eleven passing checks/scan cases, including
+  authenticated-target pre-authentication disclosure; other branches, larger
+  scans, forced exploitation and promised secret contents remain unqualified.
 - Executable generators: separate owner controls found failures in Mac x86
   explicit Mach-O signing and Linux x86 custom ELF templates. These are deferred
   generator issues, separate from the corrected EncodedPayload argument order;

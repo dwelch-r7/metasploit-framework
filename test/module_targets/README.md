@@ -113,5 +113,7 @@ test exists, not that it passed. Neither a keyword match nor its absence settles
 feasibility. Prioritize existing reproducible labs and service families that can
 cover several valuable workflows, then version-specific vulnerable applications.
 Record evidence-backed exclusions and failures in [the campaign record](CAMPAIGN.md).
+The [November 9 checkpoint](VERIFICATION-20261109.md) records the latest qualified
+profiles and separate before/after module findings.
 The full campaign remains incomplete while feasible, valuable modules await review
 or functional verification.
