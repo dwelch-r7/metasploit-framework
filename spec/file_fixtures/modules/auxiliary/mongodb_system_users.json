@@ -1,0 +1,52 @@
+{
+  "2.6.12": [
+    {
+      "_id": "admin.rootuser",
+      "user": "rootuser",
+      "db": "admin",
+      "credentials": {
+        "MONGODB-CR": "97b25313b1738028ec31be085a8b9480"
+      },
+      "roles": [
+        {
+          "role": "root",
+          "db": "admin"
+        }
+      ]
+    },
+    {
+      "_id": "intranet.testuser",
+      "user": "testuser",
+      "db": "intranet",
+      "credentials": {
+        "MONGODB-CR": "19c8747ac7b3654045c99bea032d61be"
+      },
+      "roles": [
+        {
+          "role": "readWrite",
+          "db": "intranet"
+        }
+      ]
+    }
+  ],
+  "4.4.30": [
+    {
+      "user": "rootuser",
+      "db": "admin",
+      "credentials": {
+        "SCRAM-SHA-1": {
+          "iterationCount": 10000,
+          "salt": "LzPB9KVCpbDieHBrl/2Yhg==",
+          "storedKey": "7x7q8xK+lQVJJmc+g7xgtJsbg0w=",
+          "serverKey": "zrhXuqr54Jcd6QVUi5eB6j6lOIk="
+        },
+        "SCRAM-SHA-256": {
+          "iterationCount": 15000,
+          "salt": "LgFRKmI+2Su9yZP/mAT05H+WbxVZNrv0i/YSnA==",
+          "storedKey": "hzIZ2V5ozWh2qEQz7KmuBjocai58BFXnLACGwzsprFE=",
+          "serverKey": "EqgR1z1JnchMGIP8TEJTXK3gJta7wq8YtrkgyDUnFyk="
+        }
+      }
+    }
+  ]
+}

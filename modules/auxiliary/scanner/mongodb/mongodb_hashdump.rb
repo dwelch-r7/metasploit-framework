@@ -179,10 +179,12 @@ class MetasploitModule < Msf::Auxiliary
         store_hash_credential(service_data, user, hash, 'mongodb-scram-sha256')
       end
 
-      # MONGODB-CR Legacy (Plain MD5)
-      next unless doc['pwd'] && !creds.key?('SCRAM-SHA-1') && !creds.key?('SCRAM-SHA-256')
+      # MongoDB 2.6 moved MONGODB-CR digests into credentials; older users use pwd.
+      next if creds.key?('SCRAM-SHA-1') || creds.key?('SCRAM-SHA-256')
 
-      hash = doc['pwd']
+      hash = creds['MONGODB-CR'] || doc['pwd']
+      next unless hash
+
       tbl << ['db (MONGODB-CR)', user, hash]
 
       store_hash_credential(service_data, user, hash, 'md5')
