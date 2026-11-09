@@ -56,6 +56,7 @@ class MetasploitModule < Msf::Post
   end
 
   def download_loot(paths)
+    users = get_users
     paths.each do |path|
       path.chomp!
 
@@ -72,11 +73,12 @@ class MetasploitModule < Msf::Post
       else
         # Guess, but it's probably right
         sep = '/'
-        files = cmd_exec("ls -1 #{path}").split(/\r\n|\r|\n/)
+        files = cmd_exec("ls -1 #{session.escape_arg(path)}").split(/\r\n|\r|\n/)
       end
       path_array = path.split(sep)
       path_array.pop
-      user = path_array.pop
+      # A home directory need not have the same name as its account.
+      user = users.find { |entry| entry[:dir] == path_array.join(sep) }&.[](:name) || path_array.last
       files.each do |file|
         next if ['.', '..'].include?(file)
 
