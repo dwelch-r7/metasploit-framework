@@ -96,10 +96,73 @@ Memory contents are nondeterministic; the tests require real disclosure and
 structural integrity rather than a particular secret. The native proof/script,
 images, limits and reproducible commands are tracked with the lab.
 
+## Rsync profiles
+
+All six cases passed on pinned rsync `3.2.7-0ubuntu0.22.04.7` and
+`3.2.7-1+deb12u6` at `tmp/module-target-tests/20261109T002516-643192/rsync/`.
+The run took 57.74 seconds including console startup, with unchanged inputs,
+zero pending/outside-example errors and successful cleanup. The first complete
+run also passed before exact package pins and explicit protocol assertions were
+added. Both daemons report 3.2.7; native version output and actual greetings
+prove different protocol 31.0/32.0 behavior.
+
+Native CLI transfers retrieve exact proof contents from open, authenticated and
+hidden shares and reject the wrong password. Module assertions compare actual
+listed names/comments, per-share authentication requirements, optional MOTD/
+version output, an empty daemon and an independently verified unrelated HTTP
+service. The hidden share is genuinely usable but absent from listing. The
+uncommented share tests a missing comment rather than inventing a response.
+Module documentation checking added no diagnostics; the new Ruby spec passes
+RuboCop. Older bare-number greetings, other versions, SSH transport, host ACLs
+and persistent report storage remain unqualified.
+
+## SNMP findings and fixes
+
+Forty native CLI controls establish real Net-SNMP 5.9.1 read-only/read-write
+policy, wrong-community denial, actual writes and restoration across UDP/TCP,
+v1/v2c. The first full suite produced 22 cases/eight failures at
+`tmp/module-target-tests/20261109T001859-a39211/snmp/`: six ordinary leading-dot
+OID parser failures and both TCP dual-version login cases. A canonical-OID rerun
+produced 22 cases/one intermittent TCP dual-version failure at
+`tmp/module-target-tests/20261109T002202-34ea87/snmp/`; other main functions passed.
+
+Separate worktrees reproduced both issues. Native numeric OID output itself uses
+the leading dot; its module-local normalization is integrated as `23f367268b2`.
+The focused eight-case suite passed after reproducing six native failures;
+fifteen unit/support examples passed. A separate native TCP capture contains two
+valid replies in one read; the original strict decoder rejects the concatenated
+stream. Stream framing and its focused regressions are integrated separately
+from SET normalization; the parent combined result below governs qualification.
+Linux post-module target definitions are also under qualification, without a
+passing claim yet.
+
+The TCP fix is integrated as `7ad50bc1ec4`. Its final nineteen framing cases
+include coalesced/fragmented replies, the exact two-byte header boundary,
+long lengths, size/time bounds, reconnect reset and unchanged UDP behavior.
+The parent combined unit/module run passed **34 examples**. Seventeen existing
+lint offenses remain in untouched scanner/spec sections; no new SNMP offenses
+were introduced. The SET module and new functional suite pass explicit RuboCop;
+module msftidy retains its historical lint exemption.
+
+The strengthened parent functional run passed **22 cases** in 106.00 seconds
+at `tmp/module-target-tests/20261109T003138-f92c0b/snmp/`, stable inputs, zero
+pending/outside-example errors and successful cleanup. Both transport/version
+modes and access policies are checked. Dual-version scans must yield exactly
+two successful results rather than merely one. Four version/OID-form write
+combinations each run twice (eight actual module writes), with native readback
+and restoration; dotted-OID negatives verify denied/unknown communities.
+Native preflight contains forty CLI controls and the parent records 48 native
+exec calls overall. Separate before/after evidence is preserved locally in
+`tmp/snmp-set-evidence/` and `tmp/snmp-tcp-evidence/`.
+
+SNMPv3, vendor/Windows MIBs, IPv6, arbitrary SET types, TCP SET and credential
+persistence remain unqualified. A passing Linux Net-SNMP profile does not prove
+specialist device modules work.
+
 ## Checkpoint review
 
-**Summary:** 61 production runtime modules now have passing profiles across
-nineteen families, totaling 249 functional cases. Remaining candidates and
+**Summary:** 65 production runtime modules now have passing profiles across
+twenty-one families, totaling 277 functional cases. Remaining candidates and
 target requirements stay in the campaign/inventory.
 
 **What looks good:** Real upstream services, independent native controls,

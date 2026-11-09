@@ -101,6 +101,22 @@ cases**. See the [November 9 verification](VERIFICATION-20261109.md) for evidenc
 fix commits and qualification limits. SNMP and rsync definitions are currently
 under qualification; their presence alone does not add passing coverage.
 
+Rsync subsequently passed six cases on pinned Ubuntu/Debian packages, both
+reporting 3.2.7 but independently advertising protocols 31.0 and 32.0. Native
+file transfers establish open/protected/hidden-share policy; module tests cover
+listing, authentication requirements, optional banner output, an empty daemon
+and an unrelated server. Verified coverage is now **62 modules, twenty families
+and 255 cases**. SNMP fixes and Linux post-module sessions remain under
+qualification and do not add to that count yet.
+
+SNMP then passed its strengthened 22-case parent suite after separate fixes for
+leading-dot numeric OIDs and TCP BER framing. Native controls distinguish actual
+read/write policy; dual-version scans must return both results, and canonical/
+dotted SET paths each run twice with native readback and restoration. Verified
+coverage is **65 modules, twenty-one families and 277 cases**. Linux post-module
+qualification is continuing; setup/assertion failures there are recorded as
+harness issues and do not add passing coverage.
+
 ## November 8 baseline findings
 
 | Family | Functional result | Scope |
@@ -212,6 +228,15 @@ Reverse payload sessions and TLS remain untested in this family.
   explicit Mach-O signing and Linux x86 custom ELF templates. These are deferred
   generator issues, separate from the corrected EncodedPayload argument order;
   ordinary native Tomcat command payloads were verified in the fix worktree.
+- Rsync: six cases passed on actual protocol 31.0/32.0 daemons, with independent
+  native transfers and authentication controls. Older bare-number greetings,
+  SSH transport, host ACLs and persistent reporting remain unqualified.
+- SNMP: native controls validate UDP/TCP, v1/v2c and real read/write policy.
+  Initial functional failures exposed ordinary leading-dot OID rejection and
+  TCP response framing when scanning both versions. Separate fixes are integrated
+  and the strengthened parent suite passed all 22 cases. Native long/short BER
+  captures underpin framing regressions. SNMPv3, vendor/Windows MIBs, IPv6,
+  arbitrary SET data types and credential persistence remain unqualified.
 - The isolated Framework console now works with Samba. Extend reverse shell,
   Meterpreter and post-module coverage across declared session types and useful
   delivery families.
