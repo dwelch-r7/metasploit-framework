@@ -529,8 +529,34 @@ module Acceptance
         raise "Unexpected metadata filename: #{name}" unless File.basename(name) == name && name.end_with?('.json')
 
         source = File.join(config, 'store', name)
-        JSON.parse(File.read(source))
-        FileUtils.cp(source, destination, preserve: true)
+        cache_metadata_file(source, File.join(destination, name))
+      end
+    end
+
+    def cache_metadata_file(source, destination, timeout: 5)
+      deadline = Process.clock_gettime(Process::CLOCK_MONOTONIC) + timeout
+      begin
+        data = File.binread(source)
+        JSON.parse(data)
+        metadata = File.stat(source)
+      rescue JSON::ParserError, Errno::ENOENT => e
+        if Process.clock_gettime(Process::CLOCK_MONOTONIC) >= deadline
+          raise ChildProcessError, "Metadata snapshot did not become ready: #{source}: #{e.message}"
+        end
+
+        sleep 0.05
+        retry
+      end
+
+      # Framework rewrites these files after the initial prompt. Copy precisely
+      # the bytes just validated, then publish atomically; re-reading via cp can
+      # race another truncation and poison the next family's metadata seed.
+      Tempfile.create(['module-target-metadata-', '.json'], File.dirname(destination)) do |snapshot|
+        snapshot.binmode
+        snapshot.write(data)
+        snapshot.flush
+        File.utime(metadata.atime, metadata.mtime, snapshot.path)
+        File.rename(snapshot.path, destination)
       end
     end
 

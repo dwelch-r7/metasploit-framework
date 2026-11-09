@@ -55,6 +55,9 @@ differ. Framework performs its normal checksum validation, and the runner record
 the tested input SHA256 values. Seed files and their hashes are retained under
 each family's `metadata-seed/` directory. A new invocation starts with a cold
 metadata cache; settings, credentials and session state are never copied.
+Metadata snapshots wait up to five seconds for an in-progress write, validate
+the captured JSON bytes and publish those exact bytes atomically. An incomplete
+snapshot remains a setup failure and cannot qualify a module.
 
 ## Layout and contribution contract
 
