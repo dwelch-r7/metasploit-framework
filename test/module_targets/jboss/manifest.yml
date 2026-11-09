@@ -1,0 +1,21 @@
+spec: spec/acceptance/module_targets/jboss_spec.rb
+expected_examples: 24
+console: true
+modules:
+  - auxiliary/scanner/http/jboss_status
+  - auxiliary/scanner/http/jboss_vulnscan
+  - auxiliary/admin/http/jboss_bshdeployer
+  - auxiliary/admin/http/jboss_deploymentfilerepository
+ports: {open: 8080, legacy: 8080, secured: 8080, unrelated: 80}
+support_files:
+  - spec/support/acceptance/jboss_target.rb
+  - spec/support/shared/contexts/wait_for_expect.rb
+  - lib/msf/core/exploit/remote/http/jboss.rb
+  - lib/msf/core/exploit/remote/http/jboss/base.rb
+  - lib/msf/core/exploit/remote/http/jboss/bean_shell.rb
+  - lib/msf/core/exploit/remote/http/jboss/bean_shell_scripts.rb
+  - lib/msf/core/exploit/remote/http/jboss/deployment_file_repository.rb
+  - lib/msf/core/exploit/remote/http/jboss/deployment_file_repository_scripts.rb
+  - test/module_targets/http/Dockerfile
+  - test/module_targets/http/module-target.conf
+  - test/module_targets/http/compose.yaml

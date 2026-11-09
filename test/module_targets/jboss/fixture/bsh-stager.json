@@ -1,0 +1,9 @@
+{
+  "origin": "Actual auxiliary/admin/http/jboss_bshdeployer legacy HEAD emission",
+  "source_capture": "tmp/module-target-tests/20261109T193711-0367f7/jboss/target.log",
+  "source_capture_sha256": "0d396977dd15d163c061adbd9e6a413fcddc37391169d979f8233395a0eaa253",
+  "request_mbean": "jboss.deployer:service=BSHDeployer",
+  "request_operation": "createScriptDeployment",
+  "stager_sha256": "b39e5b93dfe6af7cfd4492951f7e887a9b43cd62ba79e70fa0636b3d509f1646",
+  "transformation": "Decoded the emitted BSH String val from Base64; no source bytes edited"
+}

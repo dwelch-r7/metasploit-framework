@@ -13,6 +13,10 @@
 
   * Apache-Coyote/1.1 ( Powered by Servlet 2.4; JBoss-4.2.0.GA (build: SVNTag=JBoss_4_2_0_GA date=200705111440)/Tomcat-5.5 )
 
+  The reusable [JBoss AS container lab](../../../../../test/module_targets/jboss/README.md)
+  provides checksum-pinned AS 4.2.3 targets with open, legacy and secured
+  management policies, independent native controls, and automated module tests.
+
 ## Verification Steps
 
   1. Do: ```use auxiliary/scanner/http/jboss_vulnscan```

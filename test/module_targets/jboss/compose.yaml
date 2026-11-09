@@ -1,0 +1,21 @@
+x-jboss: &jboss
+  build: .
+  ports: ["127.0.0.1::8080"]
+  mem_limit: 768m
+  healthcheck:
+    test: [CMD-SHELL, 'curl --fail --silent http://127.0.0.1:8080/ | grep -q JBoss']
+    interval: 2s
+    timeout: 3s
+    retries: 60
+
+services:
+  open:
+    <<: *jboss
+  legacy:
+    <<: *jboss
+    environment: {LAB_POLICY: legacy}
+  secured:
+    <<: *jboss
+    environment: {LAB_POLICY: secured, LAB_PASSWORD: admin}
+  unrelated:
+    extends: {file: ../http/compose.yaml, service: apache}
