@@ -164,12 +164,24 @@ The current checkpoint is **71 modules, twenty-five families and 311 cases**.
 The rejected collision may leave a shadow user requiring administrator cleanup;
 credential persistence, CouchDB 2.x, TLS and failed-session cleanup remain limited.
 
-The next authoritative DNS fixture independently passed 46 native controls with
-unchanged inputs and owned cleanup. Real BIND 9.20.30 serves deterministic .test
-zones, with allowed/denied updates and transfers, TCP/UDP answers and outside-query
-refusal. It has no Framework module acceptance profile yet and adds no passing
-coverage. Continue enumeration, dynamic-update actions/types and one unspoofed
-scanner request with exact native controls before registering a passing profile.
+Authoritative DNS subsequently passed 28 cases after independently reproduced
+repairs for scalar-host parsing, AXFR/TCP handling, typed record inspection,
+amplification accounting and stale update-cache state. The Linux collection
+profile passed 12 root/nonroot shell/Meterpreter cases after fixing root cron
+loot. Native VNC passed 20 cases over three genuine RFB versions. Apache WebDAV
+passed 22 cases after correcting listing requests/parsing and literal file
+mutation verification. MQTT passed ten cases after a nil-response parser repair.
+Each family has independent target controls, precise assertions and owned cleanup.
+
+The broad revalidation also exposed native-control cleanup and metadata-copy
+races. Those setup failures were preserved and classified separately from module
+defects. After the metadata snapshot repair, a fresh 26-family invocation passed;
+separate source-current SMB, SMTP, WebDAV and MQTT results complete the registered
+set. The current verified checkpoint is **83 runtime modules, 30 families and
+403 functional cases**, with exact expected counts, zero failures/pending/outside
+errors, matching input hashes and successful owned teardown. See the
+[follow-up verification](VERIFICATION-20261109-follow-up.md)
+for exact evidence, separate fix commits and qualification limits.
 
 ## November 8 baseline findings
 
@@ -223,7 +235,8 @@ Reverse payload sessions and TLS remain untested in this family.
   subsequent successful uploads. Real lost-acknowledgement tests also verified
   ownership warnings; unavailable connectivity can still prevent restoration.
 - Redis extraction: add bounded-result, binary/large-response and ACL cases.
-- Apache HTTP: add TLS, Digest/WebDAV and disabled-TRACE configurations.
+- Apache HTTP: WebDAV now has a separate passing discovery/write/authentication
+  profile. Add TLS, Digest and disabled-TRACE configurations.
 - Memcached: add large/fragmented values, key limits and non-loopback loot proof.
 - PostgreSQL: extend beyond the first version and privileged role; keep session
   and direct-host paths. Review default credential lists to shorten login work.
@@ -307,9 +320,9 @@ Reverse payload sessions and TLS remain untested in this family.
 - Expand through reusable network service and web application families.
 - Review post modules using suitable real sessions and cover declared types.
 - Review other module categories and record justified exclusions individually.
-- Three source-hashed reviews now identify separate Linux-kernel, macOS and Xerox
-  device/firmware requirements in `reviews.yml`; these do not establish universal
-  infeasibility. Existing Kubernetes fixtures require a host cluster and are not
+- Six source-hashed reviews now identify separate Linux-kernel, macOS, Windows,
+  Xerox and Cisco device/firmware requirements in `reviews.yml`; these do not
+  establish universal infeasibility. Existing Kubernetes fixtures require a host cluster and are not
   a self-contained lab; create an isolated cluster before qualifying those modules.
 - Investigate failures with target evidence before classifying module defects.
 - Repeat meaningful state-changing paths and retain concise evidence summaries.

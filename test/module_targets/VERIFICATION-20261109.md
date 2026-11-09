@@ -1,12 +1,14 @@
 # November 9 module target verification
 
-The current verified checkpoint is **71 production runtime modules, twenty-five
+This earlier verified checkpoint covered **71 production runtime modules, twenty-five
 families and 311 functional cases**. All twenty-four families selected at the
 start of the broad shared-validator rerun passed. Subsequent runs strengthen the
 modern CouchDB native control and qualify the corrected command-execution profile.
-Every selected current result has the exact expected count, zero failures/pending/
+At that checkpoint every selected result had the exact expected count, zero failures/pending/
 outside-example errors, matching recorded input hashes and successful owned
-cleanup. The repository-wide campaign remains active.
+cleanup. The [follow-up checkpoint](VERIFICATION-20261109-follow-up.md) supersedes
+these totals with 83 modules, 30 families and 403 source-current cases. The
+repository-wide campaign remains active.
 
 ## MongoDB 2.6 findings and fixes
 
