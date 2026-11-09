@@ -166,10 +166,17 @@ Ansible controller collection, Joomla API access checks and independent SQL
 verification of persisted credentials. All selected recorded inputs are current,
 exact counts match and owned cleanup passes. Ansible deployment, Drupal and
 JBoss are separate investigations and are not included in this checkpoint.
-The [current qualification record](VERIFICATION-20261109-consul-php.md) records
+The [earlier qualification record](VERIFICATION-20261109-consul-php.md) records
 **105 runtime modules, 45 families and 640 functional cases**, adding genuine
 Consul API/UI discovery. A separately proven PHP executable-wrapper repair is
 included without claiming qualification of all its consumers. All selected
 recorded inputs are current, exact counts match and owned cleanup passes.
+The [current qualification record](VERIFICATION-20261109-drupal-jboss.md) records
+**110 runtime modules, 48 families and 690 functional cases**, adding two
+bounded Drupal profiles and genuine JBoss management/administration. Known
+JBoss HEAD detection/output limitations are recorded explicitly. Ansible
+deployment, Consul execution, JBoss payload sessions and WordPress admin remain
+separate investigations. All selected recorded inputs are current, exact counts
+match and owned cleanup passes.
 The full campaign remains incomplete while feasible, valuable modules await review
 or functional verification.

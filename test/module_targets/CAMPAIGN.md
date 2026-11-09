@@ -473,6 +473,21 @@ qualification continues in bounded profiles. The selected checkpoint is
 **105 modules, 45 families and 640 cases**; see the
 [Consul/PHP verification](VERIFICATION-20261109-consul-php.md).
 
+Drupal's complete matrix subsequently passed as two bounded profiles: nineteen
+check/command/native-Linux cases and seven PHP-session cases. All twenty session
+executions have fresh command and cleanup proof. The original Drupal module is
+unchanged; its shared PHP wrapper repair has separate before/after controls.
+Genuine JBoss AS management passed twenty-four cases after repairing nil-database
+credential reporting and independently confirming BSH HEAD deployment. HTTP500
+alone still does not count as success. The scanner's HEAD500 detection gap and
+HEAD cleanup's indeterminate operator output remain explicitly recorded.
+The selected checkpoint is **110 modules, 48 families and 690 cases**; see the
+[Drupal/JBoss verification](VERIFICATION-20261109-drupal-jboss.md).
+Ansible's real slow-command collection boundary is independently reproduced;
+its final eight-case timeout repair is still under qualification. Consul
+execution, JBoss payload sessions and the WordPress admin reproducer are also
+excluded from this checkpoint. Native controls alone add no runtime-module count.
+
 ## Remaining work
 
 - Review existing protocol suites and supply reusable managed containers.
