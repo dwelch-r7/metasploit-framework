@@ -8,6 +8,17 @@ This auxiliary module scans a host or range of hosts for servers that disclose t
 2. Do: ```set RHOSTS [IP]```
 3. Do: ```run```
 
+## Options
+
+### DEPTH
+
+The default `1` lists the requested collection and its immediate children.
+Use `0` to request only the collection itself. `infinity` requests recursive
+content when the server permits it; Apache commonly refuses that depth.
+Earlier versions omitted the Depth header, which implicitly requested infinity.
+Set `DEPTH infinity` to retain that request scope. The historical scenario below
+shows recursive results; its console output has not been regenerated.
+
 ## Scenarios
 
 ```

@@ -1,0 +1,26 @@
+{
+  "server": "Apache HTTP Server 2.4.62",
+  "captures": [
+    {
+      "name": "missing_host_nondefault_port",
+      "request": "PROPFIND /dav/ HTTP/1.0\r\nHost: :63060\r\nConnection: close\r\nContent-Type: text/xml\r\nContent-Length: 0\r\nDepth: 1\r\n\r\n",
+      "response_headers": "HTTP/1.1 400 Bad Request\r\nDate: Mon, 09 Nov 2026 12:00:13 GMT\r\nServer: Apache/2.4.62 (Unix)\r\nContent-Length: 226\r\nConnection: close\r\nContent-Type: text/html; charset=iso-8859-1",
+      "status": 400,
+      "body": "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">\n<html><head>\n<title>400 Bad Request</title>\n</head><body>\n<h1>Bad Request</h1>\n<p>Your browser sent a request that this server could not understand.<br />\n</p>\n</body></html>\n"
+    },
+    {
+      "name": "default_depth",
+      "request": "PROPFIND /dav/ HTTP/1.0\r\nHost: 127.0.0.1:63060\r\nConnection: close\r\nContent-Type: text/xml\r\nContent-Length: 0\r\n\r\n",
+      "response_headers": "HTTP/1.1 403 Forbidden\r\nDate: Mon, 09 Nov 2026 12:00:13 GMT\r\nServer: Apache/2.4.62 (Unix)\r\nContent-Length: 261\r\nConnection: close\r\nContent-Type: text/html; charset=ISO-8859-1",
+      "status": 403,
+      "body": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n<html>\n<head>\n<title>403 Forbidden</title>\n</head><body>\n<h1>Forbidden</h1>\n<p>PROPFIND requests with a Depth of \"infinity\" are not allowed for /dav/.</p>\n</body></html>\n"
+    },
+    {
+      "name": "depth_one",
+      "request": "PROPFIND /dav/ HTTP/1.0\r\nHost: 127.0.0.1:63060\r\nConnection: close\r\nContent-Type: text/xml\r\nContent-Length: 0\r\nDepth: 1\r\n\r\n",
+      "response_headers": "HTTP/1.1 207 Multi-Status\r\nDate: Mon, 09 Nov 2026 12:00:13 GMT\r\nServer: Apache/2.4.62 (Unix)\r\nContent-Length: 1633\r\nConnection: close\r\nContent-Type: text/xml; charset=\"utf-8\"",
+      "status": 207,
+      "body": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<D:multistatus xmlns:D=\"DAV:\">\n<D:response xmlns:lp2=\"http://apache.org/dav/props/\" xmlns:lp1=\"DAV:\">\n<D:href>/dav/</D:href>\n<D:propstat>\n<D:prop>\n<lp1:resourcetype><D:collection/></lp1:resourcetype>\n<lp1:creationdate>2026-11-09T11:38:13Z</lp1:creationdate>\n<lp1:getlastmodified>Mon, 09 Nov 2026 11:38:13 GMT</lp1:getlastmodified>\n<lp1:getetag>\"1000-65fd665a242d4\"</lp1:getetag>\n<D:supportedlock>\n<D:lockentry>\n<D:lockscope><D:exclusive/></D:lockscope>\n<D:locktype><D:write/></D:locktype>\n</D:lockentry>\n<D:lockentry>\n<D:lockscope><D:shared/></D:lockscope>\n<D:locktype><D:write/></D:locktype>\n</D:lockentry>\n</D:supportedlock>\n<D:lockdiscovery/>\n<D:getcontenttype>httpd/unix-directory</D:getcontenttype>\n</D:prop>\n<D:status>HTTP/1.1 200 OK</D:status>\n</D:propstat>\n</D:response>\n<D:response xmlns:lp2=\"http://apache.org/dav/props/\" xmlns:lp1=\"DAV:\">\n<D:href>/dav/existing.txt</D:href>\n<D:propstat>\n<D:prop>\n<lp1:resourcetype/>\n<lp1:creationdate>2026-11-09T11:38:13Z</lp1:creationdate>\n<lp1:getcontentlength>31</lp1:getcontentlength>\n<lp1:getlastmodified>Mon, 09 Nov 2026 11:38:13 GMT</lp1:getlastmodified>\n<lp1:getetag>\"1f-65fd665a242d4\"</lp1:getetag>\n<lp2:executable>F</lp2:executable>\n<D:supportedlock>\n<D:lockentry>\n<D:lockscope><D:exclusive/></D:lockscope>\n<D:locktype><D:write/></D:locktype>\n</D:lockentry>\n<D:lockentry>\n<D:lockscope><D:shared/></D:lockscope>\n<D:locktype><D:write/></D:locktype>\n</D:lockentry>\n</D:supportedlock>\n<D:lockdiscovery/>\n<D:getcontenttype>text/plain</D:getcontenttype>\n</D:prop>\n<D:status>HTTP/1.1 200 OK</D:status>\n</D:propstat>\n</D:response>\n</D:multistatus>\n"
+    }
+  ]
+}
