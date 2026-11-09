@@ -33,26 +33,32 @@ class MetasploitModule < Msf::Auxiliary
 
     banner = fingerprint_service(target_uri.to_s)
     vprint_status("#{peer} - Collecting data through #{path}...")
-    res = send_request_raw(
+    request = {
       'uri' => path,
       'method' => 'GET'
-    )
+    }
+    # The native v2 API rejects unauthenticated reads without issuing a
+    # WWW-Authenticate challenge, so the HTTP client's automatic retry cannot
+    # supply configured credentials. Keep explicitly selected auth modes intact.
+    if datastore['HttpUsername'].present? && [Msf::Exploit::Remote::AuthOption::AUTO, Msf::Exploit::Remote::AuthOption::PLAINTEXT].include?(datastore['HTTP::Auth'])
+      request['authorization'] = basic_auth(datastore['HttpUsername'], datastore['HttpPassword'])
+    end
+    res = send_request_raw(request)
 
     # parse the json if we got a good request back
     if res && res.code == 200
-      begin
-        response = res.get_json_document
-        store_loot('etcd.data', 'text/json', rhost, response, 'etcd.keys', 'etcd keys')
-      rescue JSON::ParserError => e
-        print_error("Failed to read JSON: #{e.class} - #{e.message}}")
+      response = res.get_json_document
+      unless response.is_a?(Hash) && response['action'] == 'get' && response['node'].is_a?(Hash)
+        vprint_error('Keys response does not contain an etcd v2 key document')
         return
       end
+      store_loot('etcd.data', 'text/json', rhost, JSON.generate(response), 'etcd.keys', 'etcd keys')
       print_good("#{peer}\nVersion: #{banner}\nData: #{JSON.pretty_generate(response)}")
     elsif res
-      vprint_errord("Invalid response #{res.code} for etcd open keys response")
+      vprint_error("Invalid response #{res.code} for etcd open keys response")
       return
     else
-      verbose_error("No response for etcd open keys probe")
+      vprint_error('No response for etcd open keys probe')
       return
     end
   end
