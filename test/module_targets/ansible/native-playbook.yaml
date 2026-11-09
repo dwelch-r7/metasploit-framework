@@ -1,0 +1,21 @@
+- name: Native deployment control
+  hosts: reachable
+  gather_facts: false
+  tasks:
+    - name: Copy real native command source
+      ansible.builtin.copy:
+        src: /tmp/module-target-native-command.sh
+        dest: /opt/ansible-remote/native-command.sh
+        mode: '0700'
+    - name: Execute the copied command
+      ansible.builtin.command: /opt/ansible-remote/native-command.sh
+      register: native_command
+      changed_when: false
+    - name: Verify actual remote output
+      ansible.builtin.assert:
+        that:
+          - native_command.stdout == 'module-target-native-deployment'
+    - name: Remove the deployed source
+      ansible.builtin.file:
+        path: /opt/ansible-remote/native-command.sh
+        state: absent

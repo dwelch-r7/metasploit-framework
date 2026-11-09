@@ -2,6 +2,9 @@
 
 This module will grab ansible information including hosts, ping status, and the configuration file.
 
+For automated Linux shell/Meterpreter checks with a real controller and SSH node,
+use the [managed Ansible lab](../../../../../test/module_targets/ansible/README.md).
+
 ### Docker-compose Install
 
 Use the ansible lab files located [here](https://github.com/abdennour/ansible-lab-environment-in-containers).

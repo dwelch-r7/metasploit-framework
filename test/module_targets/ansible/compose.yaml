@@ -1,0 +1,34 @@
+services:
+  linux:
+    extends:
+      file: ../linux_post/compose.yaml
+      service: linux
+    build:
+      context: ../linux_post
+      args:
+        EXTRA_PACKAGES: ansible-core=2.12.0-1ubuntu0.1 openssh-client=1:8.9p1-3ubuntu0.18
+    hostname: module-target-ansible-controller
+    volumes:
+      - ./controller.py:/opt/ansible-controller.py:ro
+      - ./native_probe.py:/opt/ansible-native-probe.py:ro
+      - ./native-playbook.yaml:/opt/native-playbook.yaml:ro
+      - fixture_keys:/opt/ansible-fixture-keys
+    command: ["python3", "/opt/ansible-controller.py"]
+  node:
+    build:
+      context: ../linux_post
+      args:
+        EXTRA_PACKAGES: openssh-server=1:8.9p1-3ubuntu0.18
+    hostname: module-target-ansible-node
+    volumes:
+      - ./node.py:/opt/ansible-node.py:ro
+      - fixture_keys:/opt/ansible-fixture-keys:ro
+    command: ["python3", "/opt/ansible-node.py"]
+    healthcheck:
+      test: ["CMD", "sh", "-c", "test -s /root/.ssh/authorized_keys && /usr/sbin/sshd -t && python3 -c 'import socket; socket.create_connection((\"127.0.0.1\",22),2).close()'"]
+      interval: 2s
+      timeout: 4s
+      retries: 40
+
+volumes:
+  fixture_keys:
