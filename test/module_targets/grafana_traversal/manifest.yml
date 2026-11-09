@@ -1,0 +1,21 @@
+spec: spec/acceptance/module_targets/grafana_traversal_spec.rb
+expected_examples: 23
+console: true
+modules:
+  - auxiliary/scanner/http/grafana_plugin_traversal
+ports:
+  v806: 3000
+  v807: 3000
+  v817: 3000
+  v818: 3000
+  v826: 3000
+  v827: 3000
+  v830: 3000
+  v831: 3000
+  prefix: 3000
+  unrelated: 80
+support_files:
+  - test/module_targets/http/compose.yaml
+  - test/module_targets/http/Dockerfile
+  - test/module_targets/http/module-target.conf
+  - test/module_targets/http/htdocs/index.html

@@ -5,7 +5,10 @@ through the plugin URL.  A valid plugin ID is required, but many are installed b
 
 ### Vulnerable Docker Image
 
-```docker run -p 3000:3000 --name grafana bitnami/grafana:8.3.0```
+The [managed Grafana lab](../../../../../test/module_targets/grafana_traversal/README.md)
+keeps official digest-pinned targets and automated tests in this repository.
+Native file reads independently verify both sides of the 8.0.7, 8.1.8, 8.2.7
+and 8.3.1 fixes, with a real subpath installation and negative file/plugin cases.
 
 ## Verification Steps
 
@@ -13,8 +16,11 @@ through the plugin URL.  A valid plugin ID is required, but many are installed b
 2. Start msfconsole
 3. Do: `use auxiliary/scanner/http/grafana_plugin_traversal`
 4. Do: `set rhosts [ip]`
-5. Do: `run`
-6. You should retrieve a file.
+5. Do: `check`. An affected version should appear vulnerable; the fixed branch
+   releases should be reported safe.
+6. Do: `run`.
+7. Verify that collected file bytes match the owned target. Fixed releases and
+   missing plugins/files should not produce loot.
 
 ## Options
 

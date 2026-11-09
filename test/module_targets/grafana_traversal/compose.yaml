@@ -1,0 +1,58 @@
+x-environment: &environment
+  GF_ANALYTICS_REPORTING_ENABLED: 'false'
+  GF_ANALYTICS_CHECK_FOR_UPDATES: 'false'
+  GF_LOG_LEVEL: warn
+  GF_SECURITY_ADMIN_USER: module-lab-admin
+  GF_SECURITY_ADMIN_PASSWORD: module-target-grafana-password
+
+x-grafana: &grafana
+  environment: *environment
+  ports: ["127.0.0.1::3000"]
+  volumes:
+    - ./proof.txt:/etc/grafana/module-target-proof.txt:ro
+  mem_limit: 256m
+  healthcheck:
+    test: [CMD-SHELL, "wget -q -O /dev/null http://127.0.0.1:3000/api/health"]
+    interval: 2s
+    timeout: 4s
+    retries: 45
+
+services:
+  v806:
+    <<: *grafana
+    image: grafana/grafana:8.0.6@sha256:66c120542437c0d31a76e8370322e6bfcc5c8c78041d9acf9eaa3e2b40f0fe6b
+  v807:
+    <<: *grafana
+    image: grafana/grafana:8.0.7@sha256:b9a43163e52a8a9238807429439beeef827eb179ed3a312a0182c001e9714d92
+  v817:
+    <<: *grafana
+    image: grafana/grafana:8.1.7@sha256:8d41e6b5a8fa139cce5c12b9a101accbb70df3c2be81853f68da87e1cb452078
+  v818:
+    <<: *grafana
+    image: grafana/grafana:8.1.8@sha256:b8070a873d299899ee7aaca68603c77c6ff7ba8c8a1777e4d93b5bb02c2c2dc0
+  v826:
+    <<: *grafana
+    image: grafana/grafana:8.2.6@sha256:1b1e4d15793790d628008086fca2e420eba8bdffdf0cafc9e35abe9e1579752c
+  v827:
+    <<: *grafana
+    image: grafana/grafana:8.2.7@sha256:7b09d835de16a9cc2bb392ddfd10561e477f6580c3c39564394e691a675b6a56
+  v830:
+    <<: *grafana
+    image: grafana/grafana:8.3.0@sha256:64853d72058a08490a9edbba3e7884ae1a2aa0767c6f4d43d1f06f9c477dd7d4
+  v831:
+    <<: *grafana
+    image: grafana/grafana:8.3.1@sha256:259b847ed7e3f58e6056438fd3bc353f48fbe9b77ed3b204ae619ba80e10aed9
+  prefix:
+    <<: *grafana
+    image: grafana/grafana:8.3.0@sha256:64853d72058a08490a9edbba3e7884ae1a2aa0767c6f4d43d1f06f9c477dd7d4
+    environment:
+      <<: *environment
+      GF_SERVER_ROOT_URL: http://localhost:3000/observability/
+      GF_SERVER_SERVE_FROM_SUB_PATH: 'true'
+    healthcheck:
+      test: [CMD-SHELL, "wget -q -O /dev/null http://127.0.0.1:3000/observability/api/health"]
+      interval: 2s
+      timeout: 4s
+      retries: 45
+  unrelated:
+    extends: {file: ../http/compose.yaml, service: apache}
