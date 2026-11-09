@@ -142,10 +142,16 @@ The [earlier qualification record](VERIFICATION-20261109-jenkins-udp.md) records
 **94 runtime modules, 36 families and 498 functional cases**, including the
 subsequent Jenkins, TFTP, NTP, Jenkins-command and Elasticsearch profiles.
 All recorded inputs are current, exact counts match and owned cleanup passes.
-The [current qualification record](VERIFICATION-20261109-wordpress-ajp.md) records
+The [earlier qualification record](VERIFICATION-20261109-wordpress-ajp.md) records
 **98 runtime modules, 38 families and 550 functional cases**, adding WordPress
 discovery/login and Tomcat AJP file reads with independently verified repairs.
 All selected recorded inputs remain current, exact counts match and owned cleanup
 passes.
+The [current qualification record](VERIFICATION-20261109-multicall.md) records
+**99 runtime modules, 39 families and 572 functional cases**, adding genuine
+legacy/current WordPress Multicall authentication with a verified 4.4 boundary
+repair. All selected recorded inputs remain current, exact counts match and
+owned cleanup passes. The separate administrator upload/session draft remains
+unqualified while repeated staged-session behavior is investigated.
 The full campaign remains incomplete while feasible, valuable modules await review
 or functional verification.

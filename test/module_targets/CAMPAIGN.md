@@ -426,6 +426,17 @@ Reverse payload sessions and TLS remain untested in this family.
   Meterpreter and post-module coverage across declared session types and useful
   delivery families.
 
+WordPress Multicall subsequently passed 22 cases on genuine 4.3.1/4.4/6.8.3
+after reproducing and fixing its 4.4 batching boundary and invalid chunk sizes.
+Independent native requests distinguish request-scoped authentication protection
+from account lockout. The selected checkpoint is **99 runtime modules, 39
+families and 572 cases**, with current recorded hashes, exact counts and owned
+cleanup. See the [Multicall verification](VERIFICATION-20261109-multicall.md).
+The WordPress administrator upload draft remains unqualified: a repeated staged
+Meterpreter run reproduces an invalid-session burst despite passing native
+controls. A separate permission-check repair does not explain that failure.
+Controlled interrupted runs retain diagnostic evidence and no case-count claim.
+
 ## Remaining work
 
 - Review existing protocol suites and supply reusable managed containers.
