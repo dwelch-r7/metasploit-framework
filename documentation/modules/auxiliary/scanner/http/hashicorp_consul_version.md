@@ -14,6 +14,12 @@ everything else.
 Tested against every major GA release since October 2024 (1.20,
 1.21, 1.22, 2.0).
 
+### Managed container tests
+
+The [container test guide](../../../../../test/module_targets/consul/README.md)
+provides pinned targets and automated native-controlled tests for open and
+ACL-enforced agents, valid/rejected tokens, API/UI fallback and a proxy subpath.
+
 ### Docker Targets
 
 Every command below binds host port 8500, so run one target at a

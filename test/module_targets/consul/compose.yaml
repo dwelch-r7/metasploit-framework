@@ -1,0 +1,59 @@
+x-agent: &agent
+  command: [agent, -dev, -client=0.0.0.0]
+  ports: ["127.0.0.1::8500"]
+  environment:
+    CONSUL_DISABLE_PERM_MGMT: 'true'
+  mem_limit: 256m
+  healthcheck:
+    test: [CMD-SHELL, "consul info >/dev/null"]
+    interval: 1s
+    timeout: 3s
+    retries: 40
+
+services:
+  open_old:
+    <<: *agent
+    image: hashicorp/consul:1.20.6@sha256:200471c74bc0965cd20c81eacc31a209873d5d9e599fe637ceb856b0cbbc518d
+  open_current:
+    <<: *agent
+    image: hashicorp/consul:2.0.4@sha256:1c59f007df8ea1c21b2558dc73ef8d99047bc895d9e52e635d1e745e35fe9a54
+  acl_old:
+    <<: *agent
+    image: hashicorp/consul:1.20.6@sha256:200471c74bc0965cd20c81eacc31a209873d5d9e599fe637ceb856b0cbbc518d
+    environment:
+      CONSUL_DISABLE_PERM_MGMT: 'true'
+      CONSUL_LOCAL_CONFIG: '{"acl":{"enabled":true,"default_policy":"deny","tokens":{"initial_management":"6ecebcac-a700-4b54-80ad-ad8d64ed7a4c","agent":"6ecebcac-a700-4b54-80ad-ad8d64ed7a4c"}}}'
+      CONSUL_HTTP_TOKEN: 6ecebcac-a700-4b54-80ad-ad8d64ed7a4c
+  acl_current:
+    <<: *agent
+    image: hashicorp/consul:2.0.4@sha256:1c59f007df8ea1c21b2558dc73ef8d99047bc895d9e52e635d1e745e35fe9a54
+    environment:
+      CONSUL_DISABLE_PERM_MGMT: 'true'
+      CONSUL_LOCAL_CONFIG: '{"acl":{"enabled":true,"default_policy":"deny","tokens":{"initial_management":"6ecebcac-a700-4b54-80ad-ad8d64ed7a4c","agent":"6ecebcac-a700-4b54-80ad-ad8d64ed7a4c"}}}'
+      CONSUL_HTTP_TOKEN: 6ecebcac-a700-4b54-80ad-ad8d64ed7a4c
+  ui_only:
+    <<: *agent
+    image: hashicorp/consul:1.20.6@sha256:200471c74bc0965cd20c81eacc31a209873d5d9e599fe637ceb856b0cbbc518d
+    environment:
+      CONSUL_DISABLE_PERM_MGMT: 'true'
+      CONSUL_LOCAL_CONFIG: '{"http_config":{"block_endpoints":["/v1/agent/self","/v1/agent/version"]}}'
+    healthcheck:
+      test: [CMD-SHELL, "consul members >/dev/null"]
+      interval: 1s
+      timeout: 3s
+      retries: 40
+  prefix:
+    extends: {file: ../http/compose.yaml, service: apache}
+    depends_on: {open_current: {condition: service_healthy}}
+    command:
+      - httpd-foreground
+      - -c
+      - LoadModule proxy_module modules/mod_proxy.so
+      - -c
+      - LoadModule proxy_http_module modules/mod_proxy_http.so
+      - -c
+      - ProxyPass /consul/ http://open_current:8500/
+      - -c
+      - ProxyPassReverse /consul/ http://open_current:8500/
+  unrelated:
+    extends: {file: ../http/compose.yaml, service: apache}

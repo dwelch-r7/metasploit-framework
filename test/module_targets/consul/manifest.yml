@@ -1,0 +1,18 @@
+spec: spec/acceptance/module_targets/consul_spec.rb
+expected_examples: 11
+console: true
+modules:
+  - auxiliary/scanner/http/hashicorp_consul_version
+ports:
+  open_old: 8500
+  open_current: 8500
+  acl_old: 8500
+  acl_current: 8500
+  ui_only: 8500
+  prefix: 80
+  unrelated: 80
+support_files:
+  - test/module_targets/http/compose.yaml
+  - test/module_targets/http/Dockerfile
+  - test/module_targets/http/module-target.conf
+  - test/module_targets/http/htdocs/index.html
