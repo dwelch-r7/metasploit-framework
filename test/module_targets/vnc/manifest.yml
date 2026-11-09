@@ -1,0 +1,19 @@
+spec: spec/acceptance/module_targets/vnc_spec.rb
+expected_examples: 20
+console: true
+modules:
+  - auxiliary/scanner/vnc/vnc_none_auth
+  - auxiliary/scanner/vnc/vnc_login
+ports:
+  open33: 5900
+  locked33: 5900
+  open37: 5900
+  locked37: 5900
+  open38: 5900
+  locked38: 5900
+  unrelated: 8080
+support_files:
+  - lib/rex/proto/rfb/client.rb
+  - lib/rex/proto/rfb/constants.rb
+  - lib/rex/proto/rfb/cipher.rb
+  - lib/metasploit/framework/login_scanner/vnc.rb

@@ -21,6 +21,14 @@ tigervncserver is available on Ubuntu 18.04 and possibly newer versions. To star
 in a vulnerable way, run the following command:
 `tigervncserver -SecurityTypes None -localhost no --I-KNOW-THIS-IS-INSECURE`
 
+## Automated local targets
+
+The [managed VNC authentication lab](../../../../../test/module_targets/vnc/README.md)
+provides real services and independent native controls. Run
+`bundle exec ruby tools/dev/run_module_target_tests.rb vnc` from the
+repository root. See the lab guide and campaign for qualification results,
+known failures and remaining limits.
+
 ## Verification Steps
 
 1. Do: `use auxiliary/scanner/vnc/vnc_none_auth`

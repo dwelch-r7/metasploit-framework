@@ -1,0 +1,37 @@
+x-vnc: &vnc
+  build: .
+  ports: ["127.0.0.1::5900"]
+  healthcheck:
+    test: ["CMD", "python3", "-c", "import socket; s=socket.create_connection(('127.0.0.1',5900),2); assert s.recv(12).startswith(b'RFB '); s.close()"]
+    interval: 2s
+    timeout: 3s
+    retries: 30
+
+services:
+  open33:
+    <<: *vnc
+    environment: {RFB_VERSION: '3.3', AUTH_MODE: none}
+  locked33:
+    <<: *vnc
+    environment: {RFB_VERSION: '3.3', AUTH_MODE: password}
+  open37:
+    <<: *vnc
+    environment: {RFB_VERSION: '3.7', AUTH_MODE: none}
+  locked37:
+    <<: *vnc
+    environment: {RFB_VERSION: '3.7', AUTH_MODE: password}
+  open38:
+    <<: *vnc
+    environment: {RFB_VERSION: '3.8', AUTH_MODE: none}
+  locked38:
+    <<: *vnc
+    environment: {RFB_VERSION: '3.8', AUTH_MODE: password}
+  unrelated:
+    build: .
+    command: [python3, -m, http.server, '8080', --bind, 0.0.0.0]
+    ports: ["127.0.0.1::8080"]
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; assert urllib.request.urlopen('http://127.0.0.1:8080/',timeout=2).status == 200"]
+      interval: 2s
+      timeout: 3s
+      retries: 30

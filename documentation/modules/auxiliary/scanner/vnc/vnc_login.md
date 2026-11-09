@@ -5,6 +5,14 @@ report successful logins. Currently it supports RFB protocol
 version 3.3, 3.7, 3.8 and 4.001 using the VNC challenge response
 authentication method.
 
+## Automated local targets
+
+The [managed VNC authentication lab](../../../../../test/module_targets/vnc/README.md)
+provides real services and independent native controls. Run
+`bundle exec ruby tools/dev/run_module_target_tests.rb vnc` from the
+repository root. See the lab guide and campaign for qualification results,
+known failures and remaining limits.
+
 ## Verification Steps
 
 1. Do: `use auxiliary/scanner/vnc/vnc_login`
