@@ -56,6 +56,69 @@ RSpec.describe Msf::OptionContainer do
   end
 
   describe '#validate' do
+    context 'when values already have their normalized form' do
+      let(:options) do
+        described_class.new([
+          Msf::OptString.new('HttpUsername', required: true, default: 'generated-user'),
+          Msf::OptBool.new('SSL', required: false, default: false),
+          Msf::OptFloat.new('FloatValue', required: true, default: 2)
+        ])
+      end
+      let(:datastore) do
+        Msf::ModuleDataStore.new(nil).tap { |store| store.import_options(options) }
+      end
+
+      it 'preserves generated and boolean defaults across repeated validation' do
+        options.validate(datastore)
+        options.validate(datastore)
+
+        expect(datastore.default?('HttpUsername')).to be(true)
+        expect(datastore.default?('SSL')).to be(true)
+      end
+
+      it 'preserves explicit choices even when their values equal the defaults' do
+        datastore['HttpUsername'] = 'generated-user'
+        datastore['SSL'] = false
+        options.validate(datastore)
+
+        expect(datastore.default?('HttpUsername')).to be(false)
+        expect(datastore.default?('SSL')).to be(false)
+      end
+
+      it 'still normalizes numeric values whose equal value has a different type' do
+        options.validate(datastore)
+
+        expect(datastore['FloatValue']).to be_a(Float)
+        expect(datastore['FloatValue']).to eq(2.0)
+      end
+
+      it 'keeps unchanged global values inherited rather than freezing local copies' do
+        global_store = Msf::DataStore.new
+        global_store['HttpUsername'] = 'global-user'
+        owner = double('module', framework: double('framework', datastore: global_store))
+        inherited = Msf::ModuleDataStore.new(owner)
+        inherited.import_options(options)
+        options.validate(inherited)
+        global_store['HttpUsername'] = 'updated-global-user'
+
+        expect(inherited['HttpUsername']).to eq('updated-global-user')
+        expect(inherited.user_defined).not_to have_key('HttpUsername')
+      end
+
+      it 'retains the existing local override when a global value requires conversion' do
+        global_store = Msf::DataStore.new
+        global_store['FloatValue'] = '2.0'
+        owner = double('module', framework: double('framework', datastore: global_store))
+        inherited = Msf::ModuleDataStore.new(owner)
+        inherited.import_options(options)
+        options.validate(inherited)
+        global_store['FloatValue'] = '3.0'
+
+        expect(inherited['FloatValue']).to eq(2.0)
+        expect(inherited.user_defined).to have_key('FloatValue')
+      end
+    end
+
     context 'when an RHOSTS option is not present' do
       let(:options_with_rhosts) do
         described_class.new(

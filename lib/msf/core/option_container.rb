@@ -200,18 +200,19 @@ module Msf
     # Make sures that each of the options has a value of a compatible
     # format and that all the required options are set.
     def validate(datastore)
-      # First mutate the datastore and normalize all valid values before validating permutations of RHOST/etc.
+      # Normalize changed values before validating permutations of RHOST/etc.
       each_pair do |name, option|
-        if option.valid?(datastore[name], datastore: datastore) && (val = option.normalize(datastore[name])) != nil
-          # This *will* result in a module that previously used the
-          # global datastore to have its local datastore set, which
-          # means that changing the global datastore and re-running
-          # the same module will now use the newly-normalized local
-          # datastore value instead. This is mostly mitigated by
-          # forcing a clone through mod.replicant, but can break
-          # things in corner cases.
-          datastore[name] = val
-        end
+        current_value = datastore[name]
+        next unless option.valid?(current_value, datastore: datastore)
+
+        normalized_value = option.normalize(current_value)
+        # Assigning an unchanged default marks it user-defined. Keep its
+        # origin so callers can distinguish defaults from operator choices.
+        next if normalized_value.nil? || normalized_value.eql?(current_value)
+
+        # Converted values still become local overrides, including values
+        # inherited from the global datastore.
+        datastore[name] = normalized_value
       end
 
       # Validate all permutations of rhost combinations
