@@ -1,0 +1,18 @@
+spec: spec/acceptance/module_targets/http_proxy_spec.rb
+expected_examples: 12
+console: true
+modules:
+  - auxiliary/scanner/http/open_proxy
+ports:
+  destination: 80
+  open: 80
+  denied: 80
+  unrelated: 80
+support_files:
+  - lib/rex/proto/http/packet.rb
+  - lib/rex/proto/http/response.rb
+  - lib/rex/proto/http/client.rb
+  - test/module_targets/http/Dockerfile
+  - test/module_targets/http/compose.yaml
+  - test/module_targets/http/module-target.conf
+  - test/module_targets/http/htdocs/index.html

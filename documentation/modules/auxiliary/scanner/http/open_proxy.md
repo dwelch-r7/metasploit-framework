@@ -2,6 +2,9 @@
 
 Checks if an HTTP proxy is open. False positives are avoided by verifying the HTTP return code and matching a pattern. The CONNECT method is verified only by the return code. HTTP headers are shown regarding the use of proxies or load balancers.
 
+For a disposable real Apache forwarding/tunnel lab and automated native controls,
+see [the container test guide](../../../../../test/module_targets/http_proxy/README.md).
+
 ## Verification Steps
 
 1. Do: ```use auxiliary/scanner/http/open_proxy```

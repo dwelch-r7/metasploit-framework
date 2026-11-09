@@ -1,0 +1,24 @@
+x-proxy: &proxy
+  build: .
+  ports: ["127.0.0.1::80"]
+  mem_limit: 128m
+  healthcheck:
+    test: [CMD-SHELL, "httpd -t && kill -0 1"]
+    interval: 1s
+    timeout: 2s
+    retries: 30
+
+services:
+  destination:
+    <<: *proxy
+    command: [httpd-foreground, -c, "Include conf/extra/destination.conf"]
+  open:
+    <<: *proxy
+    depends_on: {destination: {condition: service_healthy}}
+    command: [httpd-foreground, -c, "Include conf/extra/open.conf"]
+  denied:
+    <<: *proxy
+    depends_on: {destination: {condition: service_healthy}}
+    command: [httpd-foreground, -c, "Include conf/extra/denied.conf"]
+  unrelated:
+    extends: {file: ../http/compose.yaml, service: apache}
