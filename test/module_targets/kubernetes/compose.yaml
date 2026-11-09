@@ -1,0 +1,37 @@
+services:
+  cluster:
+    image: rancher/k3s:v1.32.3-k3s1@sha256:9bd31415e46bed54f982815f08cfc1bc0b56963b651089999a5128a2f584219d
+    privileged: true
+    hostname: module-target-k3s
+    command:
+      - server
+      - --disable=traefik,servicelb,metrics-server,local-storage,coredns
+      - --disable-network-policy
+      - --flannel-backend=host-gw
+      - --snapshotter=native
+      - --cluster-cidr=10.78.0.0/16
+      - --service-cidr=10.79.0.0/16
+      - --cluster-dns=10.79.0.10
+      - --node-name=module-target-k3s
+    tmpfs:
+      - /run
+      - /var/run
+    volumes:
+      - cluster_data:/var/lib/rancher/k3s
+      - kubelet:/var/lib/kubelet
+      - cni:/var/lib/cni
+      - cluster_logs:/var/log
+    ports:
+      - "127.0.0.1::6443"
+    healthcheck:
+      test: [CMD-SHELL, "/bin/kubectl get --raw /readyz >/dev/null && /bin/kubectl wait --for=condition=Ready node/module-target-k3s --timeout=1s >/dev/null"]
+      interval: 2s
+      timeout: 4s
+      retries: 50
+    mem_limit: 2g
+
+volumes:
+  cluster_data:
+  kubelet:
+  cni:
+  cluster_logs:

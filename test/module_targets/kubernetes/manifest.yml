@@ -1,0 +1,20 @@
+spec: spec/acceptance/module_targets/kubernetes_spec.rb
+expected_examples: 15
+console: true
+test_env:
+  KUBERNETES_PROFILE: enumeration
+modules:
+  - auxiliary/cloud/kubernetes/enum_kubernetes
+ports:
+  cluster: 6443
+support_files:
+  - lib/msf/core/exploit/remote/http/kubernetes.rb
+  - lib/msf/core/exploit/remote/http/kubernetes/client.rb
+  - lib/msf/core/exploit/remote/http/kubernetes/enumeration.rb
+  - lib/msf/core/exploit/remote/http/kubernetes/error.rb
+  - lib/msf/core/exploit/remote/http/kubernetes/secret.rb
+  - lib/msf/core/exploit/remote/http/kubernetes/auth_parser.rb
+  - lib/msf/core/exploit/remote/http/kubernetes/output.rb
+  - lib/msf/core/exploit/remote/http/kubernetes/output/json.rb
+  - lib/msf/core/exploit/remote/http/kubernetes/output/table.rb
+  - spec/support/shared/contexts/wait_for_expect.rb

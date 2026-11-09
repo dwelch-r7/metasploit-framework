@@ -4,6 +4,9 @@
 
 Enumerates a Kubernetes cluster.
 
+A pinned, isolated [K3s container lab](../../../../../test/module_targets/kubernetes/README.md)
+provides native API, RBAC and pod controls for automated module verification.
+
 ## Verification Steps
 
 ### Create or acquire the credentials
@@ -22,6 +25,9 @@ will be gathered from the session host. This requires that the session be on an 
 values may not always be present.
 
 Setting this option will also automatically route connections through the specified session.
+
+Session discovery fills blank options. Clear `NAMESPACE` to infer it from the
+pod, since this option defaults to `default`.
 
 ### TOKEN
 The JWT token. The token with the necessary privileges to access the exec endpoint within a running pod and optionally

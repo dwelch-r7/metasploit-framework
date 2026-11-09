@@ -1,0 +1,11 @@
+services:
+  cluster:
+    extends:
+      file: ../kubernetes/compose.yaml
+      service: cluster
+
+volumes:
+  cluster_data:
+  kubelet:
+  cni:
+  cluster_logs:

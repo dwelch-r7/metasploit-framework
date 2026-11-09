@@ -1,0 +1,41 @@
+---
+spec: spec/acceptance/module_targets/kubernetes_spec.rb
+expected_examples: 10
+console: true
+test_env:
+  KUBERNETES_PROFILE: exec
+modules:
+- auxiliary/cloud/kubernetes/enum_kubernetes
+- exploit/multi/kubernetes/exec
+ports:
+  cluster: 6443
+support_files:
+- lib/msf/core/exploit/remote/http/kubernetes.rb
+- lib/msf/core/exploit/remote/http/kubernetes/client.rb
+- lib/msf/core/exploit/remote/http/kubernetes/enumeration.rb
+- lib/msf/core/exploit/remote/http/kubernetes/error.rb
+- lib/msf/core/exploit/remote/http/kubernetes/secret.rb
+- lib/msf/core/exploit/remote/http/kubernetes/auth_parser.rb
+- lib/msf/core/exploit/remote/http/kubernetes/output.rb
+- lib/msf/core/exploit/remote/http/kubernetes/output/json.rb
+- lib/msf/core/exploit/remote/http/kubernetes/output/table.rb
+- spec/support/shared/contexts/wait_for_expect.rb
+- test/module_targets/kubernetes/README.md
+- test/module_targets/kubernetes/compose.yaml
+- test/module_targets/kubernetes/manifest.yml
+- test/module_targets/kubernetes/native.rb
+- lib/msf/core/exploit/cmd_stager.rb
+- lib/msf/core/exploit/exe.rb
+- lib/msf/core/post/file.rb
+- lib/msf/core/post/common.rb
+- modules/payloads/singles/cmd/unix/interact.rb
+- modules/payloads/singles/cmd/unix/generic.rb
+- modules/payloads/singles/linux/x64/shell_reverse_tcp.rb
+- modules/payloads/stagers/python/reverse_tcp.rb
+- modules/payloads/stages/python/meterpreter.rb
+- lib/msf/core/handler.rb
+- lib/msf/base/sessions/command_shell.rb
+- lib/msf/base/sessions/meterpreter.rb
+- lib/rex/proto/http/web_socket.rb
+- lib/msf/core/exploit/cmd_stager/http.rb
+- lib/msf/core/opt_address_routable.rb
