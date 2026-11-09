@@ -488,6 +488,19 @@ its final eight-case timeout repair is still under qualification. Consul
 execution, JBoss payload sessions and the WordPress admin reproducer are also
 excluded from this checkpoint. Native controls alone add no runtime-module count.
 
+Consul service/rexec execution subsequently passed sixteen cases on genuine
+1.20.6 agents with enabled, disabled and ACL-deny policies. Native commands,
+API responses and actual filesystem/state observations distinguish successful
+execution from a zero-exit CLI with no acknowledgements. The native-passing
+baseline had one real module failure: a rejected rexec session creation left a
+nil value that was dereferenced. A separate owning repair now classifies denied,
+unreachable and malformed creation replies before another request. All original
+functional assertions pass afterward. The selected checkpoint is **112 modules,
+49 families and 706 cases**; see the
+[Consul execution verification](VERIFICATION-20261109-consul-execution.md).
+Ansible's bounded shell/Meterpreter profiles, JBoss's session-only compiler
+configuration and Linux credential-file collections remain active separate work.
+
 ## Remaining work
 
 - Review existing protocol suites and supply reusable managed containers.

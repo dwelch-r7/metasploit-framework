@@ -171,12 +171,18 @@ The [earlier qualification record](VERIFICATION-20261109-consul-php.md) records
 Consul API/UI discovery. A separately proven PHP executable-wrapper repair is
 included without claiming qualification of all its consumers. All selected
 recorded inputs are current, exact counts match and owned cleanup passes.
-The [current qualification record](VERIFICATION-20261109-drupal-jboss.md) records
+The [earlier qualification record](VERIFICATION-20261109-drupal-jboss.md) records
 **110 runtime modules, 48 families and 690 functional cases**, adding two
 bounded Drupal profiles and genuine JBoss management/administration. Known
 JBoss HEAD detection/output limitations are recorded explicitly. Ansible
 deployment, Consul execution, JBoss payload sessions and WordPress admin remain
 separate investigations. All selected recorded inputs are current, exact counts
 match and owned cleanup passes.
+The [current qualification record](VERIFICATION-20261109-consul-execution.md)
+records **112 runtime modules, 49 families and 706 functional cases**, adding
+actual Consul service/rexec command execution and a captured ACL-refusal repair.
+Every selected count, recorded hash and owned teardown passes. Reverse Consul
+sessions, Ansible deployment, JBoss payload sessions and WordPress admin remain
+separate qualification work.
 The full campaign remains incomplete while feasible, valuable modules await review
 or functional verification.
