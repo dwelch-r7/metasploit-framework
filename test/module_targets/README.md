@@ -214,12 +214,18 @@ ZooKeeper version/permission controls and a genuine sliced TCP regression.
 The original module silently stores six of eighteen environment fields; the
 owning stream-read repair passes all nine final cases without assertion changes.
 Every selected count, recorded hash and owned teardown passes.
-The [current qualification record](VERIFICATION-20261109-kubernetes.md) records
+The [earlier qualification record](VERIFICATION-20261109-kubernetes.md) records
 **122 runtime modules, 57 families and 780 functional cases**, adding genuine
 K3s enumeration and all four pod-execution delivery targets. Real Meterpreter
 session discovery/routing exposes two owning namespace defects; five call sites
 now use the existing accessor. All twenty-five cases, recorded hashes and
 owned teardown pass, with no shared Kubernetes API changes.
+The [current qualification record](VERIFICATION-20261109-rabbitmq-erlang.md)
+records **125 runtime modules, 59 families and 809 functional cases**, adding
+native RabbitMQ discovery/authentication and Erlang commands plus eight real
+shell/Meterpreter sessions. Independent controls separate framing, completion,
+session-lifecycle and broker-startup failures. All twenty-nine final cases,
+recorded hashes and owned teardown pass. AMQP production source is unchanged.
 The full campaign remains incomplete while feasible, valuable modules await review
 or functional verification.
 See [deferred investigations](DEFERRED.md) for retained failures that remain

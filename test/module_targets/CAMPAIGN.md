@@ -561,6 +561,18 @@ current inputs and owned teardown. Coverage reaches **122 runtime modules,
 [verification record](VERIFICATION-20261109-kubernetes.md) documents its privileged
 nested-runtime isolation and inherited lint limitations.
 
+RabbitMQ/Erlang then adds twenty-nine strict cases with real AMQP messages,
+verified TLS, credential/reporting assertions and eight fresh shell/Meterpreter
+sessions. Native controls distinguish Erlang framing/authentication, concurrent
+RPC completion and session-triggered socket closure; separate owning repairs
+restore exact repeated state. A vendor health-CLI ownership replay supports
+the separate broker fixture correction, followed by a fresh combined pass.
+Current counts, input hashes and owned teardown establish **125 runtime modules,
+59 families and 809 functional cases**. The
+[verification record](VERIFICATION-20261109-rabbitmq-erlang.md) retains every
+baseline, native/derived distinction and explicit platform limit. Grafana, Solr,
+Prometheus and ActiveMQ continue separately.
+
 ## Remaining work
 
 - Review existing protocol suites and supply reusable managed containers.
