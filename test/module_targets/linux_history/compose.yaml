@@ -1,0 +1,10 @@
+services:
+  linux:
+    extends:
+      file: ../linux_post/compose.yaml
+      service: linux
+    hostname: module-target-linux-history
+    volumes:
+      - ./seed.py:/opt/history-seed.py:ro
+      - ./native_probe.py:/opt/history-native-probe.py:ro
+    command: ["sh", "-c", "python3 -W ignore::DeprecationWarning /opt/history-seed.py && exec python3 -m http.server 8080 --bind 0.0.0.0 --directory /opt/health"]

@@ -1,0 +1,22 @@
+spec: spec/acceptance/module_targets/linux_history_spec.rb
+expected_examples: 8
+console: true
+modules:
+  - post/linux/gather/enum_users_history
+  - post/linux/gather/hashdump
+ports:
+  linux: 8080
+support_files:
+  - test/module_targets/linux_post/compose.yaml
+  - test/module_targets/linux_post/Dockerfile
+  - test/module_targets/linux_post/native_probe.py
+  - test/module_targets/linux_post/launch_session.py
+  - spec/support/acceptance/linux_session.rb
+  - spec/support/shared/contexts/wait_for_expect.rb
+  - lib/msf/core/post/file.rb
+  - lib/msf/core/post/common.rb
+  - lib/msf/core/post/linux.rb
+  - lib/msf/core/post/linux/priv.rb
+  - lib/msf/core/post/linux/system.rb
+  - modules/payloads/singles/linux/x64/shell_reverse_tcp.rb
+  - modules/payloads/singles/linux/x64/meterpreter_reverse_tcp.rb

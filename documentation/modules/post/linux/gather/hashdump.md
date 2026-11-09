@@ -1,3 +1,6 @@
+For automated root/nonroot shell and Meterpreter checks, use the
+[managed Linux collection lab](../../../../../test/module_targets/linux_history/README.md).
+
 ## Verification Steps
 
   1. Start msfconsole
