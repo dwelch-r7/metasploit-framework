@@ -196,12 +196,18 @@ Linux SSH, Docker and RubyGems credential collection. All 32 recovered-credentia
 authentications pass after three separately reproduced module repairs. Every
 selected count, recorded hash and owned teardown passes. Ansible deployment,
 Erlang execution and WordPress admin remain separate qualification work.
-The [current qualification record](VERIFICATION-20261109-etcd.md) records
+The [earlier qualification record](VERIFICATION-20261109-etcd.md) records
 **119 runtime modules, 53 families and 746 functional cases**, adding real etcd
 version and exact JSON key collection. Sixteen cases pass after separately
 captured discovery, serialization, authentication and error-handling repairs.
 Every selected count, recorded hash and owned teardown passes. Ansible/Erlang
 execution and WordPress admin remain separate qualification work.
+The [current qualification record](VERIFICATION-20261109-zookeeper.md) records
+**120 runtime modules, 55 families and 755 functional cases**, adding native
+ZooKeeper version/permission controls and a genuine sliced TCP regression.
+The original module silently stores six of eighteen environment fields; the
+owning stream-read repair passes all nine final cases without assertion changes.
+Every selected count, recorded hash and owned teardown passes.
 The full campaign remains incomplete while feasible, valuable modules await review
 or functional verification.
 See [deferred investigations](DEFERRED.md) for retained failures that remain

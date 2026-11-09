@@ -540,6 +540,16 @@ operator abort; a final redirected native comparison does not explain the
 ordinary markerless call. No experimental module or shared-helper repair is
 integrated. See [the deferred finding](DEFERRED.md#ansible-node-deployment).
 
+ZooKeeper subsequently passed eight normal version/permission cases, while a
+genuine sliced TCP profile exposed silent environment truncation. Native EOF
+reads recover all eighteen fields within the module's timeout; the original
+module saves only the first six. The owning stream-read repair passes the
+unchanged sliced case twice and all eight normal cases. Current recorded
+inputs, exact counts and owned teardown establish **120 runtime modules,
+55 families and 755 functional cases**. The
+[verification record](VERIFICATION-20261109-zookeeper.md) retains the original
+passing narrow profile, failed transport profile and both repaired results.
+
 ## Remaining work
 
 - Review existing protocol suites and supply reusable managed containers.
