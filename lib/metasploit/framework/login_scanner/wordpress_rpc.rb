@@ -1,4 +1,5 @@
 require 'metasploit/framework/login_scanner/http'
+require 'nokogiri'
 
 module Metasploit
   module Framework
@@ -14,11 +15,11 @@ module Metasploit
         def check_setup
           res = send_request({
             'method' => 'GET',
-            'uri'    => uri
+            'uri' => uri
           })
 
           return 'Unable to connect to the WordPress XML-RPC endpoint' unless res
-          return 'Unable to locate WordPress XML-RPC endpoint (Is WordPress installed and is XML-RPC enabled?)' unless res.code == 200 && res.body.include?('XML-RPC server accepts POST requests only')
+          return 'Unable to locate WordPress XML-RPC endpoint (Is WordPress installed and is XML-RPC enabled?)' unless [200, 405].include?(res.code) && res.body.to_s.include?('XML-RPC server accepts POST requests only')
 
           report_service(service_opts)
 
@@ -32,33 +33,46 @@ module Metasploit
         # (see Base#attempt_login)
         def attempt_login(credential)
           result_opts = {
-              credential: credential,
-              **service_as_result(service_opts)
+            credential: credential,
+            **service_as_result(service_opts)
           }
 
           begin
-
             response = send_request(
               {
                 'uri' => uri,
                 'method' => method,
-                'data' => generate_xml_request(credential.public,credential.private)
+                'ctype' => 'text/xml; charset=UTF-8',
+                'data' => generate_xml_request(credential.public, credential.private)
               }
             )
 
-            if response && response.code == 200 && response.body =~ /<value><int>401<\/int><\/value>/ || response.body =~ /<name>user_id<\/name>/
-              result_opts.merge!(status: Metasploit::Model::Login::Status::SUCCESSFUL, proof: response)
-            elsif response.body =~ /<value><int>-32601<\/int><\/value>/
+            if response.nil?
               result_opts.merge!(status: Metasploit::Model::Login::Status::UNABLE_TO_CONNECT)
             else
-              result_opts.merge!(status: Metasploit::Model::Login::Status::INCORRECT, proof: response)
+              status = Metasploit::Model::Login::Status::INCORRECT
+              if response.code == 200
+                document = response.get_xml_document
+                fault_code = document.at_xpath('/methodResponse/fault/value/struct/member[name="faultCode"]/value/int')&.text
+                user_id = document.at_xpath('/methodResponse/params/param/value/array/data/value/struct/member[name="user_id"]/value/*[self::string or self::int or self::i4]')&.text.to_s.strip
+                valid_user_id = user_id.match?(/\A\d+\z/) && user_id.to_i.positive?
+                if document.errors.empty?
+                  # wp.getUsers authenticates before checking permission to list
+                  # users, so the native 401 fault also proves valid credentials.
+                  if fault_code == '401' || (fault_code.nil? && valid_user_id)
+                    status = Metasploit::Model::Login::Status::SUCCESSFUL
+                  elsif fault_code == '-32601'
+                    status = Metasploit::Model::Login::Status::UNABLE_TO_CONNECT
+                  end
+                end
+              end
+              result_opts.merge!(status: status, proof: response)
             end
           rescue ::EOFError, Rex::ConnectionError, ::Timeout::Error => e
             result_opts.merge!(status: Metasploit::Model::Login::Status::UNABLE_TO_CONNECT, proof: e)
           end
 
           Result.new(result_opts)
-
         end
 
         # This method generates the XML data for the RPC login request
@@ -66,15 +80,16 @@ module Metasploit
         # @param pass [String] the password to authenticate with
         # @return [String] the generated XML body for the request
         def generate_xml_request(user, pass)
-          xml = "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>"
-          xml << '<methodCall>'
-          xml << '<methodName>wp.getUsers</methodName>'
-          xml << '<params><param><value>1</value></param>'
-          xml << "<param><value>#{user}</value></param>"
-          xml << "<param><value>#{pass}</value></param>"
-          xml << '</params>'
-          xml << '</methodCall>'
-          xml
+          Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|
+            xml.methodCall do
+              xml.methodName('wp.getUsers')
+              xml.params do
+                ['1', user, pass].each do |value|
+                  xml.param { xml.value { xml.string(value) } }
+                end
+              end
+            end
+          end.to_xml
         end
 
         # (see Base#set_sane_defaults)

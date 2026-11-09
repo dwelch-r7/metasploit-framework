@@ -1,0 +1,282 @@
+{
+  "origin": {
+    "target": "Official WordPress 6.8.3 / PHP 8.3.28 / Apache",
+    "native_sha256": "468fe538494202acc472d2ebdc0926fd236cce1e4fdb4b04f0028fae24d9cd30",
+    "description": "Real native controls from module-target run 20261109T160148-15bea4; fixture identities and credentials are public."
+  },
+  "responses": {
+    "availability": {
+      "service": "root",
+      "method": "GET",
+      "path": "/xmlrpc.php",
+      "request_body": null,
+      "code": 405,
+      "headers": {
+        "date": [
+          "Mon, 09 Nov 2026 16:03:23 GMT"
+        ],
+        "server": [
+          "Apache/2.4.65 (Debian)"
+        ],
+        "x-powered-by": [
+          "PHP/8.3.28"
+        ],
+        "allow": [
+          "POST"
+        ],
+        "content-length": [
+          "42"
+        ],
+        "connection": [
+          "close"
+        ],
+        "content-type": [
+          "text/plain;charset=UTF-8"
+        ]
+      },
+      "body": "XML-RPC server accepts POST requests only."
+    },
+    "admin": {
+      "service": "root",
+      "method": "POST",
+      "path": "/xmlrpc.php",
+      "request_body": "<?xml version='1.0' encoding='UTF-8'?><methodCall><methodName>wp.getUsers</methodName><params><param><value><string>1</string></value></param><param><value><string>module_admin</string></value></param><param><value><string>module-target-password</string></value></param></params></methodCall>",
+      "code": 200,
+      "headers": {
+        "date": [
+          "Mon, 09 Nov 2026 16:03:23 GMT"
+        ],
+        "server": [
+          "Apache/2.4.65 (Debian)"
+        ],
+        "x-powered-by": [
+          "PHP/8.3.28"
+        ],
+        "connection": [
+          "close"
+        ],
+        "vary": [
+          "Accept-Encoding"
+        ],
+        "content-length": [
+          "4536"
+        ],
+        "content-type": [
+          "text/xml; charset=UTF-8"
+        ]
+      },
+      "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<methodResponse>\n  <params>\n    <param>\n      <value>\n      <array><data>\n  <value><struct>\n  <member><name>user_id</name><value><string>1</string></value></member>\n  <member><name>username</name><value><string>module_admin</string></value></member>\n  <member><name>first_name</name><value><string></string></value></member>\n  <member><name>last_name</name><value><string></string></value></member>\n  <member><name>registered</name><value><dateTime.iso8601>20261109T16:02:07</dateTime.iso8601></value></member>\n  <member><name>bio</name><value><string></string></value></member>\n  <member><name>email</name><value><string>module-admin@example.test</string></value></member>\n  <member><name>nickname</name><value><string>module_admin</string></value></member>\n  <member><name>nicename</name><value><string>module_admin</string></value></member>\n  <member><name>url</name><value><string>http://module-target.test</string></value></member>\n  <member><name>display_name</name><value><string>module_admin</string></value></member>\n  <member><name>roles</name><value><array><data>\n  <value><string>administrator</string></value>\n</data></array></value></member>\n</struct></value>\n  <value><struct>\n  <member><name>user_id</name><value><string>2</string></value></member>\n  <member><name>username</name><value><string>module_author</string></value></member>\n  <member><name>first_name</name><value><string></string></value></member>\n  <member><name>last_name</name><value><string></string></value></member>\n  <member><name>registered</name><value><dateTime.iso8601>20261109T16:02:07</dateTime.iso8601></value></member>\n  <member><name>bio</name><value><string></string></value></member>\n  <member><name>email</name><value><string>module-author@example.test</string></value></member>\n  <member><name>nickname</name><value><string>module_author</string></value></member>\n  <member><name>nicename</name><value><string>module_author</string></value></member>\n  <member><name>url</name><value><string></string></value></member>\n  <member><name>display_name</name><value><string>Module café author</string></value></member>\n  <member><name>roles</name><value><array><data>\n  <value><string>author</string></value>\n</data></array></value></member>\n</struct></value>\n  <value><struct>\n  <member><name>user_id</name><value><string>4</string></value></member>\n  <member><name>username</name><value><string>module_editor</string></value></member>\n  <member><name>first_name</name><value><string></string></value></member>\n  <member><name>last_name</name><value><string></string></value></member>\n  <member><name>registered</name><value><dateTime.iso8601>20261109T16:02:07</dateTime.iso8601></value></member>\n  <member><name>bio</name><value><string></string></value></member>\n  <member><name>email</name><value><string>module-editor@example.test</string></value></member>\n  <member><name>nickname</name><value><string>module_editor</string></value></member>\n  <member><name>nicename</name><value><string>module_editor</string></value></member>\n  <member><name>url</name><value><string></string></value></member>\n  <member><name>display_name</name><value><string>Module editor</string></value></member>\n  <member><name>roles</name><value><array><data>\n  <value><string>editor</string></value>\n</data></array></value></member>\n</struct></value>\n  <value><struct>\n  <member><name>user_id</name><value><string>3</string></value></member>\n  <member><name>username</name><value><string>module_subscriber</string></value></member>\n  <member><name>first_name</name><value><string></string></value></member>\n  <member><name>last_name</name><value><string></string></value></member>\n  <member><name>registered</name><value><dateTime.iso8601>20261109T16:02:07</dateTime.iso8601></value></member>\n  <member><name>bio</name><value><string></string></value></member>\n  <member><name>email</name><value><string>module-subscriber@example.test</string></value></member>\n  <member><name>nickname</name><value><string>module_subscriber</string></value></member>\n  <member><name>nicename</name><value><string>module_subscriber</string></value></member>\n  <member><name>url</name><value><string></string></value></member>\n  <member><name>display_name</name><value><string>Module subscriber</string></value></member>\n  <member><name>roles</name><value><array><data>\n  <value><string>subscriber</string></value>\n</data></array></value></member>\n</struct></value>\n</data></array>\n      </value>\n    </param>\n  </params>\n</methodResponse>\n"
+    },
+    "subscriber": {
+      "service": "root",
+      "method": "POST",
+      "path": "/xmlrpc.php",
+      "request_body": "<?xml version='1.0' encoding='UTF-8'?><methodCall><methodName>wp.getUsers</methodName><params><param><value><string>1</string></value></param><param><value><string>module_subscriber</string></value></param><param><value><string>module-target-subscriber-password</string></value></param></params></methodCall>",
+      "code": 200,
+      "headers": {
+        "date": [
+          "Mon, 09 Nov 2026 16:03:23 GMT"
+        ],
+        "server": [
+          "Apache/2.4.65 (Debian)"
+        ],
+        "x-powered-by": [
+          "PHP/8.3.28"
+        ],
+        "connection": [
+          "close"
+        ],
+        "vary": [
+          "Accept-Encoding"
+        ],
+        "content-length": [
+          "413"
+        ],
+        "content-type": [
+          "text/xml; charset=UTF-8"
+        ]
+      },
+      "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<methodResponse>\n  <fault>\n    <value>\n      <struct>\n        <member>\n          <name>faultCode</name>\n          <value><int>401</int></value>\n        </member>\n        <member>\n          <name>faultString</name>\n          <value><string>Sorry, you are not allowed to list users.</string></value>\n        </member>\n      </struct>\n    </value>\n  </fault>\n</methodResponse>\n"
+    },
+    "special": {
+      "service": "root",
+      "method": "POST",
+      "path": "/xmlrpc.php",
+      "request_body": "<?xml version='1.0' encoding='UTF-8'?><methodCall><methodName>wp.getUsers</methodName><params><param><value><string>1</string></value></param><param><value><string>module_editor</string></value></param><param><value><string>module-target-&amp;&lt;café&gt;</string></value></param></params></methodCall>",
+      "code": 200,
+      "headers": {
+        "date": [
+          "Mon, 09 Nov 2026 16:03:23 GMT"
+        ],
+        "server": [
+          "Apache/2.4.65 (Debian)"
+        ],
+        "x-powered-by": [
+          "PHP/8.3.28"
+        ],
+        "connection": [
+          "close"
+        ],
+        "vary": [
+          "Accept-Encoding"
+        ],
+        "content-length": [
+          "413"
+        ],
+        "content-type": [
+          "text/xml; charset=UTF-8"
+        ]
+      },
+      "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<methodResponse>\n  <fault>\n    <value>\n      <struct>\n        <member>\n          <name>faultCode</name>\n          <value><int>401</int></value>\n        </member>\n        <member>\n          <name>faultString</name>\n          <value><string>Sorry, you are not allowed to list users.</string></value>\n        </member>\n      </struct>\n    </value>\n  </fault>\n</methodResponse>\n"
+    },
+    "wrong": {
+      "service": "root",
+      "method": "POST",
+      "path": "/xmlrpc.php",
+      "request_body": "<?xml version='1.0' encoding='UTF-8'?><methodCall><methodName>wp.getUsers</methodName><params><param><value><string>1</string></value></param><param><value><string>module_admin</string></value></param><param><value><string>module-target-wrong-password</string></value></param></params></methodCall>",
+      "code": 200,
+      "headers": {
+        "date": [
+          "Mon, 09 Nov 2026 16:03:23 GMT"
+        ],
+        "server": [
+          "Apache/2.4.65 (Debian)"
+        ],
+        "x-powered-by": [
+          "PHP/8.3.28"
+        ],
+        "connection": [
+          "close"
+        ],
+        "vary": [
+          "Accept-Encoding"
+        ],
+        "content-length": [
+          "403"
+        ],
+        "content-type": [
+          "text/xml; charset=UTF-8"
+        ]
+      },
+      "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<methodResponse>\n  <fault>\n    <value>\n      <struct>\n        <member>\n          <name>faultCode</name>\n          <value><int>403</int></value>\n        </member>\n        <member>\n          <name>faultString</name>\n          <value><string>Incorrect username or password.</string></value>\n        </member>\n      </struct>\n    </value>\n  </fault>\n</methodResponse>\n"
+    },
+    "missing": {
+      "service": "root",
+      "method": "POST",
+      "path": "/xmlrpc.php",
+      "request_body": "<?xml version='1.0' encoding='UTF-8'?><methodCall><methodName>wp.getUsers</methodName><params><param><value><string>1</string></value></param><param><value><string>module_target_missing</string></value></param><param><value><string>module-target-password</string></value></param></params></methodCall>",
+      "code": 200,
+      "headers": {
+        "date": [
+          "Mon, 09 Nov 2026 16:03:23 GMT"
+        ],
+        "server": [
+          "Apache/2.4.65 (Debian)"
+        ],
+        "x-powered-by": [
+          "PHP/8.3.28"
+        ],
+        "connection": [
+          "close"
+        ],
+        "vary": [
+          "Accept-Encoding"
+        ],
+        "content-length": [
+          "403"
+        ],
+        "content-type": [
+          "text/xml; charset=UTF-8"
+        ]
+      },
+      "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<methodResponse>\n  <fault>\n    <value>\n      <struct>\n        <member>\n          <name>faultCode</name>\n          <value><int>403</int></value>\n        </member>\n        <member>\n          <name>faultString</name>\n          <value><string>Incorrect username or password.</string></value>\n        </member>\n      </struct>\n    </value>\n  </fault>\n</methodResponse>\n"
+    },
+    "blocked": {
+      "service": "blocked",
+      "method": "GET",
+      "path": "/xmlrpc.php",
+      "request_body": null,
+      "code": 403,
+      "headers": {
+        "date": [
+          "Mon, 09 Nov 2026 16:03:31 GMT"
+        ],
+        "server": [
+          "Apache/2.4.65 (Debian)"
+        ],
+        "content-length": [
+          "277"
+        ],
+        "connection": [
+          "close"
+        ],
+        "content-type": [
+          "text/html; charset=iso-8859-1"
+        ]
+      },
+      "body": "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">\n<html><head>\n<title>403 Forbidden</title>\n</head><body>\n<h1>Forbidden</h1>\n<p>You don't have permission to access this resource.</p>\n<hr>\n<address>Apache/2.4.65 (Debian) Server at 127.0.0.1 Port 59238</address>\n</body></html>\n"
+    },
+    "unrelated": {
+      "service": "unrelated",
+      "method": "GET",
+      "path": "/",
+      "request_body": null,
+      "code": 200,
+      "headers": {
+        "date": [
+          "Mon, 09 Nov 2026 16:03:31 GMT"
+        ],
+        "server": [
+          "Apache/2.4.62 (Unix)"
+        ],
+        "last-modified": [
+          "Sun, 08 Nov 2026 20:57:45 GMT"
+        ],
+        "etag": [
+          "\"79-65fca18e3b1e2\""
+        ],
+        "accept-ranges": [
+          "bytes"
+        ],
+        "content-length": [
+          "121"
+        ],
+        "connection": [
+          "close"
+        ],
+        "content-type": [
+          "text/html"
+        ]
+      },
+      "body": "<!doctype html><html><head><title>Module target &amp; Apache</title></head><body>module-target-http-marker</body></html>\n"
+    },
+    "unescaped_request": {
+      "request_body": "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?><methodCall><methodName>wp.getUsers</methodName><params><param><value>1</value></param><param><value>module_editor</value></param><param><value>module-target-&<café></value></param></params></methodCall>",
+      "code": 200,
+      "headers": {
+        "date": [
+          "Mon, 09 Nov 2026 16:06:05 GMT"
+        ],
+        "server": [
+          "Apache/2.4.65 (Debian)"
+        ],
+        "x-powered-by": [
+          "PHP/8.3.28"
+        ],
+        "connection": [
+          "close"
+        ],
+        "vary": [
+          "Accept-Encoding"
+        ],
+        "content-length": [
+          "403"
+        ],
+        "content-type": [
+          "text/xml; charset=UTF-8"
+        ]
+      },
+      "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<methodResponse>\n  <fault>\n    <value>\n      <struct>\n        <member>\n          <name>faultCode</name>\n          <value><int>-32700</int></value>\n        </member>\n        <member>\n          <name>faultString</name>\n          <value><string>parse error. not well formed</string></value>\n        </member>\n      </struct>\n    </value>\n  </fault>\n</methodResponse>\n"
+    }
+  }
+}
