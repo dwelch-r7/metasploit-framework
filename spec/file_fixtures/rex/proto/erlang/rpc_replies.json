@@ -1,0 +1,57 @@
+{
+  "provenance": {
+    "native_report_sha256": "26d1d4a459d912e91b7584bbfba8773f2f51894bb8d04f093c27a92514e28e66",
+    "module_source_sha256": "83934887ce3225f7a270a99501a3fe00eb3f59ce76c4b80614d357e0dcac485c",
+    "description": "Actual complete4-byte-length TCP reply frames from authenticated genuine hidden-C-node connections, plus exact owning-module request packets. No synthetic fragmentation."
+  },
+  "cases": [
+    {
+      "service": "old",
+      "command": "true",
+      "request_base64": "AAAAenCDaARhBmdkABNuYXRpdmVfcHJvYmVAY2xpZW50AAAAAwAAAAAAZAAAZAADcmV4g2gCZ2QAE25hdGl2ZV9wcm9iZUBjbGllbnQAAAADAAAAAABoBWQABGNhbGxkAAJvc2QAA2NtZGwAAAABawAEdHJ1ZWpkAAR1c2Vy",
+      "frames_hex": [
+        "0000003370836803610277005877136e61746976655f70726f626540636c69656e7400000003000000000000000083680277037265786a"
+      ]
+    },
+    {
+      "service": "old",
+      "command": "printf native-rpc-reply",
+      "request_base64": "AAAAjXCDaARhBmdkABNuYXRpdmVfcHJvYmVAY2xpZW50AAAAAwAAAAAAZAAAZAADcmV4g2gCZ2QAE25hdGl2ZV9wcm9iZUBjbGllbnQAAAADAAAAAABoBWQABGNhbGxkAAJvc2QAA2NtZGwAAAABawAXcHJpbnRmIG5hdGl2ZS1ycGMtcmVwbHlqZAAEdXNlcg==",
+      "frames_hex": [
+        "0000004570836803610277005877136e61746976655f70726f626540636c69656e7400000003000000000000000083680277037265786b00106e61746976652d7270632d7265706c79"
+      ]
+    },
+    {
+      "service": "old",
+      "command": "printf '\\342\\230\\203'",
+      "request_base64": "AAAAi3CDaARhBmdkABNuYXRpdmVfcHJvYmVAY2xpZW50AAAAAwAAAAAAZAAAZAADcmV4g2gCZ2QAE25hdGl2ZV9wcm9iZUBjbGllbnQAAAADAAAAAABoBWQABGNhbGxkAAJvc2QAA2NtZGwAAAABawAVcHJpbnRmICdcMzQyXDIzMFwyMDMnamQABHVzZXI=",
+      "frames_hex": [
+        "0000003d70836803610277005877136e61746976655f70726f626540636c69656e7400000003000000000000000083680277037265786c0000000162000026036a"
+      ]
+    },
+    {
+      "service": "new",
+      "command": "true",
+      "request_base64": "AAAAenCDaARhBmdkABNuYXRpdmVfcHJvYmVAY2xpZW50AAAAAwAAAAAAZAAAZAADcmV4g2gCZ2QAE25hdGl2ZV9wcm9iZUBjbGllbnQAAAADAAAAAABoBWQABGNhbGxkAAJvc2QAA2NtZGwAAAABawAEdHJ1ZWpkAAR1c2Vy",
+      "frames_hex": [
+        "0000003370836803610277005877136e61746976655f70726f626540636c69656e7400000003000000000000000083680277037265786a"
+      ]
+    },
+    {
+      "service": "new",
+      "command": "printf native-rpc-reply",
+      "request_base64": "AAAAjXCDaARhBmdkABNuYXRpdmVfcHJvYmVAY2xpZW50AAAAAwAAAAAAZAAAZAADcmV4g2gCZ2QAE25hdGl2ZV9wcm9iZUBjbGllbnQAAAADAAAAAABoBWQABGNhbGxkAAJvc2QAA2NtZGwAAAABawAXcHJpbnRmIG5hdGl2ZS1ycGMtcmVwbHlqZAAEdXNlcg==",
+      "frames_hex": [
+        "0000004570836803610277005877136e61746976655f70726f626540636c69656e7400000003000000000000000083680277037265786b00106e61746976652d7270632d7265706c79"
+      ]
+    },
+    {
+      "service": "new",
+      "command": "printf '\\342\\230\\203'",
+      "request_base64": "AAAAi3CDaARhBmdkABNuYXRpdmVfcHJvYmVAY2xpZW50AAAAAwAAAAAAZAAAZAADcmV4g2gCZ2QAE25hdGl2ZV9wcm9iZUBjbGllbnQAAAADAAAAAABoBWQABGNhbGxkAAJvc2QAA2NtZGwAAAABawAVcHJpbnRmICdcMzQyXDIzMFwyMDMnamQABHVzZXI=",
+      "frames_hex": [
+        "0000003d70836803610277005877136e61746976655f70726f626540636c69656e7400000003000000000000000083680277037265786c0000000162000026036a"
+      ]
+    }
+  ]
+}
