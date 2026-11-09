@@ -1,6 +1,23 @@
 # Individual source-reviewed target requirements; these are not blanket exclusions.
 ---
 modules:
+  exploit/linux/local/docker_cgroup_escape:
+    source_sha256: 79da55cad312aa93a357f70a47eab3fe0145933b7dbba8482b4e4b10d6e6c747
+    disposition: separate_kernel_target
+    reason: The exploit mounts cgroup v1, writes notify_on_release and release_agent,
+      resolves the actual host overlay upperdir, and asks the host kernel to execute
+      its payload there. An ordinary service image cannot supply the affected host
+      kernel or establish a host-root escape. Qualification requires a disposable
+      VM with the matching kernel, cgroup setup and nested container engine, rather
+      than changing the shared Docker host.
+  exploit/linux/local/docker_privileged_container_escape:
+    source_sha256: dadc76c8e9f6f2db484083c2271c4ac38265a105b1eba98d462cf153e18baa2d
+    disposition: separate_host_target
+    reason: The main function writes a cgroup release_agent and executes either
+      docker cp or a search of the host overlay filesystem to obtain host root.
+      A service container with invented host paths would not verify that escape.
+      Use a disposable VM with its own privileged nested container and compatible
+      cgroup v1 host setup; the shared Docker engine is not an isolated target.
   exploit/linux/local/cve_2022_0847_dirtypipe:
     source_sha256: fcd75cb71f8873db2231b89880caeeed83668e2fa9c558982987b5a75f8332e9
     disposition: separate_kernel_target

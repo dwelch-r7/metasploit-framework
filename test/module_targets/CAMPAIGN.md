@@ -444,8 +444,8 @@ Controlled interrupted runs retain diagnostic evidence and no case-count claim.
 - Expand through reusable network service and web application families.
 - Review post modules using suitable real sessions and cover declared types.
 - Review other module categories and record justified exclusions individually.
-- Six source-hashed reviews now identify separate Linux-kernel, macOS, Windows,
-  Xerox and Cisco device/firmware requirements in `reviews.yml`; these do not
+- Eight source-hashed reviews now identify separate Linux-kernel/container-host,
+  macOS, Windows, Xerox and Cisco device/firmware requirements in `reviews.yml`; these do not
   establish universal infeasibility. Existing Kubernetes fixtures require a host cluster and are not
   a self-contained lab; create an isolated cluster before qualifying those modules.
 - Investigate failures with target evidence before classifying module defects.
