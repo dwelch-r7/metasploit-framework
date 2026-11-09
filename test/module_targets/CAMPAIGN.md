@@ -190,8 +190,83 @@ STARTTLS access. Initial password-file permission, native-wait and TLS-policy
 configuration failures were corrected as fixture issues before module execution.
 The checkpoint is now **86 runtime modules, 31 families and 416 functional cases**,
 all with current recorded inputs and owned cleanup. Meterpreter CI transport
-timeouts have a separate active worktree investigation; the full campaign remains
-unfinished.
+timeouts have separate isolated diagnosis; the underlying stalls remain
+unclassified and the full campaign remains unfinished.
+
+The focused Meterpreter diagnostic selected only the two original examples at
+the exact failed CI source. Native controls caught BusyBox rejecting GNU-style
+date syntax; the same source with GNU coreutils passed two outer examples and
+all eight inner search assertions per example. It did not reproduce the CI hang.
+Alpine/LinuxKit and root execution differ from Ubuntu CI. Cleanup hooks returned,
+but the final relative deletion returned failure; file removal by that hook is
+unproven. The owned diagnostic container and its temporary filesystem were
+removed. These cases add no registered production-module coverage. The evidence
+and further Ubuntu instrumentation work remain recorded for investigation.
+
+Jenkins is the next family under qualification, with digest-pinned weekly and
+LTS vulnerable/fixed pairs, an open controller, and a separate native CLI client
+that cannot read the controller fixtures locally. The independent 125-command
+native preflight passed after correcting an expectation that rejected a genuine
+HTTP 401 challenge without the application version header. The 51-case Framework
+matrix covers four modules and remains excluded from passing totals until its
+result, actual behavior, recorded inputs and cleanup are checked. Its first full
+baseline finished 51 examples/25 failures with matching recorded inputs and
+owned teardown. Corrupt CLI frame bytes in file loot, long-path failures, forced
+patched-version false content, modern HTML enumeration and script target/cleanup
+validation each have concrete native evidence and separate fix worktrees.
+
+The runner is being extended for UDP-only mappings without changing legacy TCP
+endpoint shapes. This changes a common recorded input, so the published
+`e16b4bc4157` checkpoint remains historical evidence. All qualified families need
+fresh current-source results after these changes and Jenkins fixes are integrated;
+no new aggregate is claimed from registration or old passing hashes.
+
+The final integrated Jenkins matrix subsequently passed all 51 cases after
+three separately reproduced module repairs. All 48 inputs remain current,
+native controls and owned teardown pass, and repeated real shell/Meterpreter
+sessions have target and cleanup proof. The UDP-aware runner also has a fresh
+14-case HTTP pass and a six-case native TFTP pass. The remaining earlier
+families are being revalidated before claiming a new aggregate. See the
+[Jenkins/UDP qualification record](VERIFICATION-20261109-jenkins-udp.md) for
+matched failures, fixes, current evidence and limits. NTP remains separately
+under qualification; its setup failures are not classified as module defects.
+
+After the NTP observer's source-path correction, the frozen six-case suite
+returned five passes and one verified module failure: an actual unrelated DNS
+error packet is reported as an NTP service. Native ntpq and independent wire
+controls establish the genuine allowed/refused query policies and unrelated
+response. A separate worktree owns reply validation. The additional Jenkins
+command scanner is also being investigated in its own worktree using the same
+genuine controller images; it is not registered as passing coverage yet.
+
+The NTP correction subsequently passed its matched six native cases and 28
+focused examples, preserving real replies and padding while rejecting unrelated
+or malformed records. Its owning fix is integrated; a parent native rerun is
+pending. The earlier-family rerun has completed eighteen families/222 cases
+without failures, with current hashes and cleanup. These remain partial results.
+Elasticsearch's real open/authenticated 7.9.1 profile has independent native
+data/permission controls and is now running its eleven-case baseline. The latest
+published Meterpreter workflow passed, while Verify's OID failure remains red.
+
+The parent NTP family then passed all six cases with current hashes and cleanup,
+using warm metadata in 37 seconds. Its shared invocation also contains the
+corrected Elasticsearch 11/7 baseline and fails overall. The Elasticsearch
+failures now have independent native data/permission evidence after fixing
+harness assumptions. Jenkins's additional command scanner has a matched 7/6
+to 7/0 repair, integrated locally; its parent suite adds a full-console
+Unicode/dollar case and awaits final eight-case validation. The broader
+earlier-family rerun continues before a new aggregate is claimed.
+
+That rerun subsequently passed all thirty selected families and 402 cases.
+Together with the six separate current-input families, the verified checkpoint
+is now **94 production runtime modules, 36 families and 498 functional cases**.
+Every selected result has the expected count, zero failures/pending/outside
+errors, current recorded input hashes and owned teardown. Jenkins-command's
+eight cases include actual-console Unicode/dollar output; Elasticsearch's eleven
+cases preserve literal CSV data and handle real permission/zero-hit/unrelated
+responses. The [current verification matrix](VERIFICATION-20261109-jenkins-udp.md)
+records every selected run and remaining qualification limits. This checkpoint
+does not complete the repository-wide goal; most modules still await review.
 
 ## November 8 baseline findings
 

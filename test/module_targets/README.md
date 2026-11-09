@@ -71,6 +71,8 @@ snapshot remains a setup failure and cannot qualify a module.
   mapping such as `open: {port: 69, protocol: udp}`; the runner asks Compose for
   the UDP mapping explicitly. Both host and internal module endpoints retain
   their `host`/integer `port` shape; `runtime.json` also records `transports`.
+  This records the published mapping used for discovery; a service may support
+  additional transports on its internal port, as in the TCP/UDP DNS profile.
   `console: true` adds the shared Framework console service; `test_env` supplies
   a suite's bounded fixture options without changing its ordinary defaults.
 - `spec/acceptance/module_targets/<family>_spec.rb`: short functional cases,
@@ -132,9 +134,13 @@ cover several valuable workflows, then version-specific vulnerable applications.
 Record evidence-backed exclusions and failures in [the campaign record](CAMPAIGN.md).
 The [earlier November 9 checkpoint](VERIFICATION-20261109.md) records its qualified
 profiles and separate before/after module findings.
-The [published follow-up checkpoint](VERIFICATION-20261109-follow-up.md) records
+The [earlier published follow-up checkpoint](VERIFICATION-20261109-follow-up.md) records
 86 modules, 31 families and 416 cases, including DNS, Linux, VNC, WebDAV, MQTT and mail
 qualification at `e16b4bc4157`, with matching recorded inputs for its 31 families.
 Later fixture/runner changes require fresh validation before updating that total.
+The [current qualification record](VERIFICATION-20261109-jenkins-udp.md) records
+**94 runtime modules, 36 families and 498 functional cases**, including the
+subsequent Jenkins, TFTP, NTP, Jenkins-command and Elasticsearch profiles.
+All recorded inputs are current, exact counts match and owned cleanup passes.
 The full campaign remains incomplete while feasible, valuable modules await review
 or functional verification.

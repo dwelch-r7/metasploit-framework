@@ -1,9 +1,12 @@
 # November 9 container module verification follow-up
 
-The current verified checkpoint is **86 production runtime modules, 31 families
-and 416 functional cases**. Every selected result has the exact expected count,
-zero failures/pending/outside-example errors, matching current recorded input
-hashes and successful owned cleanup. The repository-wide campaign remains active;
+The earlier published verified checkpoint, `e16b4bc4157`, covers **86 production
+runtime modules, 31 families and 416 functional cases**. At that revision every
+selected result has the exact expected count, zero failures/pending/outside-example
+errors, matching recorded input hashes and successful owned cleanup. Subsequent
+Jenkins, UDP and Elasticsearch qualification and the completed fresh broad
+revalidation are recorded in the [newer checkpoint](VERIFICATION-20261109-jenkins-udp.md).
+The repository-wide campaign remains active;
 most modules still await individual feasibility review and functional testing.
 The earlier published checkpoint was 71 modules, 25 families and 311 cases.
 
@@ -259,12 +262,22 @@ finished 51 examples with two timeouts in `post/test/search` over HTTP/HTTPS wit
 search assertions passed, followed by a cleanup delete request without a matching
 reply. HTTPS stopped in setup with an unanswered stat request before search
 assertions ran. This establishes where the traces stop, not the root cause of the
-missing replies. A separate-worktree transport investigation remains active;
-passing container profiles do not establish a green CI result.
+missing replies. A separate-worktree diagnostic completed both unchanged owning
+examples locally after adding genuine GNU coreutils to correct BusyBox date
+syntax. Its terminal result is two examples/zero failures; each inner search
+reports eight passed/zero failed and both cleanup hooks returned. The local
+Alpine/LinuxKit/root runtime differs from Ubuntu CI, and neither CI hang was
+reproduced. The last cleanup deletion returns failure after a relative-path CWD
+change, so hook completion does not prove file removal. Docker removed the owned
+diagnostic container and its temporary filesystem. No production fix or expanded
+matrix was used, and these cases are not added to module coverage. The stalls
+remain unclassified; passing container profiles do not establish a green CI result.
 Raw failed logs are retained in
 `tmp/module-container-ci-399d88-{verify,meterpreter}-failed.log`.
 Readable CI console/TLV captures and their original attachment mapping are under
-`tmp/meterpreter-search-ci-evidence/`. On the subsequent published `abfbaf48aa6`
+`tmp/meterpreter-search-ci-evidence/`, including its complete `REPORT.md` and
+terminal `current-gnu/{rspec,verification,native-controls}.json` records.
+On the subsequent published `abfbaf48aa6`
 checkpoint, lint and all seven non-Meterpreter acceptance workflows passed.
 Verify repeats the same OID exception; Meterpreter had not finished at inspection.
 Its Verify log is `tmp/module-container-ci-abfbaf-verify-failed.log`.
