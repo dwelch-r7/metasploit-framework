@@ -1,0 +1,39 @@
+spec: spec/acceptance/module_targets/credential_reporting_spec.rb
+expected_examples: 11
+console: true
+modules:
+  - auxiliary/scanner/postgres/postgres_login
+  - auxiliary/scanner/ssh/ssh_login
+  - auxiliary/scanner/http/http_login
+ports:
+  postgres: 5432
+  ssh: 22
+  apache: 80
+support_files:
+  - lib/msf/core/auxiliary/report.rb
+  - lib/msf/core/auxiliary/auth_brute.rb
+  - lib/msf/core/db_manager.rb
+  - lib/msf/core/db_manager/connection.rb
+  - lib/msf/core/db_manager/cred.rb
+  - lib/msf/core/db_manager/login.rb
+  - lib/msf/ui/console/command_dispatcher/db.rb
+  - lib/msf/ui/console/command_dispatcher/creds.rb
+  - lib/metasploit/framework/credential_collection.rb
+  - lib/metasploit/framework/key_collection.rb
+  - lib/metasploit/framework/ssh/platform.rb
+  - lib/msf/core/exploit/remote/ssh/options.rb
+  - lib/metasploit/framework/login_scanner/postgres.rb
+  - lib/metasploit/framework/login_scanner/ssh.rb
+  - lib/metasploit/framework/login_scanner/http.rb
+  - lib/metasploit/framework/login_scanner/result.rb
+  - lib/rex/proto/http/client.rb
+  - lib/rex/proto/http/response.rb
+  - lib/rex/proto/http/packet.rb
+  - test/module_targets/postgres/compose.yaml
+  - test/module_targets/ssh/compose.yaml
+  - test/module_targets/ssh/askpass.sh
+  - test/ssh/Dockerfile
+  - test/module_targets/http/compose.yaml
+  - test/module_targets/http/Dockerfile
+  - test/module_targets/http/module-target.conf
+  - test/module_targets/http/htdocs/index.html

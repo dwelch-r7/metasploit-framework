@@ -52,3 +52,6 @@ functional tests. From the repository root:
 ```sh
 bundle exec ruby tools/dev/run_module_target_tests.rb http
 ```
+
+The [credential reporting lab](../../../../../test/module_targets/credential_reporting/README.md)
+also verifies Basic-auth credential persistence, service identity and workspace isolation.

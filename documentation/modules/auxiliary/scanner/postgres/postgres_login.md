@@ -175,3 +175,6 @@ protocol session acceptance suite. From the repository root:
 ```sh
 bundle exec ruby tools/dev/run_module_target_tests.rb postgres
 ```
+
+The [credential reporting lab](../../../../../test/module_targets/credential_reporting/README.md)
+also verifies real database persistence, service identity and workspace isolation.

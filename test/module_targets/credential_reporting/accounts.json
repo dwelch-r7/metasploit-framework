@@ -1,0 +1,5 @@
+{
+  "postgres": {"module": "auxiliary/scanner/postgres/postgres_login", "username": "postgres", "password": "password", "service": "postgres"},
+  "ssh": {"module": "auxiliary/scanner/ssh/ssh_login", "username": "acceptance_tests_user", "password": "acceptance_tests_password", "service": "ssh"},
+  "apache": {"module": "auxiliary/scanner/http/http_login", "username": "module-test-user", "password": "module-test-password", "service": "http"}
+}

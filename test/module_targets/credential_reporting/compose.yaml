@@ -1,0 +1,26 @@
+services:
+  reporting_db:
+    image: postgres:16@sha256:933463a6c8eba2b9f5cd414138738cd8d5519cd2c471214c222652f547a66a32
+    environment:
+      POSTGRES_USER: module_framework
+      POSTGRES_PASSWORD: module-target-framework-db-password
+      POSTGRES_DB: module_targets
+      POSTGRES_INITDB_ARGS: --auth-host=scram-sha-256 --auth-local=trust
+    mem_limit: 256m
+    healthcheck:
+      test: [CMD-SHELL, "PGPASSWORD=module-target-framework-db-password psql -h 127.0.0.1 -U module_framework -d module_targets -Atc 'SELECT current_database()' | grep -qx module_targets"]
+      interval: 2s
+      timeout: 3s
+      retries: 40
+  postgres:
+    extends: {file: ../postgres/compose.yaml, service: postgres}
+    environment:
+      POSTGRES_INITDB_ARGS: --auth-host=scram-sha-256 --auth-local=trust
+    mem_limit: 256m
+  ssh:
+    extends: {file: ../ssh/compose.yaml, service: ssh}
+    volumes:
+      - ./askpass.sh:/opt/module-target-askpass.sh:ro
+      - ${MODULE_TARGET_ARTIFACTS:?Set by the module target runner}:/opt/module-target-artifacts:ro
+  apache:
+    extends: {file: ../http/compose.yaml, service: apache}

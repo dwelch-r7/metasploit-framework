@@ -420,3 +420,6 @@ repository root:
 ```sh
 bundle exec ruby tools/dev/run_module_target_tests.rb ssh
 ```
+
+The [credential reporting lab](../../../../../test/module_targets/credential_reporting/README.md)
+also verifies password/key persistence, native reuse of a recovered key and workspace isolation.
