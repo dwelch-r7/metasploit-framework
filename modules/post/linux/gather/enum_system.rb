@@ -138,23 +138,18 @@ class MetasploitModule < Msf::Post
   def get_crons(users, user)
     if user == 'root' && users
       users = users.chomp.split
-      users.each do |u|
-        next unless u == 'root'
-
-        vprint_status('Enumerating as root')
-        cron_data = ''
-        users.each do |usr|
-          cron_data << "*****Listing cron jobs for #{usr}*****\n"
-          cron_data << execute("crontab -u #{usr} -l") + "\n\n"
-        end
+      vprint_status('Enumerating as root')
+      cron_data = ''
+      users.each do |usr|
+        cron_data << "*****Listing cron jobs for #{usr}*****\n"
+        cron_data << execute("crontab -u #{usr} -l") + "\n\n"
       end
     else
       vprint_status("Enumerating as #{user}")
       cron_data = "***** Listing cron jobs for #{user} *****\n\n"
       cron_data << execute('crontab -l')
-
-      # Save cron data to loot
-      cron_data
     end
+
+    cron_data
   end
 end
