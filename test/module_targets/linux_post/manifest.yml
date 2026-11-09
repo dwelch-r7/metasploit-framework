@@ -1,0 +1,16 @@
+spec: spec/acceptance/module_targets/linux_post_spec.rb
+expected_examples: 8
+console: true
+modules:
+  - post/linux/gather/checkcontainer
+  - post/linux/gather/enum_commands
+  - post/linux/gather/enum_configs
+ports:
+  linux: 8080
+support_files:
+  - lib/msf/core/post/linux/system.rb
+  - lib/msf/core/post/file.rb
+  - lib/msf/core/encoded_payload.rb
+  - modules/payloads/singles/linux/x64/shell_reverse_tcp.rb
+  - modules/payloads/singles/linux/x64/meterpreter_reverse_tcp.rb
+  - spec/support/shared/contexts/wait_for_expect.rb

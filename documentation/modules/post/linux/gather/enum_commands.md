@@ -50,3 +50,13 @@ msf post(linux/gather/enum_commands) > run
 [*] Post module execution completed
 msf post(linux/gather/enum_commands) > 
 ```
+
+## Automated container tests
+
+The [managed Linux post-module lab](../../../../../test/module_targets/linux_post/README.md)
+checks native command paths, a specialist directory and a missing directory
+through both command-shell and Meterpreter sessions. Run from the repository root:
+
+```sh
+bundle exec ruby tools/dev/run_module_target_tests.rb linux_post
+```

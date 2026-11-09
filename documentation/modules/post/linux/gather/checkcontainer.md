@@ -74,3 +74,14 @@ meterpreter > run post/linux/gather/checkcontainer
 [*] This does not appear to be a container
 meterpreter > 
 ```
+
+## Automated container tests
+
+The [managed Linux post-module lab](../../../../../test/module_targets/linux_post/README.md)
+checks real Docker detection through both command-shell and native Meterpreter
+sessions. Native controls establish the actual OS and container marker first.
+Run from the repository root:
+
+```sh
+bundle exec ruby tools/dev/run_module_target_tests.rb linux_post
+```

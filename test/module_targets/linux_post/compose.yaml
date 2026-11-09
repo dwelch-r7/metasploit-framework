@@ -1,0 +1,12 @@
+services:
+  linux:
+    build: .
+    hostname: module-target-linux-post
+    ports: ["127.0.0.1::8080"]
+    volumes:
+      - ${MODULE_TARGET_ARTIFACTS:?Set by the module target runner}:/opt/module-target-artifacts:ro
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; assert urllib.request.urlopen('http://127.0.0.1:8080/',timeout=2).read() == b'Native Linux module target\\n'"]
+      interval: 3s
+      timeout: 4s
+      retries: 30
