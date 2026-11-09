@@ -48,7 +48,7 @@ RSpec.describe 'Native RabbitMQ discovery and database-backed authentication' do
       end
 
       it "does not persist an incorrect #{service} #{tls ? 'TLS' : 'TCP'} password as successful" do
-        output = login(service, tls, password: 'wrong-password')
+        output = login(service, tls, password: 'wrong-password', allow_errors: true)
         expect(output).to include('LOGIN FAILED:', 'Incorrect', 'ACCESS_REFUSED')
         expect(output).not_to include('Login Successful:')
         expect(credentials.select { |row| row.fetch('status') == 'Successful' }).to eq([])
@@ -63,7 +63,7 @@ RSpec.describe 'Native RabbitMQ discovery and database-backed authentication' do
     end
 
     it "rejects #{service} loopback-only guest credentials from the Framework container" do
-      output = login(service, false, username: 'guest', password: 'guest')
+      output = login(service, false, username: 'guest', password: 'guest', allow_errors: true)
       expect(output).to include('LOGIN FAILED:', 'Incorrect')
       expect(output).not_to include('Login Successful:')
       expect(credentials.select { |row| row.fetch('status') == 'Successful' }).to eq([])
@@ -81,18 +81,18 @@ RSpec.describe 'Native RabbitMQ discovery and database-backed authentication' do
     expect(first.size).to eq(1)
   end
 
-  def invoke(name, service, tls, options = {})
-    run_target_module("auxiliary/scanner/amqp/#{name}", service, { 'SSL' => tls, 'RPORT' => tls ? 5671 : 5672 }.merge(options), allow_errors: true, command_timeout: 45)
+  def invoke(name, service, tls, options = {}, allow_errors: false)
+    run_target_module("auxiliary/scanner/amqp/#{name}", service, { 'SSL' => tls, 'RPORT' => tls ? 5671 : 5672 }.merge(options), allow_errors: allow_errors, command_timeout: 45)
   end
 
-  def login(service, tls, username: 'lab-amqp-user', password: 'module-target-amqp-password')
+  def login(service, tls, username: 'lab-amqp-user', password: 'module-target-amqp-password', allow_errors: false)
     invoke('amqp_login', service, tls, {
       'USERNAME' => username, 'PASSWORD' => password,
       'USER_FILE' => nil, 'PASS_FILE' => nil, 'USERPASS_FILE' => nil,
       'BLANK_PASSWORDS' => false, 'USER_AS_PASS' => false, 'ANONYMOUS_LOGIN' => false,
       'DB_ALL_CREDS' => false, 'DB_ALL_USERS' => false, 'DB_ALL_PASS' => false, 'DB_SKIP_EXISTING' => 'none',
       'STOP_ON_SUCCESS' => true, 'BRUTEFORCE_SPEED' => 5, 'THREADS' => 1
-    })
+    }, allow_errors: allow_errors)
   end
 
   def report_sql(query)
