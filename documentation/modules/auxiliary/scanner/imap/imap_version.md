@@ -5,6 +5,9 @@ Any IMAP sever should return this information.
 
 ## Vulnerable Application
 
+For isolated cleartext/TLS Dovecot targets and automated native banner checks, see
+the [container acceptance lab](../../../../../test/module_targets/mail/README.md).
+
 ### Install Dovecot on Kali Linux:
 
 With this install, we'll only install IMAP for dovecot, as the other protocols are not required.  However, this is unrealistic

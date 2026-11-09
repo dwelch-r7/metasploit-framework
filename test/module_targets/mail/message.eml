@@ -1,0 +1,7 @@
+From: native-sender@example.test
+To: module_target@example.test
+Subject: Module target mailbox proof
+Message-ID: <module-target-mailbox@example.test>
+Date: Tue, 01 Jan 2030 00:00:00 +0000
+
+Native mail body: module-target-mailbox-proof

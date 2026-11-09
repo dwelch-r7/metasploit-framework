@@ -1,0 +1,25 @@
+x-mail: &mail
+  build: .
+  healthcheck:
+    test: [CMD, doveadm, auth, test, module_target, module-target-password]
+    interval: 3s
+    timeout: 4s
+    retries: 30
+
+services:
+  pop3:
+    <<: *mail
+    ports: ["127.0.0.1::110"]
+  pop3s:
+    <<: *mail
+    ports: ["127.0.0.1::995"]
+  imap:
+    <<: *mail
+    ports: ["127.0.0.1::143"]
+  imaps:
+    <<: *mail
+    ports: ["127.0.0.1::993"]
+  required:
+    <<: *mail
+    command: [dovecot, -F, -c, /etc/dovecot/required.conf]
+    ports: ["127.0.0.1::110"]

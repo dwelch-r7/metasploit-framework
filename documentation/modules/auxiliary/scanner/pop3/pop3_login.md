@@ -1,5 +1,8 @@
 ## Vulnerable Application
 
+For an isolated Dovecot target and automated positive/negative login checks, see
+the [container acceptance lab](../../../../../test/module_targets/mail/README.md).
+
 POP3 is an application-layer Internet standard protocol used by e-mail clients
 to retrieve e-mail from a mail server.
 

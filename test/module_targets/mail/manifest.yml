@@ -1,0 +1,15 @@
+spec: spec/acceptance/module_targets/mail_spec.rb
+expected_examples: 13
+modules:
+  - auxiliary/scanner/pop3/pop3_login
+  - auxiliary/scanner/pop3/pop3_version
+  - auxiliary/scanner/imap/imap_version
+ports:
+  pop3: 110
+  pop3s: 995
+  imap: 143
+  imaps: 993
+  required: 110
+support_files:
+  - lib/metasploit/framework/login_scanner/pop3.rb
+  - lib/msf/core/exploit/remote/imap.rb
