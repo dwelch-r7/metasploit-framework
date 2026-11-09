@@ -21,3 +21,28 @@ modules:
       under enterprise OID 1.3.6.1.4.1.253. A generic snmpd container seeded with
       invented values would only test a simulation; a genuine printer or runnable
       matching firmware is required.
+  auxiliary/scanner/vnc/ard_root_pw:
+    source_sha256: f22433efa305402f2be7010da797f6ce094f18c71b9222d2cdb81164e50d54bc
+    disposition: separate_os_target
+    reason: The main function changes the real root account through the unpatched
+      High Sierra Screen Sharing or Remote Management authentication bug. Linux
+      x11vnc implements neither Apple's ARD security type nor that account database.
+      Qualification needs a disposable affected macOS target; ordinary VNC
+      password/None tests do not qualify this module.
+  exploit/windows/smb/ms17_010_eternalblue:
+    source_sha256: 4263c0676439a781e34cb87bff6a5b44cbdd92ec8c021030c47ea5b2e3532ad5
+    disposition: separate_kernel_target
+    reason: Exploitation depends on the affected Windows srv and srvnet kernel
+      implementations and kernel-pool grooming. The Linux Docker engine and its
+      genuine Samba service cannot supply those Windows kernel code paths.
+      Qualification needs an isolated affected Windows VM with snapshots; a
+      matching SMB banner or scanner response would not establish exploitation.
+  auxiliary/scanner/snmp/cisco_config_tftp:
+    source_sha256: 7f77d35739293c9c8ec59887fbdc51f491b0c611130269e74d6117a1b20898ae
+    disposition: device_or_firmware_target
+    reason: The module sets Cisco configuration-copy rows and expects the actual
+      device to transfer its running or startup configuration through TFTP.
+      Generic Net-SNMP cannot implement those IOS configuration-copy side effects
+      merely by seeding OIDs. A genuine device or runnable matching vendor image
+      is required; this is an image requirement, not a claim that an emulator
+      or container with such an image is impossible.
