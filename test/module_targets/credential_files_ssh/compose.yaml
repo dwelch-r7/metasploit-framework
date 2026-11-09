@@ -1,0 +1,16 @@
+---
+services:
+  linux:
+    extends:
+      file: "../credential_files/compose.yaml"
+      service: linux
+  registry:
+    extends:
+      file: "../credential_files/compose.yaml"
+      service: registry
+  reporting_db:
+    extends:
+      file: "../credential_files/compose.yaml"
+      service: reporting_db
+volumes:
+  registry_auth:

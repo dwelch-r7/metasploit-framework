@@ -1,0 +1,38 @@
+services:
+  linux:
+    build:
+      context: ..
+      dockerfile: credential_files/Dockerfile
+    hostname: module-target-credential-files
+    init: true
+    ports: ["127.0.0.1::8080"]
+    volumes:
+      - registry_auth:/opt/registry-auth
+      - ${MODULE_TARGET_ARTIFACTS:?Set by the module target runner}:/opt/module-target-artifacts:ro
+    mem_limit: 768m
+    healthcheck:
+      test: [CMD, python3, -c, "import socket,urllib.request; assert urllib.request.urlopen('http://127.0.0.1:8080/',timeout=2).read()==b'Native credential file target\\n'; socket.create_connection(('127.0.0.1',9292),timeout=2).close()"]
+      interval: 3s
+      timeout: 4s
+      retries: 30
+  registry:
+    image: registry:2.8.3@sha256:a3d8aaa63ed8681a604f1dea0aa03f100d5895b6a58ace528858a7b332415373
+    network_mode: service:linux
+    depends_on:
+      linux: {condition: service_healthy}
+    environment:
+      REGISTRY_AUTH: htpasswd
+      REGISTRY_AUTH_HTPASSWD_REALM: Module target registry
+      REGISTRY_AUTH_HTPASSWD_PATH: /auth/htpasswd
+    volumes:
+      - registry_auth:/auth:ro
+    mem_limit: 128m
+    healthcheck:
+      test: [CMD-SHELL, "wget -S -O /dev/null http://127.0.0.1:5000/v2/ 2>&1 | grep -q '401 Unauthorized'"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+  reporting_db:
+    extends: {file: ../credential_reporting/compose.yaml, service: reporting_db}
+volumes:
+  registry_auth:

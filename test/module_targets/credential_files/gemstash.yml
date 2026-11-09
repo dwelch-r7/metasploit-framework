@@ -1,0 +1,5 @@
+---
+:base_path: /opt/credential-state/gemstash
+:bind: tcp://0.0.0.0:9292
+:cache_type: memory
+:protected_fetch: true

@@ -1,0 +1,40 @@
+---
+spec: spec/acceptance/module_targets/credential_files_spec.rb
+expected_examples: 6
+console: true
+modules:
+- post/multi/gather/ssh_creds
+ports:
+  linux: 8080
+support_files:
+- test/module_targets/linux_post/launch_session.py
+- test/module_targets/credential_reporting/compose.yaml
+- spec/support/acceptance/linux_session.rb
+- spec/support/shared/contexts/wait_for_expect.rb
+- lib/msf/core/post.rb
+- lib/msf/core/post/file.rb
+- lib/msf/core/post/common.rb
+- lib/msf/core/post/unix.rb
+- lib/msf/core/auxiliary/report.rb
+- modules/payloads/singles/linux/x64/shell_reverse_tcp.rb
+- modules/payloads/singles/linux/x64/meterpreter_reverse_tcp.rb
+- test/module_targets/credential_files/Dockerfile
+- test/module_targets/credential_files/Gemfile
+- test/module_targets/credential_files/Gemfile.lock
+- test/module_targets/credential_files/README.md
+- test/module_targets/credential_files/compose.yaml
+- test/module_targets/credential_files/gemstash.yml
+- test/module_targets/credential_files/manifest.yml
+- test/module_targets/credential_files/native_probe.py
+- test/module_targets/credential_files/replay.py
+- test/module_targets/credential_files/seed.py
+- test/module_targets/credential_files/start.sh
+- lib/msf/core/db_manager/cred.rb
+- lib/msf/core/db_manager/session.rb
+- modules/exploits/multi/handler.rb
+- lib/msf/core/handler.rb
+- lib/msf/core/handler/reverse_tcp.rb
+- lib/msf/base/sessions/command_shell.rb
+- lib/msf/base/sessions/meterpreter.rb
+test_env:
+  CREDENTIAL_FILE_PROFILE: ssh
