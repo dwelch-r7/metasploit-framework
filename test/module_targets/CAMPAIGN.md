@@ -501,6 +501,16 @@ functional assertions pass afterward. The selected checkpoint is **112 modules,
 Ansible's bounded shell/Meterpreter profiles, JBoss's session-only compiler
 configuration and Linux credential-file collections remain active separate work.
 
+JBoss Java deployment subsequently passed twelve strict cases, opening sixteen
+actual Meterpreter/command-shell sessions with default Spawn=2. Both original
+automatic-target failures came from the vendor JSP compiler on Java 8; the
+session-only fixture now uses documented Ant/javac configuration while native
+hashes prove the vendor code unchanged. Every positive path repeats with fresh
+command proof and exact deployment restoration. The selected checkpoint is
+**114 modules, 50 families and 718 cases**; see the
+[JBoss session verification](VERIFICATION-20261109-jboss-sessions.md).
+Ansible deployment and Linux credential-file collection continue separately.
+
 ## Remaining work
 
 - Review existing protocol suites and supply reusable managed containers.

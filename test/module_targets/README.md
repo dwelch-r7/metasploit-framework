@@ -178,11 +178,17 @@ JBoss HEAD detection/output limitations are recorded explicitly. Ansible
 deployment, Consul execution, JBoss payload sessions and WordPress admin remain
 separate investigations. All selected recorded inputs are current, exact counts
 match and owned cleanup passes.
-The [current qualification record](VERIFICATION-20261109-consul-execution.md)
+The [earlier qualification record](VERIFICATION-20261109-consul-execution.md)
 records **112 runtime modules, 49 families and 706 functional cases**, adding
 actual Consul service/rexec command execution and a captured ACL-refusal repair.
 Every selected count, recorded hash and owned teardown passes. Reverse Consul
 sessions, Ansible deployment, JBoss payload sessions and WordPress admin remain
 separate qualification work.
+The [current qualification record](VERIFICATION-20261109-jboss-sessions.md)
+records **114 runtime modules, 50 families and 718 functional cases**, adding
+sixteen actual JBoss Java sessions across twelve cases with default Spawn=2.
+Native controls distinguish the original target compiler failure from module
+behavior. Every selected count, recorded hash and owned teardown passes.
+Ansible deployment and WordPress admin remain separate qualification work.
 The full campaign remains incomplete while feasible, valuable modules await review
 or functional verification.
