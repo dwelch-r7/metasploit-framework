@@ -1,6 +1,7 @@
 # -*- coding: binary -*-
 
 require 'snmp'
+require 'rex/stopwatch'
 require 'metasploit/framework/login_scanner/base'
 
 module Metasploit
@@ -208,12 +209,7 @@ module Metasploit
             data, addr = sock.timed_recvfrom(max_size, timeout)
             res = [data, addr[3], addr[1]] if addr
           elsif protocol == 'tcp'
-            ready = ::IO.select([sock], nil, nil, timeout)
-            if ready
-              res = sock.recv_nonblock(max_size)
-              # Put into an array to mimic recvfrom
-              res = [res, host, port]
-            end
+            res = recv_snmp_tcp_response(sock, max_size, timeout)
           end
 
           res
@@ -385,6 +381,7 @@ module Metasploit
         # Create a new socket for this scanner
         def configure_socket
           shutdown_socket if sock
+          @tcp_receive_buffer = ''.b
 
           self.sock = ::Rex::Socket.create({
             'PeerHost' => host,
@@ -409,6 +406,64 @@ module Metasploit
           self.port = DEFAULT_PORT if port.nil?
           self.version = DEFAULT_VERSION if version.nil?
           self.queue_size = DEFAULT_QUEUE_SIZE if queue_size.nil?
+        end
+
+        private
+
+        # RFC 3430 section 2.1 requires BER framing: TCP reads can combine
+        # responses to several requests or split one response at any byte.
+        # https://www.rfc-editor.org/rfc/rfc3430#section-2.1
+        # @param socket [Rex::Socket::Tcp] the connected stream
+        # @param max_size [Integer] maximum accepted message and read size
+        # @param timeout [Numeric] total receive wait, including partial reads
+        # @return [Array(String, String, Integer), nil] one message and peer, or no complete message
+        def recv_snmp_tcp_response(socket, max_size, timeout)
+          @tcp_receive_buffer ||= ''.b
+          remaining = timeout
+
+          loop do
+            packet = buffered_snmp_tcp_response(max_size)
+            return [packet, host, port] if packet
+
+            if @tcp_receive_buffer.bytesize >= max_size
+              @tcp_receive_buffer.clear
+              return
+            end
+            return if remaining.negative?
+
+            data, elapsed = Rex::Stopwatch.elapsed_time do
+              socket.recv_nonblock(max_size) if ::IO.select([socket], nil, nil, remaining)
+            end
+            remaining -= elapsed
+            return unless data && !data.empty?
+
+            @tcp_receive_buffer << data
+          end
+        rescue ::SNMP::BER::InvalidLength, ::SNMP::BER::InvalidTag
+          @tcp_receive_buffer.clear
+          nil
+        end
+
+        # @param max_size [Integer] maximum accepted message size
+        # @return [String, nil] one complete definite-length BER sequence, if available
+        def buffered_snmp_tcp_response(max_size)
+          return if @tcp_receive_buffer.bytesize < 2
+          raise ::SNMP::BER::InvalidTag unless @tcp_receive_buffer.getbyte(0) == ::SNMP::BER::SEQUENCE_TAG
+
+          length_octet = @tcp_receive_buffer.getbyte(1)
+          # SNMP excludes indefinite lengths; 0xff is reserved by BER.
+          raise ::SNMP::BER::InvalidLength if [0x80, 0xff].include?(length_octet)
+
+          length_octets = length_octet < 0x80 ? 0 : length_octet & 0x7f
+          return if @tcp_receive_buffer.bytesize < 2 + length_octets
+
+          # Reuse the vendored BER integer decoder for long-form lengths.
+          body_length = length_octets.zero? ? length_octet : ::SNMP::Message.build_integer(@tcp_receive_buffer, 2, length_octets)
+          packet_length = 2 + length_octets + body_length
+          raise ::SNMP::BER::InvalidLength if packet_length > max_size
+          return if @tcp_receive_buffer.bytesize < packet_length
+
+          @tcp_receive_buffer.slice!(0, packet_length)
         end
 
       end
