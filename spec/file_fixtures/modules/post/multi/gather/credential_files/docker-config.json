@@ -1,0 +1,7 @@
+{
+	"auths": {
+		"127.0.0.1:5000": {
+			"auth": "cmVnaXN0cnlfcm9vdDptb2R1bGUtdGFyZ2V0LXJvb3Q6ZG9ja2VyOnBhc3N3b3Jk"
+		}
+	}
+}
