@@ -1,0 +1,621 @@
+{
+  "captured_at": "2026-11-09T11:59:54Z",
+  "image": "httpd:2.4.62@sha256:4c7788695c832bf415a662dfb5160f1895e65fc65c025e85f436ee2c9e7d7f3e",
+  "source": "capture_responses.rb",
+  "responses": {
+    "put_created": {
+      "method": "PUT",
+      "path": "/dav/module-target-native-unit-capture-literal.txt",
+      "status": 201,
+      "headers": {
+        "date": [
+          "Mon, 09 Nov 2026 11:59:54 GMT"
+        ],
+        "server": [
+          "Apache/2.4.62 (Unix)"
+        ],
+        "location": [
+          "http://127.0.0.1:62958/dav/module-target-native-unit-capture-literal.txt"
+        ],
+        "content-length": [
+          "263"
+        ],
+        "connection": [
+          "close"
+        ],
+        "content-type": [
+          "text/html; charset=ISO-8859-1"
+        ]
+      },
+      "body": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n<html>\n<head>\n<title>201 Created</title>\n</head><body>\n<h1>Created</h1>\n<p>Resource /dav/module-target-native-unit-capture-literal.txt has been created.</p>\n</body></html>\n"
+    },
+    "literal_get": {
+      "method": "GET",
+      "path": "/dav/module-target-native-unit-capture-literal.txt",
+      "status": 200,
+      "headers": {
+        "date": [
+          "Mon, 09 Nov 2026 11:59:54 GMT"
+        ],
+        "server": [
+          "Apache/2.4.62 (Unix)"
+        ],
+        "last-modified": [
+          "Mon, 09 Nov 2026 11:59:54 GMT"
+        ],
+        "etag": [
+          "W/\"1f-65fd6b3367cc8\""
+        ],
+        "accept-ranges": [
+          "bytes"
+        ],
+        "content-length": [
+          "31"
+        ],
+        "connection": [
+          "close"
+        ],
+        "content-type": [
+          "text/plain"
+        ]
+      },
+      "body": "module-target [literal] (a+b).*"
+    },
+    "delete_success": {
+      "method": "DELETE",
+      "path": "/dav/module-target-native-unit-capture-literal.txt",
+      "status": 204,
+      "headers": {
+        "date": [
+          "Mon, 09 Nov 2026 11:59:54 GMT"
+        ],
+        "server": [
+          "Apache/2.4.62 (Unix)"
+        ],
+        "connection": [
+          "close"
+        ]
+      },
+      "body": ""
+    },
+    "missing_get": {
+      "method": "GET",
+      "path": "/dav/module-target-native-unit-capture-literal.txt",
+      "status": 404,
+      "headers": {
+        "date": [
+          "Mon, 09 Nov 2026 11:59:54 GMT"
+        ],
+        "server": [
+          "Apache/2.4.62 (Unix)"
+        ],
+        "content-length": [
+          "196"
+        ],
+        "connection": [
+          "close"
+        ],
+        "content-type": [
+          "text/html; charset=iso-8859-1"
+        ]
+      },
+      "body": "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">\n<html><head>\n<title>404 Not Found</title>\n</head><body>\n<h1>Not Found</h1>\n<p>The requested URL was not found on this server.</p>\n</body></html>\n"
+    },
+    "multiline_get": {
+      "method": "GET",
+      "path": "/dav/module-target-native-unit-capture-multiline.txt",
+      "status": 200,
+      "headers": {
+        "date": [
+          "Mon, 09 Nov 2026 11:59:54 GMT"
+        ],
+        "server": [
+          "Apache/2.4.62 (Unix)"
+        ],
+        "last-modified": [
+          "Mon, 09 Nov 2026 11:59:54 GMT"
+        ],
+        "etag": [
+          "W/\"45-65fd6b336cc4c\""
+        ],
+        "accept-ranges": [
+          "bytes"
+        ],
+        "content-length": [
+          "69"
+        ],
+        "connection": [
+          "close"
+        ],
+        "content-type": [
+          "text/plain"
+        ]
+      },
+      "body": "Module target first line\nSecond line with \"quotes\" and a \\ backslash\n"
+    },
+    "unauthorized_get": {
+      "method": "GET",
+      "path": "/auth/existing.txt",
+      "status": 401,
+      "headers": {
+        "date": [
+          "Mon, 09 Nov 2026 11:59:54 GMT"
+        ],
+        "server": [
+          "Apache/2.4.62 (Unix)"
+        ],
+        "www-authenticate": [
+          "Basic realm=\"Module target WebDAV\""
+        ],
+        "content-length": [
+          "381"
+        ],
+        "connection": [
+          "close"
+        ],
+        "content-type": [
+          "text/html; charset=iso-8859-1"
+        ]
+      },
+      "body": "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">\n<html><head>\n<title>401 Unauthorized</title>\n</head><body>\n<h1>Unauthorized</h1>\n<p>This server could not verify that you\nare authorized to access the document\nrequested.  Either you supplied the wrong\ncredentials (e.g., bad password), or your\nbrowser doesn't understand how to supply\nthe credentials required.</p>\n</body></html>\n"
+    },
+    "existing_get": {
+      "method": "GET",
+      "path": "/readonly/existing.txt",
+      "status": 200,
+      "headers": {
+        "date": [
+          "Mon, 09 Nov 2026 11:59:54 GMT"
+        ],
+        "server": [
+          "Apache/2.4.62 (Unix)"
+        ],
+        "last-modified": [
+          "Mon, 09 Nov 2026 11:38:13 GMT"
+        ],
+        "etag": [
+          "\"1f-65fd665a24e76\""
+        ],
+        "accept-ranges": [
+          "bytes"
+        ],
+        "content-length": [
+          "31"
+        ],
+        "connection": [
+          "close"
+        ],
+        "content-type": [
+          "text/plain"
+        ]
+      },
+      "body": "module-target-existing-content\n"
+    },
+    "forbidden_put": {
+      "method": "PUT",
+      "path": "/readonly/existing.txt",
+      "status": 403,
+      "headers": {
+        "date": [
+          "Mon, 09 Nov 2026 11:59:54 GMT"
+        ],
+        "server": [
+          "Apache/2.4.62 (Unix)"
+        ],
+        "content-length": [
+          "199"
+        ],
+        "connection": [
+          "close"
+        ],
+        "content-type": [
+          "text/html; charset=iso-8859-1"
+        ]
+      },
+      "body": "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">\n<html><head>\n<title>403 Forbidden</title>\n</head><body>\n<h1>Forbidden</h1>\n<p>You don't have permission to access this resource.</p>\n</body></html>\n"
+    }
+  },
+  "native_requests": [
+    {
+      "method": "GET",
+      "path": "/dav/module-target-native-unit-capture-literal.txt",
+      "status": 404,
+      "headers": {
+        "date": [
+          "Mon, 09 Nov 2026 11:59:54 GMT"
+        ],
+        "server": [
+          "Apache/2.4.62 (Unix)"
+        ],
+        "content-length": [
+          "196"
+        ],
+        "connection": [
+          "close"
+        ],
+        "content-type": [
+          "text/html; charset=iso-8859-1"
+        ]
+      },
+      "body": "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">\n<html><head>\n<title>404 Not Found</title>\n</head><body>\n<h1>Not Found</h1>\n<p>The requested URL was not found on this server.</p>\n</body></html>\n"
+    },
+    {
+      "method": "PUT",
+      "path": "/dav/module-target-native-unit-capture-literal.txt",
+      "status": 201,
+      "headers": {
+        "date": [
+          "Mon, 09 Nov 2026 11:59:54 GMT"
+        ],
+        "server": [
+          "Apache/2.4.62 (Unix)"
+        ],
+        "location": [
+          "http://127.0.0.1:62958/dav/module-target-native-unit-capture-literal.txt"
+        ],
+        "content-length": [
+          "263"
+        ],
+        "connection": [
+          "close"
+        ],
+        "content-type": [
+          "text/html; charset=ISO-8859-1"
+        ]
+      },
+      "body": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n<html>\n<head>\n<title>201 Created</title>\n</head><body>\n<h1>Created</h1>\n<p>Resource /dav/module-target-native-unit-capture-literal.txt has been created.</p>\n</body></html>\n"
+    },
+    {
+      "method": "GET",
+      "path": "/dav/module-target-native-unit-capture-literal.txt",
+      "status": 200,
+      "headers": {
+        "date": [
+          "Mon, 09 Nov 2026 11:59:54 GMT"
+        ],
+        "server": [
+          "Apache/2.4.62 (Unix)"
+        ],
+        "last-modified": [
+          "Mon, 09 Nov 2026 11:59:54 GMT"
+        ],
+        "etag": [
+          "W/\"1f-65fd6b3367cc8\""
+        ],
+        "accept-ranges": [
+          "bytes"
+        ],
+        "content-length": [
+          "31"
+        ],
+        "connection": [
+          "close"
+        ],
+        "content-type": [
+          "text/plain"
+        ]
+      },
+      "body": "module-target [literal] (a+b).*"
+    },
+    {
+      "method": "DELETE",
+      "path": "/dav/module-target-native-unit-capture-literal.txt",
+      "status": 204,
+      "headers": {
+        "date": [
+          "Mon, 09 Nov 2026 11:59:54 GMT"
+        ],
+        "server": [
+          "Apache/2.4.62 (Unix)"
+        ],
+        "connection": [
+          "close"
+        ]
+      },
+      "body": ""
+    },
+    {
+      "method": "GET",
+      "path": "/dav/module-target-native-unit-capture-literal.txt",
+      "status": 404,
+      "headers": {
+        "date": [
+          "Mon, 09 Nov 2026 11:59:54 GMT"
+        ],
+        "server": [
+          "Apache/2.4.62 (Unix)"
+        ],
+        "content-length": [
+          "196"
+        ],
+        "connection": [
+          "close"
+        ],
+        "content-type": [
+          "text/html; charset=iso-8859-1"
+        ]
+      },
+      "body": "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">\n<html><head>\n<title>404 Not Found</title>\n</head><body>\n<h1>Not Found</h1>\n<p>The requested URL was not found on this server.</p>\n</body></html>\n"
+    },
+    {
+      "method": "DELETE",
+      "path": "/dav/module-target-native-unit-capture-literal.txt",
+      "status": 404,
+      "headers": {
+        "date": [
+          "Mon, 09 Nov 2026 11:59:54 GMT"
+        ],
+        "server": [
+          "Apache/2.4.62 (Unix)"
+        ],
+        "content-length": [
+          "196"
+        ],
+        "connection": [
+          "close"
+        ],
+        "content-type": [
+          "text/html; charset=iso-8859-1"
+        ]
+      },
+      "body": "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">\n<html><head>\n<title>404 Not Found</title>\n</head><body>\n<h1>Not Found</h1>\n<p>The requested URL was not found on this server.</p>\n</body></html>\n"
+    },
+    {
+      "method": "GET",
+      "path": "/dav/module-target-native-unit-capture-multiline.txt",
+      "status": 404,
+      "headers": {
+        "date": [
+          "Mon, 09 Nov 2026 11:59:54 GMT"
+        ],
+        "server": [
+          "Apache/2.4.62 (Unix)"
+        ],
+        "content-length": [
+          "196"
+        ],
+        "connection": [
+          "close"
+        ],
+        "content-type": [
+          "text/html; charset=iso-8859-1"
+        ]
+      },
+      "body": "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">\n<html><head>\n<title>404 Not Found</title>\n</head><body>\n<h1>Not Found</h1>\n<p>The requested URL was not found on this server.</p>\n</body></html>\n"
+    },
+    {
+      "method": "PUT",
+      "path": "/dav/module-target-native-unit-capture-multiline.txt",
+      "status": 201,
+      "headers": {
+        "date": [
+          "Mon, 09 Nov 2026 11:59:54 GMT"
+        ],
+        "server": [
+          "Apache/2.4.62 (Unix)"
+        ],
+        "location": [
+          "http://127.0.0.1:62958/dav/module-target-native-unit-capture-multiline.txt"
+        ],
+        "content-length": [
+          "265"
+        ],
+        "connection": [
+          "close"
+        ],
+        "content-type": [
+          "text/html; charset=ISO-8859-1"
+        ]
+      },
+      "body": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n<html>\n<head>\n<title>201 Created</title>\n</head><body>\n<h1>Created</h1>\n<p>Resource /dav/module-target-native-unit-capture-multiline.txt has been created.</p>\n</body></html>\n"
+    },
+    {
+      "method": "GET",
+      "path": "/dav/module-target-native-unit-capture-multiline.txt",
+      "status": 200,
+      "headers": {
+        "date": [
+          "Mon, 09 Nov 2026 11:59:54 GMT"
+        ],
+        "server": [
+          "Apache/2.4.62 (Unix)"
+        ],
+        "last-modified": [
+          "Mon, 09 Nov 2026 11:59:54 GMT"
+        ],
+        "etag": [
+          "W/\"45-65fd6b336cc4c\""
+        ],
+        "accept-ranges": [
+          "bytes"
+        ],
+        "content-length": [
+          "69"
+        ],
+        "connection": [
+          "close"
+        ],
+        "content-type": [
+          "text/plain"
+        ]
+      },
+      "body": "Module target first line\nSecond line with \"quotes\" and a \\ backslash\n"
+    },
+    {
+      "method": "DELETE",
+      "path": "/dav/module-target-native-unit-capture-multiline.txt",
+      "status": 204,
+      "headers": {
+        "date": [
+          "Mon, 09 Nov 2026 11:59:54 GMT"
+        ],
+        "server": [
+          "Apache/2.4.62 (Unix)"
+        ],
+        "connection": [
+          "close"
+        ]
+      },
+      "body": ""
+    },
+    {
+      "method": "GET",
+      "path": "/dav/module-target-native-unit-capture-multiline.txt",
+      "status": 404,
+      "headers": {
+        "date": [
+          "Mon, 09 Nov 2026 11:59:54 GMT"
+        ],
+        "server": [
+          "Apache/2.4.62 (Unix)"
+        ],
+        "content-length": [
+          "196"
+        ],
+        "connection": [
+          "close"
+        ],
+        "content-type": [
+          "text/html; charset=iso-8859-1"
+        ]
+      },
+      "body": "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">\n<html><head>\n<title>404 Not Found</title>\n</head><body>\n<h1>Not Found</h1>\n<p>The requested URL was not found on this server.</p>\n</body></html>\n"
+    },
+    {
+      "method": "DELETE",
+      "path": "/dav/module-target-native-unit-capture-multiline.txt",
+      "status": 404,
+      "headers": {
+        "date": [
+          "Mon, 09 Nov 2026 11:59:54 GMT"
+        ],
+        "server": [
+          "Apache/2.4.62 (Unix)"
+        ],
+        "content-length": [
+          "196"
+        ],
+        "connection": [
+          "close"
+        ],
+        "content-type": [
+          "text/html; charset=iso-8859-1"
+        ]
+      },
+      "body": "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">\n<html><head>\n<title>404 Not Found</title>\n</head><body>\n<h1>Not Found</h1>\n<p>The requested URL was not found on this server.</p>\n</body></html>\n"
+    },
+    {
+      "method": "GET",
+      "path": "/auth/existing.txt",
+      "status": 401,
+      "headers": {
+        "date": [
+          "Mon, 09 Nov 2026 11:59:54 GMT"
+        ],
+        "server": [
+          "Apache/2.4.62 (Unix)"
+        ],
+        "www-authenticate": [
+          "Basic realm=\"Module target WebDAV\""
+        ],
+        "content-length": [
+          "381"
+        ],
+        "connection": [
+          "close"
+        ],
+        "content-type": [
+          "text/html; charset=iso-8859-1"
+        ]
+      },
+      "body": "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">\n<html><head>\n<title>401 Unauthorized</title>\n</head><body>\n<h1>Unauthorized</h1>\n<p>This server could not verify that you\nare authorized to access the document\nrequested.  Either you supplied the wrong\ncredentials (e.g., bad password), or your\nbrowser doesn't understand how to supply\nthe credentials required.</p>\n</body></html>\n"
+    },
+    {
+      "method": "GET",
+      "path": "/readonly/existing.txt",
+      "status": 200,
+      "headers": {
+        "date": [
+          "Mon, 09 Nov 2026 11:59:54 GMT"
+        ],
+        "server": [
+          "Apache/2.4.62 (Unix)"
+        ],
+        "last-modified": [
+          "Mon, 09 Nov 2026 11:38:13 GMT"
+        ],
+        "etag": [
+          "\"1f-65fd665a24e76\""
+        ],
+        "accept-ranges": [
+          "bytes"
+        ],
+        "content-length": [
+          "31"
+        ],
+        "connection": [
+          "close"
+        ],
+        "content-type": [
+          "text/plain"
+        ]
+      },
+      "body": "module-target-existing-content\n"
+    },
+    {
+      "method": "PUT",
+      "path": "/readonly/existing.txt",
+      "status": 403,
+      "headers": {
+        "date": [
+          "Mon, 09 Nov 2026 11:59:54 GMT"
+        ],
+        "server": [
+          "Apache/2.4.62 (Unix)"
+        ],
+        "content-length": [
+          "199"
+        ],
+        "connection": [
+          "close"
+        ],
+        "content-type": [
+          "text/html; charset=iso-8859-1"
+        ]
+      },
+      "body": "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">\n<html><head>\n<title>403 Forbidden</title>\n</head><body>\n<h1>Forbidden</h1>\n<p>You don't have permission to access this resource.</p>\n</body></html>\n"
+    },
+    {
+      "method": "GET",
+      "path": "/readonly/existing.txt",
+      "status": 200,
+      "headers": {
+        "date": [
+          "Mon, 09 Nov 2026 11:59:54 GMT"
+        ],
+        "server": [
+          "Apache/2.4.62 (Unix)"
+        ],
+        "last-modified": [
+          "Mon, 09 Nov 2026 11:38:13 GMT"
+        ],
+        "etag": [
+          "\"1f-65fd665a24e76\""
+        ],
+        "accept-ranges": [
+          "bytes"
+        ],
+        "content-length": [
+          "31"
+        ],
+        "connection": [
+          "close"
+        ],
+        "content-type": [
+          "text/plain"
+        ]
+      },
+      "body": "module-target-existing-content\n"
+    }
+  ]
+}

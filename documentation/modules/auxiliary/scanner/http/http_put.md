@@ -40,11 +40,15 @@ Set `ACTION` to either `PUT` or `DELETE`. Default is `PUT`.
 
 ### PUT
 
-Uploads files to the server. If `FILENAME` is not specified, a random `.txt` file is generated.
+Uploads files using `FILENAME`, whose default is `msf_http_put_test.txt`.
+Explicit filenames are used exactly, including names without an extension.
 
 ### DELETE
 
 Deletes the file specified in `FILENAME`.
+The file must contain the expected `FILEDATA` before deletion. A successful
+DELETE response and a subsequent 404 or 410 readback confirm deletion; a failed
+or unreachable readback leaves deletion unverified.
 
 ### PATH
 
@@ -53,6 +57,8 @@ Target path for upload or deletion.
 ### FILEDATA
 
 Content to upload when using PUT.
+Verification requires a successful upload response and an HTTP 200 body
+containing the literal uploaded bytes. Empty content requires an empty body.
 
 ## Scenarios
 

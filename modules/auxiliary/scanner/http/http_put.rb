@@ -47,9 +47,9 @@ class MetasploitModule < Msf::Auxiliary
 
   #
   # Send a normal HTTP request and see if we successfully uploaded or deleted a file.
-  # If successful, return true, otherwise false.
+  # Returns nil when the response cannot establish the file's state.
   #
-  def file_exists(path, data, ip)
+  def file_exists(path, data, ip, verify_contents: true)
     begin
       res = send_request_cgi(
         {
@@ -58,13 +58,21 @@ class MetasploitModule < Msf::Auxiliary
           'ctype' => 'text/plain',
           'data' => data,
         }, 20
-      ).to_s
+      )
     rescue ::Exception => e
       print_error("#{ip}: Error: #{e.to_s}")
       return nil
     end
 
-    return (res =~ /#{data}/) ? true : false
+    return nil unless res
+    return false if [404, 410].include?(res.code)
+    return nil unless res.code == 200
+    return true unless verify_contents
+
+    # Match wire bytes even when the upload and response have different Ruby encoding labels.
+    body = res.body.to_s.b
+    expected = data.to_s.b
+    expected.empty? ? body.empty? : body.include?(expected)
   end
 
   #
@@ -112,20 +120,15 @@ class MetasploitModule < Msf::Auxiliary
   # Main function for the module, duh!
   #
   def run_host(ip)
-    path = datastore['PATH']
     data = datastore['FILEDATA']
-
-    if path[-1, 1] != '/'
-      path += '/'
-    end
-
-    path += datastore['FILENAME']
+    filename = datastore['FILENAME'].to_s
+    path = normalize_uri(datastore['PATH'], filename)
 
     case action.name
     when 'PUT'
       # Append filename if there isn't one
-      if path !~ /(.+\.\w+)$/
-        path << "#{Rex::Text.rand_text_alpha(5)}.txt"
+      if filename.empty?
+        path = normalize_uri(path, "#{Rex::Text.rand_text_alpha(5)}.txt")
         vprint_status("No filename specified. Using: #{path}")
       end
 
@@ -134,7 +137,7 @@ class MetasploitModule < Msf::Auxiliary
       vprint_status("#{ip}: Reply: #{res.code.to_s}") if not res.nil?
 
       # Check file
-      if not res.nil? and file_exists(path, data, ip)
+      if successful_response?(res) && file_exists(path, data, ip)
         turl = "#{(ssl ? 'https' : 'http')}://#{ip}:#{rport}#{path}"
         print_good("File uploaded: #{turl}")
         report_vuln(
@@ -152,10 +155,16 @@ class MetasploitModule < Msf::Auxiliary
 
     when 'DELETE'
       # Check file before deleting
-      if path !~ /(.+\.\w+)$/
+      if filename.empty?
         print_error("You must supply a filename")
         return
-      elsif not file_exists(path, data, ip)
+      end
+
+      exists = file_exists(path, data, ip)
+      if exists.nil?
+        print_error('Unable to verify file before DELETE')
+        return
+      elsif !exists
         print_error("File is already gone. Will not continue DELETE")
         return
       end
@@ -165,7 +174,11 @@ class MetasploitModule < Msf::Auxiliary
       vprint_status("#{ip}: Reply: #{res.code.to_s}") if not res.nil?
 
       # Check if DELETE was successful
-      if res.nil? or file_exists(path, data, ip)
+      if !successful_response?(res)
+        print_error("#{ip}: DELETE failed. File is still there.")
+      elsif (exists = file_exists(path, data, ip, verify_contents: false)).nil?
+        print_error('Unable to verify file deletion')
+      elsif exists
         print_error("#{ip}: DELETE failed. File is still there.")
       else
         turl = "#{(ssl ? 'https' : 'http')}://#{ip}:#{rport}#{path}"
@@ -182,5 +195,11 @@ class MetasploitModule < Msf::Auxiliary
         )
       end
     end
+  end
+
+  private
+
+  def successful_response?(response)
+    response && response.code.between?(200, 299)
   end
 end
