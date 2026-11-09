@@ -1,0 +1,22 @@
+spec: spec/acceptance/module_targets/ntp_spec.rb
+expected_examples: 6
+console: true
+modules:
+  - auxiliary/scanner/ntp/ntp_readvar
+ports:
+  open: {port: 123, protocol: udp}
+  closed: {port: 123, protocol: udp}
+  unrelated: {port: 53, protocol: udp}
+support_files:
+  - lib/msf/core/auxiliary/ntp.rb
+  - lib/msf/core/auxiliary/drdos.rb
+  - lib/msf/core/auxiliary/udp_scanner.rb
+  - lib/rex/proto/ntp/header.rb
+  - lib/rex/proto/ntp/modes.rb
+  - test/module_targets/dns/compose.yaml
+  - test/module_targets/dns/Dockerfile
+  - test/module_targets/dns/common.conf
+  - test/module_targets/dns/open.conf
+  - test/module_targets/dns/closed.conf
+  - test/module_targets/dns/module-target.test.zone
+  - test/module_targets/dns/192.0.2.rev

@@ -1,0 +1,20 @@
+x-ntp: &ntp
+  build: .
+  cap_drop: [SYS_TIME]
+  ports: ["127.0.0.1::123/udp"]
+  healthcheck:
+    test: [CMD-SHELL, 'timeout 3 ntpq -n -c rv 127.0.0.1 | grep -q module-target-native-ntp-proof']
+    interval: 5s
+    timeout: 4s
+    retries: 24
+
+services:
+  open:
+    <<: *ntp
+  closed:
+    <<: *ntp
+    command: [/usr/sbin/ntpd, -n, -c, /etc/module-target/closed.conf, -p, /tmp/module-target-ntpd.pid, -l, /dev/stdout]
+  unrelated:
+    extends:
+      file: ../dns/compose.yaml
+      service: open
