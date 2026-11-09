@@ -39,6 +39,7 @@ RSpec.describe Msf::Auxiliary::Etcd do
     it 'does not identify unrelated Apache JSON or report an etcd service' do
       response.body = File.binread(File.join(fixture_dir, 'unrelated-version.json'))
       expect(mod).not_to receive(:report_service)
+      expect(mod).not_to receive(:vprint_error)
 
       expect(mod.fingerprint_service('/')).to be_nil
     end

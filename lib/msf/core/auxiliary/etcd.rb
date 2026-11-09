@@ -41,7 +41,7 @@ module Msf
       end
 
       unless banner.is_a?(Hash) && %w[etcdserver etcdcluster].all? { |field| banner[field].is_a?(String) && banner[field].match?(/\A\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?\z/) }
-        vprint_error('Version response does not identify etcd server and cluster versions')
+        vprint_status('Version response does not identify etcd server and cluster versions')
         return
       end
 
