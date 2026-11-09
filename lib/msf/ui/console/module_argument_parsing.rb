@@ -188,7 +188,10 @@ module ModuleArgumentParsing
   end
 
   def append_datastore_option(datastore_options, name, value)
-    if name.casecmp?('RHOST') || name.casecmp?('RHOSTS')
+    # Some modules register a scalar RHOST rather than the usual RHOSTS alias.
+    if name.casecmp?('RHOST') && mod&.options&.key?('RHOST') && !mod.options.key?('RHOSTS')
+      datastore_options['RHOST'] = value
+    elsif name.casecmp?('RHOST') || name.casecmp?('RHOSTS')
       new_value = quote_whitespaced_value(value)
       if !datastore_options['RHOSTS']
         datastore_options['RHOSTS'] = new_value

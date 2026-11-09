@@ -22,6 +22,57 @@ RHOST_EXAMPLES = [
 # Shared examples to ensure that all command parsing supports the same ways of
 # supplying inline datastore values
 RSpec.shared_examples_for 'a command which parses datastore values' do |opts|
+  context 'when the module explicitly registers only a single RHOST address' do
+    before do
+      current_mod.send(:register_options, [Msf::OptAddress.new('RHOST', [true, 'DNS server address'])])
+    end
+
+    it 'keeps an explicitly named RHOST for the registered single-host option' do
+      expect(subject.send(opts[:method_name], ['rhost=192.0.2.53'])).to include(datastore_options: { 'RHOST' => '192.0.2.53' })
+    end
+
+    it 'keeps a single IPv6 RHOST as an address rather than a host range' do
+      expect(subject.send(opts[:method_name], ['RHOST=2001:db8::53'])).to include(datastore_options: { 'RHOST' => '2001:db8::53' })
+    end
+
+    it 'preserves the explicit RHOST with the options flag' do
+      expect(subject.send(opts[:method_name], ['-o', 'RHOST=192.0.2.53'])).to include(datastore_options: { 'RHOST' => '192.0.2.53' })
+    end
+
+    it 'uses the last single-host assignment instead of creating an invalid address list' do
+      expect(subject.send(opts[:method_name], ['RHOST=192.0.2.53', 'rhost=192.0.2.54'])).to include(datastore_options: { 'RHOST' => '192.0.2.54' })
+    end
+
+    it 'does not reinterpret an explicit plural host option' do
+      expect(subject.send(opts[:method_name], ['RHOSTS=192.0.2.53'])).to include(datastore_options: { 'RHOSTS' => '192.0.2.53' })
+    end
+
+    it 'leaves bare host arguments using the established plural form' do
+      expect(subject.send(opts[:method_name], ['192.0.2.53'])).to include(datastore_options: { 'RHOSTS' => '192.0.2.53' })
+    end
+  end
+
+  context 'when the module registers the usual RHOSTS option' do
+    before { current_mod.send(:register_options, [Msf::Opt::RHOSTS]) }
+
+    it 'keeps accumulating RHOST aliases and plural hosts' do
+      expect(subject.send(opts[:method_name], ['RHOST=192.0.2.53', 'rhosts=192.0.2.54'])).to include(datastore_options: { 'RHOSTS' => '192.0.2.53 192.0.2.54' })
+    end
+  end
+
+  context 'when both singular and plural options are explicitly registered' do
+    before do
+      current_mod.send(:register_options, [
+        Msf::OptAddress.new('RHOST', [true, 'A single address']),
+        Msf::OptRhosts.new('RHOSTS', [true, 'A host range'])
+      ])
+    end
+
+    it 'retains the plural alias behavior' do
+      expect(subject.send(opts[:method_name], ['RHOST=192.0.2.53'])).to include(datastore_options: { 'RHOSTS' => '192.0.2.53' })
+    end
+  end
+
   context 'when the -o option flag is supplied' do
     it 'shows the help menu when no value is supplied' do
       expect(subject.send(opts[:method_name], ['-o'])).to be_nil
@@ -282,6 +333,14 @@ RSpec.describe Msf::Ui::Console::ModuleArgumentParsing do
     allow(subject).to receive(:cmd_run_help)
     allow(subject).to receive(:cmd_exploit_help)
     allow(subject).to receive(:cmd_check_help)
+  end
+
+  describe '#append_datastore_option without a selected module' do
+    before { allow(subject).to receive(:mod).and_return(nil) }
+
+    it 'preserves the existing plural alias fallback' do
+      expect(subject.send(:append_datastore_option, {}, 'rhost', '192.0.2.53')).to eq('RHOSTS' => '192.0.2.53')
+    end
   end
 
   describe '#parse_check_opts' do
