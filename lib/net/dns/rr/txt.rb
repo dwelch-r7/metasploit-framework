@@ -37,6 +37,10 @@ module Net
           @txt_pack
         end
 
+        def get_inspect
+          @txt
+        end
+
         def subclass_new_from_hash(args)
           if args.has_key? :txt
             @txt = args[:txt].strip

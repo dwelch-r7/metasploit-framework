@@ -78,6 +78,18 @@ RSpec.describe Rex::Proto::DNS::Resolver do
       expect(resolver.axfr('module-target.test')).to all(be_a(Net::DNS::Packet))
     end
 
+    it 'prints the TXT value from the native transfer' do
+      record = resolver.axfr('module-target.test').flat_map(&:answer).find { |answer| answer.type == 'TXT' }
+
+      expect(record.inspect).to match(/\bTXT\s+module-target-native-dns-proof\s*\z/)
+    end
+
+    it 'prints every SRV field from the native transfer' do
+      record = resolver.axfr('module-target.test').flat_map(&:answer).find { |answer| answer.type == 'SRV' }
+
+      expect(record.inspect).to match(/\bSRV\s+0\s+100\s+389\s+ldap\.module-target\.test\.\s*\z/)
+    end
+
     context 'when the final message contains data before its closing SOA' do
       let(:tcp_data) do
         records = Dnsruby::Message.decode(axfr_body).answer

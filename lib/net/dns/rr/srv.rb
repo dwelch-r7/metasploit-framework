@@ -28,6 +28,10 @@ module Net
         def set_type
           @type = Net::DNS::RR::Types.new("SRV")
         end
+
+        def get_inspect
+          "#{@priority} #{@weight} #{@port} #{@host}"
+        end
         
         def subclass_new_from_binary(data,offset)
           off_end = offset + @rdlength
