@@ -204,15 +204,15 @@ module DNS
     #
     # Send request over TCP
     #
-    # @param packet [Net::DNS::Packet] Packet associated with packet_data
+    # @param _packet [Net::DNS::Packet] Packet associated with packet_data
     # @param packet_data [String] Data segment of DNS request packet
     # @param nameservers [Array<[String,Hash]>] List of nameservers to use for this request, and their associated socket options
     # @param prox [String] Proxy configuration for TCP socket
     #
-    # @return [String] Raw DNS reply
-    def send_tcp(packet, packet_data, nameservers, prox = @config[:proxies])
-      ans = nil
-      length = [packet_data.size].pack("n")
+    # @return [Array, nil] Raw response and sender metadata, or nil on failure.
+    #   With a block, yields each complete response and returns nil.
+    def send_tcp(_packet, packet_data, nameservers, prox = @config[:proxies])
+      framed_request = [packet_data.bytesize].pack('n') + packet_data
       nameservers.each do |ns, socket_options|
         socket = nil
         config = {
@@ -228,78 +228,52 @@ module DNS
           @logger.warn("Session #{config['Comm'].sid} not active, and cannot be used to resolve DNS")
           next
         end
+        config['LocalPort'] = @config[:source_port] if @config[:source_port] > 0
+        unless @config[:source_host].nil? || @config[:source_host].to_s == '0.0.0.0'
+          config['LocalHost'] = @config[:source_host]
+        end
+        authority = Rex::Socket.to_authority(ns.to_s, @config[:port])
 
-        suffix = " over session #{@config['Comm'].sid}" unless @config['Comm'].nil?
-        if @config[:source_port] > 0
-          config['LocalPort'] = @config[:source_port]
-        end
-        if @config[:source_host].to_s != '0.0.0.0'
-          config['LocalHost'] = @config[:source_host] unless @config[:source_host].nil?
-        end
+        processing_response = false
         begin
-          suffix = ''
-          begin
+          # Match the base resolver's exchange deadline, including partial reads.
+          @config[:tcp_timeout].timeout do
             socket = Rex::Socket::Tcp.create(config)
-          rescue
-            @logger.warn "TCP Socket could not be established to #{ns}:#{@config[:port]} #{@config[:proxies]}#{suffix}"
-            next
-          end
-          next unless socket #
-          @logger.info "Contacting nameserver #{ns} port #{@config[:port]}#{suffix}"
-          socket.write(length+packet_data)
-          got_something = false
-          loop do
-            buffer = ""
-            attempts = 3
-            begin
-              ans = socket.recv(2)
-            rescue Errno::ECONNRESET
-              @logger.warn "TCP Socket got Errno::ECONNRESET from #{ns}:#{@config[:port]} #{@config[:proxies]}#{suffix}"
-              attempts -= 1
-              retry if attempts > 0
-            end
-            if ans.size == 0
-              if got_something
-                break #Proper exit from loop
-              else
-                @logger.warn "Connection reset to nameserver #{ns}#{suffix}, trying next."
-                throw :next_ns
+            socket.write(framed_request)
+            loop do
+              # DNS/TCP uses a two-octet length prefix; TCP may split either
+              # prefix or payload across reads (RFC 7766 section 8):
+              # https://www.rfc-editor.org/rfc/rfc7766#section-8
+              prefix = read_tcp_bytes(socket, 2)
+              break unless prefix
+
+              length = prefix.unpack1('n')
+              if length.zero?
+                @logger.warn("Empty DNS/TCP message from #{authority}")
+                break
               end
-            end
-            got_something = true
-            len = ans.unpack("n")[0]
+              response = read_tcp_bytes(socket, length)
+              raise EOFError, 'Connection closed before the DNS/TCP message body' unless response
 
-            @logger.info "Receiving #{len} bytes..."
+              answer = [response, ['', @config[:port], ns.to_s, ns.to_s]]
+              return answer unless block_given?
 
-            if len.nil? or len == 0
-              @logger.warn "Receiving 0 length packet from nameserver #{ns}#{suffix}, trying next."
-              throw :next_ns
-            end
-
-            while (buffer.size < len)
-              left = len - buffer.size
-              temp,from = socket.recvfrom(left)
-              buffer += temp
-            end
-
-            unless buffer.size == len
-              @logger.warn "Malformed packet from nameserver #{ns}#{suffix}, trying next."
-              throw :next_ns
-            end
-            if block_given?
-              yield [buffer,["",@config[:port],ns.to_s,ns.to_s]]
-            else
-              return [buffer,["",@config[:port],ns.to_s,ns.to_s]]
+              processing_response = true
+              yield answer
+              processing_response = false
             end
           end
-        rescue Timeout::Error
-          @logger.warn "Nameserver #{ns}#{suffix} not responding within TCP timeout, trying next one"
+        rescue Rex::ConnectionError, IOError, SystemCallError, Timeout::Error => e
+          # Callback failures belong to the caller, not nameserver failover.
+          raise if processing_response
+
+          @logger.warn("DNS/TCP request to #{authority} failed (#{e.class})")
           next
         ensure
           socket.close if socket
         end
       end
-      return nil
+      nil
     end
 
     #
@@ -408,6 +382,24 @@ module DNS
     end
 
     private
+
+    # @param socket [Object] Connected Rex TCP stream.
+    # @param length [Integer] Number of octets to receive.
+    # @return [String, nil] Complete data, or nil for EOF before any data.
+    # @raise [EOFError] If the peer closes partway through a framed field.
+    def read_tcp_bytes(socket, length)
+      buffer = String.new(encoding: ::Encoding::BINARY)
+      while buffer.bytesize < length
+        chunk = socket.recv(length - buffer.bytesize)
+        if chunk.nil? || chunk.empty?
+          return nil if buffer.empty?
+
+          raise EOFError, 'Connection closed partway through a DNS/TCP message'
+        end
+        buffer << chunk
+      end
+      buffer
+    end
 
     def preprocess_query_arguments(name, type, cls)
       return [name, type, cls] if name.class == IPAddr

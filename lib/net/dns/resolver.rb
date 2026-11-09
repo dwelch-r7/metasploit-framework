@@ -1034,11 +1034,15 @@ module Net # :nodoc:
           begin
             return unless (response = Net::DNS::Packet.parse(ans[0],ans[1]))
             return if response.answer.empty?
-            if response.answer[0].type == "SOA"
-              soa += 1
-              if soa >= 2
-                break
-              end
+            # Both SOAs can share one message (RFC 5936 section 2.2):
+            # https://www.rfc-editor.org/rfc/rfc5936#section-2.2
+            # Waiting for a second message can hang on a persistent TCP socket.
+            soa += response.answer.count { |record| record.type == 'SOA' }
+            if soa >= 2
+              # Preserve the historical exclusion of a closing-only packet,
+              # but retain records that share the final message with its SOA.
+              answers << response unless response.answer.length == 1
+              break
             end
             answers << response
           rescue NameError => e

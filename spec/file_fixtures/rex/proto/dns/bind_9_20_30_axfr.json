@@ -1,0 +1,88 @@
+{
+  "source": "Original ISC BIND 9.20.30 on Alpine 3.24.2; native Ruby stdlib Resolv AXFR capture, 2026-11-09",
+  "image": "internetsystemsconsortium/bind9:9.20@sha256:66092edb53c081fa11b1fa8219e99065b0f497cb38f568ba789702a4c10e2590",
+  "domain": "module-target.test",
+  "request_base64": "QhIBAAABAAAAAAAADW1vZHVsZS10YXJnZXQEdGVzdAAA/AAB",
+  "frames": [
+    {
+      "prefix_base64": "AYM=",
+      "body_base64": "QhKEAAABAA0AAAAADW1vZHVsZS10YXJnZXQEdGVzdAAA/AABwAwABgABAAAAPAAmAm5zwAwKaG9zdG1hc3RlcsAMeMP/tQAAADwAAAA8AAAOEAAAADzADAACAAEAAAA8AALAMMAMAAEAAQAAADwABMAAAgrADAAcAAEAAAA8ABAgAQ24AAAAAAAAAAAAAAAQwAwADwABAAAAPAAJAAoEbWFpbMAMwAwAEAABAAAAPAAfHm1vZHVsZS10YXJnZXQtbmF0aXZlLWRucy1wcm9vZgVfbGRhcARfdGNwwAwAIQABAAAAPAAfAAAAZAGFBGxkYXANbW9kdWxlLXRhcmdldAR0ZXN0AMDtAAEAAQAAADwABMAAAlnAngABAAEAAAA8AATAAAIZwDAAAQABAAAAPAAEwAACNQEqBHdpbGTADAABAAEAAAA8AATAAAJjA3d3d8AMAAUAAQAAADwAAsAMwAwABgABAAAAPAAYwDDANXjD/7UAAAA8AAAAPAAADhAAAAA8",
+      "bytes": 387,
+      "rcode": 0,
+      "records": [
+        {
+          "name": "module-target.test",
+          "ttl": 60,
+          "type": "Resolv::DNS::Resource::IN::SOA"
+        },
+        {
+          "name": "module-target.test",
+          "ttl": 60,
+          "type": "Resolv::DNS::Resource::IN::NS"
+        },
+        {
+          "name": "module-target.test",
+          "ttl": 60,
+          "type": "Resolv::DNS::Resource::IN::A"
+        },
+        {
+          "name": "module-target.test",
+          "ttl": 60,
+          "type": "Resolv::DNS::Resource::IN::AAAA"
+        },
+        {
+          "name": "module-target.test",
+          "ttl": 60,
+          "type": "Resolv::DNS::Resource::IN::MX"
+        },
+        {
+          "name": "module-target.test",
+          "ttl": 60,
+          "type": "Resolv::DNS::Resource::IN::TXT"
+        },
+        {
+          "name": "_ldap._tcp.module-target.test",
+          "ttl": 60,
+          "type": "Resolv::DNS::Resource::IN::SRV"
+        },
+        {
+          "name": "ldap.module-target.test",
+          "ttl": 60,
+          "type": "Resolv::DNS::Resource::IN::A"
+        },
+        {
+          "name": "mail.module-target.test",
+          "ttl": 60,
+          "type": "Resolv::DNS::Resource::IN::A"
+        },
+        {
+          "name": "ns.module-target.test",
+          "ttl": 60,
+          "type": "Resolv::DNS::Resource::IN::A"
+        },
+        {
+          "name": "*.wild.module-target.test",
+          "ttl": 60,
+          "type": "Resolv::DNS::Resource::IN::A"
+        },
+        {
+          "name": "www.module-target.test",
+          "ttl": 60,
+          "type": "Resolv::DNS::Resource::IN::CNAME"
+        },
+        {
+          "name": "module-target.test",
+          "ttl": 60,
+          "type": "Resolv::DNS::Resource::IN::SOA"
+        }
+      ]
+    }
+  ],
+  "refused_frame": {
+    "prefix_base64": "ACQ=",
+    "body_base64": "QhKBBQABAAAAAAAADW1vZHVsZS10YXJnZXQEdGVzdAAA/AAB",
+    "bytes": 36,
+    "rcode": 5,
+    "records": []
+  }
+}
