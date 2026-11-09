@@ -1,0 +1,46 @@
+x-etcd: &etcd
+  image: quay.io/coreos/etcd:v3.5.18@sha256:d0a641d5fbcc89678c931a61b7de7b8a1cf097149f135c9c73bc81d076a1494b
+  entrypoint: [/usr/local/bin/etcd]
+  command: [--name=default, --data-dir=/etcd-data, --listen-client-urls=http://0.0.0.0:2379, --advertise-client-urls=http://127.0.0.1:2379, --listen-peer-urls=http://127.0.0.1:2380, --initial-advertise-peer-urls=http://127.0.0.1:2380, --initial-cluster=default=http://127.0.0.1:2380]
+  environment:
+    ETCD_ENABLE_V2: 'true'
+  ports: ["127.0.0.1::2379"]
+  mem_limit: 192m
+  healthcheck:
+    test: [CMD, /usr/local/bin/etcdctl, --endpoints=http://127.0.0.1:2379, endpoint, health]
+    interval: 2s
+    timeout: 3s
+    retries: 40
+
+services:
+  old:
+    <<: *etcd
+    image: quay.io/coreos/etcd:v3.4.35@sha256:862f26480bf8a0932a33d916924ae2dd3969174948c97720d15369d086333fff
+    platform: linux/amd64
+  modern:
+    <<: *etcd
+  secured:
+    <<: *etcd
+  empty:
+    <<: *etcd
+  v2_disabled:
+    <<: *etcd
+    environment:
+      ETCD_ENABLE_V2: 'false'
+  prefix:
+    extends: {file: ../http/compose.yaml, service: apache}
+    depends_on: {modern: {condition: service_healthy}}
+    command:
+      - httpd-foreground
+      - -c
+      - LoadModule proxy_module modules/mod_proxy.so
+      - -c
+      - LoadModule proxy_http_module modules/mod_proxy_http.so
+      - -c
+      - ProxyPass /etcd/ http://modern:2379/
+      - -c
+      - ProxyPassReverse /etcd/ http://modern:2379/
+  unrelated:
+    extends: {file: ../http/compose.yaml, service: apache}
+    volumes:
+      - ./unrelated:/usr/local/apache2/htdocs:ro

@@ -13,16 +13,26 @@ unauthenticated users access to the data stored via HTTP API.
 
 ### Docker
 
+For digest-pinned targets and automated exact-loot/authentication tests, see
+the [managed etcd lab](../../../../../test/module_targets/etcd/README.md).
+This collector uses the legacy v2 keys API. A working v3 store does not imply
+that v2 collection is enabled; the lab verifies both states independently.
+Use `HttpUsername` and `HttpPassword` for native v2 Basic authentication.
+
   1. `docker run -p 2379:2379 miguelgrinberg/easy-etcd`
 
 ## Verification Steps
 
   1. Install the application
   2. Start msfconsole
-  3. Do: ```use auxiliary/scanner/etcd/open_key_scanner```
-  4. Do: ```set rhosts [IPs]```
-  5. Do: ```run```
+  3. Do: `use auxiliary/scanner/etcd/open_key_scanner`
+  4. Do: `set rhosts [IPs]`
+  5. Do: `run`
   6. You should get a JSON response, and the data saved to `loot`.
+
+## Options
+
+No specific options
 
 ## Scenarios
 

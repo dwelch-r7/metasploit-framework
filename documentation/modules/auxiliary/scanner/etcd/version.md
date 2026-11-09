@@ -4,16 +4,25 @@ etcd is a distributed reliable key-value store.  It exposes and API from which y
 
 ### Docker
 
+For digest-pinned targets, native controls and automated version/key tests, see
+the [managed etcd lab](../../../../../test/module_targets/etcd/README.md).
+It covers etcd 3.4.35 and 3.5.18, enabled/disabled v2 access, authentication,
+an empty store, a reverse-proxy base path and unrelated HTTP content.
+
   1. `docker run -p 2379:2379 miguelgrinberg/easy-etcd`
 
 ## Verification Steps
 
   1. Install the application
   2. Start msfconsole
-  3. Do: ```use auxiliary/scanner/etcd/version```
-  4. Do: ```set rhosts [IPs]```
-  5. Do: ```run```
+  3. Do: `use auxiliary/scanner/etcd/version`
+  4. Do: `set rhosts [IPs]`
+  5. Do: `run`
   6. You should get a JSON response for the version and the service identified in `services`.
+
+## Options
+
+No specific options
 
 ## Scenarios
 

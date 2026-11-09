@@ -1,0 +1,20 @@
+spec: spec/acceptance/module_targets/etcd_spec.rb
+expected_examples: 16
+console: true
+modules:
+  - auxiliary/scanner/etcd/version
+  - auxiliary/scanner/etcd/open_key_scanner
+ports:
+  old: 2379
+  modern: 2379
+  secured: 2379
+  empty: 2379
+  v2_disabled: 2379
+  prefix: 80
+  unrelated: 80
+support_files:
+  - lib/msf/core/auxiliary/etcd.rb
+  - test/module_targets/http/compose.yaml
+  - test/module_targets/http/Dockerfile
+  - test/module_targets/http/module-target.conf
+  - test/module_targets/http/htdocs/index.html
