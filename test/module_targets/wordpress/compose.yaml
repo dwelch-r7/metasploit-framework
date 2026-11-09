@@ -1,0 +1,64 @@
+x-wordpress: &wordpress
+  build: .
+  depends_on:
+    db: {condition: service_healthy}
+  environment: &environment
+    WORDPRESS_DB_HOST: db:3306
+    WORDPRESS_DB_USER: module_target
+    WORDPRESS_DB_PASSWORD: module-target-db-password
+    WORDPRESS_DB_NAME: wp_root
+    LAB_PREFIX: ''
+    WORDPRESS_CONFIG_EXTRA: |
+      define('WP_HOME', 'http://' . ($$_SERVER['HTTP_HOST'] ?? 'module-target.test') . (getenv('LAB_PREFIX') ?: ''));
+      define('WP_SITEURL', WP_HOME);
+      define('DISABLE_WP_CRON', true);
+      define('AUTOMATIC_UPDATER_DISABLED', true);
+      define('WP_AUTO_UPDATE_CORE', false);
+      define('WP_HTTP_BLOCK_EXTERNAL', true);
+      define('FS_METHOD', 'direct');
+  ports: ["127.0.0.1::80"]
+  mem_limit: 384m
+  healthcheck:
+    test: [CMD-SHELL, 'test -f /tmp/module-target-ready && curl --fail --silent http://127.0.0.1$${LAB_PREFIX}/wp-login.php >/dev/null']
+    interval: 3s
+    timeout: 5s
+    retries: 40
+
+services:
+  db:
+    build:
+      context: .
+      dockerfile: db.Dockerfile
+    environment:
+      MARIADB_ROOT_PASSWORD: module-target-root-password
+    mem_limit: 512m
+    healthcheck:
+      test: [CMD-SHELL, 'mariadb --user=root --password=module-target-root-password --batch --skip-column-names --execute="SELECT COUNT(*) FROM mysql.user WHERE User=\"module_target\"" | grep -q 1']
+      interval: 2s
+      timeout: 3s
+      retries: 45
+  root:
+    <<: *wordpress
+  prefix:
+    <<: *wordpress
+    working_dir: /var/www/html/wordpress
+    environment:
+      <<: *environment
+      WORDPRESS_DB_NAME: wp_prefix
+      LAB_PREFIX: /wordpress
+  plain:
+    <<: *wordpress
+    environment:
+      <<: *environment
+      WORDPRESS_DB_NAME: wp_plain
+      LAB_PLAIN: '1'
+  blocked:
+    <<: *wordpress
+    environment:
+      <<: *environment
+      WORDPRESS_DB_NAME: wp_blocked
+      LAB_XMLRPC_BLOCKED: '1'
+  unrelated:
+    extends:
+      file: ../http/compose.yaml
+      service: apache

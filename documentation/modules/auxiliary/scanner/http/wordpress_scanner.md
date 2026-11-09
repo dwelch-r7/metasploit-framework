@@ -1,5 +1,8 @@
 ## Vulnerable Application
 
+For reproducible core discovery and login checks, see the
+[WordPress container lab](../../../../../test/module_targets/wordpress/README.md).
+
 Detects Wordpress installations and their version number.
 Also, optionally, detects themes and plugins.
 

@@ -1,5 +1,8 @@
 ## Descriptions
 
+For reproducible core discovery and login checks, see the
+[WordPress container lab](../../../../../test/module_targets/wordpress/README.md).
+
 This auxiliary module will brute-force a WordPress installation and first determine valid usernames and then perform a password-guessing attack. WordPress and WordPress MU before 2.8.1 exhibit different behavior for a failed login attempt depending on whether the user account exists, which allows remote attackers to enumerate valid usernames. NOTE: The vendor reportedly disputes the significance of this issue, indicating that the behavior exists for "user convenience." More information can be found in [CVE-2009-2335](https://www.cvedetails.com/cve/cve-2009-2335).
 
 ## Verification Steps

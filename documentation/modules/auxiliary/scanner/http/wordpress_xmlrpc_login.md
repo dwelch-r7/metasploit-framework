@@ -1,5 +1,8 @@
 ## Vulnerable Application
 
+For reproducible core discovery and login checks, see the
+[WordPress container lab](../../../../../test/module_targets/wordpress/README.md).
+
   This module attempts to authenticate against a Wordpress-site (via 
   XMLRPC) using username and password combinations indicated by the 
   `USER_FILE`, `PASS_FILE`, and `USERPASS_FILE` options.

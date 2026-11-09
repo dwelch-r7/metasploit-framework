@@ -1,0 +1,22 @@
+#!/bin/sh
+set -eu
+
+# The upstream entrypoint has copied the genuine core and generated wp-config.
+php /opt/module-target/seed.php
+if [ "${LAB_XMLRPC_BLOCKED:-}" != '1' ]; then
+  # Exercise a deployment that deliberately publishes the bundled plugin's
+  # metadata, while the blocked profile retains Akismet's vendor protection.
+  cat >> wp-content/plugins/akismet/.htaccess <<'APACHE'
+<Files "readme.txt">
+  Require all granted
+</Files>
+APACHE
+fi
+if [ "${LAB_XMLRPC_BLOCKED:-0}" = 1 ]; then
+  cat > /etc/apache2/conf-enabled/module-target-xmlrpc.conf <<'EOF'
+<Location "/xmlrpc.php">
+  Require all denied
+</Location>
+EOF
+fi
+exec /usr/local/bin/module-target-apache "$@"
