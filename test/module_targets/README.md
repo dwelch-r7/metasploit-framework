@@ -21,7 +21,8 @@ The runner currently runs on Linux or macOS with a local Docker Engine. It
 creates a fresh, uniquely named Compose project for each family,
 waits for health checks, discovers random host loopback ports, runs its acceptance
 spec, and removes its containers, networks and volumes. It uses an isolated
-Framework configuration directory. It does not require a Framework database.
+Framework configuration directory. Most profiles need no Framework database;
+the credential-reporting profile creates its own disposable database.
 Do not use the labs against external services; their credentials and intentional
 weaknesses are public fixtures.
 
@@ -153,11 +154,17 @@ legacy/current WordPress Multicall authentication with a verified 4.4 boundary
 repair. All selected recorded inputs remain current, exact counts match and
 owned cleanup passes. The separate administrator upload/session draft remains
 unqualified while repeated staged-session behavior is investigated.
-The [current qualification record](VERIFICATION-20261109-proxy-history.md) records
+The [earlier qualification record](VERIFICATION-20261109-proxy-history.md) records
 **102 runtime modules, 41 families and 592 functional cases**, adding Linux
 history/hash collection and real HTTP forward-proxy detection. A separate
 75-case HTTP/WebDAV/WordPress regression passes after the CONNECT parser repair.
 All selected recorded inputs are current, exact counts match and owned cleanup
 passes. The retained WordPress admin reproducer remains explicitly unqualified.
+The [current qualification record](VERIFICATION-20261109-ansible-joomla-reporting.md)
+records **104 runtime modules, 44 families and 629 functional cases**, adding
+Ansible controller collection, Joomla API access checks and independent SQL
+verification of persisted credentials. All selected recorded inputs are current,
+exact counts match and owned cleanup passes. Ansible deployment, Drupal and
+JBoss are separate investigations and are not included in this checkpoint.
 The full campaign remains incomplete while feasible, valuable modules await review
 or functional verification.

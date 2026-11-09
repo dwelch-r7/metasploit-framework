@@ -445,8 +445,23 @@ HTTP/WebDAV/WordPress regression passes all 75 cases. The selected checkpoint is
 **102 modules, 41 families and 592 cases**, with current recorded inputs, exact
 counts and owned cleanup. See the [proxy/history verification](VERIFICATION-20261109-proxy-history.md).
 WordPress admin's permission repair and unqualified session reproducer are
-retained separately; no session repair is claimed. Ansible qualification is
-underway and not included yet.
+retained separately; no session repair is claimed.
+
+Ansible controller collection subsequently passed fourteen genuine root/nonroot
+shell and Meterpreter cases. Independent native SSH/Ansible controls separated
+five collection defects from target setup: incorrect inventory serialization,
+ignored HOSTS, omitted unreachable nodes, compact INI parsing and unreadable key
+handling. The owning module and shared Ansible helper have separate repairs.
+Joomla API qualification passed twelve cases on authentic 4.2.7/4.2.8 after
+repairing its fixed-release boundary and unavailable-version handling. Eleven
+additional cases verify PostgreSQL, SSH and HTTP credential persistence directly
+through SQL, including repeated reporting, a recovered usable SSH key and
+workspace/service relationships. Those three login modules were already counted.
+The selected checkpoint is **104 runtime modules, 44 families and 629 cases**,
+with current recorded hashes, exact counts and owned cleanup. See the
+[Ansible/Joomla/reporting verification](VERIFICATION-20261109-ansible-joomla-reporting.md).
+Ansible node deployment, Drupal and JBoss remain separate investigations; native
+controls or a focused helper repair alone do not qualify their functional cases.
 
 ## Remaining work
 
