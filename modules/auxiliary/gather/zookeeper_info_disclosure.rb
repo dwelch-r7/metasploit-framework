@@ -24,7 +24,7 @@ class MetasploitModule < Msf::Auxiliary
         ],
         'DisclosureDate' => '2020-10-14',
         'License' => MSF_LICENSE,
-        'DefaultOptions' => { 'VERBOSE' => true },
+        'DefaultOptions' => { 'VERBOSE' => true, 'RPORT' => 2181 },
         'Notes' => {
           'Stability' => [CRASH_SAFE],
           'SideEffects' => [],
@@ -35,7 +35,6 @@ class MetasploitModule < Msf::Auxiliary
 
     register_options(
       [
-        Opt::RPORT(2181),
         OptInt.new('TIMEOUT', [true, 'Timeout for the probe', 30])
       ], self.class
     )
@@ -51,7 +50,9 @@ class MetasploitModule < Msf::Auxiliary
         connect
         print_status('Verifying if service is responsive...')
         sock.put('ruok')
-        data = sock.get_once(-1, to).to_s
+        # Four-letter replies end when ZooKeeper closes the connection. Keep
+        # reading across TCP fragments and quiet gaps within the outer timeout.
+        data = sock.get(to, to).to_s
 
         if data && (data.to_s =~ /imok/ || data.to_s =~ /whitelist/)
           print_good("Service looks fine. Going ahead with extraction..\n")
@@ -60,7 +61,7 @@ class MetasploitModule < Msf::Auxiliary
           connect
           print_status('Dumping environment info...')
           sock.put('envi')
-          data = sock.get_once(-1, to).to_s
+          data = sock.get(to, to).to_s
 
           if data && (data.to_s !~ /whitelist/)
             print_good(data.to_s)
@@ -100,7 +101,7 @@ class MetasploitModule < Msf::Auxiliary
           connect
           print_status('Dumping statistics about performance and connected clients...')
           sock.put('stat')
-          data = sock.get_once(-1, to).to_s
+          data = sock.get(to, to).to_s
 
           if data && (data.to_s !~ /whitelist/)
             print_good(data.to_s)
@@ -119,8 +120,9 @@ class MetasploitModule < Msf::Auxiliary
           print_error('No good response from server. Exiting.')
         end
       end
-    rescue Timeout::Error, ::Rex::TimeoutError, ::Rex::ConnectionRefused, ::Rex::HostUnreachable, ::Rex::ConnectionTimeout, ::Rex::ConnectionError
-      print_error("#{Rex::Socket.to_authority(rhost, rport)} - Connection Failed...")
+    rescue Timeout::Error, ::Rex::TimeoutError, ::Rex::ConnectionRefused, ::Rex::HostUnreachable, ::Rex::ConnectionTimeout, ::Rex::ConnectionError, EOFError => e
+      elog('ZooKeeper information probe failed', error: e)
+      print_error("ZooKeeper information probe failed: #{e.message}")
     ensure
       disconnect
     end
