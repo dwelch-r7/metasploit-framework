@@ -20,6 +20,11 @@ certificates are not required. The public fixture configuration grants
 newer official image normally overrides that guest policy; this lab removes
 that image default and sets the policy explicitly rather than assuming it.
 
+Health checks run the real vendor CLI as `rabbitmq` through the image
+`gosu` helper. Running that CLI as root during first boot can create a
+root-owned cookie after the vendor ownership scan and prevent broker startup.
+Application and listener readiness are both required.
+
 Before modules run, a separate Pika client checks accepted and rejected
 credentials, guest restrictions, root-vhost refusal, and allowed-vhost message
 publish/get round trips over both transports. It retains actual connection.start
