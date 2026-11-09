@@ -336,3 +336,15 @@ services. Standard MongoDB error message strings are filtered from leak results 
 - https://www.mongodb.com/docs/manual/reference/mongodb-wire-protocol/
 - https://eric.capuano.io/blog/2025/mongobleed/ (Detection guidance)
 - https://ox.security/blog/mongodb-unauthenticated-attacker-sensitive-memory-leak/ (Technical analysis)
+
+
+## Automated container tests
+
+The [managed Mongobleed lab](../../../../../test/module_targets/mongobleed/README.md)
+compares vulnerable, fixed and compression-disabled MongoDB with a real unrelated
+HTTP service. A separate native packet probe validates the setup; bounded module
+scans must produce consistent binary and JSON loot. Run from the repository root:
+
+```sh
+bundle exec ruby tools/dev/run_module_target_tests.rb mongobleed
+```
