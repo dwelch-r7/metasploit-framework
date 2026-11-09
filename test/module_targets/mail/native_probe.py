@@ -18,6 +18,8 @@ read_only = "--read-only" in sys.argv
 username = "module_target"
 password = "module-target-password"
 marker = b"Native mail body: module-target-mailbox-proof"
+SOCKET_TIMEOUT = 5
+AUTH_TIMEOUT = 20
 
 
 def native(service, *arguments):
@@ -52,16 +54,18 @@ def close_pop(client):
 def pop_read(service, context=None, starttls=False):
     address, port = endpoint(service)
     if service == "pop3s":
-        client = poplib.POP3_SSL(address, port, timeout=5, context=context)
+        client = poplib.POP3_SSL(address, port, timeout=SOCKET_TIMEOUT, context=context)
     else:
-        client = poplib.POP3(address, port, timeout=5)
+        client = poplib.POP3(address, port, timeout=SOCKET_TIMEOUT)
     report = {"banner": client.getwelcome().decode("ascii")}
     try:
         if starttls:
             response = client.stls(context=context)
             report["starttls"] = response.decode("ascii")
+        client.sock.settimeout(AUTH_TIMEOUT)
         client.user(username)
         report["login"] = client.pass_(password).decode("ascii")
+        client.sock.settimeout(SOCKET_TIMEOUT)
         count, size = client.stat()
         if count != 1 or size <= len(marker):
             raise AssertionError(f"Unexpected POP3 mailbox size: {count}, {size}")
@@ -78,12 +82,12 @@ def pop_read(service, context=None, starttls=False):
 
 def pop_reject(service, candidate_user, candidate_password, context=None):
     address, port = endpoint(service)
-    client = (poplib.POP3_SSL(address, port, timeout=5, context=context)
-              if service == "pop3s" else poplib.POP3(address, port, timeout=5))
+    client = (poplib.POP3_SSL(address, port, timeout=SOCKET_TIMEOUT, context=context)
+              if service == "pop3s" else poplib.POP3(address, port, timeout=SOCKET_TIMEOUT))
     try:
         # Dovecot's per-IP failure penalty can reach fifteen seconds.
         # Keep connects/readback short, but await the real auth decision.
-        client.sock.settimeout(20)
+        client.sock.settimeout(AUTH_TIMEOUT)
         try:
             client.user(candidate_user)
             response = client.pass_(candidate_password)
@@ -99,13 +103,15 @@ def pop_reject(service, candidate_user, candidate_password, context=None):
 
 def imap_read(service, context=None):
     address, port = endpoint(service)
-    client = (imaplib.IMAP4_SSL(address, port, ssl_context=context, timeout=5)
-              if service == "imaps" else imaplib.IMAP4(address, port, timeout=5))
+    client = (imaplib.IMAP4_SSL(address, port, ssl_context=context, timeout=SOCKET_TIMEOUT)
+              if service == "imaps" else imaplib.IMAP4(address, port, timeout=SOCKET_TIMEOUT))
     report = {"banner": client.welcome.decode("ascii")}
     try:
+        client.sock.settimeout(AUTH_TIMEOUT)
         status, _ = client.login(username, password)
         if status != "OK":
             raise AssertionError(f"Native IMAP login failed: {status}")
+        client.sock.settimeout(SOCKET_TIMEOUT)
         status, values = client.select("INBOX", readonly=True)
         if status != "OK" or values != [b"1"]:
             raise AssertionError(f"Native IMAP mailbox differs: {status}, {values!r}")

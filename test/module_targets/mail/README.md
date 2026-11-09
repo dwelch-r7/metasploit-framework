@@ -25,7 +25,7 @@ the explicit lab certificate. Host-side clients also check the TLS-required
 listener from outside its loopback trust exception. Native STARTTLS reads prove
 that listener can serve the mailbox after upgrading; no module STARTTLS support
 is claimed. Periodic health checks authenticate without changing mailbox data.
-Native rejection reads allow twenty seconds for Dovecot's retained
+Native authentication reads allow twenty seconds for Dovecot's retained
 [per-IP authentication penalty](https://doc.dovecot.org/2.3/configuration_manual/authentication/auth_penalty/),
 whose maximum is fifteen seconds. Ordinary connects/readback stay bounded at
 five seconds; the module keeps its existing sixteen-second PASS response wait.
