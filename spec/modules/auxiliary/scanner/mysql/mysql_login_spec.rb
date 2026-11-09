@@ -11,7 +11,7 @@ RSpec.describe 'MySQL Login Scanner' do
     )
   end
 
-  let(:host) { '127.0.0.1' }
+  let(:host) { '192.0.2.53' }
   let(:port) { 3306 }
   let(:credential) do
     Metasploit::Framework::Credential.new(
@@ -38,15 +38,19 @@ RSpec.describe 'MySQL Login Scanner' do
   end
 
   describe '#vprint_error' do
-    it 'prints exactly one target prefix when verbose error output is enabled' do
-      message = 'Unsupported target version of MySQL detected. Skipping.'
-      output = double('output', prompting?: false)
-      allow(mod).to receive(:user_output).and_return(output)
+    [nil, '[1/2] - '].each do |progress|
+      it "prints exactly one target prefix with #{progress ? 'initialized' : 'uninitialized'} progress counters" do
+        message = 'Unsupported target version of MySQL detected. Skipping.'
+        output = double('output', prompting?: false)
+        allow(mod).to receive(:user_output).and_return(output)
+        allow(mod).to receive(:tried_over_total).and_return(progress)
+        mod.datastore['TimestampOutput'] = false
 
-      expect(output).to receive(:print_error)
-        .with("#{host}:#{port}        - #{message}")
+        expect(output).to receive(:print_error)
+          .with(/\A#{Regexp.escape("#{host}:#{port}")} +- #{Regexp.escape(progress.to_s + message)}\z/)
 
-      mod.vprint_error(message)
+        mod.vprint_error(message)
+      end
     end
 
     it 'suppresses output when module and framework verbosity are disabled' do
