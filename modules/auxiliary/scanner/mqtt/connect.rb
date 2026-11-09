@@ -45,21 +45,29 @@ class MetasploitModule < Msf::Auxiliary
     connect
     client = Rex::Proto::MQTT::Client.new(sock, client_opts)
     connect_res = client.connect
+    return false unless connect_res.return_code.zero?
+
     client.disconnect
-    connect_res.return_code.zero?
+    true
+  ensure
+    disconnect
   end
 
   def default_login
-    vprint_status("Testing without credentials")
-    if test_login('', '')
-      print_good("Does not require authentication")
-    end
+    vprint_status('Testing without credentials')
+    return false unless test_login('', '')
+
+    print_good('Does not require authentication')
+    true
   end
 
   def run_host(_ip)
     unless default_login
       brute
     end
+  rescue Rex::ConnectionError, EOFError, Errno::ENOTCONN, Timeout::Error => e
+    vprint_error("MQTT connection failed: #{e.message}")
+    elog('MQTT connection failed', error: e)
   end
 
   def brute
