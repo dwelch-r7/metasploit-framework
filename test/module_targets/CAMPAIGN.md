@@ -147,8 +147,8 @@ record for exact evidence and per-family durations.
 
 CouchDB command execution has eight successful real session deliveries, but its
 new profile remains excluded from passing totals while a configured-administrator
-name collision is fixed. Independent native controls confirm account creation201
-can coexist with session/configuration401 for those supplied credentials; the
+name collision is fixed. Independent native controls confirm account creation HTTP 201
+can coexist with session/configuration HTTP 401 for those supplied credentials; the
 module currently reports bypass success without usable administrative access.
 A separate worktree owns the effective-identity regression/fix. API account,
 database and query-server restoration in that fixture is explicit operator
@@ -156,16 +156,16 @@ cleanup, not module cleanup. Native2.x, wget, TLS and failed-session cleanup
 remain unqualified. Authoritative DNS is the next reusable family under review.
 
 The separate CouchDB exploit fix now verifies effective administrator access
-before staging and preserves valid existing-user409 access. Original source fails
-21 of33 focused examples; final source passes all33. Its final parent nine-case
+before staging and preserves valid existing-user HTTP 409 access. Original source fails
+21 of 33 focused examples; final source passes all 33. Its final parent nine-case
 profile passes ten repeated real deliveries, native command ownership, collision
 refusal and explicit API restoration, with stable source hashes and owned cleanup.
-The current checkpoint is **71 modules, twenty-five families and311 cases**.
+The current checkpoint is **71 modules, twenty-five families and 311 cases**.
 The rejected collision may leave a shadow user requiring administrator cleanup;
-credential persistence, CouchDB2.x, TLS and failed-session cleanup remain limited.
+credential persistence, CouchDB 2.x, TLS and failed-session cleanup remain limited.
 
-The next authoritative DNS fixture independently passed46 native controls with
-unchanged inputs and owned cleanup. Real BIND9.20.30 serves deterministic .test
+The next authoritative DNS fixture independently passed 46 native controls with
+unchanged inputs and owned cleanup. Real BIND 9.20.30 serves deterministic .test
 zones, with allowed/denied updates and transfers, TCP/UDP answers and outside-query
 refusal. It has no Framework module acceptance profile yet and adds no passing
 coverage. Continue enumeration, dynamic-update actions/types and one unspoofed

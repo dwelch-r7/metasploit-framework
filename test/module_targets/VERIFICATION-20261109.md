@@ -274,8 +274,8 @@ is removed. A bounded native HTTP timeout is recorded; timeout/status alone neve
 proves execution. The normal HttpClientTimeout test option also bounds the
 exploit's asynchronous view requests without changing target responses.
 
-The independent native collision probe confirms wrong-password session401 before
-creation, unauthenticated duplicate-role creation201, and session/configuration401
+The independent native collision probe confirms wrong-password session HTTP 401 before
+creation, unauthenticated duplicate-role creation HTTP 201, and session/configuration HTTP 401
 afterward. Acknowledgement does not prove usable administrative access. A separate
 new username obtains a real administrator session; valid configured administrator
 credentials also still work. The corrected one-case baseline permits the real
@@ -288,16 +288,16 @@ unusable account and possible administrator cleanup. Creation409 still permits
 valid existing-administrator execution without calling it a newly completed
 bypass. Only actually verified credentials are passed to the existing reporting
 API with session proof. Same-spec original source fails **21 of 33 examples**;
-final source passes all33. The parent independently reran those33 successfully.
+final source passes all 33. The parent independently reran those 33 successfully.
 
-The final parent run passed **nine cases** in **253.19seconds** at
+The final parent run passed **nine cases** in **253.19 seconds** at
 `tmp/module-target-tests/20261109T102445-f4f58e/couchdb_exec/`, with zero failures,
 pending or outside-example errors, matching current recorded inputs and owned
 cleanup. Ten deliveries each execute a fresh command file owned by `couchdb`.
 Cases cover x86/x64 shells, x64 Meterpreter, open/admin-configured services,
-default bypass, known administrator and a preexisting-user409 path, each repeated
+default bypass, known administrator and a preexisting-user HTTP 409 path, each repeated
 twice. The collision case verifies401 before/after and early refusal. There are
-75 native exec records and18 actual opened sessions; query-process retries can
+75 native exec records and 18 actual opened sessions; query-process retries can
 open additional sessions, so session counts alone are not execution proof.
 
 Native readback distinguishes real cleanup from a race with curl's executable
@@ -316,20 +316,20 @@ administrator can legitimately return two `_admin` entries. Handler-disabled
 negative tests require AllowNoCleanup to get past Framework's pre-authentication
 guard. The final profile corrects all these assumptions.
 
-The worker's nine-case run also passed, in239.67seconds. Its exact tested spec and
+The worker's nine-case run also passed, in 239.67 seconds. Its exact tested spec and
 label-only style change are retained; the parent run above qualifies the final
 variant. Evidence/review: `tmp/couchdb-exec-auth-evidence/REPORT.md`. Production
 lint adds no signatures (16 existing); both focused/acceptance specs are clean,
 module tidy passes and the existing doc link adds no diagnostics.
 
-CouchDB2.x, intermediate/fixed release boundaries, wget (absent from the stock
+CouchDB 2.x, intermediate/fixed release boundaries, wget (absent from the stock
 image), TLS, arbitrary credential metacharacters, failed-session file cleanup and
 credential database persistence remain unqualified. No opaque binary is committed;
 payloads are generated from current Framework sources/dependencies.
 
 ## Current profile checkpoint
 
-The broad24-family runner completed with exit zero. Rows use its
+The broad 24-family runner completed with exit zero. Rows use its
 `20261109T094411-765d69` artifacts except modern CouchDB (`20261109T100640-dec844`)
 and command execution (`20261109T102445-f4f58e`), the final reruns above. Durations
 are RSpec execution including console startup, rather than Compose/image setup.
@@ -364,8 +364,8 @@ The scan selecting current source/hash results remains in
 | ssh | 2 | 16.83 |
 | tomcat | 14 | 118.25 |
 
-The311 cases exclude older diagnostics and overlapping focused unit examples.
-The next authoritative DNS fixture has passed46 native controls and owned cleanup,
+The 311 cases exclude older diagnostics and overlapping focused unit examples.
+The next authoritative DNS fixture has passed 46 native controls and owned cleanup,
 but has no Framework module qualification yet and adds no passing coverage.
 The complete inventory and per-profile limits remain in the campaign queue.
 
@@ -383,8 +383,8 @@ passes. Raw failed logs remain in `tmp/module-container-{verify,meterpreter}-ci-
 The subsequent `4044241d4b8` checkpoint passed Lint, SSH, SMB, MySQL, MSSQL,
 LDAP and command-shell workflows when inspected. Its
 [Verify run](https://github.com/dwelch-r7/metasploit-framework/actions/runs/42599316216)
-again failed only the same certificate OID conversion, this time under Ruby3.4:
-16,295 examples, one failure,664 pending. This confirms the repeated observed
+again failed only the same certificate OID conversion, this time under Ruby 3.4:
+16,295 examples, one failure, 664 pending. This confirms the repeated observed
 failure, not its baseline cause. Raw logs are retained in
 `tmp/module-container-couchdb-verify-failed.log`. Other/new-head CI status must be
 refreshed; these results do not imply an entirely green workflow set.
