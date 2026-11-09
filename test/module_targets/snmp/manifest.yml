@@ -1,0 +1,12 @@
+spec: spec/acceptance/module_targets/snmp_spec.rb
+expected_examples: 22
+console: true
+modules:
+  - auxiliary/scanner/snmp/snmp_login
+  - auxiliary/scanner/snmp/snmp_enum
+  - auxiliary/scanner/snmp/snmp_set
+ports:
+  agent: 161
+support_files:
+  - lib/metasploit/framework/login_scanner/snmp.rb
+  - lib/msf/core/exploit/remote/snmp_client.rb

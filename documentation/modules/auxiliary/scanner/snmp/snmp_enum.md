@@ -76,3 +76,14 @@ Interface [ up ] Unit: 1 Slot: 0 Port: 1 Gigabit - Level
 [*] Auxiliary module execution completed
 msf auxiliary(auxiliary/scanner/snmp/snmp_enum) >
 ```
+
+## Automated container tests
+
+The [managed SNMP lab](../../../../../test/module_targets/snmp/README.md) supplies
+real Linux host, interface and process data on Net-SNMP v1/v2c. Native clients
+verify identity and access policy before module enumeration. Run from the
+repository root:
+
+```sh
+bundle exec ruby tools/dev/run_module_target_tests.rb snmp
+```

@@ -92,3 +92,14 @@ PORT    STATE SERVICE
 
 Nmap done: 1 IP address (1 host up) scanned in 0.38 seconds
 ```
+
+## Automated container tests
+
+The [managed SNMP lab](../../../../../test/module_targets/snmp/README.md) supplies
+real Net-SNMP v1/v2c over UDP/TCP with native read-only/read-write controls.
+Tests compare community/access results with independent reads, writes and
+restoration. Run from the repository root:
+
+```sh
+bundle exec ruby tools/dev/run_module_target_tests.rb snmp
+```

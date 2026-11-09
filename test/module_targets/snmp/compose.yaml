@@ -1,0 +1,12 @@
+services:
+  agent:
+    build: .
+    hostname: module-target-snmp
+    # Both transports stay on the project network. Only TCP is published for
+    # host inspection; Framework's console also tests UDP at the internal port.
+    ports: ["127.0.0.1::161/tcp"]
+    healthcheck:
+      test: ["CMD", "snmpget", "-v2c", "-c", "public", "-t", "1", "-r", "0", "-Oqv", "127.0.0.1", ".1.3.6.1.2.1.1.5.0"]
+      interval: 3s
+      timeout: 4s
+      retries: 30
