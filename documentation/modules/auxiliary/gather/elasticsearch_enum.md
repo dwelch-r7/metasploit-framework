@@ -1,5 +1,9 @@
 ## Vulnerable Application
 
+For isolated real clusters, native authentication/data controls and automated
+metadata/CSV tests, see the [container lab](../../../../test/module_targets/elasticsearch/README.md).
+The lab guide records its current qualification state and limits.
+
 This module enumerates Elasticsearch instances. It uses the REST API
 in order to gather information about the server, the cluster, nodes,
 in the cluster, indices, and pull data from those indices.

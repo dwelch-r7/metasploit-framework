@@ -1,0 +1,9 @@
+[
+  {"record":"module-target-one","value":"alpha","count":1},
+  {"record":"module-target-two","value":"comma, quoted \"text\"","count":2},
+  {"record":"module-target-three","value":"café 漢字","count":3},
+  {"record":"module-target-four","value":"","count":4},
+  {"record":"module-target-five","value":"line one\nline two","count":5},
+  {"record":"module-target-six","value":"six","count":6},
+  {"record":"module-target-seven","value":"seven","count":7}
+]

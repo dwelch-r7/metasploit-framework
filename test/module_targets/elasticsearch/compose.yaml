@@ -1,0 +1,35 @@
+x-elasticsearch: &elasticsearch
+  image: docker.elastic.co/elasticsearch/elasticsearch:7.9.1@sha256:0a5308431aee029636858a6efe07e409fa699b02549a78d7904eb931b8c46920
+  environment: &environment
+    discovery.type: single-node
+    node.store.allow_mmap: 'false'
+    node.processors: '2'
+    node.name: module-target-open
+    cluster.name: module-target-open
+    xpack.security.enabled: 'false'
+    xpack.ml.enabled: 'false'
+    xpack.license.self_generated.type: basic
+    ES_JAVA_OPTS: -Xms256m -Xmx256m
+  mem_limit: 768m
+  ports: ["127.0.0.1::9200"]
+  healthcheck:
+    test: [CMD-SHELL, 'curl --fail --silent -u "elastic:module-target-password" http://127.0.0.1:9200/_cluster/health >/dev/null']
+    interval: 5s
+    timeout: 5s
+    retries: 30
+
+services:
+  open:
+    <<: *elasticsearch
+  secured:
+    <<: *elasticsearch
+    environment:
+      <<: *environment
+      node.name: module-target-secured
+      cluster.name: module-target-secured
+      xpack.security.enabled: 'true'
+      ELASTIC_PASSWORD: module-target-password
+  unrelated:
+    extends:
+      file: ../http/compose.yaml
+      service: apache

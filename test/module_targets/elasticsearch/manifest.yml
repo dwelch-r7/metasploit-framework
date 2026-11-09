@@ -1,0 +1,14 @@
+spec: spec/acceptance/module_targets/elasticsearch_spec.rb
+expected_examples: 11
+console: true
+modules:
+  - auxiliary/gather/elasticsearch_enum
+ports:
+  open: 9200
+  secured: 9200
+  unrelated: 80
+support_files:
+  - test/module_targets/http/compose.yaml
+  - test/module_targets/http/Dockerfile
+  - test/module_targets/http/module-target.conf
+  - test/module_targets/http/htdocs/index.html
