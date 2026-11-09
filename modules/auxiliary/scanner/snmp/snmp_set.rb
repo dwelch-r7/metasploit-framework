@@ -41,7 +41,8 @@ class MetasploitModule < Msf::Auxiliary
   end
 
   def run_host(ip)
-    oid = datastore['OID'].to_s
+    # Net-SNMP's numeric output includes a leading dot; the Ruby parser expects digits.
+    oid = datastore['OID'].to_s.delete_prefix('.')
     oidvalue = datastore['OIDVALUE'].to_s
     comm = datastore['COMMUNITY'].to_s
 
