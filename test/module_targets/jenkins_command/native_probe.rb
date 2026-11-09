@@ -93,7 +93,8 @@ begin
     end
     profiles.fetch(service)[:literal] = %q{module-target-'"\&<>out>err>}
     profiles.fetch(service)[:entities] = 'module-target-&lt;-out>-err>'
-    %i[literal entities].each do |kind|
+    profiles.fetch(service)[:unicode] = 'module-target-café-漢字-$name'
+    %i[literal entities unicode].each do |kind|
       value = profiles.fetch(service).fetch(kind)
       raise 'Native argument bytes differ' unless native.call(service, '/usr/bin/printf', '%s', value) == value
     end

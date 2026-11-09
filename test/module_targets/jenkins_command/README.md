@@ -20,9 +20,10 @@ proof. A matching native CSRF crumb succeeds with its session cookie and fails
 without it. Missing executables and unrelated HTTP are independent negatives.
 Native commands and HTTP responses are retained with each run.
 
-The seven functional cases cover repeated account output, repeated file creation
+The eight functional cases cover repeated account output, repeated file creation
 with actual owner proof, literal quote/backslash/ampersand/marker output,
-literal HTML entities, missing executables, secured access and unrelated HTTP.
+literal HTML entities, Unicode/dollar text, missing executables, secured access
+and unrelated HTTP.
 The test explicitly removes its own created file after each execution. This is
 operator cleanup, not a claim that the module cleans up arbitrary user commands.
 

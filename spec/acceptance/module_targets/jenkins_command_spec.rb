@@ -44,6 +44,13 @@ RSpec.describe 'Native Jenkins command scanner targets' do
     expect(scan('open', "/usr/bin/printf %s #{expected}")).to include(expected)
   end
 
+  it 'preserves native Unicode and literal dollar text through the actual console and Groovy path' do
+    expected = @native.fetch('unicode')
+    output = scan('open', "/usr/bin/printf %s #{expected}").dup.force_encoding(Encoding::UTF_8)
+    expect(output.valid_encoding?).to be(true)
+    expect(output).to include(expected)
+  end
+
   it 'reports an actual missing executable without presenting it as command output' do
     output = scan('open', '/module-target-no-command', allow_errors: true)
     expect(output).to include('No such file or directory')

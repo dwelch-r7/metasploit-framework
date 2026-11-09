@@ -1,5 +1,5 @@
 spec: spec/acceptance/module_targets/jenkins_command_spec.rb
-expected_examples: 7
+expected_examples: 8
 console: true
 modules:
   - auxiliary/scanner/http/jenkins_command
