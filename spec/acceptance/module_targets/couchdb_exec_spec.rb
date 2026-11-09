@@ -11,7 +11,7 @@ RSpec.describe 'CouchDB command execution targets' do
     %w[open auth fixed].to_h do |service|
       endpoint = target_endpoint(service)
       credentials = service == 'open' ? nil : CouchDBNativeClient::DEFAULT_CREDENTIALS
-      [service, CouchDBNativeClient.new(endpoint.fetch('host'), endpoint.fetch('port'), credentials: credentials, read_timeout: 3)]
+      [service, CouchDBNativeClient.new(endpoint.fetch('host'), endpoint.fetch('port'), credentials: credentials, read_timeout: 10)]
     end
   end
 
@@ -161,8 +161,8 @@ RSpec.describe 'CouchDB command execution targets' do
     end
   end
 
-  def native_request(service, *arguments)
-    native_clients.fetch(service).request(*arguments)
+  def native_request(service, *arguments, **options)
+    native_clients.fetch(service).request(*arguments, **options)
   ensure
     File.write(File.join(target_runtime.fetch('artifacts'), "#{service}-native-http.json"), JSON.pretty_generate(native_clients.fetch(service).commands))
   end
@@ -186,9 +186,14 @@ RSpec.describe 'CouchDB command execution targets' do
       expect(native_request(service, 'delete', "/_config/query_servers/#{name}").first).to eq(200)
     end
     (current.fetch(:users) - original.fetch(:users)).each do |name|
-      code, account = native_request(service, 'get', "/_users/#{name}")
-      expect(code).to eq(200)
-      expect([200, 202]).to include(native_request(service, 'delete', "/_users/#{name}?rev=#{account.fetch('_rev')}").first)
+      wait_for_expect(5, 0.2) do
+        code, account = native_request(service, 'get', "/_users/#{name}")
+        expect([200, 404]).to include(code)
+        next if code == 404
+
+        # Re-read a current revision on conflict; never replay a stale DELETE.
+        expect([200, 202]).to include(native_request(service, 'delete', "/_users/#{name}?rev=#{account.fetch('_rev')}").first)
+      end
     end
   end
 
@@ -207,7 +212,7 @@ RSpec.describe 'CouchDB command execution targets' do
       expect(native_request(service, 'put', '/native_exec_probe/proof', { 'marker' => 'native-execution-control' }).first).to eq(201)
       trigger = { method: 'POST', path: '/native_exec_probe/_temp_view', command: "/usr/bin/touch #{proof}" }
       begin
-        code, = native_request(service, 'post', trigger.fetch(:path), { 'language' => 'native_exec_probe', 'map' => '' })
+        code, = native_request(service, 'post', trigger.fetch(:path), { 'language' => 'native_exec_probe', 'map' => '' }, read_timeout: 3)
         trigger[:status] = code
         expect(code).to eq(500)
       rescue Net::ReadTimeout => e

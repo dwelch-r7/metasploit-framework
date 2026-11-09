@@ -32,3 +32,11 @@ A profile definition alone does not establish success. See the
 delivery (absent from the stock 1.6.1 image), TLS, restricted service accounts,
 other platforms and saved credentials remain unqualified. See the
 [shared guide](../README.md) for evidence and owned-project cleanup.
+
+Native REST controls disable Net::HTTP's automatic retries: a timed-out DELETE
+can already have committed, so replaying its old revision produces a misleading
+409. Ordinary native reads/writes have a ten-second bound; the intentionally
+non-protocol native command trigger retains its separate three-second bound.
+Cleanup re-reads the current user revision on conflict and verifies the final
+native state. Module network settings and functional success assertions remain
+independent of this fixture cleanup.
