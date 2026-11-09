@@ -1,0 +1,31 @@
+spec: spec/acceptance/module_targets/jboss_deployer_spec.rb
+expected_examples: 12
+console: true
+modules:
+  - exploit/multi/http/jboss_bshdeployer
+  - exploit/multi/http/jboss_deploymentfilerepository
+ports: {open: 8080, legacy: 8080, secured: 8080, unrelated: 80}
+support_files:
+  - spec/support/acceptance/jboss_target.rb
+  - spec/support/shared/contexts/wait_for_expect.rb
+  - lib/msf/core/exploit/remote/http/jboss.rb
+  - lib/msf/core/exploit/remote/http/jboss/base.rb
+  - lib/msf/core/exploit/remote/http/jboss/bean_shell.rb
+  - lib/msf/core/exploit/remote/http/jboss/bean_shell_scripts.rb
+  - lib/msf/core/exploit/remote/http/jboss/deployment_file_repository.rb
+  - lib/msf/core/exploit/remote/http/jboss/deployment_file_repository_scripts.rb
+  - lib/msf/core/payload/java.rb
+  - modules/payloads/stagers/java/reverse_tcp.rb
+  - modules/payloads/stages/java/meterpreter.rb
+  - modules/payloads/stages/java/shell.rb
+  - test/module_targets/jboss/compose.yaml
+  - test/module_targets/jboss/Dockerfile
+  - test/module_targets/jboss/start.sh
+  - test/module_targets/jboss/native_probe.rb
+  - test/module_targets/jboss/fixture/index.jsp
+  - test/module_targets/jboss/fixture/hold.jsp
+  - test/module_targets/jboss/fixture/bsh-stager.jsp
+  - test/module_targets/jboss/fixture/bsh-stager.json
+  - test/module_targets/http/Dockerfile
+  - test/module_targets/http/module-target.conf
+  - test/module_targets/http/compose.yaml

@@ -1,0 +1,33 @@
+x-compiler: &compiler
+  entrypoint: [sh, /opt/module-target/session-start.sh]
+  depends_on: {compiler: {condition: service_healthy}}
+  volumes: [compiler_jars:/opt/module-target/compiler:ro]
+  configs:
+    - {source: session_start, target: /opt/module-target/session-start.sh}
+
+services:
+  compiler:
+    build: {context: ., dockerfile: compiler.Dockerfile}
+    volumes: [compiler_jars:/compiler]
+    mem_limit: 64m
+    healthcheck:
+      test: [CMD-SHELL, 'test -f /compiler/ready && test -s /compiler/ant.jar && test -s /compiler/ant-launcher.jar']
+      interval: 1s
+      timeout: 2s
+      retries: 30
+  open:
+    <<: *compiler
+    extends: {file: ../jboss/compose.yaml, service: open}
+  legacy:
+    <<: *compiler
+    extends: {file: ../jboss/compose.yaml, service: legacy}
+  secured:
+    <<: *compiler
+    extends: {file: ../jboss/compose.yaml, service: secured}
+  unrelated:
+    extends: {file: ../jboss/compose.yaml, service: unrelated}
+
+configs:
+  session_start: {file: ./session-start.sh}
+volumes:
+  compiler_jars:

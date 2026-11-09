@@ -1,0 +1,5 @@
+{
+  "server/default/deploy/jmx-console.war/inspectMBean.jsp": "93a8197476aa33ec110865590d7ba2e6155860239e406313df6345ab492b880a",
+  "server/default/deploy/jboss-web.deployer/jbossweb.jar": "6bad57ab19b573f866713f0c3a376e60faf962a6a65c30467599d0b5fe7255b3",
+  "server/default/deploy/jboss-web.deployer/jasper-jdt.jar": "aca54ad6978ce27ad3f543ed09eb496e001f087e0987e433ce9f862a6a42f2e6"
+}
