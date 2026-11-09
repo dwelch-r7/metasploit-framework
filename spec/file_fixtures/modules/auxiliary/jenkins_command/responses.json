@@ -1,0 +1,148 @@
+{
+  "provenance": {
+    "source": "tmp/jenkins-command-evidence/native-captures.json",
+    "sha256": "0dc64a57227d756a2d9c761801e80e0b21348ac0d9f87f5e26d8232c85562370",
+    "target": "Official Jenkins2.442-jdk17, /jenkins context, native-only reproduction2026-11-09",
+    "retained": "SystemInfo headings and actual OS table rows retained; unused HTML omitted. Ephemeral crumb/cookie replaced with deterministic fixture values. Secured/unrelated response bodies retained.",
+    "command_responses": {
+      "source": "tmp/jenkins-command-evidence/native-json-captures.json",
+      "sha256": "6abb13ea128d28a5400b3db2ec14e30511db7062a1b9192b7d2ae4141b79d67e",
+      "target": "Official digest-pinned Jenkins2.442-jdk17, genuine anonymous POST with CSRF session retained",
+      "retained": "scriptText JSON response bodies retained byte-for-byte as UTF-8. Original script HTML reduced to its actual pre elements; other layout removed. Command and response status retained. Network response payloads are not synthesized."
+    }
+  },
+  "responses": {
+    "modern_system_info": {
+      "code": 200,
+      "headers": {
+        "X-Jenkins": "2.442",
+        "Set-Cookie": "JSESSIONID.fixture=fixture-session; Path=/jenkins; HttpOnly"
+      },
+      "body": "<html data-crumb-header=\"Jenkins-Crumb\" data-crumb-value=\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"><body id=\"jenkins\"><h2 class=\"jenkins-tab-pane__title\">System Properties</h2>\n<h2 class=\"jenkins-tab-pane__title\">Environment Variables</h2>\n<table><tr>\n<td>os.name</td>\n<td style=\"white-space: normal\" class=\"property-table__value\">\n<div class=\"app-hidden-info-reveal\"><button class=\"jenkins-button jenkins-button--transparent jenkins-!-color-blue\"><svg aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 512 512\"><title></title>\n<path d=\"M255.66 112c-77.94 0-157.89 45.11-220.83 135.33a16 16 0 00-.27 17.77C82.92 340.8 161.8 400 255.66 400c92.84 0 173.34-59.38 221.79-135.25a16.14 16.14 0 000-17.47C428.89 172.28 347.8 112 255.66 112z\" fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"32\"></path><circle cx=\"256\" cy=\"256\" r=\"80\" fill=\"none\" stroke=\"currentColor\" stroke-miterlimit=\"10\" stroke-width=\"32\"></circle></svg> Hidden value, click to show this value\n                  </button></div>\n<div class=\"app-hidden-info-hide jenkins-hidden\"><button class=\"jenkins-button jenkins-button--transparent\"><span class=\"jenkins-!-color-blue\"><svg aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 512 512\"><title></title>\n<path d=\"M432 448a15.92 15.92 0 01-11.31-4.69l-352-352a16 16 0 0122.62-22.62l352 352A16 16 0 01432 448zM255.66 384c-41.49 0-81.5-12.28-118.92-36.5-34.07-22-64.74-53.51-88.7-91v-.08c19.94-28.57 41.78-52.73 65.24-72.21a2 2 0 00.14-2.94L93.5 161.38a2 2 0 00-2.71-.12c-24.92 21-48.05 46.76-69.08 76.92a31.92 31.92 0 00-.64 35.54c26.41 41.33 60.4 76.14 98.28 100.65C162 402 207.9 416 255.66 416a239.13 239.13 0 0075.8-12.58 2 2 0 00.77-3.31l-21.58-21.58a4 4 0 00-3.83-1 204.8 204.8 0 01-51.16 6.47zM490.84 238.6c-26.46-40.92-60.79-75.68-99.27-100.53C349 110.55 302 96 255.66 96a227.34 227.34 0 00-74.89 12.83 2 2 0 00-.75 3.31l21.55 21.55a4 4 0 003.88 1 192.82 192.82 0 0150.21-6.69c40.69 0 80.58 12.43 118.55 37 34.71 22.4 65.74 53.88 89.76 91a.13.13 0 010 .16 310.72 310.72 0 01-64.12 72.73 2 2 0 00-.15 2.95l19.9 19.89a2 2 0 002.7.13 343.49 343.49 0 0068.64-78.48 32.2 32.2 0 00-.1-34.78z\" fill=\"currentColor\"></path><path d=\"M256 160a95.88 95.88 0 00-21.37 2.4 2 2 0 00-1 3.38l112.59 112.56a2 2 0 003.38-1A96 96 0 00256 160zM165.78 233.66a2 2 0 00-3.38 1 96 96 0 00115 115 2 2 0 001-3.38z\" fill=\"currentColor\"></path></svg> Linux</span></button></div>\n</td>\n</tr>\n<tr>\n<td>os.version</td>\n<td style=\"white-space: normal\" class=\"property-table__value\">\n<div class=\"app-hidden-info-reveal\"><button class=\"jenkins-button jenkins-button--transparent jenkins-!-color-blue\"><svg aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 512 512\"><title></title>\n<path d=\"M255.66 112c-77.94 0-157.89 45.11-220.83 135.33a16 16 0 00-.27 17.77C82.92 340.8 161.8 400 255.66 400c92.84 0 173.34-59.38 221.79-135.25a16.14 16.14 0 000-17.47C428.89 172.28 347.8 112 255.66 112z\" fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"32\"></path><circle cx=\"256\" cy=\"256\" r=\"80\" fill=\"none\" stroke=\"currentColor\" stroke-miterlimit=\"10\" stroke-width=\"32\"></circle></svg> Hidden value, click to show this value\n                  </button></div>\n<div class=\"app-hidden-info-hide jenkins-hidden\"><button class=\"jenkins-button jenkins-button--transparent\"><span class=\"jenkins-!-color-blue\"><svg aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 512 512\"><title></title>\n<path d=\"M432 448a15.92 15.92 0 01-11.31-4.69l-352-352a16 16 0 0122.62-22.62l352 352A16 16 0 01432 448zM255.66 384c-41.49 0-81.5-12.28-118.92-36.5-34.07-22-64.74-53.51-88.7-91v-.08c19.94-28.57 41.78-52.73 65.24-72.21a2 2 0 00.14-2.94L93.5 161.38a2 2 0 00-2.71-.12c-24.92 21-48.05 46.76-69.08 76.92a31.92 31.92 0 00-.64 35.54c26.41 41.33 60.4 76.14 98.28 100.65C162 402 207.9 416 255.66 416a239.13 239.13 0 0075.8-12.58 2 2 0 00.77-3.31l-21.58-21.58a4 4 0 00-3.83-1 204.8 204.8 0 01-51.16 6.47zM490.84 238.6c-26.46-40.92-60.79-75.68-99.27-100.53C349 110.55 302 96 255.66 96a227.34 227.34 0 00-74.89 12.83 2 2 0 00-.75 3.31l21.55 21.55a4 4 0 003.88 1 192.82 192.82 0 0150.21-6.69c40.69 0 80.58 12.43 118.55 37 34.71 22.4 65.74 53.88 89.76 91a.13.13 0 010 .16 310.72 310.72 0 01-64.12 72.73 2 2 0 00-.15 2.95l19.9 19.89a2 2 0 002.7.13 343.49 343.49 0 0068.64-78.48 32.2 32.2 0 00-.1-34.78z\" fill=\"currentColor\"></path><path d=\"M256 160a95.88 95.88 0 00-21.37 2.4 2 2 0 00-1 3.38l112.59 112.56a2 2 0 003.38-1A96 96 0 00256 160zM165.78 233.66a2 2 0 00-3.38 1 96 96 0 00115 115 2 2 0 001-3.38z\" fill=\"currentColor\"></path></svg> 7<wbr>.0<wbr>.14<wbr>-linuxkit</wbr></wbr></wbr></span></button></div>\n</td>\n</tr>\n</table></body></html>"
+    },
+    "secured": {
+      "code": 403,
+      "body": "<html><head><meta http-equiv='refresh' content='1;url=/jenkins/login?from=%2Fjenkins%2FsystemInfo'/><script id='redirect' data-redirect-url='/jenkins/login?from=%2Fjenkins%2FsystemInfo' src='/jenkins/static/b8ffc02f/scripts/redirect.js'></script></head><body style='background-color:white; color:white;'>\nAuthentication required\n<!--\n-->\n\n</body></html>                                                                                                                                                                                                                                                                                                            ",
+      "headers": {
+        "X-Jenkins": "2.442"
+      }
+    },
+    "unrelated": {
+      "code": 404,
+      "body": "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">\n<html><head>\n<title>404 Not Found</title>\n</head><body>\n<h1>Not Found</h1>\n<p>The requested URL was not found on this server.</p>\n</body></html>\n",
+      "headers": {}
+    },
+    "plain_original": {
+      "code": 200,
+      "headers": {
+        "Content-Type": "text/html;charset=utf-8"
+      },
+      "body": "<html><body id=\"jenkins\"><div id=\"main-panel\"><pre>println(Jenkins.instance.pluginManager.plugins)</pre>\n<pre>out&gt; jenkins\n err&gt; \n</pre></div></body></html>",
+      "command": "/usr/bin/id -un"
+    },
+    "plain_envelope": {
+      "code": 200,
+      "headers": {
+        "Content-Type": "text/plain;charset=utf-8"
+      },
+      "body": "{\"stdout\":\"jenkins\\n\",\"stderr\":\"\",\"exit_status\":0}\n",
+      "command": "/usr/bin/id -un"
+    },
+    "empty_original": {
+      "code": 200,
+      "headers": {
+        "Content-Type": "text/html;charset=utf-8"
+      },
+      "body": "<html><body id=\"jenkins\"><div id=\"main-panel\"><pre>println(Jenkins.instance.pluginManager.plugins)</pre>\n<pre>out&gt;  err&gt; \n</pre></div></body></html>",
+      "command": "/usr/bin/true"
+    },
+    "empty_envelope": {
+      "code": 200,
+      "headers": {
+        "Content-Type": "text/plain;charset=utf-8"
+      },
+      "body": "{\"stdout\":\"\",\"stderr\":\"\",\"exit_status\":0}\n",
+      "command": "/usr/bin/true"
+    },
+    "literal_original": {
+      "code": 200,
+      "headers": {
+        "Content-Type": "text/html;charset=utf-8"
+      },
+      "body": "<html><body id=\"jenkins\"><div id=\"main-panel\"><pre>println(Jenkins.instance.pluginManager.plugins)</pre>\n<pre>org.codehaus.groovy.control.MultipleCompilationErrorsException: startup failed:\nScript1.groovy: 2: expecting anything but ''\\n''; got it anyway @ line 2, column 73.\n   get-'\"\\\\&amp;&lt;&gt;out&gt;err&gt;'.execute()\n                                 ^\n\n1 error\n\n\tat org.codehaus.groovy.control.ErrorCollector.failIfErrors(ErrorCollector.java:309)\n\tat org.codehaus.groovy.control.ErrorCollector.addFatalError(ErrorCollector.java:149)\n\tat org.codehaus.groovy.control.ErrorCollector.addError(ErrorCollector.java:119)\n\tat org.codehaus.groovy.control.ErrorCollector.addError(ErrorCollector.java:131)\n\tat org.codehaus.groovy.control.SourceUnit.addError(SourceUnit.java:349)\n\tat org.codehaus.groovy.antlr.AntlrParserPlugin.transformCSTIntoAST(AntlrParserPlugin.java:220)\n\tat org.codehaus.groovy.antlr.AntlrParserPlugin.parseCST(AntlrParserPlugin.java:191)\n\tat org.codehaus.groovy.control.SourceUnit.parse(SourceUnit.java:233)\n\tat org.codehaus.groovy.control.CompilationUnit$1.call(CompilationUnit.java:189)\n\tat org.codehaus.groovy.control.CompilationUnit.applyToSourceUnits(CompilationUnit.java:966)\n\tat org.codehaus.groovy.control.CompilationUnit.doPhaseOperation(CompilationUnit.java:626)\n\tat org.codehaus.groovy.control.CompilationUnit.processPhaseOperations(CompilationUnit.java:602)\n\tat org.codehaus.groovy.control.CompilationUnit.compile(CompilationUnit.java:579)\n\tat groovy.lang.GroovyClassLoader.doParseClass(GroovyClassLoader.java:323)\n\tat groovy.lang.GroovyClassLoader.parseClass(GroovyClassLoader.java:293)\n\tat groovy.lang.GroovyShell.parseClass(GroovyShell.java:677)\n\tat groovy.lang.GroovyShell.parse(GroovyShell.java:689)\n\tat groovy.lang.GroovyShell.evaluate(GroovyShell.java:573)\n\tat groovy.lang.GroovyShell.evaluate(GroovyShell.java:612)\n\tat groovy.lang.GroovyShell.evaluate(GroovyShell.java:583)\n\tat hudson.util.RemotingDiagnostics$Script.call(RemotingDiagnostics.java:157)\n\tat hudson.util.RemotingDiagnostics$Script.call(RemotingDiagnostics.java:126)\n\tat hudson.remoting.LocalChannel.call(LocalChannel.java:47)\n\tat hudson.util.RemotingDiagnostics.executeGroovy(RemotingDiagnostics.java:121)\n\tat jenkins.model.Jenkins._doScript(Jenkins.java:4870)\n\tat jenkins.model.Jenkins.doScript(Jenkins.java:4841)\n\tat java.base/java.lang.invoke.MethodHandle.invokeWithArguments(MethodHandle.java:732)\n\tat org.kohsuke.stapler.Function$MethodFunction.invoke(Function.java:397)\n\tat org.kohsuke.stapler.Function$InstanceFunction.invoke(Function.java:409)\n\tat org.kohsuke.stapler.Function.bindAndInvoke(Function.java:207)\n\tat org.kohsuke.stapler.Function.bindAndInvokeAndServeResponse(Function.java:140)\n\tat org.kohsuke.stapler.MetaClass$11.doDispatch(MetaClass.java:558)\n\tat org.kohsuke.stapler.NameBasedDispatcher.dispatch(NameBasedDispatcher.java:59)\n\tat org.kohsuke.stapler.Stapler.tryInvoke(Stapler.java:770)\n\tat org.kohsuke.stapler.Stapler.invoke(Stapler.java:900)\n\tat org.kohsuke.stapler.Stapler.invoke(Stapler.java:698)\n\tat org.kohsuke.stapler.Stapler.service(Stapler.java:248)\n\tat javax.servlet.http.HttpServlet.service(HttpServlet.java:590)\n\tat org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:764)\n\tat org.eclipse.jetty.servlet.ServletHandler$ChainEnd.doFilter(ServletHandler.java:1665)\n\tat hudson.util.PluginServletFilter$1.doFilter(PluginServletFilter.java:163)\n\tat hudson.security.HudsonPrivateSecurityRealm$2.doFilter(HudsonPrivateSecurityRealm.java:1169)\n\tat hudson.util.PluginServletFilter$1.doFilter(PluginServletFilter.java:160)\n\tat jenkins.util.HttpServletFilter$1.doFilter(HttpServletFilter.java:76)\n\tat hudson.util.PluginServletFilter$1.doFilter(PluginServletFilter.java:160)\n\tat hudson.util.PluginServletFilter.doFilter(PluginServletFilter.java:166)\n\tat org.eclipse.jetty.servlet.FilterHolder.doFilter(FilterHolder.java:202)\n\tat org.eclipse.jetty.servlet.ServletHandler$Chain.doFilter(ServletHandler.java:1635)\n\tat jenkins.ErrorAttributeFilter.doFilter(ErrorAttributeFilter.java:29)\n\tat org.eclipse.jetty.servlet.FilterHolder.doFilter(FilterHolder.java:202)\n\tat org.eclipse.jetty.servlet.ServletHandler$Chain.doFilter(ServletHandler.java:1635)\n\tat hudson.security.csrf.CrumbFilter.doFilter(CrumbFilter.java:154)\n\tat org.eclipse.jetty.servlet.FilterHolder.doFilter(FilterHolder.java:202)\n\tat org.eclipse.jetty.servlet.ServletHandler$Chain.doFilter(ServletHandler.java:1635)\n\tat hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:94)\n\tat hudson.security.ChainedServletFilter.doFilter(ChainedServletFilter.java:111)\n\tat hudson.security.HudsonFilter.doFilter(HudsonFilter.java:172)\n\tat org.eclipse.jetty.servlet.FilterHolder.doFilter(FilterHolder.java:202)\n\tat org.eclipse.jetty.servlet.ServletHandler$Chain.doFilter(ServletHandler.java:1635)\n\tat org.kohsuke.stapler.compression.CompressionFilter.doFilter(CompressionFilter.java:53)\n\tat org.eclipse.jetty.servlet.FilterHolder.doFilter(FilterHolder.java:202)\n\tat org.eclipse.jetty.servlet.ServletHandler$Chain.doFilter(ServletHandler.java:1635)\n\tat hudson.util.CharacterEncodingFilter.doFilter(CharacterEncodingFilter.java:86)\n\tat org.eclipse.jetty.servlet.FilterHolder.doFilter(FilterHolder.java:202)\n\tat org.eclipse.jetty.servlet.ServletHandler$Chain.doFilter(ServletHandler.java:1635)\n\tat org.kohsuke.stapler.DiagnosticThreadNameFilter.doFilter(DiagnosticThreadNameFilter.java:30)\n\tat org.eclipse.jetty.servlet.FilterHolder.doFilter(FilterHolder.java:202)\n\tat org.eclipse.jetty.servlet.ServletHandler$Chain.doFilter(ServletHandler.java:1635)\n\tat jenkins.security.SuspiciousRequestFilter.doFilter(SuspiciousRequestFilter.java:38)\n\tat org.eclipse.jetty.servlet.FilterHolder.doFilter(FilterHolder.java:202)\n\tat org.eclipse.jetty.servlet.ServletHandler$Chain.doFilter(ServletHandler.java:1635)\n\tat org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:527)\n\tat org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:131)\n\tat org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:569)\n\tat org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:122)\n\tat org.eclipse.jetty.server.handler.ScopedHandler.nextHandle(ScopedHandler.java:223)\n\tat org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:1570)\n\tat org.eclipse.jetty.server.handler.ScopedHandler.nextHandle(ScopedHandler.java:221)\n\tat org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1384)\n\tat org.eclipse.jetty.server.handler.ScopedHandler.nextScope(ScopedHandler.java:176)\n\tat org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:484)\n\tat org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:1543)\n\tat org.eclipse.jetty.server.handler.ScopedHandler.nextScope(ScopedHandler.java:174)\n\tat org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:1306)\n\tat org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:129)\n\tat org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:122)\n\tat org.eclipse.jetty.server.Server.handle(Server.java:563)\n\tat org.eclipse.jetty.server.HttpChannel$RequestDispatchable.dispatch(HttpChannel.java:1598)\n\tat org.eclipse.jetty.server.HttpChannel.dispatch(HttpChannel.java:753)\n\tat org.eclipse.jetty.server.HttpChannel.handle(HttpChannel.java:501)\n\tat org.eclipse.jetty.server.HttpConnection.onFillable(HttpConnection.java:287)\n\tat org.eclipse.jetty.io.AbstractConnection$ReadCallback.succeeded(AbstractConnection.java:314)\n\tat org.eclipse.jetty.io.FillInterest.fillable(FillInterest.java:100)\n\tat org.eclipse.jetty.io.SelectableChannelEndPoint$1.run(SelectableChannelEndPoint.java:53)\n\tat org.eclipse.jetty.util.thread.strategy.AdaptiveExecutionStrategy.runTask(AdaptiveExecutionStrategy.java:421)\n\tat org.eclipse.jetty.util.thread.strategy.AdaptiveExecutionStrategy.consumeTask(AdaptiveExecutionStrategy.java:390)\n\tat org.eclipse.jetty.util.thread.strategy.AdaptiveExecutionStrategy.tryProduce(AdaptiveExecutionStrategy.java:277)\n\tat org.eclipse.jetty.util.thread.strategy.AdaptiveExecutionStrategy.run(AdaptiveExecutionStrategy.java:199)\n\tat org.eclipse.jetty.util.thread.ReservedThreadExecutor$ReservedThread.run(ReservedThreadExecutor.java:411)\n\tat org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:969)\n\tat org.eclipse.jetty.util.thread.QueuedThreadPool$Runner.doRunJob(QueuedThreadPool.java:1194)\n\tat org.eclipse.jetty.util.thread.QueuedThreadPool$Runner.run(QueuedThreadPool.java:1149)\n\tat java.base/java.lang.Thread.run(Thread.java:840)\n</pre></div></body></html>",
+      "command": "/usr/bin/printf %s module-target-'\"\\&<>out>err>"
+    },
+    "literal_envelope": {
+      "code": 200,
+      "headers": {
+        "Content-Type": "text/plain;charset=utf-8"
+      },
+      "body": "{\"stdout\":\"module-target-'\\\"\\\\&<>out>err>\",\"stderr\":\"\",\"exit_status\":0}\n",
+      "command": "/usr/bin/printf %s module-target-'\"\\&<>out>err>"
+    },
+    "entities_original": {
+      "code": 200,
+      "headers": {
+        "Content-Type": "text/html;charset=utf-8"
+      },
+      "body": "<html><body id=\"jenkins\"><div id=\"main-panel\"><pre>println(Jenkins.instance.pluginManager.plugins)</pre>\n<pre>out&gt; module-target-&amp;lt;-out&gt;-err&gt;\n err&gt; \n</pre></div></body></html>",
+      "command": "/usr/bin/printf %s module-target-&lt;-out>-err>"
+    },
+    "entities_envelope": {
+      "code": 200,
+      "headers": {
+        "Content-Type": "text/plain;charset=utf-8"
+      },
+      "body": "{\"stdout\":\"module-target-&lt;-out>-err>\",\"stderr\":\"\",\"exit_status\":0}\n",
+      "command": "/usr/bin/printf %s module-target-&lt;-out>-err>"
+    },
+    "missing_original": {
+      "code": 200,
+      "headers": {
+        "Content-Type": "text/html;charset=utf-8"
+      },
+      "body": "<html><body id=\"jenkins\"><div id=\"main-panel\"><pre>println(Jenkins.instance.pluginManager.plugins)</pre>\n<pre>java.io.IOException: error=2, No such file or directory\n\tat java.base/java.lang.ProcessImpl.forkAndExec(Native Method)\n\tat java.base/java.lang.ProcessImpl.&lt;init&gt;(ProcessImpl.java:314)\n\tat java.base/java.lang.ProcessImpl.start(ProcessImpl.java:244)\n\tat java.base/java.lang.ProcessBuilder.start(ProcessBuilder.java:1110)\nCaused: java.io.IOException: Cannot run program \"/module-target-no-command\": error=2, No such file or directory\n\tat java.base/java.lang.ProcessBuilder.start(ProcessBuilder.java:1143)\n\tat java.base/java.lang.ProcessBuilder.start(ProcessBuilder.java:1073)\n\tat java.base/java.lang.Runtime.exec(Runtime.java:594)\n\tat java.base/java.lang.Runtime.exec(Runtime.java:418)\n\tat java.base/java.lang.Runtime.exec(Runtime.java:315)\n\tat org.codehaus.groovy.runtime.ProcessGroovyMethods.execute(ProcessGroovyMethods.java:544)\n\tat org.codehaus.groovy.runtime.dgm$895.invoke(Unknown Source)\n\tat org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite$PojoMetaMethodSiteNoUnwrapNoCoerce.invoke(PojoMetaMethodSite.java:274)\n\tat org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite.call(PojoMetaMethodSite.java:56)\n\tat org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:47)\n\tat org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:116)\n\tat org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:120)\n\tat Script1.run(Script1.groovy:2)\n\tat groovy.lang.GroovyShell.evaluate(GroovyShell.java:574)\n\tat groovy.lang.GroovyShell.evaluate(GroovyShell.java:612)\n\tat groovy.lang.GroovyShell.evaluate(GroovyShell.java:583)\n\tat hudson.util.RemotingDiagnostics$Script.call(RemotingDiagnostics.java:157)\n\tat hudson.util.RemotingDiagnostics$Script.call(RemotingDiagnostics.java:126)\n\tat hudson.remoting.LocalChannel.call(LocalChannel.java:47)\n\tat hudson.util.RemotingDiagnostics.executeGroovy(RemotingDiagnostics.java:121)\n\tat jenkins.model.Jenkins._doScript(Jenkins.java:4870)\n\tat jenkins.model.Jenkins.doScript(Jenkins.java:4841)\n\tat java.base/java.lang.invoke.MethodHandle.invokeWithArguments(MethodHandle.java:732)\n\tat org.kohsuke.stapler.Function$MethodFunction.invoke(Function.java:397)\n\tat org.kohsuke.stapler.Function$InstanceFunction.invoke(Function.java:409)\n\tat org.kohsuke.stapler.Function.bindAndInvoke(Function.java:207)\n\tat org.kohsuke.stapler.Function.bindAndInvokeAndServeResponse(Function.java:140)\n\tat org.kohsuke.stapler.MetaClass$11.doDispatch(MetaClass.java:558)\n\tat org.kohsuke.stapler.NameBasedDispatcher.dispatch(NameBasedDispatcher.java:59)\n\tat org.kohsuke.stapler.Stapler.tryInvoke(Stapler.java:770)\n\tat org.kohsuke.stapler.Stapler.invoke(Stapler.java:900)\n\tat org.kohsuke.stapler.Stapler.invoke(Stapler.java:698)\n\tat org.kohsuke.stapler.Stapler.service(Stapler.java:248)\n\tat javax.servlet.http.HttpServlet.service(HttpServlet.java:590)\n\tat org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:764)\n\tat org.eclipse.jetty.servlet.ServletHandler$ChainEnd.doFilter(ServletHandler.java:1665)\n\tat hudson.util.PluginServletFilter$1.doFilter(PluginServletFilter.java:163)\n\tat hudson.security.HudsonPrivateSecurityRealm$2.doFilter(HudsonPrivateSecurityRealm.java:1169)\n\tat hudson.util.PluginServletFilter$1.doFilter(PluginServletFilter.java:160)\n\tat jenkins.util.HttpServletFilter$1.doFilter(HttpServletFilter.java:76)\n\tat hudson.util.PluginServletFilter$1.doFilter(PluginServletFilter.java:160)\n\tat hudson.util.PluginServletFilter.doFilter(PluginServletFilter.java:166)\n\tat org.eclipse.jetty.servlet.FilterHolder.doFilter(FilterHolder.java:202)\n\tat org.eclipse.jetty.servlet.ServletHandler$Chain.doFilter(ServletHandler.java:1635)\n\tat jenkins.ErrorAttributeFilter.doFilter(ErrorAttributeFilter.java:29)\n\tat org.eclipse.jetty.servlet.FilterHolder.doFilter(FilterHolder.java:202)\n\tat org.eclipse.jetty.servlet.ServletHandler$Chain.doFilter(ServletHandler.java:1635)\n\tat hudson.security.csrf.CrumbFilter.doFilter(CrumbFilter.java:154)\n\tat org.eclipse.jetty.servlet.FilterHolder.doFilter(FilterHolder.java:202)\n\tat org.eclipse.jetty.servlet.ServletHandler$Chain.doFilter(ServletHandler.java:1635)\n\tat hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:94)\n\tat hudson.security.ChainedServletFilter.doFilter(ChainedServletFilter.java:111)\n\tat hudson.security.HudsonFilter.doFilter(HudsonFilter.java:172)\n\tat org.eclipse.jetty.servlet.FilterHolder.doFilter(FilterHolder.java:202)\n\tat org.eclipse.jetty.servlet.ServletHandler$Chain.doFilter(ServletHandler.java:1635)\n\tat org.kohsuke.stapler.compression.CompressionFilter.doFilter(CompressionFilter.java:53)\n\tat org.eclipse.jetty.servlet.FilterHolder.doFilter(FilterHolder.java:202)\n\tat org.eclipse.jetty.servlet.ServletHandler$Chain.doFilter(ServletHandler.java:1635)\n\tat hudson.util.CharacterEncodingFilter.doFilter(CharacterEncodingFilter.java:86)\n\tat org.eclipse.jetty.servlet.FilterHolder.doFilter(FilterHolder.java:202)\n\tat org.eclipse.jetty.servlet.ServletHandler$Chain.doFilter(ServletHandler.java:1635)\n\tat org.kohsuke.stapler.DiagnosticThreadNameFilter.doFilter(DiagnosticThreadNameFilter.java:30)\n\tat org.eclipse.jetty.servlet.FilterHolder.doFilter(FilterHolder.java:202)\n\tat org.eclipse.jetty.servlet.ServletHandler$Chain.doFilter(ServletHandler.java:1635)\n\tat jenkins.security.SuspiciousRequestFilter.doFilter(SuspiciousRequestFilter.java:38)\n\tat org.eclipse.jetty.servlet.FilterHolder.doFilter(FilterHolder.java:202)\n\tat org.eclipse.jetty.servlet.ServletHandler$Chain.doFilter(ServletHandler.java:1635)\n\tat org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:527)\n\tat org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:131)\n\tat org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:569)\n\tat org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:122)\n\tat org.eclipse.jetty.server.handler.ScopedHandler.nextHandle(ScopedHandler.java:223)\n\tat org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:1570)\n\tat org.eclipse.jetty.server.handler.ScopedHandler.nextHandle(ScopedHandler.java:221)\n\tat org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1384)\n\tat org.eclipse.jetty.server.handler.ScopedHandler.nextScope(ScopedHandler.java:176)\n\tat org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:484)\n\tat org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:1543)\n\tat org.eclipse.jetty.server.handler.ScopedHandler.nextScope(ScopedHandler.java:174)\n\tat org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:1306)\n\tat org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:129)\n\tat org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:122)\n\tat org.eclipse.jetty.server.Server.handle(Server.java:563)\n\tat org.eclipse.jetty.server.HttpChannel$RequestDispatchable.dispatch(HttpChannel.java:1598)\n\tat org.eclipse.jetty.server.HttpChannel.dispatch(HttpChannel.java:753)\n\tat org.eclipse.jetty.server.HttpChannel.handle(HttpChannel.java:501)\n\tat org.eclipse.jetty.server.HttpConnection.onFillable(HttpConnection.java:287)\n\tat org.eclipse.jetty.io.AbstractConnection$ReadCallback.succeeded(AbstractConnection.java:314)\n\tat org.eclipse.jetty.io.FillInterest.fillable(FillInterest.java:100)\n\tat org.eclipse.jetty.io.SelectableChannelEndPoint$1.run(SelectableChannelEndPoint.java:53)\n\tat org.eclipse.jetty.util.thread.strategy.AdaptiveExecutionStrategy.runTask(AdaptiveExecutionStrategy.java:421)\n\tat org.eclipse.jetty.util.thread.strategy.AdaptiveExecutionStrategy.consumeTask(AdaptiveExecutionStrategy.java:390)\n\tat org.eclipse.jetty.util.thread.strategy.AdaptiveExecutionStrategy.tryProduce(AdaptiveExecutionStrategy.java:277)\n\tat org.eclipse.jetty.util.thread.strategy.AdaptiveExecutionStrategy.run(AdaptiveExecutionStrategy.java:199)\n\tat org.eclipse.jetty.util.thread.ReservedThreadExecutor$ReservedThread.run(ReservedThreadExecutor.java:411)\n\tat org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:969)\n\tat org.eclipse.jetty.util.thread.QueuedThreadPool$Runner.doRunJob(QueuedThreadPool.java:1194)\n\tat org.eclipse.jetty.util.thread.QueuedThreadPool$Runner.run(QueuedThreadPool.java:1149)\n\tat java.base/java.lang.Thread.run(Thread.java:840)\n</pre></div></body></html>",
+      "command": "/module-target-no-command"
+    },
+    "missing_envelope": {
+      "code": 200,
+      "headers": {
+        "Content-Type": "text/plain;charset=utf-8"
+      },
+      "body": "{\"error\":\"Cannot run program \\\"/module-target-no-command\\\": error=2, No such file or directory\"}\n",
+      "command": "/module-target-no-command"
+    },
+    "stderr_original": {
+      "code": 200,
+      "headers": {
+        "Content-Type": "text/html;charset=utf-8"
+      },
+      "body": "<html><body id=\"jenkins\"><div id=\"main-panel\"><pre>println(Jenkins.instance.pluginManager.plugins)</pre>\n<pre>out&gt;  err&gt; /usr/bin/ls: cannot access '/module-target-no-path': No such file or directory\n\n</pre></div></body></html>",
+      "command": "/usr/bin/ls /module-target-no-path"
+    },
+    "stderr_envelope": {
+      "code": 200,
+      "headers": {
+        "Content-Type": "text/plain;charset=utf-8"
+      },
+      "body": "{\"stdout\":\"\",\"stderr\":\"/usr/bin/ls: cannot access '/module-target-no-path': No such file or directory\\n\",\"exit_status\":2}\n",
+      "command": "/usr/bin/ls /module-target-no-path"
+    },
+    "unicode_original": {
+      "code": 200,
+      "headers": {
+        "Content-Type": "text/html;charset=utf-8"
+      },
+      "body": "<html><body id=\"jenkins\"><div id=\"main-panel\"><pre>println(Jenkins.instance.pluginManager.plugins)</pre>\n<pre>out&gt; module-target-café-漢字-${1+1}\n err&gt; \n</pre></div></body></html>",
+      "command": "/usr/bin/printf %s module-target-café-漢字-${1+1}"
+    },
+    "unicode_envelope": {
+      "code": 200,
+      "headers": {
+        "Content-Type": "text/plain;charset=utf-8"
+      },
+      "body": "{\"stdout\":\"module-target-caf\\u00e9-\\u6f22\\u5b57-${1+1}\",\"stderr\":\"\",\"exit_status\":0}\n",
+      "command": "/usr/bin/printf %s module-target-café-漢字-${1+1}"
+    }
+  }
+}

