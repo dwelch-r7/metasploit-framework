@@ -56,7 +56,7 @@ class MetasploitModule < Msf::Auxiliary
     print_status("#{host} - Progress #{current.to_s.rjust(Math.log10(total).ceil + 1)}/#{total} (#{((current.to_f / total) * 100).truncate(2)}%)")
   end
 
-  def check
+  def check_host(_ip)
     res = send_request_cgi!({
       'method' => 'GET',
       'uri' => normalize_uri(target_uri.path)
@@ -90,7 +90,7 @@ class MetasploitModule < Msf::Auxiliary
   end
 
   def run_host(ip)
-    check_code = check
+    check_code = check_host(ip)
     return unless check_code == Exploit::CheckCode::Appears
 
     f = File.open(datastore['PLUGINS_FILE'], 'rb')
