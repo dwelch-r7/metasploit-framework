@@ -1,0 +1,21 @@
+spec: spec/acceptance/module_targets/joomla_api_spec.rb
+expected_examples: 12
+console: true
+modules:
+  - auxiliary/scanner/http/joomla_api_improper_access_checks
+ports:
+  vulnerable: 80
+  prefix: 80
+  fixed: 80
+  hidden: 80
+  unrelated: 80
+support_files:
+  - lib/msf/core/exploit/remote/http/joomla.rb
+  - lib/msf/core/exploit/remote/http/joomla/base.rb
+  - lib/msf/core/exploit/remote/http/joomla/version.rb
+  - lib/rex/proto/http/response.rb
+  - lib/rex/proto/http/client.rb
+  - test/module_targets/http/Dockerfile
+  - test/module_targets/http/compose.yaml
+  - test/module_targets/http/module-target.conf
+  - test/module_targets/http/htdocs/index.html

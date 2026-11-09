@@ -8,6 +8,9 @@ endpoints.
 
 This module was tested against Joomla 4.2.7 running on Docker.
 
+For digest-pinned affected/fixed targets and automated native/module checks,
+see [the container test guide](../../../../../test/module_targets/joomla_api/README.md).
+
 ## Install Joomla on Ubuntu 22.04
 
 From https://www.techrepublic.com/article/how-to-deploy-joomla-docker/

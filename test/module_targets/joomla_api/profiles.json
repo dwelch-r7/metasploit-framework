@@ -1,0 +1,9 @@
+{
+  "vhost": "joomla.module-target.test",
+  "profiles": {
+    "vulnerable": {"version": "4.2.7", "prefix": "", "vulnerable": true, "version_visible": true, "router_sha256": "3477fb519a5e8ee54a15f79037bb6fc1bcd37e8a08146b8af54e8713cb2cfe69"},
+    "prefix": {"version": "4.2.7", "prefix": "/joomla", "vulnerable": true, "version_visible": true, "router_sha256": "3477fb519a5e8ee54a15f79037bb6fc1bcd37e8a08146b8af54e8713cb2cfe69"},
+    "fixed": {"version": "4.2.8", "prefix": "", "vulnerable": false, "version_visible": true, "router_sha256": "867187fce911fc73c57c5f6c76a7b3c571d0097401ed6452bfa195e476f9d692"},
+    "hidden": {"version": "4.2.7", "prefix": "", "vulnerable": true, "version_visible": false, "router_sha256": "3477fb519a5e8ee54a15f79037bb6fc1bcd37e8a08146b8af54e8713cb2cfe69"}
+  }
+}

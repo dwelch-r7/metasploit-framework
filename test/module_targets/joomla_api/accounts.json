@@ -1,0 +1,4 @@
+{
+  "module_admin": {"id": 1000, "name": "Module Administrator", "email": "admin@example.test", "password": "module-target-password", "group": 8},
+  "module_reader": {"id": 1001, "name": "Module Reader & Café", "email": "reader@example.test", "password": "module-target-reader-password", "group": 2}
+}

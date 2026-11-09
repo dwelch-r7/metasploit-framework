@@ -1,0 +1,51 @@
+x-joomla: &joomla
+  build: .
+  depends_on: {db: {condition: service_healthy}}
+  environment: &environment
+    JOOMLA_DB_HOST: db
+    JOOMLA_DB_USER: module_target
+    JOOMLA_DB_PASSWORD: module-target-db-password
+    JOOMLA_DB_NAME: joomla_root
+  ports: ["127.0.0.1::80"]
+  mem_limit: 384m
+  healthcheck:
+    test: [CMD-SHELL, 'test -f /tmp/module-target-ready && curl --fail --silent http://127.0.0.1$${LAB_PREFIX}/ >/dev/null']
+    interval: 3s
+    timeout: 5s
+    retries: 40
+
+services:
+  db:
+    build: {context: ., dockerfile: db.Dockerfile}
+    environment: {MARIADB_ROOT_PASSWORD: module-target-root-password}
+    mem_limit: 512m
+    healthcheck:
+      test: [CMD-SHELL, 'mariadb --user=root --password=module-target-root-password --batch --skip-column-names --execute="SELECT COUNT(*) FROM mysql.user WHERE User=\"module_target\"" | grep -q 1']
+      interval: 2s
+      timeout: 3s
+      retries: 45
+  vulnerable:
+    <<: *joomla
+  prefix:
+    <<: *joomla
+    build: {context: ., args: {LAB_PREFIX: /joomla}}
+    environment:
+      <<: *environment
+      JOOMLA_DB_NAME: joomla_prefix
+  fixed:
+    <<: *joomla
+    build:
+      context: .
+      args:
+        JOOMLA_IMAGE: joomla:4.2.8-php8.1-apache@sha256:e2095d0cbf348715f16c5dfaccd427e856385634236a01a615fb266fffedd56b
+    environment:
+      <<: *environment
+      JOOMLA_DB_NAME: joomla_fixed
+  hidden:
+    <<: *joomla
+    environment:
+      <<: *environment
+      JOOMLA_DB_NAME: joomla_hidden
+      LAB_HIDE_VERSION: '1'
+  unrelated:
+    extends: {file: ../http/compose.yaml, service: apache}
