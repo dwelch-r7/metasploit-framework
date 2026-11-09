@@ -1,0 +1,41 @@
+spec: spec/acceptance/module_targets/wordpress_admin_spec.rb
+expected_examples: 25
+console: true
+modules:
+  - exploit/unix/webapp/wp_admin_shell_upload
+ports:
+  root: 80
+  prefix: 80
+  locked: 80
+  unrelated: 80
+support_files:
+  - lib/msf/core/exploit/file_dropper.rb
+  - lib/msf/core/exploit/remote/http/wordpress.rb
+  - lib/msf/core/exploit/remote/http/wordpress/admin.rb
+  - lib/msf/core/exploit/remote/http/wordpress/base.rb
+  - lib/msf/core/exploit/remote/http/wordpress/helpers.rb
+  - lib/msf/core/exploit/remote/http/wordpress/login.rb
+  - lib/msf/core/exploit/remote/http/wordpress/posts.rb
+  - lib/msf/core/exploit/remote/http/wordpress/register.rb
+  - lib/msf/core/exploit/remote/http/wordpress/sqli.rb
+  - lib/msf/core/exploit/remote/http/wordpress/uris.rb
+  - lib/msf/core/exploit/remote/http/wordpress/users.rb
+  - lib/msf/core/exploit/remote/http/wordpress/version.rb
+  - lib/msf/core/exploit/remote/http/wordpress/xml_rpc.rb
+  - modules/payloads/singles/php/exec.rb
+  - modules/payloads/singles/php/reverse_php.rb
+  - modules/payloads/singles/php/meterpreter_reverse_tcp.rb
+  - modules/payloads/stagers/php/reverse_tcp.rb
+  - modules/payloads/stages/php/meterpreter.rb
+  - lib/msf/core/payload/php.rb
+  - test/module_targets/wordpress/compose.yaml
+  - test/module_targets/wordpress/Dockerfile
+  - test/module_targets/wordpress/db.Dockerfile
+  - test/module_targets/wordpress/init.sql
+  - test/module_targets/wordpress/seed.php
+  - test/module_targets/wordpress/inspect.php
+  - test/module_targets/wordpress/apache2-foreground
+  - test/module_targets/http/compose.yaml
+  - test/module_targets/http/Dockerfile
+  - test/module_targets/http/module-target.conf
+  - test/module_targets/http/htdocs/index.html

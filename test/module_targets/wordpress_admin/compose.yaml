@@ -1,0 +1,25 @@
+x-admin: &admin
+  volumes:
+    - ./inspect.php:/opt/module-target/inspect-admin.php:ro
+    - ./cleanup.php:/opt/module-target/cleanup-admin-native.php:ro
+
+services:
+  db:
+    extends: {file: ../wordpress/compose.yaml, service: db}
+  root:
+    <<: *admin
+    extends: {file: ../wordpress/compose.yaml, service: root}
+  prefix:
+    <<: *admin
+    extends: {file: ../wordpress/compose.yaml, service: prefix}
+  locked:
+    extends: {file: ../wordpress/compose.yaml, service: root}
+    environment:
+      WORDPRESS_DB_NAME: wp_blocked
+    volumes:
+      - ./inspect.php:/opt/module-target/inspect-admin.php:ro
+      - ./cleanup.php:/opt/module-target/cleanup-admin-native.php:ro
+      - ./locked.ini:/usr/local/etc/php/conf.d/module-target-locked.ini:ro
+      - ./locked.php:/opt/module-target/locked.php:ro
+  unrelated:
+    extends: {file: ../http/compose.yaml, service: apache}
