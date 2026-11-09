@@ -1,0 +1,161 @@
+{
+  "provenance": {
+    "source": "tmp/module-target-tests/20261109T185257-263630/joomla_api/native-joomla.json",
+    "source_sha256": "6e9078dc19d1c09de3da4cd7a828fd17fd90c493b973f564241aa5a8ffc15850",
+    "producer": "test/module_targets/joomla_api/native_probe.rb",
+    "producer_sha256": "37e1bd4816a75820b323c1d3c491965c59e05971b4d1346f7599efe2ec827430",
+    "native_requests": 78
+  },
+  "profiles": {
+    "vulnerable": {
+      "version": "4.2.7",
+      "php": "8.1.16",
+      "router_sha256": "3477fb519a5e8ee54a15f79037bb6fc1bcd37e8a08146b8af54e8713cb2cfe69",
+      "manifest": {
+        "service": "vulnerable",
+        "path": "/administrator/manifests/files/joomla.xml",
+        "user": null,
+        "code": 200,
+        "headers": {
+          "date": [
+            "Mon, 09 Nov 2026 18:54:58 GMT"
+          ],
+          "server": [
+            "Apache/2.4.54 (Debian)"
+          ],
+          "last-modified": [
+            "Mon, 30 Jan 2023 20:24:49 GMT"
+          ],
+          "etag": [
+            "\"614-5f38101bc4640-gzip\""
+          ],
+          "accept-ranges": [
+            "bytes"
+          ],
+          "vary": [
+            "Accept-Encoding"
+          ],
+          "content-length": [
+            "1556"
+          ],
+          "connection": [
+            "close"
+          ],
+          "content-type": [
+            "application/xml"
+          ]
+        },
+        "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<extension type=\"file\" method=\"upgrade\">\n\t<name>files_joomla</name>\n\t<author>Joomla! Project</author>\n\t<authorEmail>admin@joomla.org</authorEmail>\n\t<authorUrl>www.joomla.org</authorUrl>\n\t<copyright>(C) 2019 Open Source Matters, Inc.</copyright>\n\t<license>GNU General Public License version 2 or later; see LICENSE.txt</license>\n\t<version>4.2.7</version>\n\t<creationDate>2023-01</creationDate>\n\t<description>FILES_JOOMLA_XML_DESCRIPTION</description>\n\n\t<scriptfile>administrator/components/com_admin/script.php</scriptfile>\n\n\t<update>\n\t\t<schemas>\n\t\t\t<schemapath type=\"mysql\">administrator/components/com_admin/sql/updates/mysql</schemapath>\n\t\t\t<schemapath type=\"postgresql\">administrator/components/com_admin/sql/updates/postgresql</schemapath>\n\t\t</schemas>\n\t</update>\n\n\t<fileset>\n\t\t<files>\n\t\t\t<folder>administrator</folder>\n\t\t\t<folder>api</folder>\n\t\t\t<folder>cache</folder>\n\t\t\t<folder>cli</folder>\n\t\t\t<folder>components</folder>\n\t\t\t<folder>images</folder>\n\t\t\t<folder>includes</folder>\n\t\t\t<folder>language</folder>\n\t\t\t<folder>layouts</folder>\n\t\t\t<folder>libraries</folder>\n\t\t\t<folder>media</folder>\n\t\t\t<folder>modules</folder>\n\t\t\t<folder>plugins</folder>\n\t\t\t<folder>templates</folder>\n\t\t\t<folder>tmp</folder>\n\t\t\t<file>htaccess.txt</file>\n\t\t\t<file>web.config.txt</file>\n\t\t\t<file>LICENSE.txt</file>\n\t\t\t<file>README.txt</file>\n\t\t\t<file>index.php</file>\n\t\t</files>\n\t</fileset>\n\n\t<updateservers>\n\t\t<server name=\"Joomla! Core\" type=\"collection\">https://update.joomla.org/core/list.xml</server>\n\t</updateservers>\n</extension>\n"
+      },
+      "public_users_status": 200,
+      "public_config_status": 200
+    },
+    "fixed": {
+      "version": "4.2.8",
+      "php": "8.1.16",
+      "router_sha256": "867187fce911fc73c57c5f6c76a7b3c571d0097401ed6452bfa195e476f9d692",
+      "manifest": {
+        "service": "fixed",
+        "path": "/administrator/manifests/files/joomla.xml",
+        "user": null,
+        "code": 200,
+        "headers": {
+          "date": [
+            "Mon, 09 Nov 2026 18:55:03 GMT"
+          ],
+          "server": [
+            "Apache/2.4.54 (Debian)"
+          ],
+          "last-modified": [
+            "Wed, 15 Feb 2023 09:19:14 GMT"
+          ],
+          "etag": [
+            "\"614-5f4b992e28880-gzip\""
+          ],
+          "accept-ranges": [
+            "bytes"
+          ],
+          "vary": [
+            "Accept-Encoding"
+          ],
+          "content-length": [
+            "1556"
+          ],
+          "connection": [
+            "close"
+          ],
+          "content-type": [
+            "application/xml"
+          ]
+        },
+        "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<extension type=\"file\" method=\"upgrade\">\n\t<name>files_joomla</name>\n\t<author>Joomla! Project</author>\n\t<authorEmail>admin@joomla.org</authorEmail>\n\t<authorUrl>www.joomla.org</authorUrl>\n\t<copyright>(C) 2019 Open Source Matters, Inc.</copyright>\n\t<license>GNU General Public License version 2 or later; see LICENSE.txt</license>\n\t<version>4.2.8</version>\n\t<creationDate>2023-02</creationDate>\n\t<description>FILES_JOOMLA_XML_DESCRIPTION</description>\n\n\t<scriptfile>administrator/components/com_admin/script.php</scriptfile>\n\n\t<update>\n\t\t<schemas>\n\t\t\t<schemapath type=\"mysql\">administrator/components/com_admin/sql/updates/mysql</schemapath>\n\t\t\t<schemapath type=\"postgresql\">administrator/components/com_admin/sql/updates/postgresql</schemapath>\n\t\t</schemas>\n\t</update>\n\n\t<fileset>\n\t\t<files>\n\t\t\t<folder>administrator</folder>\n\t\t\t<folder>api</folder>\n\t\t\t<folder>cache</folder>\n\t\t\t<folder>cli</folder>\n\t\t\t<folder>components</folder>\n\t\t\t<folder>images</folder>\n\t\t\t<folder>includes</folder>\n\t\t\t<folder>language</folder>\n\t\t\t<folder>layouts</folder>\n\t\t\t<folder>libraries</folder>\n\t\t\t<folder>media</folder>\n\t\t\t<folder>modules</folder>\n\t\t\t<folder>plugins</folder>\n\t\t\t<folder>templates</folder>\n\t\t\t<folder>tmp</folder>\n\t\t\t<file>htaccess.txt</file>\n\t\t\t<file>web.config.txt</file>\n\t\t\t<file>LICENSE.txt</file>\n\t\t\t<file>README.txt</file>\n\t\t\t<file>index.php</file>\n\t\t</files>\n\t</fileset>\n\n\t<updateservers>\n\t\t<server name=\"Joomla! Core\" type=\"collection\">https://update.joomla.org/core/list.xml</server>\n\t</updateservers>\n</extension>\n"
+      },
+      "public_users_status": 401,
+      "public_config_status": 401
+    },
+    "hidden": {
+      "version": "4.2.7",
+      "php": "8.1.16",
+      "router_sha256": "3477fb519a5e8ee54a15f79037bb6fc1bcd37e8a08146b8af54e8713cb2cfe69",
+      "manifest": {
+        "service": "hidden",
+        "path": "/administrator/manifests/files/joomla.xml",
+        "user": null,
+        "code": 403,
+        "headers": {
+          "date": [
+            "Mon, 09 Nov 2026 18:55:05 GMT"
+          ],
+          "server": [
+            "Apache/2.4.54 (Debian)"
+          ],
+          "content-length": [
+            "290"
+          ],
+          "connection": [
+            "close"
+          ],
+          "content-type": [
+            "text/html; charset=iso-8859-1"
+          ]
+        },
+        "body": "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">\n<html><head>\n<title>403 Forbidden</title>\n</head><body>\n<h1>Forbidden</h1>\n<p>You don't have permission to access this resource.</p>\n<hr>\n<address>Apache/2.4.54 (Debian) Server at joomla.module-target.test Port 80</address>\n</body></html>\n"
+      },
+      "public_users_status": 200,
+      "public_config_status": 200
+    }
+  },
+  "unrelated": {
+    "service": "unrelated",
+    "path": "/",
+    "user": null,
+    "code": 200,
+    "headers": {
+      "date": [
+        "Mon, 09 Nov 2026 18:55:06 GMT"
+      ],
+      "server": [
+        "Apache/2.4.62 (Unix)"
+      ],
+      "last-modified": [
+        "Sun, 08 Nov 2026 20:57:45 GMT"
+      ],
+      "etag": [
+        "\"79-65fca18e3b1e2\""
+      ],
+      "accept-ranges": [
+        "bytes"
+      ],
+      "content-length": [
+        "121"
+      ],
+      "connection": [
+        "close"
+      ],
+      "content-type": [
+        "text/html"
+      ]
+    },
+    "body": "<!doctype html><html><head><title>Module target &amp; Apache</title></head><body>module-target-http-marker</body></html>\n"
+  }
+}

@@ -61,13 +61,18 @@ class MetasploitModule < Msf::Auxiliary
     end
 
     version = joomla_version
-    if version.nil?
-      return Exploit::CheckCode::Safe("#{peer} - Unable to determine Joomla Version")
+    if version.blank?
+      return Exploit::CheckCode::Unknown("#{peer} - Unable to determine Joomla Version")
     end
 
     vprint_status("Joomla version detected: #{version}")
-    ver_no = Rex::Version.new(version)
-    if ver_no < Rex::Version.new('4.0.0') && ver_no >= Rex::Version.new('4.2.8')
+    begin
+      ver_no = Rex::Version.new(version)
+    rescue ArgumentError => e
+      elog('Failed to parse Joomla version metadata', error: e)
+      return Exploit::CheckCode::Unknown('Unable to parse Joomla version metadata')
+    end
+    if ver_no < Rex::Version.new('4.0.0') || ver_no >= Rex::Version.new('4.2.8')
       return Exploit::CheckCode::Safe("Joomla version #{ver_no} is NOT vulnerable")
     end
 
