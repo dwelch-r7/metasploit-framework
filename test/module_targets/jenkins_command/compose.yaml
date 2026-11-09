@@ -1,0 +1,13 @@
+services:
+  open:
+    extends:
+      file: ../jenkins/compose.yaml
+      service: open
+  secured:
+    extends:
+      file: ../jenkins/compose.yaml
+      service: weekly_fixed
+  unrelated:
+    extends:
+      file: ../http/compose.yaml
+      service: apache

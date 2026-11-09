@@ -1,0 +1,18 @@
+spec: spec/acceptance/module_targets/jenkins_command_spec.rb
+expected_examples: 7
+console: true
+modules:
+  - auxiliary/scanner/http/jenkins_command
+ports:
+  open: 8080
+  secured: 8080
+  unrelated: 80
+support_files:
+  - test/module_targets/jenkins/compose.yaml
+  - test/module_targets/jenkins/Dockerfile
+  - test/module_targets/jenkins/init.groovy
+  - test/module_targets/jenkins/fixtures.json
+  - test/module_targets/http/compose.yaml
+  - test/module_targets/http/Dockerfile
+  - test/module_targets/http/module-target.conf
+  - test/module_targets/http/htdocs/index.html
