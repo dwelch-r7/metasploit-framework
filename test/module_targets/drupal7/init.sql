@@ -1,0 +1,11 @@
+CREATE DATABASE drupal_root CHARACTER SET utf8 COLLATE utf8_general_ci;
+CREATE DATABASE drupal_prefix CHARACTER SET utf8 COLLATE utf8_general_ci;
+CREATE DATABASE drupal_fixed CHARACTER SET utf8 COLLATE utf8_general_ci;
+CREATE DATABASE drupal_assert_off CHARACTER SET utf8 COLLATE utf8_general_ci;
+CREATE DATABASE drupal_no_changelog CHARACTER SET utf8 COLLATE utf8_general_ci;
+CREATE USER 'module_target'@'%' IDENTIFIED BY 'module-target-db-password';
+GRANT ALL PRIVILEGES ON drupal_root.* TO 'module_target'@'%';
+GRANT ALL PRIVILEGES ON drupal_prefix.* TO 'module_target'@'%';
+GRANT ALL PRIVILEGES ON drupal_fixed.* TO 'module_target'@'%';
+GRANT ALL PRIVILEGES ON drupal_assert_off.* TO 'module_target'@'%';
+GRANT ALL PRIVILEGES ON drupal_no_changelog.* TO 'module_target'@'%';

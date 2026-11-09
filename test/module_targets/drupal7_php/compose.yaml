@@ -1,0 +1,30 @@
+---
+services:
+  db:
+    extends:
+      file: "../drupal7/compose.yaml"
+      service: db
+  root:
+    extends:
+      file: "../drupal7/compose.yaml"
+      service: root
+  prefix:
+    extends:
+      file: "../drupal7/compose.yaml"
+      service: prefix
+  fixed:
+    extends:
+      file: "../drupal7/compose.yaml"
+      service: fixed
+  assert_off:
+    extends:
+      file: "../drupal7/compose.yaml"
+      service: assert_off
+  no_changelog:
+    extends:
+      file: "../drupal7/compose.yaml"
+      service: no_changelog
+  unrelated:
+    extends:
+      file: "../drupal7/compose.yaml"
+      service: unrelated

@@ -1,0 +1,49 @@
+---
+spec: spec/acceptance/module_targets/drupal7_spec.rb
+expected_examples: 7
+console: true
+modules:
+- exploit/unix/webapp/drupal_drupalgeddon2
+ports:
+  root: 80
+  prefix: 80
+  fixed: 80
+  assert_off: 80
+  no_changelog: 80
+  unrelated: 80
+support_files:
+- lib/msf/core/exploit.rb
+- lib/msf/core/exploit/remote/http/drupal.rb
+- lib/msf/core/exploit/remote/auto_check.rb
+- lib/msf/core/exploit/file_dropper.rb
+- lib/msf/core/exploit/php_exe.rb
+- lib/msf/core/exploit/exe.rb
+- lib/msf/core/payload/php.rb
+- lib/msf/core/payload/php/reverse_tcp.rb
+- lib/msf/core/payload/stager.rb
+- lib/msf/util/exe.rb
+- lib/msf/util/exe/linux/x64.rb
+- modules/payloads/singles/cmd/unix/generic.rb
+- modules/payloads/singles/php/reverse_php.rb
+- modules/payloads/singles/linux/x64/shell_reverse_tcp.rb
+- modules/payloads/stagers/php/reverse_tcp.rb
+- modules/payloads/stages/php/meterpreter.rb
+- modules/encoders/php/base64.rb
+- data/templates/template_x64_linux.bin
+- test/module_targets/http/compose.yaml
+- test/module_targets/http/Dockerfile
+- test/module_targets/http/module-target.conf
+- test/module_targets/http/htdocs/index.html
+- test/module_targets/drupal7/Dockerfile
+- test/module_targets/drupal7/README.md
+- test/module_targets/drupal7/compose.yaml
+- test/module_targets/drupal7/db.Dockerfile
+- test/module_targets/drupal7/fixture.ini
+- test/module_targets/drupal7/init.sql
+- test/module_targets/drupal7/inspect.php
+- test/module_targets/drupal7/manifest.yml
+- test/module_targets/drupal7/native_probe.rb
+- test/module_targets/drupal7/seed.php
+- test/module_targets/drupal7/start.sh
+test_env:
+  DRUPAL7_PROFILE: php

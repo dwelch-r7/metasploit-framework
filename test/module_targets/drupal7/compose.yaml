@@ -1,0 +1,64 @@
+x-drupal: &drupal
+  build:
+    context: .
+    args: &vulnerable
+      DRUPAL_VERSION: '7.57'
+      DRUPAL_SHA256: c3bc1173d7830941fa9ee6061d555fec334bd6834d2fc5c870f3aef1fbf667e2
+  depends_on:
+    db: {condition: service_healthy}
+  environment: &environment
+    DRUPAL_DB_NAME: drupal_root
+    LAB_PREFIX: ''
+  ports: ["127.0.0.1::80"]
+  mem_limit: 256m
+  healthcheck:
+    test: [CMD-SHELL, 'test -f /tmp/module-target-ready && curl --fail --silent "http://127.0.0.1$${LAB_PREFIX}/?q=user/password" >/dev/null']
+    interval: 3s
+    timeout: 5s
+    retries: 40
+
+services:
+  db:
+    build:
+      context: .
+      dockerfile: db.Dockerfile
+    environment:
+      MARIADB_ROOT_PASSWORD: module-target-root-password
+    mem_limit: 512m
+    healthcheck:
+      test: [CMD-SHELL, 'mariadb --user=root --password=module-target-root-password --batch --skip-column-names --execute="SELECT COUNT(*) FROM mysql.user WHERE User=\"module_target\"" | grep -q 1']
+      interval: 2s
+      timeout: 3s
+      retries: 45
+  root:
+    <<: *drupal
+  prefix:
+    <<: *drupal
+    environment:
+      <<: *environment
+      DRUPAL_DB_NAME: drupal_prefix
+      LAB_PREFIX: /drupal
+  fixed:
+    <<: *drupal
+    build:
+      context: .
+      args:
+        DRUPAL_VERSION: '7.58'
+        DRUPAL_SHA256: 33d29980593477ab1504d21e4bf10455f6a386935a88b34ac6d14aaf94c42272
+    environment:
+      <<: *environment
+      DRUPAL_DB_NAME: drupal_fixed
+  assert_off:
+    <<: *drupal
+    environment:
+      <<: *environment
+      DRUPAL_DB_NAME: drupal_assert_off
+      LAB_ASSERT_OFF: '1'
+  no_changelog:
+    <<: *drupal
+    environment:
+      <<: *environment
+      DRUPAL_DB_NAME: drupal_no_changelog
+      LAB_NO_CHANGELOG: '1'
+  unrelated:
+    extends: {file: ../http/compose.yaml, service: apache}
