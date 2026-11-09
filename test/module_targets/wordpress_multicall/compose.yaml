@@ -1,0 +1,48 @@
+x-legacy: &legacy
+  depends_on:
+    db: {condition: service_healthy}
+  ports: ["127.0.0.1::80"]
+  mem_limit: 256m
+  healthcheck:
+    test: [CMD-SHELL, 'test -f /tmp/module-target-ready && curl --fail --silent http://127.0.0.1/wp-login.php >/dev/null']
+    interval: 3s
+    timeout: 5s
+    retries: 40
+
+x-database: &database
+  WORDPRESS_DB_HOST: db:3306
+  WORDPRESS_DB_USER: module_target
+  WORDPRESS_DB_PASSWORD: module-target-db-password
+
+services:
+  db:
+    extends: {file: ../wordpress/compose.yaml, service: db}
+  vulnerable:
+    <<: *legacy
+    build:
+      context: .
+      args:
+        WORDPRESS_VERSION: 4.3.1
+        WORDPRESS_SHA256: df5a5bfa28c916e11e8a636297c8eeb68816fff1d1bc2564c1d73c0063f0027c
+    environment:
+      <<: *database
+      WORDPRESS_DB_NAME: wp_root
+  fixed:
+    <<: *legacy
+    build:
+      context: .
+      args:
+        WORDPRESS_VERSION: '4.4'
+        WORDPRESS_SHA256: 02047ded951bc9d3e3d7e33dc4add71165edff202bee0c00d536e9640813ce99
+    environment:
+      <<: *database
+      WORDPRESS_DB_NAME: wp_prefix
+  modern:
+    extends: {file: ../wordpress/compose.yaml, service: prefix}
+    environment:
+      WORDPRESS_DB_NAME: wp_plain
+    volumes:
+      - ./accounts.json:/opt/module-target/accounts.json:ro
+      - ./prep.php:/opt/module-target/prep.php:ro
+  unrelated:
+    extends: {file: ../http/compose.yaml, service: apache}

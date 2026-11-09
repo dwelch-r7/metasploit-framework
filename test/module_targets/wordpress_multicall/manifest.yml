@@ -1,0 +1,37 @@
+spec: spec/acceptance/module_targets/wordpress_multicall_spec.rb
+expected_examples: 22
+console: true
+modules:
+  - auxiliary/scanner/http/wordpress_multicall_creds
+ports:
+  vulnerable: 80
+  fixed: 80
+  modern: 80
+  unrelated: 80
+support_files:
+  - lib/metasploit/framework/login_scanner/wordpress_multicall.rb
+  - lib/metasploit/framework/credential_collection.rb
+  - lib/rex/proto/http/http_logger_subscriber.rb
+  - lib/msf/core/exploit/remote/http/wordpress.rb
+  - lib/msf/core/exploit/remote/http/wordpress/admin.rb
+  - lib/msf/core/exploit/remote/http/wordpress/base.rb
+  - lib/msf/core/exploit/remote/http/wordpress/helpers.rb
+  - lib/msf/core/exploit/remote/http/wordpress/login.rb
+  - lib/msf/core/exploit/remote/http/wordpress/posts.rb
+  - lib/msf/core/exploit/remote/http/wordpress/register.rb
+  - lib/msf/core/exploit/remote/http/wordpress/sqli.rb
+  - lib/msf/core/exploit/remote/http/wordpress/uris.rb
+  - lib/msf/core/exploit/remote/http/wordpress/users.rb
+  - lib/msf/core/exploit/remote/http/wordpress/version.rb
+  - lib/msf/core/exploit/remote/http/wordpress/xml_rpc.rb
+  - test/module_targets/wordpress/compose.yaml
+  - test/module_targets/wordpress/Dockerfile
+  - test/module_targets/wordpress/db.Dockerfile
+  - test/module_targets/wordpress/init.sql
+  - test/module_targets/wordpress/seed.php
+  - test/module_targets/wordpress/inspect.php
+  - test/module_targets/wordpress/apache2-foreground
+  - test/module_targets/http/compose.yaml
+  - test/module_targets/http/Dockerfile
+  - test/module_targets/http/module-target.conf
+  - test/module_targets/http/htdocs/index.html

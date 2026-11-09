@@ -1,0 +1,5 @@
+{
+  "module_admin": {"password": "module-target-password", "role": "administrator"},
+  "module_subscriber": {"password": "module-target-subscriber-password", "role": "subscriber"},
+  "module_editor": {"password": "module-target-&<café>", "role": "editor"}
+}
