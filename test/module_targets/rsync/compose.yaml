@@ -1,0 +1,28 @@
+x-rsync: &rsync
+  ports: ["127.0.0.1::873"]
+  healthcheck:
+    test: ["CMD", "rsync", "--contimeout=2", "--timeout=2", "--list-only", "rsync://127.0.0.1/"]
+    interval: 3s
+    timeout: 4s
+    retries: 30
+
+services:
+  ubuntu:
+    <<: *rsync
+    build: .
+  debian:
+    <<: *rsync
+    build:
+      context: .
+      args:
+        BASE_IMAGE: debian:12@sha256:268fb24c39bca92d326dd83ea3abebe4a3f7751c804ffef23bb6d857dd343ff8
+        RSYNC_PACKAGE_VERSION: 3.2.7-1+deb12u6
+  empty:
+    <<: *rsync
+    build: .
+    command: ["rsync", "--daemon", "--no-detach", "--config", "/opt/empty.conf"]
+  apache:
+    extends:
+      file: ../http/compose.yaml
+      service: apache
+    build: ../http

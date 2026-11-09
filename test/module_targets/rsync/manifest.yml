@@ -1,0 +1,14 @@
+spec: spec/acceptance/module_targets/rsync_spec.rb
+expected_examples: 6
+modules:
+  - auxiliary/scanner/rsync/modules_list
+ports:
+  ubuntu: 873
+  debian: 873
+  empty: 873
+  apache: 80
+support_files:
+  - test/module_targets/http/compose.yaml
+  - test/module_targets/http/Dockerfile
+  - test/module_targets/http/module-target.conf
+  - test/module_targets/http/htdocs/index.html

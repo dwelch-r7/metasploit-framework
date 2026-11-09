@@ -273,3 +273,14 @@ PORT    STATE SERVICE VERSION
 |_  authenticated  	Files require authentication
 
 ```
+## Automated container tests
+
+The [managed rsync lab](../../../../../test/module_targets/rsync/README.md) compares
+real protocol 31.0 and 32.0 daemons, open/password-protected/uncommented/hidden
+shares, an empty daemon and an unrelated HTTP service. Native file transfers
+verify fixture policy before module enumeration and authentication detection.
+Run from the repository root:
+
+```sh
+bundle exec ruby tools/dev/run_module_target_tests.rb rsync
+```
