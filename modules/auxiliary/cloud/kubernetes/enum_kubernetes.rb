@@ -89,13 +89,13 @@ class MetasploitModule < Msf::Auxiliary
     when 'version'
       enum_version
     when 'auth'
-      enum_auth(datastore['NAMESPACE'])
+      enum_auth(namespace)
     when 'namespaces', 'namespace'
       enum_namespaces(name: datastore['NAME'])
     when 'pods', 'pod'
-      enum_pods(datastore['NAMESPACE'], name: datastore['NAME'])
+      enum_pods(namespace, name: datastore['NAME'])
     when 'secret', 'secrets'
-      enum_secrets(datastore['NAMESPACE'], name: datastore['NAME'])
+      enum_secrets(namespace, name: datastore['NAME'])
     end
   rescue Msf::Exploit::Remote::HTTP::Kubernetes::Error::ApiError => e
     print_error(e.message)

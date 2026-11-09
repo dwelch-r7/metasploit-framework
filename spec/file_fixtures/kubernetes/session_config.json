@@ -1,0 +1,38 @@
+{
+  "namespace": "module-lab",
+  "pod": "fixture-pod",
+  "internal_api": {
+    "url": "https://10.79.0.1:443/api/v1/namespaces/module-lab/pods",
+    "status": 200,
+    "namespace": "module-lab",
+    "pod_names": [
+      "fixture-pod"
+    ],
+    "certificate_verified": true
+  },
+  "original_enum_response": {
+    "kind": "Status",
+    "apiVersion": "v1",
+    "metadata": {},
+    "status": "Failure",
+    "message": "namespaces \"pods\" is forbidden: User \"system:serviceaccount:module-lab:executor\" cannot get resource \"namespaces\" in API group \"\" in the namespace \"pods\"",
+    "reason": "Forbidden",
+    "details": {
+      "name": "pods",
+      "kind": "namespaces"
+    },
+    "code": 403
+  },
+  "provenance": {
+    "run": "20261109T223626-78560e",
+    "log": "tmp/module-target-tests/20261109T223626-78560e/kubernetes_exec/example-__spec_acceptance_module_targets_kubernetes_spec_rb_1_4_.log",
+    "log_sha256": "dbbca01a94704c4216d32f74529e57166bf4e40730a1f2828053e49f68a1b895"
+  },
+  "original_exec_request": "GET /api/v1/namespaces/pods/fixture-pod/exec?command=%2Fbin%2Fsh&stdin=true&stdout=true&stderr=true&tty=false HTTP/1.1",
+  "original_exec_response": "HTTP/1.1 403 Forbidden",
+  "exec_provenance": {
+    "run": "20261109T225014-7b9d4d",
+    "log": "tmp/module-target-tests/20261109T225014-7b9d4d/kubernetes_session_probe/example-__tmp_kubernetes-session-probe-spec_rb_1_1_.log",
+    "log_sha256": "811b2e9f86d64f93bb6e70715cf9f13dc8404a69c80281be024ddbb91b516e75"
+  }
+}
