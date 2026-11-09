@@ -117,6 +117,13 @@ coverage is **65 modules, twenty-one families and 277 cases**. Linux post-module
 qualification is continuing; setup/assertion failures there are recorded as
 harness issues and do not add passing coverage.
 
+Linux post-module qualification subsequently passed all eight cases across
+genuine native command-shell and Meterpreter sessions, with eight fresh
+target-side command proofs. Three modules cover actual Docker detection,
+normal/specialist/missing command directories and exact configuration-file loot.
+The verified checkpoint is **68 modules, twenty-two families and 285 cases**.
+CouchDB is under native qualification and is not included yet.
+
 ## November 8 baseline findings
 
 | Family | Functional result | Scope |
@@ -237,6 +244,11 @@ Reverse payload sessions and TLS remain untested in this family.
   and the strengthened parent suite passed all 22 cases. Native long/short BER
   captures underpin framing regressions. SNMPv3, vendor/Windows MIBs, IPv6,
   arbitrary SET data types and credential persistence remain unqualified.
+- Linux post modules: three modules passed eight cases over both declared
+  session types on native Ubuntu 22.04.5. Setup must wait for the completed
+  session event, since registration precedes bootstrap. Actual configuration
+  bytes match native reads. Root-only Docker coverage does not qualify other
+  distributions, nonroot permissions, other container runtimes or host kernels.
 - The isolated Framework console now works with Samba. Extend reverse shell,
   Meterpreter and post-module coverage across declared session types and useful
   delivery families.

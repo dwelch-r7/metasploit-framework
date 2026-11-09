@@ -159,10 +159,39 @@ SNMPv3, vendor/Windows MIBs, IPv6, arbitrary SET types, TCP SET and credential
 persistence remain unqualified. A passing Linux Net-SNMP profile does not prove
 specialist device modules work.
 
+## Linux post-module profiles
+
+The final profile passed **eight cases** in 183.28 seconds including cold
+console startup at `tmp/module-target-tests/20261109T004012-b53215/linux_post/`.
+All tested input hashes remained unchanged, with zero pending/outside-example
+errors and successful owned-project cleanup. Eight native Linux x64 payload
+launches opened four command-shell and four Meterpreter sessions; eight fresh
+target-side files prove actual session command execution before module work.
+Sixty-five native exec records preserve independent controls and readback.
+
+Both declared session types cover Docker detection, normal command paths,
+specialist/missing directories on successive runs and exact native configuration
+bytes in loot. The OS is genuine Ubuntu 22.04.5 on LinuxKit 7.0.14. Its HTTP
+server only supplies readiness. Payloads are generated from current Framework
+source/dependencies, staged through a read-only artifact mount and started by
+native container exec; no network exploit or SSH login is implied. No binary is
+committed. Root sessions do not qualify nonroot permissions, other distributions,
+non-Docker runtimes, every optional application config or full-host kernel state.
+
+Initial runs exposed harness assumptions rather than module defects: the console
+generation command belongs to payload context; command shells identify as Unix;
+absent optional files produce expected diagnostics; and a listed session can
+precede completed bootstrap. One setup iteration was stopped after confirming
+that race and removed its owned containers. Final setup waits for Framework's
+completed open event before commands. Expected missing-file diagnostics must
+match natively nonexistent paths; arbitrary module errors are still rejected.
+The eight-case final run validates those corrections. The new Ruby spec passes
+RuboCop and both existing module-doc edits add no checker diagnostics.
+
 ## Checkpoint review
 
-**Summary:** 65 production runtime modules now have passing profiles across
-twenty-one families, totaling 277 functional cases. Remaining candidates and
+**Summary:** 68 production runtime modules now have passing profiles across
+twenty-two families, totaling 285 functional cases. Remaining candidates and
 target requirements stay in the campaign/inventory.
 
 **What looks good:** Real upstream services, independent native controls,
