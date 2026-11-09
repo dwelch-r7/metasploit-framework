@@ -437,6 +437,17 @@ Meterpreter run reproduces an invalid-session burst despite passing native
 controls. A separate permission-check repair does not explain that failure.
 Controlled interrupted runs retain diagnostic evidence and no case-count claim.
 
+Linux history/hash collection subsequently passed eight root/nonroot shell and
+Meterpreter cases with unchanged production source. Genuine HTTP forwarding and
+HTTPS CONNECT controls exposed separate authority-construction and response-body
+framing defects; their repairs pass all twelve proxy cases. The integrated
+HTTP/WebDAV/WordPress regression passes all 75 cases. The selected checkpoint is
+**102 modules, 41 families and 592 cases**, with current recorded inputs, exact
+counts and owned cleanup. See the [proxy/history verification](VERIFICATION-20261109-proxy-history.md).
+WordPress admin's permission repair and unqualified session reproducer are
+retained separately; no session repair is claimed. Ansible qualification is
+underway and not included yet.
+
 ## Remaining work
 
 - Review existing protocol suites and supply reusable managed containers.
