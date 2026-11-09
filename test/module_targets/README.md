@@ -190,11 +190,17 @@ sixteen actual JBoss Java sessions across twelve cases with default Spawn=2.
 Native controls distinguish the original target compiler failure from module
 behavior. Every selected count, recorded hash and owned teardown passes.
 Ansible deployment and WordPress admin remain separate qualification work.
-The [current qualification record](VERIFICATION-20261109-credential-files.md)
+The [earlier qualification record](VERIFICATION-20261109-credential-files.md)
 records **117 runtime modules, 52 families and 730 functional cases**, adding
 Linux SSH, Docker and RubyGems credential collection. All 32 recovered-credential
 authentications pass after three separately reproduced module repairs. Every
 selected count, recorded hash and owned teardown passes. Ansible deployment,
 Erlang execution and WordPress admin remain separate qualification work.
+The [current qualification record](VERIFICATION-20261109-etcd.md) records
+**119 runtime modules, 53 families and 746 functional cases**, adding real etcd
+version and exact JSON key collection. Sixteen cases pass after separately
+captured discovery, serialization, authentication and error-handling repairs.
+Every selected count, recorded hash and owned teardown passes. Ansible/Erlang
+execution and WordPress admin remain separate qualification work.
 The full campaign remains incomplete while feasible, valuable modules await review
 or functional verification.

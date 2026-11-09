@@ -522,6 +522,18 @@ The selected checkpoint is **117 modules, 52 families and 730 cases**; see the
 [credential-file verification](VERIFICATION-20261109-credential-files.md).
 Ansible deployment, Erlang execution and WordPress admin remain unqualified.
 
+Etcd subsequently passed sixteen cases on official 3.4.35/3.5.18 targets with
+native v2 authentication, disabled v2 alongside working v3, an empty store,
+proxy paths and unrelated Apache JSON. Native controls separated unordered
+directory reads from confirmed module defects. Owning repairs preserve valid
+JSON loot, reject unrelated documents, supply native Basic auth and handle
+negative replies without missing-method exceptions. All 26 module executions
+pass, including ten exact-loot comparisons with unchanged native keys. The
+selected checkpoint is **119 modules, 53 families and 746 cases**; see the
+[etcd verification](VERIFICATION-20261109-etcd.md).
+Ansible/Erlang execution and WordPress admin remain unqualified; genuine Solr
+delivery is under separate native preparation.
+
 ## Remaining work
 
 - Review existing protocol suites and supply reusable managed containers.
