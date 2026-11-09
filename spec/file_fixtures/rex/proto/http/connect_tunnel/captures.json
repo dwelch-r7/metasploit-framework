@@ -1,0 +1,74 @@
+{
+  "provenance": {
+    "source": "tmp/msf-target-proxy-wire-fdbfb1b3/captures.json",
+    "source_sha256": "55287c8cbfead6062a69cd7118d71021249b6693cc7b907af3a003bb49e3907f",
+    "producer": "tmp/capture-proxy-connect.rb",
+    "producer_sha256": "2f6289411c9422158f431397c28b836f2c64fe4b045abbe514820dcfb2b93462",
+    "target": "Digest-pinned Apache 2.4.62 native mod_proxy and origin"
+  },
+  "captures": [
+    {
+      "service": "open",
+      "method": "CONNECT",
+      "port": 443,
+      "request": "CONNECT destination:443 HTTP/1.1\r\nHost: destination:443\r\n\r\n",
+      "response_header": "HTTP/1.0 200 Connection Established\r\nProxy-agent: Apache/2.4.62 (Unix)\r\n\r\n",
+      "response_remainder_base64": "",
+      "header_sha256": "0dc43fd20de575132600ec513a60639d2e2d27d25dc4a7ba9bb6b5f735cf8b72"
+    },
+    {
+      "service": "open",
+      "method": "CONNECT",
+      "port": 8443,
+      "request": "CONNECT destination:8443 HTTP/1.1\r\nHost: destination:8443\r\n\r\n",
+      "response_header": "HTTP/1.0 200 Connection Established\r\nProxy-agent: Apache/2.4.62 (Unix)\r\n\r\n",
+      "response_remainder_base64": "",
+      "header_sha256": "0dc43fd20de575132600ec513a60639d2e2d27d25dc4a7ba9bb6b5f735cf8b72"
+    },
+    {
+      "service": "open",
+      "method": "CONNECT",
+      "port": 8444,
+      "request": "CONNECT destination:8444 HTTP/1.1\r\nHost: destination:8444\r\n\r\n",
+      "response_header": "HTTP/1.1 503 Service Unavailable\r\nDate: Mon, 09 Nov 2026 18:16:02 GMT\r\nServer: Apache/2.4.62 (Unix)\r\nContent-Length: 299\r\nConnection: close\r\nContent-Type: text/html; charset=iso-8859-1\r\n\r\n",
+      "response_remainder_base64": "PCFET0NUWVBFIEhUTUwgUFVCTElDICItLy9JRVRGLy9EVEQgSFRNTCAyLjAvL0VOIj4KPGh0bWw+PGhlYWQ+Cjx0aXRsZT41MDMgU2VydmljZSBVbmF2YWlsYWJsZTwvdGl0bGU+CjwvaGVhZD48Ym9keT4KPGgxPlNlcnZpY2UgVW5hdmFpbGFibGU8L2gxPgo8cD5UaGUgc2VydmVyIGlzIHRlbXBvcmFyaWx5IHVuYWJsZSB0byBzZXJ2aWNlIHlvdXIKcmVxdWVzdCBkdWUgdG8gbWFpbnRlbmFuY2UgZG93bnRpbWUgb3IgY2FwYWNpdHkKcHJvYmxlbXMuIFBsZWFzZSB0cnkgYWdhaW4gbGF0ZXIuPC9wPgo8L2JvZHk+PC9odG1sPgo=",
+      "header_sha256": "02e6062ea1bcb796943820ef8849ca42a126174e89d46a80927498cfb1f79042"
+    },
+    {
+      "service": "denied",
+      "method": "CONNECT",
+      "port": 443,
+      "request": "CONNECT destination:443 HTTP/1.1\r\nHost: destination:443\r\n\r\n",
+      "response_header": "HTTP/1.1 403 Forbidden\r\nDate: Mon, 09 Nov 2026 18:16:02 GMT\r\nServer: Apache/2.4.62 (Unix)\r\nContent-Length: 199\r\nContent-Type: text/html; charset=iso-8859-1\r\n\r\n",
+      "response_remainder_base64": "PCFET0NUWVBFIEhUTUwgUFVCTElDICItLy9JRVRGLy9EVEQgSFRNTCAyLjAvL0VOIj4KPGh0bWw+PGhlYWQ+Cjx0aXRsZT40MDMgRm9yYmlkZGVuPC90aXRsZT4KPC9oZWFkPjxib2R5Pgo8aDE+Rm9yYmlkZGVuPC9oMT4KPHA+WW91IGRvbid0IGhhdmUgcGVybWlzc2lvbiB0byBhY2Nlc3MgdGhpcyByZXNvdXJjZS48L3A+CjwvYm9keT48L2h0bWw+Cg==",
+      "header_sha256": "79f2e54eddc97c78b559be48aa77deafc6de7a9736feec1290314cc97cb9cf6d"
+    },
+    {
+      "service": "unrelated",
+      "method": "CONNECT",
+      "port": 443,
+      "request": "CONNECT destination:443 HTTP/1.1\r\nHost: destination:443\r\n\r\n",
+      "response_header": "HTTP/1.1 405 Method Not Allowed\r\nDate: Mon, 09 Nov 2026 18:16:02 GMT\r\nServer: Apache/2.4.62 (Unix)\r\nAllow: OPTIONS,HEAD,GET,POST,TRACE\r\nContent-Length: 224\r\nContent-Type: text/html; charset=iso-8859-1\r\n\r\n",
+      "response_remainder_base64": "PCFET0NUWVBFIEhUTUwgUFVCTElDICItLy9JRVRGLy9EVEQgSFRNTCAyLjAvL0VOIj4KPGh0bWw+PGhlYWQ+Cjx0aXRsZT40MDUgTWV0aG9kIE5vdCBBbGxvd2VkPC90aXRsZT4KPC9oZWFkPjxib2R5Pgo8aDE+TWV0aG9kIE5vdCBBbGxvd2VkPC9oMT4KPHA+VGhlIHJlcXVlc3RlZCBtZXRob2QgQ09OTkVDVCBpcyBub3QgYWxsb3dlZCBmb3IgdGhpcyBVUkwuPC9wPgo8L2JvZHk+PC9odG1sPgo=",
+      "header_sha256": "566c308519015d9b09e921da78317f14afacb52ae0f9b1d8a77fc09f1075e59b"
+    },
+    {
+      "service": "open",
+      "method": "GET",
+      "port": 8080,
+      "request": "GET http://destination:8080/ HTTP/1.1\r\nHost: destination:8080\r\n\r\n",
+      "response_header": "HTTP/1.1 200 OK\r\nDate: Mon, 09 Nov 2026 18:16:02 GMT\r\nServer: Apache/2.4.62 (Unix) OpenSSL/3.0.15\r\nLast-Modified: Mon, 09 Nov 2026 17:53:48 GMT\r\nETag: \"77-65fdba4de8ed9\"\r\nAccept-Ranges: bytes\r\nContent-Length: 119\r\nContent-Type: text/html\r\nVia: 1.1 module-target-proxy:8080\r\n\r\n",
+      "response_remainder_base64": "PCFkb2N0eXBlIGh0bWw+CjxodG1sPjx0aXRsZT5OYXRpdmUgcHJveHkgZGVzdGluYXRpb248L3RpdGxlPjxib2R5Pm1vZHVsZS10YXJnZXQtcHJveHktZGVzdGluYXRpb24tcHJvb2Y8L2JvZHk+PC9odG1sPgo=",
+      "header_sha256": "6833bcf027816ec1009cb3cff5af1c082b89804ad2be0d1265231ce8aa17c854"
+    },
+    {
+      "service": "open",
+      "method": "HEAD",
+      "port": 8080,
+      "request": "HEAD http://destination:8080/ HTTP/1.1\r\nHost: destination:8080\r\n\r\n",
+      "response_header": "HTTP/1.1 200 OK\r\nDate: Mon, 09 Nov 2026 18:16:02 GMT\r\nServer: Apache/2.4.62 (Unix) OpenSSL/3.0.15\r\nLast-Modified: Mon, 09 Nov 2026 17:53:48 GMT\r\nETag: \"77-65fdba4de8ed9\"\r\nAccept-Ranges: bytes\r\nContent-Length: 119\r\nContent-Type: text/html\r\nVia: 1.1 module-target-proxy:8080\r\n\r\n",
+      "response_remainder_base64": "",
+      "header_sha256": "6833bcf027816ec1009cb3cff5af1c082b89804ad2be0d1265231ce8aa17c854"
+    }
+  ]
+}

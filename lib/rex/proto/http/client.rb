@@ -604,6 +604,7 @@ module Rex
 
               # This is a dirty hack for broken HTTP servers
               next unless rv == Packet::ParseCode::Completed
+              break if resp.connect_tunnel?
 
               rbody = resp.body
               rbufq = resp.bufq

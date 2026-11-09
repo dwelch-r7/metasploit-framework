@@ -256,6 +256,33 @@ class Response < Packet
   attr_accessor :message
   attr_accessor :proto
   attr_accessor :count_100
+
+  # Whether parsed response headers establish a CONNECT tunnel.
+  #
+  # @return [Boolean] true for a successful response to CONNECT
+  # @see https://www.rfc-editor.org/rfc/rfc9110.html#section-9.3.6
+  def connect_tunnel?
+    state == ParseState::Completed && @connect_tunnel == true
+  end
+
+  protected
+
+  # Parse response headers without treating tunnel bytes as an HTTP body.
+  #
+  # @param opts [Hash] parser options, including the original request method
+  # @return [void]
+  def parse_header(opts)
+    super
+    return unless state == ParseState::ProcessingBody
+
+    @connect_tunnel = opts[:orig_method] == 'CONNECT' && (200..299).cover?(code)
+    return unless @connect_tunnel
+
+    # Successful CONNECT ignores length/transfer framing (RFC 9110, 9.3.6).
+    self.body_bytes_left = 0
+    self.transfer_chunked = false
+    self.state = ParseState::Completed
+  end
 end
 
 end
