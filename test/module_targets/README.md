@@ -68,6 +68,16 @@ metadata cache; settings, credentials and session state are never copied.
   a suite's bounded fixture options without changing its ordinary defaults.
 - `spec/acceptance/module_targets/<family>_spec.rb`: short functional cases,
   independent target validation and assertions on meaningful results.
+- The shared console helper accepts explicit `endpoint_options` for modules
+  whose registered server fields differ from RHOSTS/RPORT (for example NS or a
+  single RHOST). Avoid injecting unknown endpoint fields or blank optional source
+  addresses; keep normal module option validation enabled.
+- Use an explicit bounded `command_timeout` for collection modules that perform
+  many session round trips. Its ordinary default remains forty seconds.
+- Prefer one invocation with several families so metadata is reused. Concurrent
+  cold console starts can exceed the separate two-minute prompt deadline on
+  development machines; classify that as setup failure and retry after the
+  competing startup completes. No module result exists before a console prompt.
 - Module documentation links to its family's lab instructions; keep target
   definitions here rather than copying Compose text across module documents.
 

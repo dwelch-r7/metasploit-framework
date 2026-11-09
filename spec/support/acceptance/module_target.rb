@@ -53,7 +53,7 @@ RSpec.shared_context 'module target' do
     output.gsub(/\e\[[0-9;]*m/, '')
   end
 
-  def run_target_module(fullname, service, options = {}, action: 'run', allow_errors: false)
+  def run_target_module(fullname, service, options = {}, action: 'run', allow_errors: false, endpoint_options: nil, command_timeout: 40)
     endpoint = target_runtime.fetch('module_endpoints', target_runtime.fetch('endpoints')).fetch(service)
     console_command('back')
     selected = console_command("use #{fullname}")
@@ -66,8 +66,11 @@ RSpec.shared_context 'module target' do
       configured = console_command("set #{name} #{options.fetch(name)}")
       expect(configured).not_to match(/Failed|Invalid|not found/)
     end
-    datastore = { 'RHOSTS' => endpoint.fetch('host'), 'RPORT' => endpoint.fetch('port'), 'VERBOSE' => true }.merge(options)
-    output = console_command("#{action} #{format_datastore_options(datastore)}")
+    # Some modules select servers through NS/RHOST rather than RHOSTS/RPORT.
+    # Supply only registered endpoint options so console validation stays real.
+    endpoint_values = endpoint_options || { 'RHOSTS' => endpoint.fetch('host'), 'RPORT' => endpoint.fetch('port') }
+    datastore = endpoint_values.merge('VERBOSE' => true).merge(options)
+    output = console_command("#{action} #{format_datastore_options(datastore)}", timeout: command_timeout)
     expect(output).not_to match(/Exception|undefined method|Unknown command|Msf::OptionValidateError/)
     expect(output).not_to include('[-]') unless allow_errors
     expect(output).to include('Auxiliary module execution completed') if action == 'run' && fullname.start_with?('auxiliary/')
