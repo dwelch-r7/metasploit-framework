@@ -1,9 +1,13 @@
 # November 9 module target verification
 
-The previous checkpoint covers 226 passing cases across seventeen families and
-60 production runtime modules. This batch qualifies MongoDB's older protocol
-and a separate bounded Mongobleed profile. The repository-wide campaign remains
-active; a passing profile does not establish every supported configuration.
+The current verified checkpoint is **70 production runtime modules, twenty-four
+families and 302 functional cases**. All twenty-four families selected at the
+start of the broad shared-validator rerun passed. A subsequent modern CouchDB
+rerun strengthens the independent unrelated-HTTP control. Every selected current
+result has the exact expected count, zero failures/pending/outside-example errors,
+matching recorded input hashes and successful owned-project cleanup. The new
+CouchDB exploitation profile remains excluded while its administrator-name
+collision is being fixed. The repository-wide campaign remains active.
 
 ## MongoDB 2.6 findings and fixes
 
@@ -43,7 +47,7 @@ pass RuboCop; module msftidy passed in the fix worktree.
 Evidence/source/build reports are preserved locally in
 `tmp/mongodb-hash-evidence/` and `tmp/mongodb-cursor-evidence/`. One diagnostic
 iteration whose library changed during setup was correctly rejected and excluded;
-its stable-source replacement passed. No full repository RSpec run was used.
+its stable-source replacement passed. No full repository RSpec run was used locally.
 
 Native MongoDB 3.0/3.4, old command cursors, sharding, tailable cursors and injected
 network failures remain unqualified. Existing partial-result behavior on
@@ -188,10 +192,184 @@ match natively nonexistent paths; arbitrary module errors are still rejected.
 The eight-case final run validates those corrections. The new Ruby spec passes
 RuboCop and both existing module-doc edits add no checker diagnostics.
 
+## CouchDB findings and fixes
+
+The original digest-pinned CouchDB 3.3.1 baseline produced **eight cases,
+three failures**, with stable inputs and successful cleanup at
+`tmp/module-target-tests/20261109T004609-6ecd97/couchdb/`. Independent native HTTP
+requests verified actual version, administrator/reader identity, permissions,
+database names, full documents and attachment bytes. A real Apache 2.4.62 SPA
+fallback returns its unchanged HTML with HTTP 200; it does not emulate CouchDB.
+
+Separate worktrees reproduced and fixed three owning module defects:
+
+- Login used administrator-only user listing as its credential test, missing
+  valid readers and accepting unrelated HTTP 200 HTML. It now validates the
+  exact identity in a real `/_session` response, including normal AuthBrute and
+  older HttpUser option paths. Integrated commit: `28b330eccf5`.
+- Enumeration computed authentication without sending it on the initial list,
+  then constructed document paths beneath `/_all_dbs`. Requests now share the
+  configured authentication and application-relative paths, with response shape
+  checks. Anonymous version discovery still precedes CREATEUSER. The separate
+  real reverse-proxy diagnostic covers a `/couch/` application root. Integrated
+  commit: `ea515770754`.
+- CREATEUSER passed an unregistered nil TIMEOUT, discarding the acknowledgement
+  after creating the account; it also rejected genuine HTTP 201. It now uses
+  HttpClient's normal configurable timeout, validates the actual acknowledgement,
+  safely encodes individual JSON strings while preserving duplicate role keys,
+  and records the created credential as UNTRIED. Integrated commit: `39c8f1c1d42`.
+  Two native ordinary/quoted-credential cases each ran twice in its fix worktree.
+
+Original digest-pinned CouchDB 1.6.1 additionally reproduces actual duplicate-role
+privilege escalation on the administrator-configured service. Native controls
+verify the created account's real administrator identity and remove it. Admin
+party alone is not evidence of authorization bypass. Initial nine-case legacy
+qualification exposed three failures; after enumeration/login changes, two
+remained: CREATEUSER and anonymous enumeration through public validation.
+
+The latter traced to shared option validation assigning unchanged defaults back
+into ModuleDataStore, thereby marking generated credentials as explicit operator
+choices. The owning fix preserves unchanged value origins while retaining actual
+type conversions and explicit choices, including values equal to defaults.
+Original source fails two of 31 focused examples; the corrected option/datastore/
+host-parsing suite passes **1,169 examples**. Five new cases cover repeated
+validation, explicit choices, numeric conversion, global inheritance and converted
+global overrides. Integrated commit: `f0207e9abfc`. Existing lint signatures add
+none (55 versus 57 baseline). A separate native public-console diagnostic proves
+anonymous requests omit Basic authorization and extract exact binary loot.
+
+The first corrected combined parent run passed **eight modern and nine legacy cases** at
+`tmp/module-target-tests/20261109T094229-bfa8c1/`, with zero failures, pending or
+outside-example errors, stable tested inputs and successful owned cleanup.
+Cases include fixed/affected checks, valid/incorrect/admin/reader credentials,
+unrelated HTTP, exact text/binary attachment loot and repeated CREATEUSER with
+native identity/roles and explicit operator deletion. The module's intentional
+account persistence is not automatic cleanup. Shared validator provenance is now
+included in every family's input hashes. All twenty-four established families
+passed the broad rerun at `tmp/module-target-tests/20261109T094411-765d69/`.
+After review, modern CouchDB additionally verifies that both the original
+`/_users/_all_docs` path and the corrected `/_session` path receive genuine
+unrelated HTTP 200 HTML. That strengthened eight-case rerun passed in 57.64
+seconds at `tmp/module-target-tests/20261109T100640-dec844/couchdb/` and is the
+current modern profile selected below.
+
+Native CouchDB 2.x, TLS, credential database persistence and arbitrary proxy
+configurations remain unqualified. A 2.1.0 tag lookup failed in both official
+namespaces, not proof of infeasibility. Command execution is a separate lab under
+qualification; successful enumeration does not prove exploitation. Evidence and
+focused captures remain locally in `tmp/couchdb-{login,enum,created-user}-evidence/`.
+The integrated parent focused run passed **1,235 examples** across the three
+CouchDB module specs and four relevant option/datastore/host-parsing specs. A
+separate run of all 25 option-type/container spec files passed **433 examples**.
+These overlapping runs are reported separately, not added as unique examples.
+The lab/spec Ruby files pass lint; module doc links add no checker diagnostics.
+
+## CouchDB command execution qualification
+
+The separate lab reuses original CouchDB 1.6.1 open/admin-party and configured
+administrator services, plus 3.3.1 for the fixed-version check. Native controls
+verify version, administrative/anonymous policy and independent query-server
+execution before module work. A fresh target-side file owned by `couchdb` is
+mandatory. The harmless touch command does not speak CouchDB's query protocol,
+so CouchDB retries it until its view/database is removed. A three-second bounded
+native HTTP timeout is recorded; timeout/status alone never proves execution.
+The normal HttpClientTimeout test option bounds the exploit's same asynchronous
+view requests, rather than changing module code or response behavior.
+
+The acceptance matrix covers affected/fixed checks and repeated deliveries: x86 shell on admin-party; x64 shell on an
+administrator-configured service with default bypass or known administrator
+credentials; and x64 Meterpreter with default bypass. Each delivery requires a
+new session command file owned by the CouchDB service user. Query-server retries
+can open additional sessions; the test closes every session/job before reuse.
+
+Initial failures were investigated against native controls rather than assigned
+to the module. Increasing the native HTTP deadline did not repair an intentionally
+non-protocol command probe. Parsing a duplicate-key user document with Ruby JSON
+keeps roles:[], so it cannot establish the account's effective privileges; real
+`/_session` identity is required. An existing configured administrator can have
+two `_admin` entries after also gaining a user-database role. Disabling a handler
+also invokes Framework's generic cleanup guard before authentication, requiring
+explicit AllowNoCleanup for the wrong-password test to reach the intended path.
+These corrections do not change production exploit code. A further negative
+case reached the bypass with incorrect credentials sharing a configured
+administrator's name: an account acknowledgement was reported as bypass success,
+but usable authentication was not established. The initial no-target-change
+assertion incorrectly treated this as an ordinary login-only operation. The independent
+native collision probe confirmed wrong-password session401 before creation,
+unauthenticated creation201, and session/configuration401 afterward. A separate
+new username successfully gains an administrator session; valid configured
+administrator access also still works. Temporary probe users were removed and
+the owned project cleaned. The separate fix worktree is verifying effective
+administrator identity before payload staging, including existing-user409. No passing exploit
+profile is claimed while that case remains unresolved.
+
+Native file readback distinguishes actual cleanup from a race with curl's own
+executable deletion. Only an exact registered-path deletion warning can be
+accepted, and only when native readback proves that exact file is absent. The
+whole writable directory must be empty. Native state shows the account, one
+database and two query-server keys remain after exploitation;
+the test removes them explicitly and requires the original API state before
+repeating. This operator restoration is not automatic module cleanup.
+
+CouchDB 2.x, intermediate/fixed release boundaries, wget delivery (not installed
+in the stock image), TLS, other operating systems, failed-session file cleanup
+and credential database persistence remain unqualified. No new exploit code or
+opaque binary is committed; all payloads come from current Framework sources.
+
+## Current profile checkpoint
+
+The broad runner completed with exit zero. All rows use its `20261109T094411-765d69`
+artifacts except modern CouchDB, which uses the strengthened `20261109T100640-dec844`
+rerun above. Durations are RSpec execution, including console startup, rather
+than Compose/image setup. The source/hash scan selecting these current results
+is preserved in `tmp/module-target-checkpoint-summary.json`.
+
+| Family | Cases | Seconds |
+|---|---:|---:|
+| apache_normalize_path | 16 | 60.13 |
+| axis2 | 12 | 246.48 |
+| couchdb | 8 | 57.64 |
+| couchdb_legacy | 9 | 15.11 |
+| ftp | 13 | 20.75 |
+| http | 14 | 12.10 |
+| ldap | 10 | 16.98 |
+| linux_post | 8 | 195.96 |
+| mariadb | 10 | 16.00 |
+| memcached | 4 | 10.68 |
+| mongobleed | 11 | 38.97 |
+| mongodb | 31 | 30.49 |
+| mongodb_legacy | 12 | 16.05 |
+| mssql2019 | 15 | 19.23 |
+| mssql2022 | 15 | 19.45 |
+| mysql8 | 10 | 16.40 |
+| postgres | 9 | 19.21 |
+| redis | 22 | 114.87 |
+| rsync | 6 | 25.68 |
+| smb | 20 | 46.57 |
+| smtp | 9 | 22.33 |
+| snmp | 22 | 59.57 |
+| ssh | 2 | 16.83 |
+| tomcat | 14 | 118.25 |
+
+The 302 passing cases do not include the separately failing eight-case CouchDB
+exploit profile, older diagnostic runs or overlapping focused unit examples.
+The complete inventory and per-profile limits remain in the campaign queue.
+
+## Prior pushed-checkpoint CI
+
+The previous pushed revision `0ca4f68e28f` passed Lint and the command-shell,
+SSH, SMB, LDAP, PostgreSQL, MySQL and MSSQL workflows. Its
+[Verify run](https://github.com/dwelch-r7/metasploit-framework/actions/runs/42541810787)
+failed a certificate test because OpenSSL rejects `ms-ntds-sec-ext` as an object
+ID. Its [Meterpreter run](https://github.com/dwelch-r7/metasploit-framework/actions/runs/42541811056)
+failed on transport/console timeouts in Mettle tests. These are observed failures
+on that earlier revision, not proven baseline causes or evidence that later CI
+passes. Raw failed logs remain in `tmp/module-container-{verify,meterpreter}-ci-failed.log`.
+
 ## Checkpoint review
 
-**Summary:** 68 production runtime modules now have passing profiles across
-twenty-two families, totaling 285 functional cases. Remaining candidates and
+**Summary:** 70 production runtime modules now have passing profiles across
+twenty-four families, totaling 302 functional cases. Remaining candidates and
 target requirements stay in the campaign/inventory.
 
 **What looks good:** Real upstream services, independent native controls,
@@ -200,7 +378,9 @@ source/input provenance and owned target cleanup.
 
 **Concerns:** Coverage remains limited to declared lab profiles. Tomcat's released
 default Spawn=2 dependency failure remains recorded separately; the experimental
-external payload candidate is not integrated. Compatibility limits above remain.
+external payload candidate is not integrated. CouchDB exploitation has a native
+administrator-name collision under repair and is excluded from passing totals.
+Compatibility limits above remain.
 
 **Suggestions:** Continue other useful service/application families and specific
 target/session/authentication variants; retain individual feasibility reasons

@@ -124,6 +124,37 @@ normal/specialist/missing command directories and exact configuration-file loot.
 The verified checkpoint is **68 modules, twenty-two families and 285 cases**.
 CouchDB is under native qualification and is not included yet.
 
+The first CouchDB 3.3.1 suite produced eight cases/three failures after fifteen
+independent native requests verified actual users, permissions, documents and
+attachment bytes. The configured administrator is omitted from enumeration's
+database-list request; valid nonadmin credentials are missed by an admin-only
+login probe; unrelated real Apache HTTP-200 fallback is accepted as a login.
+Separate worktrees reproduced and fixed login identity, authenticated enumeration
+paths and account-creation acknowledgements. The legacy 1.6.1 fixture also
+exposed shared option validation converting unchanged defaults into explicit
+choices. The corrected owning validator passes 1,169 relevant examples, including
+before/after regressions. The final combined modern/legacy parent run passes
+all seventeen cases with stable final-source hashes and owned cleanup. Every
+registered family is being rerun before updating the aggregate checkpoint;
+CouchDB command execution remains separately under qualification.
+
+The shared-validator broad rerun subsequently passed all twenty-four selected
+families and 302 cases, with a stronger modern CouchDB rerun independently
+checking unrelated HTML on both login endpoints. Current recorded hashes match,
+all expected counts match, and owned cleanup passed. The current checkpoint is
+**70 modules, twenty-four families and 302 cases**. See the November9 verification
+record for exact evidence and per-family durations.
+
+CouchDB command execution has eight successful real session deliveries, but its
+new profile remains excluded from passing totals while a configured-administrator
+name collision is fixed. Independent native controls confirm account creation201
+can coexist with session/configuration401 for those supplied credentials; the
+module currently reports bypass success without usable administrative access.
+A separate worktree owns the effective-identity regression/fix. API account,
+database and query-server restoration in that fixture is explicit operator
+cleanup, not module cleanup. Native2.x, wget, TLS and failed-session cleanup
+remain unqualified. Authoritative DNS is the next reusable family under review.
+
 ## November 8 baseline findings
 
 | Family | Functional result | Scope |
