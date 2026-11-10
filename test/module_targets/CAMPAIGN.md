@@ -594,6 +594,17 @@ Current counts/hashes/teardown establish **129 runtime modules, 63 families and
 860 functional cases**. The [verification record](VERIFICATION-20261110-solr.md)
 retains every phase, resource-lifetime limitation and inherited lint findings.
 
+Prometheus subsequently qualifies eighteen cases with sixty-five independent
+native controls and seven genuinely healthy scrape targets. Original failures
+separate explicit DNS ports, adjacent static credentials and quoted metric labels
+from a pre-prompt setup timeout. A shared-helper repair passes fifty focused
+examples and all final exact-loot/repeat cases; both module sources remain
+unchanged. Current inputs and owned teardown establish **131 runtime modules,
+64 families and 878 functional cases**. The
+[verification record](VERIFICATION-20261110-prometheus.md) distinguishes actual
+redaction/references from plaintext credentials and records platform/provider
+limits. Shared Fetch lifecycle, ActiveMQ and capture-protocol work continues.
+
 ## Remaining work
 
 - Review existing protocol suites and supply reusable managed containers.

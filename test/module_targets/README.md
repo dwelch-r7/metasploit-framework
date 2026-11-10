@@ -232,12 +232,19 @@ Grafana affected/fixed release pairs across all four branches. Separate owning
 repairs expose the public scanner check and exclude fixed releases. All
 twenty-three cases pass with exact repeated file bytes, current hashes and
 owned teardown; two inherited source-lint offenses remain documented.
-The [current qualification record](VERIFICATION-20261110-solr.md) records
+The [earlier qualification record](VERIFICATION-20261110-solr.md) records
 **129 runtime modules, 63 families and 860 functional cases**, adding genuine
 Solr discovery, Velocity and backup/restore execution. Two owning repairs preserve
 shell variables and parent cleanup. All twenty-eight final cases, sixteen used
 sessions, current hashes and owned teardown pass. Shared fetch-pool lifetime
 and existing lint/documentation findings remain explicitly documented.
+The [current qualification record](VERIFICATION-20261110-prometheus.md) records
+**131 runtime modules, 64 families and 878 functional cases**, adding genuine
+Prometheus discovery/configuration and Linux node_exporter collection. Native
+controls establish seven healthy scrape targets, actual credential redaction and
+quoted mount data before three shared-helper repairs. All eighteen final cases,
+current recorded inputs and owned teardown pass. Provider discovery, Windows
+exporter and database persistence remain outside that profile.
 The full campaign remains incomplete while feasible, valuable modules await review
 or functional verification.
 See [deferred investigations](DEFERRED.md) for retained failures that remain
