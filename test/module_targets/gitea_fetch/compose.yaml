@@ -1,0 +1,15 @@
+services:
+  vulnerable:
+    extends: {file: ../gitea/compose.yaml, service: vulnerable}
+  fixed:
+    extends: {file: ../gitea/compose.yaml, service: fixed}
+  blocked:
+    extends: {file: ../gitea/compose.yaml, service: blocked}
+  prefixed_backend:
+    extends: {file: ../gitea/compose.yaml, service: prefixed_backend}
+  prefix:
+    extends: {file: ../gitea/compose.yaml, service: prefix}
+  unrelated:
+    extends: {file: ../gitea/compose.yaml, service: unrelated}
+  migration:
+    extends: {file: ../gitea/compose.yaml, service: migration}

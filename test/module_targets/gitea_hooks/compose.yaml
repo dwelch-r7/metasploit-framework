@@ -1,0 +1,15 @@
+services:
+  legacy:
+    extends: {file: ../gitea/compose.yaml, service: legacy}
+  vulnerable:
+    extends: {file: ../gitea/compose.yaml, service: vulnerable}
+  fixed:
+    extends: {file: ../gitea/compose.yaml, service: fixed}
+  locked:
+    extends: {file: ../gitea/compose.yaml, service: locked}
+  prefixed_backend:
+    extends: {file: ../gitea/compose.yaml, service: prefixed_backend}
+  prefix:
+    extends: {file: ../gitea/compose.yaml, service: prefix}
+  unrelated:
+    extends: {file: ../gitea/compose.yaml, service: unrelated}

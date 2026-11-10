@@ -1,0 +1,66 @@
+x-gitea: &gitea
+  build: .
+  platform: linux/amd64
+  init: true
+  cap_drop: [SYS_ADMIN, SYS_TIME]
+  mem_limit: 256m
+  ports: ["127.0.0.1::3000"]
+  healthcheck:
+    test: [CMD-SHELL, 'curl --fail --silent http://127.0.0.1:3000/api/v1/version >/dev/null']
+    interval: 2s
+    timeout: 3s
+    retries: 45
+
+services:
+  migration:
+    build:
+      context: .
+      dockerfile: migration.Dockerfile
+    mem_limit: 64m
+    ports: ["127.0.0.1::8000"]
+    healthcheck:
+      test: [CMD, python, -c, 'import urllib.request; urllib.request.urlopen("http://127.0.0.1:8000/observations")']
+      interval: 2s
+      timeout: 3s
+      retries: 30
+  legacy:
+    <<: *gitea
+    build:
+      context: .
+      args:
+        GITEA_IMAGE: gitea/gitea:1.12.6@sha256:0facddc4a9a1e384db5edb0a3586aa55d80a48a000a068c5864f25628c347727
+    environment: {GITEA_LAB_HOST: legacy}
+  vulnerable:
+    <<: *gitea
+    environment: {GITEA_LAB_HOST: vulnerable}
+  fixed:
+    <<: *gitea
+    build:
+      context: .
+      args:
+        GITEA_IMAGE: gitea/gitea:1.16.7@sha256:b508d16e8685e84a38eb8c21253515e558af92ff5f43f3c20e2723c8e77824dc
+    environment: {GITEA_LAB_HOST: fixed}
+  locked:
+    <<: *gitea
+    environment: {GITEA_LAB_HOST: locked, GITEA_LAB_DISABLE_HOOKS: 'true'}
+  blocked:
+    <<: *gitea
+    environment: {GITEA_LAB_HOST: blocked, GITEA_LAB_ALLOW_LOCAL_NETWORKS: 'false', GITEA_LAB_ALLOWED_DOMAINS: ''}
+  unrelated:
+    extends: {file: ../http/compose.yaml, service: apache}
+  prefixed_backend:
+    <<: *gitea
+    ports: []
+    environment: {GITEA_LAB_HOST: prefix, GITEA_LAB_ROOT_URL: 'http://prefix/gitea/'}
+  prefix:
+    image: httpd:2.4.62@sha256:4c7788695c832bf415a662dfb5160f1895e65fc65c025e85f436ee2c9e7d7f3e
+    mem_limit: 96m
+    ports: ["127.0.0.1::80"]
+    volumes: ["./gateway.conf:/usr/local/apache2/conf/extra/gitea.conf:ro"]
+    command: [httpd-foreground, -c, 'Include conf/extra/gitea.conf']
+    depends_on: {prefixed_backend: {condition: service_healthy}}
+    healthcheck:
+      test: [CMD, httpd, -t]
+      interval: 2s
+      timeout: 3s
+      retries: 30

@@ -1,0 +1,55 @@
+---
+spec: spec/acceptance/module_targets/gitea_spec.rb
+expected_examples: 14
+console: true
+modules:
+- exploit/multi/http/gitea_git_hooks_rce
+ports:
+  legacy: 3000
+  vulnerable: 3000
+  fixed: 3000
+  locked: 3000
+  prefix: 80
+  unrelated: 80
+support_files:
+- documentation/modules/exploit/multi/http/gitea_git_hooks_rce.md
+- lib/msf/base/sessions/command_shell.rb
+- lib/msf/base/sessions/meterpreter.rb
+- lib/msf/core/exploit/cmd_stager.rb
+- lib/msf/core/exploit/exe.rb
+- lib/msf/core/exploit/remote/auto_check.rb
+- lib/msf/core/exploit/remote/http/gitea.rb
+- lib/msf/core/exploit/remote/http/gitea/base.rb
+- lib/msf/core/exploit/remote/http/gitea/error.rb
+- lib/msf/core/exploit/remote/http/gitea/helpers.rb
+- lib/msf/core/exploit/remote/http/gitea/login.rb
+- lib/msf/core/exploit/remote/http/gitea/repository.rb
+- lib/msf/core/exploit/remote/http/gitea/uris.rb
+- lib/msf/core/exploit/remote/http/gitea/version.rb
+- lib/msf/core/exploit/remote/http_client.rb
+- lib/msf/core/exploit/remote/http_server.rb
+- lib/msf/core/handler/reverse_tcp.rb
+- lib/rex/proto/http/server.rb
+- lib/rex/service_manager.rb
+- modules/payloads/singles/cmd/unix/generic.rb
+- modules/payloads/singles/cmd/unix/reverse_bash.rb
+- modules/payloads/stagers/linux/x64/reverse_tcp.rb
+- modules/payloads/stages/linux/x64/meterpreter.rb
+- spec/support/shared/contexts/wait_for_expect.rb
+- test/module_targets/gitea/Dockerfile
+- test/module_targets/gitea/README.md
+- test/module_targets/gitea/accounts.env
+- test/module_targets/gitea/compose.yaml
+- test/module_targets/gitea/control.py
+- test/module_targets/gitea/gateway.conf
+- test/module_targets/gitea/migration.Dockerfile
+- test/module_targets/gitea/native_client.py
+- test/module_targets/gitea/native_migration.py
+- test/module_targets/gitea/native_ui.py
+- test/module_targets/gitea/start.sh
+- test/module_targets/http/Dockerfile
+- test/module_targets/http/compose.yaml
+- test/module_targets/http/htdocs/index.html
+- test/module_targets/http/module-target.conf
+test_env:
+  GITEA_TARGET_PROFILE: hooks
