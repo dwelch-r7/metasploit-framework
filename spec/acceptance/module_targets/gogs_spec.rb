@@ -1,4 +1,6 @@
 require 'acceptance_spec_helper'
+require 'nokogiri'
+require 'uri'
 
 profile = ENV.fetch('GOGS_TARGET_PROFILE', 'gogs_hooks')
 raise ArgumentError, "Unknown Gogs profile: #{profile}" unless %w[gogs_hooks gogs_rebase gogs_rebase_fixed].include?(profile)
@@ -113,9 +115,29 @@ RSpec.describe 'Native Gogs repository execution targets' do
     end
 
     it 'does not identify a missing application path as vulnerable' do
-      # This must also expose the owner's actual TARGETURI option registration.
-      expect(gogs_invoke('gogs', { 'TARGETURI' => '/module-target-absent/' }, action: 'check')).to include('Target does not appear to be running Gogs.')
-      expect(gogs_reporting.values).to eq([[], [], []])
+      route = '/module-target-absent/'
+      native = gogs_native(action: 'http', service: 'gogs', route: route)
+      artifacts = target_runtime.fetch('artifacts')
+      response = JSON.parse(File.readlines(File.join(artifacts, 'native-gogs-http.jsonl')).last)
+      body = Base64.strict_decode64(response.fetch('body_base64'))
+      File.write(File.join(artifacts, 'native-fixed-missing-path.json'), JSON.pretty_generate(response: response, body_sha256: Digest::SHA256.hexdigest(body)))
+      expect(response.values_at('service', 'method', 'status')).to eq(['gogs', 'GET', 404])
+      expect(URI.parse(response.fetch('url')).path).to eq(route)
+      expect(URI.parse(response.fetch('url')).query).to be_nil
+      expect(native.fetch('status')).to eq(404)
+      expect(native.fetch('document')).to be_a(String)
+      expect(body).to eq(native.fetch('document').b)
+      identity = JSON.parse(File.read(File.join(artifacts, 'native-gogs-probe.json'))).fetch('identities').fetch('gogs')
+      expect(identity.fetch('version')).to eq('Gogs version 0.14.3')
+      html = Nokogiri::HTML(body)
+      expect(html.css('meta[name="author"]').map { |node| node['content'] }).to eq(['Gogs'])
+      # The full native gate already verifies this hash against the tagged release.
+      expect(html.css('link[rel="stylesheet"]').map { |node| node['href'] }).to include("/css/gogs.min.css?v=#{identity.fetch('asset_hash')}")
+      output = gogs_invoke('gogs', { 'TARGETURI' => route }, action: 'check')
+      expect(output).to include("GET #{route} HTTP/1.1", 'HTTP/1.1 404 Not Found', 'The target is not exploitable', 'Gogs 0.14.3 detected, fixed in 0.14.3.')
+      report = gogs_verify_reporting('gogs', exploited: false)
+      expect(report.fetch(:services).find { |row| row.fetch('name') == 'gogs' }.fetch('info')).to eq('Gogs Git Service 0.14.3')
+      expect(gogs_reporting_provenance).to eq(references: [], sessions: [], attempts: [], checks: [])
     end
   end
 end

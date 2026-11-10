@@ -105,11 +105,28 @@ class MergeForms(HTMLParser):
         self.forms = []
         self.current = None
         self.status_buttons = []
+        self.index_texts = []
+        self.conversation_links = []
+        self.index_parts = None
+        self.index_depth = 0
+        self.anchor = None
         self.feed(content)
         assert self.current is None, 'Unclosed native PR form'
+        assert self.index_parts is None, 'Unclosed native PR index'
 
     def handle_starttag(self, tag, attributes):
         values = dict(attributes)
+        classes = set(values.get('class', '').split())
+        if tag == 'span':
+            if self.index_parts is not None:
+                self.index_depth += 1
+            elif 'index' in classes:
+                self.index_parts = []
+                self.index_depth = 1
+            if self.anchor is not None and 'octicon-comment-discussion' in classes:
+                self.anchor['conversation'] = True
+        elif tag == 'a':
+            self.anchor = {'attributes': values, 'conversation': False}
         if tag == 'form':
             assert self.current is None, 'Nested native PR forms'
             self.current = {'attributes': values, 'inputs': []}
@@ -118,11 +135,33 @@ class MergeForms(HTMLParser):
         elif tag == 'div' and values.get('id') == 'status-button':
             self.status_buttons.append(values)
 
+    def handle_data(self, content):
+        if self.index_parts is not None:
+            self.index_parts.append(content)
+
     def handle_endtag(self, tag):
+        if tag == 'span' and self.index_parts is not None:
+            self.index_depth -= 1
+            if self.index_depth == 0:
+                self.index_texts.append(''.join(self.index_parts).strip())
+                self.index_parts = None
+        elif tag == 'a' and self.anchor is not None:
+            values = self.anchor['attributes']
+            if self.anchor['conversation'] and {'item', 'active'} <= set(values.get('class', '').split()):
+                self.conversation_links.append(values.get('href'))
+            self.anchor = None
         if tag == 'form':
             assert self.current is not None, 'Unmatched native PR form'
             self.forms.append(self.current)
             self.current = None
+
+    def require_closed_identity(self, route, comment_action, number):
+        """Use rendered Issue.Index/conversation, never the empty request- tab."""
+        assert self.index_texts == ['#'+str(number)], self.index_texts
+        assert self.conversation_links == [route], self.conversation_links
+        assert len(self.status_buttons) == 1 and self.status_buttons[0].get('data-status-val') == 'reopen', self.status_buttons
+        comments = [form for form in self.forms if form['attributes'].get('action') == comment_action]
+        assert len(comments) == 1 and comments[0]['attributes'].get('method', '').lower() == 'post', comments
 
 
 def pull_location(location, prefix, owner, name):
@@ -414,11 +453,8 @@ class NativeGogs:
         status, body, _fields = ui.request(route)
         assert status == 200, status
         forms = MergeForms(body)
-        assert len(forms.status_buttons) == 1 and forms.status_buttons[0].get('data-status-val') == 'reopen', forms.status_buttons
         comment_action = self.services[service]['prefix']+'/'+owner+'/'+name+'/issues/'+str(number)+'/comments'
-        comments = [form for form in forms.forms if form['attributes'].get('action') == comment_action]
-        assert len(comments) == 1 and comments[0]['attributes'].get('method', '').lower() == 'post', comments
-        assert re.search(r'data-tab="request-[1-9][0-9]*"', body), 'The authenticated view is not the actual PR conversation'
+        forms.require_closed_identity(self.services[service]['prefix']+route, comment_action, number)
         refs = self.refs(service, owner, name)
         retained = 'refs/pull/'+str(number)+'/head'
         additions = [row for row in refs if row not in seed_refs]
