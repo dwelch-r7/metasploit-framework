@@ -1,0 +1,28 @@
+---
+spec: spec/acceptance/module_targets/geoserver_spec.rb
+expected_examples: 6
+console: true
+modules:
+- exploit/multi/http/geoserver_unauth_rce_cve_2024_36401
+- auxiliary/gather/geoserver_wms_getmap_xxe_file_read
+ports: {}
+support_files:
+- lib/rex/parser/arguments.rb
+- spec/tools/module_targets/geoserver_input_audit_spec.rb
+- documentation/modules/exploit/multi/http/geoserver_unauth_rce_cve_2024_36401.md
+- documentation/modules/auxiliary/gather/geoserver_wms_getmap_xxe_file_read.md
+- lib/msf/core/exploit/remote/auto_check.rb
+- lib/msf/core/exploit/remote/http_client.rb
+- modules/payloads/singles/cmd/unix/generic.rb
+- spec/support/shared/contexts/wait_for_expect.rb
+- test/module_targets/druid/compose.yaml
+- test/module_targets/druid/native_client.py
+- test/module_targets/geoserver/README.md
+- test/module_targets/geoserver/compose.yaml
+- test/module_targets/geoserver/gateway.conf
+- test/module_targets/geoserver/native_adapter.py
+- test/module_targets/geoserver/native_probe.py
+- test/module_targets/geoserver/input_audit.rb
+- test/module_targets/geoserver/acceptance_helpers.rb
+test_env:
+  GEOSERVER_PROFILE: "2251"

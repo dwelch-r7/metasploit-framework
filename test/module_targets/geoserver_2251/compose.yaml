@@ -1,0 +1,13 @@
+services:
+  app:
+    extends: {file: ../geoserver/compose.yaml, service: app}
+    image: docker.osgeo.org/geoserver:2.25.1@sha256:c210398100dcefdb3de3a7ebe7d1c5068aa92ce6e490aebdeaa3c51a79c1eb57
+  gateway:
+    extends: {file: ../geoserver/compose.yaml, service: gateway}
+  framework:
+    extends: {file: ../geoserver/compose.yaml, service: framework}
+networks:
+  default: {internal: true}
+  public:
+volumes:
+  geoserver_data:
