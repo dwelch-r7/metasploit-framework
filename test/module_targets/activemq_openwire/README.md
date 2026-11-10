@@ -33,15 +33,29 @@ XML-sensitive text, AutoCheck-disabled initialization, disabled payload handlers
 invalid CDATA rejection, Unix Bash and Linux fetch-shell sessions, and genuine
 Linux x64 fetch-Meterpreter sessions with shared/separate HTTP ports.
 Positive runs reject failure banners and require independent files, owner and
-session proofs. Fetch artifacts must disappear before repeats; operator deletion cannot hide a
-failed fetch cleanup. Read-only lifecycle observations record actual callback and
-fetch service identities, owned paths and reference counts. Every former path
-must be absent and return a genuine 404 when the existing fetch pool retains an
-empty listener. A listener that was never owned by a fetch payload must close.
-This explicitly distinguishes route cleanup from the shared fetch reference
-lifetime, which remains a deferred cross-module finding. The earlier physical
-fetch-listener assumption and its failed run remain preserved as diagnostic
-evidence; no shared helper behavior is changed.
+session proofs. Fetch artifacts must disappear before repeats; operator deletion
+cannot hide a failed fetch cleanup. Read-only lifecycle observations copy owned
+paths before cleanup and record actual callback/fetch identities and reference
+counts afterward. Every former path must genuinely refuse HTTP connections after
+the final owner closes, and no HTTP service may remain registered. These checks
+use real curl from Linux target containers, avoiding timed-Socket object returns
+as a substitute for an HTTP connection.
+
+The dependency list includes the shared HTTP/HTTPS ownership regressions and
+their benign capture. They verify that cleanup preserves concurrent normal and
+fetch routes until the last owner releases the actual service. The original
+49-key qualification against the old shared helper retained empty fetch-owned
+listeners and real 404 responses; its raw results remain separate. The expanded
+dependency set and stricter final-listener contract record the shared repair
+explicitly, without weakening command, session, state or repeated-run assertions.
+
+FETCH_DELETE deliberately emits a randomized three-to-seven-second deletion
+delay. Exact temporary-directory restoration uses a real ten-second wall-clock
+deadline around the existing expectation-retry helper and returns immediately
+when restored. Retry counts are not seconds. The first strict 55-key run's two
+artifact observations used ten attempts with 0.1-second sleeps; both exact files
+disappeared later without operator deletion. That 14/2 diagnostic is retained
+separately. Deadline/elapsed receipts preserve the actual bounded cleanup result.
 
 Windows, other CPU architectures, TLS transports, alternative fetch commands,
 other ActiveMQ branches and arbitrary external targets are unqualified. Other

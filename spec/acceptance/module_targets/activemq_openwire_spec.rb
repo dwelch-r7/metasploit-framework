@@ -1,5 +1,6 @@
 require 'acceptance_spec_helper'
 require 'rbconfig'
+require 'timeout'
 
 RSpec.describe 'Native ActiveMQ OpenWire execution' do
   include_context 'module target'
@@ -119,7 +120,7 @@ RSpec.describe 'Native ActiveMQ OpenWire execution' do
         wait_for_expect(10, 0.1) { expect(owner(path)).to eq('activemq') }
         expect(target_exec('affected', 'cat', path)).to eq(content)
         target_exec('affected', 'rm', path)
-        expect(tmp_files).to eq(original)
+        wait_for_tmp_restoration(original)
         stop_handlers
         services_closed
       end
@@ -150,7 +151,7 @@ RSpec.describe 'Native ActiveMQ OpenWire execution' do
         wait_for_expect(15, 0.1) { expect(owner(path)).to eq('activemq') }
         stop_handlers
         target_exec('affected', 'rm', path)
-        wait_for_expect(10, 0.1) { expect(tmp_files).to eq(original) }
+        wait_for_tmp_restoration(original)
         services_closed
       end
     ensure
@@ -176,6 +177,27 @@ RSpec.describe 'Native ActiveMQ OpenWire execution' do
     target_exec('affected', 'find', '/tmp', '-mindepth', '1', '-maxdepth', '1', '-printf', "%f\n").lines.map(&:strip).sort
   end
 
+  def wait_for_tmp_restoration(original)
+    started = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+    actual = nil
+    begin
+      # FETCH_DELETE's real launcher delays deletion by up to seven seconds.
+      # wait_for_expect counts attempts, so bound it with an actual deadline.
+      Timeout.timeout(10) do
+        wait_for_expect(101, 0.1) do
+          actual = tmp_files
+          expect(actual).to eq(original)
+        end
+      end
+    ensure
+      record = {
+        deadline_seconds: 10, elapsed_seconds: Process.clock_gettime(Process::CLOCK_MONOTONIC) - started,
+        expected: original, actual: actual, restored: actual == original
+      }
+      File.open(File.join(target_runtime.fetch('artifacts'), 'fetch-cleanup-deadlines.jsonl'), 'a') { |file| file.puts(JSON.generate(record)) }
+    end
+  end
+
   def stop_handlers
     console_command('sessions -K')
     console_command('jobs -K')
@@ -186,24 +208,17 @@ RSpec.describe 'Native ActiveMQ OpenWire execution' do
     output = console_command("irb -e '#{code}'")
     services = JSON.parse(output.match(/^MODULE_TARGET_HTTP_STATE=(.*)$/)[1])
     events = File.exist?(@lifecycle_path) ? File.readlines(@lifecycle_path).map { |line| JSON.parse(line) } : []
-    fetch_states = events.filter_map { |event| event['fetch'] }
     @http_observations += 1
     File.write(File.join(target_runtime.fetch('artifacts'), "http-cleanup-#{@http_observations}.json"), JSON.pretty_generate(services: services, lifecycle_events: events))
-    expect(services.flat_map { |server| server.fetch('resources') }).to be_empty
+    expect(services).to be_empty
     [8080, 8081].each do |port|
-      retained = services.find { |server| server.fetch('port') == port }
-      if retained
-        # Fetch's existing pool retains caller references after removing routes.
-        # Only a service actually owned by a fetch payload may remain listening.
-        expect(fetch_states.map { |server| server.fetch('id') }).to include(retained.fetch('id'))
-      end
       paths = ['/module-target-probe', '/module-target/context', '/module-target/no-handler', '/module-target/no-check', '/']
       paths.concat(events.flat_map { |event| event['owned_fetch_resources'] || [] })
       paths.uniq.each do |path|
         wait_for_expect(5, 0.1) do
           # The format token belongs to curl, not Ruby's format method.
           result = target_exec('affected', 'sh', '-c', "curl --silent --output /dev/null --write-out '%{http_code}' --connect-timeout 1 --max-time 1 http://#{listener_host}:#{port}#{path}; printf ':%s' \"$?\"") # rubocop:disable Style/FormatStringToken
-          expect(result).to eq(retained ? '404:0' : '000:7')
+          expect(result).to eq('000:7')
         end
       end
     end

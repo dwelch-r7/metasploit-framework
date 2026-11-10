@@ -26,7 +26,7 @@ module ModuleTargetActiveMqLifecycle
   def cleanup
     fetch = payload_instance&.instance_variable_get(:@fetch_service)
     callback = service
-    owned = payload_instance&.instance_variable_get(:@myresources)
+    owned = payload_instance&.instance_variable_get(:@myresources)&.dup
     super
   ensure
     # Perform serialization and file I/O only after production cleanup, so these

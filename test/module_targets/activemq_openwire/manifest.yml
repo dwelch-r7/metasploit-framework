@@ -24,3 +24,9 @@ support_files:
   - lib/rex/service_manager.rb
   - lib/rex/service.rb
   - lib/msf/core/exploit/remote/socket_server.rb
+  - lib/rex/proto/http/server.rb
+  - lib/msf/core/payload/adapter/fetch/https.rb
+  - lib/msf/core/payload/adapter/fetch/server/https.rb
+  - spec/lib/msf/core/payload/adapter/fetch/lifecycle_spec.rb
+  - spec/file_fixtures/fetch/http_lifecycle/README.md
+  - spec/file_fixtures/fetch/http_lifecycle/resource.txt
