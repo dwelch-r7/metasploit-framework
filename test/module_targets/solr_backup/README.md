@@ -33,13 +33,14 @@ module's class-upload technique. See the [vendor advisory](https://solr.apache.o
 Module cleanup must remove its registered collections/configsets. Documented
 backup files and failed-core directories are captured before explicit operator
 removal. Tests require the original API and directory inventories before each
-repeat, real session command proof, and closure of callback/stager listeners. The
-existing shared fetch HTTP server remains pooled: tests capture its owner and
-reference count, require all payload resources to be unregistered, and request
-the actual previous fetch URL to prove HTTP 404 after each run. The pooled
-listener/reference counts are retained as a shared lifecycle limitation until
-Framework container teardown; this profile does not claim per-run server
-closure. The exact configured `FETCH_DELETE` path must become absent through
+repeat, real session command proof, and closure of callback/stager listeners.
+Each run owns the last reference to its Fetch HTTP service: tests require an
+empty service registry, no actual Linux LISTEN socket, and connection refusal
+from the previous fetch URL after cleanup. Component tests separately retain
+another concurrent owner's working resource and prove 404 for a removed route
+while that other owner remains. The original retained-pool observations remain
+in the earlier immutable evidence; they are not treated as per-run closure.
+The exact configured `FETCH_DELETE` path must become absent through
 bounded polling before file inventory/capture; other copy failures remain fatal.
 Native
 CLI/HTTP controls independently establish authentication and permission policy;

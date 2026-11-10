@@ -30,10 +30,16 @@ support_files:
 - lib/msf/core/exploit/remote/http_client.rb
 - lib/msf/core/handler.rb
 - lib/msf/core/handler/reverse_tcp.rb
+- lib/msf/core/payload/adapter.rb
 - lib/msf/core/payload/adapter/fetch.rb
+- lib/msf/core/payload/adapter/fetch/fileless.rb
 - lib/msf/core/payload/adapter/fetch/http.rb
 - lib/msf/core/payload/adapter/fetch/linux_options.rb
+- lib/msf/core/payload/adapter/fetch/pipe.rb
 - lib/msf/core/payload/adapter/fetch/server/http.rb
+- lib/rex/proto/http/server.rb
+- lib/rex/service.rb
+- lib/rex/service_manager.rb
 - modules/payloads/adapters/cmd/linux/http/x64.rb
 - modules/payloads/singles/cmd/unix/generic.rb
 - modules/payloads/stagers/linux/x64/reverse_tcp.rb

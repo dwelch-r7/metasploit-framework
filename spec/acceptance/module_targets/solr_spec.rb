@@ -144,6 +144,7 @@ RSpec.describe 'Native Apache Solr targets' do
             console_command('jobs -K')
             expect(console_command('sessions -l')).to include('No active sessions')
             fetch_url = output[%r{http://[^\s;]+:8082/[^\s;]+}] if backup_profile?
+            expect(fetch_url).not_to be_nil, output if backup_profile?
             prove_listener_cleanup(fetch_url: fetch_url)
             expect(native_json(service, '/solr/admin/info/system').dig('lucene', 'solr-spec-version')).to eq(native_profile(service).fetch('version'))
             restore_solr_state(service, @solr_before)
@@ -244,9 +245,9 @@ RSpec.describe 'Native Apache Solr targets' do
   end
 
   def prove_listener_cleanup(fetch_url: nil)
-    # Fetch HTTP uses a pooled server; its existing cleanup contract removes resources.
-    # Callback and command-stager listeners must close completely.
-    ports = backup_profile? ? [4445, 8081] : [4445, 8081, 8082]
+    # These profiles own the last reference to their Fetch service. Component
+    # tests separately prove that cleanup preserves concurrent server owners.
+    ports = [4445, 8081, 8082]
     script = 'require "json"; rows=%w[/proc/net/tcp /proc/net/tcp6].flat_map { |path| File.readlines(path).drop(1).map(&:split) }; puts JSON.generate(rows.select { |row| row[3]=="0A" && ' + ports.inspect + '.include?(row[1].split(":").last.to_i(16)) })'
     wait_for_expect(15, 0.2) do
       expect(JSON.parse(target_exec('framework', 'ruby', '-e', script))).to eq([])
@@ -259,19 +260,14 @@ RSpec.describe 'Native Apache Solr targets' do
     expect(captured).not_to be_nil, output
     pool = JSON.parse(captured)
     File.open(File.join(target_runtime.fetch('artifacts'), 'fetch-pool-state.jsonl'), 'a') { |log| log.puts(JSON.generate(workspace: @workspace, fetch_url: fetch_url, pool: pool)) }
-    expect(pool.length).to be <= 1
+    expect(pool).to eq([])
     if fetch_url
       uri = URI(fetch_url)
       expect([uri.host, uri.port]).to eq([listener_host, 8082])
-      script = 'uri=URI(ARGV.fetch(0)); response=Net::HTTP.start(uri.host, uri.port, nil, open_timeout: 3, read_timeout: 3) { |http| http.get(uri.request_uri) }; puts JSON.generate(code: response.code.to_i, bytes: response.body.bytesize, sha256: Digest::SHA256.hexdigest(response.body), prefix_base64: Base64.strict_encode64(response.body.byteslice(0, 16)))'
-      response = JSON.parse(target_exec('framework', 'ruby', '-rnet/http', '-rjson', '-rdigest', '-rbase64', '-e', script, fetch_url))
+      response = JSON.parse(target_exec('framework', 'ruby', 'test/module_targets/solr_backup/fetch_probe.rb', fetch_url))
       File.open(File.join(target_runtime.fetch('artifacts'), 'fetch-resource-removal.jsonl'), 'a') { |log| log.puts(JSON.generate(workspace: @workspace, url: fetch_url, response: response)) }
     end
-    pool.each do |server|
-      expect(server.fetch('owner')).to eq('cmd/linux/http/x64/meterpreter/reverse_tcp')
-      expect(server.fetch('resources')).to eq([])
-    end
-    expect(response.fetch('code')).to eq(404) if fetch_url
+    expect(response.slice('state', 'error')).to eq('state' => 'refused', 'error' => 'Errno::ECONNREFUSED') if fetch_url
   end
 
   def report_sql(query)
