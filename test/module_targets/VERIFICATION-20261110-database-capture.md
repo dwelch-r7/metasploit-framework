@@ -1,5 +1,8 @@
 # Database capture and integrated checkpoint, November 10
 
+This retained checkpoint precedes the
+[148-module FileServer checkpoint](VERIFICATION-20261110-fileserver.md).
+
 Current input hashes, exact passing counts and owned teardown establish
 **147 runtime modules, 75 families and 1,031 functional cases**. This adds
 `auxiliary/server/capture/mysql` and `auxiliary/server/capture/mssql` to the

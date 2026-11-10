@@ -686,6 +686,19 @@ checks all current inputs and independently verifies the 3,296-entry worker seal
 FileServer, SIP and Gitea continue; unqualified WordPress/Ansible investigations
 remain retained.
 
+The [FileServer checkpoint](VERIFICATION-20261110-fileserver.md) establishes
+**148 runtime modules, 76 families and 1,040 functional cases**. Nine genuine
+ActiveMQ cases and twelve used sessions pass after separate owning URI,
+classloader and cleanup-option repairs. Mixed original failures remain separate
+from native-proven environment and JAR-cache causes; an isolated 9/1 run proves
+the false-option defect before its guard-only repair. Both false-option runs
+preserve uploads before explicit operator restoration. Parent 20/0, four-file
+lint, excluded discovery and all 62 current inputs pass, and the 788-entry worker
+seal is independently checked. The prior published 147-module revision passes
+all 14 fork Verify jobs; that result is not inferred for later revisions.
+SIP/Gitea fixture corrections, NiFi scanner qualification and a stock Java8
+Tomcat default-spawn matrix remain in progress.
+
 ## Remaining work
 
 - Review existing protocol suites and supply reusable managed containers.
