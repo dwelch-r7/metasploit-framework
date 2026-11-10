@@ -1,0 +1,61 @@
+{
+  "provenance": "Actual Dovecot2.3.16/curl8.13.0 native request/response streams; valid and refused authentication complete with one tagged status. The capture module intentionally refuses LOGIN after recording UNTRIED credentials. Historical sealed Framework streams prove duplicate CAPABILITY NO and absent LOGIN completion.",
+  "native": {
+    "native-imap-curl-valid": {
+      "label": "native-imap-curl-valid",
+      "status": 0,
+      "completions": [
+        {
+          "tag": "A001",
+          "command": "CAPABILITY",
+          "status": "OK"
+        },
+        {
+          "tag": "A002",
+          "command": "LOGIN",
+          "status": "OK"
+        },
+        {
+          "tag": "A004",
+          "command": "LOGOUT",
+          "status": "OK"
+        }
+      ],
+      "pcap_sha256": "3753a7e76b098bcc2cae925d4ed40f36ddd3a0b9a9dc3a681450891207a4aad5",
+      "client_base64": "QTAwMSBDQVBBQklMSVRZDQpBMDAyIExPR0lOIGNhcHR1cmVfdXNlciAiIG1vZHVsZS10YXJnZXQ6IGNhcHR1cmUgXCJxdW90ZWRcIiBcXCB0YWlsICINCkEwMDMgTElTVCAiIiAqDQpBMDA0IExPR09VVA0K",
+      "server_base64": "KiBPSyBbQ0FQQUJJTElUWSBJTUFQNHJldjEgU0FTTC1JUiBMT0dJTi1SRUZFUlJBTFMgSUQgRU5BQkxFIElETEUgTElURVJBTCsgU1RBUlRUTFMgQVVUSD1QTEFJTiBBVVRIPUxPR0lOXSBEb3ZlY290IChVYnVudHUpIHJlYWR5Lg0KKiBDQVBBQklMSVRZIElNQVA0cmV2MSBTQVNMLUlSIExPR0lOLVJFRkVSUkFMUyBJRCBFTkFCTEUgSURMRSBMSVRFUkFMKyBTVEFSVFRMUyBBVVRIPVBMQUlOIEFVVEg9TE9HSU4NCkEwMDEgT0sgUHJlLWxvZ2luIGNhcGFiaWxpdGllcyBsaXN0ZWQsIHBvc3QtbG9naW4gY2FwYWJpbGl0aWVzIGhhdmUgbW9yZS4NCiogQ0FQQUJJTElUWSBJTUFQNHJldjEgU0FTTC1JUiBMT0dJTi1SRUZFUlJBTFMgSUQgRU5BQkxFIElETEUgU09SVCBTT1JUPURJU1BMQVkgVEhSRUFEPVJFRkVSRU5DRVMgVEhSRUFEPVJFRlMgVEhSRUFEPU9SREVSRURTVUJKRUNUIE1VTFRJQVBQRU5EIFVSTC1QQVJUSUFMIENBVEVOQVRFIFVOU0VMRUNUIENISUxEUkVOIE5BTUVTUEFDRSBVSURQTFVTIExJU1QtRVhURU5ERUQgSTE4TkxFVkVMPTEgQ09ORFNUT1JFIFFSRVNZTkMgRVNFQVJDSCBFU09SVCBTRUFSQ0hSRVMgV0lUSElOIENPTlRFWFQ9U0VBUkNIIExJU1QtU1RBVFVTIEJJTkFSWSBNT1ZFIFNOSVBQRVQ9RlVaWlkgUFJFVklFVz1GVVpaWSBQUkVWSUVXIFNUQVRVUz1TSVpFIFNBVkVEQVRFIExJVEVSQUwrIE5PVElGWQ0KQTAwMiBPSyBMb2dnZWQgaW4NCiogTElTVCAoXEhhc05vQ2hpbGRyZW4pICIuIiBJTkJPWA0KQTAwMyBPSyBMaXN0IGNvbXBsZXRlZCAoMC4wMDcgKyAwLjAwMCArIDAuMDA2IHNlY3MpLg0KKiBCWUUgTG9nZ2luZyBvdXQNCkEwMDQgT0sgTG9nb3V0IGNvbXBsZXRlZCAoMC4wMDEgKyAwLjAwMCBzZWNzKS4NCg=="
+    },
+    "native-imap-denied": {
+      "label": "native-imap-denied",
+      "status": 67,
+      "completions": [
+        {
+          "tag": "A001",
+          "command": "CAPABILITY",
+          "status": "OK"
+        },
+        {
+          "tag": "A002",
+          "command": "LOGIN",
+          "status": "NO"
+        }
+      ],
+      "pcap_sha256": "4009969d9e9dd33ddc07eb4d4967d5399bf1736aebeb4fc2600e36a6e3566967",
+      "client_base64": "QTAwMSBDQVBBQklMSVRZDQpBMDAyIExPR0lOIGNhcHR1cmVfdXNlciBtb2R1bGUtdGFyZ2V0LXJlamVjdGVkDQo=",
+      "server_base64": "KiBPSyBbQ0FQQUJJTElUWSBJTUFQNHJldjEgU0FTTC1JUiBMT0dJTi1SRUZFUlJBTFMgSUQgRU5BQkxFIElETEUgTElURVJBTCsgU1RBUlRUTFMgQVVUSD1QTEFJTiBBVVRIPUxPR0lOXSBEb3ZlY290IChVYnVudHUpIHJlYWR5Lg0KKiBDQVBBQklMSVRZIElNQVA0cmV2MSBTQVNMLUlSIExPR0lOLVJFRkVSUkFMUyBJRCBFTkFCTEUgSURMRSBMSVRFUkFMKyBTVEFSVFRMUyBBVVRIPVBMQUlOIEFVVEg9TE9HSU4NCkEwMDEgT0sgUHJlLWxvZ2luIGNhcGFiaWxpdGllcyBsaXN0ZWQsIHBvc3QtbG9naW4gY2FwYWJpbGl0aWVzIGhhdmUgbW9yZS4NCkEwMDIgTk8gW0FVVEhFTlRJQ0FUSU9ORkFJTEVEXSBBdXRoZW50aWNhdGlvbiBmYWlsZWQuDQo="
+    }
+  },
+  "sealed_before_source": "814db68c7cd977434f10afe344eeaf35325cb76c",
+  "sealed_before": [
+    {
+      "case": "capture_1_13_0",
+      "wire_sha256": "8530b2e5a3aec0cb1893b5627cfc725b35f6a5b30da017c56d6bd18fcc21f154",
+      "pcap_sha256": "d628a652089d374420f681cbb2ce267c57b9d694f8896e6785b684702332fa66"
+    },
+    {
+      "case": "capture_1_14_0",
+      "wire_sha256": "266a57bd8603b6dd8ba4481ac18d485b6c88450dba349577e738b2fa0de39497",
+      "pcap_sha256": "cab308dee53f69e2e367901194351e60775cc2c1cc6e32eb011c3ad1425664b7"
+    }
+  ]
+}

