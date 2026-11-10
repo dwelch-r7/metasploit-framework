@@ -1,0 +1,21 @@
+{
+  "provenance": "Actual native client TCP streams, original-source capture baseline 20261110T005240-9cfdb2; disposable local fixture credentials only. Unit candidates pending matched baseline.",
+  "captures": [
+    {
+      "case": "capture_1_9_0",
+      "capture_path": "tmp/module-target-tests/20261110T005240-9cfdb2/capture_mail/capture_1_9_0.wire.json",
+      "pcap_sha256": "ce1d8487d93cc539777d2ec0ea97c13607ef8d4d262f2216483e95b7208ba035",
+      "client_stream_base64": "VVNFUiBjYXB0dXJlX3VzZXINClBBU1MgIG1vZHVsZS10YXJnZXQ6IGNhcHR1cmUgInF1b3RlZCIgXCB0YWlsIA0KU1RBVA0KUVVJVA0K",
+      "client_stream_sha256": "d2ee0be7d486f63a646c3ff1cf7787036b215d505a381c54656feefc6f784947",
+      "client_stream_text": "USER capture_user\r\nPASS  module-target: capture \"quoted\" \\ tail \r\nSTAT\r\nQUIT\r\n"
+    },
+    {
+      "case": "capture_1_11_0",
+      "capture_path": "tmp/module-target-tests/20261110T005240-9cfdb2/capture_mail/capture_1_11_0.wire.json",
+      "pcap_sha256": "676a6925b4794565c5d55d0574a9b359a7d0c85399afca568843d6c42bd7d4b0",
+      "client_stream_base64": "VVNFUiBjYXB0dXJlX3VzZXINClFVSVQNCg==",
+      "client_stream_sha256": "1e795916aac47d602f0d4c19a977a51604174c52bb504f9ef7bdda79a8669f9c",
+      "client_stream_text": "USER capture_user\r\nQUIT\r\n"
+    }
+  ]
+}
