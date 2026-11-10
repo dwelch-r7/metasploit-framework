@@ -9,9 +9,9 @@ startup. Refusals record `setup_resource_refused`, `module_verdict: null` and
 `cleanup: not_started`; they do not classify module behavior or remove containers.
 
 The original runner, SDK, timeout defaults and published target inputs are
-unchanged. The passing checkpoint remains **173 runtime modules, 107 families
-and 1,359 functional cases**, with every selected count, input digest and owned
-cleanup result checked again after integration. The new launcher's SHA-256 is
+unchanged. At guard integration the passing checkpoint was **173 runtime modules,
+107 families and 1,359 functional cases**, with every selected count, input digest
+and owned cleanup result checked again. The new launcher's SHA-256 is
 `dc35fa946bdae20374e9345fe40dd67b5f3a6ce3b3919c22e41aff6482028899`;
 guarded positive results also record that source as an input.
 
@@ -31,6 +31,18 @@ guarded positive results also record that source as an input.
   build, console, RSpec or teardown command ran. The before/after inventories
   were empty and the user-scoped lock was independently reacquired afterward.
   This is a refusal-path check, not a new Druid functional run.
+- A subsequent guarded Gogs invocation exercised actual four-container startup,
+  test failure and teardown. The complete native target gate passed, then all
+  ten examples inherited one Meterpreter calibration readiness failure before
+  any Gogs module ran. The session was registered but was not confirmed fully
+  initialized; its payload PID and graceful closure were unobserved. All nine
+  owned objects were absent after teardown. The parent independently verified
+  the four-service plan, all 55 unchanged inputs, empty Docker inventory and
+  released lock. This verifies the guard's startup and failure lifecycle; it
+  does not qualify Gogs or establish a module defect.
+- The later repaired `gogs_hooks` family passed all ten functional examples
+  through the guarded launcher. Its qualified scope and exact resource audit
+  are recorded in the [Gogs checkpoint](VERIFICATION-20261110-gogs-hooks.md).
 
 Parent evidence is retained in
 `tmp/module-target-resource-guard-parent-rspec.json`,
@@ -38,6 +50,9 @@ Parent evidence is retained in
 `tmp/resource-guard-real-preflight-20261110T142814Z/RESULT.json`; the real
 preflight's rendered plan and classified result are under
 `tmp/module-target-tests/20261110T142816-47cc40/` as recorded by that receipt.
+The Gogs lifecycle receipt is
+`tmp/resource-guard-gogs-startup-parent-receipt.json`, referencing worker
+invocation `20261110T143857-faa8d0` and its preserved cold-start/native evidence.
 The worker exports are in
 `/Users/dwelch/.codex/reports/module-target-resource-guard-20261110/` and
 `/Users/dwelch/.codex/reports/module-target-resource-guard-usage-20261110/`.
@@ -50,6 +65,7 @@ runner need explicit serial coordination. Every resolved service counts at
 least once, including disabled profiles and zero replicas; historical larger
 profiles must be split before local replay. CPU/memory ceilings remain the
 responsibility of each profile, and the guard does not count temporary build
-internals. No positive Docker startup has yet been exercised through this
-launcher. These checks add no qualified modules or functional cases. The full
+internals or containers created inside a nested runtime. Those profiles need a
+separate assessment before local replay.
+These checks add no qualified modules or functional cases. The full
 module qualification campaign remains incomplete.

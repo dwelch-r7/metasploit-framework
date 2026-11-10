@@ -5,7 +5,7 @@ pinned genuine Gogs 0.12.3 at the root and 0.14.3 through the Apache `/gogs/`
 proxy. The untouched owning-module baseline was 10 examples/5 failures; the
 repaired run was 10/0 with unchanged main assertions, options and deadlines.
 Its invocation is `20261110T153132-316b7c/gogs_hooks`, with 60 recorded inputs.
-The owning repair is commit `f24e608060cf2ce66baeb9166ec0f2cc156d6abe`.
+The integrated owning repair is commit `39b333356a4`.
 
 The complete native gate passed 73 CLI operations, 327 HTTP operations and
 22 proof records. Two native payload calibrations precede the module cases.

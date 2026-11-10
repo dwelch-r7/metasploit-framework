@@ -893,3 +893,19 @@ without production repairs. Parent87 current inputs,235 imported files, Ruby
 lint, dry19/6/18/6 and32 cleanup checks pass. Six inherited docs warnings and
 explicit operator-file cleanup remain documented. All earlier native/failure
 records are preserved; the full campaign continues.
+
+## Gogs hook qualification
+
+The [current checkpoint](VERIFICATION-20261110-gogs-hooks.md) qualifies 174
+runtime modules, 108 families and 1,369 cases. Gogs hooks reproduce ten cases
+with five original failures and then ten passes after owning path, branded-404
+check and non-session commit/cleanup repairs. Independent native controls and
+two payload calibrations precede the four used owning sessions. Parent 22
+focused examples, 60 current inputs, 134 imported files and 1,774 export entries
+pass; all nine owned objects and project labels are absent after teardown.
+The original assertions, options, helper, target configuration and deadlines
+remain unchanged. Inherited source/docs findings and nonfatal avatar warnings
+are documented. Rebase/fixed-rebase's fifteen prepared cases remain unrun.
+At this checkpoint, 37 unrelated containers have been removed at the user's
+request, including six tool connectors that reappeared; their images and volumes
+were preserved. New labs continue one project at a time within five containers.
