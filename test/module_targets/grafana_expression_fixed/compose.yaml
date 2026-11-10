@@ -1,0 +1,13 @@
+services:
+  grafana:
+    extends: {file: ../grafana_expression/base.compose.yaml, service: grafana}
+    image: msf-module-target-grafana-expression:11.0.5-security-01-amd64
+    build:
+      context: ${MODULE_TARGET_ROOT:?Set by the module target runner}/test/module_targets/grafana_expression
+      dockerfile: Dockerfile
+      args:
+        GRAFANA_IMAGE: grafana/grafana:11.0.5-security-01-ubuntu@sha256:33ab536754d263fc5a3f5a3f4f70b13730e9783e8b8a8cd3db79e57fd61facca
+  unrelated:
+    extends: {file: ../grafana_expression/base.compose.yaml, service: unrelated}
+  framework:
+    extends: {file: ../grafana_expression/base.compose.yaml, service: framework}

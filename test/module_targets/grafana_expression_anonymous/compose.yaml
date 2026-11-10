@@ -1,0 +1,17 @@
+services:
+  grafana:
+    extends: {file: ../grafana_expression/compose.yaml, service: grafana}
+    environment:
+      GF_AUTH_ANONYMOUS_ENABLED: 'true'
+      GF_AUTH_ANONYMOUS_ORG_ROLE: Viewer
+      GF_SERVER_ROOT_URL: http://localhost:3000/observability/
+      GF_SERVER_SERVE_FROM_SUB_PATH: 'true'
+    healthcheck:
+      test: [CMD-SHELL, "curl -fsS http://127.0.0.1:3000/observability/api/health >/dev/null"]
+      interval: 2s
+      timeout: 4s
+      retries: 45
+  unrelated:
+    extends: {file: ../grafana_expression/base.compose.yaml, service: unrelated}
+  framework:
+    extends: {file: ../grafana_expression/base.compose.yaml, service: framework}

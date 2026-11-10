@@ -1,0 +1,122 @@
+{
+  "source_url": "https://github.com/duckdb/duckdb/releases/download/v1.1.2/duckdb_cli-linux-amd64.zip",
+  "archive_bytes": 16730200,
+  "archive_sha256": "461d949dd4e8e03949dddf65398426adeaa67b459c2fca1316208bcac36aaac7",
+  "binary_sha256": "f7dcf7d18bb29fac5b2deda10c4fc816edd8d04f062067d183e7c95a9d8ee16d",
+  "elf_class": 64,
+  "elf_machine": 62,
+  "architecture": "x86_64",
+  "publisher_signature_claim": false,
+  "vendor_release_asset_digest": null,
+  "version": "v1.1.2",
+  "signature_gate": "Actual CLI signed shellfs loading and API allow_unsigned_extensions=false; legacy API extension must be installed and unloaded before diagnostics",
+  "grafana_registry": {
+    "affected": {
+      "tag": "grafana/grafana:11.0.0-ubuntu",
+      "index_digest": "sha256:dcd3ae78713958a862732c3608d32c03f0c279c35a2032d74b80b12c5cdc47b8",
+      "linux_amd64_manifest": "sha256:3b4da480f985db83ffb5fb0b9af776935871587aeb85becd8534a6d9b87cf8ab",
+      "registry_config": "sha256:1cca995c6f6f77450ff1ece6ad2fc406026cbb62b594f3b3d67d45cf92f17c67",
+      "created": "2024-05-14T08:58:41.450137068Z",
+      "vendor_rootfs_diff_ids": [
+        "sha256:629ca62fb7c791374ce57626d6b8b62c76378be091a0daf1a60d32700b49add7",
+        "sha256:0fb45d627fb024039bb3927673bbab516c56f9e781a2b50ec0eea09f16b9d57f",
+        "sha256:7411e05276e8f46bb26d79f0df65db056d07a59b232975399db8abbada5a0c01",
+        "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+        "sha256:821c8401dd0d5c3d1632c0b6952d471ca3b144e372534114364b7e475f7023cd",
+        "sha256:af728ce18e0e642a059af638e18e2e30fa290cd2016270447815e71135eaeed1",
+        "sha256:c1f4499d2789fa1a0333af73187ddce2d061d727c71a3df5487f5fe9bdcce9f1",
+        "sha256:464664288f5149714171dbddf95684eb3417b3b4cbd15b37bdf69efc567a6074",
+        "sha256:bf0797439e48eb1154c5e938fe37d2f168e321ecbfd5e90be3b1b5e73ed3698d",
+        "sha256:135a51aaf9d855c2961d666e0d7f9592d816b926c4a2e8c1c4bde40d56e939cb"
+      ],
+      "vendor_config_labels": {
+        "maintainer": "Grafana Labs <hello@grafana.com>",
+        "org.opencontainers.image.ref.name": "ubuntu",
+        "org.opencontainers.image.version": "22.04"
+      }
+    },
+    "fixed": {
+      "tag": "grafana/grafana:11.0.5-security-01-ubuntu",
+      "index_digest": "sha256:33ab536754d263fc5a3f5a3f4f70b13730e9783e8b8a8cd3db79e57fd61facca",
+      "linux_amd64_manifest": "sha256:a7983f351bdc90bca8e1590164bbb47cde87a5bc6866be81d3d3bbb0dd266630",
+      "registry_config": "sha256:1b03369303c12fd50e520cc6ea1517cfafb6fa4e559043cf3488169390c89097",
+      "created": "2024-10-02T13:09:05.039032071Z",
+      "vendor_rootfs_diff_ids": [
+        "sha256:2573e0d8158209ed54ab25c87bcdcb00bd3d2539246960a3d592a1c599d70465",
+        "sha256:9a11a25d5fd4be3fc71c109593e200d5b482668226d95006cd8d76319c036c93",
+        "sha256:aaf6c8d9ae2f2530eba98d7d8f488b6eb95792356d3e8889d1b2c9eeb281803c",
+        "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+        "sha256:0cf7682c0a9a4b91bdf3e871fcdc187e1078da7f7e23a17062644238ba5ac198",
+        "sha256:2bba8876ce0dfb3e25c7b5fdde2748d7a1b0de81c5656e83e3e5e5fe5a08d99d",
+        "sha256:7eab423e981f6f06616f20f037954de48dc68190eabbcb6c0d652fb788e07799",
+        "sha256:4a8aed3bae3e0a38083d7d9a15a2c3175ebf46ceb0988b2b980d9c461b862d43",
+        "sha256:3788c309061375480655342a1ad57faeec1b28cc564f3e604faca413c529f808",
+        "sha256:df0b0863030d5bff869f18ad527ad6de0877ab1285ca2f81c8bd494dc9642e16"
+      ],
+      "vendor_config_labels": {
+        "maintainer": "Grafana Labs <hello@grafana.com>",
+        "org.opencontainers.image.ref.name": "ubuntu",
+        "org.opencontainers.image.version": "22.04"
+      }
+    },
+    "serializer_affected": {
+      "tag": "grafana/grafana:11.0.5-ubuntu",
+      "index_digest": "sha256:8f14eeb9ded6f863dde449074d9dda71e3ac3c33126c0eb9075203a17aa241ef",
+      "linux_amd64_manifest": "sha256:81a47769f09a860299d2ee394636397c28065817e3d2531f04b257c391c55f9d",
+      "registry_config": "sha256:640d96090ba0ad3eddfd3ecd056bae922553ca406f35a628ead57ebf16b0d4fa",
+      "created": "2024-09-26T08:04:46.940483669Z",
+      "vendor_rootfs_diff_ids": [
+        "sha256:2573e0d8158209ed54ab25c87bcdcb00bd3d2539246960a3d592a1c599d70465",
+        "sha256:e399a7e3db413b7ff1db40f5db119d60da2979d5a95672a2a6aee8596fd914a0",
+        "sha256:3cbdb2c11f56999243c5f804cd2f30b12baea1bf6af12997ab3fe7c9e2597216",
+        "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+        "sha256:c4c9c482ef6a96d075dcabc1fb91edaa0177be4062b9dde2ddd08af5b84dddde",
+        "sha256:7204df109b8e9cea7d0a7c33c5217f957b21bd8a1d390537c91c0906fe94ce50",
+        "sha256:b5df8ffea907bca3ebd8347028e68a6b03e40a00f206eb10d7177b06c9befc2d",
+        "sha256:6e6d6ed44fa28dadb2523b2fefd1606db5b8cdc997eba5f4e09e2bb7bcec2480",
+        "sha256:34839f98e088dcb8f1bbd5680d0486d1b2e8958ea16f04ac18e96d7708c01b84",
+        "sha256:ca5d7cd647b707028722630428912f32f00a651bb88e061e7fc069c619cb30fa"
+      ],
+      "vendor_config_labels": {
+        "maintainer": "Grafana Labs <hello@grafana.com>",
+        "org.opencontainers.image.ref.name": "ubuntu",
+        "org.opencontainers.image.version": "22.04"
+      }
+    }
+  },
+  "registry_method": "Official registry HTTPS manifest metadata; actual local image/CLI architecture must pass native gates",
+  "dependency_source": "https://github.com/scottlepp/go-duck/blob/v0.0.20/duck/duckdb.go",
+  "cli_platform_candidates": [
+    "linux_amd64",
+    "linux_amd64_gcc4"
+  ],
+  "platform_selection": "Explicit linux/amd64; native image/CLI/API architecture and platform gates remain required on each run",
+  "grafana_public_sources": {
+    "fixed_commit": "9b8a50cc217809e995c6b6e4aa7f3a26f9755094",
+    "caution": "Tag source is not proof of compiled-image identity; capture actual version/commit and independent native API behavior",
+    "legacy_parser": "https://github.com/grafana/grafana/blob/v11.0.0/pkg/expr/sql/parser.go",
+    "service_home_contract": "https://github.com/grafana/grafana/blob/v11.0.0/packaging/docker/run.sh#L63",
+    "serializer_affected_commit": "0421a8911cfc05a46c516fd9d033a51e52e51afe"
+  },
+  "serializer_control": {
+    "raw_sql": "SELECT 42 AS module_target",
+    "stdin": ".mode json \nSELECT json_serialize_sql('SELECT 42 AS module_target') \n",
+    "parser_source": "https://github.com/grafana/grafana/blob/0421a8911cfc05a46c516fd9d033a51e52e51afe/pkg/expr/sql/parser.go",
+    "cli_stdin_source": "https://github.com/scottlepp/go-duck/blob/v0.0.20/duck/duckdb.go",
+    "scope": "CLI serialization compatibility only; legacy11.0.0 uses a Go fallback tokenizer, and fixed source refuses evaluation"
+  },
+  "profile_registry": {
+    "affected": "affected",
+    "anonymous": "affected",
+    "fixed": "fixed",
+    "stock": "serializer_affected"
+  },
+  "expected_versions": {
+    "affected": "11.0.0",
+    "anonymous": "11.0.0",
+    "fixed": "11.0.5+security-01",
+    "stock": "11.0.5"
+  },
+  "service_home": "/usr/share/grafana",
+  "shellfs_binary_sha256": "18f2493eddd76123a0f4004d38b43db33c7c145a9d618c952d54d69dfa15f175"
+}

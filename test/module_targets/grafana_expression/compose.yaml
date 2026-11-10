@@ -1,0 +1,11 @@
+services:
+  grafana:
+    extends: {file: ./base.compose.yaml, service: grafana}
+    image: msf-module-target-grafana-expression:11.0.0-amd64
+    build:
+      context: ${MODULE_TARGET_ROOT:?Set by the module target runner}/test/module_targets/grafana_expression
+      dockerfile: Dockerfile
+  unrelated:
+    extends: {file: ./base.compose.yaml, service: unrelated}
+  framework:
+    extends: {file: ./base.compose.yaml, service: framework}

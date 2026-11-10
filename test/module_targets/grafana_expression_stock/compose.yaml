@@ -1,0 +1,7 @@
+services:
+  grafana:
+    extends: {file: ../grafana_expression/base.compose.yaml, service: grafana}
+  unrelated:
+    extends: {file: ../grafana_expression/base.compose.yaml, service: unrelated}
+  framework:
+    extends: {file: ../grafana_expression/base.compose.yaml, service: framework}

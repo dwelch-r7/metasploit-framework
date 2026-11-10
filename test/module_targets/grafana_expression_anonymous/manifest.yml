@@ -1,0 +1,61 @@
+---
+spec: spec/acceptance/module_targets/grafana_expression_spec.rb
+expected_examples: 3
+console: true
+modules:
+- exploit/multi/http/grafana_sql_expressions_rce_cve_2024_9264
+ports:
+  grafana: 3000
+  unrelated: 80
+test_env:
+  GRAFANA_EXPRESSION_PROFILE: anonymous
+support_files:
+- documentation/modules/exploit/multi/http/grafana_sql_expressions_rce_cve_2024_9264.md
+- lib/msf/base/sessions/command_shell.rb
+- lib/msf/base/sessions/command_shell_options.rb
+- lib/msf/base/sessions/command_shell_unix.rb
+- lib/msf/core/exploit.rb
+- lib/msf/core/exploit/file_dropper.rb
+- lib/msf/core/exploit/remote/auto_check.rb
+- lib/msf/core/exploit/remote/http_client.rb
+- lib/msf/core/handler.rb
+- lib/msf/core/handler/reverse_tcp.rb
+- lib/rex/proto/http/client.rb
+- lib/rex/proto/http/client_request.rb
+- lib/rex/proto/http/packet.rb
+- lib/rex/proto/http/response.rb
+- modules/payloads/singles/cmd/unix/generic.rb
+- modules/payloads/singles/cmd/unix/reverse_bash.rb
+- spec/support/acceptance/datastore_formatting.rb
+- spec/support/shared/contexts/wait_for_expect.rb
+- test/module_targets/framework.compose.yaml
+- test/module_targets/grafana_expression/Dockerfile
+- test/module_targets/grafana_expression/README.md
+- test/module_targets/grafana_expression/assets.json
+- test/module_targets/grafana_expression/base.compose.yaml
+- test/module_targets/grafana_expression/compose.yaml
+- test/module_targets/grafana_expression/native.py
+- test/module_targets/grafana_expression/proof.txt
+- test/module_targets/http/Dockerfile
+- test/module_targets/http/compose.yaml
+- test/module_targets/http/htdocs/final.html
+- test/module_targets/http/htdocs/index.html
+- test/module_targets/http/htdocs/listing/evidence.txt
+- test/module_targets/http/htdocs/plain.txt
+- test/module_targets/http/htdocs/protected/index.html
+- test/module_targets/http/htdocs/robots.txt
+- test/module_targets/http/module-target.conf
+- spec/modules/exploits/multi/http/grafana_sql_expressions_rce_cve_2024_9264_spec.rb
+- spec/file_fixtures/modules/exploits/multi/http/grafana_sql_expressions_rce_cve_2024_9264/README.md
+- spec/file_fixtures/modules/exploits/multi/http/grafana_sql_expressions_rce_cve_2024_9264/emitted_requests.json
+- test/module_targets/grafana_expression/runtime_context.py
+- test/module_targets/grafana_expression/session_control.rb
+- lib/msf/core/session.rb
+- lib/msf/core/session_manager.rb
+- lib/msf/core/session/provider/single_command_shell.rb
+- lib/msf/ui/console/command_dispatcher/core.rb
+- lib/msf/ui/console/command_dispatcher/exploit.rb
+- lib/msf/ui/console/command_dispatcher/payload.rb
+- lib/msf/base/simple/payload.rb
+- lib/msf/base/simple/exploit.rb
+- modules/exploits/multi/handler.rb
