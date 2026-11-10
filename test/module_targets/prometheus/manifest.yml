@@ -1,0 +1,29 @@
+spec: spec/acceptance/module_targets/prometheus_spec.rb
+expected_examples: 18
+console: true
+modules:
+  - auxiliary/gather/prometheus_api_gather
+  - auxiliary/gather/prometheus_node_exporter_gather
+ports:
+  old: 9090
+  modern: 9090
+  secured: 9090
+  empty: 9090
+  node: 9100
+  node_legacy: 9100
+  node_auth: 9100
+  node_empty: 9100
+  discovery: 80
+support_files:
+  - lib/msf/core/auxiliary/prometheus.rb
+  - spec/lib/msf/core/auxiliary/prometheus_spec.rb
+  - spec/lib/msf/core/auxiliary/prometheus_captured_spec.rb
+  - spec/file_fixtures/prometheus/old-api-config.yml
+  - spec/file_fixtures/prometheus/modern-api-config.yml
+  - spec/file_fixtures/prometheus/node-quoted-filesystem.txt
+  - spec/file_fixtures/prometheus/node_legacy-quoted-filesystem.txt
+  - spec/file_fixtures/prometheus/README.md
+  - test/module_targets/http/compose.yaml
+  - test/module_targets/http/Dockerfile
+  - test/module_targets/http/module-target.conf
+  - test/module_targets/http/htdocs/index.html

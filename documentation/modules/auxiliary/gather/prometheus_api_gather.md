@@ -17,6 +17,12 @@ A docker image is [available](https://hub.docker.com/r/prom/prometheus) however
 this basic configuration has almost no interest data. Configuring it can be tricky
 as it may not start w/o being able to contact the contacted services.
 
+An isolated, pinned [Prometheus and Linux exporter lab](../../../../test/module_targets/prometheus/README.md)
+provides native configuration, metrics and authentication controls for automated tests.
+The tested APIs mask inline `basic_auth` passwords, retain credential-file paths,
+and return HTTP-discovery URL userinfo unchanged. The lab compares those exact
+responses with the output and loot, using public fixture credentials.
+
 ## Verification Steps
 
 1. Install the application or find one on the Internet

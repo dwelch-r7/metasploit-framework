@@ -1,0 +1,150 @@
+x-node: &node
+  image: prom/node-exporter:v1.9.1@sha256:d00a542e409ee618a4edc67da14dd48c5da66726bbd5537ab2af9c1dfc442c8a
+  ports: ["127.0.0.1::9100"]
+  command:
+    - --collector.disable-defaults
+    - --collector.uname
+    - --collector.os
+    - --collector.filesystem
+    - --collector.netclass
+    - --collector.time
+    - --collector.selinux
+  healthcheck:
+    test: [CMD-SHELL, "wget -qO /dev/null http://127.0.0.1:9100/"]
+    interval: 2s
+    timeout: 3s
+    retries: 30
+
+x-prometheus: &prometheus
+  image: prom/prometheus:v2.39.1@sha256:4748e26f9369ee7270a7cd3fb9385c1adb441c05792ce2bce2f6dd622fd91d38
+  ports: ["127.0.0.1::9090"]
+  volumes:
+    - .:/etc/prometheus/fixtures:ro
+  command: ["--config.file=/etc/prometheus/fixtures/prometheus.yml", "--storage.tsdb.retention.time=10m"]
+  healthcheck:
+    test: [CMD-SHELL, "wget -qO /dev/null http://127.0.0.1:9090/-/ready"]
+    interval: 2s
+    timeout: 3s
+    retries: 40
+
+services:
+  node:
+    <<: *node
+    hostname: module-target-node-modern
+    volumes:
+      - node_data:/data/plain
+      - type: volume
+        source: escaped_data
+        target: '/data/metrics,"quote"'
+  node_auth:
+    <<: *node
+    hostname: module-target-node-auth
+    command: ["--collector.disable-defaults", "--collector.uname", "--collector.os", "--collector.filesystem", "--collector.netclass", "--web.config.file=/etc/node-exporter/web.yml"]
+    volumes:
+      - ./web.yml:/etc/node-exporter/web.yml:ro
+    healthcheck:
+      test: [CMD-SHELL, "wget -qO /dev/null http://metrics-user:public-metrics-password@127.0.0.1:9100/"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+  node_empty:
+    <<: *node
+    hostname: module-target-node-empty
+    command: ["--collector.disable-defaults", "--web.disable-exporter-metrics"]
+  node_legacy:
+    build:
+      context: .
+      dockerfile: Dockerfile.legacy
+    hostname: module-target-node-legacy
+    ports: ["127.0.0.1::9100"]
+    command:
+      - --no-collector.arp
+      - --no-collector.bcache
+      - --no-collector.bonding
+      - --no-collector.buddyinfo
+      - --no-collector.conntrack
+      - --no-collector.cpu
+      - --no-collector.diskstats
+      - --no-collector.drbd
+      - --no-collector.edac
+      - --no-collector.entropy
+      - --no-collector.filefd
+      - --collector.filesystem
+      - --no-collector.gmond
+      - --no-collector.hwmon
+      - --no-collector.infiniband
+      - --no-collector.interrupts
+      - --no-collector.ipvs
+      - --no-collector.ksmd
+      - --no-collector.loadavg
+      - --no-collector.logind
+      - --no-collector.mdadm
+      - --no-collector.megacli
+      - --no-collector.meminfo
+      - --no-collector.meminfo_numa
+      - --no-collector.mountstats
+      - --collector.netdev
+      - --no-collector.netstat
+      - --no-collector.nfs
+      - --no-collector.ntp
+      - --no-collector.qdisc
+      - --no-collector.runit
+      - --no-collector.sockstat
+      - --no-collector.stat
+      - --no-collector.supervisord
+      - --no-collector.systemd
+      - --no-collector.tcpstat
+      - --no-collector.textfile
+      - --collector.time
+      - --collector.uname
+      - --no-collector.vmstat
+      - --no-collector.wifi
+      - --no-collector.xfs
+      - --no-collector.zfs
+      - --no-collector.timex
+    volumes:
+      - legacy_data:/data/plain
+      - type: volume
+        source: escaped_data
+        target: '/data/metrics,"quote"'
+    healthcheck:
+      test: [CMD-SHELL, "wget -qO /dev/null http://127.0.0.1:9100/"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+  discovery:
+    extends:
+      file: ../http/compose.yaml
+      service: apache
+    volumes:
+      - ./http-targets.json:/usr/local/apache2/htdocs/protected/discovery.json:ro
+      - ./proxy.conf:/usr/local/apache2/conf/extra/prometheus-lab.conf:ro
+    command: ["httpd-foreground", "-c", "LoadModule proxy_module modules/mod_proxy.so", "-c", "LoadModule proxy_http_module modules/mod_proxy_http.so", "-c", "Include conf/extra/prometheus-lab.conf"]
+  old:
+    <<: *prometheus
+  modern:
+    <<: *prometheus
+    image: prom/prometheus:v3.2.1@sha256:6927e0919a144aa7616fd0137d4816816d42f6b816de3af269ab065250859a62
+    command: ["--config.file=/etc/prometheus/fixtures/prometheus.yml", "--web.route-prefix=/prom/", "--web.external-url=http://module-target.invalid/prom/", "--storage.tsdb.retention.time=10m"]
+    healthcheck:
+      test: [CMD-SHELL, "wget -qO /dev/null http://127.0.0.1:9090/prom/-/ready"]
+      interval: 2s
+      timeout: 3s
+      retries: 40
+  secured:
+    <<: *prometheus
+    command: ["--config.file=/etc/prometheus/fixtures/prometheus.yml", "--web.config.file=/etc/prometheus/fixtures/web.yml", "--storage.tsdb.retention.time=10m"]
+    healthcheck:
+      test: [CMD-SHELL, "wget -qO /dev/null http://metrics-user:public-metrics-password@127.0.0.1:9090/-/ready"]
+      interval: 2s
+      timeout: 3s
+      retries: 40
+  empty:
+    <<: *prometheus
+    image: prom/prometheus:v3.2.1@sha256:6927e0919a144aa7616fd0137d4816816d42f6b816de3af269ab065250859a62
+    command: ["--config.file=/etc/prometheus/fixtures/empty.yml", "--storage.tsdb.retention.time=10m"]
+
+volumes:
+  node_data:
+  escaped_data:
+  legacy_data:

@@ -1,0 +1,9 @@
+FROM prom/node-exporter:v1.9.1@sha256:d00a542e409ee618a4edc67da14dd48c5da66726bbd5537ab2af9c1dfc442c8a
+USER root
+# The official 0.15.2 image uses retired schema-1 manifests. Build the same
+# official release binary with its published checksum on the pinned base.
+ADD --checksum=sha256:1ce667467e442d1f7fbfa7de29a8ffc3a7a0c84d24d7c695cc88b29e0752df37 https://github.com/prometheus/node_exporter/releases/download/v0.15.2/node_exporter-0.15.2.linux-amd64.tar.gz /tmp/node-exporter.tar.gz
+RUN tar -xzf /tmp/node-exporter.tar.gz -C /tmp \
+    && cp /tmp/node_exporter-0.15.2.linux-amd64/node_exporter /bin/node_exporter \
+    && rm -r /tmp/node-exporter.tar.gz /tmp/node_exporter-0.15.2.linux-amd64
+USER nobody

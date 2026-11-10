@@ -1,0 +1,3 @@
+# Public, artificial lab account: metrics-user / public-metrics-password.
+basic_auth_users:
+  metrics-user: $2a$04$SLIA5aaIZ3ZDEcJYAefpt.RcEXfT4jDlo4Se/GhvMAGEx0l6aWJg2

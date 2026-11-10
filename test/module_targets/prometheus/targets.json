@@ -1,0 +1,3 @@
+[
+  {"targets": ["discovery:80"], "labels": {"fixture": "authorized-file-discovery"}}
+]

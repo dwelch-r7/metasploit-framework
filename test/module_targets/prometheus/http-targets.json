@@ -1,0 +1,3 @@
+[
+  {"targets": ["node:9100"], "labels": {"fixture": "authorized-http-discovery"}}
+]

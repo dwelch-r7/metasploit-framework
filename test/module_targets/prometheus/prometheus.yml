@@ -1,0 +1,48 @@
+global:
+  scrape_interval: 1s
+  scrape_timeout: 800ms
+scrape_configs:
+  - job_name: node-modern
+    static_configs:
+      - targets: ['node:9100']
+  - job_name: node-legacy
+    static_configs:
+      - targets: ['node_legacy:9100']
+  - job_name: dns-file
+    scheme: http
+    basic_auth:
+      username: metrics-user
+      password_file: /etc/prometheus/fixtures/basic-password
+    dns_sd_configs:
+      - names: ['node_auth']
+        type: A
+        port: 9100
+        refresh_interval: 1s
+  - job_name: dns-inline
+    scheme: http
+    basic_auth:
+      username: metrics-user
+      password: public-metrics-password
+    dns_sd_configs:
+      - names: ['node_auth']
+        type: A
+        port: 9100
+        refresh_interval: 1s
+  - job_name: static-basic
+    basic_auth:
+      username: metrics-user
+      password_file: /etc/prometheus/fixtures/basic-password
+    static_configs:
+      - targets: ['node_auth:9100']
+  - job_name: bearer-file
+    metrics_path: /bearer/metrics
+    authorization:
+      type: Bearer
+      credentials_file: /etc/prometheus/fixtures/bearer-secret
+    file_sd_configs:
+      - files: ['/etc/prometheus/fixtures/targets.json']
+        refresh_interval: 1s
+  - job_name: http-discovery
+    http_sd_configs:
+      - url: http://module-test-user:module-test-password@discovery/protected/discovery.json
+        refresh_interval: 1s

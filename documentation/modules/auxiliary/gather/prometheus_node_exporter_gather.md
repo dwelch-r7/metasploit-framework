@@ -31,6 +31,9 @@ Run it with the following command:
 .\windows_exporter-0.23.1-amd64.exe --collectors.enabled ad,adcs,adfs,cache,cpu,cpu_info,cs,container,dfsr,dhcp,dns,exchange,fsrmquota,hyperv,iis,logical_disk,logon,memory,mscluster_cluster,mscluster_network,mscluster_node,mscluster_resource,mscluster_resourcegroup,msmq,mssql,netframework_clrexceptions,netframework_clrinterop,netframework_clrjit,netframework_clrloading,netframework_clrlocksandthreads,netframework_clrmemory,netframework_clrremoting,netframework_clrsecurity,net,os,process,remote_fx,scheduled_task,service,smtp,system,tcp,teradici_pcoip,time,thermalzone,terminal_services,textfile,vmware_blast,vmware
 ```
 
+An isolated, pinned [Prometheus and Linux exporter lab](../../../../test/module_targets/prometheus/README.md)
+provides native configuration, metrics and authentication controls for automated tests.
+
 ## Verification Steps
 
 1. Install the application
