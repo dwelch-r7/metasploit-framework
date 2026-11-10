@@ -44,6 +44,12 @@ class MetasploitModule < Msf::Auxiliary
     end
 
     result = res.get_json_document
+    unless result.is_a?(Hash) && result['Version'].is_a?(String) && !result['Version'].strip.empty? &&
+           result['ApiVersion'].is_a?(String) && result['ApiVersion'].match?(/\A\d+\.\d+\z/)
+      print_error('[Docker Version] Response is not a Docker version document')
+      return
+    end
+
     print_status("Identifying Docker Server Version on #{peer}")
     print_good("[Docker Server] Version: #{result['Version']}")
     print_status ("All info: #{result.to_s}") if datastore['VERBOSE']

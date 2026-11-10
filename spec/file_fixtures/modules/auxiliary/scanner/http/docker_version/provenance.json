@@ -1,0 +1,129 @@
+{
+  "run": "20261110T011231-14ea41",
+  "source": "native-docker-engine.json",
+  "images": {
+    "old": "docker:26.1.4-dind@sha256:b32df6450ef70d803237fd21eb4ddf8b3dda13378075c39306c7c19f0ced079e",
+    "modern": "docker:28.0.4-dind@sha256:9fb175225e8d3ff95ec41225424d3dcacf78af96544fb2aa2613a78a6d044cb8"
+  },
+  "records": [
+    {
+      "file": "old.json",
+      "service": "old",
+      "status": 200,
+      "headers": {
+        "api-version": [
+          "1.45"
+        ],
+        "content-type": [
+          "application/json"
+        ],
+        "docker-experimental": [
+          "false"
+        ],
+        "ostype": [
+          "linux"
+        ],
+        "server": [
+          "Docker/26.1.4 (linux)"
+        ],
+        "date": [
+          "Tue, 10 Nov 2026 01:13:59 GMT"
+        ],
+        "content-length": [
+          "823"
+        ],
+        "connection": [
+          "close"
+        ]
+      },
+      "sha256": "41bceb6b27f9182783aad1f7cd7a48768338b7ede0639d3f48083f52cfd52c7d"
+    },
+    {
+      "file": "modern.json",
+      "service": "modern",
+      "status": 200,
+      "headers": {
+        "api-version": [
+          "1.48"
+        ],
+        "content-type": [
+          "application/json"
+        ],
+        "docker-experimental": [
+          "false"
+        ],
+        "ostype": [
+          "linux"
+        ],
+        "server": [
+          "Docker/28.0.4 (linux)"
+        ],
+        "date": [
+          "Tue, 10 Nov 2026 01:14:00 GMT"
+        ],
+        "content-length": [
+          "819"
+        ],
+        "connection": [
+          "close"
+        ]
+      },
+      "sha256": "ec154b0326d7bc3a292600f720f8b4505d716b39055e52878aa94cd1a356021b"
+    },
+    {
+      "file": "unrelated.html",
+      "service": "unrelated",
+      "status": 200,
+      "headers": {
+        "date": [
+          "Tue, 10 Nov 2026 01:14:01 GMT"
+        ],
+        "server": [
+          "Apache/2.4.62 (Unix)"
+        ],
+        "last-modified": [
+          "Sun, 08 Nov 2026 20:57:45 GMT"
+        ],
+        "etag": [
+          "\"79-65fca18e3b1e2\""
+        ],
+        "accept-ranges": [
+          "bytes"
+        ],
+        "content-length": [
+          "121"
+        ],
+        "connection": [
+          "close"
+        ],
+        "content-type": [
+          "text/html"
+        ]
+      },
+      "sha256": "700f92abb5344fce0298199618e3c8f14e816a2227a7cb9d552e90bf99e59453"
+    },
+    {
+      "file": "missing.html",
+      "service": "missing",
+      "status": 404,
+      "headers": {
+        "date": [
+          "Tue, 10 Nov 2026 01:14:01 GMT"
+        ],
+        "server": [
+          "Apache/2.4.62 (Unix)"
+        ],
+        "content-length": [
+          "196"
+        ],
+        "connection": [
+          "close"
+        ],
+        "content-type": [
+          "text/html; charset=iso-8859-1"
+        ]
+      },
+      "sha256": "80c3fe2ae1062abf56456f52518bd670f9ec3917b7f85e152b347ac6b6faf880"
+    }
+  ]
+}
