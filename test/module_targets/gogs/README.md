@@ -16,11 +16,13 @@ source is `accounts.tsv`; production credentials must never be used here.
 | Family | Selected cases | Running containers | Target scope |
 | --- | ---: | ---: | --- |
 | `gogs_hooks` | 10 | 4 | 0.12.3 root; 0.14.3 `/gogs/`; real Apache root |
-| `gogs_rebase` | 10 | 5 | 0.14.2 root and `/gogs/`; reporting PostgreSQL |
+| `gogs_rebase` | 5 | 5 | 0.14.2 own repositories at root and `/gogs/`; reporting PostgreSQL |
+| `gogs_rebase_existing` | 5 | 5 | Same configuration; existing owner/collaborator/permission paths |
 | `gogs_rebase_fixed` | 5 | 4 | 0.14.3 root; forced and default AutoCheck negatives |
 
-Run only one family per invocation after the campaign coordinator grants the
-serial slot. The Framework limit is 1 GiB/1 CPU; each Gogs target is 256 MiB/0.5
+Run only the families explicitly granted by the campaign coordinator, with one
+project active at a time. A guarded multi-family invocation runs them serially
+with teardown between families. The Framework limit is 1 GiB/1 CPU; each Gogs target is 256 MiB/0.5
 CPU; Apache is 64 MiB/0.2 CPU and reporting PostgreSQL 128 MiB/0.25 CPU. The peak
 five-container profile is 1,728 MiB/2.45 CPUs. No privileged containers, host
 sockets, external Git servers or host network mode are required. Gogs SSH is
@@ -31,6 +33,8 @@ owned `/data` and `/backup` volumes removed by the existing runner.
 bundle exec ruby tools/dev/run_guarded_module_target_tests.rb gogs_hooks
 # After complete teardown and a separate serial grant:
 bundle exec ruby tools/dev/run_guarded_module_target_tests.rb gogs_rebase
+# After complete teardown and a separate serial grant:
+bundle exec ruby tools/dev/run_guarded_module_target_tests.rb gogs_rebase_existing
 # After complete teardown and a separate serial grant:
 bundle exec ruby tools/dev/run_guarded_module_target_tests.rb gogs_rebase_fixed
 ```
@@ -94,6 +98,11 @@ refs and actual remaining repository state are recorded before the operator
 removes the seed. There is no claim that the same corrupted repository can be
 exploited twice unchanged. Closed PR history, unreachable objects and Gogs local
 merge caches are retained as observed state, not silently equated to live refs.
+The retained pull ref must match the actual created PR index, a closed authenticated
+PR view, and its native head commit with the unchanged seed parent and only the
+expected feature addition. All original refs must remain unchanged; no arbitrary
+extra refs are accepted. Logical object additions are recorded before owned-seed
+operator removal.
 
 The rebase owner documents that its created `msf_*` API token persists. Tests
 record that token and warning before a separately identified native UI operator
@@ -105,9 +114,19 @@ requires native PID absence before supported operator host-session closure;
 that closure is not labeled automatic deregistration or a forced target kill.
 Teardown then removes only owned resources.
 
-The original module's explicit `TARGETURI` contract and subpath behavior remain
-strict test inputs. An unknown-option warning fails positive cases. No owner is
-modified preemptively to satisfy the lab.
+The original process identity projection is sampled twice before each module
+operation within the existing 15-second bound. Both raw samples are retained;
+no process names are filtered. After-run equality uses that pre-run baseline.
+Reporting distinguishes exact passive AutoCheck discovery, explicit request
+reporting and session-inferred records, including native DB/session linkages.
+A reported vulnerability is never substituted for the independent marker or
+session proof. The initial empty graph is scoped to the actual connected
+workspace, rather than an unset workspace name.
+
+The original rebase baseline exposed its missing `TARGETURI` registration. A
+separate, unit-verified option change now registers the base path with `/` as its
+default. Root-default and explicit subpath behavior remain strict test inputs;
+unknown-option warnings still fail positive cases.
 
 ## Retained nonfatal target diagnostics
 

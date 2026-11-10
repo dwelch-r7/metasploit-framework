@@ -15,6 +15,8 @@ def main():
         result = native.processes(service)
     elif action == 'refs':
         result = native.refs(service, request['owner'], request['name'])
+    elif action == 'pull_state':
+        result = native.pull_state(service, request['owner'], request['name'], request['number'], request['seed_refs'])
     elif action == 'seed':
         result = native.seed(service, request['name'], rebase=request.get('rebase', True))
     elif action == 'remove_repo':

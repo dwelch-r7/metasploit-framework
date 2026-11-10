@@ -3,6 +3,13 @@ require 'acceptance_spec_helper'
 profile = ENV.fetch('GOGS_TARGET_PROFILE', 'gogs_hooks')
 raise ArgumentError, "Unknown Gogs profile: #{profile}" unless %w[gogs_hooks gogs_rebase gogs_rebase_fixed].include?(profile)
 
+group = ENV.fetch('GOGS_REBASE_GROUP', 'all')
+raise ArgumentError, "Unknown Gogs rebase group: #{group}" unless %w[all own existing].include?(group)
+
+if profile == 'gogs_rebase' && group != 'all'
+  RSpec.configure { |config| config.filter_run_excluding(gogs_rebase_group: group == 'own' ? :existing : :own) }
+end
+
 RSpec.describe 'Native Gogs repository execution targets' do
   include_context 'Gogs target'
 
@@ -45,43 +52,43 @@ RSpec.describe 'Native Gogs repository execution targets' do
       gogs_refused('legacy', { 'PASSWORD' => 'public-wrong-password' }, expected: 'Login failed')
     end
   elsif profile == 'gogs_rebase'
-    it 'executes two ordinary-user own-repository commands with exact repository cleanup' do
+    it 'executes two ordinary-user own-repository commands with exact repository cleanup', gogs_rebase_group: :own do
       gogs_command('gogs')
     end
 
-    it 'opens two ordinary-user own-repository Bash sessions and proves their target identity' do
+    it 'opens two ordinary-user own-repository Bash sessions and proves their target identity', gogs_rebase_group: :own do
       gogs_session('gogs', 'cmd/unix/reverse_bash')
     end
 
-    it 'executes twice as an existing repository owner while enabling rebase' do
+    it 'executes twice as an existing repository owner while enabling rebase', gogs_rebase_group: :existing do
       gogs_command('gogs', { 'USERNAME' => 'lab-admin', 'ENABLE_REBASE' => true }, existing: true, rebase: false)
     end
 
-    it 'opens two pre-enabled collaborator sessions despite zero repository creation quota' do
+    it 'opens two pre-enabled collaborator sessions despite zero repository creation quota', gogs_rebase_group: :existing do
       gogs_session('gogs', 'cmd/unix/reverse_bash', options: { 'USERNAME' => 'lab-writer', 'ENABLE_REBASE' => false }, existing: true)
     end
 
-    it 'refuses own repository creation twice for the native zero-quota writer' do
+    it 'refuses own repository creation twice for the native zero-quota writer', gogs_rebase_group: :own do
       gogs_refused('gogs', { 'USERNAME' => 'lab-writer' }, expected: 'Repo creation failed')
     end
 
-    it 'refuses existing repository pushes twice for a native read-only collaborator' do
+    it 'refuses existing repository pushes twice for a native read-only collaborator', gogs_rebase_group: :existing do
       gogs_refused('gogs', { 'USERNAME' => 'lab-reader', 'ENABLE_REBASE' => false }, existing: true, expected: 'failed')
     end
 
-    it 'retains the actual disabled-rebase response and reporting without executing twice' do
+    it 'retains the actual disabled-rebase response and reporting without executing twice', gogs_rebase_group: :existing do
       gogs_refused('gogs', { 'USERNAME' => 'lab-writer', 'ENABLE_REBASE' => false }, existing: true, rebase: false)
     end
 
-    it 'refuses rejected API credentials twice before creating a repository' do
+    it 'refuses rejected API credentials twice before creating a repository', gogs_rebase_group: :own do
       gogs_refused('gogs', { 'PASSWORD' => 'public-wrong-password' }, expected: 'API token creation failed')
     end
 
-    it 'executes two own-repository commands through an explicitly supplied real subpath' do
+    it 'executes two own-repository commands through an explicitly supplied real subpath', gogs_rebase_group: :own do
       gogs_command('prefix')
     end
 
-    it 'refuses an inaccessible private existing repository twice for an outsider' do
+    it 'refuses an inaccessible private existing repository twice for an outsider', gogs_rebase_group: :existing do
       gogs_refused('gogs', { 'USERNAME' => 'lab-outsider', 'ENABLE_REBASE' => false }, existing: true, expected: 'not found or not accessible')
     end
   else

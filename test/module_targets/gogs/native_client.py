@@ -10,6 +10,7 @@ import os
 from pathlib import Path
 import re
 import subprocess
+import sys
 import time
 import urllib.error
 import urllib.parse
@@ -96,6 +97,42 @@ class TokenRows(HTMLParser):
 class NoRedirect(urllib.request.HTTPRedirectHandler):
     def redirect_request(self, *_arguments):
         return None
+
+
+class MergeForms(HTMLParser):
+    def __init__(self, content):
+        super().__init__()
+        self.forms = []
+        self.current = None
+        self.status_buttons = []
+        self.feed(content)
+        assert self.current is None, 'Unclosed native PR form'
+
+    def handle_starttag(self, tag, attributes):
+        values = dict(attributes)
+        if tag == 'form':
+            assert self.current is None, 'Nested native PR forms'
+            self.current = {'attributes': values, 'inputs': []}
+        elif tag == 'input' and self.current is not None:
+            self.current['inputs'].append(values)
+        elif tag == 'div' and values.get('id') == 'status-button':
+            self.status_buttons.append(values)
+
+    def handle_endtag(self, tag):
+        if tag == 'form':
+            assert self.current is not None, 'Unmatched native PR form'
+            self.forms.append(self.current)
+            self.current = None
+
+
+def pull_location(location, prefix, owner, name):
+    parsed = urllib.parse.urlsplit(location)
+    assert not (parsed.scheme or parsed.netloc or parsed.query or parsed.fragment), location
+    assert location == parsed.path, 'Location contains non-path whitespace or controls'
+    expected = prefix+'/'+owner+'/'+name+'/pulls/'
+    match = re.fullmatch(re.escape(expected)+r'([1-9][0-9]*)', parsed.path)
+    assert match, (location, expected)
+    return int(match[1]), parsed.path.removeprefix(prefix)
 
 
 class NativeGogs:
@@ -341,26 +378,174 @@ class NativeGogs:
         self.git(directory, '-c', 'commit.gpgsign=false', 'commit', '-m', label)
         return self.git(directory, 'rev-parse', 'HEAD').strip()
 
+    def collaborator_permissions(self, service, name):
+        status, rows = self.request(service, '/api/v1/repos/lab-admin/'+name+'/collaborators', user='lab-admin')
+        assert status == 200 and isinstance(rows, list), (status, rows)
+        # control.py constructs a fresh client for each seed operation. Resolve
+        # real authenticated IDs without depending on a before-all record.
+        expected = {}
+        for user, writable in [('lab-writer', True), ('lab-reader', False)]:
+            code, identity = self.request(service, '/api/v1/user', user=user)
+            assert code == 200 and identity['login'] == user, (code, identity)
+            expected[identity['id']] = {'admin': False, 'push': writable, 'pull': True}
+        actual = {row['id']: row['permissions'] for row in rows}
+        assert len(actual) == len(rows) and actual == expected, (expected, rows)
+        self.records['proofs'].append({'kind': 'native-collaborator-role-readback', 'service': service,
+                                      'repository': name, 'actual': rows})
+        return actual
+
+
+    def repository_objects(self, service, name, *, owner='lab-admin'):
+        actor = self.services[service]['actor']
+        bare = REPOSITORIES+'/'+owner+'/'+name+'.git'
+        objects = sorted(self.command(actor, 'git', '--git-dir', bare, 'cat-file', '--batch-all-objects',
+                                      '--batch-check=%(objectname)', user='git').splitlines())
+        assert objects and len(set(objects)) == len(objects) and all(re.fullmatch('[a-f0-9]{40}', value) for value in objects), objects
+        return objects
+
+    def pull_state(self, service, owner, name, number, seed_refs):
+        """Bind the one retained Gogs PR ref to this owned seeded operation."""
+        assert isinstance(number, int) and number > 0 and not isinstance(number, bool), number
+        assert len(seed_refs) == 1 and re.fullmatch(r'refs/heads/main [a-f0-9]{40}', seed_refs[0]), seed_refs
+        seed_commit = seed_refs[0].split()[1]
+        ui = NativeUI(self, service)
+        ui.login(owner)
+        route = '/'+owner+'/'+name+'/pulls/'+str(number)
+        status, body, _fields = ui.request(route)
+        assert status == 200, status
+        forms = MergeForms(body)
+        assert len(forms.status_buttons) == 1 and forms.status_buttons[0].get('data-status-val') == 'reopen', forms.status_buttons
+        comment_action = self.services[service]['prefix']+'/'+owner+'/'+name+'/issues/'+str(number)+'/comments'
+        comments = [form for form in forms.forms if form['attributes'].get('action') == comment_action]
+        assert len(comments) == 1 and comments[0]['attributes'].get('method', '').lower() == 'post', comments
+        assert re.search(r'data-tab="request-[1-9][0-9]*"', body), 'The authenticated view is not the actual PR conversation'
+        refs = self.refs(service, owner, name)
+        retained = 'refs/pull/'+str(number)+'/head'
+        additions = [row for row in refs if row not in seed_refs]
+        assert len(additions) == 1 and re.fullmatch(re.escape(retained)+r' [a-f0-9]{40}', additions[0]), (seed_refs, refs)
+        assert sorted(refs) == sorted(seed_refs+additions), (seed_refs, refs)
+        head_commit = additions[0].split()[1]
+        actor = self.services[service]['actor']
+        bare = REPOSITORIES+'/'+owner+'/'+name+'.git'
+        def git(*arguments):
+            return self.command(actor, 'git', '--git-dir', bare, *arguments, user='git')
+        assert git('symbolic-ref', 'HEAD').strip() == 'refs/heads/main'
+        assert git('rev-parse', 'refs/heads/main').strip() == seed_commit
+        parents = git('show', '--no-patch', '--format=%P', head_commit).strip().split()
+        assert parents == [seed_commit], parents
+        assert git('show', '--no-patch', '--format=%s', head_commit).strip() == 'feature'
+        changes = git('diff', '--name-status', seed_commit, head_commit)
+        assert changes == 'A\tfeature.txt\n', changes
+        feature = git('show', head_commit+':feature.txt')
+        assert re.fullmatch('[A-Za-z]{8}', feature), feature
+        objects = self.repository_objects(service, name, owner=owner)
+        original_objects = sorted(row.split()[0] for row in git('rev-list', '--objects', seed_commit).splitlines())
+        assert set(original_objects) <= set(objects), (original_objects, objects)
+        proof = {'owner': owner, 'repository': name, 'number': number, 'closed': True,
+                 'authenticated_PR_route': route, 'comment_form_action': comment_action,
+                 'seed_refs': seed_refs, 'refs': refs, 'retained_ref': retained,
+                 'head_commit': head_commit, 'head_commit_source': 'Actual canonical refs/pull/INDEX/head; the deleted branch is not inferred from UI',
+                 'parents': parents, 'feature_changes': changes, 'feature_content': feature,
+                 'objects': objects, 'seed_reachable_objects': original_objects,
+                 'observed_added_objects': sorted(set(objects)-set(original_objects)),
+                 'cleanup_boundary': 'Closed PR/history/objects retained until explicit owned-seed removal'}
+        self.records['proofs'].append({'kind': 'native-closed-PR-ref-binding', 'service': service, **proof})
+        return proof
+
+
+    def disabled_push_refusal(self, service, before):
+        started = time.monotonic()
+        deadline = started+3
+        expected = b'MergePullRequest()] merge: git push: fatal: Could not read from remote repository.'
+        self.records.setdefault('disabled_refusal_logs', [])
+        while True:
+            after = self.service_logs(service, deadline=deadline)
+            preserved = {channel: after[channel].startswith(before[channel]) for channel in ['stdout', 'stderr']}
+            assert before['container_id'] == after['container_id'] and all(preserved.values())
+            operations = []
+            for channel in ['stdout', 'stderr']:
+                operations += [line for line in after[channel][len(before[channel]):].splitlines()
+                               if b'[ERROR]' in line and b'MergePullRequest()] merge:' in line]
+            self.record('disabled_refusal_logs', {'service': service, 'container_id': after['container_id'],
+                                                  'prefixes_preserved': preserved, 'seconds': time.monotonic()-started,
+                                                  'before_sizes': {key: len(before[key]) for key in preserved},
+                                                  'after_sizes': {key: len(after[key]) for key in preserved},
+                                                  'new_operations': [line.decode('utf-8', 'backslashreplace') for line in operations]})
+            assert len(operations) <= 1, operations
+            if operations:
+                assert operations[0].endswith(expected), operations
+                return operations[0].decode('utf-8', 'backslashreplace')
+            remaining = deadline-time.monotonic()
+            assert remaining > 0, 'The exact fresh owned Git-push refusal was not observed'
+            time.sleep(min(0.05, remaining))
+
+
+    def account_states(self, service):
+        ui = NativeUI(self, service)
+        ui.login('lab-admin')
+        return {user: ui.account_state(row['id'])
+                for user, row in self.records['identities'][service]['users'].items()}
+
+
     def seed(self, service, name, *, rebase=True):
-        self.remove_repo(service, 'lab-admin', name)
-        self.create_repo(service, 'lab-admin', name, branch='main')
-        directory = self.working_copy(service, 'lab-admin', name, 'lab-admin', clone=False, branch='main')
+        # Select main through the tagged supported owner form after the push;
+        # CreateRepoOption does not accept a default_branch field.
+        owner = 'lab-admin'
+        self.remove_repo(service, owner, name)
+        self.create_repo(service, owner, name, branch='main')
+        directory = self.working_copy(service, owner, name, owner, clone=False, branch='main')
         try:
             self.write(directory, 'README.md', 'Module target existing repository\n')
-            self.commit(directory, 'Native seed')
+            seed_commit = self.commit(directory, 'Native seed')
             self.git(directory, 'push', '-u', 'origin', 'main')
         finally:
             self.frame('rm', '-rf', directory)
-        status, repository = self.request(service, '/api/v1/repos/lab-admin/'+name, user='lab-admin')
-        assert status == 200 and repository['default_branch'] == 'main', (status, repository)
+        status, before = self.request(service, '/api/v1/repos/'+owner+'/'+name, user=owner)
+        assert status == 200, (status, before)
+        actor = self.services[service]['actor']
+        bare = REPOSITORIES+'/'+owner+'/'+name.lower()+'.git'
+        head_before = self.command(actor, 'git', '--git-dir', bare, 'symbolic-ref', 'HEAD', user='git').strip()
+        assert self.command(actor, 'git', '--git-dir', bare, 'rev-parse', 'refs/heads/main', user='git').strip() == seed_commit
         ui = NativeUI(self, service)
-        ui.login('lab-admin')
-        ui.set_rebase('lab-admin', name, rebase)
+        ui.login(owner)
+        route = '/'+owner+'/'+name+'/settings/branches'
+        status, body, fields = ui.request(route)
+        assert status == 200 and fields.value('branch') == before['default_branch'], (status, before)
+        action = self.services[service]['prefix']+route+'/default_branch'
+        forms = [form for form in MergeForms(body).forms if form['attributes'].get('action') == action]
+        assert len(forms) == 1 and forms[0]['attributes'].get('method', '').lower() == 'post', forms
+        assert any(row.get('name') == '_csrf' and row.get('value') for row in forms[0]['inputs']), forms
+        assert ui.request(route+'/default_branch', {'_csrf': fields.value('_csrf'), 'branch': 'main'})[0] == 302
+        posted = self.records['http'][-1]
+        locations = [value for key, value in posted['headers'].items() if key.lower() == 'location']
+        assert locations == [self.services[service]['prefix']+route], locations
+        status, _body, fields = ui.request(route)
+        assert status == 200 and fields.value('branch') == 'main', (status, fields.inputs)
+        status, after = self.request(service, '/api/v1/repos/'+owner+'/'+name, user=owner)
+        assert status == 200 and after['default_branch'] == 'main', (status, after)
+        for key in ['id', 'name', 'full_name', 'owner', 'private']:
+            assert before[key] == after[key], (key, before[key], after[key])
+        head_after = self.command(actor, 'git', '--git-dir', bare, 'symbolic-ref', 'HEAD', user='git').strip()
+        assert head_after == 'refs/heads/main', head_after
+        ui.set_rebase(owner, name, rebase)
         for user, permission in [('lab-writer', 'write'), ('lab-reader', 'read')]:
-            status, document = self.request(service, '/api/v1/repos/lab-admin/'+name+'/collaborators/'+user,
-                                             user='lab-admin', data={'permission': permission}, method='PUT')
+            status, document = self.request(service, '/api/v1/repos/'+owner+'/'+name+'/collaborators/'+user,
+                                             user=owner, data={'permission': permission}, method='PUT')
             assert status in (200, 204), (status, document)
-        return {'owner': 'lab-admin', 'name': name, 'refs': self.refs(service, 'lab-admin', name), 'rebase': rebase}
+        self.collaborator_permissions(service, name)
+        directory = self.working_copy(service, owner, name, 'lab-writer')
+        try:
+            clone_branch = self.git(directory, 'symbolic-ref', '--short', 'HEAD').strip()
+            clone_commit = self.git(directory, 'rev-parse', 'HEAD').strip()
+            assert clone_branch == 'main' and clone_commit == seed_commit, (clone_branch, clone_commit, seed_commit)
+        finally:
+            self.frame('rm', '-rf', directory)
+        self.records['proofs'].append({'kind': 'native-supported-default-branch-selection', 'service': service,
+                                      'owner': owner, 'repository': name, 'api_before': before, 'api_after': after,
+                                      'head_before': head_before, 'head_after': head_after, 'seed_commit': seed_commit,
+                                      'writer_clone_branch': clone_branch, 'writer_clone_commit': clone_commit,
+                                      'selection': 'Explicit owner UI action, not API creation or push policy'})
+        return {'owner': owner, 'name': name, 'refs': self.refs(service, owner, name), 'rebase': rebase}
 
     def identity(self, service):
         definition = self.services[service]
@@ -514,53 +699,137 @@ class NativeGogs:
             self.command(self.services[service]['actor'], 'rm', '-f', proof)
         assert self.repo_tree(service) == before
 
-    def rebase_control(self, service, *, enabled=True, expected_execution=True, user='lab-user'):
-        name = 'native-rebase-'+user
-        proof = '/tmp/native-gogs-rebase-'+user
-        self.remove_repo(service, user, name)
-        self.create_repo(service, user, name)
-        directory = self.working_copy(service, user, name, user, clone=False)
-        ui = NativeUI(self, service)
-        ui.login(user)
+    def rebase_control(self, service, *, enabled=True, expected_execution=True, user='lab-user', collaborator=False, ordinary_base=False):
+        """Use genuine pushed commits and the authenticated web merge operation."""
+        owner = 'lab-admin' if collaborator else user
+        user = 'lab-writer' if collaborator else owner
+        assert not ordinary_base or (not collaborator and not enabled)
+        mode = 'collaborator' if collaborator else ('own' if enabled else 'disabled')
+        if ordinary_base:
+            mode = 'disabled-ordinary'
+        name = 'native-rebase-'+mode
+        actor = self.services[service]['actor']
+        proof = '/tmp/native-gogs-rebase-'+mode
+        marker = 'NATIVE_GOGS_REBASE_'+mode.upper()
+        directory = None
+        before_tree = self.repo_tree(service)
+        self.command(actor, 'test', '!', '-e', proof)
         try:
-            self.write(directory, 'README.md', 'Native base\n')
-            self.commit(directory, 'Native base')
-            self.git(directory, 'push', '-u', 'origin', 'master')
-            ui.set_rebase(user, name, enabled)
+            if collaborator:
+                seed = self.seed(service, name, rebase=True)
+                branch = 'main'
+                directory = self.working_copy(service, owner, name, user, branch=branch)
+            else:
+                self.remove_repo(service, owner, name)
+                self.create_repo(service, owner, name)
+                branch = 'master'
+                directory = self.working_copy(service, owner, name, user, clone=False)
+                self.write(directory, 'README.md', 'Native base\n')
+                self.commit(directory, 'Native base')
+                self.git(directory, 'push', '-u', 'origin', branch)
+                seed = {'owner': owner, 'name': name, 'refs': self.refs(service, owner, name)}
+            admin = NativeUI(self, service)
+            admin.login(owner)
+            admin.set_rebase(owner, name, enabled)
+            setting = admin.rebase_setting(owner, name, enabled)
             self.git(directory, 'checkout', '-b', 'native-feature')
             self.write(directory, 'feature.txt', 'Native feature\n')
             self.commit(directory, 'Native feature')
             self.git(directory, 'push', 'origin', 'native-feature')
-            self.git(directory, 'checkout', 'master')
+            self.git(directory, 'checkout', branch)
             self.write(directory, 'diverge.txt', 'Native divergence\n')
             self.commit(directory, 'Native divergence')
-            command = 'printf NATIVE_GOGS_REBASE>'+proof+';id>>'+proof
-            for padding in range(51):
-                encoded = base64.b64encode((' '*padding+command).encode()).decode()
-                if '//' not in encoded:
-                    break
+            if ordinary_base:
+                base_branch = branch
+                self.git(directory, 'push', 'origin', branch)
             else:
-                raise AssertionError('Native command cannot form a safe Git ref')
-            branch = '--exec=echo${IFS}'+encoded+'|base64${IFS}-d|sh'
-            assert max(len(part.encode()) for part in branch.split('/')) <= 255, branch
-            self.git(directory, 'check-ref-format', 'refs/heads/'+branch)
-            self.git(directory, 'push', 'origin', 'HEAD:refs/heads/'+branch)
-            number = ui.create_pr(user, name, branch, 'native-feature')
-            merge = ui.merge(user, name, number)
-            actor = self.services[service]['actor']
+                command = 'printf '+marker+'>'+proof+';id>>'+proof
+                for padding in range(51):
+                    encoded = base64.b64encode((' '*padding+command).encode()).decode()
+                    if '//' not in encoded:
+                        break
+                else:
+                    raise AssertionError('Native command cannot form a safe Git ref')
+                base_branch = '--exec=echo${IFS}'+encoded+'|base64${IFS}-d|sh'
+                assert max(len(part.encode()) for part in base_branch.split('/')) <= 255, base_branch
+                self.git(directory, 'check-ref-format', 'refs/heads/'+base_branch)
+                self.git(directory, 'push', 'origin', 'HEAD:refs/heads/'+base_branch)
+            before_refs = self.refs(service, owner, name)
+            ui = NativeUI(self, service)
+            ui.login(user)
+            number = ui.create_pr(owner, name, base_branch, 'native-feature', enabled)
+            pre_merge_refs = self.refs(service, owner, name) if not enabled else None
+            pre_merge_objects = self.repository_objects(service, name, owner=owner) if not enabled else None
+            logs_before = self.service_logs(service) if not enabled and not ordinary_base else None
+            merge_status = ui.merge(owner, name, number)
             if expected_execution:
                 output = self.command(actor, 'cat', proof)
-                assert output.startswith('NATIVE_GOGS_REBASE') and 'uid=1000(git)' in output, output
+                assert output.startswith(marker) and re.search(r'uid=1000\(git\).*gid=1000\(git\)', output), output
             else:
+                observed = self.command(actor, 'sh', '-c', 'if test -e "$1"; then cat "$1"; fi', 'sh', proof)
+                observation = self.records['commands'][-1]
+                self.records['proofs'].append({'kind': 'native-negative-marker-before-assertion', 'service': service,
+                                                'proof_path': proof, 'stdout_base64': observation['stdout_base64'],
+                                                'observed_output': observed, 'merge_status': merge_status,
+                                                'expected_absence': True})
+                if observed:
+                    assert observed == marker+'uid=1000(git) gid=1000(git) groups=1000(git)\n', observed
                 self.command(actor, 'test', '!', '-e', proof)
                 output = None
-            self.records['proofs'].append({'kind': 'native-rebase', 'service': service, 'enabled': enabled, 'branch': branch,
-                                          'number': number, 'merge_status': merge, 'expected_execution': expected_execution, 'output': output,
-                                          'refs': self.refs(service, user, name)})
+                if ordinary_base or enabled:
+                    assert merge_status in (302, 303), merge_status
+                    merged = self.command(actor, 'git', '--git-dir', REPOSITORIES+'/'+owner+'/'+name+'.git',
+                                            'show', 'refs/heads/'+base_branch+':feature.txt', user='git')
+                    assert merged == 'Native feature\n', (merge_status, merged)
+                else:
+                    # The captured malformed-base request fails at final Git push;
+                    # a separate ordinary-base control must integrate successfully.
+                    assert merge_status == 500, merge_status
+                    refusal = self.disabled_push_refusal(service, logs_before)
+                    after_merge_refs = self.refs(service, owner, name)
+                    after_merge_objects = self.repository_objects(service, name, owner=owner)
+                    assert after_merge_refs == pre_merge_refs and after_merge_objects == pre_merge_objects
+                    self.records['proofs'].append({'kind': 'native-disabled-malicious-base-refusal', 'service': service,
+                                                    'owner': owner, 'repository': name, 'number': number,
+                                                    'merge_status': merge_status, 'new_typed_operation': refusal,
+                                                    'before_refs': pre_merge_refs, 'after_refs': after_merge_refs,
+                                                    'before_objects': pre_merge_objects, 'after_objects': after_merge_objects,
+                                                    'marker_absent': True})
+            self.records['proofs'].append({'kind': 'native-rebase', 'service': service,
+                                            'owner': owner, 'web_actor': user, 'mode': mode, 'enabled': enabled, 'expected_execution': expected_execution,
+                                            'setting_readback': setting, 'seed': seed, 'branch': base_branch,
+                                            'before_refs': before_refs, 'after_refs': self.refs(service, owner, name),
+                                            'number': number, 'merge_status': merge_status, 'output': output,
+                                            'refs': self.refs(service, owner, name),
+                                            'negative_merge_feature_proved': ordinary_base or (enabled and not expected_execution)})
         finally:
-            self.frame('rm', '-rf', directory)
-            self.remove_repo(service, user, name)
-            self.command(self.services[service]['actor'], 'rm', '-f', proof)
+            # Explicit native/operator restoration; failure captures retain the
+            # actual database, HTTP streams and files before project teardown.
+            original_error = sys.exc_info()[1]
+            cleanup_errors = []
+            def attempt(operation, callback):
+                try:
+                    return callback()
+                except Exception as error:
+                    cleanup_errors.append({'operation': operation, 'class': type(error).__name__, 'message': str(error)})
+                    return None
+            capture = {'service': service, 'mode': mode,
+                       'tree': attempt('Pre-cleanup tree', lambda: self.repo_tree(service)),
+                       'cache_paths': attempt('Pre-cleanup cache', lambda: self.command(actor, 'sh', '-c',
+                           'if test -d /data/gogs/data/tmp; then find /data/gogs/data/tmp -mindepth 1 -print; fi'))}
+            self.records.setdefault('pre_operator_cleanup', []).append(capture)
+            if directory:
+                attempt('Workspace removal', lambda: self.frame('rm', '-rf', directory))
+            attempt('Repository API removal', lambda: self.remove_repo(service, owner, name))
+            attempt('Marker removal', lambda: self.command(actor, 'rm', '-f', proof))
+            attempt('Marker absence', lambda: self.command(actor, 'test', '!', '-e', proof))
+            restored = attempt('Restored repository tree', lambda: self.repo_tree(service))
+            if restored != before_tree:
+                cleanup_errors.append({'operation': 'Exact tree restoration', 'before': before_tree, 'after': restored})
+            if cleanup_errors:
+                self.records.setdefault('cleanup_errors', []).extend(cleanup_errors)
+                if original_error is None:
+                    raise AssertionError(cleanup_errors)
 
     def git_exec_control(self, service):
         actor = self.services[service]['actor']
@@ -594,19 +863,44 @@ class NativeGogs:
     def access_controls(self, service):
         name = 'native-access-control'
         seed = self.seed(service, name)
+        seed_commit = next(row.split()[1] for row in seed['refs'] if row.startswith('refs/heads/main '))
         try:
-            for user, expected in [('lab-writer', 0), ('lab-reader', 1)]:
+            for user in ['lab-writer', 'lab-reader']:
                 directory = self.working_copy(service, 'lab-admin', name, user)
                 try:
+                    assert self.git(directory, 'rev-parse', 'HEAD').strip() == seed_commit
                     self.git(directory, 'checkout', '-b', 'native-'+user)
                     self.write(directory, 'access.txt', 'Native '+user+'\n')
-                    self.commit(directory, 'Native access')
-                    if expected == 0:
+                    commit = self.commit(directory, 'Native access')
+                    before_refs = self.refs(service, 'lab-admin', name)
+                    before_objects = self.repository_objects(service, name)
+                    if user == 'lab-writer':
                         self.git(directory, 'push', 'origin', 'HEAD:refs/heads/native-'+user)
+                        after_refs = self.refs(service, 'lab-admin', name)
+                        assert sorted(after_refs) == sorted(before_refs+['refs/heads/native-'+user+' '+commit])
                     else:
-                        # The actual Git status is recorded;128 is the ordinary
-                        # HTTP authorization failure contract to validate live.
-                        self.git(directory, 'push', 'origin', 'HEAD:refs/heads/native-'+user, expected=128)
+                        roles = self.collaborator_permissions(service, name)
+                        version = self.services[service]['version']
+                        expected_status = {'0.14.2': 1, '0.14.3': 128}[version]
+                        self.git(directory, 'push', 'origin', 'HEAD:refs/heads/native-'+user, expected=expected_status)
+                        rejected = self.records['commands'][-1]
+                        stderr = base64.b64decode(rejected['stderr_base64']).decode()
+                        assert base64.b64decode(rejected['stdout_base64']) == b''
+                        if version == '0.14.2':
+                            assert re.search(r'(?m)^error: RPC failed; HTTP 403 curl 22 The requested URL returned error: 403$', stderr), stderr
+                        else:
+                            # The fixed router rejects receive-pack discovery,
+                            # before the RPC upload attempted by 0.14.2.
+                            url = self.origin(service, internal=True)+'/lab-admin/'+name+'.git/'
+                            assert stderr == "remote: User permission denied\nfatal: unable to access '"+url+"': The requested URL returned error: 403\n", stderr
+                        after_refs = self.refs(service, 'lab-admin', name)
+                        after_objects = self.repository_objects(service, name)
+                        assert after_refs == before_refs and after_objects == before_objects
+                        self.records['proofs'].append({'kind': 'native-reader-push-denied', 'service': service,
+                                                      'repository': name, 'user': user, 'roles': roles,
+                                                      'exitstatus': rejected['exitstatus'], 'stderr': stderr,
+                                                      'before_refs': before_refs, 'after_refs': after_refs,
+                                                      'before_objects': before_objects, 'after_objects': after_objects})
                 finally:
                     self.frame('rm', '-rf', directory)
             assert self.request(service, '/api/v1/repos/lab-admin/'+name, user='lab-outsider')[0] == 404
@@ -722,16 +1016,56 @@ class NativeUI:
             data['pulls_allow_rebase'] = 'on'
         assert self.request(route, data)[0] == 302
 
-    def create_pr(self, owner, name, base, head):
+    def rebase_setting(self, owner, name, enabled):
+        status, _body, fields = self.request('/'+owner+'/'+name+'/settings')
+        values = [row for row in fields.inputs if row.get('name') == 'pulls_allow_rebase']
+        assert status == 200 and len(values) == 1, (status, values)
+        assert ('checked' in values[0]) is enabled, (enabled, values)
+        return values[0]
+
+
+    def create_pr(self, owner, name, base, head, enabled=True):
+        """Use the supported web redirect, never the absent Gogs pull-list API."""
+        native, service = self.native, self.service
         route = '/'+owner+'/'+name+'/compare/'+urllib.parse.quote(base, safe='')+'...'+urllib.parse.quote(head, safe='')
         status, _body, fields = self.request(route)
         assert status == 200, status
         status, _body, _fields = self.request(route, {'_csrf': fields.value('_csrf'), 'title': 'Native rebase proof',
-                                                     'content': '', 'assignee_id': 0, 'milestone_id': 0})
-        assert status in (302, 303), status
-        status, rows = self.native.request(self.service, '/api/v1/repos/'+owner+'/'+name+'/pulls?state=open', user=owner)
-        assert status == 200 and len(rows) == 1, (status, rows)
-        return rows[0]['number']
+                                                 'content': '', 'assignee_id': 0, 'milestone_id': 0})
+        posted = native.records['http'][-1]
+        assert status in (302, 303) and posted['status'] == status, (status, posted)
+        assert posted['kind'] == 'native-ui' and posted['method'] == 'POST' and posted['service'] == service
+        assert posted['url'] == native.origin(service)+route, posted['url']
+        locations = [value for key, value in posted['headers'].items() if key.lower() == 'location']
+        assert len(locations) == 1, locations
+        prefix = native.services[service]['prefix']
+        number, relative = pull_location(locations[0], prefix, owner, name)
+        deadline = time.monotonic()+20
+        observations = []
+        while True:
+            status, body, _fields = self.request(relative)
+            assert status == 200, status
+            forms = [form for form in MergeForms(body).forms
+                     if form['attributes'].get('action') == prefix+relative+'/merge']
+            observations.append({'status': status, 'merge_form_count': len(forms), 'remaining_seconds': deadline-time.monotonic()})
+            assert len(forms) <= 1, forms
+            if forms:
+                form = forms[0]
+                assert form['attributes'].get('method', '').lower() == 'post', form
+                assert any(row.get('name') == '_csrf' and row.get('value') for row in form['inputs']), form
+                styles = [row.get('value') for row in form['inputs'] if row.get('name') == 'merge_style']
+                assert 'create_merge_commit' in styles and ('rebase_before_merging' in styles) is enabled, styles
+                assert 'Native rebase proof' in body
+                native.records['proofs'].append({'kind': 'native-web-pr-identity', 'service': service, 'web_actor': self.user,
+                                                'owner': owner, 'repository': name, 'number': number,
+                                                'observed_location': locations[0], 'merge_form_action': form['attributes']['action'],
+                                                'merge_styles': styles, 'observations': observations})
+                return number
+            # Tagged Gogs computes mergeability in a background task. This only
+            # waits for a real matching form; no result or HTTP response is faked.
+            remaining = deadline-time.monotonic()
+            assert remaining > 0, observations
+            time.sleep(min(0.1, remaining))
 
     def merge(self, owner, name, number):
         route = '/'+owner+'/'+name+'/pulls/'+str(number)

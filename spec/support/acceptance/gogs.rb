@@ -43,8 +43,9 @@ module Acceptance
         'TARGET' => 0, 'PAYLOAD' => 'cmd/unix/generic', 'DisablePayloadHandler' => true,
         'WfsDelay' => 0, 'VERBOSE' => true, 'HttpTrace' => true, 'HttpTraceHeadersOnly' => true
       }
-      # The rebase owner does not register TARGETURI. Ordinary '/' calls omit it;
-      # the explicit subpath example must expose its actual option contract.
+      # The original baseline exposed missing TARGETURI registration. The
+      # separate option fix now supplies '/'; exercise that default at root
+      # and retain the explicit subpath's strict option and request checks.
       values['TARGETURI'] = service == 'prefix' ? '/gogs/' : '/' if hooks || service == 'prefix'
       values.merge!('EXPLOIT_METHOD' => 'existing_repo', 'REPO_OWNER' => 'lab-admin', 'REPO_NAME' => @seed_name) if @seed_name
       values.merge!(options)
@@ -88,7 +89,9 @@ module Acceptance
           session_id = output[/(?:Command shell|Meterpreter) session (\d+) opened/, 1]
           expect(session_id).not_to be_nil, output
           gogs_session_proof(service, session_id, payload, proof)
-          gogs_verify_reporting(service, exploited: true) unless gogs_profile == 'gogs_hooks'
+          unless gogs_profile == 'gogs_hooks'
+            gogs_wait(15) { gogs_verify_reporting(service, exploited: true, session_id: session_id, payload: payload) }
+          end
         end
       end
     end
@@ -118,6 +121,8 @@ module Acceptance
       expect(console_command('sessions -l')).to include('No active sessions')
       expect(console_command('jobs -l')).to include('No active jobs')
       before_seed = gogs_state(service)
+      process_baseline = gogs_stable_processes(service, iteration)
+      @gogs_iteration = iteration
       @gogs_last_output = nil
       seed = gogs_native(action: 'seed', service: service, name: seed_name, rebase: rebase) if existing
       before = gogs_state(service)
@@ -128,11 +133,21 @@ module Acceptance
       after = gogs_state(service)
       File.open(File.join(target_runtime.fetch('artifacts'), 'gogs-restoration.jsonl'), 'a') do |log|
         log.puts(JSON.generate(case_id: @gogs_case, iteration: iteration, service: service, seed: seed, before: before,
-                               after_module: after, proof: proof, operator_reset_required: existing,
+                               after_module: after, proof: proof, expected_negative: negative, operator_reset_required: existing,
                                existing_repeat_claim: 'Fresh owned seed per iteration; no unchanged-repository repeat claim'))
       end
       if existing
-        expect(gogs_native(action: 'refs', service: service, owner: 'lab-admin', name: seed_name)).to eq(seed.fetch('refs')) unless negative
+        numbers = @gogs_last_output.to_s.scan(/PR #(\d+) created/).flatten
+        if numbers.empty?
+          expect(gogs_native(action: 'refs', service: service, owner: 'lab-admin', name: seed_name)).to eq(seed.fetch('refs'))
+        else
+          expect(numbers.length).to eq(1)
+          pull = gogs_native(action: 'pull_state', service: service, owner: 'lab-admin', name: seed_name,
+                             number: numbers.first.to_i, seed_refs: seed.fetch('refs'))
+          File.open(File.join(target_runtime.fetch('artifacts'), 'gogs-closed-pull-ref.jsonl'), 'a') do |log|
+            log.puts(JSON.generate(case_id: @gogs_case, iteration: iteration, service: service, proof: pull))
+          end
+        end
       else
         expect(after.fetch('tree')).to eq(before.fetch('tree'))
       end
@@ -160,10 +175,10 @@ module Acceptance
           gogs_native(action: 'remove_repo', service: service, owner: 'lab-admin', name: seed_name) if existing
           target_exec(gogs_actor(service), 'rm', '-f', proof)
           restored = gogs_state(service)
-          # Compare live process identity/state; CPU accounting naturally changes.
+          # Preserve the original identity projection; retain every raw process.
           gogs_wait(15) do
-            current = gogs_native(action: 'processes', service: service).map { |row| row.split.values_at(0, 1, 3, 4, 21) }
-            expect(current).to eq(before_seed.fetch('processes').map { |row| row.split.values_at(0, 1, 3, 4, 21) })
+            current = gogs_process_projection(gogs_native(action: 'processes', service: service))
+            expect(current).to eq(gogs_process_projection(process_baseline))
           end
           expect(restored.fetch('tree')).to eq(before_seed.fetch('tree'))
           restored.fetch('repositories').each do |owner, repositories|
@@ -176,6 +191,28 @@ module Acceptance
         end
       end
       @seed_name = nil
+    end
+
+    def gogs_process_projection(rows)
+      rows.map { |row| row.split.values_at(0, 1, 3, 4, 21) }
+    end
+
+    def gogs_stable_processes(service, iteration)
+      observations = []
+      baseline = nil
+      gogs_wait(15) do
+        first = gogs_native(action: 'processes', service: service)
+        second = gogs_native(action: 'processes', service: service)
+        observations << { first: first, second: second }
+        expect(gogs_process_projection(second)).to eq(gogs_process_projection(first))
+        baseline = second
+      end
+      baseline
+    ensure
+      File.open(File.join(target_runtime.fetch('artifacts'), 'gogs-pre-run-processes.jsonl'), 'a') do |log|
+        log.puts(JSON.generate(case_id: @gogs_case, iteration: iteration, service: service, before_module: true,
+                               observations: observations, baseline: baseline, excluded_process_names: []))
+      end
     end
 
     def gogs_recover_new_repositories(service, before)
@@ -304,6 +341,9 @@ module Acceptance
 
     def gogs_sql(statement)
       output, error, status = Open3.capture3(*target_runtime.fetch('compose'), 'exec', '-T', 'reporting_db', 'psql', '-U', 'module_framework', '-d', 'module_targets', '-At', '-c', statement)
+      File.open(File.join(target_runtime.fetch('artifacts'), 'gogs-sql.jsonl'), 'a') do |log|
+        log.puts(JSON.generate(statement: statement, stdout: output, stderr: error, exitstatus: status.exitstatus))
+      end
       expect(status.success?).to be(true), error
       expect(error).to eq('')
       output
@@ -316,19 +356,80 @@ module Acceptance
       { services: services, vulnerabilities: vulns, links: links }
     end
 
-    def gogs_verify_reporting(service, exploited:, observational: false)
+    def gogs_reporting_provenance
+      references = JSON.parse(gogs_sql("SELECT COALESCE(json_agg(row),'[]') FROM (SELECT v.id AS vuln_id,r.name FROM vulns v JOIN vulns_refs vr ON vr.vuln_id=v.id JOIN refs r ON r.id=vr.ref_id JOIN hosts h ON h.id=v.host_id JOIN workspaces w ON w.id=h.workspace_id WHERE w.name='#{@workspace}' ORDER BY v.id,r.name) row"))
+      sessions = JSON.parse(gogs_sql("SELECT COALESCE(json_agg(row),'[]') FROM (SELECT s.id,s.local_id,s.stype,s.via_exploit,s.via_payload,s.closed_at,host(h.address) AS address FROM sessions s JOIN hosts h ON h.id=s.host_id JOIN workspaces w ON w.id=h.workspace_id WHERE w.name='#{@workspace}' ORDER BY s.id) row"))
+      attempts = JSON.parse(gogs_sql("SELECT COALESCE(json_agg(row),'[]') FROM (SELECT e.module,e.session_id,e.vuln_id,e.exploited FROM exploit_attempts e JOIN hosts h ON h.id=e.host_id JOIN workspaces w ON w.id=h.workspace_id WHERE w.name='#{@workspace}' ORDER BY e.id) row"))
+      checks = JSON.parse(gogs_sql("SELECT COALESCE(json_agg(row),'[]') FROM (SELECT a.module,a.vuln_id,a.check_code,a.check_detail FROM vuln_attempts a JOIN vulns v ON v.id=a.vuln_id JOIN hosts h ON h.id=v.host_id JOIN workspaces w ON w.id=h.workspace_id WHERE w.name='#{@workspace}' ORDER BY a.id) row"))
+      { references: references, sessions: sessions, attempts: attempts, checks: checks }
+    end
+
+    def gogs_verify_reporting(service, exploited:, observational: false, session_id: nil, payload: nil)
       report = gogs_reporting
+      provenance = gogs_reporting_provenance
+      File.open(File.join(target_runtime.fetch('artifacts'), 'gogs-reporting-provenance.jsonl'), 'a') do |log|
+        log.puts(JSON.generate(case_id: @gogs_case, iteration: @gogs_iteration, service: service, marker_or_session_proved: exploited,
+                               observational: observational, console_session: session_id, graph: report, provenance: provenance))
+      end
       endpoint = target_runtime.fetch('module_endpoints').fetch(gogs_definition.fetch('services').fetch(service).fetch('endpoint'))
       if exploited || !report.fetch(:services).empty?
         expect(report.fetch(:services).map { |row| row.fetch('name') }.sort).to eq(%w[gogs http tcp])
         expect(report.fetch(:links)).to eq([{ 'child' => 'gogs', 'parent' => 'http' }, { 'child' => 'http', 'parent' => 'tcp' }])
         report.fetch(:services).each { |row| expect(row.values_at('address', 'port', 'proto')).to eq([endpoint.fetch('host'), endpoint.fetch('port'), 'tcp']) }
       end
-      if exploited
-        expect(report.fetch(:vulnerabilities).length).to eq(1)
-        expect(report.fetch(:vulnerabilities).first.fetch('service_id')).to eq(report.fetch(:services).find { |row| row.fetch('name') == 'gogs' }.fetch('id'))
-      elsif !observational
-        expect(report.fetch(:vulnerabilities)).to eq([])
+      passive = gogs_profile == 'gogs_rebase'
+      explicit_fixed = gogs_profile == 'gogs_rebase_fixed' && observational
+      expected_name = @gogs_owner_meta.fetch('name')
+      expected_fullname = @gogs_owner_meta.fetch('fullname')
+      gogs_service = report.fetch(:services).find { |row| row.fetch('name') == 'gogs' }
+      http_service = report.fetch(:services).find { |row| row.fetch('name') == 'http' }
+      expected = []
+      if passive
+        expected << [expected_fullname, @gogs_owner_meta.fetch('description'), gogs_service.fetch('id')]
+      elsif explicit_fixed
+        # Forced requests on a Safe release reach the owner's explicit report;
+        # this is request evidence only, never a marker/session assertion.
+        expected << [expected_name, 'Exploited via own_repo method', gogs_service.fetch('id')]
+      end
+      if session_id
+        persisted = provenance.fetch(:sessions)
+        expect(persisted.length).to eq(@gogs_iteration + 1)
+        persisted.each do |row|
+          expect(row.values_at('via_exploit', 'via_payload', 'stype', 'address')).to eq([expected_fullname, "payload/#{payload}", 'shell', endpoint.fetch('host')])
+          expect(row.fetch('closed_at')).not_to be_nil
+        end
+        actual = persisted.find { |row| row.fetch('local_id').to_s == session_id.to_s }
+        expect(actual).not_to be_nil
+        inferred = report.fetch(:vulnerabilities).find { |row| row.fetch('name') == expected_name && row.fetch('service_id') == http_service.fetch('id') }
+        expect(inferred).not_to be_nil
+        db_id = inferred.fetch('info')[/\AExploited by #{Regexp.escape(expected_fullname)} to create Session (\d+)\z/, 1]
+        expect(persisted.map { |row| row.fetch('id').to_s }).to include(db_id)
+        persisted.each do |row|
+          expect(provenance.fetch(:attempts)).to include(hash_including('module' => expected_fullname, 'session_id' => row.fetch('id'),
+                                                                        'vuln_id' => inferred.fetch('id'), 'exploited' => true))
+        end
+        expected << [expected_name, inferred.fetch('info'), http_service.fetch('id')]
+      else
+        expect(provenance.fetch(:sessions)).to eq([])
+      end
+      rows = report.fetch(:vulnerabilities)
+      expect(rows.map { |row| row.values_at('name', 'info', 'service_id') }).to match_array(expected)
+      expected_refs = @gogs_owner_meta.fetch('references').map { |identifier, value| "#{identifier}-#{value}" }.uniq.sort
+      expect(expected_refs.grep(/\ACVE-/)).not_to be_empty
+      rows.each do |row|
+        expect(row.fetch('address')).to eq(endpoint.fetch('host'))
+        references = provenance.fetch(:references).select { |ref| ref.fetch('vuln_id') == row.fetch('id') }.map { |ref| ref.fetch('name') }
+        expect(references.sort).to eq(expected_refs)
+      end
+      provenance.fetch(:attempts).each do |attempt|
+        expect(attempt.fetch('module')).to eq(expected_fullname)
+        expect([nil] + rows.map { |row| row.fetch('id') }).to include(attempt.fetch('vuln_id'))
+        expect([nil] + provenance.fetch(:sessions).map { |row| row.fetch('id') }).to include(attempt.fetch('session_id'))
+      end
+      if passive
+        discovery = rows.find { |row| row.fetch('name') == expected_fullname }
+        expect(provenance.fetch(:checks)).to include(hash_including('module' => expected_fullname, 'vuln_id' => discovery.fetch('id'),
+                                                                    'check_code' => 'appears', 'check_detail' => 'Gogs 0.14.2 detected, fixed in 0.14.3.'))
       end
       report
     end
@@ -358,7 +459,19 @@ RSpec.shared_context 'Gogs target' do
       expect(console_command('db_connect module_framework:module-target-framework-db-password@reporting_db:5432/module_targets', timeout: 120)).not_to match(/Error|Exception|\[-\]/)
       expect(console_command('db_status')).to include('Connected to module_targets. Connection type: postgresql.')
       File.write(File.join(target_runtime.fetch('artifacts'), 'native-reporting-schema.txt'), gogs_sql("SELECT table_name,column_name,data_type FROM information_schema.columns WHERE table_schema='public' ORDER BY table_name,ordinal_position"))
-      expect(gogs_reporting.values).to eq([[], [], []])
+      metadata_command = 'm=framework.modules.create("exploit/multi/http/gogs_rebase_rce");puts "GOGS_OWNER_META="+{fullname:m.fullname,name:m.name,description:m.description.strip,references:m.references.map { |r| [r.ctx_id,r.ctx_val] },workspace:framework.db.workspace.name}.to_json'
+      metadata = console_command("irb -e #{metadata_command.inspect}")
+      @gogs_owner_meta = JSON.parse(metadata[/^GOGS_OWNER_META=(\{.*\})\r?$/, 1] || '{}')
+      expect(@gogs_owner_meta.fetch('fullname')).to eq('exploit/multi/http/gogs_rebase_rce')
+      @workspace = @gogs_owner_meta.fetch('workspace')
+      expect(@workspace).not_to be_empty
+      File.write(File.join(target_runtime.fetch('artifacts'), 'native-owner-reporting-metadata.json'), JSON.pretty_generate(@gogs_owner_meta))
+      graph = gogs_reporting
+      provenance = gogs_reporting_provenance
+      expect(graph.values).to eq([[], [], []])
+      expect(provenance.values).to eq([[], [], [], []])
+      File.write(File.join(target_runtime.fetch('artifacts'), 'native-reporting-empty-graph.json'),
+                 JSON.pretty_generate(workspace: @workspace, graph: graph, provenance: provenance))
     end
     File.write(File.join(target_runtime.fetch('artifacts'), 'native-calibration-console.log'), console.all_data)
   end

@@ -1,0 +1,16 @@
+services:
+  gogs:
+    extends: {file: ../gogs_rebase/compose.yaml, service: gogs}
+  prefixed:
+    extends: {file: ../gogs_rebase/compose.yaml, service: prefixed}
+  gateway:
+    extends: {file: ../gogs_rebase/compose.yaml, service: gateway}
+  framework:
+    extends: {file: ../gogs_rebase/compose.yaml, service: framework}
+  reporting_db:
+    extends: {file: ../gogs_rebase/compose.yaml, service: reporting_db}
+volumes:
+  gogs_data: {}
+  gogs_backup: {}
+  prefixed_data: {}
+  prefixed_backup: {}
