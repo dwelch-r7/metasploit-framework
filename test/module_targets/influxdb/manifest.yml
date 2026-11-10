@@ -1,0 +1,21 @@
+spec: spec/acceptance/module_targets/influxdb_spec.rb
+expected_examples: 16
+console: true
+modules:
+  - auxiliary/scanner/http/influxdb_enum
+ports:
+  secured: 8086
+  open: 8086
+  empty: 8086
+  prefix: 80
+  unrelated: 80
+support_files:
+  - lib/msf/core/exploit/remote/http_client.rb
+  - lib/rex/proto/http/client.rb
+  - lib/rex/proto/http/response.rb
+  - lib/msf/core/auxiliary/report.rb
+  - test/module_targets/http/compose.yaml
+  - test/module_targets/http/Dockerfile
+  - test/module_targets/http/module-target.conf
+  - test/module_targets/http/htdocs/index.html
+  - documentation/modules/auxiliary/scanner/http/influxdb_enum.md

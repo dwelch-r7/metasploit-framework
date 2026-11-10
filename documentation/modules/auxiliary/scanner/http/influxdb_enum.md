@@ -1,5 +1,12 @@
 This module enumerates databases on InfluxDB using the REST API using the default authentication of root:root.
 
+## Automated container target
+
+The [repository InfluxDB target guide](../../../../../test/module_targets/influxdb/README.md)
+provides genuine1.8.10 native CLI/API controls, restricted accounts, exact JSON
+loot, query/path errors and repeated read-only state checks. It does not establish
+2.x/3.x API compatibility.
+
 ## Verification Steps
 
 1. Do: ```use auxiliary/scanner/http/influxdb_enum```

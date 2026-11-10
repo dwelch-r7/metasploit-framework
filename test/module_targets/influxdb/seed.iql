@@ -1,0 +1,4 @@
+CREATE DATABASE "module_metrics";
+CREATE DATABASE "module private space";
+CREATE USER "module_reader" WITH PASSWORD 'module-reader-password';
+GRANT READ ON "module_metrics" TO "module_reader";

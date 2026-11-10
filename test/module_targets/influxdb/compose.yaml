@@ -1,0 +1,49 @@
+x-influx: &influx
+  image: influxdb:1.8.10@sha256:03ba655e0c8b4d60dc8c74d437c4f441c5e7934bfaa8ea4545edf1274c8eb223
+  platform: linux/amd64
+  ports: ["127.0.0.1::8086"]
+  mem_limit: 256m
+  cpus: 1
+  healthcheck:
+    test: [CMD-SHELL, "test \"$$(cat /proc/1/comm)\" = influxd && influx -host 127.0.0.1 -username root -password root -execute 'SHOW DATABASES'"]
+    interval: 2s
+    timeout: 3s
+    retries: 45
+
+x-auth: &auth
+  INFLUXDB_HTTP_AUTH_ENABLED: 'true'
+  INFLUXDB_ADMIN_USER: root
+  INFLUXDB_ADMIN_PASSWORD: root
+  INFLUXDB_MONITOR_STORE_ENABLED: 'false'
+  INFLUXDB_REPORTING_DISABLED: 'true'
+
+services:
+  secured:
+    <<: *influx
+    environment: *auth
+    volumes: ["./seed.iql:/docker-entrypoint-initdb.d/seed.iql:ro"]
+  open:
+    <<: *influx
+    environment:
+      INFLUXDB_HTTP_AUTH_ENABLED: 'false'
+      INFLUXDB_MONITOR_STORE_ENABLED: 'false'
+      INFLUXDB_REPORTING_DISABLED: 'true'
+    volumes: ["./seed.iql:/docker-entrypoint-initdb.d/seed.iql:ro"]
+  empty:
+    <<: *influx
+    environment: *auth
+  prefix:
+    extends: {file: ../http/compose.yaml, service: apache}
+    depends_on: {secured: {condition: service_healthy}}
+    command:
+      - httpd-foreground
+      - -c
+      - LoadModule proxy_module modules/mod_proxy.so
+      - -c
+      - LoadModule proxy_http_module modules/mod_proxy_http.so
+      - -c
+      - ProxyPass /influx/ http://secured:8086/
+      - -c
+      - ProxyPassReverse /influx/ http://secured:8086/
+  unrelated:
+    extends: {file: ../http/compose.yaml, service: apache}
