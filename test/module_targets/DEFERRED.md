@@ -4,6 +4,30 @@ These findings do not count as passing functional qualification. The
 [campaign](CAMPAIGN.md) and individual verification records retain other
 coverage limits and ongoing investigations.
 
+## Gogs existing repositories and fixed-profile observers
+
+The [new-repository checkpoint](VERIFICATION-20261110-gogs-rebase.md) qualifies
+root/subpath new-repository commands and Bash sessions. The same frozen
+`20261110T203229-977127` invocation retains existing-repository five/three and
+fixed-release five/one as whole-family unqualified results, with successful
+native gates and teardown. They do not establish additional production defects.
+
+All three existing failures stop at the new HTML observer's numeric
+`data-tab="request-N"` requirement. Actual authenticated closed pages expose
+`request-`, exact index/conversation/form identities and a reopen control.
+Canonical pull-ref, seed-parent, feature-content and no-extra-ref assertions
+remain unreached. Correct the observer from actual captures without dropping
+those later state checks, then rerun the complete affected profiles.
+
+The fixed missing-path case gets a branded Gogs404 and a reason-bearing Safe
+result identifying fixed 0.14.3. It incorrectly expects the unrelated-product
+reason. Preserve actual HTTP404, product/version and Safe assertions while
+correcting that oracle. The headers-only trace does not retain the raw404 body;
+its product fingerprint follows the unchanged check and needs native capture.
+Passing forced requests without command/session proof
+do not make the entire fixed family pass or establish exploitation. Both
+failures and the original-owner baseline remain in the verified 754-entry export.
+
 ## WordPress administrator upload sessions
 
 `exploit/unix/webapp/wp_admin_shell_upload` remains unqualified. Its retained

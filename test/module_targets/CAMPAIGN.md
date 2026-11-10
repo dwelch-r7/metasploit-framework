@@ -955,3 +955,23 @@ inputs are current; parent 233 imported files, 362 export entries, lint/docs and
 command/session paths. Three additional auto-recreated tool containers were
 removed by the bounded task-local guard, bringing observed unrelated removals
 to 44. Only the active test project may run, within the five-container limit.
+
+## Gogs new-repository rebase qualification
+
+The [current checkpoint](VERIFICATION-20261110-gogs-rebase.md) qualifies
+178 runtime modules, 116 families and 1,398 cases. Hooks requalify ten cases;
+Gogs 0.14.2 new-repository rebase passes five cases with two repetitions each,
+including exact commands, used Bash sessions, quota/password refusals and the
+real subpath. A separately verified one-option repair registers TARGETURI.
+Actual default-workspace SQL and typed reporting replace earlier invalid row
+counts and an unset-workspace baseline.
+
+Existing-repository five/three and fixed-release five/one remain whole-family
+unqualified. The new closed-PR observer assumes a numeric tab suffix absent
+from actual pages, and the missing-path oracle expects an unrelated-product
+reason for a branded patched-version404. These are retained observer failures;
+the unexecuted ref/parent/feature gates and failed families add no qualification.
+All 81 selected inputs, 277 imported files and 754 export entries verify.
+Parent 52 fresh queries confirm eighteen containers, four networks, seventeen
+volumes, twelve label inventories and global containers absent. One-project/
+five-container limits remain, with 44 unrelated removals observed in total.

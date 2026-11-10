@@ -398,7 +398,7 @@ tests require reason-bearing Unknown and default AutoCheck blocking before
 explicit override tests. Parent six recorder examples, four-file lint, 51
 current inputs, all 145 imported files and 28 independent cleanup queries pass.
 Sessions, other platforms, built-in roles and additional data paths remain pending.
-The [current integrated checkpoint](VERIFICATION-20261110-grafana-expression.md) records
+The [Grafana checkpoint](VERIFICATION-20261110-grafana-expression.md) records
 **177 runtime modules, 115 qualified families and 1,393 functional cases**.
 Grafana SQL expressions pass fourteen cases with four used owning Bash sessions,
 two separate native payload calibrations and exact quoted UTF-8 output. The
@@ -407,6 +407,16 @@ declared length; session dispatch/transfer failures remain separate fixtures.
 Parent 82 current inputs, all 233 imported files, 362 export entries, lint/docs
 and 29 cleanup queries pass. Positive RCE scope is 11.0.0; 11.0.5 RCE,
 other release branches and additional delivery/platform paths remain pending.
+The [current integrated checkpoint](VERIFICATION-20261110-gogs-rebase.md) records
+**178 runtime modules, 116 qualified families and 1,398 functional cases**.
+Gogs new-repository rebase passes five repeated command/session/authentication
+cases, including root-default and explicit-subpath behavior after a separate
+one-option registration repair. Hooks requalify all ten cases. The existing
+five/three and fixed five/one results remain unqualified because of two concrete
+observer-oracle mismatches; no failed family contributes to the total. Parent
+81 current inputs, all 277 imported files, 754 export entries and 52 exact
+cleanup queries verify. Existing-repository ref/commit proof and full fixed
+qualification require a fresh corrected run.
 The full campaign remains incomplete while feasible, valuable modules await review
 or functional verification.
 See [deferred investigations](DEFERRED.md) for retained failures that remain
