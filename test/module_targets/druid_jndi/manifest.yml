@@ -1,0 +1,41 @@
+---
+spec: spec/acceptance/module_targets/druid_spec.rb
+expected_examples: 14
+console: true
+modules:
+- exploit/multi/http/apache_druid_cve_2023_25194
+ports: {}
+support_files:
+- modules/exploits/linux/http/apache_druid_js_rce.rb
+- data/ysoserial_payloads.json
+- documentation/modules/exploit/multi/http/apache_druid_cve_2023_25194.md
+- lib/msf/core/exploit.rb
+- lib/msf/core/exploit/remote/auto_check.rb
+- lib/msf/core/exploit/java_deserialization.rb
+- lib/msf/core/exploit/remote/http_client.rb
+- lib/msf/core/exploit/remote/http_server.rb
+- lib/msf/core/exploit/remote/jndi_injection.rb
+- lib/msf/core/exploit/remote/ldap/server.rb
+- lib/msf/core/exploit/remote/socket_server.rb
+- lib/msf/util/java_deserialization.rb
+- lib/rex/parser/arguments.rb
+- lib/rex/proto/http/packet.rb
+- lib/rex/proto/http/packet/header.rb
+- lib/rex/proto/http/request.rb
+- modules/payloads/singles/cmd/unix/generic.rb
+- spec/support/shared/contexts/wait_for_expect.rb
+- test/module_targets/capture_core/client.Dockerfile
+- test/module_targets/capture_core/client.py
+- test/module_targets/capture_core/compose.yaml
+- test/module_targets/capture_core/native_client.py
+- test/module_targets/druid/Dockerfile
+- test/module_targets/druid/NativeBeanPayload.java
+- test/module_targets/druid/NativeTranslet.java
+- test/module_targets/druid/README.md
+- test/module_targets/druid/compose.yaml
+- test/module_targets/druid/gateway.conf
+- test/module_targets/druid/input_audit.rb
+- test/module_targets/druid/native_client.py
+- test/module_targets/druid/native_probe.py
+test_env:
+  DRUID_TARGET_PROFILE: jndi

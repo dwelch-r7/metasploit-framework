@@ -1,0 +1,134 @@
+# Shared authentic Overlord/coordinator sampler prerequisites. Each profile
+# selects only its affected/fixed pair; no Broker/Historical serving claim.
+x-druid: &druid
+  init: true
+  command: [coordinator]
+  cpus: 2
+  mem_limit: 1536m
+  environment: &environment
+    DRUID_SET_HOST: '0'
+    DRUID_XMX: 512m
+    DRUID_XMS: 128m
+    DRUID_MAXNEWSIZE: 64m
+    DRUID_NEWSIZE: 64m
+    DRUID_MAXDIRECTMEMORYSIZE: 256m
+    JAVA_OPTS: -XX:ActiveProcessorCount=2
+    druid_service: druid/coordinator
+    druid_plaintextPort: '8081'
+    druid_extensions_loadList: '["postgresql-metadata-storage", "druid-kafka-indexing-service", "druid-basic-security"]'
+    druid_metadata_storage_type: postgresql
+    druid_metadata_storage_connector_connectURI: jdbc:postgresql://metadata:5432/druid
+    druid_metadata_storage_connector_user: druid
+    druid_metadata_storage_connector_password: module-target-druid-metadata-password
+    druid_zk_service_host: zookeeper:2181
+    druid_coordinator_asOverlord_enabled: 'true'
+    druid_coordinator_asOverlord_overlordService: druid/overlord
+    druid_processing_numThreads: '1'
+    druid_processing_numMergeBuffers: '2'
+    druid_processing_buffer_sizeBytes: '67108864'
+    druid_javascript_enabled: 'false'
+    druid_storage_type: local
+    druid_storage_storageDirectory: var/druid/segments
+    druid_indexer_logs_type: file
+    druid_indexer_logs_directory: var/druid/indexing-logs
+  depends_on:
+    metadata: {condition: service_healthy}
+    zookeeper: {condition: service_healthy}
+  healthcheck:
+    test: [CMD-SHELL, "wget -qO- http://127.0.0.1:8081/status/health | grep -qx true && wget -qO- http://127.0.0.1:8081/druid/indexer/v1/isLeader | grep -qx '{\"leader\":true}'"]
+    interval: 3s
+    timeout: 4s
+    retries: 40
+services:
+  metadata:
+    image: postgres:16@sha256:933463a6c8eba2b9f5cd414138738cd8d5519cd2c471214c222652f547a66a32
+    environment:
+      POSTGRES_USER: druid
+      POSTGRES_PASSWORD: module-target-druid-metadata-password
+      POSTGRES_DB: druid
+      POSTGRES_INITDB_ARGS: --auth-host=scram-sha-256 --auth-local=trust
+    volumes: [metadata:/var/lib/postgresql/data]
+    mem_limit: 256m
+    healthcheck:
+      test: [CMD-SHELL, "PGPASSWORD=module-target-druid-metadata-password psql -h 127.0.0.1 -U druid -d druid -Atc 'SELECT current_database()' | grep -qx druid"]
+      interval: 3s
+      timeout: 4s
+      retries: 40
+  zookeeper:
+    image: zookeeper:3.9.3@sha256:9980cafbff742c15b339811ae829faa61c69154606ec504223560da9d31acd43
+    environment:
+      JVMFLAGS: -Xms32m -Xmx128m -XX:ActiveProcessorCount=2
+      ZK_SERVER_HEAP: '128'
+      ZK_CLIENT_HEAP: '32'
+    volumes: [zk_data:/data, zk_datalog:/datalog, zk_logs:/logs]
+    mem_limit: 256m
+    healthcheck:
+      test: [CMD, zkServer.sh, status]
+      interval: 3s
+      timeout: 4s
+      retries: 40
+  vulnerable:
+    <<: *druid
+    image: apache/druid:0.20.0@sha256:7dd52427abd6941ed135d4a2b5005fcc29b4b6503682f686ee902dc7990eea1c
+    environment:
+      <<: *environment
+      druid_host: vulnerable
+      druid_metadata_storage_tables_base: module_vulnerable
+      druid_zk_paths_base: /module_vulnerable
+    volumes: [vulnerable_var:/opt/druid/var]
+  fixed:
+    <<: *druid
+    image: apache/druid:0.20.1@sha256:17ce4c32417860468e31c357f1f4b61077f5c4643d6e953dc69f633ce44a7ed6
+    environment:
+      <<: *environment
+      druid_host: fixed
+      druid_metadata_storage_tables_base: module_fixed
+      druid_zk_paths_base: /module_fixed
+    volumes: [fixed_var:/opt/druid/var]
+  gateway:
+    image: httpd:2.4.62@sha256:4c7788695c832bf415a662dfb5160f1895e65fc65c025e85f436ee2c9e7d7f3e
+    init: true
+    ports: ['127.0.0.1::80']
+    networks: [default, public]
+    mem_limit: 96m
+    volumes: [./gateway.conf:/usr/local/apache2/conf/extra/druid.conf:ro]
+    command:
+      - /bin/sh
+      - -c
+      - htpasswd -bc /tmp/module-users admin module-target-druid-password && htpasswd -b /tmp/module-users viewer module-target-viewer-password && exec httpd-foreground -c 'Include conf/extra/druid.conf'
+    healthcheck:
+      test: [CMD-SHELL, 'httpd -t && kill -0 1']
+      interval: 2s
+      timeout: 3s
+      retries: 30
+  ldap:
+    image: osixia/openldap:1.5.0@sha256:0de3850635911109f0daf8f5957808ec4f4eb827fbaaa339100b5f1bab925745
+    environment:
+      LDAP_ORGANISATION: Module target native
+      LDAP_DOMAIN: module.test
+      LDAP_ADMIN_PASSWORD: module-target-ldap-password
+      LDAP_CONFIG_PASSWORD: module-target-ldap-config-password
+      LDAP_TLS: 'false'
+    mem_limit: 128m
+    volumes: [ldap_data:/var/lib/ldap, ldap_config:/etc/ldap/slapd.d]
+    healthcheck:
+      test: [CMD-SHELL, 'ldapsearch -x -H ldap://127.0.0.1 -D cn=admin,dc=module,dc=test -w module-target-ldap-password -b dc=module,dc=test -s base dn >/dev/null']
+      interval: 2s
+      timeout: 3s
+      retries: 30
+  compiler:
+    image: eclipse-temurin:17-jdk-jammy@sha256:057a0daec60e87c96571bf5c9c7792065bcb19e804d584cd37d4144038a35717
+    mem_limit: 256m
+    command: [sleep, infinity]
+    working_dir: /work
+    healthcheck:
+      test: [CMD, javac, -version]
+      interval: 3s
+      timeout: 4s
+      retries: 10
+    volumes:
+      - ${MODULE_TARGET_ROOT:?Set by runner}/test/module_targets/druid:/source:ro
+      - ${MODULE_TARGET_ARTIFACTS:?Set by runner}:/work
+  wire:
+    extends: {file: ../capture_core/compose.yaml, service: client}
+    network_mode: service:vulnerable

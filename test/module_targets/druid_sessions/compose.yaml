@@ -1,0 +1,29 @@
+services:
+  metadata: {extends: {file: ../druid_jndi/compose.yaml, service: metadata}}
+  zookeeper: {extends: {file: ../druid_jndi/compose.yaml, service: zookeeper}}
+  vulnerable: {extends: {file: ../druid_jndi/compose.yaml, service: vulnerable}}
+  fixed: {extends: {file: ../druid_jndi/compose.yaml, service: fixed}}
+  ldap: {extends: {file: ../druid_jndi/compose.yaml, service: ldap}}
+  compiler: {extends: {file: ../druid_jndi/compose.yaml, service: compiler}}
+  wire: {extends: {file: ../druid_jndi/compose.yaml, service: wire}}
+  gateway:
+    extends: {file: ../druid_jndi/compose.yaml, service: gateway}
+    volumes:
+      - ${MODULE_TARGET_ARTIFACTS:?Set by runner}:/var/native:ro
+      - ./native-files.conf:/usr/local/apache2/conf/extra/native-files.conf:ro
+    command:
+      - /bin/sh
+      - -c
+      - htpasswd -bc /tmp/module-users admin module-target-druid-password && htpasswd -b /tmp/module-users viewer module-target-viewer-password && exec httpd-foreground -c 'Include conf/extra/druid.conf' -c 'Include conf/extra/native-files.conf'
+networks:
+  default: {internal: true}
+  public:
+volumes:
+  metadata:
+  zk_data:
+  zk_datalog:
+  zk_logs:
+  vulnerable_var:
+  fixed_var:
+  ldap_data:
+  ldap_config:

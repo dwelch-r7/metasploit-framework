@@ -1,0 +1,61 @@
+---
+spec: spec/acceptance/module_targets/druid_sessions_spec.rb
+expected_examples: 5
+console: true
+modules:
+- exploit/linux/http/apache_druid_js_rce
+- exploit/multi/http/apache_druid_cve_2023_25194
+ports: {}
+support_files:
+- data/ysoserial_payloads.json
+- documentation/modules/exploit/linux/http/apache_druid_js_rce.md
+- documentation/modules/exploit/multi/http/apache_druid_cve_2023_25194.md
+- lib/msf/base/sessions/command_shell.rb
+- lib/msf/base/sessions/meterpreter.rb
+- lib/msf/core/exploit.rb
+- lib/msf/core/exploit/remote/auto_check.rb
+- lib/msf/core/exploit/cmd_stager.rb
+- lib/msf/core/exploit/exe.rb
+- lib/msf/core/exploit/java_deserialization.rb
+- lib/msf/core/exploit/remote/http_client.rb
+- lib/msf/core/exploit/remote/http_server.rb
+- lib/msf/core/exploit/remote/jndi_injection.rb
+- lib/msf/core/exploit/remote/ldap/server.rb
+- lib/msf/core/exploit/remote/socket_server.rb
+- lib/msf/core/handler.rb
+- lib/msf/core/handler/reverse_tcp.rb
+- lib/msf/core/session_event.rb
+- lib/msf/core/session_manager.rb
+- lib/msf/util/java_deserialization.rb
+- lib/rex/parser/arguments.rb
+- lib/rex/post/meterpreter/client_core.rb
+- lib/rex/post/meterpreter/extensions/stdapi/sys/process.rb
+- lib/rex/proto/http/packet.rb
+- lib/rex/proto/http/packet/header.rb
+- lib/rex/proto/http/request.rb
+- lib/rex/proto/http/response.rb
+- modules/payloads/singles/cmd/unix/generic.rb
+- modules/payloads/singles/cmd/unix/reverse_bash.rb
+- modules/payloads/singles/cmd/unix/reverse_netcat.rb
+- modules/payloads/singles/linux/x86/shell_reverse_tcp.rb
+- modules/payloads/stagers/linux/x64/reverse_tcp.rb
+- modules/payloads/stages/linux/x64/meterpreter.rb
+- spec/support/shared/contexts/wait_for_expect.rb
+- test/module_targets/capture_core/client.Dockerfile
+- test/module_targets/capture_core/client.py
+- test/module_targets/capture_core/compose.yaml
+- test/module_targets/capture_core/native_client.py
+- test/module_targets/druid/Dockerfile
+- test/module_targets/druid/NativeBeanPayload.java
+- test/module_targets/druid/NativeTranslet.java
+- test/module_targets/druid/README.md
+- test/module_targets/druid/compose.yaml
+- test/module_targets/druid/gateway.conf
+- test/module_targets/druid/input_audit.rb
+- test/module_targets/druid/native_client.py
+- test/module_targets/druid/native_probe.py
+- test/module_targets/druid_jndi/compose.yaml
+- test/module_targets/druid_js/compose.yaml
+- test/module_targets/solr_backup/fetch_probe.rb
+test_env:
+  DRUID_TARGET_PROFILE: jndi

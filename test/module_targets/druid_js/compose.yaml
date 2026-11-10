@@ -1,0 +1,17 @@
+services:
+  metadata: {extends: {file: ../druid/compose.yaml, service: metadata}}
+  zookeeper: {extends: {file: ../druid/compose.yaml, service: zookeeper}}
+  vulnerable: {extends: {file: ../druid/compose.yaml, service: vulnerable}}
+  fixed: {extends: {file: ../druid/compose.yaml, service: fixed}}
+  gateway: {extends: {file: ../druid/compose.yaml, service: gateway}}
+  wire: {extends: {file: ../druid/compose.yaml, service: wire}}
+networks:
+  default: {internal: true}
+  public:
+volumes:
+  metadata:
+  zk_data:
+  zk_datalog:
+  zk_logs:
+  vulnerable_var:
+  fixed_var:

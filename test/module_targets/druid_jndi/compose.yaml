@@ -1,0 +1,26 @@
+services:
+  metadata: {extends: {file: ../druid/compose.yaml, service: metadata}}
+  zookeeper: {extends: {file: ../druid/compose.yaml, service: zookeeper}}
+  vulnerable:
+    extends: {file: ../druid/compose.yaml, service: vulnerable}
+    image: module-target-druid:0.20.0-bash
+    build: {context: ../druid, dockerfile: Dockerfile}
+  fixed:
+    extends: {file: ../druid/compose.yaml, service: fixed}
+    image: apache/druid:26.0.0@sha256:9a3a07819058693b29bb5fc145e071c3b3a1f551960640529a60ad5198f29b59
+  gateway: {extends: {file: ../druid/compose.yaml, service: gateway}}
+  ldap: {extends: {file: ../druid/compose.yaml, service: ldap}}
+  compiler: {extends: {file: ../druid/compose.yaml, service: compiler}}
+  wire: {extends: {file: ../druid/compose.yaml, service: wire}}
+networks:
+  default: {internal: true}
+  public:
+volumes:
+  metadata:
+  zk_data:
+  zk_datalog:
+  zk_logs:
+  vulnerable_var:
+  fixed_var:
+  ldap_data:
+  ldap_config:
