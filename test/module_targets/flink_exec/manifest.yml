@@ -1,0 +1,51 @@
+---
+spec: spec/acceptance/module_targets/flink_spec.rb
+expected_examples: 9
+console: true
+modules:
+- exploit/multi/http/apache_flink_jar_upload_exec
+ports:
+  vulnerable: 8081
+  fixed: 8081
+  disabled: 8081
+  gateway: 80
+  unrelated: 80
+support_files:
+- lib/msf/ui/console/module_option_validation.rb
+- spec/modules/apache_flink_options_spec.rb
+- lib/msf/core/exploit.rb
+- lib/msf/core/encoded_payload.rb
+- test/module_targets/flink_read/README.md
+- lib/msf/base/sessions/command_shell.rb
+- lib/msf/base/sessions/meterpreter.rb
+- lib/msf/core/exploit/remote/http_client.rb
+- lib/msf/core/exploit/remote/auto_check.rb
+- lib/msf/core/handler.rb
+- lib/msf/core/handler/reverse_tcp.rb
+- lib/msf/core/payload/java.rb
+- lib/msf/core/payload/java/meterpreter_loader.rb
+- lib/msf/core/payload/java/payload_options.rb
+- lib/msf/core/payload/java/reverse_tcp.rb
+- modules/payloads/singles/java/shell_reverse_tcp.rb
+- modules/payloads/stagers/java/reverse_tcp.rb
+- modules/payloads/stages/java/meterpreter.rb
+- spec/support/shared/contexts/wait_for_expect.rb
+- test/module_targets/flink_read/compose.yaml
+- test/module_targets/flink_read/start.sh
+- test/module_targets/flink_read/gateway.conf
+- test/module_targets/flink_read/native-input.txt
+- test/module_targets/flink_read/native_client.py
+- test/module_targets/flink_read/native_probe.py
+- test/module_targets/flink_read/jar_probe.py
+- documentation/modules/exploit/multi/http/apache_flink_jar_upload_exec.md
+- test/module_targets/http/compose.yaml
+- test/module_targets/http/Dockerfile
+- test/module_targets/http/module-target.conf
+- test/module_targets/http/htdocs/index.html
+- test/module_targets/http/htdocs/final.html
+- test/module_targets/http/htdocs/plain.txt
+- test/module_targets/http/htdocs/robots.txt
+- test/module_targets/http/htdocs/protected/index.html
+- test/module_targets/http/htdocs/listing/evidence.txt
+test_env:
+  FLINK_TARGET_PROFILE: exec

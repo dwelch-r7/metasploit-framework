@@ -1,0 +1,30 @@
+---
+spec: spec/acceptance/module_targets/flink_spec.rb
+expected_examples: 15
+console: true
+modules:
+- auxiliary/scanner/http/apache_flink_jobmanager_traversal
+ports:
+  vulnerable: 8081
+  fixed: 8081
+  disabled: 8081
+  gateway: 80
+  unrelated: 80
+support_files:
+- lib/msf/ui/console/module_option_validation.rb
+- spec/modules/apache_flink_options_spec.rb
+- lib/msf/core/auxiliary/scanner.rb
+- lib/msf/core/exploit/remote/http_client.rb
+- spec/support/shared/contexts/wait_for_expect.rb
+- documentation/modules/auxiliary/scanner/http/apache_flink_jobmanager_traversal.md
+- test/module_targets/http/compose.yaml
+- test/module_targets/http/Dockerfile
+- test/module_targets/http/module-target.conf
+- test/module_targets/http/htdocs/index.html
+- test/module_targets/http/htdocs/final.html
+- test/module_targets/http/htdocs/plain.txt
+- test/module_targets/http/htdocs/robots.txt
+- test/module_targets/http/htdocs/protected/index.html
+- test/module_targets/http/htdocs/listing/evidence.txt
+test_env:
+  FLINK_TARGET_PROFILE: read

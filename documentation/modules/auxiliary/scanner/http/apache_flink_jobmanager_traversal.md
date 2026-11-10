@@ -10,6 +10,9 @@ This module has been tested successfully on:
 
 * Apache Flink version 1.11.2 on Ubuntu 18.04.4.
 
+A pinned Linux container target and automated file-read checks are available in
+the [repository target guide](../../../../../test/module_targets/flink_read/README.md).
+
 ## Verification Steps
 
 ```sh

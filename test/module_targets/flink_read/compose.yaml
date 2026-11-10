@@ -1,0 +1,83 @@
+x-manager: &manager
+  init: true
+  platform: linux/amd64
+  entrypoint: [sh, /lab/start.sh]
+  command: [jobmanager]
+  ports: ["127.0.0.1::8081"]
+  mem_limit: 1280m
+  volumes:
+    - ./start.sh:/lab/start.sh:ro
+    - ./native-input.txt:/lab/native-input.txt:ro
+  healthcheck:
+    test: [CMD-SHELL, "curl --fail --silent http://127.0.0.1:8081/config >/dev/null"]
+    interval: 3s
+    timeout: 3s
+    retries: 40
+
+services:
+  vulnerable:
+    <<: *manager
+    image: flink:1.11.2-scala_2.12-java8@sha256:eee9eea7c2ff50edbc11fa27eba03894095e50dae4729af0a5a66bbec0b24d1f
+    environment:
+      FLINK_PROPERTIES: |
+        jobmanager.rpc.address: vulnerable
+        jobmanager.memory.process.size: 1024m
+        web.log.path: /opt/flink/log/module-target-jobmanager.log
+        web.upload.dir: /opt/flink/uploads
+        parallelism.default: 1
+  vulnerable_worker:
+    image: flink:1.11.2-scala_2.12-java8@sha256:eee9eea7c2ff50edbc11fa27eba03894095e50dae4729af0a5a66bbec0b24d1f
+    platform: linux/amd64
+    command: [taskmanager]
+    volumes:
+      - ./native-input.txt:/lab/native-input.txt:ro
+    mem_limit: 1200m
+    environment:
+      FLINK_PROPERTIES: |
+        jobmanager.rpc.address: vulnerable
+        taskmanager.memory.process.size: 1024m
+        taskmanager.numberOfTaskSlots: 1
+    depends_on: {vulnerable: {condition: service_healthy}}
+  fixed:
+    <<: *manager
+    image: flink:1.11.3-scala_2.12-java8@sha256:e31db777fcaa9117c457926caabe13c4709df4ac68d8468fcebd45d92db675d2
+    environment:
+      FLINK_PROPERTIES: |
+        jobmanager.rpc.address: fixed
+        jobmanager.memory.process.size: 1024m
+        web.log.path: /opt/flink/log/module-target-jobmanager.log
+        web.upload.dir: /opt/flink/uploads
+        parallelism.default: 1
+  fixed_worker:
+    image: flink:1.11.3-scala_2.12-java8@sha256:e31db777fcaa9117c457926caabe13c4709df4ac68d8468fcebd45d92db675d2
+    platform: linux/amd64
+    command: [taskmanager]
+    volumes:
+      - ./native-input.txt:/lab/native-input.txt:ro
+    mem_limit: 1200m
+    environment:
+      FLINK_PROPERTIES: |
+        jobmanager.rpc.address: fixed
+        taskmanager.memory.process.size: 1024m
+        taskmanager.numberOfTaskSlots: 1
+    depends_on: {fixed: {condition: service_healthy}}
+  disabled:
+    <<: *manager
+    image: flink:1.11.2-scala_2.12-java8@sha256:eee9eea7c2ff50edbc11fa27eba03894095e50dae4729af0a5a66bbec0b24d1f
+    environment:
+      FLINK_PROPERTIES: |
+        jobmanager.rpc.address: disabled
+        jobmanager.memory.process.size: 1024m
+        web.log.path: /opt/flink/log/module-target-jobmanager.log
+        web.upload.dir: /opt/flink/uploads
+        web.submit.enable: false
+  gateway:
+    image: httpd:2.4.62@sha256:4c7788695c832bf415a662dfb5160f1895e65fc65c025e85f436ee2c9e7d7f3e
+    ports: ["127.0.0.1::80"]
+    mem_limit: 96m
+    volumes:
+      - ./gateway.conf:/usr/local/apache2/conf/extra/flink.conf:ro
+    command: [sh, -c, 'htpasswd -bc /tmp/module-target.htpasswd module-test-user module-test-password && exec httpd-foreground -c "Include conf/extra/flink.conf"']
+    depends_on: {vulnerable: {condition: service_healthy}}
+  unrelated:
+    extends: {file: ../http/compose.yaml, service: apache}
