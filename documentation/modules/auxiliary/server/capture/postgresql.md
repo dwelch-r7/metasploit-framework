@@ -3,6 +3,10 @@ This module creates a mock PostgreSQL server which accepts credentials.  Upon re
 
 ## Verification Steps
 
+For isolated genuine-client controls and bounded automated capture/reporting tests,
+see the [reusable capture target guide](../../../../../test/module_targets/capture_core/README.md).
+
+
   1. Start msfconsole
   2. Do: ```use auxiliary/server/capture/postgresql```
   3. Do: ```run```

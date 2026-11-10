@@ -1,0 +1,38 @@
+---
+spec: spec/acceptance/module_targets/capture_protocol_spec.rb
+expected_examples: 14
+console: true
+modules:
+- auxiliary/server/capture/smtp
+- auxiliary/server/capture/pop3
+- auxiliary/server/capture/imap
+ports: {}
+support_files:
+- spec/support/shared/contexts/wait_for_expect.rb
+- lib/msf/core/auxiliary/report.rb
+- lib/msf/core/db_manager/cred.rb
+- lib/msf/core/exploit/remote/tcp_server.rb
+- lib/msf/core/exploit/remote/socket_server.rb
+- test/module_targets/capture_core/compose.yaml
+- test/module_targets/capture_core/client.Dockerfile
+- test/module_targets/capture_core/client.py
+- test/module_targets/capture_core/native_client.py
+- test/module_targets/capture_core/run_client.py
+- test/module_targets/capture_core/accounts.json
+- test/module_targets/mail/compose.yaml
+- test/module_targets/mail/Dockerfile
+- test/module_targets/mail/dovecot.conf
+- test/module_targets/mail/required.conf
+- test/module_targets/mail/users
+- test/module_targets/mail/message.eml
+- test/module_targets/smtp/compose.yaml
+- test/module_targets/smtp/Dockerfile
+- test/module_targets/smtp/entrypoint.sh
+- test/module_targets/smtp/exim.conf
+- test/module_targets/smtp/native_probe.py
+- test/module_targets/credential_reporting/compose.yaml
+- documentation/modules/auxiliary/server/capture/smtp.md
+- documentation/modules/auxiliary/server/capture/pop3.md
+- documentation/modules/auxiliary/server/capture/imap.md
+test_env:
+  CAPTURE_PROFILE: mail

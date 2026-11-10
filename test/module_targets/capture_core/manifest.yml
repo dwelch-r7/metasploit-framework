@@ -1,0 +1,40 @@
+---
+spec: spec/acceptance/module_targets/capture_protocol_spec.rb
+expected_examples: 16
+console: true
+modules:
+- auxiliary/server/capture/ftp
+- auxiliary/server/capture/http_basic
+- auxiliary/server/capture/postgresql
+ports: {}
+support_files:
+- lib/postgres_msf.rb
+- lib/postgres/postgres-pr/message.rb
+- lib/postgres/buffer.rb
+- lib/postgres/binary_reader.rb
+- lib/postgres/binary_writer.rb
+- lib/postgres/byteorder.rb
+- spec/support/shared/contexts/wait_for_expect.rb
+- lib/msf/core/auxiliary/report.rb
+- lib/msf/core/db_manager/cred.rb
+- lib/msf/core/exploit/remote/tcp_server.rb
+- lib/msf/core/exploit/remote/socket_server.rb
+- lib/msf/core/exploit/remote/http_server.rb
+- lib/rex/proto/http/server.rb
+- lib/rex/service_manager.rb
+- test/module_targets/ftp/compose.yaml
+- test/module_targets/ftp/Dockerfile
+- test/module_targets/ftp/entrypoint.sh
+- test/module_targets/ftp/proftpd.conf
+- test/module_targets/ftp/native_probe.py
+- test/module_targets/http/compose.yaml
+- test/module_targets/http/Dockerfile
+- test/module_targets/http/module-target.conf
+- test/module_targets/http/htdocs/protected/index.html
+- test/module_targets/postgres/compose.yaml
+- test/module_targets/credential_reporting/compose.yaml
+- documentation/modules/auxiliary/server/capture/ftp.md
+- documentation/modules/auxiliary/server/capture/http_basic.md
+- documentation/modules/auxiliary/server/capture/postgresql.md
+test_env:
+  CAPTURE_PROFILE: core

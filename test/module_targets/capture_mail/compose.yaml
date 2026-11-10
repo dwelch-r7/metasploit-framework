@@ -1,0 +1,15 @@
+services:
+  client:
+    extends: {file: ../capture_core/compose.yaml, service: client}
+  curl:
+    extends: {file: ../capture_core/compose.yaml, service: curl}
+  native_mail:
+    extends: {file: ../mail/compose.yaml, service: pop3}
+    ports: !reset []
+  native_smtp:
+    extends: {file: ../smtp/compose.yaml, service: open_relay}
+    ports: !reset []
+    volumes:
+    - ./exim.conf:/etc/exim4/module-target.conf:ro
+  reporting_db:
+    extends: {file: ../credential_reporting/compose.yaml, service: reporting_db}

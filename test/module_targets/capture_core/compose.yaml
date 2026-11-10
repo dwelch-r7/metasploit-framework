@@ -1,0 +1,36 @@
+services:
+  client:
+    build:
+      context: .
+      dockerfile: client.Dockerfile
+    tmpfs: [/var/lib/postgresql/data]
+    volumes:
+    - ${MODULE_TARGET_ARTIFACTS:?Set by the module target runner}:/artifacts
+    healthcheck:
+      test: [CMD, psql, --version]
+      interval: 2s
+      timeout: 3s
+      retries: 20
+  curl:
+    image: curlimages/curl:8.13.0@sha256:d43bdb28bae0be0998f3be83199bfb2b81e0a30b034b6d7586ce7e05de34c3fd
+    network_mode: service:client
+    entrypoint: [sleep, infinity]
+    healthcheck:
+      test: [CMD, curl, --version]
+      interval: 2s
+      timeout: 3s
+      retries: 20
+  native_ftp:
+    extends: {file: ../ftp/compose.yaml, service: read_only}
+    ports: !reset []
+  native_http:
+    extends: {file: ../http/compose.yaml, service: apache}
+    ports: !reset []
+  native_postgres:
+    extends: {file: ../postgres/compose.yaml, service: postgres}
+    ports: !reset []
+    environment:
+      POSTGRES_INITDB_ARGS: --auth-host=scram-sha-256 --auth-local=trust
+    mem_limit: 256m
+  reporting_db:
+    extends: {file: ../credential_reporting/compose.yaml, service: reporting_db}
