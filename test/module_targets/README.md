@@ -298,12 +298,18 @@ separate stock Java8 profile passes14 cases with real default Spawn2 and twelve
 used sessions. The strengthened shared spec also passes a fresh Java17 explicit
 Spawn0 replay. Native identical-payload controls retain the Java17 default-spawn
 limitation. Current hashes and owned teardown pass for both profiles.
-The [current integrated checkpoint](VERIFICATION-20261110-gitea.md) records
+The [Gitea checkpoint](VERIFICATION-20261110-gitea.md) records
 **152 runtime modules, 80 families and 1,097 functional cases**. Two Gitea
 execution modules pass28 cases after separate cookie/path/detection, migration
 href and confirmed-ownership cleanup repairs. Native controls precede46 public
 calls and twelve used sessions; parent focused tests pass27 examples. All current
 input hashes and owned teardown pass.
+The [current integrated checkpoint](VERIFICATION-20261110-hadoop.md) records
+**153 runtime modules, 82 families and 1,116 functional cases**. Genuine Hadoop
+passes19 cases with its original owner after native-proven fixture corrections.
+Six used sessions, exact repeated proof/cleanup, current hashes and owned
+teardown pass. At-least-once YARN retries, operator restoration and19 inherited
+undeclaredTARGETURI warnings remain explicit qualification limits.
 The full campaign remains incomplete while feasible, valuable modules await review
 or functional verification.
 See [deferred investigations](DEFERRED.md) for retained failures that remain

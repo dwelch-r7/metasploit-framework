@@ -748,3 +748,13 @@ cookies/prefixed paths/branded404 detection, migration href joining and cleanup
 after policy refusal. Parent focused tests pass27/0; current hashes and exact
 resource absence pass. Documented Windows/multicommand/same-instance and other
 qualification gaps remain open rather than counted as coverage.
+
+## Hadoop YARN native qualification
+
+The [current checkpoint](VERIFICATION-20261110-hadoop.md) qualifies153runtime
+modules,82families and1,116cases. Hadoop's original owner passes19cases after
+verified GNU-which, handler lifetime, payload-option and DNS-label fixture
+corrections. Native real jobs precede26 public calls and six used sessions;
+current maps and all134 parent resource checks pass. YARN retries imply
+at-least-once execution; exact19 TARGETURI warnings and explicit operator
+application/file restoration remain visible limits. No production repair.
