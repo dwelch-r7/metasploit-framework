@@ -616,6 +616,24 @@ A separate existing CI short-name fixture is corrected using native OpenSSL
 registry evidence, without changing certificate behavior. Shared Fetch ownership,
 Jolokia, capture protocols and Docker Engine continue separately.
 
+Shared Fetch ownership then passes native before/after controls and all 42
+Solr/OpenWire consumer cases with sixteen plus eight used sessions. Cleanup now
+releases the caller reference and stale route ownership while preserving another
+owner. Final listeners genuinely refuse connections. A separate OpenWire retry
+count mistake is corrected to a real bounded deadline after both files are
+independently observed disappearing. See the
+[Fetch record](VERIFICATION-20261110-fetch-lifecycle.md); coverage count remains 132.
+
+Docker Engine then adds ten cases on two real nested daemons and Basic/TLS
+gateways. Native controls and actual SQL separate a legacy host-model fixture
+expectation from a confirmed unrelated HTML/200 false detection. The owning
+validation repair passes 21 focused examples and all ten final cases. Current
+recorded inputs and owned teardown establish **133 runtime modules, 66 families
+and 902 functional cases**; see the
+[verification record](VERIFICATION-20261110-docker-engine.md). Capture's 30-case
+result is retained while an independent IMAP parser regression/completion
+follow-up is resolved before its publication; Flink/Jolokia remain in progress.
+
 ## Remaining work
 
 - Review existing protocol suites and supply reusable managed containers.
