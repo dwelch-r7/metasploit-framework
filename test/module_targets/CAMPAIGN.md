@@ -781,10 +781,20 @@ other individual endpoint requirements remain explicit.
 
 ## Spark qualification
 
-The [current checkpoint](VERIFICATION-20261110-spark.md) qualifies163 runtime
+The [Spark checkpoint](VERIFICATION-20261110-spark.md) qualifies163 runtime
 modules,91families and1,204cases. Two genuine profiles pass27cases and ten used
 sessions after an actual raw-vs-encoded form counterfactual and source-only
 regression establish the plus-byte defect. Corrected Apache advisory coverage
 includes affected3.1.3. Parent72 current inputs, all168 resource checks, focused
 regressions and exact inherited static limits pass. REST undeclared option and
 passive-job semantics remain explicit; the full campaign continues.
+
+## InfluxDB qualification
+
+The [current checkpoint](VERIFICATION-20261110-influxdb.md) qualifies164 runtime
+modules,92families and1,220cases. InfluxDB original source passes16cases with32
+public calls,18exact JSON loot documents and16native state audits. A native CLI
+precision mismatch and a shared-client refusal-message fixture expectation are
+corrected before qualification, with original evidence preserved. Parent39 current
+inputs and all38 resource checks pass; an early aggregate-log preservation gap
+and1.x query/auth/path limits remain explicit. No production repair.

@@ -321,11 +321,16 @@ The [SIP checkpoint](VERIFICATION-20261110-sip.md) records
 modules pass42 cases after native-proven enumeration, deregistration and capture
 repairs. Native password recovery, current inputs, parent41 focused cases and owned
 cleanup pass; TLS trust and legacy policy limits remain explicit.
-The [current integrated checkpoint](VERIFICATION-20261110-spark.md) records
+The [Spark checkpoint](VERIFICATION-20261110-spark.md) records
 **163 runtime modules, 91 families and 1,204 functional cases**. Two genuine Spark
 profiles pass27 cases and ten used sessions after a native-proven form encoding
 repair. Corrected3.1.3 advisory coverage, auth/negative controls, current hashes
 and owned cleanup pass; REST option and other scope limits remain explicit.
+The [current integrated checkpoint](VERIFICATION-20261110-influxdb.md) records
+**164 runtime modules, 92 families and 1,220 functional cases**. InfluxDB passes16
+cases in60.7 seconds with its original owner, exact JSON loot, native auth/role/
+query/path controls and repeated state checks. Current hashes and owned cleanup
+pass; fixture attribution and1.x scope remain explicit.
 The full campaign remains incomplete while feasible, valuable modules await review
 or functional verification.
 See [deferred investigations](DEFERRED.md) for retained failures that remain
