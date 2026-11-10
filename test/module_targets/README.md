@@ -238,13 +238,20 @@ Solr discovery, Velocity and backup/restore execution. Two owning repairs preser
 shell variables and parent cleanup. All twenty-eight final cases, sixteen used
 sessions, current hashes and owned teardown pass. Shared fetch-pool lifetime
 and existing lint/documentation findings remain explicitly documented.
-The [current qualification record](VERIFICATION-20261110-prometheus.md) records
+The [earlier qualification record](VERIFICATION-20261110-prometheus.md) records
 **131 runtime modules, 64 families and 878 functional cases**, adding genuine
 Prometheus discovery/configuration and Linux node_exporter collection. Native
 controls establish seven healthy scrape targets, actual credential redaction and
 quoted mount data before three shared-helper repairs. All eighteen final cases,
 current recorded inputs and owned teardown pass. Provider discovery, Windows
 exporter and database persistence remain outside that profile.
+The [current qualification record](VERIFICATION-20261110-activemq.md) records
+**132 runtime modules, 65 families and 892 functional cases**, adding genuine
+ActiveMQ affected/fixed OpenWire execution. Native broker/JMS controls separate
+fixture errors from a disabled-handler callback-lifetime defect. All fourteen
+final cases, eight used sessions, current inputs and owned teardown pass.
+Shared Fetch listener ownership remains separately under requalification;
+this checkpoint requires exact route removal and records retained listeners.
 The full campaign remains incomplete while feasible, valuable modules await review
 or functional verification.
 See [deferred investigations](DEFERRED.md) for retained failures that remain

@@ -605,6 +605,17 @@ unchanged. Current inputs and owned teardown establish **131 runtime modules,
 redaction/references from plaintext credentials and records platform/provider
 limits. Shared Fetch lifecycle, ActiveMQ and capture-protocol work continues.
 
+ActiveMQ OpenWire then qualifies fourteen cases on actual Apache affected/fixed
+brokers. Independent native JMS and process-parent proofs distinguish incorrect
+payload choices and pooled-listener assumptions from an early XML-resource
+cleanup defect. The owning callback-lifetime repair passes all fourteen cases,
+including eight used sessions and repeated exact file/state restoration. Current
+inputs and owned teardown establish **132 runtime modules, 65 families and
+892 functional cases**; see the [verification record](VERIFICATION-20261110-activemq.md).
+A separate existing CI short-name fixture is corrected using native OpenSSL
+registry evidence, without changing certificate behavior. Shared Fetch ownership,
+Jolokia, capture protocols and Docker Engine continue separately.
+
 ## Remaining work
 
 - Review existing protocol suites and supply reusable managed containers.
