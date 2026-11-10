@@ -140,7 +140,7 @@ class MetasploitModule < Msf::Auxiliary
 
       offset = pw_offset - 56
       if pw_length == 0
-        info[:pass] = '<empty>'
+        info[:pass] = ''
       else
         info[:pass] = mssql_tds_decrypt(data[offset..(offset + pw_length * 2)].unpack('A*')[0])
       end

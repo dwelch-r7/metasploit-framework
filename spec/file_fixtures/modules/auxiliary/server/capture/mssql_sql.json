@@ -1,0 +1,97 @@
+{
+  "provenance": {
+    "run": "20261110T030643-6f1268",
+    "base": "fbc8976cd98639adbb6a1420b65cf1eb16c67bdd",
+    "module_sha256": "8a992a71e79a7e9a42190e80a19f1924ec4d708205d5c5ff7574d7ff71b235d4",
+    "clients": "FreeTDS1.3.17",
+    "native_preflight": "genuine native server authentication plus independent raw-byte checks; NTLM domain native login is rejected/unqualified",
+    "credentials": "public isolated test fixtures only"
+  },
+  "captures": [
+    {
+      "case": "dbcapture_1_1_0",
+      "description": "TDS7.1 SQL authentication with edge fields with exact capture and listener restart twice",
+      "client_stream_base64": "EgEANAAAAAAAABUABgEAGwABAgAcAAwDACgABP8IAAFVAAACTVNTUUxTZXJ2ZXIAMAEAABABATQAAAAALAEAAAEAAHEAEAAABoPy+DABAAAAAAAA4AMAAIj///82BAAAVgAMAG4ADACGACMAzAAEANQABwAAAAAA4gALAPgACgAMARAALvO8N0UTLAEAACwBAAAwAGYAZgBkAGIANwBjADMAOAA3ADUAMgBjAGEAcAB0AHUAcgBlACAAdQBzAGUAcgCnpXOlU6XjpfKlY6XzpXel4qWzpYKl06XzpeKld6XjpYOlBqWnpYelsqXypVOl4qXzpeOlh6WnpWClp6XipbOlM6VjpaelVABTAFEATABjAGEAcAB0AHUAcgBlAFQARABTAC0ATABpAGIAcgBhAHIAeQB1AHMAXwBlAG4AZwBsAGkAcwBoAGMAYQBwAHQAdQByAGUAIABkAGEAdABhAGIAYQBzAGUA",
+      "server_stream_base64": "BAEAKwAAAQAAABoABgEAIAABAgAhAAEDACIAAAQAIgAB/woyBlEAAAIAAAQBAGoANwEAqlYAGEgAAAEOJQBMAG8AZwBpAG4AIABmAGEAaQBsAGUAZAAgAGYAbwByACAAdQBzAGUAcgAgACcAYwBhAHAAdAB1AHIAZQAgAHUAcwBlAHIAJwAuAAAAAAD9AgAAAAAAAAA=",
+      "independent_decoded": {
+        "host": "0ffdb7c38752",
+        "username": "capture user",
+        "password": " module-target-db: \"quoted\" \\ tail ",
+        "application": "TSQL",
+        "server": "capture",
+        "database": "capture database"
+      },
+      "pcap_sha256": "9839dea68ae128849b846e4f4182e632015446b6140fac4206891eadf8737949"
+    },
+    {
+      "case": "dbcapture_1_3_0",
+      "description": "Rejected native SQL password stays untried with exact capture and listener restart twice",
+      "client_stream_base64": "EgEAOgAAAAAAABoABgEAIAABAgAhAAwDAC0ABAQAMQAB/wkAAAAAAAJNU1NRTFNlcnZlcgBkAQAAABABATMAAAAAKwEAAAQAAHQAEAAABoPy+GQBAAAAAAAA4AMAGIj///82BAAAXgAMAHYADACOABkAwAAEAMgABwDWAAQA2gALAPAACgAEARAALvO8N0UTJAEAACQBAAAkAQAAAAAAADAAZgBmAGQAYgA3AGMAMwA4ADcANQAyAGMAYQBwAHQAdQByAGUAIAB1AHMAZQByAHOlU6XjpfKlY6XzpXel4qWzpYKl06XzpeKld6XjpYOld6WCpfOlA6XzpZOl4qXzpeOlVABTAFEATABjAGEAcAB0AHUAcgBlACQBAABUAEQAUwAtAEwAaQBiAHIAYQByAHkAdQBzAF8AZQBuAGcAbABpAHMAaABjAGEAcAB0AHUAcgBlACAAZABhAHQAYQBiAGEAcwBlAAoBAAAAAf8=",
+      "server_stream_base64": "BAEAKwAAAQAAABoABgEAIAABAgAhAAEDACIAAAQAIgAB/woyBlEAAAIAAAQBAGoANwEAqlYAGEgAAAEOJQBMAG8AZwBpAG4AIABmAGEAaQBsAGUAZAAgAGYAbwByACAAdQBzAGUAcgAgACcAYwBhAHAAdAB1AHIAZQAgAHUAcwBlAHIAJwAuAAAAAAD9AgAAAAAAAAA=",
+      "independent_decoded": {
+        "host": "0ffdb7c38752",
+        "username": "capture user",
+        "password": "module-target-db-rejected",
+        "application": "TSQL",
+        "server": "capture",
+        "database": "capture database"
+      },
+      "pcap_sha256": "87796fb1c52b1d1f61ea615badd97f298c4747ce31de24eb3cbb0b4224b5804d"
+    },
+    {
+      "case": "dbcapture_1_10_0",
+      "description": "Native FreeTDS PRELOGIN-only bytes create no credential with exact capture and listener restart twice",
+      "client_stream_base64": "EgEANAAAAAAAABUABgEAGwABAgAcAAwDACgABP8IAAFVAAACTVNTUUxTZXJ2ZXIAiAAAAA==",
+      "server_stream_base64": "BAEAKwAAAQAAABoABgEAIAABAgAhAAEDACIAAAQAIgAB/woyBlEAAAIAAA==",
+      "independent_decoded": {
+        "prelogin_only": true
+      },
+      "pcap_sha256": "faf63ca25552279fe4485b54b749067bc416978ba4a1930486ffeae99a6f0108"
+    },
+    {
+      "case": "dbcapture_1_4_0",
+      "description": "TDS7.1 empty SQL password with exact capture and listener restart twice",
+      "client_stream_base64": "EgEANAAAAAAAABUABgEAGwABAgAcAAwDACgABP8IAAFVAAACTVNTUUxTZXJ2ZXIA5wEAABABAPAAAAAA6AAAAAEAAHEAEAAABoPy+OcBAAAAAAAA4AMAAIj///82BAAAVgAMAG4ADQCIAAAAiAAEAJAABwAAAAAAngALALQACgDIABAALvO8N0UT6AAAAOgAAAAwAGYAZgBkAGIANwBjADMAOAA3ADUAMgBjAGEAcAB0AHUAcgBlAF8AZQBtAHAAdAB5AFQAUwBRAEwAYwBhAHAAdAB1AHIAZQBUAEQAUwAtAEwAaQBiAHIAYQByAHkAdQBzAF8AZQBuAGcAbABpAHMAaABjAGEAcAB0AHUAcgBlACAAZABhAHQAYQBiAGEAcwBlAA==",
+      "server_stream_base64": "BAEAKwAAAQAAABoABgEAIAABAgAhAAEDACIAAAQAIgAB/woyBlEAAAIAAAQBAGwANwEAqlgAGEgAAAEOJgBMAG8AZwBpAG4AIABmAGEAaQBsAGUAZAAgAGYAbwByACAAdQBzAGUAcgAgACcAYwBhAHAAdAB1AHIAZQBfAGUAbQBwAHQAeQAnAC4AAAAAAP0CAAAAAAAAAA==",
+      "independent_decoded": {
+        "host": "0ffdb7c38752",
+        "username": "capture_empty",
+        "password": "",
+        "application": "TSQL",
+        "server": "capture",
+        "database": "capture database"
+      },
+      "pcap_sha256": "d1dda197a8cb9e0731f29c4bbb44a8fc30692affe74de2c7ffc296bbfbfe529c"
+    },
+    {
+      "case": "dbcapture_1_5_0",
+      "description": "TDS7.4 empty SQL password with exact capture and listener restart twice",
+      "client_stream_base64": "EgEAOgAAAAAAABoABgEAIAABAgAhAAwDAC0ABAQAMQAB/wkAAAAAAAJNU1NRTFNlcnZlcgACAgAAABABAQMAAAAA+wAAAAQAAHQAEAAABoPy+AICAAAAAAAA4AMAGIj///82BAAAXgAMAHYADQCQAAAAkAAEAJgABwCmAAQAqgALAMAACgDUABAALvO8N0UT9AAAAPQAAAD0AAAAAAAAADAAZgBmAGQAYgA3AGMAMwA4ADcANQAyAGMAYQBwAHQAdQByAGUAXwBlAG0AcAB0AHkAVABTAFEATABjAGEAcAB0AHUAcgBlAPQAAABUAEQAUwAtAEwAaQBiAHIAYQByAHkAdQBzAF8AZQBuAGcAbABpAHMAaABjAGEAcAB0AHUAcgBlACAAZABhAHQAYQBiAGEAcwBlAAoBAAAAAf8=",
+      "server_stream_base64": "BAEAKwAAAQAAABoABgEAIAABAgAhAAEDACIAAAQAIgAB/woyBlEAAAIAAAQBAGwANwEAqlgAGEgAAAEOJgBMAG8AZwBpAG4AIABmAGEAaQBsAGUAZAAgAGYAbwByACAAdQBzAGUAcgAgACcAYwBhAHAAdAB1AHIAZQBfAGUAbQBwAHQAeQAnAC4AAAAAAP0CAAAAAAAAAA==",
+      "independent_decoded": {
+        "host": "0ffdb7c38752",
+        "username": "capture_empty",
+        "password": "",
+        "application": "TSQL",
+        "server": "capture",
+        "database": "capture database"
+      },
+      "pcap_sha256": "3496d5767bb0ff11fbc08bf4402e6f8cd0895b2e4c0a8eca587df663886a3a30"
+    },
+    {
+      "case": "dbcapture_1_2_0",
+      "description": "TDS7.4 SQL authentication with edge fields with exact capture and listener restart twice",
+      "client_stream_base64": "EgEAOgAAAAAAABoABgEAIAABAgAhAAwDAC0ABAQAMQAB/wkAAAAAAAJNU1NRTFNlcnZlcgB5AgAAABABAUcAAAAAPwEAAAQAAHQAEAAABoPy+HkCAAAAAAAA4AMAGIj///82BAAAXgAMAHYADACOACMA1AAEANwABwDqAAQA7gALAAQBCgAYARAALvO8N0UTOAEAADgBAAA4AQAAAAAAADAAZgBmAGQAYgA3AGMAMwA4ADcANQAyAGMAYQBwAHQAdQByAGUAIAB1AHMAZQByAKelc6VTpeOl8qVjpfOld6XipbOlgqXTpfOl4qV3peOlg6UGpaelh6WypfKlU6XipfOl46WHpaelYKWnpeKls6UzpWOlp6VUAFMAUQBMAGMAYQBwAHQAdQByAGUAOAEAAFQARABTAC0ATABpAGIAcgBhAHIAeQB1AHMAXwBlAG4AZwBsAGkAcwBoAGMAYQBwAHQAdQByAGUAIABkAGEAdABhAGIAYQBzAGUACgEAAAAB/w==",
+      "server_stream_base64": "BAEAKwAAAQAAABoABgEAIAABAgAhAAEDACIAAAQAIgAB/woyBlEAAAIAAAQBAGoANwEAqlYAGEgAAAEOJQBMAG8AZwBpAG4AIABmAGEAaQBsAGUAZAAgAGYAbwByACAAdQBzAGUAcgAgACcAYwBhAHAAdAB1AHIAZQAgAHUAcwBlAHIAJwAuAAAAAAD9AgAAAAAAAAA=",
+      "independent_decoded": {
+        "host": "0ffdb7c38752",
+        "username": "capture user",
+        "password": " module-target-db: \"quoted\" \\ tail ",
+        "application": "TSQL",
+        "server": "capture",
+        "database": "capture database"
+      },
+      "pcap_sha256": "9424e9ddfdaaa63541063b8c67806032c18f12fa4d5ad8c4ab42d3d3d79759d7"
+    }
+  ]
+}
