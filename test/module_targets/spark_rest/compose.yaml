@@ -1,0 +1,34 @@
+---
+services:
+  affected:
+    extends:
+      file: "../spark/compose.yaml"
+      service: affected
+  fixed:
+    extends:
+      file: "../spark/compose.yaml"
+      service: fixed
+  legacy:
+    extends:
+      file: "../spark/compose.yaml"
+      service: legacy
+  disabled:
+    extends:
+      file: "../spark/compose.yaml"
+      service: disabled
+  gateway:
+    extends:
+      file: "../spark/compose.yaml"
+      service: gateway
+  unrelated:
+    extends:
+      file: "../spark/compose.yaml"
+      service: unrelated
+  worker:
+    extends:
+      file: "../spark/compose.yaml"
+      service: worker
+  artifacts:
+    extends:
+      file: "../spark/compose.yaml"
+      service: artifacts

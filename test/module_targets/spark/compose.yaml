@@ -1,0 +1,234 @@
+---
+services:
+  affected:
+    platform: linux/amd64
+    image: module-target-spark:3.2.1
+    build:
+      context: "../spark"
+      args:
+        ARCHIVE_URL: https://archive.apache.org/dist/spark/spark-3.2.1/spark-3.2.1-bin-hadoop3.2.tgz
+        ARCHIVE_SHA512: 145adacf189fecf05fba3a69841d2804dd66546b11d14fc181ac49d89f3cb5e4fecd9b25f56f0af767155419cd430838fb651992aeb37d3a6f91e7e009d1f9ae
+    environment:
+      SPARK_LOCAL_IP: affected
+      SPARK_DAEMON_MEMORY: 256m
+      SPARK_DAEMON_JAVA_OPTS: "-XX:ActiveProcessorCount=2 -Dspark.acls.enable=true
+        -Dspark.master.rest.enabled=true -Dspark.ui.view.acls.groups=module-target-readers
+        -Dspark.deploy.retainedDrivers=10 -Dspark.worker.cleanup.enabled=true -Dspark.worker.cleanup.interval=1
+        -Dspark.worker.cleanup.appDataTtl=1"
+    command:
+    - "/opt/spark/bin/spark-class"
+    - org.apache.spark.deploy.master.Master
+    - "--host"
+    - affected
+    - "--port"
+    - '7077'
+    - "--webui-port"
+    - '8080'
+    ports:
+    - 127.0.0.1::8080
+    - 127.0.0.1::6066
+    mem_limit: 640m
+    cpus: 2
+    healthcheck:
+      test:
+      - CMD-SHELL
+      - curl --fail --silent http://affected:8080/json/ >/dev/null
+      interval: 2s
+      timeout: 3s
+      retries: 45
+    init: true
+  fixed:
+    platform: linux/amd64
+    image: module-target-spark:3.2.2
+    build:
+      context: "../spark"
+      args:
+        ARCHIVE_URL: https://archive.apache.org/dist/spark/spark-3.2.2/spark-3.2.2-bin-hadoop3.2.tgz
+        ARCHIVE_SHA512: a7bdcaf598e9bcf78d7cbd2b8ea08d4363c45a4b0cda0940e168ef7d592459df1dde0c33143049d58b61af15c83e2ea2a93bcf6ec63df46b693a36c978d57182
+    environment:
+      SPARK_LOCAL_IP: fixed
+      SPARK_DAEMON_MEMORY: 256m
+      SPARK_DAEMON_JAVA_OPTS: "-XX:ActiveProcessorCount=2 -Dspark.acls.enable=true
+        -Dspark.master.rest.enabled=false -Dspark.ui.view.acls.groups=module-target-readers
+        -Dspark.deploy.retainedDrivers=10 -Dspark.worker.cleanup.enabled=true -Dspark.worker.cleanup.interval=1
+        -Dspark.worker.cleanup.appDataTtl=1"
+    command:
+    - "/opt/spark/bin/spark-class"
+    - org.apache.spark.deploy.master.Master
+    - "--host"
+    - fixed
+    - "--port"
+    - '7077'
+    - "--webui-port"
+    - '8080'
+    ports:
+    - 127.0.0.1::8080
+    mem_limit: 640m
+    cpus: 2
+    healthcheck:
+      test:
+      - CMD-SHELL
+      - curl --fail --silent http://fixed:8080/json/ >/dev/null
+      interval: 2s
+      timeout: 3s
+      retries: 45
+    init: true
+  legacy:
+    platform: linux/amd64
+    image: module-target-spark:3.1.3
+    build:
+      context: "../spark"
+      args:
+        ARCHIVE_URL: https://archive.apache.org/dist/spark/spark-3.1.3/spark-3.1.3-bin-hadoop3.2.tgz
+        ARCHIVE_SHA512: 2af22a096caa616f7c2045d2ca2291dcbbb9112233434c2249944fbd6ce85af58743a479a86ba8454e86ef3a3d5730664466ee6d12d05ab03c9f2128ccd8ab1b
+    environment:
+      SPARK_LOCAL_IP: legacy
+      SPARK_DAEMON_MEMORY: 256m
+      SPARK_DAEMON_JAVA_OPTS: "-XX:ActiveProcessorCount=2 -Dspark.acls.enable=true
+        -Dspark.master.rest.enabled=false -Dspark.ui.view.acls.groups=module-target-readers
+        -Dspark.deploy.retainedDrivers=10 -Dspark.worker.cleanup.enabled=true -Dspark.worker.cleanup.interval=1
+        -Dspark.worker.cleanup.appDataTtl=1"
+    command:
+    - "/opt/spark/bin/spark-class"
+    - org.apache.spark.deploy.master.Master
+    - "--host"
+    - legacy
+    - "--port"
+    - '7077'
+    - "--webui-port"
+    - '8080'
+    ports:
+    - 127.0.0.1::8080
+    mem_limit: 640m
+    cpus: 2
+    healthcheck:
+      test:
+      - CMD-SHELL
+      - curl --fail --silent http://legacy:8080/json/ >/dev/null
+      interval: 2s
+      timeout: 3s
+      retries: 45
+    init: true
+  disabled:
+    platform: linux/amd64
+    image: module-target-spark:3.2.1
+    build:
+      context: "../spark"
+      args:
+        ARCHIVE_URL: https://archive.apache.org/dist/spark/spark-3.2.1/spark-3.2.1-bin-hadoop3.2.tgz
+        ARCHIVE_SHA512: 145adacf189fecf05fba3a69841d2804dd66546b11d14fc181ac49d89f3cb5e4fecd9b25f56f0af767155419cd430838fb651992aeb37d3a6f91e7e009d1f9ae
+    environment:
+      SPARK_LOCAL_IP: disabled
+      SPARK_DAEMON_MEMORY: 256m
+      SPARK_DAEMON_JAVA_OPTS: "-XX:ActiveProcessorCount=2 -Dspark.acls.enable=false
+        -Dspark.master.rest.enabled=false -Dspark.ui.view.acls.groups=module-target-readers
+        -Dspark.deploy.retainedDrivers=10 -Dspark.worker.cleanup.enabled=true -Dspark.worker.cleanup.interval=1
+        -Dspark.worker.cleanup.appDataTtl=1"
+    command:
+    - "/opt/spark/bin/spark-class"
+    - org.apache.spark.deploy.master.Master
+    - "--host"
+    - disabled
+    - "--port"
+    - '7077'
+    - "--webui-port"
+    - '8080'
+    ports:
+    - 127.0.0.1::8080
+    - 127.0.0.1::6066
+    mem_limit: 640m
+    cpus: 2
+    healthcheck:
+      test:
+      - CMD-SHELL
+      - curl --fail --silent http://disabled:8080/json/ >/dev/null
+      interval: 2s
+      timeout: 3s
+      retries: 45
+    init: true
+  worker:
+    platform: linux/amd64
+    image: module-target-spark:3.2.1
+    environment:
+      SPARK_LOCAL_IP: worker
+      SPARK_DAEMON_MEMORY: 256m
+      SPARK_DAEMON_JAVA_OPTS: "-XX:ActiveProcessorCount=2 -Dspark.worker.cleanup.enabled=true
+        -Dspark.worker.cleanup.interval=1 -Dspark.worker.cleanup.appDataTtl=1"
+    command:
+    - "/opt/spark/bin/spark-class"
+    - org.apache.spark.deploy.worker.Worker
+    - "--host"
+    - worker
+    - "--port"
+    - '7078'
+    - "--webui-port"
+    - '8081'
+    - "--cores"
+    - '2'
+    - "--memory"
+    - 1024m
+    - "--work-dir"
+    - "/opt/spark/work"
+    - spark://affected:7077
+    ports:
+    - 127.0.0.1::8081
+    mem_limit: 1200m
+    cpus: 2
+    depends_on:
+      affected:
+        condition: service_healthy
+    healthcheck:
+      test:
+      - CMD-SHELL
+      - curl --fail --silent http://worker:8081/json/ >/dev/null
+      interval: 2s
+      timeout: 3s
+      retries: 45
+    init: true
+  artifacts:
+    platform: linux/amd64
+    image: module-target-spark:3.2.1
+    command:
+    - python3
+    - "-m"
+    - http.server
+    - '8082'
+    - "--directory"
+    - "/opt/module-target"
+    mem_limit: 64m
+    healthcheck:
+      test:
+      - CMD-SHELL
+      - curl --fail --silent http://127.0.0.1:8082/native-proof.jar >/dev/null
+      interval: 2s
+      timeout: 3s
+      retries: 15
+    init: true
+  gateway:
+    image: httpd:2.4.62@sha256:4c7788695c832bf415a662dfb5160f1895e65fc65c025e85f436ee2c9e7d7f3e
+    ports:
+    - 127.0.0.1::80
+    mem_limit: 96m
+    volumes:
+    - "../spark/gateway.conf:/usr/local/apache2/conf/extra/spark.conf:ro"
+    command:
+    - sh
+    - "-c"
+    - htpasswd -bc /tmp/module-target.htpasswd module-test-user module-test-password
+      && exec httpd-foreground -c "Include conf/extra/spark.conf"
+    depends_on:
+      affected:
+        condition: service_healthy
+    healthcheck:
+      test:
+      - CMD-SHELL
+      - httpd -t && kill -0 1
+      interval: 2s
+      timeout: 3s
+      retries: 15
+    init: true
+  unrelated:
+    extends:
+      file: "../http/compose.yaml"
+      service: apache
+    init: true

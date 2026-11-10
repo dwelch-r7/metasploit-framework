@@ -1,0 +1,58 @@
+---
+spec: spec/acceptance/module_targets/spark_spec.rb
+expected_examples: 18
+console: true
+modules:
+- exploit/linux/http/apache_spark_rce_cve_2022_33891
+test_env:
+  SPARK_TARGET_PROFILE: ui
+ports:
+  affected: 8080
+  fixed: 8080
+  legacy: 8080
+  disabled: 8080
+  gateway: 80
+  unrelated: 80
+  worker: 8081
+support_files:
+- test/module_targets/spark/Dockerfile
+- test/module_targets/spark/NativeProof.java
+- test/module_targets/spark/compose.yaml
+- test/module_targets/spark/gateway.conf
+- test/module_targets/spark/provenance.json
+- test/module_targets/spark/client.py
+- test/module_targets/spark/native_probe.py
+- test/module_targets/http/Dockerfile
+- test/module_targets/http/compose.yaml
+- test/module_targets/http/htdocs/index.html
+- test/module_targets/http/module-target.conf
+- spec/support/shared/contexts/wait_for_expect.rb
+- lib/msf/core/exploit/remote/http_client.rb
+- lib/msf/core/exploit/remote/http_server.rb
+- lib/msf/core/exploit/remote/auto_check.rb
+- lib/msf/core/exploit/cmd_stager.rb
+- lib/msf/core/exploit/file_dropper.rb
+- lib/msf/core/payload/java.rb
+- lib/msf/core/payload/java/payload_options.rb
+- lib/msf/core/payload/java/reverse_tcp.rb
+- lib/rex/proto/http/server.rb
+- lib/rex/service_manager.rb
+- modules/payloads/singles/cmd/unix/generic.rb
+- modules/payloads/singles/cmd/unix/reverse_python.rb
+- modules/payloads/singles/linux/x86/exec.rb
+- modules/payloads/stagers/linux/x64/reverse_tcp.rb
+- modules/payloads/stages/linux/x64/meterpreter.rb
+- modules/payloads/singles/linux/x64/shell_reverse_tcp.rb
+- modules/payloads/stagers/java/reverse_tcp.rb
+- modules/payloads/stages/java/meterpreter.rb
+- modules/payloads/stages/java/shell.rb
+- test/module_targets/spark/README.md
+- documentation/modules/exploit/linux/http/apache_spark_rce_cve_2022_33891.md
+- lib/rex/proto/http/client.rb
+- lib/rex/proto/http/client_request.rb
+- lib/rex/proto/http/request.rb
+- lib/rex/proto/http/response.rb
+- lib/rex/proto/http/packet.rb
+- spec/modules/exploits/linux/http/apache_spark_rce_cve_2022_33891_spec.rb
+- spec/file_fixtures/modules/exploits/linux/http/apache_spark_rce_cve_2022_33891/native_form.json
+- spec/file_fixtures/modules/exploits/linux/http/apache_spark_rce_cve_2022_33891/README.md
