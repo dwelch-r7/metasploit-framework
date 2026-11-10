@@ -1,0 +1,7 @@
+username	password	email	admin
+lab-admin	Module-target-Gogs-admin-2026!	lab-admin@gogs.invalid	true
+lab-user	Module-target-Gogs-user-2026!	lab-user@gogs.invalid	false
+lab-hook	Module-target-Gogs-hook-2026!	lab-hook@gogs.invalid	false
+lab-writer	Module-target:Gogs-writer@2026%	lab-writer@gogs.invalid	false
+lab-reader	Module-target-Gogs-reader-2026!	lab-reader@gogs.invalid	false
+lab-outsider	Module-target-Gogs-outsider-2026!	lab-outsider@gogs.invalid	false

@@ -1,0 +1,188 @@
+{
+  "observed_date": "2026-11-10",
+  "status": "Disk research only; image identity must be checked natively before qualification.",
+  "advisory": "https://github.com/gogs/gogs/security/advisories/GHSA-qf6p-p7ww-cwr9",
+  "fix": "https://github.com/gogs/gogs/pull/8301",
+  "images": [
+    {
+      "version": "0.12.3",
+      "repository": "gogs/gogs",
+      "tag_digest": "sha256:0195b095d0b29e5fd9fd44c0e4a544c981f8c8b2b7fb18ca61824694e31d279e",
+      "amd64_digest": "sha256:0195b095d0b29e5fd9fd44c0e4a544c981f8c8b2b7fb18ca61824694e31d279e",
+      "metadata_url": "https://hub.docker.com/v2/repositories/gogs/gogs/tags/0.12.3",
+      "metadata_sha256": "7de9e49af91468f2ac950a88caa51a53edbaa3ec7fc7ceca15ce33298c9c7625"
+    },
+    {
+      "version": "0.14.2",
+      "repository": "gogs/gogs",
+      "tag_digest": "sha256:c8a080c3ddd753436c5671f004536ef9fd84f52e17e1c4467e3de1d43e1073b3",
+      "amd64_digest": "sha256:8a7d003f0eb35526d31a35e76f8f997c838cfa0eabf392345196e49d191cb9c3",
+      "metadata_url": "https://hub.docker.com/v2/repositories/gogs/gogs/tags/0.14.2",
+      "metadata_sha256": "bd052a08494034f3fd0fa27071aaff3c5e58cbbe478cf8308762fd70d8b31667"
+    },
+    {
+      "version": "0.14.3",
+      "repository": "gogs/gogs",
+      "tag_digest": "sha256:3c7dbdf05a64471296eddf510312589aa8f478c795387993fabcf5d54c68e5cd",
+      "amd64_digest": "sha256:c98ce8153a1dfd215bb0116a9ecf86b4d93c11595b0211b6d094156a718ab00d",
+      "metadata_url": "https://hub.docker.com/v2/repositories/gogs/gogs/tags/0.14.3",
+      "metadata_sha256": "e019ceb392959df58f09310427030f5eb251dd6cce9976b0aeb35fe13def4476"
+    }
+  ],
+  "vendor_sources": [
+    {
+      "url": "https://api.github.com/repos/gogs/gogs/releases/tags/v0.14.2",
+      "path": "tmp/gogs-feasibility-20261110/vendor/releases-0.14.2.json",
+      "status": 200,
+      "bytes": 29762,
+      "sha256": "c403034738b33043019f5f6fbf13298d101559288ec584e4ae8889d05427267b"
+    },
+    {
+      "url": "https://api.github.com/repos/gogs/gogs/releases/tags/v0.14.3",
+      "path": "tmp/gogs-feasibility-20261110/vendor/releases-0.14.3.json",
+      "status": 200,
+      "bytes": 35927,
+      "sha256": "1dd8483211c644f5823be4df0d5ff5657ea32f2379c9cecf7e4f14f4ecae9a4a"
+    },
+    {
+      "url": "https://api.github.com/repos/gogs/gogs/releases/tags/v0.12.3",
+      "path": "tmp/gogs-feasibility-20261110/vendor/releases-0.12.3.json",
+      "status": 200,
+      "bytes": 25400,
+      "sha256": "cd04687765edcd9656c63b9d42b954c1b90024f318f2d0ade55f125d743d15a7"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/gogs/gogs/v0.14.2/Dockerfile",
+      "path": "tmp/gogs-feasibility-20261110/vendor/v0.14.2-Dockerfile",
+      "status": 200,
+      "bytes": 915,
+      "sha256": "71c52a832001571f9e0ee94f5dc74cf5ff429ba66e91c87cb412689d289f9997"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/gogs/gogs/v0.14.3/Dockerfile",
+      "path": "tmp/gogs-feasibility-20261110/vendor/v0.14.3-Dockerfile",
+      "status": 200,
+      "bytes": 915,
+      "sha256": "71c52a832001571f9e0ee94f5dc74cf5ff429ba66e91c87cb412689d289f9997"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/gogs/gogs/v0.14.2/docker/README.md",
+      "path": "tmp/gogs-feasibility-20261110/vendor/v0.14.2-docker-README.md",
+      "status": 200,
+      "bytes": 7257,
+      "sha256": "b13b919e45b089d908e7301a8721ca2fe617862a37350828db2390b6d54a56d2"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/gogs/gogs/v0.14.2/docker/start.sh",
+      "path": "tmp/gogs-feasibility-20261110/vendor/v0.14.2-docker-start.sh",
+      "status": 200,
+      "bytes": 2724,
+      "sha256": "9a9f713d8118ac574c1d0abb6c839bc3a846e4cd8330a8de6d5c9e302be932d6"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/gogs/gogs/v0.14.2/conf/app.ini",
+      "path": "tmp/gogs-feasibility-20261110/vendor/v0.14.2-app.ini",
+      "status": 200,
+      "bytes": 20350,
+      "sha256": "008efe333fed6efce519e4c875bed5a2d5c68831af64c9abecbe48da3154905f"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/gogs/gogs/v0.14.3/conf/app.ini",
+      "path": "tmp/gogs-feasibility-20261110/vendor/v0.14.3-app.ini",
+      "status": 200,
+      "bytes": 20498,
+      "sha256": "e812c882106669bd23044f0fc8ce88343d57cbbdf9b1b4fa20dcf1b5176a9dfd"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/gogs/gogs/v0.12.3/conf/app.ini",
+      "path": "tmp/gogs-feasibility-20261110/vendor/v0.12.3-app.ini",
+      "status": 200,
+      "bytes": 19517,
+      "sha256": "034d4ced929f15cc65d750318fc10efd1fb12b2b76cd22986606c13672566a35"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/gogs/gogs/v0.14.2/internal/database/pull.go",
+      "path": "tmp/gogs-feasibility-20261110/vendor/v0.14.2-pull.go",
+      "status": 200,
+      "bytes": 27332,
+      "sha256": "4a0939d8b16fbe0a262d8ec28118b1d294b9080707d708947715422b9ad35c18"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/gogs/gogs/v0.14.3/internal/database/pull.go",
+      "path": "tmp/gogs-feasibility-20261110/vendor/v0.14.3-pull.go",
+      "status": 200,
+      "bytes": 27239,
+      "sha256": "d7f5d65519fdf7f063c19129418710dbae5a3be1d8d54321e7447a31edb7c03c"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/gogs/gogs/v0.14.2/internal/route/api/v1/user/user.go",
+      "path": "tmp/gogs-feasibility-20261110/vendor/v0.14.2-api-user.go",
+      "status": 200,
+      "bytes": 1312,
+      "sha256": "4c61b9fed644628e45fa70f0dfc20496172869b24777892772abe8c9ef3ce962"
+    },
+    {
+      "url": "https://hub.docker.com/v2/repositories/gogs/gogs/tags/0.14.2",
+      "path": "tmp/gogs-feasibility-20261110/vendor/image-0.14.2.json",
+      "status": 200,
+      "bytes": 2371,
+      "sha256": "bd052a08494034f3fd0fa27071aaff3c5e58cbbe478cf8308762fd70d8b31667"
+    },
+    {
+      "url": "https://hub.docker.com/v2/repositories/gogs/gogs/tags/0.14.3",
+      "path": "tmp/gogs-feasibility-20261110/vendor/image-0.14.3.json",
+      "status": 200,
+      "bytes": 2369,
+      "sha256": "e019ceb392959df58f09310427030f5eb251dd6cce9976b0aeb35fe13def4476"
+    },
+    {
+      "url": "https://hub.docker.com/v2/repositories/gogs/gogs/tags/0.14",
+      "path": "tmp/gogs-feasibility-20261110/vendor/image-0.14.json",
+      "status": 200,
+      "bytes": 2367,
+      "sha256": "31b6f39e1b6c46cc4324a56de80a36f20c9f3ed2f0efdbd5c6580c8662146f36"
+    },
+    {
+      "url": "https://hub.docker.com/v2/repositories/gogs/gogs/tags/0.12.3",
+      "path": "tmp/gogs-feasibility-20261110/vendor/image-0.12.3.json",
+      "status": 200,
+      "bytes": 716,
+      "sha256": "7de9e49af91468f2ac950a88caa51a53edbaa3ec7fc7ceca15ce33298c9c7625"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/gogs/gogs/v0.14.2/internal/route/repo/setting.go",
+      "path": "tmp/gogs-feasibility-20261110/vendor/v0.14.2-repo-setting.go",
+      "status": 200,
+      "bytes": 19870,
+      "sha256": "1fca043fc1a2dc658bc97851cdca5b0ff90cd77f0708b3980db9b4aa25f88166"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/gogs/gogs/v0.14.2/internal/route/user/setting.go",
+      "path": "tmp/gogs-feasibility-20261110/vendor/v0.14.2-user-setting.go",
+      "status": 200,
+      "bytes": 21120,
+      "sha256": "c493005431b357e43cda312ca1774467f98eff0987a68122978b5c898c44385b"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/gogs/gogs/v0.14.2/internal/cmd/admin.go",
+      "path": "tmp/gogs-feasibility-20261110/vendor/v0.14.2-admin.go",
+      "status": 200,
+      "bytes": 5293,
+      "sha256": "0047ad2583cc556c50e8b07f9f0377da26181515c989c1f5a9e8a97d4f519b4e"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/gogs/gogs/v0.14.3/internal/route/repo/setting.go",
+      "path": "tmp/gogs-feasibility-20261110/vendor/v0.14.3-repo-setting.go",
+      "status": 200,
+      "bytes": 20940,
+      "sha256": "ea2fc5c8445c5b52075b1f005eedc662268189ad227bcc43c1e20cc239dd109d"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/gogs/gogs/v0.14.2/internal/route/api/v1/admin/user.go",
+      "path": "tmp/gogs-feasibility-20261110/vendor/v0.14.2-api-admin-user.go",
+      "status": 200,
+      "bytes": 3470,
+      "sha256": "e19464393baf77c0da5edb5bb604f3d611caade6b80b1c8ea2ef89a3a2785327"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "profile": "gogs_rebase_fixed",
+  "expected_examples": 5,
+  "services": {
+    "gogs": {
+      "actor": "gogs",
+      "endpoint": "gogs",
+      "prefix": "",
+      "version": "0.14.3",
+      "external_url": "http://gogs:3000/"
+    }
+  },
+  "container_limit": 4
+}

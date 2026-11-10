@@ -1,0 +1,73 @@
+x-gogs: &gogs
+  build: ../gogs
+  platform: linux/amd64
+  init: true
+  mem_limit: 256m
+  cpus: 0.5
+  cap_drop: [SYS_ADMIN, SYS_TIME]
+  environment: &gogs_env
+    PUID: '1000'
+    PGID: '1000'
+    SOCAT_LINK: 'false'
+    RUN_CROND: 'false'
+    GOMAXPROCS: '1'
+  healthcheck:
+    test: [CMD-SHELL, 'curl --fail --silent --show-error http://127.0.0.1:3000/ >/dev/null']
+    interval: 2s
+    timeout: 3s
+    retries: 45
+
+services:
+  legacy:
+    <<: *gogs
+    build:
+      context: ../gogs
+      args: {GOGS_IMAGE: 'gogs/gogs:0.12.3@sha256:0195b095d0b29e5fd9fd44c0e4a544c981f8c8b2b7fb18ca61824694e31d279e'}
+    hostname: legacy
+    ports: ['127.0.0.1::3000']
+    environment:
+      <<: *gogs_env
+      GOGS_LAB_VERSION: '0.12.3'
+      GOGS_LAB_HOST: legacy
+      GOGS_LAB_EXTERNAL_URL: http://legacy:3000/
+    volumes: [legacy_data:/data, legacy_backup:/backup]
+    networks:
+      default:
+        aliases: [legacy]
+  prefixed:
+    <<: *gogs
+    build:
+      context: ../gogs
+      args: {GOGS_IMAGE: 'gogs/gogs:0.14.3@sha256:3c7dbdf05a64471296eddf510312589aa8f478c795387993fabcf5d54c68e5cd'}
+    hostname: prefixed
+    ports: []
+    environment:
+      <<: *gogs_env
+      GOGS_LAB_VERSION: '0.14.3'
+      GOGS_LAB_HOST: prefixed
+      GOGS_LAB_EXTERNAL_URL: http://gateway/gogs/
+    volumes: [prefixed_data:/data, prefixed_backup:/backup]
+    networks:
+      default:
+        aliases: [gogs-prefix]
+  gateway:
+    image: httpd:2.4.62@sha256:4c7788695c832bf415a662dfb5160f1895e65fc65c025e85f436ee2c9e7d7f3e
+    mem_limit: 64m
+    cpus: 0.2
+    ports: ['127.0.0.1::80']
+    volumes: ['../gogs/gateway.conf:/usr/local/apache2/conf/extra/gogs.conf:ro']
+    command: [httpd-foreground, -c, 'Include conf/extra/gogs.conf']
+    healthcheck:
+      test: [CMD, httpd, -t, -c, 'Include conf/extra/gogs.conf']
+      interval: 2s
+      timeout: 3s
+      retries: 30
+  framework:
+    init: true
+    mem_limit: 1024m
+    cpus: 1.0
+volumes:
+  legacy_data: {}
+  legacy_backup: {}
+  prefixed_data: {}
+  prefixed_backup: {}

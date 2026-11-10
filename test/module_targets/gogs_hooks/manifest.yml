@@ -1,0 +1,44 @@
+---
+spec: spec/acceptance/module_targets/gogs_spec.rb
+expected_examples: 10
+console: true
+modules:
+- exploit/multi/http/gogs_git_hooks_rce
+ports:
+  legacy: 3000
+  gateway: 80
+support_files:
+- documentation/modules/exploit/multi/http/gogs_git_hooks_rce.md
+- lib/msf/base/sessions/command_shell.rb
+- lib/msf/base/sessions/meterpreter.rb
+- lib/msf/core/db_manager/service.rb
+- lib/msf/core/exploit.rb
+- lib/msf/core/exploit/cmd_stager.rb
+- lib/msf/core/exploit/exe.rb
+- lib/msf/core/exploit/remote/auto_check.rb
+- lib/msf/core/exploit/remote/http_client.rb
+- lib/msf/core/handler/bind_tcp.rb
+- lib/msf/core/handler/none.rb
+- lib/msf/core/handler/reverse_tcp.rb
+- lib/msf/core/payload/linux/x64/reverse_tcp.rb
+- lib/msf/util/exe.rb
+- modules/payloads/singles/cmd/unix/generic.rb
+- modules/payloads/singles/cmd/unix/reverse_bash.rb
+- modules/payloads/stagers/linux/x64/reverse_tcp.rb
+- modules/payloads/stages/linux/x64/meterpreter.rb
+- spec/file_fixtures/modules/exploits/multi/http/gogs/hooks.json
+- spec/modules/exploits/multi/http/gogs_git_hooks_rce_spec.rb
+- spec/support/acceptance/gogs.rb
+- spec/support/shared/contexts/wait_for_expect.rb
+- test/module_targets/gogs/Dockerfile
+- test/module_targets/gogs/README.md
+- test/module_targets/gogs/accounts.tsv
+- test/module_targets/gogs/control.py
+- test/module_targets/gogs/gateway.conf
+- test/module_targets/gogs/native_client.py
+- test/module_targets/gogs/native_elf.c
+- test/module_targets/gogs/native_probe.py
+- test/module_targets/gogs/provenance.json
+- test/module_targets/gogs/start.sh
+test_env:
+  GOGS_TARGET_PROFILE: gogs_hooks

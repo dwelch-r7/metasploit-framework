@@ -1,0 +1,21 @@
+{
+  "profile": "gogs_hooks",
+  "expected_examples": 10,
+  "services": {
+    "legacy": {
+      "actor": "legacy",
+      "endpoint": "legacy",
+      "prefix": "",
+      "version": "0.12.3",
+      "external_url": "http://legacy:3000/"
+    },
+    "prefix": {
+      "actor": "prefixed",
+      "endpoint": "gateway",
+      "prefix": "/gogs",
+      "version": "0.14.3",
+      "external_url": "http://gateway/gogs/"
+    }
+  },
+  "container_limit": 4
+}
