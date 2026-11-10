@@ -407,16 +407,15 @@ declared length; session dispatch/transfer failures remain separate fixtures.
 Parent 82 current inputs, all 233 imported files, 362 export entries, lint/docs
 and 29 cleanup queries pass. Positive RCE scope is 11.0.0; 11.0.5 RCE,
 other release branches and additional delivery/platform paths remain pending.
-The [current integrated checkpoint](VERIFICATION-20261110-gogs-rebase.md) records
-**178 runtime modules, 116 qualified families and 1,398 functional cases**.
-Gogs new-repository rebase passes five repeated command/session/authentication
-cases, including root-default and explicit-subpath behavior after a separate
-one-option registration repair. Hooks requalify all ten cases. The existing
-five/three and fixed five/one results remain unqualified because of two concrete
-observer-oracle mismatches; no failed family contributes to the total. Parent
-81 current inputs, all 277 imported files, 754 export entries and 52 exact
-cleanup queries verify. Existing-repository ref/commit proof and full fixed
-qualification require a fresh corrected run.
+The [current integrated checkpoint](VERIFICATION-20261110-gogs-repositories.md)
+records **178 runtime modules, 118 qualified families and 1,408 functional cases**.
+All 25 Gogs cases pass after capture-backed observer corrections, including
+existing-repository ref/parent/feature proof and fixed-release negatives. Eight
+owning sessions are used, alongside five native calibrations. The earlier
+failures remain preserved. Parent 81 current inputs, all 276 imported files,
+528 export entries and 52 exact cleanup queries verify. Other platforms,
+same-instance reset and unchanged-existing-repository repeatability remain
+pending.
 The full campaign remains incomplete while feasible, valuable modules await review
 or functional verification.
 See [deferred investigations](DEFERRED.md) for retained failures that remain

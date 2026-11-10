@@ -975,3 +975,24 @@ All 81 selected inputs, 277 imported files and 754 export entries verify.
 Parent 52 fresh queries confirm eighteen containers, four networks, seventeen
 volumes, twelve label inventories and global containers absent. One-project/
 five-container limits remain, with 44 unrelated removals observed in total.
+
+## Gogs existing-repository and fixed-release qualification
+
+The [current checkpoint](VERIFICATION-20261110-gogs-repositories.md) qualifies
+178 runtime modules, 118 families and 1,408 cases. A fresh complete Gogs invocation
+passes 10/0 + 5/0 + 5/0 + 5/0 against the corrected closed-PR and branded404 observers.
+All original repository-state gates remain; six repeated closed-PR proofs reach
+canonical ref, seed-parent, feature-content and object checks. Eight owning
+sessions are used and five native calibrations complete. Exact raw404 identity,
+Safe reason and typed reporting state pass on fixed 0.14.3.
+
+The parent verifies 81 current inputs, 276 whole-invocation files and 528 immutable
+export entries. All four actual result/RSpec records and the summary complete;
+the aggregate manager's exit code was not directly observed after continuation.
+The 52 fresh terminal queries prove eighteen containers, four networks and
+seventeen volumes absent,
+empty labels and an empty global inventory. Current host cleanup also removes
+recreated unrelated tool containers; observed removals reach 58. No images or
+unrelated volumes are pruned. One project runs at a time within five containers.
+Windows, other architectures, same-instance reset and unchanged-existing-repo
+repeatability remain pending; earlier failures remain immutable.

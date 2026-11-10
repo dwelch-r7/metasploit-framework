@@ -4,29 +4,21 @@ These findings do not count as passing functional qualification. The
 [campaign](CAMPAIGN.md) and individual verification records retain other
 coverage limits and ongoing investigations.
 
-## Gogs existing repositories and fixed-profile observers
+## Gogs remaining platform and repeatability coverage
 
-The [new-repository checkpoint](VERIFICATION-20261110-gogs-rebase.md) qualifies
-root/subpath new-repository commands and Bash sessions. The same frozen
-`20261110T203229-977127` invocation retains existing-repository five/three and
-fixed-release five/one as whole-family unqualified results, with successful
-native gates and teardown. They do not establish additional production defects.
+The [repository checkpoint](VERIFICATION-20261110-gogs-repositories.md) passes
+all 25 cases after correcting the two capture-backed observer mismatches.
+Existing-repository canonical refs, seed parent, feature content and no-extra-ref
+gates now execute successfully. Fixed missing-path proof retains the raw native
+branded404 body/hash and exact reason-bearing Safe/service state. The earlier
+five/three and five/one failures remain preserved by the
+[partial checkpoint](VERIFICATION-20261110-gogs-rebase.md).
 
-All three existing failures stop at the new HTML observer's numeric
-`data-tab="request-N"` requirement. Actual authenticated closed pages expose
-`request-`, exact index/conversation/form identities and a reopen control.
-Canonical pull-ref, seed-parent, feature-content and no-extra-ref assertions
-remain unreached. Correct the observer from actual captures without dropping
-those later state checks, then rerun the complete affected profiles.
-
-The fixed missing-path case gets a branded Gogs404 and a reason-bearing Safe
-result identifying fixed 0.14.3. It incorrectly expects the unrelated-product
-reason. Preserve actual HTTP404, product/version and Safe assertions while
-correcting that oracle. The headers-only trace does not retain the raw404 body;
-its product fingerprint follows the unchanged check and needs native capture.
-Passing forced requests without command/session proof
-do not make the entire fixed family pass or establish exploitation. Both
-failures and the original-owner baseline remain in the verified 754-entry export.
+Windows, other architectures and same-instance state reset remain pending.
+Existing-repository repetitions use fresh owned seeds; repeated exploitation of
+an unchanged repository is not qualified. Closed PR history, objects and merge
+caches remain observed state until explicit operator seed removal. Native token
+revocation remains distinct from automatic module cleanup.
 
 ## WordPress administrator upload sessions
 
