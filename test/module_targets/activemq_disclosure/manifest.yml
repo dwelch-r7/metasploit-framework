@@ -1,0 +1,24 @@
+spec: spec/acceptance/module_targets/activemq_disclosure_spec.rb
+expected_examples: 8
+console: true
+modules:
+  - auxiliary/scanner/http/apache_activemq_source_disclosure
+ports: {affected: 8161, fixed: 8161, unrelated: 80}
+support_files:
+  - test/module_targets/activemq_legacy/Dockerfile
+  - test/module_targets/activemq_legacy/NativeControl.java
+  - test/module_targets/activemq_legacy/native/metasploit/Payload.java
+  - test/module_targets/activemq_legacy/provenance.json
+  - test/module_targets/activemq_legacy/native_base.rb
+  - test/module_targets/activemq_legacy/disclosure_probe.rb
+  - lib/msf/core/exploit/remote/http_client.rb
+  - lib/msf/core/auxiliary/report.rb
+  - lib/msf/core/auxiliary/scanner.rb
+  - lib/msf/base/config.rb
+  - lib/rex/proto/http/client.rb
+  - lib/rex/proto/http/request.rb
+  - lib/rex/proto/http/response.rb
+  - lib/rex/proto/http/packet.rb
+  - spec/modules/auxiliary/scanner/http/apache_activemq_source_disclosure_spec.rb
+  - spec/file_fixtures/modules/auxiliary/scanner/http/apache_activemq_source_disclosure/native_responses.json
+  - spec/file_fixtures/modules/auxiliary/scanner/http/apache_activemq_source_disclosure/README.md

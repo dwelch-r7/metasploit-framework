@@ -1,0 +1,83 @@
+{
+  "runtime": {
+    "image": "eclipse-temurin:8-jdk-jammy@sha256:c6bac7c75823864b6317e0ed70e5ac1ec15e65180b4c4ccf09ca2ebf8a8f5f99",
+    "java_version": "1.8.0_412"
+  },
+  "profiles": {
+    "disclosure": {
+      "affected": "5.3.1",
+      "fixed": "5.3.2"
+    },
+    "fileserver": {
+      "affected": "5.11.1",
+      "fixed": "5.14.0"
+    }
+  },
+  "verification": "Publisher SHA1 and detached signatures verified offline against official archived Apache KEYS; recorded SHA512 pins those authenticated historical bytes. Signing-key expiry/trust warnings are preserved in the external authenticity evidence.",
+  "archives": [
+    {
+      "file": "apache-activemq-5.3.1-bin.tar.gz",
+      "publisher_sha1": "a935f7589371f0074f005b6e7530f481142aaff0",
+      "sha256": "65c03d557b11237f925f43e7eb7ecb28351a7e9c187c5a6dc4775ac4a299f043",
+      "sha512": "34bc334eda439f0db82d5ead4845e1391d0f862ca001fceb51aff9c919ebbe6deb485287927e9bbbedcb3915517ffeeececa4db254dc3c68dc27ec601634b3c1",
+      "url": "https://archive.apache.org/dist/activemq/apache-activemq/5.3.1/apache-activemq-5.3.1-bin.tar.gz",
+      "signing_fingerprint": "A526834CC9574F59465A0C88C31A3F706852C7DA"
+    },
+    {
+      "file": "activemq-parent-5.3.1-source-release.zip",
+      "publisher_sha1": "50d4329e25bede6a1302758e41c54a5aee5eaff4",
+      "sha256": "272bb9ec98c0c8590a4bacef312e9924fba1c0fdbea01f674ec3a8c8152eb197",
+      "sha512": "9173c6b02e02ff96416e2db0faaaee024dc57d1528777617cb673f5f86b7136f8c2f38341cdecf2733c2ac96846166b910352d003463b65c319e7caab99aa008",
+      "url": "https://archive.apache.org/dist/activemq/apache-activemq/5.3.1/activemq-parent-5.3.1-source-release.zip",
+      "signing_fingerprint": "A526834CC9574F59465A0C88C31A3F706852C7DA"
+    },
+    {
+      "file": "apache-activemq-5.3.2-bin.tar.gz",
+      "publisher_sha1": "4cd570eaf5a297ff6f391768aabb836dba723433",
+      "sha256": "06d292b0a61140de03e9f3aee1ef1acf796044dec2455caa12b3c0c47ac0f366",
+      "sha512": "1b9a8267fdc2d4fcb5c400bbe8094b67a9320868150dc5fd50591468edde323beabf950640c44efee7e7329d2d576e96d01e13de16d24637f0dccd6e44d7da24",
+      "url": "https://archive.apache.org/dist/activemq/apache-activemq/5.3.2/apache-activemq-5.3.2-bin.tar.gz",
+      "signing_fingerprint": "2AC65190010988E19A9271C6FEFEFED7A2F9E313"
+    },
+    {
+      "file": "activemq-parent-5.3.2-source-release.zip",
+      "publisher_sha1": "a7edff51c25a37f103277e7020b29117eba34af5",
+      "sha256": "301268a82c7f5098b8dc30eb2bdea9706834975eeffd9bfb2c61a03be301ad6f",
+      "sha512": "b8a7efa38dab571daf71ed419c2c433f2e9ba24a4f65434926e70bda6b77bce9fd959d5f46cb0f49311613713d8f1c262cbf77c7605f10dc3af8d8f681956c18",
+      "url": "https://archive.apache.org/dist/activemq/apache-activemq/5.3.2/activemq-parent-5.3.2-source-release.zip",
+      "signing_fingerprint": "2AC65190010988E19A9271C6FEFEFED7A2F9E313"
+    },
+    {
+      "file": "apache-activemq-5.11.1-bin.tar.gz",
+      "publisher_sha1": "db4310f037af4a430abfdddf18c2df4082a34340",
+      "sha256": "5ae90f4ea6caa3af7d9f79d1cc55b575dd44170b1451f096494e1a356828d35f",
+      "sha512": "ff0558702a5aa7192b427187ea1186c8290f26448a73a2b5443bf9a03155044bad78e9435465ad8b7bbdc2ab1a4bc66fa86a4d328eea8cb7df20fe24d5ca28ce",
+      "url": "https://archive.apache.org/dist/activemq/5.11.1/apache-activemq-5.11.1-bin.tar.gz",
+      "signing_fingerprint": "1E1C16FF3F81860F8B6A5E700F0E47D4BB8FA6E3"
+    },
+    {
+      "file": "activemq-parent-5.11.1-source-release.zip",
+      "publisher_sha1": "691d1f92d2c5bd91a5c95059267f32a6000b536a",
+      "sha256": "5c7fa88ca22b99d9c5fc3635e45037563e6b752b7eccac78f3a029bb297ab809",
+      "sha512": "028627e8d1fb18261284ea6bf105ed6362853ea8e547dd4e991d5b7cc122153e3b21fad6abf1ed139f0ac365847613223855c9ef48f01e3c46567b5dee4786ec",
+      "url": "https://archive.apache.org/dist/activemq/5.11.1/activemq-parent-5.11.1-source-release.zip",
+      "signing_fingerprint": "1E1C16FF3F81860F8B6A5E700F0E47D4BB8FA6E3"
+    },
+    {
+      "file": "apache-activemq-5.14.0-bin.tar.gz",
+      "publisher_sha1": "1bff4945f9a55bbb11374fd8205f2e919e605abf",
+      "sha256": "81c623465af277dd50a141a8d9308d6ec8e1b78d9019b845873dc12d117aa9a6",
+      "sha512": "ae4a125a23f2cdbf59f447b24b72e4dc59c57b48fc2d8747e45af2a885406868a3514fdbc607aef4a896e82526ffbafdbce147097045453288535fe19d02af47",
+      "url": "https://archive.apache.org/dist/activemq/5.14.0/apache-activemq-5.14.0-bin.tar.gz",
+      "signing_fingerprint": "C8FFDCEEEEFACB320FB87B6587A7F75A6A8BA5FC"
+    },
+    {
+      "file": "activemq-parent-5.14.0-source-release.zip",
+      "publisher_sha1": "0a1318f4339dc31119c9b31523c88d894da1fb0d",
+      "sha256": "6e3d1dabe32362717ac91665307635da764ca2969c5a287c1bb9da38c286286d",
+      "sha512": "0ce0e9da891d6bd8e33af8c20c4b92fbc8e9fdf8d6009edcac2c526eae36d436af1411bbdf9b340ede425fe8cf725f680bbc4a1863f7fa47051a02aa838d5af5",
+      "url": "https://archive.apache.org/dist/activemq/5.14.0/activemq-parent-5.14.0-source-release.zip",
+      "signing_fingerprint": "C8FFDCEEEEFACB320FB87B6587A7F75A6A8BA5FC"
+    }
+  ]
+}

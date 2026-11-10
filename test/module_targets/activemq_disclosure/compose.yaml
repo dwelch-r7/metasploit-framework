@@ -1,0 +1,74 @@
+{
+  "services": {
+    "affected": {
+      "platform": "linux/amd64",
+      "build": {
+        "context": "../activemq_legacy",
+        "args": {
+          "ARCHIVE_URL": "https://archive.apache.org/dist/activemq/apache-activemq/5.3.1/apache-activemq-5.3.1-bin.tar.gz",
+          "ARCHIVE_SHA512": "34bc334eda439f0db82d5ead4845e1391d0f862ca001fceb51aff9c919ebbe6deb485287927e9bbbedcb3915517ffeeececa4db254dc3c68dc27ec601634b3c1"
+        }
+      },
+      "ports": [
+        "127.0.0.1::8161"
+      ],
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "curl",
+          "--silent",
+          "--fail",
+          "--max-time",
+          "2",
+          "http://127.0.0.1:8161/"
+        ],
+        "interval": "2s",
+        "timeout": "3s",
+        "retries": 30
+      }
+    },
+    "fixed": {
+      "platform": "linux/amd64",
+      "build": {
+        "context": "../activemq_legacy",
+        "args": {
+          "ARCHIVE_URL": "https://archive.apache.org/dist/activemq/apache-activemq/5.3.2/apache-activemq-5.3.2-bin.tar.gz",
+          "ARCHIVE_SHA512": "1b9a8267fdc2d4fcb5c400bbe8094b67a9320868150dc5fd50591468edde323beabf950640c44efee7e7329d2d576e96d01e13de16d24637f0dccd6e44d7da24"
+        }
+      },
+      "ports": [
+        "127.0.0.1::8161"
+      ],
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "curl",
+          "--silent",
+          "--fail",
+          "--max-time",
+          "2",
+          "http://127.0.0.1:8161/"
+        ],
+        "interval": "2s",
+        "timeout": "3s",
+        "retries": 30
+      }
+    },
+    "unrelated": {
+      "image": "httpd:2.4.62@sha256:4c7788695c832bf415a662dfb5160f1895e65fc65c025e85f436ee2c9e7d7f3e",
+      "ports": [
+        "127.0.0.1::80"
+      ],
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "httpd",
+          "-t"
+        ],
+        "interval": "2s",
+        "timeout": "3s",
+        "retries": 20
+      }
+    }
+  }
+}
