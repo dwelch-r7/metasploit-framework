@@ -65,7 +65,7 @@ class MetasploitModule < Msf::Auxiliary
   end
 
   def run
-    @s_smb_esn = datastore['SMB_EXTENDED_SECURITY']
+    @s_ntlm_esn = datastore['SMB_EXTENDED_SECURITY']
     @domain_name = datastore['DOMAIN_NAME']
     if datastore['CHALLENGE'].to_s =~ /^([a-fA-F0-9]{16})$/
       @challenge = [ datastore['CHALLENGE'] ].pack('H*')
@@ -274,14 +274,14 @@ class MetasploitModule < Msf::Auxiliary
                  when Metasploit::Framework::Hashes::JTR_NTLMV2
                    user + '::' + domain + ':' + datastore['CHALLENGE'].to_s + ':' + nt_hash + ':' + nt_cli_challenge.to_s
                  when Metasploit::Framework::Hashes::JTR_NTLMV1
-                   user + '::' + domain + ':' + lm_cli_challenge.to_s + ':' + lm_hash + ':' + datastore['CHALLENGE']
+                   user + '::' + domain + ':' + lm_hash + ':' + nt_hash + ':' + datastore['CHALLENGE']
                  end
 
       report_cred(
         ip: ip,
-        port: 445,
+        port: datastore['SRVPORT'],
         user: user,
-        sname: 'smb_client',
+        sname: 'mssql_client',
         password: jtr_hash,
         proof: "DOMAIN=#{domain}",
         type: :nonreplayable_hash,
