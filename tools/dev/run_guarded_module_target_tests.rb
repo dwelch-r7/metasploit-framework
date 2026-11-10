@@ -21,8 +21,14 @@ class GuardedModuleTargetTests < ModuleTargetTests
   def run(arguments)
     available = Dir[File.join(TARGETS, '*/manifest.yml')].map { |path| File.basename(File.dirname(path)) }
     selected = arguments == ['--all'] ? available.sort : arguments
-    # Keep the existing informational/usage behavior without Docker or a lock.
-    return super if arguments == ['--list'] || selected.empty? || (selected - available).any?
+    # Informational/usage requests must not inspect Docker or acquire the lock.
+    return super if arguments == ['--list']
+
+    if selected.empty? || (selected - available).any?
+      warn "Usage: bundle exec ruby #{SOURCE_PATH} --list | --all | FAMILY [FAMILY ...]"
+      warn "Available: #{available.sort.join(', ')}"
+      return 2
+    end
 
     @resource_refusal = nil
     lock = acquire_lock

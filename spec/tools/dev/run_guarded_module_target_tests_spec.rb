@@ -339,7 +339,9 @@ RSpec.describe GuardedModuleTargetTests do
   end
 
   it 'retains usage errors without Docker commands or locking' do
-    expect { expect(runner.run(['missing'])).to eq(2) }.to output(/Usage:/).to_stderr
+    expect { expect(runner.run(['missing'])).to eq(2) }.to output(
+      "Usage: bundle exec ruby tools/dev/run_guarded_module_target_tests.rb --list | --all | FAMILY [FAMILY ...]\nAvailable: alpha\n"
+    ).to_stderr
     expect(calls).to be_empty
     expect(File.exist?(lock_path)).to be(false)
   end
