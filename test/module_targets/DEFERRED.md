@@ -68,3 +68,44 @@ Further investigation should independently capture native process completion
 and exact returned bytes on an ordinary direct call before selecting a
 transport or module workaround. Passing redirected commands, session counts,
 recaps and focused examples alone do not qualify this deployer.
+
+## Grafana SQL expression command delivery
+
+`exploit/multi/http/grafana_sql_expressions_rce_cve_2024_9264` remains unqualified
+for command execution. Genuine Grafana 11.0.5 SQL scalar/file controls pass with
+both authenticated Viewer and anonymous policies. The corrected original-module
+baseline `20261110T154643-3d7cd7` finishes 14 examples/four failures: quoted
+Generic and reverse Bash delivery fail under both policies; fixed and
+missing-binary profiles each pass their two cases. No owning session is proved.
+
+The Unicode request advertises 4,566 bytes while sending 4,567, and the server
+reports `unexpected EOF`. The integrated byte-string encoding repair preserves
+the JSON and command bytes and passes matched 2/1 to 2/0 request-emission tests.
+Shared Rex code is unchanged. This fixes the request-length defect, but does
+not establish command execution. The ASCII Bash request reaches a separate
+vendor error: `Only SELECT statements can be serialized to json!`.
+
+The earlier 14/11 result is retained separately: Generic calls stopped at
+FileDropper's required `AllowNoCleanup` option, and anonymous cases inherited an
+incorrect authentication-policy assertion. Those failures are not eleven module
+defects. Corrected fixtures retain strict command/session/cleanup assertions,
+record output paths even when a helper raises, and distinguish anonymous Viewer
+access from successful authentication of supplied incorrect Basic credentials.
+
+A separate official 11.0.0 native comparison passes ordinary API controls but
+both original and tab-variant command probes stop at an unwritable service cache
+path, `/usr/share/grafana/.duckdb`. Both markers are absent. CLI/build HOME was
+`/var/lib/grafana`; the vendor entrypoint exports HOME from `GF_PATHS_HOME`.
+Actual service PID environment/cwd and API engine/home observations were not
+captured, so CLI extension success does not prove the service prerequisite.
+Neither algorithm is classified from this cache failure. A supported, isolated
+service-cache setup comparison is pending; startup/security/parser changes and
+extension preloading are excluded.
+
+All completed profiles retain passing owned teardown. The corrected baseline
+export is `/Users/dwelch/.codex/reports/grafana-expression-corrected-original14-20261110-3d7cd7/`
+(282 entries, manifest `a561b65ae24c02037726a128f9dd45ecca6943d9125b87e33862d1301212eaa4`).
+The legacy native/encoding export is
+`/Users/dwelch/.codex/reports/grafana-expression-legacy1100-native-20261110-e2d165/`
+(209 entries, manifest `f767aa338667b88866bc80beb1609f71e25338726bebbb1b663e5d7e90e2935a`).
+These retained failures add no passing module or functional case to the checkpoint.
