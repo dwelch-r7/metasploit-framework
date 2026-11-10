@@ -1,8 +1,9 @@
 # Single-version Druid JavaScript validation
 
-These NEW profiles are a resource-constrained continuation of the immutable
-Druid checkpoint. They have not run natively or through Framework yet. Existing
-JNDI14/session5 evidence and all original failures remain unchanged.
+These profiles are a resource-constrained continuation of the immutable Druid
+checkpoint. Both native-only gates passed on 2026-11-10 with Framework asleep.
+Their fourteen affected and one fixed Framework cases remain unqualified.
+Existing JNDI14/session5 evidence and all original failures remain unchanged.
 
 After an explicit serial runtime grant, select the affected14 and fixed1
 profiles in one canonical invocation. Each uses exactly five services: genuine
@@ -15,8 +16,27 @@ requirements. Container ceilings exclude Docker VM and host RSpec overhead.
 Native startup, actual resource limits/JVM options, healthy
 leadership/metadata, three actual rows, real authentication/denial, exact
 execution/refusal markers and no OOM must pass before module qualification.
-The low-memory PG-only extension topology itself remains unqualified until
-those gates run. No wire/compiler/LDAP sidecar or new project dependency.
+The low-memory PG-only extension topology passed those native gates. This does
+not establish resource feasibility with a live Framework console. No
+wire/compiler/LDAP sidecar or new project dependency.
+
+The actual five-service limits matched the configured 2208MiB/2.35 CPUs in
+both runs. All five services were healthy before and after the native probes,
+with no OOM kills. Affected 0.20.0 started in 56.392 seconds and passed
+32 CLI/17 HTTP controls in 11.489 seconds; fixed 0.20.1 started in 50.753 seconds
+and passed 26 CLI/17 HTTP controls in 10.423 seconds. Repeated disabled/injected
+property requests returned 400/200/400/200 on affected and 400/400/400/400 on
+fixed, with independent exact marker bytes/removal or absence. Each project
+then removed its five containers, five volumes, two networks and temporary
+Framework image alias. The first read-only preparation failed before startup
+because Compose returned memory limits as numeric strings; the adapter now
+normalizes them before checking the unchanged limits.
+
+The Framework service only ran `sleep infinity`; its measured memory does not
+represent a console's needs. Container statistics and individual cgroup peaks
+were recorded, rather than inferred from the ceilings. Neither the native gate
+nor the local observer specs prove the real Rex calibration or module cases.
+Further startup requires a separate serial runtime grant.
 
 All original fifteen case labels and two iterations remain: affected14 has
 three positive checks, five auth/path/unrelated negatives, five command forms

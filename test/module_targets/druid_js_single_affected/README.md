@@ -1,5 +1,6 @@
 # Single-version Druid affected profile
 
-See the [new shared guide](../druid_js_single/README.md) for the unqualified
-resource budget, native gates, exact cases and SOCKET-WRITE observation scope.
-No runtime qualification or startup permission is implied by this definition.
+See the [shared guide](../druid_js_single/README.md) for measured native-only
+results, the configured budget, exact cases and SOCKET-WRITE observation scope.
+The fourteen Framework cases remain unqualified. No startup permission is
+implied by this definition.

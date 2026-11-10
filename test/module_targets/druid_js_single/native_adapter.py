@@ -16,7 +16,7 @@ class SingleDruid(NativeDruid):
         self.requests = []
         config = json.loads(self.compose('config', '--format', 'json')['stdout'])
         assert set(config['services']) == {'metadata', 'zookeeper', 'app', 'gateway', 'framework'}
-        assert sum(item['mem_limit'] for item in config['services'].values()) <= 2208 * 1024 * 1024
+        assert sum(int(item['mem_limit']) for item in config['services'].values()) <= 2208 * 1024 * 1024
         assert sum(float(item['cpus']) for item in config['services'].values()) <= 2.35
         network = config['networks']['default']['name']
         assert config['networks']['default']['internal'] is True
@@ -30,7 +30,7 @@ class SingleDruid(NativeDruid):
             assert details['State']['Running'] and not details['State']['OOMKilled']
             assert details['State']['Health']['Status'] == 'healthy'
             definition = config['services'][service]
-            assert details['HostConfig']['Memory'] == definition['mem_limit']
+            assert details['HostConfig']['Memory'] == int(definition['mem_limit'])
             assert details['HostConfig']['NanoCpus'] == int(float(definition['cpus']) * 1_000_000_000)
             if service != 'framework':
                 assert '@sha256:' in definition['image']
