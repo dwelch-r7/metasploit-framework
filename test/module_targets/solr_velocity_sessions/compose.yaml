@@ -1,0 +1,13 @@
+services:
+  legacy:
+    extends: {file: ../solr_velocity/compose.yaml, service: legacy}
+  secured:
+    extends: {file: ../solr_velocity/compose.yaml, service: secured}
+  boundary:
+    extends: {file: ../solr_velocity/compose.yaml, service: boundary}
+  fixed:
+    extends: {file: ../solr_velocity/compose.yaml, service: fixed}
+  unrelated:
+    extends: {file: ../solr_velocity/compose.yaml, service: unrelated}
+  reporting_db:
+    extends: {file: ../solr_velocity/compose.yaml, service: reporting_db}

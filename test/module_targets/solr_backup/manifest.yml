@@ -1,0 +1,48 @@
+---
+spec: spec/acceptance/module_targets/solr_spec.rb
+expected_examples: 12
+console: true
+modules:
+- auxiliary/scanner/http/apache_solr_version
+- exploit/linux/http/apache_solr_backup_restore
+ports:
+  vulnerable: 8983
+  secured: 8983
+  fixed: 8983
+  unrelated: 80
+support_files:
+- data/exploits/CVE-2023-50386/conf/lang/stopwords_ar.txt
+- data/exploits/CVE-2023-50386/conf/lang/stopwords_ca.txt
+- data/exploits/CVE-2023-50386/conf/lang/stopwords_en.txt
+- data/exploits/CVE-2023-50386/conf/managed-schema.xml
+- data/exploits/CVE-2023-50386/conf/protwords.txt
+- data/exploits/CVE-2023-50386/conf/stopwords.txt
+- data/exploits/CVE-2023-50386/conf/synonyms.txt
+- data/exploits/CVE-2023-50386/solrconfig.xml
+- lib/msf/base/sessions/command_shell.rb
+- lib/msf/base/sessions/meterpreter.rb
+- lib/msf/core/auxiliary/report.rb
+- lib/msf/core/db_manager/cred.rb
+- lib/msf/core/db_manager/session.rb
+- lib/msf/core/exploit/java.rb
+- lib/msf/core/exploit/remote/auto_check.rb
+- lib/msf/core/exploit/remote/http/apache_solr.rb
+- lib/msf/core/exploit/remote/http_client.rb
+- lib/msf/core/handler.rb
+- lib/msf/core/handler/reverse_tcp.rb
+- lib/msf/core/payload/adapter/fetch.rb
+- lib/msf/core/payload/adapter/fetch/http.rb
+- lib/msf/core/payload/adapter/fetch/linux_options.rb
+- lib/msf/core/payload/adapter/fetch/server/http.rb
+- modules/payloads/adapters/cmd/linux/http/x64.rb
+- modules/payloads/singles/cmd/unix/generic.rb
+- modules/payloads/stagers/linux/x64/reverse_tcp.rb
+- modules/payloads/stages/linux/x64/meterpreter.rb
+- spec/support/shared/contexts/wait_for_expect.rb
+- test/module_targets/credential_reporting/compose.yaml
+- test/module_targets/solr_velocity/native_client.py
+- test/module_targets/solr_velocity/native_probe.py
+- documentation/modules/auxiliary/scanner/http/apache_solr_version.md
+- documentation/modules/exploit/multi/http/apache_solr_backup_restore.md
+test_env:
+  SOLR_TARGET_PROFILE: backup

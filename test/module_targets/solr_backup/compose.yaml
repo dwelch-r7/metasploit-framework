@@ -1,0 +1,34 @@
+x-solr: &solr
+  command: [solr-foreground, -c]
+  environment:
+    SOLR_HEAP: 256m
+  ports: ["127.0.0.1::8983"]
+  mem_limit: 1g
+  healthcheck:
+    test: [CMD-SHELL, "curl --fail --silent --user solr:module-target-solr-password 'http://127.0.0.1:8983/solr/admin/info/system?wt=json' >/dev/null"]
+    interval: 3s
+    timeout: 5s
+    retries: 40
+
+services:
+  compiler:
+    image: eclipse-temurin:17-jdk-jammy@sha256:057a0daec60e87c96571bf5c9c7792065bcb19e804d584cd37d4144038a35717
+    volumes:
+      - ${MODULE_TARGET_ARTIFACTS:?Set by the module target runner}:/work
+    command: [sleep, infinity]
+    mem_limit: 256m
+  vulnerable:
+    <<: *solr
+    image: solr:9.0.0@sha256:5103aea19a40a3462f612cd816d8ba6d0f58ff3ff5bf3930298393068797e83d
+  secured:
+    <<: *solr
+    image: solr:9.0.0@sha256:5103aea19a40a3462f612cd816d8ba6d0f58ff3ff5bf3930298393068797e83d
+  fixed:
+    <<: *solr
+    image: solr:9.4.1@sha256:96e915755c6e0f40200e6a0306e959ed5c2b24b871fef2c34f436a1ca4796f4e
+  unrelated:
+    image: httpd:2.4.62@sha256:4c7788695c832bf415a662dfb5160f1895e65fc65c025e85f436ee2c9e7d7f3e
+    ports: ["127.0.0.1::80"]
+    mem_limit: 64m
+  reporting_db:
+    extends: {file: ../credential_reporting/compose.yaml, service: reporting_db}

@@ -1,0 +1,31 @@
+x-solr: &solr
+  command: [solr-foreground, -c]
+  environment:
+    SOLR_HEAP: 256m
+  ports: ["127.0.0.1::8983"]
+  mem_limit: 1g
+  healthcheck:
+    test: [CMD-SHELL, "curl --fail --silent --user solr:module-target-solr-password 'http://127.0.0.1:8983/solr/admin/info/system?wt=json' >/dev/null"]
+    interval: 3s
+    timeout: 5s
+    retries: 40
+
+services:
+  legacy:
+    <<: *solr
+    image: solr:8.3.0@sha256:89464b357dfcd8aa0de839631526c7452c42fb198f4eb96c81ddd03aac00893e
+  secured:
+    <<: *solr
+    image: solr:8.3.0@sha256:89464b357dfcd8aa0de839631526c7452c42fb198f4eb96c81ddd03aac00893e
+  boundary:
+    <<: *solr
+    image: solr:8.3.1@sha256:14a08dec38989099cf4e5251358bc0946b39e43ac764386bd78a12b4f2eb16e2
+  fixed:
+    <<: *solr
+    image: solr:8.4.0@sha256:060fcb87c779d9e9839a61f41bac53de23f9be75d7be2950640a8ecc3d95f248
+  unrelated:
+    image: httpd:2.4.62@sha256:4c7788695c832bf415a662dfb5160f1895e65fc65c025e85f436ee2c9e7d7f3e
+    ports: ["127.0.0.1::80"]
+    mem_limit: 64m
+  reporting_db:
+    extends: {file: ../credential_reporting/compose.yaml, service: reporting_db}

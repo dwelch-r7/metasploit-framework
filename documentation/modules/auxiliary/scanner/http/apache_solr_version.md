@@ -14,6 +14,9 @@ evidence for the host.
 
 ### Docker Installs
 
+For pinned targets with native version/authentication controls and database
+reporting checks, see the [reusable Solr test guide](../../../../../test/module_targets/solr_velocity/README.md).
+
 Pick the version you want to run, and run it.
 
 ```

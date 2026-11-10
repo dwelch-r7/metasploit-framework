@@ -1,0 +1,43 @@
+---
+spec: spec/acceptance/module_targets/solr_spec.rb
+expected_examples: 10
+console: true
+modules:
+- auxiliary/scanner/http/apache_solr_version
+- exploit/multi/http/solr_velocity_rce
+ports:
+  legacy: 8983
+  secured: 8983
+  boundary: 8983
+  fixed: 8983
+  unrelated: 80
+support_files:
+- lib/msf/base/sessions/command_shell.rb
+- lib/msf/base/sessions/meterpreter.rb
+- lib/msf/core/auxiliary/report.rb
+- lib/msf/core/db_manager/cred.rb
+- lib/msf/core/db_manager/session.rb
+- lib/msf/core/exploit/cmd_stager.rb
+- lib/msf/core/exploit/remote/http_client.rb
+- lib/msf/core/exploit/remote/http_server.rb
+- lib/msf/core/exploit/remote/java/http/class_loader.rb
+- lib/msf/core/handler.rb
+- lib/msf/core/handler/reverse_tcp.rb
+- lib/msf/core/payload/java.rb
+- lib/msf/core/payload/java/meterpreter_loader.rb
+- lib/msf/core/payload/java/payload_options.rb
+- lib/msf/core/payload/java/reverse_tcp.rb
+- modules/payloads/singles/cmd/unix/generic.rb
+- modules/payloads/singles/cmd/unix/reverse_bash.rb
+- modules/payloads/stagers/java/reverse_tcp.rb
+- modules/payloads/stagers/linux/x64/reverse_tcp.rb
+- modules/payloads/stages/java/meterpreter.rb
+- modules/payloads/stages/linux/x64/meterpreter.rb
+- spec/support/shared/contexts/wait_for_expect.rb
+- test/module_targets/credential_reporting/compose.yaml
+- test/module_targets/solr_velocity/native_client.py
+- test/module_targets/solr_velocity/native_probe.py
+- documentation/modules/auxiliary/scanner/http/apache_solr_version.md
+- documentation/modules/exploit/multi/http/solr_velocity_rce.md
+test_env:
+  SOLR_TARGET_PROFILE: velocity
