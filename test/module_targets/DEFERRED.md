@@ -72,7 +72,7 @@ recaps and focused examples alone do not qualify this deployer.
 ## Grafana SQL expression command delivery
 
 `exploit/multi/http/grafana_sql_expressions_rce_cve_2024_9264` remains unqualified
-for command execution. Genuine Grafana 11.0.5 SQL scalar/file controls pass with
+in the complete functional corpus. Genuine Grafana 11.0.5 SQL scalar/file controls pass with
 both authenticated Viewer and anonymous policies. The corrected original-module
 baseline `20261110T154643-3d7cd7` finishes 14 examples/four failures: quoted
 Generic and reverse Bash delivery fail under both policies; fixed and
@@ -98,9 +98,27 @@ path, `/usr/share/grafana/.duckdb`. Both markers are absent. CLI/build HOME was
 `/var/lib/grafana`; the vendor entrypoint exports HOME from `GF_PATHS_HOME`.
 Actual service PID environment/cwd and API engine/home observations were not
 captured, so CLI extension success does not prove the service prerequisite.
-Neither algorithm is classified from this cache failure. A supported, isolated
-service-cache setup comparison is pending; startup/security/parser changes and
-extension preloading are excluded.
+Neither algorithm is classified from this cache failure. A subsequent isolated
+service-cache comparison passes with the unchanged vendor startup and security
+policy. Actual PID1 and CLI HOME/cwd are `/usr/share/grafana`; the API identifies
+DuckDB 1.1.2, signed-extension enforcement and the installed, initially unloaded
+shellfs cache. Both original and tab-variant API batches produce exact separate
+UID472 markers and restore state. This is native observation independent of
+Framework execution; the original algorithm was copied for diagnosis.
+
+The subsequent Framework invocation `20261110T171141-3be751` finishes 14 examples
+with four fixture/cascade failures: affected 11.0.0 is 7/1, independent fixed
+11.0.5+security-01 is 2/0, missing-binary 11.0.5 is 2/0, and anonymous-prefix
+11.0.0 is 3/3. Generic command proofs pass before foreground shell entry.
+Plain `run` then enters the actual CommandShell dispatcher, so later `sessions
+-K` and `back` reach that dispatcher or remote shell instead of msfconsole.
+Subsequent calls without an owning request cannot establish module delivery.
+The supported `run -z` option and independent real CommandShell use/exit/PID/
+host-close calibration require fixture validation before another owning run.
+The original 72 inputs and failures remain preserved; no algorithm change is
+justified by these console failures. All four profiles pass owned teardown;
+the parent repeats 16 exact-object absence checks, 12 project-label queries and
+an empty global container inventory after removing unrelated tool containers.
 
 All completed profiles retain passing owned teardown. The corrected baseline
 export is `/Users/dwelch/.codex/reports/grafana-expression-corrected-original14-20261110-3d7cd7/`

@@ -927,3 +927,13 @@ export. All nine containers, six networks and three volumes are absent, with
 nine empty project-label queries and an empty global container inventory.
 Sessions, fetch delivery, Windows, built-in roles and other data combinations
 remain pending. The one-project/five-container cap remains in effect.
+
+After GeoServer, four unrelated AWS/GitHub MCP tool containers reappeared during
+the Grafana follow-up. Their exact IDs were removed at 17:27:54 UTC, preserving
+images and volumes; cumulative unrelated removals are 41. The cause of their
+recreation is unproven. A bounded, task-local host check now removes only these
+known unlabeled tool images and skips Compose-owned targets. Global MCP settings
+and the reusable runner's refusal of unrelated containers remain unchanged.
+The Grafana follow-up's 14/four console-fixture result and all exact owned
+teardown checks are retained in [deferred investigations](DEFERRED.md); no new
+module or functional case is added to the 176/111/1,379 checkpoint.
