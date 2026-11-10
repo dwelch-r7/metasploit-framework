@@ -737,3 +737,14 @@ shared spec's older profile current. Both have twelve used sessions, matching
 input hashes and owned cleanup. Native controls preserve the stock Java17
 default-spawn failure rather than relabelling it as repaired. No production,
 SDK, runner or timeout change is needed for the bounded Java8 profile.
+
+## Genuine Gitea execution checkpoint
+
+The [current checkpoint](VERIFICATION-20261110-gitea.md) qualifies152runtime
+modules,80families and1,097cases. Two fourteen-case Gitea profiles retain matched
+original/final evidence, native API/UI/migration controls, twelve used sessions
+and36exact restoration receipts. Three separate owning repairs address rotated
+cookies/prefixed paths/branded404 detection, migration href joining and cleanup
+after policy refusal. Parent focused tests pass27/0; current hashes and exact
+resource absence pass. Documented Windows/multicommand/same-instance and other
+qualification gaps remain open rather than counted as coverage.

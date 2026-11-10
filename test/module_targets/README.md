@@ -292,12 +292,18 @@ native authentication controls, exact reporting and workspace isolation.
 Readiness and expected-negative fixture failures remain separate from module
 verdicts. WordPress admin sessions remain explicitly unqualified. SIP, Gitea,
 remaining NiFi modules and other feasible targets continue separately.
-The [current integrated checkpoint](VERIFICATION-20261110-tomcat-defaults.md)
+The [Tomcat checkpoint](VERIFICATION-20261110-tomcat-defaults.md)
 records **150 runtime modules, 78 families and 1,069 functional cases**. A
 separate stock Java8 profile passes14 cases with real default Spawn2 and twelve
 used sessions. The strengthened shared spec also passes a fresh Java17 explicit
 Spawn0 replay. Native identical-payload controls retain the Java17 default-spawn
 limitation. Current hashes and owned teardown pass for both profiles.
+The [current integrated checkpoint](VERIFICATION-20261110-gitea.md) records
+**152 runtime modules, 80 families and 1,097 functional cases**. Two Gitea
+execution modules pass28 cases after separate cookie/path/detection, migration
+href and confirmed-ownership cleanup repairs. Native controls precede46 public
+calls and twelve used sessions; parent focused tests pass27 examples. All current
+input hashes and owned teardown pass.
 The full campaign remains incomplete while feasible, valuable modules await review
 or functional verification.
 See [deferred investigations](DEFERRED.md) for retained failures that remain
