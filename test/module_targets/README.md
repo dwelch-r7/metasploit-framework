@@ -268,14 +268,19 @@ found IMAP parser/completion follow-up. Genuine [Flink](VERIFICATION-20261110-fl
 file reads and Java sessions add 24 cases; [Jolokia](VERIFICATION-20261110-jolokia.md)
 adds 18 while preserving existing broker bridges and cleaning only confirmed
 owned connectors. All selected input hashes, exact counts and owned teardown
-pass. The [current integrated checkpoint](VERIFICATION-20261110-nfs-reader.md)
+pass. The [NFS/reader checkpoint](VERIFICATION-20261110-nfs-reader.md)
 records **145 runtime modules, 73 families and 1,002 functional cases**. Two
 [NFS/RPC scanners](VERIFICATION-20261110-nfs.md) add 18 cases after a captured
 UNFS3 export-marker repair. The [ActiveMQ source reader](VERIFICATION-20261110-activemq-disclosure.md)
 adds eight cases with exact stock JSP bytes and fixed/unrelated refusals.
 A separate Flink discovery repair passes a fresh 24-case runtime replay.
-WordPress admin sessions remain explicitly unqualified. Additional database
-capture, FileServer, SIP and Gitea work continues separately.
+The [current integrated checkpoint](VERIFICATION-20261110-database-capture.md)
+records **147 runtime modules, 75 families and 1,031 functional cases**. Genuine
+MySQL/MSSQL clients add 29 capture cases after separate binary-response,
+empty-password and NTLM reporting repairs. Native wire and direct SQL verify
+actual bytes/context while preserving UNTRIED semantics; parent focused tests
+pass 77 examples. WordPress admin sessions remain explicitly unqualified.
+FileServer, SIP and Gitea work continues separately.
 The full campaign remains incomplete while feasible, valuable modules await review
 or functional verification.
 See [deferred investigations](DEFERRED.md) for retained failures that remain

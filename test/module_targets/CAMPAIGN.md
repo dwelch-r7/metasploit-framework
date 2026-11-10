@@ -662,8 +662,6 @@ and [integrated checkpoint](VERIFICATION-20261110-capture.md). WordPress and
 Ansible remain unqualified in the [deferred index](DEFERRED.md). NFS, legacy
 ActiveMQ and additional database capture qualification continue separately.
 
-## Remaining work
-
 The [NFS/reader checkpoint](VERIFICATION-20261110-nfs-reader.md) now establishes
 **145 runtime modules, 73 families and 1,002 functional cases**. NFS adds two
 scanners and 18 cases after native access and official source prove the exact
@@ -676,6 +674,19 @@ reproduced and repaired with a Flink profile default; a fresh 15/0 plus 9/0
 replay and acceptance-excluded discovery pass. Historical evidence remains
 unchanged. Database capture, legacy FileServer, SIP and Gitea continue in
 separate worktrees; the full campaign remains incomplete.
+
+The [database capture checkpoint](VERIFICATION-20261110-database-capture.md)
+establishes **147 runtime modules, 75 families and 1,031 functional cases**.
+Seventeen MySQL and twelve MSSQL cases pass against genuine clients after three
+owning source commits. Exact native wire and direct SQL verify 25 complete
+UNTRIED credential graphs and 36 John lines. Original owner failures remain
+separate from passive-job and joined-row observation corrections. The parent
+passes 77 focused examples, six-file lint and excluded acceptance discovery,
+checks all current inputs and independently verifies the 3,296-entry worker seal.
+FileServer, SIP and Gitea continue; unqualified WordPress/Ansible investigations
+remain retained.
+
+## Remaining work
 
 - Review existing protocol suites and supply reusable managed containers.
 - Review container hints across module documentation and reuse viable labs.

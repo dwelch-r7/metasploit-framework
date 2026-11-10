@@ -1,5 +1,8 @@
 # Integrated NFS and ActiveMQ reader checkpoint, November 10
 
+This retained checkpoint precedes the
+[147-module database capture checkpoint](VERIFICATION-20261110-database-capture.md).
+
 Current input hashes, exact passing counts and owned teardown establish
 **145 runtime modules, 73 families and 1,002 functional cases**. This adds two
 [NFS/RPC scanners](VERIFICATION-20261110-nfs.md) and the genuine
