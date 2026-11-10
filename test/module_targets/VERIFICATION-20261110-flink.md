@@ -84,3 +84,28 @@ client certificates, non-TCP handlers, optional payload modes or database
 credential reporting. Disabled submission still requires the explicitly recorded
 operator staging cleanup. The patched traversal release intentionally continues
 to support normal JAR submission.
+
+## Acceptance discovery follow-up
+
+The fork's Verify run `42745125852` at checkpoint
+`2e05634257939ee07a199fdf745af45a2a987308` fails during collection, before any
+examples: the acceptance spec unconditionally fetches `FLINK_TARGET_PROFILE`.
+The parent independently reproduces the same `KeyError` with acceptance excluded.
+This is a test-discovery defect, not a target/module failure or a green CI result.
+
+A separate one-line repair defaults discovery to `read`. Both manifests still
+explicitly select their profile; no branch or functional assertion changes.
+Acceptance-excluded discovery now passes seven ancillary examples with no
+outside-example errors. Explicit dry discovery still selects 15 read and nine
+execution cases. Spec lint is clean.
+
+Fresh integrated invocation `20261110T034327-b208b4` requalifies the changed spec:
+read **15/0 in 84.829864 seconds**, execution **9/0 in 212.775432 seconds**.
+Both complete naturally, have zero pending/outside-example errors and pass
+teardown. All 47/62 recorded inputs are current, with 66 distinct input paths.
+Independent exact-label audits cover both original and new imported projects
+per profile, with no remaining resources or recorded volumes. This replay has
+its own actual prompt/BOOT and parsed atomic metadata receipts; prior evidence
+is unchanged. The separate parent seal is linked from the
+[new integrated checkpoint](VERIFICATION-20261110-nfs-reader.md). CI after the
+next push must still be assessed at that exact new revision.

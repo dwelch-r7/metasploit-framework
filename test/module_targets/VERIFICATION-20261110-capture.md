@@ -1,5 +1,8 @@
 # Capture protocols and integrated checkpoint, November 10
 
+This retained checkpoint precedes the
+[145-module NFS/reader checkpoint](VERIFICATION-20261110-nfs-reader.md).
+
 Current recorded inputs, exact passing counts and owned teardown establish
 **142 runtime modules, 71 families and 976 functional cases**. This adds six
 capture modules, two [Flink modules](VERIFICATION-20261110-flink.md) and

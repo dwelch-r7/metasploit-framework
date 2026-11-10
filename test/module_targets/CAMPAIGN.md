@@ -664,6 +664,19 @@ ActiveMQ and additional database capture qualification continue separately.
 
 ## Remaining work
 
+The [NFS/reader checkpoint](VERIFICATION-20261110-nfs-reader.md) now establishes
+**145 runtime modules, 73 families and 1,002 functional cases**. NFS adds two
+scanners and 18 cases after native access and official source prove the exact
+UNFS3 unrestricted-export marker. Parent documentation-only comments are tested
+in a fresh 18/0 replay. The ActiveMQ source reader adds eight cases after exact
+stock JSP/native response comparisons separate a URI fixture mistake from
+actual source-selection and HTTP 200 false-positive defects. Parent focused
+tests pass 20/0 and 22/0. The prior fork Verify collection failure is independently
+reproduced and repaired with a Flink profile default; a fresh 15/0 plus 9/0
+replay and acceptance-excluded discovery pass. Historical evidence remains
+unchanged. Database capture, legacy FileServer, SIP and Gitea continue in
+separate worktrees; the full campaign remains incomplete.
+
 - Review existing protocol suites and supply reusable managed containers.
 - Review container hints across module documentation and reuse viable labs.
 - Expand through reusable network service and web application families.
