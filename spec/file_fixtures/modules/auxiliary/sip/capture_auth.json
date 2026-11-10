@@ -1,0 +1,120 @@
+{
+  "origin": "tmp/module-target-tests/20261110T071647-a94805/sip_capture/client.pcap",
+  "origin_sha256": "cb0307130570943a717d33593c8d8fb31203517b758c9471fa32280f640ecdd1",
+  "linktype": "Ethernet/IPv4 UDP; exact datagrams preserved without normalization",
+  "captures": [
+    {
+      "client": "sipsak-custom",
+      "source": "172.27.0.6",
+      "source_port": 5099,
+      "target": "172.27.0.3",
+      "target_port": 5060,
+      "packet_seconds": 1794295127,
+      "packet_micros": 83090,
+      "request_base64": "UkVHSVNURVIgc2lwOjE3Mi4yNy4wLjM6NTA2MCBTSVAvMi4wDQpBdXRob3JpemF0aW9uOiBEaWdlc3QgdXNlcm5hbWU9IjEwMDEiLCB1cmk9InNpcDoxNzIuMjcuMC4zOjUwNjAiLCBhbGdvcml0aG09TUQ1LCByZWFsbT0ibW9kdWxlLXRhcmdldC1jYXB0dXJlIiwgbm9uY2U9IjAwMjI0NDY2ODgiLCByZXNwb25zZT0iOGE5ZWE4YTVlMmQ3NDM5Y2RjMmIxZGNlYzJhYjU1YWUiDQpWaWE6IFNJUC8yLjAvVURQIDE3Mi4yNy4wLjY6NTA5OTticmFuY2g9ejloRzRiSy4xZDg3YTMzMjtycG9ydDthbGlhcw0KRnJvbTogc2lwOjEwMDFAMTcyLjI3LjAuMzo1MDYwO3RhZz01YzExNWE0Nw0KVG86IHNpcDoxMDAxQDE3Mi4yNy4wLjM6NTA2MA0KQ2FsbC1JRDogMTU0NDY0MTA5NUAxNzIuMjcuMC42DQpDU2VxOiAyIFJFR0lTVEVSDQpDb250ZW50LUxlbmd0aDogMA0KTWF4LUZvcndhcmRzOiA3MA0KVXNlci1BZ2VudDogc2lwc2FrIDAuOS44LjENCkV4cGlyZXM6IDANCkNvbnRhY3Q6IHNpcDoxMDAxQDE3Mi4yNy4wLjY6NTA5OTt0cmFuc3BvcnQ9dWRwDQoNCg==",
+      "request_uri": "sip:172.27.0.3:5060",
+      "authorization": {
+        "username": "1001",
+        "uri": "sip:172.27.0.3:5060",
+        "algorithm": "MD5",
+        "realm": "module-target-capture",
+        "nonce": "0022446688",
+        "response": "8a9ea8a5e2d7439cdc2b1dcec2ab55ae"
+      },
+      "expected_hash": "$sip$*172.27.0.3*172.27.0.6*1001*module-target-capture*REGISTER*sip*172.27.0.3*5060*0022446688****MD5*8a9ea8a5e2d7439cdc2b1dcec2ab55ae",
+      "reference_digest_verified": true,
+      "legacy_hash": "$sip$*172.27.0.3*172.27.0.6*1001*module-target-capture*REGISTER*sip*172.27.0.3:5060*0022446688****MD5*8a9ea8a5e2d7439cdc2b1dcec2ab55ae"
+    },
+    {
+      "client": "sipp-default",
+      "source": "172.27.0.6",
+      "source_port": 5098,
+      "target": "172.27.0.3",
+      "target_port": 5060,
+      "packet_seconds": 1794295135,
+      "packet_micros": 957896,
+      "request_base64": "UkVHSVNURVIgc2lwOjE3Mi4yNy4wLjMgU0lQLzIuMA0KVmlhOiBTSVAvMi4wL1VEUCAxNzIuMjcuMC42OjUwOTg7YnJhbmNoPXo5aEc0YkstNjI4LTEtMjtycG9ydA0KRnJvbTogMTAwMSA8c2lwOjEwMDFAMTcyLjI3LjAuMz47dGFnPTENClRvOiAxMDAxIDxzaXA6MTAwMUAxNzIuMjcuMC4zPg0KQ2FsbC1JRDogMS02MjhAMTcyLjI3LjAuNg0KQ1NlcTogMiBSRUdJU1RFUg0KQ29udGFjdDogPHNpcDoxMDAxQDE3Mi4yNy4wLjY6NTA5ODt0cmFuc3BvcnQ9VURQPg0KRXhwaXJlczogMA0KQXV0aG9yaXphdGlvbjogRGlnZXN0IHVzZXJuYW1lPSIxMDAxIixyZWFsbT0iMTcyLjI3LjAuNiIsdXJpPSJzaXA6MTcyLjI3LjAuMzo1MDYwIixub25jZT0iMTIzNCIscmVzcG9uc2U9IjU2Y2FhMTQ4YTdiNzVmMDI3Zjk5OTk1ZDNjYzU4ZjQ1IixhbGdvcml0aG09TUQ1DQpDb250ZW50LUxlbmd0aDogMA0KDQo=",
+      "request_uri": "sip:172.27.0.3",
+      "authorization": {
+        "username": "1001",
+        "realm": "172.27.0.6",
+        "uri": "sip:172.27.0.3:5060",
+        "nonce": "1234",
+        "response": "56caa148a7b75f027f99995d3cc58f45",
+        "algorithm": "MD5"
+      },
+      "expected_hash": "$sip$*172.27.0.3*172.27.0.6*1001*172.27.0.6*REGISTER*sip*172.27.0.3*5060*1234****MD5*56caa148a7b75f027f99995d3cc58f45",
+      "reference_digest_verified": true,
+      "legacy_hash": "$sip$*172.27.0.3*172.27.0.6*1001*172.27.0.6*REGISTER*sip*172.27.0.3:5060*1234****MD5*56caa148a7b75f027f99995d3cc58f45"
+    },
+    {
+      "client": "sipp-custom",
+      "source": "172.27.0.6",
+      "source_port": 5098,
+      "target": "172.27.0.3",
+      "target_port": 5060,
+      "packet_seconds": 1794295147,
+      "packet_micros": 428825,
+      "request_base64": "UkVHSVNURVIgc2lwOjE3Mi4yNy4wLjMgU0lQLzIuMA0KVmlhOiBTSVAvMi4wL1VEUCAxNzIuMjcuMC42OjUwOTg7YnJhbmNoPXo5aEc0YkstNzE3LTEtMjtycG9ydA0KRnJvbTogMTAwMSA8c2lwOjEwMDFAMTcyLjI3LjAuMz47dGFnPTENClRvOiAxMDAxIDxzaXA6MTAwMUAxNzIuMjcuMC4zPg0KQ2FsbC1JRDogMS03MTdAMTcyLjI3LjAuNg0KQ1NlcTogMiBSRUdJU1RFUg0KQ29udGFjdDogPHNpcDoxMDAxQDE3Mi4yNy4wLjY6NTA5ODt0cmFuc3BvcnQ9VURQPg0KRXhwaXJlczogMA0KQXV0aG9yaXphdGlvbjogRGlnZXN0IHVzZXJuYW1lPSIxMDAxIixyZWFsbT0ibW9kdWxlLXRhcmdldC1jYXB0dXJlIix1cmk9InNpcDoxNzIuMjcuMC4zOjUwNjAiLG5vbmNlPSIwMDIyNDQ2Njg4IixyZXNwb25zZT0iOGE5ZWE4YTVlMmQ3NDM5Y2RjMmIxZGNlYzJhYjU1YWUiLGFsZ29yaXRobT1NRDUNCkNvbnRlbnQtTGVuZ3RoOiAwDQoNCg==",
+      "request_uri": "sip:172.27.0.3",
+      "authorization": {
+        "username": "1001",
+        "realm": "module-target-capture",
+        "uri": "sip:172.27.0.3:5060",
+        "nonce": "0022446688",
+        "response": "8a9ea8a5e2d7439cdc2b1dcec2ab55ae",
+        "algorithm": "MD5"
+      },
+      "expected_hash": "$sip$*172.27.0.3*172.27.0.6*1001*module-target-capture*REGISTER*sip*172.27.0.3*5060*0022446688****MD5*8a9ea8a5e2d7439cdc2b1dcec2ab55ae",
+      "reference_digest_verified": true,
+      "legacy_hash": "$sip$*172.27.0.3*172.27.0.6*1001*module-target-capture*REGISTER*sip*172.27.0.3:5060*0022446688****MD5*8a9ea8a5e2d7439cdc2b1dcec2ab55ae"
+    },
+    {
+      "client": "sipsak-default",
+      "source": "172.27.0.6",
+      "source_port": 5099,
+      "target": "172.27.0.3",
+      "target_port": 5060,
+      "packet_seconds": 1794295157,
+      "packet_micros": 26911,
+      "request_base64": "UkVHSVNURVIgc2lwOjE3Mi4yNy4wLjM6NTA2MCBTSVAvMi4wDQpBdXRob3JpemF0aW9uOiBEaWdlc3QgdXNlcm5hbWU9IjEwMDEiLCB1cmk9InNpcDoxNzIuMjcuMC4zOjUwNjAiLCBhbGdvcml0aG09TUQ1LCByZWFsbT0iMTcyLjI3LjAuNiIsIG5vbmNlPSIxMjM0IiwgcmVzcG9uc2U9IjU2Y2FhMTQ4YTdiNzVmMDI3Zjk5OTk1ZDNjYzU4ZjQ1Ig0KVmlhOiBTSVAvMi4wL1VEUCAxNzIuMjcuMC42OjUwOTk7YnJhbmNoPXo5aEc0YksuNDU1YThlMWY7cnBvcnQ7YWxpYXMNCkZyb206IHNpcDoxMDAxQDE3Mi4yNy4wLjM6NTA2MDt0YWc9MzE2N2U4ZDkNClRvOiBzaXA6MTAwMUAxNzIuMjcuMC4zOjUwNjANCkNhbGwtSUQ6IDgyODg5MzQwMUAxNzIuMjcuMC42DQpDU2VxOiAyIFJFR0lTVEVSDQpDb250ZW50LUxlbmd0aDogMA0KTWF4LUZvcndhcmRzOiA3MA0KVXNlci1BZ2VudDogc2lwc2FrIDAuOS44LjENCkV4cGlyZXM6IDANCkNvbnRhY3Q6IHNpcDoxMDAxQDE3Mi4yNy4wLjY6NTA5OTt0cmFuc3BvcnQ9dWRwDQoNCg==",
+      "request_uri": "sip:172.27.0.3:5060",
+      "authorization": {
+        "username": "1001",
+        "uri": "sip:172.27.0.3:5060",
+        "algorithm": "MD5",
+        "realm": "172.27.0.6",
+        "nonce": "1234",
+        "response": "56caa148a7b75f027f99995d3cc58f45"
+      },
+      "expected_hash": "$sip$*172.27.0.3*172.27.0.6*1001*172.27.0.6*REGISTER*sip*172.27.0.3*5060*1234****MD5*56caa148a7b75f027f99995d3cc58f45",
+      "reference_digest_verified": true,
+      "legacy_hash": "$sip$*172.27.0.3*172.27.0.6*1001*172.27.0.6*REGISTER*sip*172.27.0.3:5060*1234****MD5*56caa148a7b75f027f99995d3cc58f45"
+    }
+  ],
+  "upstream_qop": {
+    "origin": "https://github.com/openwall/john/blob/37bebbe4b6442c8dd3888e5848ef062c0783e9f3/src/sip_fmt_plug.c",
+    "source_sha256": "060d608561671e48b3479d36e5e04be5f70af6e21da555127d1e488ac1c3dc1c",
+    "hash": "$sip$*192.168.44.162*192.168.44.11*12315*asterisk*REGISTER*sip*192.168.44.11**825f321ad9886ef434788ebfb8dbf150*b78b5a31*00000001*auth*MD5*23802bb930873797f0c7a1f0e595a94e",
+    "password": "abc",
+    "authorization": {
+      "username": "12315",
+      "realm": "asterisk",
+      "uri": "sip:192.168.44.11",
+      "nonce": "825f321ad9886ef434788ebfb8dbf150",
+      "cnonce": "b78b5a31",
+      "nc": "00000001",
+      "qop": "auth",
+      "algorithm": "MD5",
+      "response": "23802bb930873797f0c7a1f0e595a94e"
+    }
+  },
+  "format_verification": {
+    "john_commit": "37bebbe4b6442c8dd3888e5848ef062c0783e9f3",
+    "native_image": "sha256:b2a979b814aa2b6c345bf3697952a3b9105ab598b72e60bd426e93d037ab896f",
+    "old_13_delimiters": "No password hashes loaded",
+    "correct_14_delimiters": "4 captured records recovered, 2 unique hashes, 0 left",
+    "wrong_request_uri": "2 recovered, 2 left",
+    "qop_vector": "abc recovered, 0 left"
+  }
+}

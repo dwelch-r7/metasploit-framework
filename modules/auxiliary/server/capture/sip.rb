@@ -48,13 +48,64 @@ class MetasploitModule < Msf::Auxiliary
   end
 
   def sip_parse_authorization(data)
-    kvps = {}
-    kvps['scheme'] = data.slice!(0, data.index(' '))
-    data.split(/,\s?/).each do |item|
-      tokens = item.scan(/^\s?([^=]*)="?(.*?)"?$/)[0]
-      kvps[tokens[0]] = tokens[1]
+    scheme, parameters = data.split(/\s+/, 2)
+    return unless scheme&.casecmp?('Digest') && parameters
+
+    kvps = { 'scheme' => scheme }
+    parameters.split(/,\s*/).each do |item|
+      tokens = item.match(/\A\s*([a-zA-Z][a-zA-Z0-9_-]*)=(?:"([^"]*)"|([^"\s,]+))\s*\z/)
+      return nil unless tokens
+
+      key = tokens[1].downcase
+      return nil if kvps.key?(key)
+
+      kvps[key] = tokens[2] || tokens[3]
     end
     kvps
+  end
+
+  # John reconstructs the signed URI from three fields, including an empty
+  # port/suffix when absent. Keep these exact components for MD5 input.
+  # https://github.com/openwall/john/blob/37bebbe4b6442c8dd3888e5848ef062c0783e9f3/src/sip_fmt_plug.c
+  # @param request [Hash] The captured SIP request and its method.
+  # @param tokens [Hash, nil] Parsed Digest Authorization parameters.
+  # @param server_ip [String] The capture listener's address.
+  # @param client_ip [String] The actual requesting client's address.
+  # @return [String, nil] A complete John SIP hash, or nil for unsupported input.
+  def sip_digest_hash(request, tokens, server_ip, client_ip)
+    required = %w[username realm uri nonce response]
+    unless tokens && required.all? { |name| tokens[name].is_a?(String) && !tokens[name].empty? }
+      vprint_error('Skipping SIP Digest capture: Missing required authentication fields')
+      return
+    end
+
+    algorithm = tokens.fetch('algorithm', 'MD5')
+    qop = tokens.fetch('qop', '')
+    unless algorithm.casecmp?('MD5') && (qop.empty? || qop.casecmp?('auth'))
+      vprint_error('Skipping SIP Digest capture: John SIP supports MD5 with no qop or qop=auth')
+      return
+    end
+    unless qop.empty? || (tokens['cnonce'].is_a?(String) && !tokens['cnonce'].empty? && tokens['nc']&.match?(/\A[0-9a-fA-F]{8}\z/))
+      vprint_error('Skipping SIP Digest capture: qop=auth requires cnonce and an eight-digit nonce count')
+      return
+    end
+
+    scheme, resource, suffix = tokens['uri'].split(':', 3)
+    unless %w[sip sips].include?(scheme&.downcase) && resource && !resource.empty? && tokens['response'].match?(/\A[0-9a-fA-F]{32}\z/)
+      vprint_error('Skipping SIP Digest capture: Invalid signed SIP URI or MD5 response')
+      return
+    end
+
+    fields = ['$sip$', server_ip, client_ip, tokens['username'], tokens['realm'], request[:method], scheme, resource, suffix.to_s, tokens['nonce'], tokens.fetch('cnonce', ''), tokens.fetch('nc', ''), qop, 'MD5', tokens['response'].downcase]
+    # These bounds and delimiters come from the pinned format's valid() contract.
+    limits = [nil, 256, 256, 128, 256, 16, nil, nil, nil, 128, 128, 8, 12, 8, 32]
+    representable = fields.zip(limits).all? { |value, limit| value.is_a?(String) && !value.match?(/[*:\r\n]/) && (!limit || value.bytesize <= limit) }
+    unless representable && [scheme, resource, suffix.to_s].sum(&:bytesize) <= 256
+      vprint_error('Skipping SIP Digest capture: Authentication fields exceed the John SIP format')
+      return
+    end
+
+    fields.join('*')
   end
 
   def sip_parse_request(data)
@@ -117,7 +168,7 @@ class MetasploitModule < Msf::Auxiliary
       address: opts[:ip],
       port: opts[:port],
       service_name: opts[:service_name],
-      protocol: 'tcp',
+      protocol: 'udp',
       workspace_id: myworkspace_id
     }
 
@@ -126,7 +177,8 @@ class MetasploitModule < Msf::Auxiliary
       module_fullname: fullname,
       username: opts[:user],
       private_data: opts[:password],
-      private_type: :password
+      private_type: :nonreplayable_hash,
+      jtr_format: 'sip'
     }.merge(service_data)
 
     login_data = {
@@ -166,16 +218,17 @@ class MetasploitModule < Msf::Auxiliary
       when 'REGISTER'
         authorization = request[:headers]['Authorization'] || request[:headers]['Proxy-Authorization']
         if authorization
-          if (request[:uri] =~ /^sip:.*?:\d+/)
-            # current versions of the JtR plugin will fail cracking SIP uri:s containing a port; eg. sip:1.2.3.4:5060
-            print_status('URI with port detected in authorization SIP request, JtR may fail to crack the response')
+          auth_tokens = sip_parse_authorization(authorization)
+          hash = sip_digest_hash(request, auth_tokens, server_ip, client_ip)
+          unless hash
+            sip_send_error_message(request, 401, 'Unauthorized')
+            next
           end
 
-          auth_tokens = sip_parse_authorization(authorization)
-          response = auth_tokens['response'] || ''
+          response = auth_tokens['response']
           algorithm = auth_tokens['algorithm'] || 'MD5'
           username = auth_tokens['username']
-          proof = "client: #{client_ip}; username: #{username}; nonce: #{datastore['NONCE']}; response: #{response}; algorithm: #{algorithm}"
+          proof = "client: #{client_ip}; username: #{username}; nonce: #{auth_tokens['nonce']}; response: #{response}; algorithm: #{algorithm}"
           print_good("SIP LOGIN: #{proof}")
 
           report_cred(
@@ -183,30 +236,14 @@ class MetasploitModule < Msf::Auxiliary
             port: @requestor[:port],
             service_name: 'sip_client',
             user: username,
-            password: response + ':' + auth_tokens['nonce'] + ':' + algorithm,
+            password: hash,
             proof: proof
           )
 
           if datastore['JOHNPWFILE']
-            resp = []
-            resp << '$sip$'
-            resp << server_ip
-            resp << client_ip
-            resp << username
-            resp << auth_tokens['realm']
-            resp << method
-            resp << 'sip'
-            resp << request[:uri].scan(/^.*?:(.*)$/)
-            resp << auth_tokens['nonce']
-            resp << (auth_tokens['cnonce'] || '')
-            resp << (auth_tokens['nc'] || '')
-            resp << (auth_tokens['qop'] || '')
-            resp << algorithm
-            resp << response
-
-            fd = File.open(datastore['JOHNPWFILE'] + '_sip', 'ab')
-            fd.puts(username + ':' + resp.join('*'))
-            fd.close
+            File.open(datastore['JOHNPWFILE'] + '_sip', 'ab') do |file|
+              file.puts(username + ':' + hash)
+            end
           end
 
         end
