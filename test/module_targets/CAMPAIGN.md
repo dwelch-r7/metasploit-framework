@@ -727,3 +727,13 @@ Tomcat default-spawn matrix continue separately.
 - Repeat meaningful state-changing paths and retain concise evidence summaries.
 
 This is a campaign record, not a claim that the repository-wide goal is complete.
+
+## Stock Tomcat Java8 default qualification
+
+The [current checkpoint](VERIFICATION-20261110-tomcat-defaults.md) qualifies150
+runtime modules,78 families and1,069 cases. The fourteen new Java8 cases use
+default Spawn2; a fresh fourteen-case Java17 explicit-Spawn0 replay keeps the
+shared spec's older profile current. Both have twelve used sessions, matching
+input hashes and owned cleanup. Native controls preserve the stock Java17
+default-spawn failure rather than relabelling it as repaired. No production,
+SDK, runner or timeout change is needed for the bounded Java8 profile.

@@ -285,13 +285,19 @@ ActiveMQ FileServer exploit passes nine cases and twelve used sessions after
 separate URI, classloader and cleanup-option repairs. Native counterfactuals
 separate the fixture environment failure from stale-JAR cascades; false-option
 preservation and explicit operator restoration pass twice. Parent focused tests
-pass 20 examples. The [current integrated checkpoint](VERIFICATION-20261110-nifi.md)
+pass 20 examples. The [NiFi checkpoint](VERIFICATION-20261110-nifi.md)
 records **150 runtime modules, 77 families and 1,055 functional cases**. Two
 unchanged NiFi scanners pass 15 cases against genuine HTTP/HTTPS releases with
 native authentication controls, exact reporting and workspace isolation.
 Readiness and expected-negative fixture failures remain separate from module
 verdicts. WordPress admin sessions remain explicitly unqualified. SIP, Gitea,
-remaining NiFi modules and Tomcat default-spawn work continues separately.
+remaining NiFi modules and other feasible targets continue separately.
+The [current integrated checkpoint](VERIFICATION-20261110-tomcat-defaults.md)
+records **150 runtime modules, 78 families and 1,069 functional cases**. A
+separate stock Java8 profile passes14 cases with real default Spawn2 and twelve
+used sessions. The strengthened shared spec also passes a fresh Java17 explicit
+Spawn0 replay. Native identical-payload controls retain the Java17 default-spawn
+limitation. Current hashes and owned teardown pass for both profiles.
 The full campaign remains incomplete while feasible, valuable modules await review
 or functional verification.
 See [deferred investigations](DEFERRED.md) for retained failures that remain
