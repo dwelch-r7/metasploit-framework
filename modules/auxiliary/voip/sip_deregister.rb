@@ -17,6 +17,7 @@ class MetasploitModule < Msf::Auxiliary
       },
       'Author' => [ 'ChrisJohnRiley' ],
       'License' => MSF_LICENSE,
+      'DefaultOptions' => { 'RPORT' => 5060 },
       'Notes' => {
         'Stability' => [SERVICE_RESOURCE_LOSS],
         'SideEffects' => [IOC_IN_LOGS],
@@ -24,10 +25,8 @@ class MetasploitModule < Msf::Auxiliary
       }
     )
 
-    deregister_udp_options
     register_options(
       [
-        Opt::RPORT(5060),
         OptString.new('SRCADDR', [true, 'The sip address the spoofed deregister request is coming from', '192.168.1.1']),
         OptString.new('EXTENSION', [true, 'The specific extension or name to target', '100']),
         OptString.new('DOMAIN', [true, 'Use a specific SIP domain', 'example.com'])
