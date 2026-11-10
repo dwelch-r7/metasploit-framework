@@ -47,6 +47,7 @@ class MetasploitModule < Msf::Auxiliary
     )
 
     register_options([
+      OptString.new('TARGETURI', [true, 'The base path to Apache Flink', '/']),
       OptInt.new('DEPTH', [ true, 'Depth for path traversal', 10]),
       OptString.new('FILEPATH', [true, 'The path to the file to read', '/etc/passwd'])
     ])
