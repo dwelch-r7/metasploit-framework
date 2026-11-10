@@ -1,0 +1,5 @@
+services:
+  fixed:
+    extends: {file: ../nifi/compose.yaml, service: fixed}
+  unrelated:
+    extends: {file: ../nifi/compose.yaml, service: unrelated}

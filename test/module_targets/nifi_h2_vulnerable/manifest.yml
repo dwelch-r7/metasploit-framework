@@ -1,0 +1,55 @@
+---
+spec: spec/acceptance/module_targets/nifi_h2_spec.rb
+expected_examples: 6
+console: true
+test_env:
+  NIFI_H2_PROFILE: vulnerable
+modules:
+- exploit/linux/http/apache_nifi_h2_rce
+ports:
+  vulnerable: 8443
+  unrelated: 80
+support_files:
+- test/module_targets/nifi/compose.yaml
+- test/module_targets/nifi/accounts.env
+- test/module_targets/nifi/client.py
+- test/module_targets/nifi/discovery.py
+- test/module_targets/http/compose.yaml
+- test/module_targets/http/Dockerfile
+- test/module_targets/http/module-target.conf
+- test/module_targets/http/htdocs/index.html
+- test/module_targets/http/htdocs/final.html
+- test/module_targets/http/htdocs/plain.txt
+- test/module_targets/http/htdocs/robots.txt
+- test/module_targets/http/htdocs/protected/index.html
+- test/module_targets/http/htdocs/listing/evidence.txt
+- lib/msf/ui/console/module_option_validation.rb
+- lib/msf/core/exploit/remote/http_client.rb
+- lib/msf/core/exploit/remote/http/nifi.rb
+- lib/msf/core/exploit/remote/http/nifi/auth.rb
+- lib/msf/core/exploit/remote/http/nifi/processor.rb
+- lib/msf/core/exploit/remote/http/nifi/dbconnectionpool.rb
+- spec/support/shared/contexts/wait_for_expect.rb
+- lib/msf/core/exploit/remote/tcp.rb
+- lib/msf/core/exploit/remote/auto_check.rb
+- lib/msf/core/exploit/retry.rb
+- modules/payloads/singles/cmd/unix/generic.rb
+- modules/payloads/singles/cmd/unix/reverse_bash.rb
+- test/module_targets/nifi_execution/api.py
+- test/module_targets/nifi_execution/actions.py
+- lib/msf/core/event_dispatcher.rb
+- lib/msf/core/exploit_driver.rb
+- lib/msf/base/simple/exploit.rb
+- lib/msf/ui/console/command_dispatcher/exploit.rb
+- lib/msf/core/general_event_subscriber.rb
+- lib/rex/proto/http/http_logger_subscriber.rb
+- lib/rex/proto/http/client.rb
+- lib/rex/proto/http/http_subscriber.rb
+- test/module_targets/nifi_h2/native.py
+- documentation/modules/exploit/linux/http/apache_nifi_h2_rce.md
+- spec/modules/exploits/linux/http/apache_nifi_h2_rce_spec.rb
+- spec/file_fixtures/modules/exploits/linux/http/apache_nifi_h2_rce/native_responses.json
+- spec/file_fixtures/modules/exploits/linux/http/apache_nifi_h2_rce/README.md
+- spec/lib/msf/core/exploit/http/nifi/dbconnectionpool_spec.rb
+- spec/file_fixtures/lib/msf/core/exploit/http/nifi/dbconnectionpool/native_states.json
+- spec/file_fixtures/lib/msf/core/exploit/http/nifi/dbconnectionpool/README.md
