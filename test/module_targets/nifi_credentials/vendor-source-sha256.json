@@ -1,0 +1,10 @@
+{
+  "image": "apache/nifi:1.21.0@sha256:515559ab6fc2bb650eeb74bef5d8109073b2a4e8c64a7bf56825bcbf6fa3d315",
+  "provenance": "Independent sha256sum of genuine pinned stock image; identical after target-only Python/launcher additions",
+  "files": {
+    "/opt/nifi/scripts/start.sh": "ead916171e40aead884a8a8bd139ad297f2f725d7b3c994b5c5b5074fb7a84ad",
+    "/opt/nifi/nifi-current/bin/nifi.sh": "acd94a7a00603123f6183838adfca50b16d408934437de8da454ef73b57886b0",
+    "/opt/nifi/nifi-current/lib/nifi-runtime-1.21.0.jar": "b5e7f07aaf2601dd5b3dc54bd342ec3ab97e9677626e0ddf59f561f450db436a",
+    "/opt/nifi/nifi-toolkit-current/lib/h2-2.1.214.jar": "d623cdc0f61d218cf549a8d09f1c391ff91096116b22e2475475fce4fbe72bd0"
+  }
+}

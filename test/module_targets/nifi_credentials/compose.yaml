@@ -1,0 +1,15 @@
+services:
+  linux:
+    extends: {file: ../nifi/compose.yaml, service: vulnerable}
+    image: msf-module-target-nifi-credentials:1.21.0-python
+    build:
+      context: ..
+      dockerfile: nifi_credentials/Dockerfile
+    user: "0:0"
+    entrypoint: [runuser, -u, nifi, --, /opt/nifi/scripts/start.sh]
+    volumes:
+      - ${MODULE_TARGET_ARTIFACTS:?Set by the module target runner}:/opt/module-target-artifacts:ro
+  unrelated:
+    extends: {file: ../nifi/compose.yaml, service: unrelated}
+  reporting_db:
+    extends: {file: ../credential_reporting/compose.yaml, service: reporting_db}

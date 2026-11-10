@@ -484,3 +484,17 @@ NiFi Flow Data
 
 [*] Post module execution completed
 ```
+
+
+## Automated container tests
+
+The [reusable genuine NiFi profile](../../../../../test/module_targets/nifi_credentials/README.md)
+uses actual vendor-generated encrypted files and independent native crypto and
+HTTP authentication controls. It exercises real shell and Linux Meterpreter
+sessions as the NiFi service user, root recovery, denied-user reads, repeated
+loot/reporting and explicit derived missing/configuration boundaries. Other
+runtime and external authentication branches remain unqualified.
+
+```sh
+bundle exec ruby tools/dev/run_module_target_tests.rb nifi_credentials
+```

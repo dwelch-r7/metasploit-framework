@@ -1,0 +1,51 @@
+---
+spec: spec/acceptance/module_targets/nifi_credentials_spec.rb
+expected_examples: 11
+console: true
+modules:
+- post/linux/gather/apache_nifi_credentials
+ports:
+  linux: 8443
+  unrelated: 80
+support_files:
+- test/module_targets/nifi/compose.yaml
+- test/module_targets/nifi/accounts.env
+- test/module_targets/nifi/client.py
+- test/module_targets/nifi/discovery.py
+- test/module_targets/nifi_execution/api.py
+- test/module_targets/nifi_execution/actions.py
+- test/module_targets/http/compose.yaml
+- test/module_targets/http/Dockerfile
+- test/module_targets/http/module-target.conf
+- test/module_targets/credential_reporting/compose.yaml
+- test/module_targets/linux_post/launch_session.py
+- lib/msf/core/post.rb
+- lib/msf/core/post/file.rb
+- lib/msf/core/post/common.rb
+- lib/msf/base/simple/post.rb
+- lib/msf/core/encoded_payload.rb
+- lib/msf/core/auxiliary/report.rb
+- lib/msf/core/db_manager/cred.rb
+- lib/msf/core/db_manager/session.rb
+- modules/exploits/multi/handler.rb
+- modules/payloads/singles/linux/x64/shell_reverse_tcp.rb
+- modules/payloads/singles/linux/x64/meterpreter_reverse_tcp.rb
+- spec/support/shared/contexts/wait_for_expect.rb
+- spec/support/acceptance/linux_session.rb
+- documentation/modules/post/linux/gather/apache_nifi_credentials.md
+- test/module_targets/http/htdocs/final.html
+- test/module_targets/http/htdocs/index.html
+- test/module_targets/http/htdocs/listing/evidence.txt
+- test/module_targets/http/htdocs/plain.txt
+- test/module_targets/http/htdocs/protected/index.html
+- test/module_targets/http/htdocs/robots.txt
+- spec/modules/post/linux/gather/apache_nifi_credentials_spec.rb
+- spec/file_fixtures/modules/post/linux/gather/apache_nifi_credentials/README.md
+- spec/file_fixtures/modules/post/linux/gather/apache_nifi_credentials/authorizers.xml
+- spec/file_fixtures/modules/post/linux/gather/apache_nifi_credentials/crypto.json
+- spec/file_fixtures/modules/post/linux/gather/apache_nifi_credentials/derive-utf8-secret.mjs
+- spec/file_fixtures/modules/post/linux/gather/apache_nifi_credentials/derived-utf8-secret.json
+- spec/file_fixtures/modules/post/linux/gather/apache_nifi_credentials/flow.json
+- spec/file_fixtures/modules/post/linux/gather/apache_nifi_credentials/login-identity-providers.xml
+- spec/file_fixtures/modules/post/linux/gather/apache_nifi_credentials/nifi.properties
+- spec/file_fixtures/modules/post/linux/gather/apache_nifi_credentials/provenance.json
