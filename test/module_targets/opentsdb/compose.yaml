@@ -1,0 +1,28 @@
+services:
+  affected:
+    image: vulhub/opentsdb:2.4.0@sha256:cfbee84dc40bbe03cb1556634ecf922fa10fd241d46a13029cbd81573a97862d
+    platform: linux/amd64
+    hostname: opentsdb
+    init: true
+    environment:
+      HBASE_HEAPSIZE: 256m
+      HBASE_OPTS: -XX:ActiveProcessorCount=2 -XX:MaxDirectMemorySize=128m
+      JVMARGS: -enableassertions -enablesystemassertions -Xms64m -Xmx256m -XX:ActiveProcessorCount=2
+    mem_limit: 1g
+    cpus: 2
+    ports: ["127.0.0.1::4242"]
+    healthcheck:
+      test: [CMD, curl, --fail, --silent, http://127.0.0.1:4242/api/version]
+      interval: 2s
+      timeout: 3s
+      retries: 55
+  gateway:
+    extends: {file: ../http/compose.yaml, service: apache}
+    depends_on: {affected: {condition: service_healthy}}
+    volumes: ["./gateway.conf:/usr/local/apache2/conf/extra/opentsdb-target.conf:ro"]
+    command:
+      - httpd-foreground
+      - -c
+      - Include conf/extra/opentsdb-target.conf
+  unrelated:
+    extends: {file: ../http/compose.yaml, service: apache}

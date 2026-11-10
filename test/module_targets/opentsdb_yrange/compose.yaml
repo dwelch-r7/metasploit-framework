@@ -1,0 +1,7 @@
+services:
+  affected:
+    extends: {file: ../opentsdb/compose.yaml, service: affected}
+  gateway:
+    extends: {file: ../opentsdb/compose.yaml, service: gateway}
+  unrelated:
+    extends: {file: ../opentsdb/compose.yaml, service: unrelated}

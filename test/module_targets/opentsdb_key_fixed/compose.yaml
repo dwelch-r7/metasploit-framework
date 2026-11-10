@@ -1,0 +1,9 @@
+services:
+  affected:
+    extends: {file: ../opentsdb/compose.yaml, service: affected}
+    image: module-target-opentsdb:fixed-candidate
+    build: {context: ../opentsdb, dockerfile: fixed.Dockerfile}
+  gateway:
+    extends: {file: ../opentsdb/compose.yaml, service: gateway}
+  unrelated:
+    extends: {file: ../opentsdb/compose.yaml, service: unrelated}

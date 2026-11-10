@@ -1,0 +1,66 @@
+{
+  "240": {
+    "version": "2.4.0",
+    "revision": "14ab3ef8a865816cf920aa69f2e019b7261a7847",
+    "publisher_deb_sha256": "1df1ec8ae4f1ac10704d10af27abf0a25370abef44b22e2e65e0a06debad309a",
+    "jars": {
+      "/usr/share/opentsdb/lib/javacc-6.1.2.jar": "ed0c5c960961cfeb431382cf0152827b01156747db3792d1bf93e81e32c204ab",
+      "/usr/share/opentsdb/lib/slf4j-api-1.7.7.jar": "69980c038ca1b131926561591617d9c25fabfc7b29828af91597ca8570cf35fe",
+      "/usr/share/opentsdb/lib/zookeeper-3.4.6.jar": "8a375a1ef98cbc0e1f6e9dfd0d96d914b74d37ad00b4bf81beb77fa8f34d33ae",
+      "/usr/share/opentsdb/lib/log4j-over-slf4j-1.7.7.jar": "2e3716c42b6c026fe3cddda92bba1a559b136638dc7b18fba8a412c4189579c2",
+      "/usr/share/opentsdb/lib/commons-jexl-2.1.1.jar": "03c9a9fae5da78ce52c0bf24467cc37355b7e23196dff4839e2c0ff018a01306",
+      "/usr/share/opentsdb/lib/commons-math3-3.4.1.jar": "d1075b14a71087038b0bfd198f0f7dd8e49b5b3529d8e2eba99e7d9eb8565e4b",
+      "/usr/share/opentsdb/lib/guava-18.0.jar": "d664fbfc03d2e5ce9cab2a44fb01f1d0bf9dfebeccc1a473b1f9ea31f79f6f99",
+      "/usr/share/opentsdb/lib/jackson-annotations-2.9.5.jar": "38a0e450049f643570adac99888aa3480ec2de385790a7096908bf43bfc085d6",
+      "/usr/share/opentsdb/lib/tsdb-2.4.0.jar": "b7af8f068dda4e08753c5292099c74402087ab5f35db8d67b5380f811fe58e0b",
+      "/usr/share/opentsdb/lib/jackson-core-2.9.5.jar": "a2bebaa325ad25455b02149c67e6052367a7d7fc1ce77de000eed284a5214eac",
+      "/usr/share/opentsdb/lib/netty-3.10.6.Final.jar": "8768a50fbe3d93a88d8e6000ea5d68e30f50dc915b3764c3c5870f70c4fb3b49",
+      "/usr/share/opentsdb/lib/async-1.4.0.jar": "149d471faf093a48cdb644a18cb4c9f0ae0d3bf03faaef3c6a9ec9ed212776b3",
+      "/usr/share/opentsdb/lib/logback-core-1.0.13.jar": "ecd8f24f9b2941284e98f154ff3343e720cb31c8f47b67554b145745f596f3b8",
+      "/usr/share/opentsdb/lib/commons-logging-1.1.1.jar": "ce6f913cad1f0db3aad70186d65c5bc7ffcc9a99e3fe8e0b137312819f7c362f",
+      "/usr/share/opentsdb/lib/kryo-2.21.1.jar": "69d106ef77ae537b19069f5651034b64137a6375006574c0c63b2ebc3bb2eeae",
+      "/usr/share/opentsdb/lib/protobuf-java-2.5.0.jar": "e0c1c64575c005601725e7c6a02cebf9e1285e888f756b2a1d73ffa8d725cc74",
+      "/usr/share/opentsdb/lib/reflectasm-1.07-shaded.jar": "08a70eadb4b274edaefc1194c1f7570621a51b0a9aa036aa15dcdb7b927e7c76",
+      "/usr/share/opentsdb/lib/jgrapht-core-0.9.1.jar": "e6ef1c115689eda08142b86d524620da643b6e9f013405257ad07f42dc5c6978",
+      "/usr/share/opentsdb/lib/asynchbase-1.8.2.jar": "0fb98aa6b1cc5b6ddd1344b374db1a82fdc7a761b91d437bb0a7ecd67573405e",
+      "/usr/share/opentsdb/lib/jackson-databind-2.9.5.jar": "0fb4e079c118e752cc94c15ad22e6782b0dfc5dc09145f4813fb39d82e686047",
+      "/usr/share/opentsdb/lib/asm-4.0.jar": "fb2dde9020a47bb024c43d9de0a94e73abef793bf08f01354cc97cb2d2e2a957",
+      "/usr/share/opentsdb/lib/minlog-1.2.jar": "a678cb1aa8f5d03d901c992c75741841d98a9bc3d55dad02e84d65315c4e60f2",
+      "/usr/share/opentsdb/lib/logback-classic-1.0.13.jar": "12c1930ca91653422ac49fea33fce8be1b1fcd2d2220cea383c4794976c7418f"
+    }
+  },
+  "241": {
+    "version": "2.4.1",
+    "revision": "eb125a342040376450dd155fe600ff7d4b9c0eec",
+    "publisher_deb_sha256": "39c15a1fe6130c642659dc0f88591349e7306791125d5e6623fc7ee5de040947",
+    "jars": {
+      "/usr/share/opentsdb/lib/javacc-6.1.2.jar": "ed0c5c960961cfeb431382cf0152827b01156747db3792d1bf93e81e32c204ab",
+      "/usr/share/opentsdb/lib/slf4j-api-1.7.7.jar": "69980c038ca1b131926561591617d9c25fabfc7b29828af91597ca8570cf35fe",
+      "/usr/share/opentsdb/lib/zookeeper-3.4.6.jar": "8a375a1ef98cbc0e1f6e9dfd0d96d914b74d37ad00b4bf81beb77fa8f34d33ae",
+      "/usr/share/opentsdb/lib/log4j-over-slf4j-1.7.7.jar": "2e3716c42b6c026fe3cddda92bba1a559b136638dc7b18fba8a412c4189579c2",
+      "/usr/share/opentsdb/lib/commons-jexl-2.1.1.jar": "03c9a9fae5da78ce52c0bf24467cc37355b7e23196dff4839e2c0ff018a01306",
+      "/usr/share/opentsdb/lib/commons-math3-3.4.1.jar": "d1075b14a71087038b0bfd198f0f7dd8e49b5b3529d8e2eba99e7d9eb8565e4b",
+      "/usr/share/opentsdb/lib/guava-18.0.jar": "d664fbfc03d2e5ce9cab2a44fb01f1d0bf9dfebeccc1a473b1f9ea31f79f6f99",
+      "/usr/share/opentsdb/lib/jackson-annotations-2.9.5.jar": "38a0e450049f643570adac99888aa3480ec2de385790a7096908bf43bfc085d6",
+      "/usr/share/opentsdb/lib/jackson-core-2.9.5.jar": "a2bebaa325ad25455b02149c67e6052367a7d7fc1ce77de000eed284a5214eac",
+      "/usr/share/opentsdb/lib/netty-3.10.6.Final.jar": "8768a50fbe3d93a88d8e6000ea5d68e30f50dc915b3764c3c5870f70c4fb3b49",
+      "/usr/share/opentsdb/lib/async-1.4.0.jar": "149d471faf093a48cdb644a18cb4c9f0ae0d3bf03faaef3c6a9ec9ed212776b3",
+      "/usr/share/opentsdb/lib/logback-core-1.0.13.jar": "ecd8f24f9b2941284e98f154ff3343e720cb31c8f47b67554b145745f596f3b8",
+      "/usr/share/opentsdb/lib/commons-logging-1.1.1.jar": "ce6f913cad1f0db3aad70186d65c5bc7ffcc9a99e3fe8e0b137312819f7c362f",
+      "/usr/share/opentsdb/lib/kryo-2.21.1.jar": "69d106ef77ae537b19069f5651034b64137a6375006574c0c63b2ebc3bb2eeae",
+      "/usr/share/opentsdb/lib/protobuf-java-2.5.0.jar": "e0c1c64575c005601725e7c6a02cebf9e1285e888f756b2a1d73ffa8d725cc74",
+      "/usr/share/opentsdb/lib/reflectasm-1.07-shaded.jar": "08a70eadb4b274edaefc1194c1f7570621a51b0a9aa036aa15dcdb7b927e7c76",
+      "/usr/share/opentsdb/lib/jgrapht-core-0.9.1.jar": "e6ef1c115689eda08142b86d524620da643b6e9f013405257ad07f42dc5c6978",
+      "/usr/share/opentsdb/lib/asynchbase-1.8.2.jar": "0fb98aa6b1cc5b6ddd1344b374db1a82fdc7a761b91d437bb0a7ecd67573405e",
+      "/usr/share/opentsdb/lib/jackson-databind-2.9.5.jar": "0fb4e079c118e752cc94c15ad22e6782b0dfc5dc09145f4813fb39d82e686047",
+      "/usr/share/opentsdb/lib/asm-4.0.jar": "fb2dde9020a47bb024c43d9de0a94e73abef793bf08f01354cc97cb2d2e2a957",
+      "/usr/share/opentsdb/lib/minlog-1.2.jar": "a678cb1aa8f5d03d901c992c75741841d98a9bc3d55dad02e84d65315c4e60f2",
+      "/usr/share/opentsdb/lib/logback-classic-1.0.13.jar": "12c1930ca91653422ac49fea33fce8be1b1fcd2d2220cea383c4794976c7418f",
+      "/usr/share/opentsdb/lib/tsdb-2.4.1.jar": "b26a978d021981f58d645eac0733a9091d1cce17b5c4fa9aa4e7db8c83343604"
+    }
+  },
+  "250": {
+    "version": "2.5.0-RC1",
+    "revision": "0f681b7545d9999506900da5f1c4dbe433dbfb43"
+  }
+}
