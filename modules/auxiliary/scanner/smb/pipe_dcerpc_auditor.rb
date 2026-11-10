@@ -22,6 +22,11 @@ class MetasploitModule < Msf::Auxiliary
       'Description' => 'Determine what DCERPC services are accessible over a SMB pipe',
       'Author' => 'hdm',
       'License' => MSF_LICENSE,
+      'DefaultOptions' => {
+        # Default multi-context BINDs are at most 732 bytes. Fragmented pipe
+        # writes can stall Samba reads; retain the inherited 1024-byte maximum.
+        'SMB::pipe_write_min_size' => 1024
+      },
     )
 
     register_options(
@@ -29,6 +34,9 @@ class MetasploitModule < Msf::Auxiliary
         OptString.new('SMBPIPE', [ true, 'The pipe name to use (BROWSER)', 'BROWSER']),
       ]
     )
+
+    # Follow a selected maximum unless the operator supplied a minimum.
+    options['SMB::pipe_write_min_size'].fallbacks << 'SMB::pipe_write_max_size'
   end
 
   def connect(*args, **kwargs)
