@@ -42,6 +42,12 @@ docker compose up -d
 
 4. Access GeoServer at `http://localhost:8090/geoserver`
 
+### Reusable container tests
+
+The [GeoServer target guide](../../../../test/module_targets/geoserver/README.md) provides pinned affected/fixed Linux releases,
+independent native controls, exact ordinary-text loot checks and missing/empty/unrelated negatives.
+Its verification notes distinguish target setup from module qualification and retain the XML/randomization coverage limits.
+
 ## Verification Steps
 
 1. Start msfconsole

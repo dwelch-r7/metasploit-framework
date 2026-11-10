@@ -1,24 +1,27 @@
-# GeoServer native targets (disk-only prototype)
+# GeoServer container targets
 
-These profiles are not qualified. No target image has been pulled, built or
-started for this family, and no native or Framework result is claimed. The
-existing guarded runner will refuse an existing container or a resolved plan
-above five containers. Run only after a separate serial runtime grant:
+These profiles exercise GeoServer version checks, Unix command delivery and
+XXE file reads against pinned official releases. Run from the repository root
+with Docker and Compose available. The guarded runner refuses existing
+containers or a resolved plan above five containers, then runs one project at
+a time under a shared lock:
 
 ```sh
-bundle exec ruby tools/dev/run_guarded_module_target_tests.rb geoserver_2251 geoserver_2252 geoserver_2256
+nice -n 10 bundle exec ruby tools/dev/run_guarded_module_target_tests.rb geoserver_2251 geoserver_2252 geoserver_2256
 ```
 
 Each profile declares three services: one GeoServer (1024 MiB, 0.9 CPU), canonical
 Framework (768 MiB, 1 CPU), and the reused genuine Apache frontend (96 MiB,
-0.1 CPU). The total is 1888 MiB and 2 CPU. This is a source-level budget;
-resolved Compose configuration, actual limits, startup time and OOM behavior
-remain unverified. The JVM requests `-Xms128m -Xmx512m` and one active processor
+0.1 CPU). The total is 1888 MiB and 2 CPU. The native gate checks the resolved
+configuration, actual Docker limits, health and OOM state. The JVM requests
+`-Xms128m -Xmx512m` and one active processor
 through the image's `EXTRA_JAVA_OPTS`. All selected official images are amd64;
-emulation and other architectures are unqualified. Existing 120-second setup
-and 600-second test bounds are unchanged. Only Apache publishes a random
+emulation and other architectures are unqualified. Compose readiness is bounded
+at 120 seconds; the cached canonical build has a separate 1800-second ceiling,
+and functional tests have a 600-second bound. Only Apache publishes a random
 loopback port; GeoServer and Framework share an internal network. No external
-database, extension, GDAL, custom GeoServer JAR or Internet callback is used.
+database, optional extension, custom GeoServer JAR or Internet callback is needed.
+The fixture uses the vendor's bundled demo data.
 
 | Profile | Cases | Official image manifest digest | Expected branch boundary |
 | --- | ---: | --- | --- |
@@ -26,13 +29,33 @@ database, extension, GDAL, custom GeoServer JAR or Internet callback is used.
 | `geoserver_2252` | 2 | `sha256:08a08222093d5575282a02f4182ce2519fe6fad9ad7b0b4c2a293ef43793d5bc` | RCE fixed; XXE affected |
 | `geoserver_2256` | 2 | `sha256:e1de9b20625f7ed1b2bc0aeb2b9eed2a28249d8e833f00e0f8e35e4ace1b5e64` | Both fixed |
 
-Pins were obtained from official registry manifest/config HTTP metadata without
-fetching layers. The [RCE advisory](https://github.com/geoserver/geoserver/security/advisories/GHSA-6jj6-gm7p-fcvv)
+Pins were selected from official registry manifest/config metadata. The
+[RCE advisory](https://github.com/geoserver/geoserver/security/advisories/GHSA-6jj6-gm7p-fcvv)
 fixes the selected branch in 2.25.2; the
 [XXE advisory](https://github.com/geoserver/geoserver/security/advisories/GHSA-fjf5-xgmq-5525)
-fixes it in 2.25.6. Other branch boundaries are outside this corpus. Use these
-existing [official images](https://github.com/geoserver/docker), not today's
-Dockerfile defaults, which target a different major release/runtime.
+fixes it in 2.25.6. Other branch boundaries are outside this corpus. The Compose
+files select published [official images](https://github.com/geoserver/docker)
+with the runtime supplied for each selected release.
+
+## Verification notes
+
+On 2026-11-10, the standalone 2.25.1 native gate passed 21 recorded CLI/inspection
+calls and 10 HTTP requests. It proved ordinary WFS/WMS behavior, frontend policy,
+a fresh command marker and exact XXE text. All three services were healthy with
+the declared HostConfig and cgroup v2 limits, no OOM kills, and a live 512 MiB
+maximum / 128 MiB initial JVM heap. Framework only slept; no console, metadata
+build or module action ran. The cold pull, cached build and readiness together
+took 545.612 seconds; the 120-second readiness bound remained unchanged. All
+three owned containers, two networks and one volume were removed by exact ID
+and label audits, with an independently empty container inventory afterward.
+One append was observed for the native request; it does not prove exactly-once
+execution for other requests or feature types.
+
+Module qualification comes from a complete runner result: exact 6/2/2 examples,
+zero failures/pending/load errors, matching current input hashes, genuine native
+controls and owned teardown. The ordinary invocation reruns its native controls
+for each profile. Native success alone is not a module result. Retain each run's
+`result.json`, `rspec.json`, input maps and raw artifacts when assessing coverage.
 
 The ten selected cases are:
 
@@ -81,6 +104,12 @@ only, avoiding an expected ClassCastException body colliding with the shared
 console exception guard. XXE XML/SLD versions, WMS versions/formats/bounds and
 feature-type order remain randomized by the owners. Two repetitions do not
 exhaust those combinations; a rejection is preserved for native investigation.
+Before cases, the recorder must install into the actual selected module classes,
+write its empty artifact file, and find the Unix Command target with the generic
+command payload in the real compatibility catalog. Actual calls must yield
+request records; positive producer bytes must match one actual request argument
+and the intended command/file path. A missing calibration record is a fixture
+diagnostic, not a module verdict. Target marker/loot proof remains independent.
 
 Each command is independently executed with the native shell, captured and
 removed before Framework execution. Quiet commands require real file existence,
@@ -91,6 +120,6 @@ volume and network. The guarded source is included in guarded input maps.
 
 Pending: sessions and fetch delivery, Windows, built-in roles, TLS, other
 release branches, binary/XML-sensitive text, leading/trailing whitespace and
-quote/backslash ingress. No existing human Scenarios or production owner
-documentation has been changed. Successful commands or text reads must not be
+quote/backslash ingress. These fixtures leave production owner code and existing
+human Scenarios unchanged. Successful commands or text reads must not be
 presented as qualification of these omitted paths.
