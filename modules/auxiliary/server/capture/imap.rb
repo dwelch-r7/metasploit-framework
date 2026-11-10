@@ -134,7 +134,8 @@ class MetasploitModule < Msf::Auxiliary
 
   # RFC 3501 section 9: quoted LOGIN strings escape only quote and backslash.
   def login_arguments(argument)
-    token = /"(?:[^"\\\r\n]|\\["\\])*"|[^ (){}%*"\\\x00-\x1f\x7f]+/
+    # Bare astring values also permit closing braces and closing brackets.
+    token = /"(?:[^"\\\r\n]|\\["\\])*"|[^ (){%*"\\\x00-\x1f\x7f]+/
     match = argument.match(/\A(#{token}) +(#{token})\z/)
     return [] unless match
 

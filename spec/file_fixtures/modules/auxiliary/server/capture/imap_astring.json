@@ -1,0 +1,111 @@
+{
+  "provenance": "Actual Python3.13.5 imaplib _simple_command bytes against Dovecot2.3.16. Whitelist explicitly admits closing brace/bracket; real auth succeeds. Adjacent opening-brace commands receive tagged BAD. Native source receipt: tmp/imap-completion-native-v2/native-imap-completion.json. RFC3501 section9 astring permits closing brace and closing bracket.",
+  "captures": {
+    "native-imap-bare-closing-brace": {
+      "label": "native-imap-bare-closing-brace",
+      "status": 0,
+      "completions": [
+        {
+          "tag": "ECMD0",
+          "command": "CAPABILITY",
+          "status": "OK"
+        },
+        {
+          "tag": "ECMD1",
+          "command": "LOGIN",
+          "status": "OK"
+        },
+        {
+          "tag": "ECMD2",
+          "command": "NOOP",
+          "status": "OK"
+        },
+        {
+          "tag": "ECMD3",
+          "command": "LOGOUT",
+          "status": "OK"
+        }
+      ],
+      "pcap_sha256": "4315cb6a0b750867a4f201de4c8f26aa37475a95870af3cd8e5866d20812b1d4",
+      "client_base64": "RUNNRDAgQ0FQQUJJTElUWQ0KRUNNRDEgTE9HSU4gY2FwdHVyZX11c2VyIHBhc3N3b3JkfQ0KRUNNRDIgTk9PUA0KRUNNRDMgTE9HT1VUDQo=",
+      "server_base64": "KiBPSyBbQ0FQQUJJTElUWSBJTUFQNHJldjEgU0FTTC1JUiBMT0dJTi1SRUZFUlJBTFMgSUQgRU5BQkxFIElETEUgTElURVJBTCsgU1RBUlRUTFMgQVVUSD1QTEFJTiBBVVRIPUxPR0lOXSBEb3ZlY290IChVYnVudHUpIHJlYWR5Lg0KKiBDQVBBQklMSVRZIElNQVA0cmV2MSBTQVNMLUlSIExPR0lOLVJFRkVSUkFMUyBJRCBFTkFCTEUgSURMRSBMSVRFUkFMKyBTVEFSVFRMUyBBVVRIPVBMQUlOIEFVVEg9TE9HSU4NCkVDTUQwIE9LIFByZS1sb2dpbiBjYXBhYmlsaXRpZXMgbGlzdGVkLCBwb3N0LWxvZ2luIGNhcGFiaWxpdGllcyBoYXZlIG1vcmUuDQoqIENBUEFCSUxJVFkgSU1BUDRyZXYxIFNBU0wtSVIgTE9HSU4tUkVGRVJSQUxTIElEIEVOQUJMRSBJRExFIFNPUlQgU09SVD1ESVNQTEFZIFRIUkVBRD1SRUZFUkVOQ0VTIFRIUkVBRD1SRUZTIFRIUkVBRD1PUkRFUkVEU1VCSkVDVCBNVUxUSUFQUEVORCBVUkwtUEFSVElBTCBDQVRFTkFURSBVTlNFTEVDVCBDSElMRFJFTiBOQU1FU1BBQ0UgVUlEUExVUyBMSVNULUVYVEVOREVEIEkxOE5MRVZFTD0xIENPTkRTVE9SRSBRUkVTWU5DIEVTRUFSQ0ggRVNPUlQgU0VBUkNIUkVTIFdJVEhJTiBDT05URVhUPVNFQVJDSCBMSVNULVNUQVRVUyBCSU5BUlkgTU9WRSBTTklQUEVUPUZVWlpZIFBSRVZJRVc9RlVaWlkgUFJFVklFVyBTVEFUVVM9U0laRSBTQVZFREFURSBMSVRFUkFMKyBOT1RJRlkNCkVDTUQxIE9LIExvZ2dlZCBpbg0KRUNNRDIgT0sgTk9PUCBjb21wbGV0ZWQgKDAuMDAxICsgMC4wMDAgc2VjcykuDQoqIEJZRSBMb2dnaW5nIG91dA0KRUNNRDMgT0sgTG9nb3V0IGNvbXBsZXRlZCAoMC4wMDEgKyAwLjAwMCBzZWNzKS4NCg=="
+    },
+    "native-imap-bare-closing-bracket": {
+      "label": "native-imap-bare-closing-bracket",
+      "status": 0,
+      "completions": [
+        {
+          "tag": "EPHO0",
+          "command": "CAPABILITY",
+          "status": "OK"
+        },
+        {
+          "tag": "EPHO1",
+          "command": "LOGIN",
+          "status": "OK"
+        },
+        {
+          "tag": "EPHO2",
+          "command": "NOOP",
+          "status": "OK"
+        },
+        {
+          "tag": "EPHO3",
+          "command": "LOGOUT",
+          "status": "OK"
+        }
+      ],
+      "pcap_sha256": "203eb95b70d2c3135d59c48b801dfdfa67b25773c501c0683e85265f923b3805",
+      "client_base64": "RVBITzAgQ0FQQUJJTElUWQ0KRVBITzEgTE9HSU4gY2FwdHVyZV11c2VyIHBhc3N3b3JkXQ0KRVBITzIgTk9PUA0KRVBITzMgTE9HT1VUDQo=",
+      "server_base64": "KiBPSyBbQ0FQQUJJTElUWSBJTUFQNHJldjEgU0FTTC1JUiBMT0dJTi1SRUZFUlJBTFMgSUQgRU5BQkxFIElETEUgTElURVJBTCsgU1RBUlRUTFMgQVVUSD1QTEFJTiBBVVRIPUxPR0lOXSBEb3ZlY290IChVYnVudHUpIHJlYWR5Lg0KKiBDQVBBQklMSVRZIElNQVA0cmV2MSBTQVNMLUlSIExPR0lOLVJFRkVSUkFMUyBJRCBFTkFCTEUgSURMRSBMSVRFUkFMKyBTVEFSVFRMUyBBVVRIPVBMQUlOIEFVVEg9TE9HSU4NCkVQSE8wIE9LIFByZS1sb2dpbiBjYXBhYmlsaXRpZXMgbGlzdGVkLCBwb3N0LWxvZ2luIGNhcGFiaWxpdGllcyBoYXZlIG1vcmUuDQoqIENBUEFCSUxJVFkgSU1BUDRyZXYxIFNBU0wtSVIgTE9HSU4tUkVGRVJSQUxTIElEIEVOQUJMRSBJRExFIFNPUlQgU09SVD1ESVNQTEFZIFRIUkVBRD1SRUZFUkVOQ0VTIFRIUkVBRD1SRUZTIFRIUkVBRD1PUkRFUkVEU1VCSkVDVCBNVUxUSUFQUEVORCBVUkwtUEFSVElBTCBDQVRFTkFURSBVTlNFTEVDVCBDSElMRFJFTiBOQU1FU1BBQ0UgVUlEUExVUyBMSVNULUVYVEVOREVEIEkxOE5MRVZFTD0xIENPTkRTVE9SRSBRUkVTWU5DIEVTRUFSQ0ggRVNPUlQgU0VBUkNIUkVTIFdJVEhJTiBDT05URVhUPVNFQVJDSCBMSVNULVNUQVRVUyBCSU5BUlkgTU9WRSBTTklQUEVUPUZVWlpZIFBSRVZJRVc9RlVaWlkgUFJFVklFVyBTVEFUVVM9U0laRSBTQVZFREFURSBMSVRFUkFMKyBOT1RJRlkNCkVQSE8xIE9LIExvZ2dlZCBpbg0KRVBITzIgT0sgTk9PUCBjb21wbGV0ZWQgKDAuMDAxICsgMC4wMDAgc2VjcykuDQoqIEJZRSBMb2dnaW5nIG91dA0KRVBITzMgT0sgTG9nb3V0IGNvbXBsZXRlZCAoMC4wMDEgKyAwLjAwMCBzZWNzKS4NCg=="
+    },
+    "native-imap-malformed-opening-brace-user": {
+      "label": "native-imap-malformed-opening-brace-user",
+      "status": 0,
+      "completions": [
+        {
+          "tag": "PHGK0",
+          "command": "CAPABILITY",
+          "status": "OK"
+        },
+        {
+          "tag": "PHGK1",
+          "command": "LOGIN",
+          "status": "BAD"
+        },
+        {
+          "tag": "PHGK2",
+          "command": "LOGOUT",
+          "status": "OK"
+        }
+      ],
+      "pcap_sha256": "9fc96f8730195785ef397b4136ffb49a8d85dfdf8a13a341b2d576070252ff67",
+      "client_base64": "UEhHSzAgQ0FQQUJJTElUWQ0KUEhHSzEgTE9HSU4gY2FwdHVyZXt1c2VyIHBhc3N3b3JkfQ0KUEhHSzIgTE9HT1VUDQo=",
+      "server_base64": "KiBPSyBbQ0FQQUJJTElUWSBJTUFQNHJldjEgU0FTTC1JUiBMT0dJTi1SRUZFUlJBTFMgSUQgRU5BQkxFIElETEUgTElURVJBTCsgU1RBUlRUTFMgQVVUSD1QTEFJTiBBVVRIPUxPR0lOXSBEb3ZlY290IChVYnVudHUpIHJlYWR5Lg0KKiBDQVBBQklMSVRZIElNQVA0cmV2MSBTQVNMLUlSIExPR0lOLVJFRkVSUkFMUyBJRCBFTkFCTEUgSURMRSBMSVRFUkFMKyBTVEFSVFRMUyBBVVRIPVBMQUlOIEFVVEg9TE9HSU4NClBIR0swIE9LIFByZS1sb2dpbiBjYXBhYmlsaXRpZXMgbGlzdGVkLCBwb3N0LWxvZ2luIGNhcGFiaWxpdGllcyBoYXZlIG1vcmUuDQpQSEdLMSBCQUQgSW52YWxpZCBjaGFyYWN0ZXJzIGluIGF0b20NCiogQllFIExvZ2dpbmcgb3V0DQpQSEdLMiBPSyBMb2dvdXQgY29tcGxldGVkLg0K"
+    },
+    "native-imap-malformed-opening-brace-password": {
+      "label": "native-imap-malformed-opening-brace-password",
+      "status": 0,
+      "completions": [
+        {
+          "tag": "FJPM0",
+          "command": "CAPABILITY",
+          "status": "OK"
+        },
+        {
+          "tag": "FJPM1",
+          "command": "LOGIN",
+          "status": "BAD"
+        },
+        {
+          "tag": "FJPM2",
+          "command": "LOGOUT",
+          "status": "OK"
+        }
+      ],
+      "pcap_sha256": "ef7c277ad323be32aaf9f2890d6518c93af57e52db239ceebc23953bb5f25c5a",
+      "client_base64": "RkpQTTAgQ0FQQUJJTElUWQ0KRkpQTTEgTE9HSU4gY2FwdHVyZX11c2VyIHBhc3N3b3Jkew0KRkpQTTIgTE9HT1VUDQo=",
+      "server_base64": "KiBPSyBbQ0FQQUJJTElUWSBJTUFQNHJldjEgU0FTTC1JUiBMT0dJTi1SRUZFUlJBTFMgSUQgRU5BQkxFIElETEUgTElURVJBTCsgU1RBUlRUTFMgQVVUSD1QTEFJTiBBVVRIPUxPR0lOXSBEb3ZlY290IChVYnVudHUpIHJlYWR5Lg0KKiBDQVBBQklMSVRZIElNQVA0cmV2MSBTQVNMLUlSIExPR0lOLVJFRkVSUkFMUyBJRCBFTkFCTEUgSURMRSBMSVRFUkFMKyBTVEFSVFRMUyBBVVRIPVBMQUlOIEFVVEg9TE9HSU4NCkZKUE0wIE9LIFByZS1sb2dpbiBjYXBhYmlsaXRpZXMgbGlzdGVkLCBwb3N0LWxvZ2luIGNhcGFiaWxpdGllcyBoYXZlIG1vcmUuDQpGSlBNMSBCQUQgSW52YWxpZCBjaGFyYWN0ZXJzIGluIGF0b20NCiogQllFIExvZ2dpbmcgb3V0DQpGSlBNMiBPSyBMb2dvdXQgY29tcGxldGVkLg0K"
+    }
+  }
+}
