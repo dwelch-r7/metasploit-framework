@@ -45,7 +45,10 @@ module Msf
         end
       end
 
-      fetch_service = nil
+      my_resources.clear
+      # Other adapters may share this server; release only this caller's reference.
+      fetch_service.deref
+      nil
     end
 
     def start_http_fetch_handler(srvname, ssl = false, ssl_cert = nil, ssl_compression = nil, ssl_cipher = nil, ssl_version = nil)
