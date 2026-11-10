@@ -1,0 +1,28 @@
+x-nfs: &nfs
+  build: .
+  init: true
+  mem_limit: 128m
+  cap_drop: [SYS_ADMIN, SYS_TIME]
+  ports: ["127.0.0.1::111", "127.0.0.1::111/udp", "127.0.0.1::2049", "127.0.0.1::2049/udp"]
+  healthcheck:
+    test: [CMD-SHELL, "rpcinfo -p 127.0.0.1 | grep -Eq '100005[[:space:]]+1[[:space:]]+tcp'"]
+    interval: 2s
+    timeout: 3s
+    retries: 30
+services:
+  open:
+    <<: *nfs
+  empty:
+    <<: *nfs
+    command: [/usr/local/sbin/unfsd, -d, -e, /etc/module-target/empty.exports]
+  unrelated:
+    <<: *nfs
+    entrypoint: [rpcbind, -f, -w]
+    command: []
+    healthcheck:
+      test: [CMD, rpcinfo, -p, 127.0.0.1]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+  reporting_db:
+    extends: {file: ../credential_reporting/compose.yaml, service: reporting_db}

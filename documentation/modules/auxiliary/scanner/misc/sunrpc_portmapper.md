@@ -12,6 +12,13 @@ model/service, and NFS is arguably the most popular service still utilizing rpcb
     * NFS: `apt-get install nfs-kernel-server`
   3. Just to be safe, restart rpcbind: `service rpcbind restart`
 
+## Automated container target
+
+The [repository NFS target guide](../../../../../test/module_targets/nfs/README.md)
+provides an isolated UNFS3/rpcbind lab, genuine native access controls, repeated
+TCP/UDP scans and disposable database reporting checks. It requires no host NFS
+mounts or privileged containers.
+
 ## Verification Steps
 
   1. Install and configure rpcbind

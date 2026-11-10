@@ -1,0 +1,26 @@
+---
+spec: spec/acceptance/module_targets/nfs_spec.rb
+expected_examples: 18
+console: true
+modules:
+- auxiliary/scanner/nfs/nfsmount
+- auxiliary/scanner/misc/sunrpc_portmapper
+ports:
+  open: 111
+  empty: 111
+  unrelated: 111
+support_files:
+- lib/msf/core/auxiliary/nfs.rb
+- lib/msf/core/auxiliary/report.rb
+- lib/msf/core/auxiliary/scanner.rb
+- lib/rex/proto/sunrpc/client.rb
+- lib/msf/core/exploit/remote/sunrpc.rb
+- lib/msf/core/exploit/remote/tcp.rb
+- lib/msf/core/db_manager/service.rb
+- lib/msf/core/db_manager/note.rb
+- data/wordlists/rpc_names.txt
+- spec/lib/msf/core/auxiliary/nfs_spec.rb
+- spec/fixtures/msf/core/auxiliary/nfs/unfs3_export.json
+- test/module_targets/credential_reporting/compose.yaml
+- documentation/modules/auxiliary/scanner/nfs/nfsmount.md
+- documentation/modules/auxiliary/scanner/misc/sunrpc_portmapper.md

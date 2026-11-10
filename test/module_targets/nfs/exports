@@ -1,0 +1,5 @@
+/exports/open (rw,no_root_squash)
+/exports/read-only (ro,no_root_squash)
+/exports/denied 192.0.2.2/32(ro,no_root_squash)
+/exports/network RUNTIME_CIDR(rw,no_root_squash)
+/exports/netmask RUNTIME_NETMASK(rw,no_root_squash)

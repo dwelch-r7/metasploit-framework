@@ -49,6 +49,13 @@ Hostname to match shares against if `Mountable` is true. Defaults to `` (empty s
 
 Determine if an export is mountable based on `LHOST` and `HOSTNAME`. Defaults to `true`. Pre 2022 behavior was `false`
 
+## Automated container target
+
+The [repository NFS target guide](../../../../../test/module_targets/nfs/README.md)
+provides an isolated UNFS3/rpcbind lab, genuine native access controls, repeated
+TCP/UDP scans and disposable database reporting checks. It requires no host NFS
+mounts or privileged containers.
+
 ## Verification Steps
 
 1. Install and configure NFS
