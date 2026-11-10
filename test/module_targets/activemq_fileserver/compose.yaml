@@ -1,0 +1,84 @@
+{
+  "services": {
+    "affected": {
+      "platform": "linux/amd64",
+      "build": {
+        "context": "../activemq_legacy",
+        "args": {
+          "ARCHIVE_URL": "https://archive.apache.org/dist/activemq/5.11.1/apache-activemq-5.11.1-bin.tar.gz",
+          "ARCHIVE_SHA512": "ff0558702a5aa7192b427187ea1186c8290f26448a73a2b5443bf9a03155044bad78e9435465ad8b7bbdc2ab1a4bc66fa86a4d328eea8cb7df20fe24d5ca28ce"
+        }
+      },
+      "ports": [
+        "127.0.0.1::8161"
+      ],
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "curl",
+          "--silent",
+          "--fail",
+          "--max-time",
+          "2",
+          "http://127.0.0.1:8161/"
+        ],
+        "interval": "2s",
+        "timeout": "3s",
+        "retries": 30
+      },
+      "command": [
+        "sh",
+        "-c",
+        "unset JAVA_TOOL_OPTIONS; exec bin/activemq console"
+      ]
+    },
+    "fixed": {
+      "platform": "linux/amd64",
+      "build": {
+        "context": "../activemq_legacy",
+        "args": {
+          "ARCHIVE_URL": "https://archive.apache.org/dist/activemq/5.14.0/apache-activemq-5.14.0-bin.tar.gz",
+          "ARCHIVE_SHA512": "ae4a125a23f2cdbf59f447b24b72e4dc59c57b48fc2d8747e45af2a885406868a3514fdbc607aef4a896e82526ffbafdbce147097045453288535fe19d02af47"
+        }
+      },
+      "ports": [
+        "127.0.0.1::8161"
+      ],
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "curl",
+          "--silent",
+          "--fail",
+          "--max-time",
+          "2",
+          "http://127.0.0.1:8161/"
+        ],
+        "interval": "2s",
+        "timeout": "3s",
+        "retries": 30
+      },
+      "command": [
+        "sh",
+        "-c",
+        "unset JAVA_TOOL_OPTIONS; exec bin/activemq console"
+      ]
+    },
+    "unrelated": {
+      "image": "httpd:2.4.62@sha256:4c7788695c832bf415a662dfb5160f1895e65fc65c025e85f436ee2c9e7d7f3e",
+      "ports": [
+        "127.0.0.1::80"
+      ],
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "httpd",
+          "-t"
+        ],
+        "interval": "2s",
+        "timeout": "3s",
+        "retries": 20
+      }
+    }
+  }
+}

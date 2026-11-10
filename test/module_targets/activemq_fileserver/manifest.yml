@@ -1,0 +1,43 @@
+spec: spec/acceptance/module_targets/activemq_fileserver_spec.rb
+expected_examples: 9
+console: true
+modules:
+  - exploit/multi/http/apache_activemq_upload_jsp
+ports: {affected: 8161, fixed: 8161, unrelated: 80}
+support_files:
+  - spec/modules/exploits/multi/http/apache_activemq_upload_jsp_spec.rb
+  - spec/file_fixtures/modules/exploits/multi/http/apache_activemq_upload_jsp/native_uri.json
+  - spec/file_fixtures/modules/exploits/multi/http/apache_activemq_upload_jsp/native_loader.json
+  - spec/file_fixtures/modules/exploits/multi/http/apache_activemq_upload_jsp/native_cleanup.json
+  - spec/file_fixtures/modules/exploits/multi/http/apache_activemq_upload_jsp/README.md
+  - test/module_targets/activemq_legacy/Dockerfile
+  - test/module_targets/activemq_legacy/NativeControl.java
+  - test/module_targets/activemq_legacy/native/metasploit/Payload.java
+  - test/module_targets/activemq_legacy/provenance.json
+  - test/module_targets/activemq_legacy/native_base.rb
+  - test/module_targets/activemq_legacy/fileserver_probe.rb
+  - spec/support/shared/contexts/wait_for_expect.rb
+  - lib/msf/core/exploit/remote/http_client.rb
+  - lib/msf/core/exploit/file_dropper.rb
+  - lib/msf/core/encoded_payload.rb
+  - lib/msf/core/payload/java.rb
+  - lib/msf/core/payload/java/reverse_tcp.rb
+  - lib/msf/core/payload/java/payload_options.rb
+  - lib/msf/core/payload/java/meterpreter_loader.rb
+  - lib/msf/base/sessions/meterpreter_options/java.rb
+  - lib/msf/base/sessions/meterpreter_java.rb
+  - lib/msf/base/sessions/command_shell.rb
+  - lib/msf/base/sessions/command_shell_unix.rb
+  - lib/msf/util/exe.rb
+  - lib/msf/util/exe/windows/common.rb
+  - lib/msf/core/exploit.rb
+  - lib/rex/proto/http/client.rb
+  - lib/rex/proto/http/request.rb
+  - lib/rex/proto/http/response.rb
+  - lib/rex/proto/http/packet.rb
+  - modules/payloads/stagers/java/reverse_tcp.rb
+  - modules/payloads/stages/java/meterpreter.rb
+  - modules/payloads/stages/java/shell.rb
+  - modules/payloads/stagers/linux/x86/reverse_tcp.rb
+  - modules/payloads/stages/linux/x86/meterpreter.rb
+  - modules/payloads/stages/linux/x86/shell.rb
