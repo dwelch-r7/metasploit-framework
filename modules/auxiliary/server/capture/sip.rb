@@ -7,6 +7,7 @@ require 'English'
 require 'rex/socket'
 
 class MetasploitModule < Msf::Auxiliary
+  include Msf::Exploit::Remote::SocketServer
   include Msf::Auxiliary::Report
 
   def initialize
@@ -19,6 +20,7 @@ class MetasploitModule < Msf::Auxiliary
       },
       'Author' => 'Patrik Karlsson <patrik[at]cqure.net>',
       'License' => MSF_LICENSE,
+      'DefaultOptions' => { 'SRVPORT' => 5060 },
       'Actions' => [[ 'Capture', { 'Description' => 'Run SIP capture server' } ]],
       'PassiveActions' => [ 'Capture' ],
       'DefaultAction' => 'Capture',
@@ -29,10 +31,10 @@ class MetasploitModule < Msf::Auxiliary
       }
     )
 
+    # This service uses a direct UDP socket, without stream listener overrides.
+    deregister_options('SRVSSL', 'ListenerBindAddress', 'ListenerBindPort', 'ListenerComm')
     register_options(
       [
-        OptPort.new('SRVPORT', [ true, 'The local port to listen on.', 5060 ]),
-        OptAddressLocal.new('SRVHOST', [ true, 'The local host to listen on.', '0.0.0.0' ]),
         OptString.new('NONCE', [ true, 'The server byte nonce', '1234' ]),
         OptString.new('JOHNPWFILE', [ false, 'The prefix to the local filename to store the hashes in JOHN format', nil ]),
       ]
@@ -218,11 +220,14 @@ class MetasploitModule < Msf::Auxiliary
     end
   rescue ::Interrupt
     raise $ERROR_INFO
+  rescue Rex::BindFailed => e
+    fail_with(Failure::BadConfig, "Failed to bind SIP listener on #{Rex::Socket.to_authority(srvhost, @port)}: #{e.message}")
   rescue ::Rex::HostUnreachable, ::Rex::ConnectionTimeout, ::Rex::ConnectionRefused
     nil
   rescue StandardError => e
     print_error("Unknown error: #{e.class} #{e.backtrace}")
   ensure
-    @sock.close
+    @sock&.close
+    @sock = nil
   end
 end
