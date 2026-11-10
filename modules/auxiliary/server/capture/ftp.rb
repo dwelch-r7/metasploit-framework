@@ -82,7 +82,7 @@ class MetasploitModule < Msf::Auxiliary
     data = client.get_once
     return if !data
 
-    cmd, arg = data.strip.split(/\s+/, 2)
+    cmd, arg = data.chomp.split(/[ \t]/, 2)
     arg ||= ''
 
     if (cmd.upcase == 'USER')
