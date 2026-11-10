@@ -1,0 +1,26 @@
+spec: spec/acceptance/module_targets/activemq_openwire_spec.rb
+expected_examples: 14
+console: true
+modules:
+  - exploit/multi/misc/apache_activemq_rce_cve_2023_46604
+ports: {affected: 61616, fixed: 61616}
+support_files:
+  - spec/support/shared/contexts/wait_for_expect.rb
+  - lib/msf/core/exploit/remote/http_server.rb
+  - lib/msf/core/exploit/remote/tcp.rb
+  - lib/msf/core/exploit/remote/auto_check.rb
+  - lib/msf/core/exploit/retry.rb
+  - lib/msf/core/payload/adapter/fetch.rb
+  - lib/msf/core/payload/adapter/fetch/http.rb
+  - lib/msf/core/payload/adapter/fetch/linux_options.rb
+  - lib/msf/core/payload/adapter/fetch/server/http.rb
+  - modules/payloads/adapters/cmd/linux/http/x64.rb
+  - modules/payloads/singles/cmd/unix/generic.rb
+  - modules/payloads/singles/cmd/unix/reverse_bash.rb
+  - modules/payloads/stagers/linux/x64/reverse_tcp.rb
+  - modules/payloads/stages/linux/x64/meterpreter.rb
+  - modules/payloads/singles/linux/x64/exec.rb
+  - modules/payloads/stages/linux/x64/shell.rb
+  - lib/rex/service_manager.rb
+  - lib/rex/service.rb
+  - lib/msf/core/exploit/remote/socket_server.rb

@@ -1,0 +1,31 @@
+x-broker: &broker
+  platform: linux/amd64
+  mem_limit: 768m
+  ports: ["127.0.0.1::61616", "127.0.0.1::8161"]
+  healthcheck:
+    test:
+      - CMD-SHELL
+      - >-
+        curl --fail --silent --max-time 2 --user admin:admin
+        --header 'Origin: http://127.0.0.1:8161'
+        'http://127.0.0.1:8161/api/jolokia/read/org.apache.activemq:type=Broker,brokerName=localhost/BrokerVersion'
+        | grep -Eq '"status"[[:space:]]*:[[:space:]]*200[[:space:]]*[},]'
+    interval: 3s
+    timeout: 3s
+    retries: 40
+
+services:
+  affected:
+    <<: *broker
+    build:
+      context: .
+      args:
+        ACTIVEMQ_VERSION: 5.18.2
+        ACTIVEMQ_SHA512: af49a462b7190001e84d990276f7a424ee3a24a10be51dca5427ce3dbbc20556db4d318405e1e3382602d848341cc70480edc1def2aeb987d8aeb3b5bc9359e6
+  fixed:
+    <<: *broker
+    build:
+      context: .
+      args:
+        ACTIVEMQ_VERSION: 5.18.3
+        ACTIVEMQ_SHA512: 61abc4a08b9e1db6a5b1062bb1c839171e93bcb571817fd81744dd19874d713840bba99c7979d45bcb832d13ea01986b76fb11720f5ec63a0283e7d1934a33cc
