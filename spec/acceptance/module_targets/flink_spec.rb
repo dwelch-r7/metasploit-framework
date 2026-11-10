@@ -3,7 +3,7 @@ require 'base64'
 require 'net/http'
 require 'timeout'
 
-profile = ENV.fetch('FLINK_TARGET_PROFILE')
+profile = ENV.fetch('FLINK_TARGET_PROFILE', 'read')
 raise ArgumentError, "Unknown Flink profile: #{profile}" unless %w[read exec].include?(profile)
 
 RSpec.describe 'Native Apache Flink targets' do
