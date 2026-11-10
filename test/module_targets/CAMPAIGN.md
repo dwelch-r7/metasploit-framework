@@ -761,10 +761,20 @@ application/file restoration remain visible limits. No production repair.
 
 ## NiFi processor qualification
 
-The [current checkpoint](VERIFICATION-20261110-nifi-processor.md) qualifies
+The [NiFi processor checkpoint](VERIFICATION-20261110-nifi-processor.md) qualifies
 154 runtime modules, 85 families and 1,135 cases. The original processor owner
 passes 19 cases on three real stock releases, with ten used shells, real bearer
 policy, exact graph/canary restoration and current recorded inputs. Fixture
 observer/parser/compatibility corrections are separate from module defects.
 Linux Fetch rejection, local self-signed TLS and the early native identity
 evidence gap are retained explicitly. No production or shared code change.
+
+## SIP qualification
+
+The [current checkpoint](VERIFICATION-20261110-sip.md) qualifies161 runtime
+modules,89families and1,177cases. Seven modules pass42 real Asterisk/client cases
+after separately reproduced source repairs. Native John interoperability corrects
+both an invalid initial oracle and real captured URI/format/reporting defects.
+Parent41 examples,94 current inputs, all295 resource checks and exact inherited
+lint/docs comparisons pass. TLS trust, legacy deregistration policy and seven
+other individual endpoint requirements remain explicit.
