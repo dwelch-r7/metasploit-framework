@@ -5,6 +5,7 @@ import json
 import os
 import pathlib
 import shlex
+import urllib.parse
 from client import OpenTsdbTarget
 
 ROOT = pathlib.Path(__file__).resolve().parent
@@ -102,7 +103,12 @@ def main():
         api.command('affected', 'rm', '--', path)
         params = dict(QUERY, wxh='800x400', json='')
         literal = json.dumps(command, ensure_ascii=False)
-        params['yrange' if family == 'yrange' else 'key'] = '[1:system(' + literal + ')]' if family == 'yrange' else ';system ' + literal + ';#'
+        parameter = 'yrange' if family == 'yrange' else 'key'
+        expression = '[1:system(' + literal + ')]' if family == 'yrange' else ';system ' + literal + ';#'
+        # GraphHandler.popParam in the genuine 2.4.1/fixed trees explicitly
+        # URL-decodes the already parsed value again; 2.4.0 does not. Preserve
+        # literal percent/plus bytes through that actual extra decode.
+        params[parameter] = expression if release == '240' else urllib.parse.quote(expression, safe='')
         row, _ = api.get('affected', '/q', params)
         if vulnerable:
             assert api.command('affected', 'cat', path)['stdout'] == value, row
@@ -110,10 +116,16 @@ def main():
             api.command('affected', 'rm', '--', path)
         else:
             assert row['code'] == 400, row
+            refusal = json.loads(row['body']).get('err', '')
+            if family == 'yrange':
+                assert "'yrange' was invalid" in refusal, row
+            else:
+                assert 'illegal character' in refusal.lower() and 'key' in refusal.lower(), row
+            assert 'URLDecoder' not in refusal, row
         api.command('affected', 'test', '-e', path, expected=1)
         proof['native_commands'].append({'case': label, 'command': command, 'expected': value,
                                          'executed': vulnerable, 'http_code': row['code'], 'removed': True})
-    proof.update(status='passed', cli=len(api.commands), http=len(api.requests), metrics=metrics, aggregators=aggregators)
+    proof.update(graph_parameter_decodes=1 if release == '240' else 2, status='passed', cli=len(api.commands), http=len(api.requests), metrics=metrics, aggregators=aggregators)
     print(json.dumps(proof))
 
 

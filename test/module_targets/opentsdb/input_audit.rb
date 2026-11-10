@@ -25,7 +25,10 @@ module OpenTsdbInputs
       raise "Could not load #{name}" unless instance
 
       instance.class.prepend(OpenTsdbCommandAudit) unless instance.class.ancestors.include?(OpenTsdbCommandAudit)
-      targets = instance.targets.each_with_index.map { |target, index| { index: index, name: target.name, arch: target.arch } }
+      targets = instance.targets.each_with_index.map do |target, index|
+        instance.datastore['TARGET'] = index
+        { index: index, name: target.name, arch: target.arch, compatible_payloads: instance.compatible_payloads.map(&:first) }
+      end
       [name, { targets: targets, default_payload: instance.datastore['PAYLOAD'] }]
     end
   end

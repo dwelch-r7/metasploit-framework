@@ -39,7 +39,23 @@ The family-local console formatter proves actual Rex lexer round trips; an
 observational prepend records executing-replicant CMD and execute_command bytes,
 without regenerating payloads or changing requests. Generic command vectors,
 base/prefix checks, auth/missing/unrelated/closed cases, AutoCheck, actual sessions
-and command-stager/Fetch delivery families repeat. A session must both emit its
+and command-stager/Fetch delivery families repeat. The Linux-only key owner uses the genuine `cmd/linux/http/x64/exec` adapter
+for command-byte vectors and compatible x64/x86 Fetch session payloads. Those
+vectors prove the downloaded Linux program's exact command behavior; the recorded
+execute_command argument is the actual Fetch wrapper, not a Unix generic payload.
+Compatibility is checked through the public catalog before every execution.
+Forced-fixed cases must reach the owner execution method before absence of proof
+can count. Native fixed controls require the actual validation reason, excluding
+malformed URL-decoding errors.
+
+Authenticated-prefix cases set public `HttpClientTimeout=5`: the owners normally
+send commands without waiting, which cannot receive a Basic challenge. This
+ordinary option enables bounded negotiation without forcing a Basic header or
+changing the SDK/module defaults. The 2.4.1/fixed GraphHandler performs an extra
+URL decode in popParam; the independent native producer accounts for it, while
+2.4.0 retains its single decode. Original failures remain separately recorded.
+
+A session must both emit its
 opened banner and appear in the registry, execute a target UID/file/PID proof,
 then close with that remote PID absent. Public compatibility remains enforced.
 

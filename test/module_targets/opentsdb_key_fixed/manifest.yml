@@ -62,6 +62,9 @@
     "modules/exploits/linux/http/opentsdb_yrange_cmd_injection.rb",
     "test/module_targets/opentsdb/README.md",
     "documentation/modules/exploit/linux/http/opentsdb_yrange_cmd_injection.md",
-    "documentation/modules/exploit/linux/http/opentsdb_key_cmd_injection.md"
+    "documentation/modules/exploit/linux/http/opentsdb_key_cmd_injection.md",
+    "modules/payloads/singles/linux/x64/exec.rb",
+    "modules/payloads/adapters/cmd/linux/http/x86.rb",
+    "lib/msf/core/payload/linux/x64/prepends.rb"
   ]
 }
