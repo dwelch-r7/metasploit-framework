@@ -304,12 +304,18 @@ execution modules pass28 cases after separate cookie/path/detection, migration
 href and confirmed-ownership cleanup repairs. Native controls precede46 public
 calls and twelve used sessions; parent focused tests pass27 examples. All current
 input hashes and owned teardown pass.
-The [current integrated checkpoint](VERIFICATION-20261110-hadoop.md) records
+The [Hadoop checkpoint](VERIFICATION-20261110-hadoop.md) records
 **153 runtime modules, 82 families and 1,116 functional cases**. Genuine Hadoop
 passes19 cases with its original owner after native-proven fixture corrections.
 Six used sessions, exact repeated proof/cleanup, current hashes and owned
 teardown pass. At-least-once YARN retries, operator restoration and19 inherited
 undeclaredTARGETURI warnings remain explicit qualification limits.
+The [current integrated checkpoint](VERIFICATION-20261110-nifi-processor.md) records
+**154 runtime modules, 85 families and 1,135 functional cases**. The unchanged
+NiFi processor module passes 19 cases, ten used shells and exact canary/graph
+restoration after fixture observer, bearer-option and compatibility corrections.
+Current hashes and owned teardown pass; unsupported Fetch, TLS and other limits
+remain explicit.
 The full campaign remains incomplete while feasible, valuable modules await review
 or functional verification.
 See [deferred investigations](DEFERRED.md) for retained failures that remain

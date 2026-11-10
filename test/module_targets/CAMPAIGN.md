@@ -758,3 +758,13 @@ corrections. Native real jobs precede26 public calls and six used sessions;
 current maps and all134 parent resource checks pass. YARN retries imply
 at-least-once execution; exact19 TARGETURI warnings and explicit operator
 application/file restoration remain visible limits. No production repair.
+
+## NiFi processor qualification
+
+The [current checkpoint](VERIFICATION-20261110-nifi-processor.md) qualifies
+154 runtime modules, 85 families and 1,135 cases. The original processor owner
+passes 19 cases on three real stock releases, with ten used shells, real bearer
+policy, exact graph/canary restoration and current recorded inputs. Fixture
+observer/parser/compatibility corrections are separate from module defects.
+Linux Fetch rejection, local self-signed TLS and the early native identity
+evidence gap are retained explicitly. No production or shared code change.
