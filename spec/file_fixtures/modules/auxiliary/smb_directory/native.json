@@ -1,0 +1,132 @@
+{
+  "wkssvc": {
+    "product": "Samba 4.15.13-Ubuntu, package2:4.15.13+dfsg-0ubuntu1.13",
+    "method": "Real local smbclient NetBIOS139 holders; native rpcclient -d10 wkssvc_enumerateusers1. Exact unmodified NDR DATA_BLOB bytes.",
+    "populated": {
+      "source": "tmp/smb-directory-native/two-users/both-ndr.stderr",
+      "source_sha256": "9ba9d3fa9e2e2eaaadeb333ac0dba9f2378e27e2ae56280c11338197db8a7b96",
+      "bytes": 228,
+      "sha256": "b89fc0a5a28126d7c1b2529396f60524104d1ea347e2a815e4b5c67295eaafb5",
+      "ndr_stub_base64": "AQAAAAEAAAAIAAIAAgAAAAwAAgACAAAAEAACABQAAgAAAAAAGAACABwAAgAgAAIAAAAAACQAAgAMAAAAAAAAAAwAAABsAG8AYwBhAGwAXwBhAGwAaQBjAGUAAAAHAAAAAAAAAAcAAABEAEkAUgBMAEEAQgAAAAAAAgAAAAAAAAACAAAAKgAAAAoAAAAAAAAACgAAAGwAbwBjAGEAbABfAGIAbwBiAAAABwAAAAAAAAAHAAAARABJAFIATABBAEIAAAAAAAIAAAAAAAAAAgAAACoAAAACAAAAKAACAAAAAAAAAAAA"
+    },
+    "empty": {
+      "source": "tmp/smb-directory-native/session-matrix/445-SMB3-ndr.stderr",
+      "source_sha256": "d849529df21a99dd4610af5b619ff64ce02e859f0ff0a835b3a0339f2dffe4e5",
+      "bytes": 40,
+      "sha256": "2ca625e452c660105dfcfbe6e12d4f1a4a706d9f665c77ade9385e4d7696e415",
+      "ndr_stub_base64": "AQAAAAEAAAAIAAIAAAAAAAwAAgAAAAAAAAAAABAAAgAAAAAAAAAAAA=="
+    }
+  },
+  "rpc": {
+    "provenance": "Actual Rex generated multi-context BIND and genuine Samba response over authenticated SMB3; same bytes replayed by RubySMB API. No RCE or protocol stub.",
+    "fragmentation": {
+      "source": {
+        "uuid": "06bba54a-be05-49f9-b0a0-30f790261023",
+        "version": "1.0",
+        "began": 558995.79984,
+        "open_files_before": 6,
+        "request": "BQALAxAAAACwAgAAAAAAANAW0BYAAAAADwAAAAAAAQD/t2+3p7rFOMBgurPgC/KsBQAAAARdiIrrHMkRn+gIACsQSGACAAAAAQABAPn7XWdeG2hVhX1E5U3MX/4BAAEABF2IiuscyRGf6AgAKxBIYAIAAAACAAEAEsdb1zx4i//CpVxE8NeSiwQAAAAEXYiK6xzJEZ/oCAArEEhgAgAAAAMAAQBaggSgGg8/S6qIWk+wYp1qAAADAARdiIrrHMkRn+gIACsQSGACAAAABAABAJvrNoWxV1VBM0kysaaKX1ABAAAABF2IiuscyRGf6AgAKxBIYAIAAAAFAAEAk0JpNAfQXRvpj6I8/tk5CwIAAQAEXYiK6xzJEZ/oCAArEEhgAgAAAAYAAQCrMXpkWTW0eShSorGVgNAVAAAAAARdiIrrHMkRn+gIACsQSGACAAAABwABADYuPBc8/1ZHmdT6i15UdY0FAAEABF2IiuscyRGf6AgAKxBIYAIAAAAIAAEAndZP5gh86GInREvCEupxJQMAAAAEXYiK6xzJEZ/oCAArEEhgAgAAAAkAAQAxOd+4v5oPGeoV4RMcqXJWAgACAARdiIrrHMkRn+gIACsQSGACAAAACgABAGtNLLvzuce++AT4zsBHDTcBAAIABF2IiuscyRGf6AgAKxBIYAIAAAALAAEA6UA0L2a8mGs3ECesMDYzxQEAAwAEXYiK6xzJEZ/oCAArEEhgAgAAAAwAAQBE0AtlTHrw5e7liplD2J38BQAAAARdiIrrHMkRn+gIACsQSGACAAAADQABAIet8YWrhLOAuZakRuHrT20AAAEABF2IiuscyRGf6AgAKxBIYAIAAAAOAAEASqW7BgW++UmwoDD3kCYQIwEAAAAEXYiK6xzJEZ/oCAArEEhgAgAAAA==",
+        "writes": [
+          "BQALAxAAAACwAgAAAAAAANAW0BYAAAAADwAAAAAAAQD/t2+3p7rFOMBgurPgC/KsBQAAAARdiIrrHMkRn+gIACsQSGACAAAAAQABAPn7XWdeG2hVhX1E5U3MX/4BAAEABF2IiuscyRGf6AgAKxBIYAIAAAACAAEAEsdb1zx4i//CpVxE8NeSiwQAAAAEXYiK6xzJEZ/oCAArEEhgAgAAAAMAAQBaggSgGg8/S6qIWk+wYp1qAAADAARdiIrrHMkRn+gIACsQSGACAAAABAABAJvrNoWxV1VBM0kysaaKX1ABAAAABF2IiuscyRGf6AgAKxBIYAIAAAAFAAEAk0JpNA==",
+          "B9BdG+mPojz+2TkLAgABAARdiIrrHMkRn+gIACsQSGACAAAABgABAKsxemRZNbR5KFKisZWA0BUAAAAABF2IiuscyRGf6AgAKxBIYAIAAAAHAAEANi48Fzz/VkeZ1PqLXlR1jQUAAQAEXYiK6xzJEZ/oCAArEEhgAgAAAAgAAQCd1k/mCHzoYidES8IS6nElAwAAAARdiIrrHMkRn+gIACsQSGACAAAACQABADE537i/mg8Z6hXhExypclYC",
+          "AAIABF2IiuscyRGf6AgAKxBIYAIAAAAKAAEAa00su/O5x774BPjOwEcNNwEAAgAEXYiK6xzJEZ/oCAArEEhgAgAAAAsAAQDpQDQvZryYazcQJ6wwNjPFAQADAARdiIrrHMkRn+gIACsQSGACAAAADAABAETQC2VMevDl7uWKmUPYnfwFAAAABF2IiuscyRGf6AgAKxBIYAIAAAANAAEAh63xhauEs4C5lqRG4etPbQAAAQAEXYiK6xzJEZ/oCAArEEhgAgAAAA4AAQBKpbsGBb75SbCgMPeQJhAjAQAAAARdiIrrHMkRn+gIACsQSGACAAAA"
+        ],
+        "status": "ERROR",
+        "error": [
+          "RubySMB::Error::CommunicationError",
+          "Communication error with the remote host: Read timeout expired when reading from the Socket (timeout=60). The server supports encryption and this error may have been caused by encryption issues, but not always."
+        ],
+        "ended": 559056.869899,
+        "open_files_after": 7
+      },
+      "request_sha256": "8cd1bd4d397a1a46442a8fd39d61a4940c0d792453ab49ffb8a838946beb1952",
+      "fragment_lengths": [
+        256,
+        189,
+        243
+      ],
+      "trials": [
+        {
+          "label": "one_write",
+          "began": 559091.551899,
+          "negotiated": 3,
+          "lengths": [
+            688
+          ],
+          "write_results": [
+            "(0x00000000) STATUS_SUCCESS: The operation completed successfully."
+          ],
+          "response": "BQAMAxAAAACUAQAAAAAAANAW0BY2ewAACwBccGlwZVxzYW1yAAAAAA8AAAACAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+          "reply_type": 12,
+          "ack_results": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "ended": 559091.585767,
+          "socket_closed": true
+        },
+        {
+          "label": "captured_writes",
+          "began": 559091.685008,
+          "negotiated": 3,
+          "lengths": [
+            256,
+            189,
+            243
+          ],
+          "write_results": [
+            "(0x00000000) STATUS_SUCCESS: The operation completed successfully.",
+            "(0x00000000) STATUS_SUCCESS: The operation completed successfully.",
+            "(0x00000000) STATUS_SUCCESS: The operation completed successfully."
+          ],
+          "error": [
+            "RubySMB::Error::CommunicationError",
+            "Communication error with the remote host: Read timeout expired when reading from the Socket (timeout=60). The server supports encryption and this error may have been caused by encryption issues, but not always."
+          ],
+          "ended": 559152.753191,
+          "socket_closed": true
+        }
+      ]
+    },
+    "largest_default_bind": {
+      "uuid": "04fcb220-fcfd-11cd-bec8-00aa0047ae4e",
+      "version": "1.0",
+      "began": 559306.143283,
+      "open_files_before": 5,
+      "request": "BQALAxAAAADcAgAAAAAAANAW0BYAAAAAEAAAAAAAAQB2F5kkDX5WlKFmBWuyYb3oBQAAAARdiIrrHMkRn+gIACsQSGACAAAAAQABAKyi23Qfv9yrPFXmFxQZdgoDAAAABF2IiuscyRGf6AgAKxBIYAIAAAACAAEA/ojIx/qBYXkwPkcSuvR+aQEAAwAEXYiK6xzJEZ/oCAArEEhgAgAAAAMAAQBesSFp4YRlvH5GCmALWAlQAgABAARdiIrrHMkRn+gIACsQSGACAAAABAABAARzzWiXGuN74073f395HkgCAAMABF2IiuscyRGf6AgAKxBIYAIAAAAFAAEAjDudGdLeGe0Il5zrIeh7SQEAAgAEXYiK6xzJEZ/oCAArEEhgAgAAAAYAAQAmX9U0lGiOWNCGvUS2SQjYAwABAARdiIrrHMkRn+gIACsQSGACAAAABwABAGeI4uB14SMJ7PqRPhWcXQ0AAAIABF2IiuscyRGf6AgAKxBIYAIAAAAIAAEAvKMsq4UH/BxcwQpPz6c2cwAAAAAEXYiK6xzJEZ/oCAArEEhgAgAAAAkAAQDqggPgL8xbuT/eEGqUIh2RAAADAARdiIrrHMkRn+gIACsQSGACAAAACgABAO5DRQhJZpZkKEhrEwcRkSECAAAABF2IiuscyRGf6AgAKxBIYAIAAAALAAEAyEnpsvjrPU40BK2TsWcvcgUAAQAEXYiK6xzJEZ/oCAArEEhgAgAAAAwAAQDfT4NzKmR0D9beaUr+trzFAgADAARdiIrrHMkRn+gIACsQSGACAAAADQABAHuhKYA1ojn1RMeWDvLHSGECAAIABF2IiuscyRGf6AgAKxBIYAIAAAAOAAEAzGtH3ZzM0wO63OvWzHNuQgUAAAAEXYiK6xzJEZ/oCAArEEhgAgAAAA8AAQAgsvwE/fzNEb7IAKoAR65OAQAAAARdiIrrHMkRn+gIACsQSGACAAAA",
+      "writes": [
+        "BQALAxAAAADcAgAAAAAAANAW0BYAAAAAEAAAAAAAAQB2F5kkDX5WlKFmBWuyYb3oBQAAAARdiIrrHMkRn+gIACsQSGACAAAAAQABAKyi23Qfv9yrPFXmFxQZdgoDAAAABF2IiuscyRGf6AgAKxBIYAIAAAACAAEA/ojIx/qBYXkwPkcSuvR+aQEAAwAEXYiK6xzJEZ/oCAArEEhgAgAAAAMAAQBesSFp4YRlvH5GCmALWAlQAgABAARdiIrrHMkRn+gIACsQSGACAAAABAABAARzzWiXGuN74073f395HkgCAAMABF2IiuscyRGf6AgAKxBIYAIAAAAFAAEAjDudGdLeGe0Il5zrIeh7SQEAAgAEXYiK6xzJEZ/oCAArEEhgAgAAAAYAAQAmX9U0lGiOWNCGvUS2SQjYAwABAARdiIrrHMkRn+gIACsQSGACAAAABwABAGeI4uB14SMJ7PqRPhWcXQ0AAAIABF2IiuscyRGf6AgAKxBIYAIAAAAIAAEAvKMsq4UH/BxcwQpPz6c2cwAAAAAEXYiK6xzJEZ/oCAArEEhgAgAAAAkAAQDqggPgL8xbuT/eEGqUIh2RAAADAARdiIrrHMkRn+gIACsQSGACAAAACgABAO5DRQhJZpZkKEhrEwcRkSECAAAABF2IiuscyRGf6AgAKxBIYAIAAAALAAEAyEnpsvjrPU40BK2TsWcvcgUAAQAEXYiK6xzJEZ/oCAArEEhgAgAAAAwAAQDfT4NzKmR0D9beaUr+trzFAgADAARdiIrrHMkRn+gIACsQSGACAAAADQABAHuhKYA1ojn1RMeWDvLHSGECAAIABF2IiuscyRGf6AgAKxBIYAIAAAAOAAEAzGtH3ZzM0wO63OvWzHNuQgUAAAAEXYiK6xzJEZ/oCAArEEhgAgAAAA8AAQAgsvwE/fzNEb7IAKoAR65OAQAAAARdiIrrHMkRn+gIACsQSGACAAAA"
+      ],
+      "response": "BQAMAxAAAACsAQAAAAAAANAW0BblIwAACwBccGlwZVxzYW1yAAAAABAAAAACAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+      "status": "ERROR",
+      "error": [
+        "Rex::Proto::DCERPC::Exceptions::BindError",
+        "Failed to bind. Could not bind to 04fcb220-fcfd-11cd-bec8-00aa0047ae4e:1.0@ncacn_np:127.0.0.1[\\samr]"
+      ],
+      "ended": 559306.17095,
+      "open_files_after": 6
+    },
+    "default_bind_bound": {
+      "prepend_min": 10,
+      "prepend_max": 15,
+      "append": 0,
+      "context_bytes": 44,
+      "header_bytes": 28,
+      "maximum_bytes": 732,
+      "source": "lib/rex/proto/dcerpc/packet.rb make_bind_fake_multi"
+    }
+  }
+}

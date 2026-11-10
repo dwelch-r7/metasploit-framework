@@ -104,8 +104,8 @@ class MetasploitModule < Msf::Auxiliary
           accounts << {
             :account_name => result.wkui1_username.encode('UTF-8'),
             :logon_domain => result.wkui1_logon_domain.encode('UTF-8'),
-            :other_domains => result.wkui1_oth_domains.encode('UTF-8'),
-            :logon_server => result.wkui1_logon_server.encode('UTF-8')
+            :other_domains => result.wkui1_oth_domains.is_null_ptr? ? '' : result.wkui1_oth_domains.encode('UTF-8'),
+            :logon_server => result.wkui1_logon_server.is_null_ptr? ? '' : result.wkui1_logon_server.encode('UTF-8')
           }
         }
       end
