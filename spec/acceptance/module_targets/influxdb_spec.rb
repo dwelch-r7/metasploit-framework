@@ -57,7 +57,7 @@ RSpec.describe 'Genuine InfluxDB enumeration targets' do
     ['secured', reader.merge('QUERY' => 'SHOW USERS'), 'Unexpected response status 403', 'a genuine admin-only query as the reader'],
     ['secured', { 'QUERY' => 'SELECT FROM' }, 'Unexpected response status 400', 'a genuine query syntax error'],
     ['secured', { 'TARGETURI' => '/missing/' }, 'Unexpected response status 404', 'a missing native API path'],
-    ['secured', { 'RPORT' => 8087 }, 'Failed to connect to the influx db server.', 'the owned closed endpoint'],
+    ['secured', { 'RPORT' => 8087 }, 'The connection was refused by the remote host', 'the owned closed endpoint'],
     ['unrelated', {}, nil, 'unrelated real Apache']
   ].each do |service, options, reason, label|
     it "refuses #{label} twice without query loot" do
