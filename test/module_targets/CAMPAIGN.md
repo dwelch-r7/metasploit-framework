@@ -634,6 +634,34 @@ and 902 functional cases**; see the
 result is retained while an independent IMAP parser regression/completion
 follow-up is resolved before its publication; Flink/Jolokia remain in progress.
 
+Capture protocols then qualify 32 cases across six actual Framework servers and
+genuine libcurl/libpq/Python clients. Native target controls distinguish fixture
+assumptions from password/authorization/Startup/DATA parsing defects. Independent
+review catches a legal closing-brace regression before publication; separate
+parser and response-flow repairs pass 50 focused examples and the full 32-case
+replay. Exact wire and SQL retain UNTRIED semantics, and real IMAP clients finish
+with deliberate refusal instead of timeout. Both the unchanged initial seal and
+additive follow-up remain available in the
+[capture record](VERIFICATION-20261110-capture.md).
+
+Flink adds 24 cases across traversal and real Java execution. Native controls
+identify container PID1 zombie retention and disabled-submit multipart staging
+as fixture/target behavior; strict actual payload process equality and explicit
+operator staging restoration remain required. A narrow owning TARGETURI option
+repair passes 6 focused examples. See the
+[Flink record](VERIFICATION-20261110-flink.md).
+
+Jolokia adds 18 cases against genuine affected/fixed ActiveMQ. The owning repair
+uses authenticated Origin-aware broker discovery and positive state receipts,
+refuses an existing NC before mutation, and preserves a real TCP bridge. Both
+matched and stricter warning-gate replays pass with six used sessions and
+confirmed owning cleanup; parent tests pass 48 examples. Current recorded inputs,
+exact counts and owned teardown establish **142 runtime modules, 71 families and
+976 functional cases**. See the [Jolokia record](VERIFICATION-20261110-jolokia.md)
+and [integrated checkpoint](VERIFICATION-20261110-capture.md). WordPress and
+Ansible remain unqualified in the [deferred index](DEFERRED.md). NFS, legacy
+ActiveMQ and additional database capture qualification continue separately.
+
 ## Remaining work
 
 - Review existing protocol suites and supply reusable managed containers.

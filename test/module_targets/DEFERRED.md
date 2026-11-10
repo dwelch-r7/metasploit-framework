@@ -4,6 +4,33 @@ These findings do not count as passing functional qualification. The
 [campaign](CAMPAIGN.md) and individual verification records retain other
 coverage limits and ongoing investigations.
 
+## WordPress administrator upload sessions
+
+`exploit/unix/webapp/wp_admin_shell_upload` remains unqualified. Its retained
+[25-case reproducer](wordpress_admin/README.md) documents the cold-state seed
+7721 and genuine WordPress/PHP native controls. Repeated staged PHP Meterpreter
+execution can enter an invalid-session reconnect burst during bootstrap.
+Interrupted full-profile attempts retain null counts; a bounded observer case
+finishes with one failure and successful teardown. Neither is passing coverage.
+
+Independent role/authentication, actual proof-plugin upload/execution/removal and
+native PHP callback controls pass. Explicit remote exit and prior-handler
+shutdown do not resolve the staged-session failure. Saved TLV observations narrow
+the investigation to bootstrap/`core_loadlib` and packet transport, but lack
+session/socket labels; a missing decoded reply does not establish wire silence.
+The upload module has not been established as the cause, and no production
+session repair is claimed.
+
+The separately integrated upload-permission check repair passes matched ordered
+20/5 to 20/0 and focused 21/9 to 21/0 comparisons. It does not qualify session
+execution. Current module source SHA-256 is
+`d1e640a23c27d6c2b983380b44bc4c8c493a003fefe35573994c9dad43474924`.
+The [retained verification record](VERIFICATION-20261109-proxy-history.md#retained-investigation-and-remaining-work)
+records independent verification of all 338 session-export and 95
+permission-export checksums. Keep those failures separate from the verified
+permission repair. Further work needs labeled session/socket transport evidence
+through the second staged bootstrap before selecting a module or session fix.
+
 ## Ansible node deployment
 
 `exploit/linux/local/ansible_node_deployer` remains unqualified. The native-passing

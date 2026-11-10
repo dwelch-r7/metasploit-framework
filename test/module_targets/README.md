@@ -256,12 +256,20 @@ The [Fetch requalification](VERIFICATION-20261110-fetch-lifecycle.md) retains
 that same 132-module checkpoint after repairing shared HTTP/HTTPS ownership.
 All 42 Solr/OpenWire cases pass stricter registry/listener/refusal checks, with
 native component 62/10 to 62/0 and bounded artifact restoration.
-The [current qualification record](VERIFICATION-20261110-docker-engine.md)
+The [earlier qualification record](VERIFICATION-20261110-docker-engine.md)
 records **133 runtime modules, 66 families and 902 functional cases**, adding
 real nested Docker information gathering without host sockets or extra
 capabilities. Ten cases pass through native versions, Basic/TLS gateways and
-actual reporting SQL after an unrelated HTML false-positive repair. Capture,
-IMAP response/parser follow-up, Flink and Jolokia remain separate work.
+actual reporting SQL after an unrelated HTML false-positive repair.
+The [current integrated checkpoint](VERIFICATION-20261110-capture.md) records
+**142 runtime modules, 71 families and 976 functional cases**. Six real-client
+capture modules pass 32 cases after separate protocol repairs and an independently
+found IMAP parser/completion follow-up. Genuine [Flink](VERIFICATION-20261110-flink.md)
+file reads and Java sessions add 24 cases; [Jolokia](VERIFICATION-20261110-jolokia.md)
+adds 18 while preserving existing broker bridges and cleaning only confirmed
+owned connectors. All selected input hashes, exact counts and owned teardown
+pass. WordPress admin sessions remain explicitly unqualified. NFS, legacy
+ActiveMQ and additional database capture modules are continuing separately.
 The full campaign remains incomplete while feasible, valuable modules await review
 or functional verification.
 See [deferred investigations](DEFERRED.md) for retained failures that remain
