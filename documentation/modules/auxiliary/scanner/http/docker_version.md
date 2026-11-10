@@ -2,6 +2,11 @@
 
 This module scans for Docker servers listening on a TCP port (default 2375).
 
+The isolated [Docker Engine lab](../../../../../test/module_targets/docker_engine/README.md)
+provides genuine pinned daemons, native client/API controls, Basic/TLS gateways
+and database-backed automated checks without a host socket mount or additional
+container privileges.
+
 ## Options
 
 ### VERBOSE

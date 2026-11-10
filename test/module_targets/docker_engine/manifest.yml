@@ -1,0 +1,39 @@
+spec: spec/acceptance/module_targets/docker_engine_spec.rb
+expected_examples: 10
+console: true
+modules: [auxiliary/scanner/http/docker_version]
+ports:
+  old: 2375
+  modern: 2375
+  gateway: 80
+  unrelated: 80
+  missing: 80
+support_files:
+  - spec/modules/auxiliary/scanner/http/docker_version_spec.rb
+  - spec/file_fixtures/modules/auxiliary/scanner/http/docker_version/README.md
+  - spec/file_fixtures/modules/auxiliary/scanner/http/docker_version/provenance.json
+  - spec/file_fixtures/modules/auxiliary/scanner/http/docker_version/old.json
+  - spec/file_fixtures/modules/auxiliary/scanner/http/docker_version/modern.json
+  - spec/file_fixtures/modules/auxiliary/scanner/http/docker_version/unrelated.html
+  - spec/file_fixtures/modules/auxiliary/scanner/http/docker_version/missing.html
+  - lib/msf/core/exploit/remote/http_client.rb
+  - lib/msf/core/auxiliary/report.rb
+  - lib/msf/core/db_manager/host.rb
+  - lib/msf/core/db_manager/note.rb
+  - lib/msf/core/db_manager/service.rb
+  - test/module_targets/credential_reporting/compose.yaml
+  - test/module_targets/http_proxy/compose.yaml
+  - test/module_targets/http_proxy/Dockerfile
+  - test/module_targets/http_proxy/destination.conf
+  - test/module_targets/http_proxy/open.conf
+  - test/module_targets/http_proxy/denied.conf
+  - test/module_targets/http_proxy/index.html
+  - test/module_targets/http/compose.yaml
+  - test/module_targets/http/Dockerfile
+  - test/module_targets/http/module-target.conf
+  - test/module_targets/http/htdocs/index.html
+  - test/module_targets/http/htdocs/plain.txt
+  - test/module_targets/http/htdocs/robots.txt
+  - test/module_targets/http/htdocs/final.html
+  - test/module_targets/http/htdocs/protected/index.html
+  - test/module_targets/http/htdocs/listing/evidence.txt

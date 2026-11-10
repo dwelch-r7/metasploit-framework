@@ -1,0 +1,39 @@
+x-engine: &engine
+  platform: linux/amd64
+  entrypoint: [dockerd]
+  command: [--host=tcp://0.0.0.0:2375, --host=unix:///var/run/docker.sock, --tls=false, --storage-driver=vfs, --bridge=none, --iptables=false, --ip6tables=false, --ip-forward=false, --ip-masq=false]
+  cap_drop: [SYS_ADMIN, SYS_TIME]
+  mem_limit: 256m
+  ports: ["127.0.0.1::2375"]
+  healthcheck:
+    test: [CMD-SHELL, "docker --host unix:///var/run/docker.sock version --format '{{.Server.Version}}'"]
+    interval: 3s
+    timeout: 3s
+    retries: 30
+
+services:
+  old:
+    <<: *engine
+    image: docker:26.1.4-dind@sha256:b32df6450ef70d803237fd21eb4ddf8b3dda13378075c39306c7c19f0ced079e
+  modern:
+    <<: *engine
+    image: docker:28.0.4-dind@sha256:9fb175225e8d3ff95ec41225424d3dcacf78af96544fb2aa2613a78a6d044cb8
+  gateway:
+    extends: {file: ../http_proxy/compose.yaml, service: destination}
+    ports: ["127.0.0.1::443"]
+    volumes:
+      - ./gateway.conf:/usr/local/apache2/conf/extra/docker-engine.conf:ro
+    command: [sh, -c, 'htpasswd -bc /tmp/module-target.htpasswd module-test-user module-test-password && exec httpd-foreground -c "Include conf/extra/docker-engine.conf"']
+    networks:
+      default:
+        aliases: [destination]
+    depends_on: {modern: {condition: service_healthy}}
+  unrelated:
+    extends: {file: ../http/compose.yaml, service: apache}
+    volumes:
+      - ./unrelated.conf:/usr/local/apache2/conf/extra/docker-engine.conf:ro
+    command: [httpd-foreground, -c, 'Include conf/extra/docker-engine.conf']
+  missing:
+    extends: {file: ../http/compose.yaml, service: apache}
+  reporting_db:
+    extends: {file: ../credential_reporting/compose.yaml, service: reporting_db}
