@@ -131,9 +131,11 @@ module DruidSingleSocketObserver
   def self.attach_owner(client, owner)
     return client unless owner.fullname == OWNER
 
+    # Rex keeps these metadata readers protected. Observe their existing values
+    # without changing reader visibility or the actual client configuration.
     metadata = {
       client: @recorders.length + 1, case_id: @case_id, owner: owner.fullname, object_id: owner.object_id,
-      host: client.hostname, port: client.port, ssl: client.ssl, proxies: client.proxies, target: owner.target_index,
+      host: client.__send__(:hostname), port: client.__send__(:port), ssl: client.__send__(:ssl), proxies: client.proxies, target: owner.target_index,
       payload: owner.datastore['PAYLOAD']
     }
     recorder = Recorder.new(metadata) { |row| File.open(@path, 'a') { |output| output.puts(JSON.generate(row)) } }

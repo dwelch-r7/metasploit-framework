@@ -1,4 +1,5 @@
 require 'rspec'
+require 'tmpdir'
 require_relative '../../../test/module_targets/druid_js_single/socket_observer'
 
 module DruidObserverSpecFixtures
@@ -78,6 +79,53 @@ module DruidObserverSpecFixtures
       raise error if error
 
       socket
+    end
+  end
+
+  # Rex::Proto::Http::Client exposes these readers as protected, not public.
+  class ProtectedClient < Client
+    attr_reader :proxies
+
+    def initialize(socket, subscriber)
+      super
+      @hostname = '192.0.2.10'
+      @port = 8081
+      @ssl = false
+      @proxies = nil
+    end
+
+    protected
+
+    attr_reader :hostname, :port, :ssl
+  end
+
+  # Models the module connection hook without loading Framework or a database.
+  class Owner
+    attr_reader :calls
+    attr_accessor :error
+
+    def initialize(client)
+      @client = client
+      @calls = []
+    end
+
+    def fullname
+      DruidSingleSocketObserver::OWNER
+    end
+
+    def target_index
+      1
+    end
+
+    def datastore
+      { 'PAYLOAD' => 'cmd/unix/generic' }
+    end
+
+    def connect(options = {})
+      @calls << options
+      raise error if error
+
+      @client
     end
   end
 end
@@ -265,5 +313,74 @@ RSpec.describe 'Druid single-release socket observer' do
     client.subscriber.on_request(request)
 
     expect(events.fetch(0)).not_to have_key(:extra)
+  end
+end
+
+RSpec.describe 'Druid selected-owner socket observation' do
+  let(:socket) { DruidObserverSpecFixtures::Socket.new }
+  let(:delegate) { DruidObserverSpecFixtures::Delegate.new }
+  let(:client) { DruidObserverSpecFixtures::ProtectedClient.new(socket, delegate) }
+  let(:owner) { DruidObserverSpecFixtures::Owner.new(client) }
+  let(:request) { DruidObserverSpecFixtures::Request.new }
+  let(:bytes) { "POST / HTTP/1.1\r\nContent-Length: 2\r\n\r\n{}" }
+  let(:output_path) { DruidSingleSocketObserver.instance_variable_get(:@path) }
+
+  around do |example|
+    names = %i[@path @recorders @case_id]
+    previous = names.to_h { |name| [name, [DruidSingleSocketObserver.instance_variable_defined?(name), DruidSingleSocketObserver.instance_variable_get(name)]] }
+    Dir.mktmpdir('druid-observer-spec') do |directory|
+      DruidSingleSocketObserver.instance_variable_set(:@path, File.join(directory, 'observations.jsonl'))
+      DruidSingleSocketObserver.instance_variable_set(:@recorders, [])
+      DruidSingleSocketObserver.instance_variable_set(:@case_id, 'selected-owner')
+      example.run
+    end
+  ensure
+    previous&.each do |name, (defined, value)|
+      if defined
+        DruidSingleSocketObserver.instance_variable_set(name, value)
+      elsif DruidSingleSocketObserver.instance_variable_defined?(name)
+        DruidSingleSocketObserver.remove_instance_variable(name)
+      end
+    end
+  end
+
+  it 'attaches the selected client without changing its protected reader visibility' do
+    expect { client.hostname }.to raise_error(NoMethodError, /protected method/)
+    expect(DruidSingleSocketObserver.attach_owner(client, owner)).to equal(client)
+    expect { client.hostname }.to raise_error(NoMethodError, /protected method/)
+    expect(DruidSingleSocketObserver.state).to eq(clients: 1, errors: [])
+  end
+
+  it 'delegates the selected module connection and actual write once with unchanged bytes and metadata' do
+    owner.singleton_class.prepend(DruidSingleSocketObserver::ModuleConnections)
+    options = { 'vhost' => 'fixture.example' }
+    expect(owner.connect(options)).to equal(client)
+    expect(owner.calls).to eq([options])
+    expect(client.subscriber.on_request(request)).to eq(:original_request_return)
+    expect(client.connect(8).put(bytes)).to eq(bytes.bytesize)
+    client.subscriber.on_response(Struct.new(:code, :body).new(200, '{}'))
+
+    rows = File.readlines(output_path).map { |line| JSON.parse(line) }
+    expect(rows.map { |row| row.fetch('kind') }).to eq(%w[PRE-SEND SOCKET-WRITE RESPONSE])
+    expect(rows.fetch(1)).to include(
+      'host' => '192.0.2.10', 'port' => 8081, 'ssl' => false, 'proxies' => nil,
+      'owner' => DruidSingleSocketObserver::OWNER, 'target' => 1, 'payload' => 'cmd/unix/generic',
+      'case_id' => 'selected-owner', 'complete' => true, 'returned_count' => bytes.bytesize,
+      'data_base64' => Base64.strict_encode64(bytes), 'peer' => [2, '192.0.2.10', 8081]
+    )
+    expect(socket.calls.length).to eq(1)
+    expect(delegate.requests).to eq([request])
+    expect(client.calls).to eq([8])
+  end
+
+  it 'preserves the selected module connection failure without attaching or masking it' do
+    owner.singleton_class.prepend(DruidSingleSocketObserver::ModuleConnections)
+    original = IOError.new('Connection setup failed')
+    owner.error = original
+
+    expect { owner.connect('vhost' => 'fixture.example') }.to(raise_error { |error| expect(error).to equal(original) })
+    expect(owner.calls).to eq([{ 'vhost' => 'fixture.example' }])
+    expect(client.subscriber).to equal(delegate)
+    expect(DruidSingleSocketObserver.state).to eq(clients: 0, errors: [])
   end
 end
