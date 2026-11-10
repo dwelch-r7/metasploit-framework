@@ -699,6 +699,16 @@ all 14 fork Verify jobs; that result is not inferred for later revisions.
 SIP/Gitea fixture corrections, NiFi scanner qualification and a stock Java8
 Tomcat default-spawn matrix remain in progress.
 
+The [NiFi scanner checkpoint](VERIFICATION-20261110-nifi.md) establishes
+**150 runtime modules, 77 families and 1,055 functional cases**. Both original
+production scanners remain unchanged. Fifteen cases/31 actual runs pass with
+native versions/authentication and exact successful SQL reporting/workspace
+isolation. An initial readiness miss and three expected-negative helper failures
+are retained as fixture issues; the current 55 inputs and all owned teardown
+pass. The 535-entry worker export and all source/import checks are independently
+verified. Remaining NiFi execution/gathering, Gitea, SIP and the stock Java8
+Tomcat default-spawn matrix continue separately.
+
 ## Remaining work
 
 - Review existing protocol suites and supply reusable managed containers.

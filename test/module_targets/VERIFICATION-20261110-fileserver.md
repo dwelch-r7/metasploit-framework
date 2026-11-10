@@ -1,5 +1,8 @@
 # ActiveMQ FileServer and integrated checkpoint, November 10
 
+This retained checkpoint precedes the
+[150-module NiFi scanner checkpoint](VERIFICATION-20261110-nifi.md).
+
 Current input hashes, exact passing counts and owned teardown establish
 **148 runtime modules, 76 families and 1,040 functional cases**. This adds
 `exploit/multi/http/apache_activemq_upload_jsp` to the retained

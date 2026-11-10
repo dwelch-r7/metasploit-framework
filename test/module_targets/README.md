@@ -279,14 +279,19 @@ records **147 runtime modules, 75 families and 1,031 functional cases**. Genuine
 MySQL/MSSQL clients add 29 capture cases after separate binary-response,
 empty-password and NTLM reporting repairs. Native wire and direct SQL verify
 actual bytes/context while preserving UNTRIED semantics; parent focused tests
-pass 77 examples. The [current integrated checkpoint](VERIFICATION-20261110-fileserver.md)
+pass 77 examples. The [FileServer checkpoint](VERIFICATION-20261110-fileserver.md)
 records **148 runtime modules, 76 families and 1,040 functional cases**. The
 ActiveMQ FileServer exploit passes nine cases and twelve used sessions after
 separate URI, classloader and cleanup-option repairs. Native counterfactuals
 separate the fixture environment failure from stale-JAR cascades; false-option
 preservation and explicit operator restoration pass twice. Parent focused tests
-pass 20 examples. WordPress admin sessions remain explicitly unqualified.
-SIP, Gitea, NiFi and Tomcat default-spawn work continues separately.
+pass 20 examples. The [current integrated checkpoint](VERIFICATION-20261110-nifi.md)
+records **150 runtime modules, 77 families and 1,055 functional cases**. Two
+unchanged NiFi scanners pass 15 cases against genuine HTTP/HTTPS releases with
+native authentication controls, exact reporting and workspace isolation.
+Readiness and expected-negative fixture failures remain separate from module
+verdicts. WordPress admin sessions remain explicitly unqualified. SIP, Gitea,
+remaining NiFi modules and Tomcat default-spawn work continues separately.
 The full campaign remains incomplete while feasible, valuable modules await review
 or functional verification.
 See [deferred investigations](DEFERRED.md) for retained failures that remain
