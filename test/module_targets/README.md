@@ -326,11 +326,17 @@ The [Spark checkpoint](VERIFICATION-20261110-spark.md) records
 profiles pass27 cases and ten used sessions after a native-proven form encoding
 repair. Corrected3.1.3 advisory coverage, auth/negative controls, current hashes
 and owned cleanup pass; REST option and other scope limits remain explicit.
-The [current integrated checkpoint](VERIFICATION-20261110-influxdb.md) records
+The [InfluxDB checkpoint](VERIFICATION-20261110-influxdb.md) records
 **164 runtime modules, 92 families and 1,220 functional cases**. InfluxDB passes16
 cases in60.7 seconds with its original owner, exact JSON loot, native auth/role/
 query/path controls and repeated state checks. Current hashes and owned cleanup
 pass; fixture attribution and1.x scope remain explicit.
+The [current integrated checkpoint](VERIFICATION-20261110-nifi-h2.md) records
+**165 runtime modules, 95 families and 1,233 functional cases**. H2 adds13 cases;
+scanner15 and processor19 are requalified after the shared state-body repair.
+Native DTO/state/delay controls, parent37 focused examples,120 current inputs and
+all187 exact object checks pass. Shell-use and operator-cleanup limits remain
+explicit.
 The full campaign remains incomplete while feasible, valuable modules await review
 or functional verification.
 See [deferred investigations](DEFERRED.md) for retained failures that remain

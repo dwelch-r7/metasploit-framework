@@ -791,10 +791,22 @@ passive-job semantics remain explicit; the full campaign continues.
 
 ## InfluxDB qualification
 
-The [current checkpoint](VERIFICATION-20261110-influxdb.md) qualifies164 runtime
+The [InfluxDB checkpoint](VERIFICATION-20261110-influxdb.md) qualifies164 runtime
 modules,92families and1,220cases. InfluxDB original source passes16cases with32
 public calls,18exact JSON loot documents and16native state audits. A native CLI
 precision mismatch and a shared-client refusal-message fixture expectation are
 corrected before qualification, with original evidence preserved. Parent39 current
 inputs and all38 resource checks pass; an early aggregate-log preservation gap
 and1.x query/auth/path limits remain explicit. No production repair.
+
+## NiFi H2 qualification
+
+The [current checkpoint](VERIFICATION-20261110-nifi-h2.md) qualifies165 runtime
+modules,95families and1,233cases. H2 adds13 cases after separately reproduced
+DTO/cleanup/shared-state repairs; scanner15 and processor19 remain current after
+requalification. All47 selected cases pass across two identified invocations.
+Native two-versus-thirty-second controls correct the legacy quick-command fixture
+without a timeout/source workaround. Parent37 focused examples,120 current input
+hashes,2,805 worker manifest entries and187 exact object checks pass. Used-shell,
+operator-file-cleanup, original/mixed failures and inherited lint limits remain
+explicit; the campaign continues.
