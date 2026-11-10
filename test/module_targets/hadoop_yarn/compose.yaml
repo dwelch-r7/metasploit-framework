@@ -1,0 +1,70 @@
+x-hadoop: &hadoop
+  build: .
+  env_file: [cluster.env]
+  mem_limit: 1536m
+services:
+  namenode:
+    <<: *hadoop
+    hostname: namenode
+    command: [hdfs, namenode]
+    environment:
+      ENSURE_NAMENODE_DIR: /data/hadoop/dfs/name
+    volumes: [namenode:/data]
+    healthcheck:
+      test: [CMD-SHELL, "curl -fsS http://localhost:9870/jmx?qry=Hadoop:service=NameNode,name=NameNodeStatus | grep -q active"]
+      interval: 3s
+      timeout: 3s
+      retries: 50
+  datanode:
+    <<: *hadoop
+    command: [hdfs, datanode]
+    volumes: [datanode:/data]
+    depends_on:
+      namenode: {condition: service_healthy}
+  resourcemanager:
+    <<: *hadoop
+    hostname: resourcemanager
+    command: [yarn, resourcemanager]
+    ports: ['127.0.0.1::8088']
+    volumes: [resourcemanager:/data]
+    healthcheck:
+      test: [CMD-SHELL, "curl -fsS http://resourcemanager:8088/ws/v1/cluster/info | grep -q STARTED"]
+      interval: 3s
+      timeout: 3s
+      retries: 50
+  nodemanager:
+    <<: *hadoop
+    hostname: nodemanager
+    command: [yarn, nodemanager]
+    ports: ['127.0.0.1::8042']
+    healthcheck:
+      test: [CMD-SHELL, "curl -fsS http://nodemanager:8042/ws/v1/node/info | grep -q nodeHealthy"]
+      interval: 3s
+      timeout: 3s
+      retries: 50
+    volumes:
+      - nodemanager:/data
+      - ./native32.S:/lab/native32.S:ro
+      - ./native64.S:/lab/native64.S:ro
+    depends_on:
+      resourcemanager: {condition: service_healthy}
+  gateway:
+    image: httpd:2.4.62@sha256:4c7788695c832bf415a662dfb5160f1895e65fc65c025e85f436ee2c9e7d7f3e
+    ports: ['127.0.0.1::80']
+    mem_limit: 96m
+    volumes:
+      - ./gateway.conf:/usr/local/apache2/conf/extra/hadoop.conf:ro
+    command: [sh, -c, 'htpasswd -bc /tmp/module-target.htpasswd module-test-user module-test-password && exec httpd-foreground -c "Include conf/extra/hadoop.conf"']
+    healthcheck:
+      test: [CMD-SHELL, "httpd -t && kill -0 1"]
+      interval: 3s
+      timeout: 3s
+      retries: 30
+    depends_on: {resourcemanager: {condition: service_healthy}}
+  unrelated:
+    extends: {file: ../http/compose.yaml, service: apache}
+volumes:
+  namenode:
+  datanode:
+  resourcemanager:
+  nodemanager:

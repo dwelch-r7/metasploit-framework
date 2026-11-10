@@ -1,0 +1,2 @@
+include:
+  - ../hadoop_yarn/compose.yaml

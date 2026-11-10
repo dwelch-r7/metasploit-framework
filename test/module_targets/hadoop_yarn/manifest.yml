@@ -1,0 +1,38 @@
+spec: spec/acceptance/module_targets/hadoop_yarn_spec.rb
+expected_examples: 16
+console: true
+modules:
+  - exploit/linux/http/hadoop_unauth_exec
+ports:
+  resourcemanager: 8088
+  nodemanager: 8042
+  gateway: 80
+  unrelated: 80
+support_files:
+  - lib/msf/core/exploit/cmd_stager.rb
+  - lib/msf/core/exploit/cmd_stager/http.rb
+  - lib/msf/core/exploit/exe.rb
+  - lib/msf/core/exploit/remote/http_client.rb
+  - lib/msf/core/handler.rb
+  - lib/msf/core/handler/reverse_tcp.rb
+  - lib/msf/core/encoded_payload.rb
+  - lib/msf/util/exe.rb
+  - lib/rex/service.rb
+  - lib/rex/service_manager.rb
+  - lib/rex/proto/http/server.rb
+  - modules/payloads/singles/linux/x86/exec.rb
+  - modules/payloads/singles/linux/x64/exec.rb
+  - modules/payloads/singles/linux/x86/shell_reverse_tcp.rb
+  - modules/payloads/singles/linux/x64/shell_reverse_tcp.rb
+  - modules/payloads/stagers/linux/x64/reverse_tcp.rb
+  - modules/payloads/stages/linux/x64/meterpreter.rb
+  - data/templates/template_x86_linux.bin
+  - data/templates/template_x64_linux.bin
+  - spec/support/shared/contexts/wait_for_expect.rb
+  - test/module_targets/http/compose.yaml
+  - test/module_targets/http/Dockerfile
+  - test/module_targets/http/module-target.conf
+  - test/module_targets/http/htdocs/index.html
+  - documentation/modules/exploit/linux/http/hadoop_unauth_exec.md
+test_env:
+  HADOOP_YARN_PROFILE: commands
