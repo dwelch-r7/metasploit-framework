@@ -866,3 +866,15 @@ absences plus two temporary aliases pass. Ten new Ruby files lint cleanly; four
 inherited source findings and five docs warnings/one INFO remain explicit.
 Original human Scenarios and every existing documentation byte remain unchanged.
 Only campaign containers may run; serial execution and teardown continue.
+
+## OpenTSDB qualification
+
+The [current checkpoint](VERIFICATION-20261110-opentsdb.md) qualifies173 runtime
+modules,107 families and1,359 cases. Both original OpenTSDB owners pass49 cases
+with98 public operations and12 actual used sessions. The original49/20 diagnostic
+mixed native producer, Basic negotiation, compatibility and weak forced-negative
+fixtures; corrected independent controls and stricter assertions establish49/0
+without production repairs. Parent87 current inputs,235 imported files, Ruby
+lint, dry19/6/18/6 and32 cleanup checks pass. Six inherited docs warnings and
+explicit operator-file cleanup remain documented. All earlier native/failure
+records are preserved; the full campaign continues.

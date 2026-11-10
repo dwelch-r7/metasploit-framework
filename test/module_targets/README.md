@@ -352,14 +352,20 @@ examples, 73 current inputs, lint and all 16 owned cleanup checks pass. Original
 failures, derived boundary files and unqualified versions remain explicit. Only
 campaign containers may run on the development host, one project/five containers
 at a time, with teardown after each run.
-The [current integrated checkpoint](VERIFICATION-20261110-druid-compact.md) records
+The [Druid checkpoint](VERIFICATION-20261110-druid-compact.md) records
 **171 runtime modules, 103 families and 1,310 functional cases**. Two Druid modules
 pass34 cases across two recorded invocations. Compact JavaScript profiles use five
 containers and verify actual socket writes and native command bytes. Earlier
 JNDI/session passes retain ten used sessions, exact PID removal and wire evidence;
 their larger historical profiles require redesign before local replay. Parent
-103 qualified inputs, 22/26 focused examples, ten-file lint and301 resource/alias
+103 qualified inputs, 22 source and26 observer examples, ten-file lint and301 resource/alias
 checks pass; inherited source/docs lint and failed fixtures remain explicit.
+The [current integrated checkpoint](VERIFICATION-20261110-opentsdb.md) records
+**173 runtime modules, 107 families and 1,359 functional cases**. Both original
+OpenTSDB modules pass49 cases across affected/fixed profiles, with98 public
+operations and12 used sessions. Independent native controls,87 current inputs,
+all235 imported files and32 cleanup checks pass. Original fixture failures,
+public Basic negotiation, Fetch scope and operator restoration remain explicit.
 The full campaign remains incomplete while feasible, valuable modules await review
 or functional verification.
 See [deferred investigations](DEFERRED.md) for retained failures that remain
