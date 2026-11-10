@@ -12,10 +12,24 @@ Use the Ruby version in `.ruby-version`, installed bundle dependencies, and a
 running local Docker Engine with Compose supporting `up --wait`:
 
 ```sh
-bundle exec ruby tools/dev/run_module_target_tests.rb --list
-bundle exec ruby tools/dev/run_module_target_tests.rb redis
-bundle exec ruby tools/dev/run_module_target_tests.rb --all
+bundle exec ruby tools/dev/run_guarded_module_target_tests.rb --list
+bundle exec ruby tools/dev/run_guarded_module_target_tests.rb redis
+bundle exec ruby tools/dev/run_guarded_module_target_tests.rb --all
 ```
+
+Use the guarded launcher for local campaign runs. It holds one user-scoped lock
+across worktrees until tests and teardown finish, requires an empty container
+inventory before startup, and refuses a resolved Compose plan exceeding five
+containers including Framework and helpers. A refusal records
+`setup_resource_refused` with no module verdict; it does not start or remove
+containers. Handle existing containers explicitly before retrying.
+
+The guard counts every resolved service conservatively, including disabled
+profiles and zero replicas. Larger historical profiles need to be split before
+local replay. Manual Docker commands, native smoke launchers and the original
+runner do not acquire this advisory lock, so keep them in the same serial queue.
+The guard limits container count; individual profiles still need suitable memory
+and CPU limits. After a cleanup failure it refuses subsequent families.
 
 The runner currently runs on Linux or macOS with a local Docker Engine. It
 creates a fresh, uniquely named Compose project for each family,

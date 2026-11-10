@@ -22,6 +22,21 @@ that their modules are infeasible or broken. Only containers for this campaign
 may run on the development host. Remove unrelated containers before starting;
 preserve their images and volumes unless separately requested.
 
+Use `tools/dev/run_guarded_module_target_tests.rb` for subsequent local runs.
+Its user-scoped advisory lock spans worktrees and teardown, and its merged
+Compose preflight refuses more than five containers or any existing container.
+Resource refusals carry no module verdict. The original runner and manual/native
+launchers remain outside the lock and require the same serial coordination.
+The guard counts all resolved services conservatively and does not impose CPU
+or memory ceilings; retain those limits in each profile. Historical larger
+profiles remain qualified only for their recorded inputs and must be split for
+local replay.
+
+The [guard verification](VERIFICATION-20261110-resource-guard.md) records 21
+focused passing examples and a real nine-container Compose refusal with no
+startup, unchanged empty inventory and released lock. Existing module coverage
+remains 173 modules, 107 families and 1,359 functional cases.
+
 ## Activity
 
 The first batch establishes the runner, complete static inventory and Redis,
