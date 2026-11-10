@@ -1,0 +1,57 @@
+{
+  "product": "UNFS3",
+  "version": "0.11.0",
+  "release": "https://github.com/unfs3/unfs3/releases/tag/unfs3-0.11.0",
+  "archive_sha256": "42ef63cd949b65a4ead30bee269703059a8c4269bef6aa1533215ad1c2a26d6f",
+  "source_path": "Config/exports.y",
+  "source_sha256": "868e8208e2b18a7e7badfc1e20ccd93d29a69b81812bec86a2ebe691df3d2ee7",
+  "capture": {
+    "service": "open",
+    "protocol": "tcp",
+    "port": 2049,
+    "endpoint": [
+      "127.0.0.1",
+      62796
+    ],
+    "program": 100005,
+    "version": 1,
+    "procedure": 5,
+    "request_base64": "TkZTAwAAAAAAAAACAAGGpQAAAAEAAAAFAAAAAAAAAAAAAAAAAAAAAA==",
+    "wire_request_base64": "gAAAKE5GUwMAAAAAAAAAAgABhqUAAAABAAAABQAAAAAAAAAAAAAAAAAAAAA=",
+    "response_base64": "TkZTAwAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAA0vZXhwb3J0cy9vcGVuAAAAAAAAAQAAAAs8YW5vbiBjbG50PgAAAAAAAAAAAQAAABIvZXhwb3J0cy9yZWFkLW9ubHkAAAAAAAEAAAALPGFub24gY2xudD4AAAAAAAAAAAEAAAAPL2V4cG9ydHMvZGVuaWVkAAAAAAEAAAAMMTkyLjAuMi4yLzMyAAAAAAAAAAEAAAAQL2V4cG9ydHMvbmV0d29yawAAAAEAAAANMTcyLjI2LjAuMC8xNgAAAAAAAAAAAAABAAAAEC9leHBvcnRzL25ldG1hc2sAAAABAAAAFjE3Mi4yNi4wLjAvMjU1LjI1NS4wLjAAAAAAAAAAAAAA",
+    "accept_status": 0
+  },
+  "config": "/exports/open (rw,no_root_squash)\n/exports/read-only (ro,no_root_squash)\n/exports/denied 192.0.2.2/32(ro,no_root_squash)\n/exports/network 172.26.0.0/16(rw,no_root_squash)\n/exports/netmask 172.26.0.0/255.255.0.0(rw,no_root_squash)\n",
+  "exports": [
+    [
+      "/exports/open",
+      [
+        "<anon clnt>"
+      ]
+    ],
+    [
+      "/exports/read-only",
+      [
+        "<anon clnt>"
+      ]
+    ],
+    [
+      "/exports/denied",
+      [
+        "192.0.2.2/32"
+      ]
+    ],
+    [
+      "/exports/network",
+      [
+        "172.26.0.0/16"
+      ]
+    ],
+    [
+      "/exports/netmask",
+      [
+        "172.26.0.0/255.255.0.0"
+      ]
+    ]
+  ]
+}

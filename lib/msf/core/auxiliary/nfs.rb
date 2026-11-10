@@ -27,6 +27,9 @@ module Msf
       # 4. theres a CIDR notation that we're included in.
       return true unless mountable
       return true if locations.include? '*'
+      # UNFS3 labels an unnamed, prefix-zero client this way in Config/exports.y.
+      # https://github.com/unfs3/unfs3/blob/unfs3-0.11.0/Config/exports.y
+      return true if locations.include?('<anon clnt>')
       return true if !hostname.blank? && locations.include?(hostname)
       return true if !lhost.empty? && locations.include?(lhost)
 
