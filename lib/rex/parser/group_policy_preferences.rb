@@ -109,7 +109,9 @@ class GPP
       table << ["NEVER_EXPIRES?", result[:NEVER_EXPIRES]] unless result[:NEVER_EXPIRES].nil?
       table << ["DISABLED", result[:DISABLED]] unless result[:DISABLED].nil?
       table << ["PATH", result[:PATH]] unless result[:PATH].nil? || result[:PATH].empty?
-      table << ["DATASOURCE", result[:DSN]] unless result[:DSN].nil? || result[:DSN].empty?
+      datasource = result[:DATASOURCE]
+      datasource = result[:DSN] if datasource.nil? || datasource.empty?
+      table << ["DATASOURCE", datasource] unless datasource.nil? || datasource.empty?
       table << ["DRIVER", result[:DRIVER]] unless result[:DRIVER].nil? || result[:DRIVER].empty?
       table << ["TASK", result[:TASK]] unless result[:TASK].nil? || result[:TASK].empty?
       table << ["SERVICE", result[:SERVICE]] unless result[:SERVICE].nil? || result[:SERVICE].empty?
@@ -171,8 +173,9 @@ class GPP
       aes.key = key
       plaintext = aes.update(decoded)
       plaintext << aes.final
-      password = plaintext.unpack('v*').pack('C*') # UNICODE conversion
-    rescue OpenSSL::Cipher::CipherError => e
+      # cpassword plaintext is UTF-16LE, including non-ASCII code points.
+      password = plaintext.force_encoding(::Encoding::UTF_16LE).encode(::Encoding::UTF_8)
+    rescue OpenSSL::Cipher::CipherError, ::Encoding::InvalidByteSequenceError, ::Encoding::UndefinedConversionError => e
       puts "Unable to decode: \"#{encrypted_data}\" Exception: #{e}"
     end
 

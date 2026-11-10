@@ -1,0 +1,79 @@
+{
+  "provenance": "Actual nine SYSVOL files independently retrieved by smbclient, SHA256checked, decrypted with OpenSSL, and recovered passwords authenticated against Samba. This subset retains exact ASCII/Unicode/DataSource XML.",
+  "files": {
+    "ascii": {
+      "path": "dirlab.test/Policies/{11111111-2222-4333-8444-555555555555}/MACHINE/Preferences/Groups/Groups.xml",
+      "sha256": "3b86b9f78de06a1e61c81f00ef462ee43701a59e7f6000ec571571ebb3023778",
+      "xml": "<?xml version='1.0' encoding='utf-8'?>\n<Groups clsid=\"{3125E937-EB16-4B4C-9934-544FC6D24D26}\"><User changed=\"2026-11-10 00:00:00\" name=\"Module target fixture\" uid=\"{11111111-2222-4333-8444-555555555555}\" clsid=\"{DF5F1855-51E5-4D24-8B1A-D9BDE98BA1D1}\" image=\"2\"><Properties action=\"U\" cpassword=\"50i9/6RVUrJhg+EgZelSF2vUiWtJBrbMYKkJKJka87RM1FHkiWMbYpSZtQcizDOt\" userName=\"DIRLAB\\policy_user\" neverExpires=\"1\" acctDisabled=\"0\" newName=\"\" fullName=\"Module target fixture\" description=\"Public artificial account\" changeLogon=\"0\" noChange=\"0\" /></User></Groups>",
+      "password": "Lab-Policy-Secret:2026!",
+      "username": "DIRLAB\\policy_user",
+      "cpassword": "50i9/6RVUrJhg+EgZelSF2vUiWtJBrbMYKkJKJka87RM1FHkiWMbYpSZtQcizDOt"
+    },
+    "unicode": {
+      "path": "dirlab.test/Policies/{11111111-2222-4333-8444-555555555555}/USER/Preferences/Groups/Groups.xml",
+      "sha256": "f093c44df8af8b660ff477bcd1672168177cb3d10fbf4f1159ac7d3b7fec48c3",
+      "xml": "<?xml version='1.0' encoding='utf-8'?>\n<Groups clsid=\"{3125E937-EB16-4B4C-9934-544FC6D24D26}\"><User changed=\"2026-11-10 00:00:00\" name=\"Module target fixture\" uid=\"{11111111-2222-4333-8444-555555555555}\" clsid=\"{DF5F1855-51E5-4D24-8B1A-D9BDE98BA1D1}\" image=\"2\"><Properties action=\"U\" cpassword=\"vcDe5wXIyjpn8vZo29bRAh3KOJCRu8OkvO7/tgbvwjEH8ogMEkG9eDl5nwpTYvDP\" userName=\"DIRLAB\\unicode_user\" neverExpires=\"1\" acctDisabled=\"0\" newName=\"\" fullName=\"Module target fixture\" description=\"Public artificial account\" changeLogon=\"0\" noChange=\"0\" /></User></Groups>",
+      "password": "Module-π密码-Secret!",
+      "username": "DIRLAB\\unicode_user",
+      "cpassword": "vcDe5wXIyjpn8vZo29bRAh3KOJCRu8OkvO7/tgbvwjEH8ogMEkG9eDl5nwpTYvDP"
+    },
+    "datasource": {
+      "path": "dirlab.test/Policies/{11111111-2222-4333-8444-555555555555}/MACHINE/Preferences/Datasources/DataSources.xml",
+      "sha256": "0b6f0a4e2ce6e7080f67774e602359d9069f75aa58c8621ae1cb0b5b3d656b54",
+      "xml": "<?xml version='1.0' encoding='utf-8'?>\n<DataSources clsid=\"{380F820F-F21B-41AC-A3CC-24D4F80F067B}\"><DataSource changed=\"2026-11-10 00:00:00\" name=\"Module target fixture\" uid=\"{11111111-2222-4333-8444-555555555555}\" clsid=\"{5C209626-D820-4D69-8D50-1FACD6214488}\" image=\"2\"><Properties action=\"U\" cpassword=\"50i9/6RVUrJhg+EgZelSF2vUiWtJBrbMYKkJKJka87RM1FHkiWMbYpSZtQcizDOt\" username=\"DIRLAB\\policy_user\" dsn=\"ModuleTargetDSN\" driver=\"ModuleTargetDriver\" userDSN=\"0\" description=\"Public artificial fixture\" /></DataSource></DataSources>",
+      "password": "Lab-Policy-Secret:2026!",
+      "username": "DIRLAB\\policy_user",
+      "cpassword": "50i9/6RVUrJhg+EgZelSF2vUiWtJBrbMYKkJKJka87RM1FHkiWMbYpSZtQcizDOt"
+    }
+  },
+  "derived": {
+    "astral": {
+      "provenance": "Derived UTF-16 boundary, independently encrypted by OpenSSL; not claimed as a native authenticated account.",
+      "utf16le_base64": "TQBvAGQAdQBsAGUALQA92BLdLQBTAGUAYwByAGUAdAAhAA==",
+      "cpassword": "Hv+KyMe/b9TZTprepwPTTL/krRMVjvHxVIbgalN6NSI1eKieCNtWiWI+j8n92pZd",
+      "expected": "Module-🔒-Secret!",
+      "argv": [
+        "openssl",
+        "enc",
+        "-aes-256-cbc",
+        "-nosalt",
+        "-K",
+        "4e9906e8fcb66cc9faf49310620ffee8f496e806cc057990209b09a433b66c1b",
+        "-iv",
+        "00000000000000000000000000000000"
+      ]
+    },
+    "empty": {
+      "provenance": "Derived UTF-16 boundary, independently encrypted by OpenSSL; not claimed as a native authenticated account.",
+      "utf16le_base64": "",
+      "cpassword": "0G8sBHI8gLl7UyMxTc/3gA",
+      "expected": "",
+      "argv": [
+        "openssl",
+        "enc",
+        "-aes-256-cbc",
+        "-nosalt",
+        "-K",
+        "4e9906e8fcb66cc9faf49310620ffee8f496e806cc057990209b09a433b66c1b",
+        "-iv",
+        "00000000000000000000000000000000"
+      ]
+    },
+    "invalid_utf16": {
+      "provenance": "Derived UTF-16 boundary, independently encrypted by OpenSSL; not claimed as a native authenticated account.",
+      "utf16le_base64": "ANg=",
+      "cpassword": "WNNwh2bAPhBphKD1bs/wsw",
+      "expected": "",
+      "argv": [
+        "openssl",
+        "enc",
+        "-aes-256-cbc",
+        "-nosalt",
+        "-K",
+        "4e9906e8fcb66cc9faf49310620ffee8f496e806cc057990209b09a433b66c1b",
+        "-iv",
+        "00000000000000000000000000000000"
+      ]
+    }
+  }
+}
