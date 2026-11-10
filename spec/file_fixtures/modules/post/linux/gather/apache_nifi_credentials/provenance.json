@@ -1,0 +1,63 @@
+{
+  "invocation": "20261110T113803-8848a1",
+  "source_sha256": "cda059b0ce5971a689626ed8c65f03282727bde79c9e6828c511c084418847bc",
+  "native_stores": {
+    "keystore": {
+      "path": "/opt/nifi/nifi-current/conf/keystore.p12",
+      "password": "af270ae8eecdc6a911aecbca7ea2dd29",
+      "native_listing": "Keystore type: PKCS12\nKeystore provider: SUN\n\nYour keystore contains 1 entry\n\nnifi-key, Nov 10, 2026, PrivateKeyEntry, \nCertificate fingerprint (SHA-256): 00:00:FA:59:51:5F:9E:DD:72:F9:25:EE:7C:02:CF:80:46:91:0F:27:F1:F2:96:B1:52:C4:32:01:1D:B6:24:50\n"
+    },
+    "truststore": {
+      "path": "/opt/nifi/nifi-current/conf/truststore.p12",
+      "password": "d8602604a0bd852c1cf877c66dd37412",
+      "native_listing": "Keystore type: PKCS12\nKeystore provider: SUN\n\nYour keystore contains 1 entry\n\nnifi-cert, Nov 10, 2026, trustedCertEntry, \nCertificate fingerprint (SHA-256): 00:00:FA:59:51:5F:9E:DD:72:F9:25:EE:7C:02:CF:80:46:91:0F:27:F1:F2:96:B1:52:C4:32:01:1D:B6:24:50\n"
+    }
+  },
+  "identity": [
+    {
+      "identifier": "single-user-provider",
+      "username": "module-nifi-admin",
+      "hash": "$2b$12$QVie8obEDXtV1K0BJx0jyeeTNHamEwxKH6xiM8eEc6m7d6iY/vxQa"
+    }
+  ],
+  "private_values": [
+    "module-test-password",
+    "module-target-db-\"quoted\"-password\\path",
+    "module-target-stored-sas-token",
+    "af270ae8eecdc6a911aecbca7ea2dd29",
+    "d8602604a0bd852c1cf877c66dd37412",
+    "af270ae8eecdc6a911aecbca7ea2dd29"
+  ],
+  "files": {
+    "nifi.properties": {
+      "source": "native-nifi.properties",
+      "source_sha256": "b04dc2e3c63f686feb83cbac25f96079ca0e8d2957a8e08ee120cf411b5c3e3e",
+      "fixture_sha256": "b04dc2e3c63f686feb83cbac25f96079ca0e8d2957a8e08ee120cf411b5c3e3e",
+      "transformation": "none"
+    },
+    "login-identity-providers.xml": {
+      "source": "native-login-identity-providers.xml",
+      "source_sha256": "057b249a73ada70d4b4aca1f79b2e3ad97a5d3ad393e7e54932c9ee2eb37daad",
+      "fixture_sha256": "057b249a73ada70d4b4aca1f79b2e3ad97a5d3ad393e7e54932c9ee2eb37daad",
+      "transformation": "none"
+    },
+    "authorizers.xml": {
+      "source": "native-authorizers.xml",
+      "source_sha256": "58d777400c99def4cf1a26f97bc668e76aba24c6db7ea9aed37a2392e3338750",
+      "fixture_sha256": "58d777400c99def4cf1a26f97bc668e76aba24c6db7ea9aed37a2392e3338750",
+      "transformation": "none"
+    },
+    "crypto.json": {
+      "source": "native-independent-crypto.json",
+      "source_sha256": "9ff459d91a693a13a716ff0a157d3964a106544e91f199d85285da7bf222df6b",
+      "fixture_sha256": "9ff459d91a693a13a716ff0a157d3964a106544e91f199d85285da7bf222df6b",
+      "transformation": "none"
+    },
+    "flow.json": {
+      "source": "native-flow.json.gz",
+      "source_sha256": "5b8b545b44eab2a8cc53fb3047a4c3d79ac62219abc3bb4b2fd3dac3882164d5",
+      "fixture_sha256": "51dbab4b546e047f65a3a68736ee677b6fda0915d4e3983f761bfa6846b5a515",
+      "transformation": "gzip decompression only"
+    }
+  }
+}

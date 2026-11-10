@@ -1,0 +1,85 @@
+{
+  "algorithm": "NIFI_PBKDF2_AES_GCM_256",
+  "iterations": 160000,
+  "properties_sha256": "b04dc2e3c63f686feb83cbac25f96079ca0e8d2957a8e08ee120cf411b5c3e3e",
+  "flow_sha256": "5b8b545b44eab2a8cc53fb3047a4c3d79ac62219abc3bb4b2fd3dac3882164d5",
+  "decrypted": [
+    {
+      "path": [
+        "rootGroup",
+        "processors",
+        0,
+        "properties",
+        "Password"
+      ],
+      "ciphertext": "enc{98ce98dae97335deffca09bcda62ef4c1f897530fb516632bf0f42dce38cbd201bfc236a1920c1c5a5456946a35f6edbf97f8d82}",
+      "plaintext": "module-test-password"
+    },
+    {
+      "path": [
+        "rootGroup",
+        "controllerServices",
+        0,
+        "properties",
+        "storage-account-name"
+      ],
+      "ciphertext": "enc{660f94ae7795e4984397fd31a65966d7d675c763bb9c3a45135240c28f56e9efed438f82d1cf378a3102f8e8660e638ed2479f}",
+      "plaintext": "moduletargetaccount"
+    },
+    {
+      "path": [
+        "rootGroup",
+        "controllerServices",
+        0,
+        "properties",
+        "storage-sas-token"
+      ],
+      "ciphertext": "enc{36aa1465c18b70bfd52a06874b5b6b28719a68193aa5b2ddef68d87d7bcac2ab032180bac6e8b97c797c0d379487dd0062ee0f8f456034ca035fbbf1f083}",
+      "plaintext": "module-target-stored-sas-token"
+    },
+    {
+      "path": [
+        "rootGroup",
+        "controllerServices",
+        1,
+        "properties",
+        "Keystore Password"
+      ],
+      "ciphertext": "enc{7e83aec0b7f98de58b753d9ee4cd91a4bc8189d4cdd841a948e8281f15fb4be8f324b21976313b0ef6c49dca9a8390bc96d50449c2c8d94ebec4ef2ea6cbc540}",
+      "plaintext": "af270ae8eecdc6a911aecbca7ea2dd29"
+    },
+    {
+      "path": [
+        "rootGroup",
+        "controllerServices",
+        1,
+        "properties",
+        "key-password"
+      ],
+      "ciphertext": "enc{98aff0a65407b2d888988c789b17206896fed37790c43c37e5c936c5ca22e79b7d02c4343a2a9ac1295b9d9a3c3ed420c4128ef5b7f820d1cbef317e3d8bf8fb}",
+      "plaintext": "af270ae8eecdc6a911aecbca7ea2dd29"
+    },
+    {
+      "path": [
+        "rootGroup",
+        "controllerServices",
+        1,
+        "properties",
+        "Truststore Password"
+      ],
+      "ciphertext": "enc{1ad55ad02d4a5553b54f72bf7b9822c2a1dd13a4e7afd06737798c4e6138a63f28699c78009e447ab3e7500ca3be899ffa370749cd04bf461f60d3a580f4fe24}",
+      "plaintext": "d8602604a0bd852c1cf877c66dd37412"
+    },
+    {
+      "path": [
+        "rootGroup",
+        "controllerServices",
+        2,
+        "properties",
+        "Password"
+      ],
+      "ciphertext": "enc{991cee257f85b9cc2c0c1cce118eb4c87ca798a09653d64d3f7e3fa3553ed02fa4202a28831d8d53afa9a7282a4d341f49bad091c5bc4a371fc908b1fc1a614b7deebe1abcbf0f}",
+      "plaintext": "module-target-db-\"quoted\"-password\\path"
+    }
+  ]
+}
