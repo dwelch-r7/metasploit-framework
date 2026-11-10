@@ -1,0 +1,10 @@
+---
+services:
+  vulnerable:
+    extends:
+      file: "../nifi/compose.yaml"
+      service: vulnerable
+  unrelated:
+    extends:
+      file: "../nifi/compose.yaml"
+      service: unrelated

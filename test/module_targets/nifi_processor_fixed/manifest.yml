@@ -1,0 +1,67 @@
+---
+spec: spec/acceptance/module_targets/nifi_processor_spec.rb
+expected_examples: 4
+console: true
+test_env:
+  NIFI_PROCESSOR_PROFILE: fixed
+modules:
+- exploit/multi/http/apache_nifi_processor_rce
+ports:
+  fixed: 8443
+  unrelated: 80
+support_files:
+- test/module_targets/nifi/compose.yaml
+- test/module_targets/nifi/accounts.env
+- test/module_targets/nifi/client.py
+- test/module_targets/nifi/discovery.py
+- test/module_targets/http/compose.yaml
+- test/module_targets/http/Dockerfile
+- test/module_targets/http/module-target.conf
+- test/module_targets/http/htdocs/index.html
+- test/module_targets/http/htdocs/final.html
+- test/module_targets/http/htdocs/plain.txt
+- test/module_targets/http/htdocs/robots.txt
+- test/module_targets/http/htdocs/protected/index.html
+- test/module_targets/http/htdocs/listing/evidence.txt
+- lib/msf/ui/console/module_option_validation.rb
+- lib/msf/core/exploit/remote/http_client.rb
+- lib/msf/core/exploit/remote/http/nifi.rb
+- lib/msf/core/exploit/remote/http/nifi/auth.rb
+- lib/msf/core/exploit/remote/http/nifi/processor.rb
+- lib/msf/core/exploit/remote/http/nifi/dbconnectionpool.rb
+- spec/support/shared/contexts/wait_for_expect.rb
+- lib/msf/core/exploit/remote/http_server.rb
+- lib/msf/core/exploit/remote/tcp.rb
+- lib/msf/core/exploit/remote/auto_check.rb
+- lib/msf/core/exploit/retry.rb
+- lib/msf/core/payload/adapter/fetch.rb
+- lib/msf/core/payload/adapter/fetch/http.rb
+- lib/msf/core/payload/adapter/fetch/linux_options.rb
+- lib/msf/core/payload/adapter/fetch/server/http.rb
+- modules/payloads/adapters/cmd/linux/http/x64.rb
+- modules/payloads/singles/cmd/unix/generic.rb
+- modules/payloads/singles/cmd/unix/reverse_bash.rb
+- modules/payloads/stagers/linux/x64/reverse_tcp.rb
+- modules/payloads/stages/linux/x64/meterpreter.rb
+- modules/payloads/singles/linux/x64/exec.rb
+- modules/payloads/stages/linux/x64/shell.rb
+- lib/rex/service_manager.rb
+- lib/rex/service.rb
+- lib/msf/core/exploit/remote/socket_server.rb
+- lib/rex/proto/http/server.rb
+- lib/msf/core/payload/adapter/fetch/https.rb
+- lib/msf/core/payload/adapter/fetch/server/https.rb
+- spec/lib/msf/core/payload/adapter/fetch/lifecycle_spec.rb
+- spec/file_fixtures/fetch/http_lifecycle/README.md
+- spec/file_fixtures/fetch/http_lifecycle/resource.txt
+- test/module_targets/nifi_execution/api.py
+- test/module_targets/nifi_execution/actions.py
+- documentation/modules/exploit/multi/http/apache_nifi_processor_rce.md
+- lib/msf/core/event_dispatcher.rb
+- lib/msf/core/exploit_driver.rb
+- lib/msf/base/simple/exploit.rb
+- lib/msf/ui/console/command_dispatcher/exploit.rb
+- lib/msf/core/general_event_subscriber.rb
+- lib/rex/proto/http/http_logger_subscriber.rb
+- lib/rex/proto/http/client.rb
+- lib/rex/proto/http/http_subscriber.rb

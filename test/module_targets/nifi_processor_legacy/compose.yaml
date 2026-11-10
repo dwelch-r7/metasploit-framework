@@ -1,0 +1,10 @@
+---
+services:
+  legacy:
+    extends:
+      file: "../nifi/compose.yaml"
+      service: legacy
+  unrelated:
+    extends:
+      file: "../nifi/compose.yaml"
+      service: unrelated
