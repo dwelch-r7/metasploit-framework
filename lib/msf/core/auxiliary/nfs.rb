@@ -19,6 +19,14 @@ module Msf
       )
     end
 
+    # Matches advertised export groups against operator-selected client identifiers.
+    # This is a discovery heuristic; it does not attempt a mount or validate access.
+    #
+    # @param locations [Array<String>] Export group names advertised by the server
+    # @param mountable [Boolean] Whether to apply the location heuristic
+    # @param hostname [String] Client hostname to match against advertised groups
+    # @param lhost [String] Client address to match against advertised groups
+    # @return [Boolean] Whether the heuristic matches, or true when it is disabled
     def can_mount?(locations, mountable = true, hostname = '', lhost = '')
       # attempts to validate if we'll be able to open it or not based on:
       # 1. its a wildcard, thus we can open it
