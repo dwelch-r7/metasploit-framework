@@ -382,13 +382,22 @@ OpenTSDB modules pass49 cases across affected/fixed profiles, with98 public
 operations and12 used sessions. Independent native controls,87 current inputs,
 all235 imported files and32 cleanup checks pass. Original fixture failures,
 public Basic negotiation, Fetch scope and operator restoration remain explicit.
-The [current integrated checkpoint](VERIFICATION-20261110-gogs-hooks.md) records
+The [Gogs hook checkpoint](VERIFICATION-20261110-gogs-hooks.md) records
 **174 runtime modules, 108 qualified families and 1,369 functional cases**.
 Gogs hooks pass ten cases after capture-backed path, check and commit-lifecycle
 repairs, with four used owning sessions and two separate native calibrations.
 Parent 22 focused examples, 60 current inputs, all 134 imported files and exact
 owned teardown pass. Inherited lint, operator cleanup and unqualified rebase,
 Windows, x86 and branch variants remain explicit.
+The [current integrated checkpoint](VERIFICATION-20261110-geoserver.md) records
+**176 runtime modules, 111 qualified families and 1,379 functional cases**.
+Two unchanged GeoServer modules pass ten cases across three official releases,
+with four proven commands, four exact XXE loot files and fixed-release refusals.
+The original three failures were invalid public-version expectations; corrected
+tests require reason-bearing Unknown and default AutoCheck blocking before
+explicit override tests. Parent six recorder examples, four-file lint, 51
+current inputs, all 145 imported files and 28 independent cleanup queries pass.
+Sessions, other platforms, built-in roles and additional data paths remain pending.
 The full campaign remains incomplete while feasible, valuable modules await review
 or functional verification.
 See [deferred investigations](DEFERRED.md) for retained failures that remain

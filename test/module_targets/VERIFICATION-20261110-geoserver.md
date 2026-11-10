@@ -1,5 +1,8 @@
 # GeoServer native targets, November 10
 
+The integrated checkpoint is **176 runtime modules, 111 qualified families and
+1,379 functional cases**, with current selected inputs and passing teardown.
+
 Two unchanged modules complete ten bounded cases across official GeoServer
 2.25.1, 2.25.2 and 2.25.6. This qualifies the selected command and ordinary-text
 file-read paths described in the [target guide](geoserver/README.md), rather than
@@ -85,6 +88,18 @@ inventory is empty after teardown. Historical Druid's 105 selected files and
 GeoServer modules and existing human Scenarios are unchanged.
 
 ## Retained evidence and gaps
+
+The parent independently passes all six recorder-contract examples in 0.333
+seconds, four-file Ruby lint and both module-document checks. It recomputes all
+three actual runner maps (45 each, 51 in union), imports and byte-verifies all
+145 invocation files, and verifies every entry of the final 286-file export.
+Its manifest SHA256 is
+`f4fd0ddd88fd77be152e46a7ee6adf4e80f89d578f11663dc84b5fb0afa2a7b7`.
+The parent also repeats all 18 exact-object absence checks, nine project-label
+queries and the global container inventory check. Receipts are
+`tmp/geoserver-parent-evidence-audit.json` and
+`tmp/geoserver-native/corrected-main10-parent-terminal-audit.json` in the
+corresponding parent and worker worktrees.
 
 The native-only attempt, original ten/three and corrected ten/zero invocation
 are preserved in separate immutable exports under:

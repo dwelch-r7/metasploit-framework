@@ -909,3 +909,21 @@ are documented. Rebase/fixed-rebase's fifteen prepared cases remain unrun.
 At this checkpoint, 37 unrelated containers have been removed at the user's
 request, including six tool connectors that reappeared; their images and volumes
 were preserved. New labs continue one project at a time within five containers.
+
+## GeoServer qualification
+
+The [current checkpoint](VERIFICATION-20261110-geoserver.md) qualifies 176 runtime
+modules, 111 families and 1,379 cases. Two unchanged GeoServer owners pass ten
+cases across 2.25.1, 2.25.2 and 2.25.6. Native controls establish the separate RCE
+and XXE fixes; four actual commands and four exact loot files prove positive
+module paths. The original ten/three result is preserved: anonymous About pages
+hide version data, so corrected tests require Unknown and default AutoCheck
+blocking, then explicitly exercise the supported override. No production repair
+or weakened command/file proof produces the pass.
+
+The parent passes six recorder examples, four-file Ruby lint, both module-doc
+checks, all 51 current inputs, all 145 imported files and the 286-entry final
+export. All nine containers, six networks and three volumes are absent, with
+nine empty project-label queries and an empty global container inventory.
+Sessions, fetch delivery, Windows, built-in roles and other data combinations
+remain pending. The one-project/five-container cap remains in effect.
