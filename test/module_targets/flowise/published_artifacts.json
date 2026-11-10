@@ -1,0 +1,156 @@
+{
+  "3.0.0": [
+    {
+      "package": "flowise",
+      "path": "package.json",
+      "url": "https://unpkg.com/flowise@3.0.0/package.json",
+      "sha256": "98eeaa63fb957b8ee4a327e831f9fe860bfd709241d178e70ac54a16d0f4a3db"
+    },
+    {
+      "package": "flowise-components",
+      "path": "package.json",
+      "url": "https://unpkg.com/flowise-components@3.0.0/package.json",
+      "sha256": "f3715aaf160fa4bb6f476b2af39be27424ca4ce774dee3cd30d88dcb0149e108"
+    },
+    {
+      "package": "flowise-components",
+      "path": "dist/nodes/tools/MCP/core.js",
+      "url": "https://unpkg.com/flowise-components@3.0.0/dist/nodes/tools/MCP/core.js",
+      "sha256": "cd541a5669370bc8acde11a72679ef61c756698b8b1c5a7fac409a1245f2adb6"
+    },
+    {
+      "package": "flowise-components",
+      "path": "dist/nodes/tools/MCP/CustomMCP/CustomMCP.js",
+      "url": "https://unpkg.com/flowise-components@3.0.0/dist/nodes/tools/MCP/CustomMCP/CustomMCP.js",
+      "sha256": "bbc5cc7b50b90f35b0c11bba0ed2025bb2cf8a1444adefe8fda7a3acfad23f24"
+    }
+  ],
+  "3.0.5": [
+    {
+      "package": "flowise",
+      "path": "package.json",
+      "url": "https://unpkg.com/flowise@3.0.5/package.json",
+      "sha256": "15c036e4751a89f67676ee6f0ab124007273e4cf88867918f7f2a104e6898198"
+    },
+    {
+      "package": "flowise-components",
+      "path": "package.json",
+      "url": "https://unpkg.com/flowise-components@3.0.5/package.json",
+      "sha256": "ea8edbe85b0a7293efa3083a3d36113a7ad9b2535783b03ae8e69135ddf3eaa6"
+    },
+    {
+      "package": "flowise-components",
+      "path": "dist/nodes/tools/MCP/core.js",
+      "url": "https://unpkg.com/flowise-components@3.0.5/dist/nodes/tools/MCP/core.js",
+      "sha256": "dcb957d22914fc32be53576ea1c5a5dc38203c678688c90dc0fb97c362d08ec0"
+    },
+    {
+      "package": "flowise-components",
+      "path": "dist/nodes/tools/MCP/CustomMCP/CustomMCP.js",
+      "url": "https://unpkg.com/flowise-components@3.0.5/dist/nodes/tools/MCP/CustomMCP/CustomMCP.js",
+      "sha256": "e9aef95cb565dc96d22bb7d7bbf718faadb58cf7f5639407708dca30711e135c"
+    },
+    {
+      "package": "flowise",
+      "path": "dist/enterprise/services/account.service.js",
+      "url": "https://unpkg.com/flowise@3.0.5/dist/enterprise/services/account.service.js",
+      "sha256": "28db60a215cd37d2aff8083b32512060c50989a854765979dddb0e2b987f650b"
+    },
+    {
+      "package": "flowise",
+      "path": "dist/enterprise/utils/sendEmail.js",
+      "url": "https://unpkg.com/flowise@3.0.5/dist/enterprise/utils/sendEmail.js",
+      "sha256": "b18a49fd95ade83ce6f7019d48180f797400ce50c21f9e0b295a35ad801a2b5d"
+    }
+  ],
+  "3.0.6": [
+    {
+      "package": "flowise",
+      "path": "package.json",
+      "url": "https://unpkg.com/flowise@3.0.6/package.json",
+      "sha256": "d39ddb7a84530e0a074fd183719df151403ccca922118c5c66e742f2b88ac9ef"
+    },
+    {
+      "package": "flowise-components",
+      "path": "package.json",
+      "url": "https://unpkg.com/flowise-components@3.0.6/package.json",
+      "sha256": "b2e9496984fc51e48883599ede940f98a6a8aa2f9458bc1a931fada93964a144"
+    },
+    {
+      "package": "flowise-components",
+      "path": "dist/nodes/tools/MCP/core.js",
+      "url": "https://unpkg.com/flowise-components@3.0.6/dist/nodes/tools/MCP/core.js",
+      "sha256": "dcb957d22914fc32be53576ea1c5a5dc38203c678688c90dc0fb97c362d08ec0"
+    },
+    {
+      "package": "flowise-components",
+      "path": "dist/nodes/tools/MCP/CustomMCP/CustomMCP.js",
+      "url": "https://unpkg.com/flowise-components@3.0.6/dist/nodes/tools/MCP/CustomMCP/CustomMCP.js",
+      "sha256": "7d736b5001a8a1643c4d20ee57540188ad944f5a0bd973c559d3e23958855e7d"
+    },
+    {
+      "package": "flowise",
+      "path": "dist/enterprise/services/account.service.js",
+      "url": "https://unpkg.com/flowise@3.0.6/dist/enterprise/services/account.service.js",
+      "sha256": "8c4e66987703a33cae7f97a2693452b9b38d0059d7dd4a40d47ca84227f8432b"
+    },
+    {
+      "package": "flowise",
+      "path": "dist/enterprise/utils/sendEmail.js",
+      "url": "https://unpkg.com/flowise@3.0.6/dist/enterprise/utils/sendEmail.js",
+      "sha256": "b18a49fd95ade83ce6f7019d48180f797400ce50c21f9e0b295a35ad801a2b5d"
+    }
+  ],
+  "3.1.1": [
+    {
+      "package": "flowise",
+      "path": "package.json",
+      "url": "https://unpkg.com/flowise@3.1.1/package.json",
+      "sha256": "7456a5af3f29c58579e6f40947561c8656d81207b4e539cbef2059dfe0296bf9"
+    },
+    {
+      "package": "flowise-components",
+      "path": "package.json",
+      "url": "https://unpkg.com/flowise-components@3.1.1/package.json",
+      "sha256": "fe1872e3b810be8c03ce54744fc29d60ca596d6a19174eebededd27d40f5c08f"
+    },
+    {
+      "package": "flowise-components",
+      "path": "dist/nodes/tools/MCP/core.js",
+      "url": "https://unpkg.com/flowise-components@3.1.1/dist/nodes/tools/MCP/core.js",
+      "sha256": "822217cda2be4c0e95404956d5f66e97f0c4d868915147fa49258f1ec0657fd4"
+    },
+    {
+      "package": "flowise-components",
+      "path": "dist/nodes/tools/MCP/CustomMCP/CustomMCP.js",
+      "url": "https://unpkg.com/flowise-components@3.1.1/dist/nodes/tools/MCP/CustomMCP/CustomMCP.js",
+      "sha256": "28a617e861c21d1b9b468602c7dcf2b10ea791c66a72facf709f58804ea17347"
+    }
+  ],
+  "3.1.2": [
+    {
+      "package": "flowise",
+      "path": "package.json",
+      "url": "https://unpkg.com/flowise@3.1.2/package.json",
+      "sha256": "4c92430de3f371d8a4abfdd5a3c41ed14b0702c3b2247d9ec9144241bab10c44"
+    },
+    {
+      "package": "flowise-components",
+      "path": "package.json",
+      "url": "https://unpkg.com/flowise-components@3.1.2/package.json",
+      "sha256": "83e7f0921544e978c104e611e1a2d8b4e6e5a651643bad01024cdd1cbe26ea82"
+    },
+    {
+      "package": "flowise-components",
+      "path": "dist/nodes/tools/MCP/core.js",
+      "url": "https://unpkg.com/flowise-components@3.1.2/dist/nodes/tools/MCP/core.js",
+      "sha256": "c7a592dfb1cc62816aaa4b22f47c0c49ba8e262d2e98114553041008fe88f123"
+    },
+    {
+      "package": "flowise-components",
+      "path": "dist/nodes/tools/MCP/CustomMCP/CustomMCP.js",
+      "url": "https://unpkg.com/flowise-components@3.1.2/dist/nodes/tools/MCP/CustomMCP/CustomMCP.js",
+      "sha256": "28a617e861c21d1b9b468602c7dcf2b10ea791c66a72facf709f58804ea17347"
+    }
+  ]
+}

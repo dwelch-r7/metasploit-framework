@@ -1,0 +1,47 @@
+services:
+  app:
+    image: flowiseai/flowise:3.0.0@sha256:50c0338cd419a2c4d11b0950c7ec7fdb7caf73664005da0260ea3fe5ce5d0a2d
+    platform: linux/amd64
+    init: true
+    mem_limit: 1024m
+    cpus: 0.9
+    environment:
+      PORT: '3000'
+      DATABASE_TYPE: sqlite
+      NODE_OPTIONS: --max-old-space-size=512
+      CUSTOM_MCP_SECURITY_CHECK: 'true'
+      CUSTOM_MCP_PROTOCOL: stdio
+    volumes:
+    - flowise_data:/root/.flowise
+    - ./native_mcp_tool.js:/native_mcp_tool.js:ro
+    - ./npmrc:/root/.npmrc:ro
+    healthcheck:
+      test: [CMD, curl, --fail, --silent, --show-error, 'http://127.0.0.1:3000/api/v1/version']
+      interval: 3s
+      timeout: 5s
+      retries: 40
+  gateway:
+    extends: {file: ../druid/compose.yaml, service: gateway}
+    cpus: 0.1
+    volumes:
+    - ./gateway.conf:/usr/local/apache2/conf/extra/druid.conf:ro
+    - ${MODULE_TARGET_ARTIFACTS:?Set by the module target runner}:/module-target-artifacts:ro
+    command: [httpd-foreground, -c, 'Include conf/extra/druid.conf']
+  framework:
+    extends: {file: ../framework.compose.yaml, service: framework}
+    mem_limit: 768m
+    cpus: 1
+  smtp:
+    extends: {file: ../smtp/compose.yaml, service: open_relay}
+    ports: !reset []
+    mem_limit: 96m
+    cpus: 0.1
+    volumes: [../capture_mail/exim.conf:/etc/exim4/module-target.conf:ro]
+  reporting_db:
+    extends: {file: ../credential_reporting/compose.yaml, service: reporting_db}
+    cpus: 0.15
+networks:
+  default: {internal: true}
+  public:
+volumes:
+  flowise_data:

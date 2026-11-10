@@ -1,0 +1,16 @@
+services:
+  app:
+    extends: {file: ../flowise/compose.yaml, service: app}
+    image: flowiseai/flowise:3.0.0@sha256:50c0338cd419a2c4d11b0950c7ec7fdb7caf73664005da0260ea3fe5ce5d0a2d
+    environment:
+      FLOWISE_USERNAME: module_native
+      FLOWISE_PASSWORD: module-target-basic-password
+  gateway:
+    extends: {file: ../flowise/compose.yaml, service: gateway}
+  framework:
+    extends: {file: ../flowise/compose.yaml, service: framework}
+networks:
+  default: {internal: true}
+  public:
+volumes:
+  flowise_data:

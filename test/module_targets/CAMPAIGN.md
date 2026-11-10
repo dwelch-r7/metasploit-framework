@@ -996,3 +996,23 @@ recreated unrelated tool containers; observed removals reach 58. No images or
 unrelated volumes are pruned. One project runs at a time within five containers.
 Windows, other architectures, same-instance reset and unchanged-existing-repo
 repeatability remain pending; earlier failures remain immutable.
+
+## Flowise open and Basic qualification
+
+The [current checkpoint](VERIFICATION-20261110-flowise-open-basic.md) qualifies
+180 runtime modules, 120 families and 1,412 cases. The frozen six-profile run
+finishes naturally with 3/0, 1/0, 3/3, 2/2, 2/1 and 1/1; all teardown passes.
+Only open/Basic profiles qualify. JWT/reset stops at native replay status500
+versus expected400; npx uses its first owning shell and proves remote process
+exit before a host-registry observer timeout; fixed npx stops at private package
+manifest resolution. Those profiles remain unqualified and their failures are
+preserved for separate fixture investigations.
+
+The parent verifies 102 current inputs, all 365 invocation files and 483 immutable
+export entries. Focused 47 examples, seven-file lint and four module-doc checks
+pass. The first actual prompt/BOOT and fresh atomic metadata snapshots are
+observed live. After natural termination, 61 fresh queries verify exact
+22-container/12-network/8-volume absence, empty project labels and global
+inventory. One project runs at a time, capped at three/four containers for these
+profiles. Observed unrelated container removals reach 60; images and unrelated
+volumes are preserved. The campaign remains active and incomplete.

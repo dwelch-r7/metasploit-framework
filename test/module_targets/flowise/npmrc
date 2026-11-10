@@ -1,0 +1,4 @@
+registry=http://gateway:81/
+audit=false
+fund=false
+update-notifier=false

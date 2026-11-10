@@ -1,0 +1,15 @@
+services:
+  app:
+    extends: {file: ../flowise/compose.yaml, service: app}
+    image: flowiseai/flowise:3.1.1@sha256:917285096296737cdcd703fe4a0f8031cee1b03f0abe26b2d0be783f2e300623
+  gateway:
+    extends: {file: ../flowise/compose.yaml, service: gateway}
+  framework:
+    extends: {file: ../flowise/compose.yaml, service: framework}
+  reporting_db:
+    extends: {file: ../flowise/compose.yaml, service: reporting_db}
+networks:
+  default: {internal: true}
+  public:
+volumes:
+  flowise_data:

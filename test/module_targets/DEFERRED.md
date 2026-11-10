@@ -20,6 +20,35 @@ an unchanged repository is not qualified. Closed PR history, objects and merge
 caches remain observed state until explicit operator seed removal. Native token
 revocation remains distinct from automatic module cleanup.
 
+## Flowise native and session observers
+
+The [open/Basic checkpoint](VERIFICATION-20261110-flowise-open-basic.md) passes
+3/0 and 1/0 while retaining JWT/reset 3/3 and 2/2, npx 2/1 and fixed npx 1/1
+as whole-family unqualified results. Native consumed-token replay expects400
+but actual305/306 return a source-bound transaction rollback500. Same-password
+replay does not prove denial or unchanged state; owning tests are unreached.
+The npx shell is used and remote PID absence passes before host registry
+deregistration times out; its repeated positive is incomplete. Fixed npx stops
+at a private package-manifest lookup before components identity or owner calls.
+
+The complete 483-entry export preserves these failures. Separate fixture work
+must strengthen replay/state proof, use supported host closure after remote
+proof, and locate actual installed manifests without weakening publisher hashes.
+No failed family or first positive iteration counts as passing qualification.
+
+## macOS Python CI console bootstrap
+
+Head `5a5c080eef6` has a failing
+[Python3.11/macOS job](https://github.com/dwelch-r7/metasploit-framework/actions/runs/42918858994/job/130188249730).
+All 91 examples inherit a shared first-prompt timeout before any Python payload,
+session or owning module runs. The child remains alive with only the existing
+OpenSSL configuration notice; the startup phase and cause are unknown. No
+matched base/head runtime or repair is established. A bounded cold-startup
+diagnostic must preserve phase/load progress and child CPU/RSS/thread evidence.
+The verified 13-entry assessment is retained at
+`/Users/dwelch/.codex/reports/python311-macos-ci-assessment-20261110-5a5c080eef6/`,
+manifest `183e483e7ab773f5571ab6042495bd70e036dce95fe5017458eed06729392aae`.
+
 ## Mettle HTTPS acceptance setup stall
 
 Fork head `6ab53da687b` finishes CI with 62 passing checks, one skipped check and

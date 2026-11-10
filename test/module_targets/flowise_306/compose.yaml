@@ -1,0 +1,25 @@
+services:
+  app:
+    extends: {file: ../flowise/compose.yaml, service: app}
+    image: flowiseai/flowise:3.0.6@sha256:86b83c5f55cd7989453789a39c568d08885be50e74faf9abd5e238269bcfe489
+    environment:
+      SMTP_HOST: smtp
+      SMTP_PORT: '25'
+      SMTP_SECURE: 'false'
+      # Qualify local SMTP TLS without verifying the disposable Exim certificate.
+      ALLOW_UNAUTHORIZED_CERTS: 'true'
+      SMTP_USER: capture_user
+      SMTP_PASSWORD: ' module-target: capture "quoted" \ tail '
+      SENDER_EMAIL: module_target@module-target.test
+      APP_URL: http://flowise.module-target.test
+  gateway:
+    extends: {file: ../flowise/compose.yaml, service: gateway}
+  framework:
+    extends: {file: ../flowise/compose.yaml, service: framework}
+  smtp:
+    extends: {file: ../flowise/compose.yaml, service: smtp}
+networks:
+  default: {internal: true}
+  public:
+volumes:
+  flowise_data:

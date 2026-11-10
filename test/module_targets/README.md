@@ -407,7 +407,7 @@ declared length; session dispatch/transfer failures remain separate fixtures.
 Parent 82 current inputs, all 233 imported files, 362 export entries, lint/docs
 and 29 cleanup queries pass. Positive RCE scope is 11.0.0; 11.0.5 RCE,
 other release branches and additional delivery/platform paths remain pending.
-The [current integrated checkpoint](VERIFICATION-20261110-gogs-repositories.md)
+The [Gogs repository checkpoint](VERIFICATION-20261110-gogs-repositories.md)
 records **178 runtime modules, 118 qualified families and 1,408 functional cases**.
 All 25 Gogs cases pass after capture-backed observer corrections, including
 existing-repository ref/parent/feature proof and fixed-release negatives. Eight
@@ -416,6 +416,13 @@ failures remain preserved. Parent 81 current inputs, all 276 imported files,
 528 export entries and 52 exact cleanup queries verify. Other platforms,
 same-instance reset and unchanged-existing-repository repeatability remain
 pending.
+The [current integrated checkpoint](VERIFICATION-20261110-flowise-open-basic.md)
+records **180 runtime modules, 120 qualified families and 1,412 functional cases**.
+Flowise 3.0.0 open/Basic profiles pass four repeated command/session/authentication
+cases. JWT/reset, npx session cleanup and fixed-package identity profiles retain
+their actual failures and remain unqualified. Parent 102 current inputs, all
+365 imported files, 483 immutable entries, focused checks and 61 exact cleanup
+queries verify. Production owners and human Scenarios are unchanged.
 The full campaign remains incomplete while feasible, valuable modules await review
 or functional verification.
 See [deferred investigations](DEFERRED.md) for retained failures that remain

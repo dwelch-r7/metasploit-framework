@@ -49,6 +49,9 @@ curl -X POST http://127.0.0.1:3000/api/v1/account/register \
 ```
 
 
+The repository includes [bounded native container profiles](../../../../../test/module_targets/flowise/README.md)
+for selected Linux command/session/account paths and explicit qualification gaps.
+
 ## Verification Steps
 
 1. Install the application

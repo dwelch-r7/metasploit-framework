@@ -1,0 +1,73 @@
+{
+  "flowise_300": {
+    "version": "3.0.0",
+    "mode": "open",
+    "examples": 3,
+    "image": "flowiseai/flowise:3.0.0@sha256:50c0338cd419a2c4d11b0950c7ec7fdb7caf73664005da0260ea3fe5ce5d0a2d",
+    "smtp": false,
+    "database": false,
+    "modules": [
+      "exploit/multi/http/flowise_custommcp_rce",
+      "exploit/multi/http/flowise_js_rce"
+    ]
+  },
+  "flowise_basic": {
+    "version": "3.0.0",
+    "mode": "basic",
+    "examples": 1,
+    "image": "flowiseai/flowise:3.0.0@sha256:50c0338cd419a2c4d11b0950c7ec7fdb7caf73664005da0260ea3fe5ce5d0a2d",
+    "smtp": false,
+    "database": false,
+    "modules": [
+      "exploit/multi/http/flowise_custommcp_rce",
+      "exploit/multi/http/flowise_js_rce"
+    ]
+  },
+  "flowise_305": {
+    "version": "3.0.5",
+    "mode": "jwt_smtp",
+    "examples": 3,
+    "image": "flowiseai/flowise:3.0.5@sha256:30d4fdf8b9e215abff31a67ab104a9750ca25354fe98fe97a3481bbca0352098",
+    "smtp": true,
+    "database": false,
+    "modules": [
+      "exploit/multi/http/flowise_js_rce",
+      "auxiliary/admin/http/flowise_auth_bypass_cve_2025_58434"
+    ]
+  },
+  "flowise_306": {
+    "version": "3.0.6",
+    "mode": "fixed_smtp",
+    "examples": 2,
+    "image": "flowiseai/flowise:3.0.6@sha256:86b83c5f55cd7989453789a39c568d08885be50e74faf9abd5e238269bcfe489",
+    "smtp": true,
+    "database": false,
+    "modules": [
+      "exploit/multi/http/flowise_custommcp_rce",
+      "exploit/multi/http/flowise_js_rce",
+      "auxiliary/admin/http/flowise_auth_bypass_cve_2025_58434"
+    ]
+  },
+  "flowise_311": {
+    "version": "3.1.1",
+    "mode": "npx",
+    "examples": 2,
+    "image": "flowiseai/flowise:3.1.1@sha256:917285096296737cdcd703fe4a0f8031cee1b03f0abe26b2d0be783f2e300623",
+    "smtp": false,
+    "database": true,
+    "modules": [
+      "exploit/multi/http/flowise_mcp_rce"
+    ]
+  },
+  "flowise_312": {
+    "version": "3.1.2",
+    "mode": "npx_fixed",
+    "examples": 1,
+    "image": "flowiseai/flowise:3.1.2@sha256:ddba104d8e50fbc1e72c6fe021d012be83e66d78d26816e1a6a3fddab4212eff",
+    "smtp": false,
+    "database": true,
+    "modules": [
+      "exploit/multi/http/flowise_mcp_rce"
+    ]
+  }
+}

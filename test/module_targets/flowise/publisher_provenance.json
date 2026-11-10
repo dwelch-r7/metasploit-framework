@@ -1,0 +1,222 @@
+[
+  {
+    "package": "flowise",
+    "version": "3.0.0",
+    "url": "https://registry.npmjs.org/flowise/3.0.0",
+    "metadata_sha256": "ecae9b742bba46ea0e8bdb06bd65d9da78c00662eda53c4acc0d049995df20cd",
+    "dist": {
+      "shasum": "6580253090e13aa167eb6c910bbc6727e5ff8282",
+      "tarball": "https://registry.npmjs.org/flowise/-/flowise-3.0.0.tgz",
+      "fileCount": 1012,
+      "integrity": "sha512-qtWsodUFDTEjBG7FjZviBwL8XvToXMYBANhsJzQ0LTdHj9MUlWREtPIXIHQn1V9VsojMdwA0LoG0QcTe1Ru0PQ==",
+      "signatures": [
+        {
+          "sig": "MEUCIBXKKV6p34ZnY5c5fwIc8iivf1hkxYAy3s0+DxZIvAzJAiEAjGJTphjzWy3nml8cmdfN9dbsftBh/UhGfdKJoc3YBDw=",
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+        }
+      ],
+      "unpackedSize": 4770805
+    },
+    "git_head": null,
+    "retrieved_utc": "2026-11-10T18:14:34.912516+00:00",
+    "tarball_downloaded": false
+  },
+  {
+    "package": "flowise-components",
+    "version": "3.0.0",
+    "url": "https://registry.npmjs.org/flowise-components/3.0.0",
+    "metadata_sha256": "e5498ba263be5e5b7a95c53252256afd544b767a996df5e5fbaae5e13f9699c2",
+    "dist": {
+      "shasum": "05c9f9f53701967c7c45c7f9f28d42c1b30f7df7",
+      "tarball": "https://registry.npmjs.org/flowise-components/-/flowise-components-3.0.0.tgz",
+      "fileCount": 2310,
+      "integrity": "sha512-Qi5qfXLFsPsmAdWmskt4/IEfH/6MKLpF7ScQ5/zRH0V9YgPoP7YzqUgnAWB0dIwhJxXqy4771zQi2yujRQqvHA==",
+      "signatures": [
+        {
+          "sig": "MEQCIDKASBwLrgijujJPccpquTuD01CLOXV3K3AeF4MN2RCLAiBNzRtzeUZvzL4LIJFGJprg0WiZSShtHQZyqmM5uAybIA==",
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+        }
+      ],
+      "unpackedSize": 10405772
+    },
+    "git_head": null,
+    "retrieved_utc": "2026-11-10T18:14:34.897181+00:00",
+    "tarball_downloaded": false
+  },
+  {
+    "package": "flowise",
+    "version": "3.0.5",
+    "url": "https://registry.npmjs.org/flowise/3.0.5",
+    "metadata_sha256": "582c0794dc01b1eda2f23ab40c8399ca0718bfe73f3744645fff199b62633ff3",
+    "dist": {
+      "shasum": "bf8b7420ebc692e833d6a6a01e51272f052d697e",
+      "tarball": "https://registry.npmjs.org/flowise/-/flowise-3.0.5.tgz",
+      "fileCount": 1514,
+      "integrity": "sha512-RJtH4CV3ydVlXuZnEQZrTaK2mueWOT3ou5SRmWuETHdWDcPbaVlrKvkrr6zWrv42L33F3xYiRNsKgeLJI50hbw==",
+      "signatures": [
+        {
+          "sig": "MEUCICfD1tGlXn7CwiKAV32ZPSwITqsjDdWwiEtWs++dPx9kAiEAvs61e14IlLikeXKm4xlcluUym9jLQW+CNZbyRzPNSnA=",
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+        }
+      ],
+      "unpackedSize": 6797101
+    },
+    "git_head": null,
+    "retrieved_utc": "2026-11-10T18:14:35.281787+00:00",
+    "tarball_downloaded": false
+  },
+  {
+    "package": "flowise-components",
+    "version": "3.0.5",
+    "url": "https://registry.npmjs.org/flowise-components/3.0.5",
+    "metadata_sha256": "3027a31ef7b5ac6a816262997fee1363e7ea040c330fb058e3dd90c488dd5dc2",
+    "dist": {
+      "shasum": "c687ae8eb2d76c6b6e10fea899dd71c54a4a4a94",
+      "tarball": "https://registry.npmjs.org/flowise-components/-/flowise-components-3.0.5.tgz",
+      "fileCount": 2590,
+      "integrity": "sha512-w9LHH8NZJeBKrW3q6DG+T79U/6qsVyr8HgbJlhEuZIl83HaeHtwzB+fAHEMHoH8tj8Bt6r7YtVrHLxtFvbBXBw==",
+      "signatures": [
+        {
+          "sig": "MEUCIF0/U+bBFGWsE6gPQrLkxMTR8haVL1sDGyhxXOMwgrncAiEAzioIB6TbpR18ymDt4O4+JC935dcLRQwH0XEb3xfuyEY=",
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+        }
+      ],
+      "unpackedSize": 12980309
+    },
+    "git_head": null,
+    "retrieved_utc": "2026-11-10T18:14:35.298314+00:00",
+    "tarball_downloaded": false
+  },
+  {
+    "package": "flowise",
+    "version": "3.0.6",
+    "url": "https://registry.npmjs.org/flowise/3.0.6",
+    "metadata_sha256": "b972a5c4095cbb92786c00a6cbacd293f1c497b589678dfd30974b1704c913b5",
+    "dist": {
+      "shasum": "7df4986f5dc853876ebc2fd82c3671d11d3558ba",
+      "tarball": "https://registry.npmjs.org/flowise/-/flowise-3.0.6.tgz",
+      "fileCount": 1538,
+      "integrity": "sha512-jzhROgnQLcH5TB/7m4JiLPYLD+vjLDE9tnHq0gLyg875kCCqlRy4FHOb4Pu+kLR0AbvTD5TcjGUTUvV1PokgFg==",
+      "signatures": [
+        {
+          "sig": "MEQCICr9Wh+3o0gu4PLfY3TEcHDC6zmR82YlN6+ZmD2hvrEPAiA+P4iLosLk0Ly0qB38m5hBhm9WrOVkYTFiVEIqeiZW2A==",
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+        }
+      ],
+      "unpackedSize": 6820667
+    },
+    "git_head": null,
+    "retrieved_utc": "2026-11-10T18:14:35.645911+00:00",
+    "tarball_downloaded": false
+  },
+  {
+    "package": "flowise-components",
+    "version": "3.0.6",
+    "url": "https://registry.npmjs.org/flowise-components/3.0.6",
+    "metadata_sha256": "02d1d0839dbc87a19d81ff5364f1b074993ed53c02ce6fe23e6a8c9452a38666",
+    "dist": {
+      "shasum": "140605cfb8f9b94b675137d75195a69919fd862d",
+      "tarball": "https://registry.npmjs.org/flowise-components/-/flowise-components-3.0.6.tgz",
+      "fileCount": 2642,
+      "integrity": "sha512-7awRsVyFTGM52hCIZLuMTJb4Chl3EaPJeI3J5QsuM0iiFd2LZKBLUlp7pbSMh8f5W1+6SRullPzU0SX6wb37tw==",
+      "signatures": [
+        {
+          "sig": "MEYCIQCbrFSC8jp+x3izmpLcHPFpBtB+OvG1pqRtqOFXfNXTHAIhAI+OF5AVHTraqyO3PEVCr8+XxPrBCO4PrDPg/0HV9xIH",
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+        }
+      ],
+      "unpackedSize": 13227415
+    },
+    "git_head": null,
+    "retrieved_utc": "2026-11-10T18:14:35.671421+00:00",
+    "tarball_downloaded": false
+  },
+  {
+    "package": "flowise",
+    "version": "3.1.1",
+    "url": "https://registry.npmjs.org/flowise/3.1.1",
+    "metadata_sha256": "290a81855e071eeff05cd683026973c71522787e9d1b05497280e62d484b1c02",
+    "dist": {
+      "shasum": "754cab125762bcd5f75622724860539461b1ff81",
+      "tarball": "https://registry.npmjs.org/flowise/-/flowise-3.1.1.tgz",
+      "fileCount": 1625,
+      "integrity": "sha512-rpJoZCgX9VA2gtoCIj6i3O7KGdmkA8OT5OZQMilCkMQtehXbTVyMoZ/7VVLQtRDikvKr/D/L9mejQ6pPZ4flbg==",
+      "signatures": [
+        {
+          "sig": "MEUCIHyyXjyVIXQAHkcqal6oKz+byMku/EHivszUNylA/c0zAiEAljsBOulOtzN9ArEcqB3d7lNaRjo1mh1LEBPGK8b8g+U=",
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+        }
+      ],
+      "unpackedSize": 7112298
+    },
+    "git_head": null,
+    "retrieved_utc": "2026-11-10T18:14:36.116249+00:00",
+    "tarball_downloaded": false
+  },
+  {
+    "package": "flowise-components",
+    "version": "3.1.1",
+    "url": "https://registry.npmjs.org/flowise-components/3.1.1",
+    "metadata_sha256": "59bb6fff073e1bc9e7ea6c6faa9f71aaa89311634dc2ea1a38766ffd446f7704",
+    "dist": {
+      "shasum": "d8209fd4329bc00195f8a4bacb764e89943c79e5",
+      "tarball": "https://registry.npmjs.org/flowise-components/-/flowise-components-3.1.1.tgz",
+      "fileCount": 2705,
+      "integrity": "sha512-D8q9ls5ZNEhH0Aix1LlapY8Q02ZMwsxXx9NfT9pmXqg72jRDYwjpXIpBPi05GvdusI8B1GSV2hYdHmVz015dbA==",
+      "signatures": [
+        {
+          "sig": "MEUCIGvU89/P/9NfF+RDUgOMZrO2Zi54GOXAO3aAhYjM6YVmAiEAoRXBivxTPa9ExnUTcZYP0Wfr9WfGpfo0DbhhK94hkMs=",
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+        }
+      ],
+      "unpackedSize": 14030544
+    },
+    "git_head": null,
+    "retrieved_utc": "2026-11-10T18:14:36.084220+00:00",
+    "tarball_downloaded": false
+  },
+  {
+    "package": "flowise",
+    "version": "3.1.2",
+    "url": "https://registry.npmjs.org/flowise/3.1.2",
+    "metadata_sha256": "093ad3aeab1d01e48a599ccbb6764dfe284cc7a2a1189a9e3494002aa5c1f510",
+    "dist": {
+      "shasum": "14db7ce7a2a8cdef4e9d174fcaf7ab30bbeddce4",
+      "tarball": "https://registry.npmjs.org/flowise/-/flowise-3.1.2.tgz",
+      "fileCount": 1653,
+      "integrity": "sha512-I1bAvkSskK8MLo++KeffZihYB3m6deFHDaf8+l6XOz1I3bWaU9IUz4fUjSzlCr2GuGNPJJd+rquoMhFj8t+7PQ==",
+      "signatures": [
+        {
+          "sig": "MEUCIQDP1Fpua6lc1SbMpKiQXk7539AbIkrsl6V1wXIaKSuc/gIgMdCb0GQEA4D6L1DFj/+EQtKQqmbcroaZd441mk4e9Kw=",
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+        }
+      ],
+      "unpackedSize": 7420331
+    },
+    "git_head": null,
+    "retrieved_utc": "2026-11-10T18:14:36.452642+00:00",
+    "tarball_downloaded": false
+  },
+  {
+    "package": "flowise-components",
+    "version": "3.1.2",
+    "url": "https://registry.npmjs.org/flowise-components/3.1.2",
+    "metadata_sha256": "667c0bd465a6b44aa6b2c94df61deb0fa55f472d4a343b03ad92d22375a608d8",
+    "dist": {
+      "shasum": "0d507135cf5aa8363d5ff663c787d5b0205d0581",
+      "tarball": "https://registry.npmjs.org/flowise-components/-/flowise-components-3.1.2.tgz",
+      "fileCount": 2742,
+      "integrity": "sha512-dDA1CLkJ3KwhdKocQhjsCccwEitUefaapaYhcxWhcQ44XkrR/HlEbVTqGiabEk6gbvVuit1pr2KwkgABZQgzvw==",
+      "signatures": [
+        {
+          "sig": "MEUCIQDM1gjkivuH9vUGL0W8sQAIw7S/rxT+7BEHfWIk2Jhl3AIgZziDwUxqZ2dUYHXKEt5PAkXMClT7j5lsxkxooBiyHJk=",
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+        }
+      ],
+      "unpackedSize": 14170258
+    },
+    "git_head": null,
+    "retrieved_utc": "2026-11-10T18:14:36.500523+00:00",
+    "tarball_downloaded": false
+  }
+]
