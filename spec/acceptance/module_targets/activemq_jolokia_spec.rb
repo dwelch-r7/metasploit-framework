@@ -186,6 +186,7 @@ RSpec.describe 'Genuine ActiveMQ Jolokia execution' do
   def positive_output(output)
     expect(output).to include('Malicious Spring XML served')
     expect(output).not_to match(/Exploit aborted|Exploit failed|Jolokia returned status|Unexpected HTTP status|Could not parse Jolokia|Jolokia POST timed out/)
+    expect(output).not_to match(/Creation was not confirmed|Could not remove the network connector|Removal of the network connector.*not confirmed/)
   end
 
   def command_twice(service, content, options)
