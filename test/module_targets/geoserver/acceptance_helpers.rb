@@ -29,6 +29,24 @@ module GeoServerAcceptance
     { 'TARGET' => 0, 'PAYLOAD' => 'cmd/unix/generic', 'CMD' => command, 'DisablePayloadHandler' => true, 'WfsDelay' => 0 }
   end
 
+  def expect_hidden_version
+    output = invoke(RCE, 'app', action: 'check')
+    expect(output).to include('Cannot reliably check exploitability.', 'Could not retrieve the version information.')
+  end
+
+  def prove_default_autocheck_refusal(iteration)
+    marker = "/tmp/module-target-geoserver-default-#{@case_id}-#{iteration}"
+    absent(marker)
+    options = generic_options("touch${IFS}#{marker}").merge('AutoCheck' => true, 'ForceExploit' => false)
+    output = invoke(RCE, 'app', options, allow_errors: true)
+    expect(output).to include('Running automatic check', 'Cannot reliably check exploitability.', 'Could not retrieve the version information.', '"set ForceExploit true"')
+    expect(@last_inputs.select { |row| row['kind'] == 'RETURNED-XML' }).to eq([])
+    expect(@last_inputs.select { |row| row['kind'] == 'REQUEST-ARGS/RESPONSE-BODY' }.map { |row| row.fetch('method') }.uniq).to eq(['GET'])
+    absent(marker)
+    expect(target_files).to eq(@before_files)
+    expect(loot_files).to eq(@before_loot)
+  end
+
   def target_files
     target_exec('app', 'find', '/tmp', '-maxdepth', '1', '-name', 'module-target-geoserver-*', '-print').lines.map(&:strip).sort
   end

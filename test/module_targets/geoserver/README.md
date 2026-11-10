@@ -57,17 +57,28 @@ controls and owned teardown. The ordinary invocation reruns its native controls
 for each profile. Native success alone is not a module result. Retain each run's
 `result.json`, `rspec.json`, input maps and raw artifacts when assessing coverage.
 
+The first unchanged-owner run completed 10 examples with three check-expectation
+failures: the stock non-admin About page did not disclose a version. Its captured
+page and the selected releases' [About page](https://github.com/geoserver/geoserver/blob/2.25.1/src/web/core/src/main/java/org/geoserver/web/AboutGeoServerPage.java)
+and [template](https://github.com/geoserver/geoserver/blob/2.25.1/src/web/core/src/main/java/org/geoserver/web/AboutGeoServerPage.html)
+place the version panel behind an administrator check. `Unknown` with a reason
+is valid for that public view. Authenticated REST identity does not establish
+public version disclosure. The tests explicitly verify `check` returns that
+result and `AutoCheck=true ForceExploit=false` blocks delivery, then use the
+supported `AutoCheck=false` override for quiet command proof or fixed refusal.
+Authenticated-UI version parsing is outside this corpus.
+
 The ten selected cases are:
 
-1. Affected RCE version check and quiet command with an empty marker file.
+1. Hidden-version check/default AutoCheck boundary and quiet override with an empty marker file.
 2. Exact command bytes through an authenticated application prefix.
 3. Rejected Apache credentials, without command artifacts or false XXE loot.
 4. Exact ordinary UTF-8 text obtained through XXE into fresh local loot files.
 5. Missing and empty files, without false loot.
 6. Unrelated genuine Apache, without a positive check or file read.
-7. Fixed RCE version check and the ordinary forced module execution path.
+7. The same hidden-version/default boundary and a fixed RCE override refusal.
 8. XXE remaining available after the RCE branch fix.
-9. Fixed RCE check and forced module execution on 2.25.6.
+9. The same boundary and fixed RCE override refusal on 2.25.6.
 10. Fixed XXE refusal with a working native WMS control.
 
 Every case repeats twice. The missing/empty case repeats each input twice.
@@ -88,7 +99,9 @@ here is Apache HTTP Basic, not built-in GeoServer RBAC. The authenticated RCE
 case disables AutoCheck so it tests that delivery path without claiming UI
 redirect/version discovery through that prefix.
 
-Main producer/request methods are unchanged. The RCE module shuffles real
+Main producer/request methods are unchanged. Public version information remains
+unavailable for both affected and fixed stock views; tests do not replace that
+`Unknown` result with a version inferred through administrative REST. The RCE module shuffles real
 feature types and probes `whoami`; its HTTP 400/ClassCastException oracle alone
 does not prove execution. Fresh exact marker bytes and a separate append count
 are required. Counts are observations for each request, not an exactly-once

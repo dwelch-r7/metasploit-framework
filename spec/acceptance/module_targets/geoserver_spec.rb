@@ -57,10 +57,11 @@ RSpec.describe 'Native GeoServer targets' do
   end
 
   if profile == '2251'
-    it 'checks the affected release and executes a quiet command twice with exact state cleanup' do
+    it 'reports hidden version, refuses default AutoCheck and executes a quiet override twice' do
       2.times do |iteration|
-        expect(invoke(GeoServerAcceptance::RCE, 'app', action: 'check')).to include('The target appears to be vulnerable')
-        prove_command('app', {}, iteration, bytes: '')
+        expect_hidden_version
+        prove_default_autocheck_refusal(iteration)
+        prove_command('app', { 'AutoCheck' => false, 'ForceExploit' => false }, iteration, bytes: '')
       end
     end
 
@@ -101,11 +102,12 @@ RSpec.describe 'Native GeoServer targets' do
       read_file_twice('unrelated', { 'TARGETURI' => '/unrelated' }, positive: false)
     end
   else
-    it 'checks the fixed RCE release and refuses a forced command twice' do
+    it 'reports hidden version, refuses default AutoCheck and rejects the fixed override twice' do
       2.times do |iteration|
-        expect(invoke(GeoServerAcceptance::RCE, 'app', action: 'check')).to include('The target is not exploitable')
+        expect_hidden_version
+        prove_default_autocheck_refusal(iteration)
         marker = "/tmp/module-target-geoserver-fixed-#{@case_id}-#{iteration}"
-        output = invoke(GeoServerAcceptance::RCE, 'app', generic_options("touch${IFS}#{marker}").merge('AutoCheck' => false), allow_errors: true)
+        output = invoke(GeoServerAcceptance::RCE, 'app', generic_options("touch${IFS}#{marker}").merge('AutoCheck' => false, 'ForceExploit' => false), allow_errors: true)
         expect(output).to include('No valid featuretype found')
         expect(@last_inputs).to include(hash_including('kind' => 'RETURNED-XML', 'arguments' => array_including('whoami')))
         absent(marker)
