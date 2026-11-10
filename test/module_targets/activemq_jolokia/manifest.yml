@@ -1,0 +1,40 @@
+spec: spec/acceptance/module_targets/activemq_jolokia_spec.rb
+expected_examples: 18
+console: true
+modules:
+  - exploit/multi/http/apache_activemq_jolokia_rce
+ports: {affected: 8161, prefix: 8161, fixed: 8161, unrelated: 80}
+support_files:
+  - test/module_targets/activemq_openwire/NativeControl.java
+  - test/module_targets/activemq_openwire/native_probe.rb
+  - spec/support/shared/contexts/wait_for_expect.rb
+  - lib/msf/core/exploit/remote/http_client.rb
+  - lib/msf/core/exploit/remote/http_server.rb
+  - lib/msf/core/exploit/remote/socket_server.rb
+  - lib/msf/core/exploit/remote/auto_check.rb
+  - lib/rex/service_manager.rb
+  - lib/rex/service.rb
+  - lib/rex/proto/http/client.rb
+  - lib/rex/proto/http/server.rb
+  - lib/rex/proto/http/response.rb
+  - lib/rex/proto/http/packet.rb
+  - lib/msf/core/payload/adapter/fetch.rb
+  - lib/msf/core/payload/adapter/fetch/http.rb
+  - lib/msf/core/payload/adapter/fetch/https.rb
+  - lib/msf/core/payload/adapter/fetch/linux_options.rb
+  - lib/msf/core/payload/adapter/fetch/server/http.rb
+  - lib/msf/core/payload/adapter/fetch/server/https.rb
+  - spec/lib/msf/core/payload/adapter/fetch/lifecycle_spec.rb
+  - spec/file_fixtures/fetch/http_lifecycle/README.md
+  - spec/file_fixtures/fetch/http_lifecycle/resource.txt
+  - modules/payloads/adapters/cmd/linux/http/x64.rb
+  - modules/payloads/singles/cmd/unix/generic.rb
+  - modules/payloads/singles/cmd/unix/reverse_bash.rb
+  - modules/payloads/stagers/linux/x64/reverse_tcp.rb
+  - modules/payloads/stages/linux/x64/meterpreter.rb
+  - lib/msf/core/exploit.rb
+  - lib/rex/version.rb
+  - lib/rex/proto/http/request.rb
+  - spec/modules/exploits/multi/http/apache_activemq_jolokia_rce_spec.rb
+  - spec/file_fixtures/modules/exploits/multi/http/apache_activemq_jolokia_rce/native_responses.json
+  - spec/file_fixtures/modules/exploits/multi/http/apache_activemq_jolokia_rce/README.md

@@ -1,0 +1,101 @@
+{
+  "services": {
+    "affected": {
+      "platform": "linux/amd64",
+      "mem_limit": "768m",
+      "build": {
+        "context": "..",
+        "dockerfile": "activemq_jolokia/Dockerfile",
+        "args": {
+          "ACTIVEMQ_VERSION": "5.19.3",
+          "ACTIVEMQ_SHA512": "77cf48c97ad8ff929bf8a86e91a16a759c8e0d6b62ebd1cb689c9d53c70d943993f30f224231897871cd22d836bf6539abfe4a42fd2f3a0f1f0c25536cf146c1",
+          "BROKER_NAME": "module-target-affected",
+          "WEB_PREFIX": ""
+        }
+      },
+      "ports": [
+        "127.0.0.1::61616",
+        "127.0.0.1::8161"
+      ],
+      "healthcheck": {
+        "test": [
+          "CMD-SHELL",
+          "curl --fail --silent --max-time 2 --user admin:admin --header 'Origin: http://127.0.0.1:8161' 'http://127.0.0.1:8161/api/jolokia/read/org.apache.activemq:type=Broker,brokerName=module-target-affected/BrokerVersion' | grep -Eq '\"status\"[[:space:]]*:[[:space:]]*200[[:space:]]*[},]'"
+        ],
+        "interval": "3s",
+        "timeout": "3s",
+        "retries": 40
+      }
+    },
+    "prefix": {
+      "platform": "linux/amd64",
+      "mem_limit": "768m",
+      "build": {
+        "context": "..",
+        "dockerfile": "activemq_jolokia/Dockerfile",
+        "args": {
+          "ACTIVEMQ_VERSION": "5.19.3",
+          "ACTIVEMQ_SHA512": "77cf48c97ad8ff929bf8a86e91a16a759c8e0d6b62ebd1cb689c9d53c70d943993f30f224231897871cd22d836bf6539abfe4a42fd2f3a0f1f0c25536cf146c1",
+          "BROKER_NAME": "module-target-prefix",
+          "WEB_PREFIX": "/module-target"
+        }
+      },
+      "ports": [
+        "127.0.0.1::61616",
+        "127.0.0.1::8161"
+      ],
+      "healthcheck": {
+        "test": [
+          "CMD-SHELL",
+          "curl --fail --silent --max-time 2 --user admin:admin --header 'Origin: http://127.0.0.1:8161' 'http://127.0.0.1:8161/module-target/api/jolokia/read/org.apache.activemq:type=Broker,brokerName=module-target-prefix/BrokerVersion' | grep -Eq '\"status\"[[:space:]]*:[[:space:]]*200[[:space:]]*[},]'"
+        ],
+        "interval": "3s",
+        "timeout": "3s",
+        "retries": 40
+      }
+    },
+    "fixed": {
+      "platform": "linux/amd64",
+      "mem_limit": "768m",
+      "build": {
+        "context": "..",
+        "dockerfile": "activemq_jolokia/Dockerfile",
+        "args": {
+          "ACTIVEMQ_VERSION": "5.19.4",
+          "ACTIVEMQ_SHA512": "edf14be443d16fe299497b3728b4c7c745dbe185d03236cc2928e7d7754daa54c8b60c9ee4c8eee938488065a5fdb2054bce039c7555b642fae6e99c66f62b4a",
+          "BROKER_NAME": "module-target-fixed",
+          "WEB_PREFIX": ""
+        }
+      },
+      "ports": [
+        "127.0.0.1::61616",
+        "127.0.0.1::8161"
+      ],
+      "healthcheck": {
+        "test": [
+          "CMD-SHELL",
+          "curl --fail --silent --max-time 2 --user admin:admin --header 'Origin: http://127.0.0.1:8161' 'http://127.0.0.1:8161/api/jolokia/read/org.apache.activemq:type=Broker,brokerName=module-target-fixed/BrokerVersion' | grep -Eq '\"status\"[[:space:]]*:[[:space:]]*200[[:space:]]*[},]'"
+        ],
+        "interval": "3s",
+        "timeout": "3s",
+        "retries": 40
+      }
+    },
+    "unrelated": {
+      "image": "httpd:2.4.62@sha256:4c7788695c832bf415a662dfb5160f1895e65fc65c025e85f436ee2c9e7d7f3e",
+      "platform": "linux/amd64",
+      "ports": [
+        "127.0.0.1::80"
+      ],
+      "healthcheck": {
+        "test": [
+          "CMD-SHELL",
+          "httpd -t"
+        ],
+        "interval": "3s",
+        "timeout": "3s",
+        "retries": 10
+      }
+    }
+  }
+}
