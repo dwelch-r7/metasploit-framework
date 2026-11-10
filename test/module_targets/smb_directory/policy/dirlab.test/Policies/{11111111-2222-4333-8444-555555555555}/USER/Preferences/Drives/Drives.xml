@@ -1,0 +1,2 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Drives clsid="{8FDDCC1A-0C3C-43CD-A6B4-71A6DF20DA8C}"><Drive changed="2026-11-10 00:00:00" name="Module target fixture" uid="{11111111-2222-4333-8444-555555555555}" clsid="{935D1B74-9CB8-4E3C-9914-7DD559B7A417}" image="2"><Properties action="U" cpassword="50i9/6RVUrJhg+EgZelSF2vUiWtJBrbMYKkJKJka87RM1FHkiWMbYpSZtQcizDOt" userName="DIRLAB\policy_user" path="\\SMBDIR\SESSION" thisDrive="NOCHANGE" allDrives="NOCHANGE" persistent="0" useLetter="1" letter="X" label="Module target fixture" /></Drive></Drives>

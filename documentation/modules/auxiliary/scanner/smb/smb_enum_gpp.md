@@ -37,6 +37,12 @@ Example steps in this format (is also in the PR):
 1. Do: `set SMBPass ...`
 1. Do: `run`
 
+The repository [Samba directory target guide](../../../../../test/module_targets/smb_directory/README.md)
+documents genuine native controls, automated cases, and platform limitations.
+
+When using an existing SMB session, recovered credentials are associated with
+that session's actual peer port. Direct scans use the selected `RPORT`.
+
 ### Windows Server 2019 (Test Setup)
 
 The following example use the contrived setup from the "Test Environment" section.

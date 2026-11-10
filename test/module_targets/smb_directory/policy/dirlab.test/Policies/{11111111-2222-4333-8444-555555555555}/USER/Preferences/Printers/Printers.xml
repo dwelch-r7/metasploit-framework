@@ -1,0 +1,2 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Printers clsid="{1F577D12-3D1B-471E-A1B7-060317597B9C}"><SharedPrinter changed="2026-11-10 00:00:00" name="Module target fixture" uid="{11111111-2222-4333-8444-555555555555}" clsid="{9A5E9697-9095-436D-A0EE-4D128FDFBCE5}" image="2"><Properties action="U" cpassword="50i9/6RVUrJhg+EgZelSF2vUiWtJBrbMYKkJKJka87RM1FHkiWMbYpSZtQcizDOt" username="DIRLAB\policy_user" path="\\SMBDIR\SESSION" persistent="0" default="0" /></SharedPrinter></Printers>

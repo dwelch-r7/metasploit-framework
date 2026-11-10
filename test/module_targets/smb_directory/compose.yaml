@@ -1,0 +1,28 @@
+services:
+  samba:
+    build: .
+    hostname: smbdir
+    init: true
+    mem_limit: 384m
+    cap_drop: [SYS_ADMIN, SYS_TIME]
+    ports: ["127.0.0.1::445", "127.0.0.1::139"]
+    healthcheck:
+      test: [CMD-SHELL, "smbcontrol smbd ping | grep -q PONG"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+  client:
+    build: .
+    hostname: smbclient
+    init: true
+    mem_limit: 256m
+    cap_drop: [SYS_ADMIN, SYS_TIME]
+    entrypoint: [sleep, infinity]
+    healthcheck:
+      test: [CMD, rpcclient, --version]
+      interval: 2s
+      timeout: 3s
+      retries: 10
+networks:
+  default:
+    driver: bridge

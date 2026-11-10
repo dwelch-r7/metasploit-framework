@@ -1,0 +1,2 @@
+<?xml version='1.0' encoding='utf-8'?>
+<NTServices clsid="{2CFB484A-4E96-4B5D-A0B6-093D2F91E6AE}"><NTService changed="2026-11-10 00:00:00" name="Module target fixture" uid="{11111111-2222-4333-8444-555555555555}" clsid="{AB6F0B67-341F-4E51-92F9-005FBFBA1A43}" image="2"><Properties action="U" cpassword="50i9/6RVUrJhg+EgZelSF2vUiWtJBrbMYKkJKJka87RM1FHkiWMbYpSZtQcizDOt" accountName="DIRLAB\policy_user" serviceName="ModuleTargetService" startupType="NOCHANGE" timeout="30" /></NTService></NTServices>

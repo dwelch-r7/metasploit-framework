@@ -1,0 +1,104 @@
+{
+  "domain": "dirlab.test",
+  "workgroup": "DIRLAB",
+  "files": [
+    {
+      "path": "dirlab.test/Policies/{11111111-2222-4333-8444-555555555555}/MACHINE/Preferences/Groups/Groups.xml",
+      "kind": "Groups.xml",
+      "user": "policy_user",
+      "reported_user": "DIRLAB\\policy_user",
+      "password": "Lab-Policy-Secret:2026!",
+      "sha256": "3b86b9f78de06a1e61c81f00ef462ee43701a59e7f6000ec571571ebb3023778",
+      "bytes": 556
+    },
+    {
+      "path": "dirlab.test/Policies/{11111111-2222-4333-8444-555555555555}/USER/Preferences/Groups/Groups.xml",
+      "kind": "Groups.xml",
+      "user": "unicode_user",
+      "reported_user": "DIRLAB\\unicode_user",
+      "password": "Module-π密码-Secret!",
+      "sha256": "f093c44df8af8b660ff477bcd1672168177cb3d10fbf4f1159ac7d3b7fec48c3",
+      "bytes": 557
+    },
+    {
+      "path": "dirlab.test/Policies/{11111111-2222-4333-8444-555555555555}/MACHINE/Preferences/Services/Services.xml",
+      "kind": "Services.xml",
+      "user": "policy_user",
+      "reported_user": "DIRLAB\\policy_user",
+      "password": "Lab-Policy-Secret:2026!",
+      "sha256": "4bc1357c2021285f760448831917f7d65ed912af875ecdcb16584f5ac29541ee",
+      "bytes": 500
+    },
+    {
+      "path": "dirlab.test/Policies/{11111111-2222-4333-8444-555555555555}/USER/Preferences/Printers/Printers.xml",
+      "kind": "Printers.xml",
+      "user": "policy_user",
+      "reported_user": "DIRLAB\\policy_user",
+      "password": "Lab-Policy-Secret:2026!",
+      "sha256": "a271fd6a18551b0474e38cf5147977be98583ea3c916f8f717689fd5abe579c8",
+      "bytes": 482
+    },
+    {
+      "path": "dirlab.test/Policies/{11111111-2222-4333-8444-555555555555}/USER/Preferences/Drives/Drives.xml",
+      "kind": "Drives.xml",
+      "user": "policy_user",
+      "reported_user": "DIRLAB\\policy_user",
+      "password": "Lab-Policy-Secret:2026!",
+      "sha256": "83d3dc887192771bc7c469282d4889576e99dbbc925a9f947d995030bedd30d4",
+      "bytes": 547
+    },
+    {
+      "path": "dirlab.test/Policies/{11111111-2222-4333-8444-555555555555}/MACHINE/Preferences/Datasources/DataSources.xml",
+      "kind": "DataSources.xml",
+      "user": "policy_user",
+      "reported_user": "DIRLAB\\policy_user",
+      "password": "Lab-Policy-Secret:2026!",
+      "sha256": "0b6f0a4e2ce6e7080f67774e602359d9069f75aa58c8621ae1cb0b5b3d656b54",
+      "bytes": 533
+    },
+    {
+      "path": "dirlab.test/Policies/{11111111-2222-4333-8444-555555555555}/USER/Preferences/Datasources/DataSources.xml",
+      "kind": "DataSources.xml",
+      "user": "policy_user",
+      "reported_user": "DIRLAB\\policy_user",
+      "password": "Lab-Policy-Secret:2026!",
+      "sha256": "0b6f0a4e2ce6e7080f67774e602359d9069f75aa58c8621ae1cb0b5b3d656b54",
+      "bytes": 533
+    },
+    {
+      "path": "dirlab.test/Policies/{11111111-2222-4333-8444-555555555555}/MACHINE/Preferences/ScheduledTasks/ScheduledTasks.xml",
+      "kind": "ScheduledTasks.xml",
+      "user": "policy_user",
+      "reported_user": "DIRLAB\\policy_user",
+      "password": "Lab-Policy-Secret:2026!",
+      "sha256": "29758f1dc5d139b5954fa91b0a16b5b8ba7acedfb2e80c90af9d2a0efea32a64",
+      "bytes": 528
+    },
+    {
+      "path": "dirlab.test/Policies/{11111111-2222-4333-8444-555555555555}/USER/Preferences/ScheduledTasks/ScheduledTasks.xml",
+      "kind": "ScheduledTasks.xml",
+      "user": "policy_user",
+      "reported_user": "DIRLAB\\policy_user",
+      "password": "Lab-Policy-Secret:2026!",
+      "sha256": "29758f1dc5d139b5954fa91b0a16b5b8ba7acedfb2e80c90af9d2a0efea32a64",
+      "bytes": 528
+    }
+  ],
+  "crypto": {
+    "policy_user": {
+      "password": "Lab-Policy-Secret:2026!",
+      "utf16le_base64": "TABhAGIALQBQAG8AbABpAGMAeQAtAFMAZQBjAHIAZQB0ADoAMgAwADIANgAhAA==",
+      "ciphertext_base64": "50i9/6RVUrJhg+EgZelSF2vUiWtJBrbMYKkJKJka87RM1FHkiWMbYpSZtQcizDOt",
+      "cpassword": "50i9/6RVUrJhg+EgZelSF2vUiWtJBrbMYKkJKJka87RM1FHkiWMbYpSZtQcizDOt",
+      "independent_decrypted": "Lab-Policy-Secret:2026!"
+    },
+    "unicode_user": {
+      "password": "Module-π密码-Secret!",
+      "utf16le_base64": "TQBvAGQAdQBsAGUALQDAA8ZbAXgtAFMAZQBjAHIAZQB0ACEA",
+      "ciphertext_base64": "vcDe5wXIyjpn8vZo29bRAh3KOJCRu8OkvO7/tgbvwjEH8ogMEkG9eDl5nwpTYvDP",
+      "cpassword": "vcDe5wXIyjpn8vZo29bRAh3KOJCRu8OkvO7/tgbvwjEH8ogMEkG9eDl5nwpTYvDP",
+      "independent_decrypted": "Module-π密码-Secret!"
+    }
+  },
+  "reference": "https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-gppref/2c15cbf0-f086-4c74-8b70-1f2fa45dd4be"
+}

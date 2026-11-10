@@ -1,0 +1,9 @@
+services:
+  samba:
+    extends: {file: ../smb_directory/compose.yaml, service: samba}
+    build: ../smb_directory
+  client:
+    extends: {file: ../smb_directory/compose.yaml, service: client}
+    build: ../smb_directory
+  reporting_db:
+    extends: {file: ../credential_reporting/compose.yaml, service: reporting_db}

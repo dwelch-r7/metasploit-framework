@@ -1,0 +1,2 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ScheduledTasks clsid="{CC63F200-7309-4BA0-B154-A71CD118DBCC}"><Task changed="2026-11-10 00:00:00" name="Module target fixture" uid="{11111111-2222-4333-8444-555555555555}" clsid="{2DEECB1C-261F-4E13-9B21-16FB83BC03BD}" image="2"><Properties action="U" cpassword="50i9/6RVUrJhg+EgZelSF2vUiWtJBrbMYKkJKJka87RM1FHkiWMbYpSZtQcizDOt" runAs="DIRLAB\policy_user" appName="fixture-not-executed.exe" name="Module target fixture" args="" startIn="" comment="" enabled="0" /></Task></ScheduledTasks>

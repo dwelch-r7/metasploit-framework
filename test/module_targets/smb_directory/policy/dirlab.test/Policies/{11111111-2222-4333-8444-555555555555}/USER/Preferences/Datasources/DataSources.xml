@@ -1,0 +1,2 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DataSources clsid="{380F820F-F21B-41AC-A3CC-24D4F80F067B}"><DataSource changed="2026-11-10 00:00:00" name="Module target fixture" uid="{11111111-2222-4333-8444-555555555555}" clsid="{5C209626-D820-4D69-8D50-1FACD6214488}" image="2"><Properties action="U" cpassword="50i9/6RVUrJhg+EgZelSF2vUiWtJBrbMYKkJKJka87RM1FHkiWMbYpSZtQcizDOt" username="DIRLAB\policy_user" dsn="ModuleTargetDSN" driver="ModuleTargetDriver" userDSN="0" description="Public artificial fixture" /></DataSource></DataSources>

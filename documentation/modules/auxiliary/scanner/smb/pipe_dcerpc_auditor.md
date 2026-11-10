@@ -9,6 +9,24 @@ The `pipe_dcerpc_auditor` scanner will return the DCERPC services that can be ac
 3. Do: ```set THREADS [number of threads]```
 4. Do: ```run```
 
+The repository [Samba directory target guide](../../../../../test/module_targets/smb_directory/README.md)
+documents genuine native controls, automated cases, and platform limitations.
+
+## Options
+
+### SMB::pipe_write_min_size
+
+The normal default is 1024 bytes so ordinary multi-context BINDs fit one pipe
+write. When no minimum is explicitly selected, it follows the selected maximum,
+including a smaller operator maximum. An explicit minimum takes precedence.
+Fragmented BIND writes can stall Samba reads.
+
+### SMB::pipe_write_max_size
+
+The inherited maximum remains 1024 bytes. An unset minimum follows this value.
+When supplying both bounds, keep the minimum no greater than the maximum; the
+existing RPC writer clamps a smaller maximum upward.
+
 ## Scenarios
 
 ```
