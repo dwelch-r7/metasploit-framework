@@ -10,7 +10,7 @@ This module creates a mock MySQL server which accepts credentials.  Upon receivi
 
 ### CHALLENGE
 
-  The MySQL 16 byte challenge used in the authentication.  Default is `112233445566778899AABBCCDDEEFF1122334455`.
+  The MySQL 20 byte challenge used in the authentication.  Default is `112233445566778899AABBCCDDEEFF1122334455`.
 
 ### JOHNPWFILE
 

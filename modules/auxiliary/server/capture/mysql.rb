@@ -25,7 +25,7 @@ class MetasploitModule < Msf::Auxiliary
     register_options(
       [
         OptPort.new('SRVPORT', [ true, 'The local port to listen on.', 3306 ]),
-        OptString.new('CHALLENGE', [ true, 'The 16 byte challenge', '112233445566778899AABBCCDDEEFF1122334455' ]),
+        OptString.new('CHALLENGE', [ true, 'The 20 byte challenge', '112233445566778899AABBCCDDEEFF1122334455' ]),
         OptString.new('SRVVERSION', [ true, 'The server version to report in the greeting response', '5.5.16' ]),
         OptString.new('JOHNPWFILE', [ false, 'The prefix to the local filename to store the hashes in JOHN format', nil ]),
       ]
@@ -38,7 +38,7 @@ class MetasploitModule < Msf::Auxiliary
   end
 
   def run
-    if datastore['CHALLENGE'].to_s =~ /^([a-fA-F1-9]{40})$/
+    if datastore['CHALLENGE'].to_s.match?(/\A[0-9a-fA-F]{40}\z/)
       @challenge = [ datastore['CHALLENGE'] ].pack('H*')
     else
       print_error('CHALLENGE syntax must match 112233445566778899AABBCCDDEEFF1122334455')
@@ -103,7 +103,8 @@ class MetasploitModule < Msf::Auxiliary
       return
     end
 
-    info[:response] = data.slice!(0, 20).unpack('A*')[0]
+    # Native-password responses are binary and may end in NUL or space.
+    info[:response] = data.slice!(0, 20)
 
     if (flags & 0x0008) == 0x0008
       info[:database] = data.slice!(0, data.index("\x00")).unpack('A*')[0]

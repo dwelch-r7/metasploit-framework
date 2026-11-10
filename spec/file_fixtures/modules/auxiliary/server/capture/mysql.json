@@ -1,0 +1,393 @@
+{
+  "provenance": {
+    "run": "20261110T030643-6f1268",
+    "base": "fbc8976cd98639adbb6a1420b65cf1eb16c67bdd",
+    "module_sha256": "923d1231bc17ebe1fcbcbc568f4aad47267c0f6bd0ac65ef29f7785fcc313d32",
+    "clients": "Oracle8.0.36/MariaDB11.2.2",
+    "native_preflight": "genuine native server authentication plus independent raw-byte checks; NTLM domain native login is rejected/unqualified",
+    "credentials": "public isolated test fixtures only"
+  },
+  "captures": [
+    {
+      "case": "dbcapture_1_10_0",
+      "description": "MariaDB binary response ending space with exact capture and listener restart twice",
+      "client_stream_base64": "awAAAY2ivwAAAAABIQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAY2FwdHVyZV90YWlsMzIAFFm8ZzO4e/K2bc6luzf70P/wY98gY2FwdHVyZSBkYXRhYmFzZQBteXNxbF9uYXRpdmVfcGFzc3dvcmQA",
+      "server_stream_base64": "SgAAAAo1LjUuMTYAsCMAABEiM0RVZneIAP/3IQIAD4AVAAAAAAAAAAAAAJmqu8zd7v8RIjNEVQBteXNxbF9uYXRpdmVfcGFzc3dvcmQAUwAAAv8VBCMyODAwMEFjY2VzcyBkZW5pZWQgZm9yIHVzZXIgJ2NhcHR1cmVfdGFpbDMyJ0AnMTcyLjI2LjAuMycgKHVzaW5nIHBhc3N3b3JkOiBZRVMp",
+      "independent_decoded": {
+        "greeting": {
+          "version": "5.5.16",
+          "connection": 9136,
+          "capabilities": 2148530175,
+          "charset": 33,
+          "status": 2,
+          "auth_length": 21,
+          "seed": "112233445566778899aabbccddeeff1122334455",
+          "plugin": "mysql_native_password"
+        },
+        "login": {
+          "flags": 12558989,
+          "username": "capture_tail32",
+          "response": "59bc6733b87bf2b66dcea5bb37fbd0fff063df20",
+          "database": "capture database",
+          "plugin": "mysql_native_password"
+        },
+        "native_challenge": "112233445566778899aabbccddeeff1122334455",
+        "native_response": "59bc6733b87bf2b66dcea5bb37fbd0fff063df20"
+      },
+      "pcap_sha256": "a42acd305b82e2b3143b4c77394be5531892c7ba58b46edf5bd67b90ea2d620e"
+    },
+    {
+      "case": "dbcapture_1_8_0",
+      "description": "MariaDB binary response ending NUL with exact capture and listener restart twice",
+      "client_stream_base64": "agAAAY2ivwAAAAABIQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAY2FwdHVyZV90YWlsMAAU9X5JSgQ88chsLt12RKqtLb1gJABjYXB0dXJlIGRhdGFiYXNlAG15c3FsX25hdGl2ZV9wYXNzd29yZAA=",
+      "server_stream_base64": "SgAAAAo1LjUuMTYAxyUAABEiM0RVZneIAP/3IQIAD4AVAAAAAAAAAAAAAJmqu8zd7v8RIjNEVQBteXNxbF9uYXRpdmVfcGFzc3dvcmQAUgAAAv8VBCMyODAwMEFjY2VzcyBkZW5pZWQgZm9yIHVzZXIgJ2NhcHR1cmVfdGFpbDAnQCcxNzIuMjYuMC4zJyAodXNpbmcgcGFzc3dvcmQ6IFlFUyk=",
+      "independent_decoded": {
+        "greeting": {
+          "version": "5.5.16",
+          "connection": 9671,
+          "capabilities": 2148530175,
+          "charset": 33,
+          "status": 2,
+          "auth_length": 21,
+          "seed": "112233445566778899aabbccddeeff1122334455",
+          "plugin": "mysql_native_password"
+        },
+        "login": {
+          "flags": 12558989,
+          "username": "capture_tail0",
+          "response": "f57e494a043cf1c86c2edd7644aaad2dbd602400",
+          "database": "capture database",
+          "plugin": "mysql_native_password"
+        },
+        "native_challenge": "112233445566778899aabbccddeeff1122334455",
+        "native_response": "f57e494a043cf1c86c2edd7644aaad2dbd602400"
+      },
+      "pcap_sha256": "c7fbde79a0e7b46c80ea1e6204d6cd3e0a09bd5dfc3fe3c299589f4abb110a0a"
+    },
+    {
+      "case": "dbcapture_1_11_0",
+      "description": "Oracle empty response creates no hash with exact capture and listener restart twice",
+      "client_stream_base64": "VgAAAY2ivxkAAAABCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAY2FwdHVyZV9lbXB0eQAAY2FwdHVyZSBkYXRhYmFzZQBteXNxbF9uYXRpdmVfcGFzc3dvcmQA",
+      "server_stream_base64": "SgAAAAo1LjUuMTYALRIAABEiM0RVZneIAP/3IQIAD4AVAAAAAAAAAAAAAJmqu8zd7v8RIjNEVQBteXNxbF9uYXRpdmVfcGFzc3dvcmQAUQAAAv8VBCMyODAwMEFjY2VzcyBkZW5pZWQgZm9yIHVzZXIgJ2NhcHR1cmVfZW1wdHknQCcxNzIuMjYuMC4zJyAodXNpbmcgcGFzc3dvcmQ6IE5PKQ==",
+      "independent_decoded": {
+        "greeting": {
+          "version": "5.5.16",
+          "connection": 4653,
+          "capabilities": 2148530175,
+          "charset": 33,
+          "status": 2,
+          "auth_length": 21,
+          "seed": "112233445566778899aabbccddeeff1122334455",
+          "plugin": "mysql_native_password"
+        },
+        "login": {
+          "flags": 431989389,
+          "username": "capture_empty",
+          "response": "",
+          "database": "capture database",
+          "plugin": "mysql_native_password"
+        },
+        "native_challenge": "112233445566778899aabbccddeeff1122334455",
+        "native_response": ""
+      },
+      "pcap_sha256": "fb56984eb27649eb021ae2fc5564bba47319f8891fc0297e59224359e328cb30"
+    },
+    {
+      "case": "dbcapture_1_14_0",
+      "description": "Required TLS sends no password to the non-TLS listener with exact capture and listener restart twice",
+      "client_stream_base64": null,
+      "server_stream_base64": "SgAAAAo1LjUuMTYAwgEAABEiM0RVZneIAP/3IQIAD4AVAAAAAAAAAAAAAJmqu8zd7v8RIjNEVQBteXNxbF9uYXRpdmVfcGFzc3dvcmQA",
+      "independent_decoded": {
+        "greeting": {
+          "version": "5.5.16",
+          "connection": 450,
+          "capabilities": 2148530175,
+          "charset": 33,
+          "status": 2,
+          "auth_length": 21,
+          "seed": "112233445566778899aabbccddeeff1122334455",
+          "plugin": "mysql_native_password"
+        },
+        "client_packet_count": 0
+      },
+      "pcap_sha256": "da2cbeb0a5b50bb64628681bd3f7cde7a8a433c7c22cf2414bf6f500fedb7d80"
+    },
+    {
+      "case": "dbcapture_1_15_0",
+      "description": "Greeting-only client sends no credentials with exact capture and listener restart twice",
+      "client_stream_base64": null,
+      "server_stream_base64": "SgAAAAo1LjUuMTYAawEAABEiM0RVZneIAP/3IQIAD4AVAAAAAAAAAAAAAJmqu8zd7v8RIjNEVQBteXNxbF9uYXRpdmVfcGFzc3dvcmQA",
+      "independent_decoded": {
+        "greeting": {
+          "version": "5.5.16",
+          "connection": 363,
+          "capabilities": 2148530175,
+          "charset": 33,
+          "status": 2,
+          "auth_length": 21,
+          "seed": "112233445566778899aabbccddeeff1122334455",
+          "plugin": "mysql_native_password"
+        },
+        "client_packet_count": 0
+      },
+      "pcap_sha256": "1777c52fa2e49d47e77d3e19fe1a7f45651b25c06ddf7a22cf952fd61b254df8"
+    },
+    {
+      "case": "dbcapture_1_2_0",
+      "description": "Oracle default TLS negotiation with exact capture and listener restart twice",
+      "client_stream_base64": "aQAAAY2ivxkAAAABCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAY2FwdHVyZSB1c2VyABQGf+xiHJEyrLR5g/slsAXixwRvTWNhcHR1cmUgZGF0YWJhc2UAbXlzcWxfbmF0aXZlX3Bhc3N3b3JkAA==",
+      "server_stream_base64": "SgAAAAo1LjUuMTYAkQkAABEiM0RVZneIAP/3IQIAD4AVAAAAAAAAAAAAAJmqu8zd7v8RIjNEVQBteXNxbF9uYXRpdmVfcGFzc3dvcmQAUQAAAv8VBCMyODAwMEFjY2VzcyBkZW5pZWQgZm9yIHVzZXIgJ2NhcHR1cmUgdXNlcidAJzE3Mi4yNi4wLjMnICh1c2luZyBwYXNzd29yZDogWUVTKQ==",
+      "independent_decoded": {
+        "greeting": {
+          "version": "5.5.16",
+          "connection": 2449,
+          "capabilities": 2148530175,
+          "charset": 33,
+          "status": 2,
+          "auth_length": 21,
+          "seed": "112233445566778899aabbccddeeff1122334455",
+          "plugin": "mysql_native_password"
+        },
+        "login": {
+          "flags": 431989389,
+          "username": "capture user",
+          "response": "067fec621c9132acb47983fb25b005e2c7046f4d",
+          "database": "capture database",
+          "plugin": "mysql_native_password"
+        },
+        "native_challenge": "112233445566778899aabbccddeeff1122334455",
+        "native_response": "067fec621c9132acb47983fb25b005e2c7046f4d"
+      },
+      "pcap_sha256": "7fec3cb63285f8487d755e567395bd0a73651017a0168f3dc08422fce08ce10a"
+    },
+    {
+      "case": "dbcapture_1_7_0",
+      "description": "Oracle binary response ending NUL with exact capture and listener restart twice",
+      "client_stream_base64": "agAAAY2ivxkAAAABCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAY2FwdHVyZV90YWlsMAAU9X5JSgQ88chsLt12RKqtLb1gJABjYXB0dXJlIGRhdGFiYXNlAG15c3FsX25hdGl2ZV9wYXNzd29yZAA=",
+      "server_stream_base64": "SgAAAAo1LjUuMTYAABwAABEiM0RVZneIAP/3IQIAD4AVAAAAAAAAAAAAAJmqu8zd7v8RIjNEVQBteXNxbF9uYXRpdmVfcGFzc3dvcmQAUgAAAv8VBCMyODAwMEFjY2VzcyBkZW5pZWQgZm9yIHVzZXIgJ2NhcHR1cmVfdGFpbDAnQCcxNzIuMjYuMC4zJyAodXNpbmcgcGFzc3dvcmQ6IFlFUyk=",
+      "independent_decoded": {
+        "greeting": {
+          "version": "5.5.16",
+          "connection": 7168,
+          "capabilities": 2148530175,
+          "charset": 33,
+          "status": 2,
+          "auth_length": 21,
+          "seed": "112233445566778899aabbccddeeff1122334455",
+          "plugin": "mysql_native_password"
+        },
+        "login": {
+          "flags": 431989389,
+          "username": "capture_tail0",
+          "response": "f57e494a043cf1c86c2edd7644aaad2dbd602400",
+          "database": "capture database",
+          "plugin": "mysql_native_password"
+        },
+        "native_challenge": "112233445566778899aabbccddeeff1122334455",
+        "native_response": "f57e494a043cf1c86c2edd7644aaad2dbd602400"
+      },
+      "pcap_sha256": "58b3acfe998dd459703af1ad1e0c6f742ecf36a42afa8b04a30c028709daa776"
+    },
+    {
+      "case": "dbcapture_1_1_0",
+      "description": "Oracle native password with edge fields with exact capture and listener restart twice",
+      "client_stream_base64": "aQAAAY2ivxkAAAABCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAY2FwdHVyZSB1c2VyABQGf+xiHJEyrLR5g/slsAXixwRvTWNhcHR1cmUgZGF0YWJhc2UAbXlzcWxfbmF0aXZlX3Bhc3N3b3JkAA==",
+      "server_stream_base64": "SgAAAAo1LjUuMTYA1hsAABEiM0RVZneIAP/3IQIAD4AVAAAAAAAAAAAAAJmqu8zd7v8RIjNEVQBteXNxbF9uYXRpdmVfcGFzc3dvcmQAUQAAAv8VBCMyODAwMEFjY2VzcyBkZW5pZWQgZm9yIHVzZXIgJ2NhcHR1cmUgdXNlcidAJzE3Mi4yNi4wLjMnICh1c2luZyBwYXNzd29yZDogWUVTKQ==",
+      "independent_decoded": {
+        "greeting": {
+          "version": "5.5.16",
+          "connection": 7126,
+          "capabilities": 2148530175,
+          "charset": 33,
+          "status": 2,
+          "auth_length": 21,
+          "seed": "112233445566778899aabbccddeeff1122334455",
+          "plugin": "mysql_native_password"
+        },
+        "login": {
+          "flags": 431989389,
+          "username": "capture user",
+          "response": "067fec621c9132acb47983fb25b005e2c7046f4d",
+          "database": "capture database",
+          "plugin": "mysql_native_password"
+        },
+        "native_challenge": "112233445566778899aabbccddeeff1122334455",
+        "native_response": "067fec621c9132acb47983fb25b005e2c7046f4d"
+      },
+      "pcap_sha256": "005cbe59c94f172bcd675b7fa10f484967614fe9aa98405d18d96c45d90f99fe"
+    },
+    {
+      "case": "dbcapture_1_3_0",
+      "description": "MariaDB default TLS negotiation with exact capture and listener restart twice",
+      "client_stream_base64": "aQAAAY2ivwAAAAABIQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAY2FwdHVyZSB1c2VyABQGf+xiHJEyrLR5g/slsAXixwRvTWNhcHR1cmUgZGF0YWJhc2UAbXlzcWxfbmF0aXZlX3Bhc3N3b3JkAA==",
+      "server_stream_base64": "SgAAAAo1LjUuMTYAmAIAABEiM0RVZneIAP/3IQIAD4AVAAAAAAAAAAAAAJmqu8zd7v8RIjNEVQBteXNxbF9uYXRpdmVfcGFzc3dvcmQAUQAAAv8VBCMyODAwMEFjY2VzcyBkZW5pZWQgZm9yIHVzZXIgJ2NhcHR1cmUgdXNlcidAJzE3Mi4yNi4wLjMnICh1c2luZyBwYXNzd29yZDogWUVTKQ==",
+      "independent_decoded": {
+        "greeting": {
+          "version": "5.5.16",
+          "connection": 664,
+          "capabilities": 2148530175,
+          "charset": 33,
+          "status": 2,
+          "auth_length": 21,
+          "seed": "112233445566778899aabbccddeeff1122334455",
+          "plugin": "mysql_native_password"
+        },
+        "login": {
+          "flags": 12558989,
+          "username": "capture user",
+          "response": "067fec621c9132acb47983fb25b005e2c7046f4d",
+          "database": "capture database",
+          "plugin": "mysql_native_password"
+        },
+        "native_challenge": "112233445566778899aabbccddeeff1122334455",
+        "native_response": "067fec621c9132acb47983fb25b005e2c7046f4d"
+      },
+      "pcap_sha256": "ee5b4f020cfa18c9447899bbf456d228d8db15e1bb30531556234d7601a43f01"
+    },
+    {
+      "case": "dbcapture_1_9_0",
+      "description": "Oracle binary response ending space with exact capture and listener restart twice",
+      "client_stream_base64": "awAAAY2ivxkAAAABCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAY2FwdHVyZV90YWlsMzIAFFm8ZzO4e/K2bc6luzf70P/wY98gY2FwdHVyZSBkYXRhYmFzZQBteXNxbF9uYXRpdmVfcGFzc3dvcmQA",
+      "server_stream_base64": "SgAAAAo1LjUuMTYAuiQAABEiM0RVZneIAP/3IQIAD4AVAAAAAAAAAAAAAJmqu8zd7v8RIjNEVQBteXNxbF9uYXRpdmVfcGFzc3dvcmQAUwAAAv8VBCMyODAwMEFjY2VzcyBkZW5pZWQgZm9yIHVzZXIgJ2NhcHR1cmVfdGFpbDMyJ0AnMTcyLjI2LjAuMycgKHVzaW5nIHBhc3N3b3JkOiBZRVMp",
+      "independent_decoded": {
+        "greeting": {
+          "version": "5.5.16",
+          "connection": 9402,
+          "capabilities": 2148530175,
+          "charset": 33,
+          "status": 2,
+          "auth_length": 21,
+          "seed": "112233445566778899aabbccddeeff1122334455",
+          "plugin": "mysql_native_password"
+        },
+        "login": {
+          "flags": 431989389,
+          "username": "capture_tail32",
+          "response": "59bc6733b87bf2b66dcea5bb37fbd0fff063df20",
+          "database": "capture database",
+          "plugin": "mysql_native_password"
+        },
+        "native_challenge": "112233445566778899aabbccddeeff1122334455",
+        "native_response": "59bc6733b87bf2b66dcea5bb37fbd0fff063df20"
+      },
+      "pcap_sha256": "8cefdd0c04b07b175e3262f1c584709c63f8bfaedcf108bb14004a14af906bfc"
+    },
+    {
+      "case": "dbcapture_1_6_0",
+      "description": "Rejected native password stays untried with exact capture and listener restart twice",
+      "client_stream_base64": "aQAAAY2ivxkAAAABCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAY2FwdHVyZSB1c2VyABSzmgaMiGm8l0Suzd9w3QJIiyH4gGNhcHR1cmUgZGF0YWJhc2UAbXlzcWxfbmF0aXZlX3Bhc3N3b3JkAA==",
+      "server_stream_base64": "SgAAAAo1LjUuMTYAuhsAABEiM0RVZneIAP/3IQIAD4AVAAAAAAAAAAAAAJmqu8zd7v8RIjNEVQBteXNxbF9uYXRpdmVfcGFzc3dvcmQAUQAAAv8VBCMyODAwMEFjY2VzcyBkZW5pZWQgZm9yIHVzZXIgJ2NhcHR1cmUgdXNlcidAJzE3Mi4yNi4wLjMnICh1c2luZyBwYXNzd29yZDogWUVTKQ==",
+      "independent_decoded": {
+        "greeting": {
+          "version": "5.5.16",
+          "connection": 7098,
+          "capabilities": 2148530175,
+          "charset": 33,
+          "status": 2,
+          "auth_length": 21,
+          "seed": "112233445566778899aabbccddeeff1122334455",
+          "plugin": "mysql_native_password"
+        },
+        "login": {
+          "flags": 431989389,
+          "username": "capture user",
+          "response": "b39a068c8869bc9744aecddf70dd02488b21f880",
+          "database": "capture database",
+          "plugin": "mysql_native_password"
+        },
+        "native_challenge": "112233445566778899aabbccddeeff1122334455",
+        "native_response": "b39a068c8869bc9744aecddf70dd02488b21f880"
+      },
+      "pcap_sha256": "b12d1b502009cefc65c4592441a3b66e0eae0ded5dbadbeb5adcf7883c92812c"
+    },
+    {
+      "case": "dbcapture_1_5_0",
+      "description": "Oracle native password without a database with exact capture and listener restart twice",
+      "client_stream_base64": "WAAAAYWivxkAAAABCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAY2FwdHVyZSB1c2VyABQGf+xiHJEyrLR5g/slsAXixwRvTW15c3FsX25hdGl2ZV9wYXNzd29yZAA=",
+      "server_stream_base64": "SgAAAAo1LjUuMTYAtRUAABEiM0RVZneIAP/3IQIAD4AVAAAAAAAAAAAAAJmqu8zd7v8RIjNEVQBteXNxbF9uYXRpdmVfcGFzc3dvcmQAUQAAAv8VBCMyODAwMEFjY2VzcyBkZW5pZWQgZm9yIHVzZXIgJ2NhcHR1cmUgdXNlcidAJzE3Mi4yNi4wLjMnICh1c2luZyBwYXNzd29yZDogWUVTKQ==",
+      "independent_decoded": {
+        "greeting": {
+          "version": "5.5.16",
+          "connection": 5557,
+          "capabilities": 2148530175,
+          "charset": 33,
+          "status": 2,
+          "auth_length": 21,
+          "seed": "112233445566778899aabbccddeeff1122334455",
+          "plugin": "mysql_native_password"
+        },
+        "login": {
+          "flags": 431989381,
+          "username": "capture user",
+          "response": "067fec621c9132acb47983fb25b005e2c7046f4d",
+          "database": null,
+          "plugin": "mysql_native_password"
+        },
+        "native_challenge": "112233445566778899aabbccddeeff1122334455",
+        "native_response": "067fec621c9132acb47983fb25b005e2c7046f4d"
+      },
+      "pcap_sha256": "d7fc618ea7fbf9bc64fe140ad5561839f827ddea88c47f7b449068a81c0d7784"
+    },
+    {
+      "case": "dbcapture_1_12_0",
+      "description": "MariaDB empty response creates no hash with exact capture and listener restart twice",
+      "client_stream_base64": "VgAAAY2ivwAAAAABIQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAY2FwdHVyZV9lbXB0eQAAY2FwdHVyZSBkYXRhYmFzZQBteXNxbF9uYXRpdmVfcGFzc3dvcmQA",
+      "server_stream_base64": "SgAAAAo1LjUuMTYAVgUAABEiM0RVZneIAP/3IQIAD4AVAAAAAAAAAAAAAJmqu8zd7v8RIjNEVQBteXNxbF9uYXRpdmVfcGFzc3dvcmQAUQAAAv8VBCMyODAwMEFjY2VzcyBkZW5pZWQgZm9yIHVzZXIgJ2NhcHR1cmVfZW1wdHknQCcxNzIuMjYuMC4zJyAodXNpbmcgcGFzc3dvcmQ6IE5PKQ==",
+      "independent_decoded": {
+        "greeting": {
+          "version": "5.5.16",
+          "connection": 1366,
+          "capabilities": 2148530175,
+          "charset": 33,
+          "status": 2,
+          "auth_length": 21,
+          "seed": "112233445566778899aabbccddeeff1122334455",
+          "plugin": "mysql_native_password"
+        },
+        "login": {
+          "flags": 12558989,
+          "username": "capture_empty",
+          "response": "",
+          "database": "capture database",
+          "plugin": "mysql_native_password"
+        },
+        "native_challenge": "112233445566778899aabbccddeeff1122334455",
+        "native_response": ""
+      },
+      "pcap_sha256": "125b5ddedadaa7a30e669c8d5820c9ce2737cd3043cacd3fad7f0765a4ded7ec"
+    },
+    {
+      "case": "dbcapture_1_4_0",
+      "description": "MariaDB native password with edge fields with exact capture and listener restart twice",
+      "client_stream_base64": "aQAAAY2ivwAAAAABIQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAY2FwdHVyZSB1c2VyABQGf+xiHJEyrLR5g/slsAXixwRvTWNhcHR1cmUgZGF0YWJhc2UAbXlzcWxfbmF0aXZlX3Bhc3N3b3JkAA==",
+      "server_stream_base64": "SgAAAAo1LjUuMTYAdiUAABEiM0RVZneIAP/3IQIAD4AVAAAAAAAAAAAAAJmqu8zd7v8RIjNEVQBteXNxbF9uYXRpdmVfcGFzc3dvcmQAUQAAAv8VBCMyODAwMEFjY2VzcyBkZW5pZWQgZm9yIHVzZXIgJ2NhcHR1cmUgdXNlcidAJzE3Mi4yNi4wLjMnICh1c2luZyBwYXNzd29yZDogWUVTKQ==",
+      "independent_decoded": {
+        "greeting": {
+          "version": "5.5.16",
+          "connection": 9590,
+          "capabilities": 2148530175,
+          "charset": 33,
+          "status": 2,
+          "auth_length": 21,
+          "seed": "112233445566778899aabbccddeeff1122334455",
+          "plugin": "mysql_native_password"
+        },
+        "login": {
+          "flags": 12558989,
+          "username": "capture user",
+          "response": "067fec621c9132acb47983fb25b005e2c7046f4d",
+          "database": "capture database",
+          "plugin": "mysql_native_password"
+        },
+        "native_challenge": "112233445566778899aabbccddeeff1122334455",
+        "native_response": "067fec621c9132acb47983fb25b005e2c7046f4d"
+      },
+      "pcap_sha256": "929a0b4eea72cd5385318088167434cd279ebdeca456df40ded7199ae114fa08"
+    }
+  ],
+  "native_seed": {
+    "seed": "7d566b6a2e5844282a7c2120036e475d4812407b",
+    "case": "native-native_mysql-oracle_client-edge",
+    "pcap_sha256": "41765b96442827d2b0aa48807b23f61fe2ab7ebc9cc955b4d9923519f3dea003"
+  }
+}
