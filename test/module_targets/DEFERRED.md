@@ -72,7 +72,10 @@ recaps and focused examples alone do not qualify this deployer.
 ## Grafana SQL expression command delivery
 
 `exploit/multi/http/grafana_sql_expressions_rce_cve_2024_9264` remains unqualified
-in the complete functional corpus. Genuine Grafana 11.0.5 SQL scalar/file controls pass with
+outside its selected 11.0.0 Linux command/Bash coverage. The
+[qualified corpus](VERIFICATION-20261110-grafana-expression.md) now passes 14/0,
+including four owning sessions and two separate real Bash calibrations.
+Genuine Grafana 11.0.5 SQL scalar/file controls pass with
 both authenticated Viewer and anonymous policies. The corrected original-module
 baseline `20261110T154643-3d7cd7` finishes 14 examples/four failures: quoted
 Generic and reverse Bash delivery fail under both policies; fixed and
@@ -113,8 +116,11 @@ with four fixture/cascade failures: affected 11.0.0 is 7/1, independent fixed
 Plain `run` then enters the actual CommandShell dispatcher, so later `sessions
 -K` and `back` reach that dispatcher or remote shell instead of msfconsole.
 Subsequent calls without an owning request cannot establish module delivery.
-The supported `run -z` option and independent real CommandShell use/exit/PID/
-host-close calibration require fixture validation before another owning run.
+The subsequent 82-input calibration run stops before positive owning calls on
+a file-transfer permission error (14/10 inherited setup failures). The copied
+file's owner/mode were not captured. The final helper creates exact stdin bytes
+as UID472 and verifies native owner/mode/hash, then independently calibrates
+real CommandShell use/exit/PID/host-close before the successful 14/0 run.
 The original 72 inputs and failures remain preserved; no algorithm change is
 justified by these console failures. All four profiles pass owned teardown;
 the parent repeats 16 exact-object absence checks, 12 project-label queries and

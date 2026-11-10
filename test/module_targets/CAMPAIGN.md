@@ -937,3 +937,21 @@ and the reusable runner's refusal of unrelated containers remain unchanged.
 The Grafana follow-up's 14/four console-fixture result and all exact owned
 teardown checks are retained in [deferred investigations](DEFERRED.md); no new
 module or functional case is added to the 176/111/1,379 checkpoint.
+
+## Grafana SQL expression qualification
+
+The [current checkpoint](VERIFICATION-20261110-grafana-expression.md) qualifies
+177 runtime modules, 115 families and 1,393 functional cases. Fourteen Grafana
+cases pass across Viewer, Anonymous Viewer/subpath, independent fixed and
+missing-binary profiles. Four owning Bash sessions and four exact quoted command
+outputs are proven; two independent real payload/handler calibrations precede
+owning calls. Target exit/native PID absence precede host session close.
+
+The module-local byte-string repair corrects an actual UTF-8 Content-Length
+defect. Foreground dispatch and failed copied-file calibration remain preserved
+fixture failures; 11.0.5 SELECT-only RCE remains separately unqualified. All 82
+inputs are current; parent 233 imported files, 362 export entries, lint/docs and
+29 cleanup queries pass. Positive RCE scope remains 11.0.0 and selected
+command/session paths. Three additional auto-recreated tool containers were
+removed by the bounded task-local guard, bringing observed unrelated removals
+to 44. Only the active test project may run, within the five-container limit.
