@@ -1,0 +1,63 @@
+---
+spec: spec/acceptance/module_targets/sip_enumeration_spec.rb
+expected_examples: 14
+console: true
+modules:
+- auxiliary/scanner/sip/enumerator
+- auxiliary/scanner/sip/enumerator_tcp
+- auxiliary/voip/sip_deregister
+ports:
+  exposed: 5060
+  protected: 5060
+  permissive: 5060
+  unrelated: 53
+test_env:
+  SIP_TARGET_PROFILE: enumeration
+support_files:
+- lib/msf/core/exploit/remote/sip.rb
+- lib/rex/proto/sip/response.rb
+- lib/msf/core/exploit/remote/tcp.rb
+- lib/msf/core/exploit/remote/udp.rb
+- lib/msf/core/auxiliary/scanner.rb
+- lib/msf/core/auxiliary/udp_scanner.rb
+- lib/msf/core/auxiliary/report.rb
+- lib/msf/core/db_manager/service.rb
+- lib/msf/core/db_manager/note.rb
+- lib/msf/core/auxiliary/auth_brute.rb
+- test/module_targets/credential_reporting/compose.yaml
+- test/module_targets/dns/compose.yaml
+- test/module_targets/dns/Dockerfile
+- test/module_targets/dns/open.conf
+- test/module_targets/dns/closed.conf
+- test/module_targets/dns/module-target.test.zone
+- test/module_targets/dns/192.0.2.rev
+- documentation/modules/auxiliary/scanner/sip/options_tcp.md
+- lib/msf/core/db_manager.rb
+- lib/msf/core/db_manager/connection.rb
+- lib/msf/core/db_manager/cred.rb
+- lib/msf/core/db_manager/login.rb
+- lib/msf/ui/console/command_dispatcher/db.rb
+- lib/msf/ui/console/command_dispatcher/creds.rb
+- lib/metasploit/framework/credential_collection.rb
+- test/module_targets/sip/Dockerfile
+- test/module_targets/sip/README.md
+- test/module_targets/sip/acceptance.rb
+- test/module_targets/sip/client_api.py
+- test/module_targets/sip/compose.yaml
+- test/module_targets/sip/entrypoint.sh
+- test/module_targets/sip/extensions.conf
+- test/module_targets/sip/manager.conf
+- test/module_targets/sip/modules.conf
+- test/module_targets/sip/native_action.py
+- test/module_targets/sip/native_client.py
+- test/module_targets/sip/native_probe.py
+- test/module_targets/sip/sip.conf
+- spec/support/shared/contexts/wait_for_expect.rb
+- test/module_targets/capture_core/native_client.py
+- test/module_targets/sip/tls_contract.rb
+- test/module_targets/sip/legacy_register.py
+- spec/modules/auxiliary/scanner/sip/enumeration_spec.rb
+- spec/modules/auxiliary/voip/sip_deregister_spec.rb
+- spec/file_fixtures/modules/auxiliary/sip/enumeration.json
+- test/module_targets/sip/john.Dockerfile
+- test/module_targets/sip/JOHN.md

@@ -5,6 +5,12 @@
 
   This module scans the TCP port to identify what OPTIONS are available on the SIP service.
 
+## Automated container target
+
+The [repository SIP target guide](../../../../../test/module_targets/sip/README.md)
+provides genuine Asterisk/client controls, UDP/TCP/TLS discovery, repeated scans,
+disposable database reporting and explicit account-policy limitations.
+
 ## Verification Steps
 
   1. Start msfconsole

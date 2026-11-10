@@ -1,0 +1,41 @@
+---
+spec: spec/acceptance/module_targets/sip_spec.rb
+expected_examples: 18
+console: true
+modules:
+- auxiliary/scanner/sip/options
+- auxiliary/scanner/sip/options_tcp
+ports:
+  exposed: 5060
+  protected: 5060
+  unrelated: 53
+test_env:
+  SIP_TARGET_PROFILE: options
+support_files:
+- lib/msf/core/exploit/remote/sip.rb
+- lib/rex/proto/sip/response.rb
+- lib/msf/core/exploit/remote/tcp.rb
+- lib/msf/core/exploit/remote/udp.rb
+- lib/msf/core/auxiliary/scanner.rb
+- lib/msf/core/auxiliary/udp_scanner.rb
+- lib/msf/core/auxiliary/report.rb
+- lib/msf/core/db_manager/service.rb
+- lib/msf/core/db_manager/note.rb
+- lib/msf/core/auxiliary/auth_brute.rb
+- test/module_targets/credential_reporting/compose.yaml
+- test/module_targets/dns/compose.yaml
+- test/module_targets/dns/Dockerfile
+- test/module_targets/dns/open.conf
+- test/module_targets/dns/closed.conf
+- test/module_targets/dns/module-target.test.zone
+- test/module_targets/dns/192.0.2.rev
+- documentation/modules/auxiliary/scanner/sip/options_tcp.md
+- lib/msf/core/db_manager.rb
+- lib/msf/core/db_manager/connection.rb
+- lib/msf/core/db_manager/cred.rb
+- lib/msf/core/db_manager/login.rb
+- lib/msf/ui/console/command_dispatcher/db.rb
+- lib/msf/ui/console/command_dispatcher/creds.rb
+- lib/metasploit/framework/credential_collection.rb
+- spec/support/shared/contexts/wait_for_expect.rb
+- test/module_targets/capture_core/native_client.py

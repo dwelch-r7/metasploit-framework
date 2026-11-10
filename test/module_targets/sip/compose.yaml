@@ -1,0 +1,31 @@
+x-sip: &sip
+  build: .
+  init: true
+  mem_limit: 256m
+  cap_drop: [SYS_ADMIN, SYS_TIME]
+  ports: ["127.0.0.1::5060", "127.0.0.1::5060/udp", "127.0.0.1::5038", "127.0.0.1::5061"]
+  healthcheck:
+    test: [CMD-SHELL, "asterisk -rx 'sip show settings' | grep -q 'TCP SIP Bindaddress' && asterisk -rx 'sip show peers' | grep -q '1001'"]
+    interval: 2s
+    timeout: 3s
+    retries: 30
+services:
+  exposed:
+    <<: *sip
+    environment: {ALWAYS_AUTH_REJECT: 'no', AUTH_OPTIONS_REQUESTS: 'no'}
+  protected:
+    <<: *sip
+    environment: {ALWAYS_AUTH_REJECT: 'yes', AUTH_OPTIONS_REQUESTS: 'yes'}
+  client:
+    <<: *sip
+    entrypoint: [sleep, infinity]
+    command: []
+    ports: []
+    healthcheck: {test: [CMD, sipsak, --version], interval: 2s, timeout: 3s, retries: 10}
+  unrelated:
+    extends: {file: ../dns/compose.yaml, service: open}
+  reporting_db:
+    extends: {file: ../credential_reporting/compose.yaml, service: reporting_db}
+networks:
+  default:
+    driver: bridge

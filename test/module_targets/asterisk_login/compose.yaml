@@ -1,0 +1,25 @@
+---
+services:
+  exposed:
+    extends:
+      file: "../sip/compose.yaml"
+      service: exposed
+  protected:
+    extends:
+      file: "../sip/compose.yaml"
+      service: protected
+  client:
+    extends:
+      file: "../sip/compose.yaml"
+      service: client
+  unrelated:
+    extends:
+      file: "../sip/compose.yaml"
+      service: unrelated
+  reporting_db:
+    extends:
+      file: "../sip/compose.yaml"
+      service: reporting_db
+networks:
+  default:
+    driver: bridge
