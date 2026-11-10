@@ -82,7 +82,7 @@ class MetasploitModule < Msf::Auxiliary
       end
     else
       # If there's no length, treat it like we used to
-      args = arg.split(/\s+/)
+      args = cmd.casecmp?('LOGIN') ? login_arguments(arg) : arg.split(/\s+/)
     end
 
     if cmd.upcase == 'CAPABILITY'
@@ -105,6 +105,8 @@ class MetasploitModule < Msf::Auxiliary
     end
 
     if cmd.upcase == 'LOGIN'
+      return unless args.length == 2
+
       @state[client][:user], @state[client][:pass] = args
       register_creds(@state[client][:ip], @state[client][:user], @state[client][:pass], 'imap')
       print_good("IMAP LOGIN #{@state[client][:name]} #{@state[client][:user]} / #{@state[client][:pass]}")
@@ -128,6 +130,17 @@ class MetasploitModule < Msf::Auxiliary
     @state[client][:pass] = data.strip
     client.put "#{num} NO LOGIN FAILURE\r\n"
     return
+  end
+
+  # RFC 3501 section 9: quoted LOGIN strings escape only quote and backslash.
+  def login_arguments(argument)
+    token = /"(?:[^"\\\r\n]|\\["\\])*"|[^ (){}%*"\\\x00-\x1f\x7f]+/
+    match = argument.match(/\A(#{token}) +(#{token})\z/)
+    return [] unless match
+
+    match.captures.map do |value|
+      value.start_with?('"') ? value[1...-1].gsub(/\\(["\\])/, '\1') : value
+    end
   end
 
   def on_client_close(client)

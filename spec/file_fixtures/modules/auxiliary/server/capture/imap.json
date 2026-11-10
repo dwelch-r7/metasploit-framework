@@ -1,0 +1,29 @@
+{
+  "provenance": "Actual native client TCP streams, original-source capture baseline 20261110T005240-9cfdb2; disposable local fixture credentials only. Unit candidates pending matched baseline.",
+  "captures": [
+    {
+      "case": "capture_1_12_0",
+      "capture_path": "tmp/module-target-tests/20261110T005240-9cfdb2/capture_mail/capture_1_12_0.wire.json",
+      "pcap_sha256": "9e38cb46688f022ee4f320515a526890fec3a0f9f536918af7cd18bed2bd73f2",
+      "client_stream_base64": "QTAwMSBDQVBBQklMSVRZDQpBMDAyIExPR0lOIGNhcHR1cmVfdXNlciBtb2R1bGUtdGFyZ2V0LWNhcHR1cmUtcGFzc3dvcmQNCg==",
+      "client_stream_sha256": "20a942005be0d1a83dd15cfc179d3a2993219ac107145216d6334e040cbfcc70",
+      "client_stream_text": "A001 CAPABILITY\r\nA002 LOGIN capture_user module-target-capture-password\r\n"
+    },
+    {
+      "case": "capture_1_13_0",
+      "capture_path": "tmp/module-target-tests/20261110T005240-9cfdb2/capture_mail/capture_1_13_0.wire.json",
+      "pcap_sha256": "fb479ed77c34c134ab039ef34bfaf655d1801be4f93bed040c3a3ca4e6fb7410",
+      "client_stream_base64": "QTAwMSBDQVBBQklMSVRZDQpBMDAyIExPR0lOIGNhcHR1cmVfdXNlciAiIG1vZHVsZS10YXJnZXQ6IGNhcHR1cmUgXCJxdW90ZWRcIiBcXCB0YWlsICINCg==",
+      "client_stream_sha256": "a36ecc7260ff9caedbe2325e3a5ffcd5b9b8e832373cb2537a0c18db4de76911",
+      "client_stream_text": "A001 CAPABILITY\r\nA002 LOGIN capture_user \" module-target: capture \\\"quoted\\\" \\\\ tail \"\r\n"
+    },
+    {
+      "case": "capture_1_14_0",
+      "capture_path": "tmp/module-target-tests/20261110T005240-9cfdb2/capture_mail/capture_1_14_0.wire.json",
+      "pcap_sha256": "67373d116b36ada9c4a2f1d7e134e612ca0a7615c68ba7e8dd332fa5918c3fbc",
+      "client_stream_base64": "R0xMUDAgQ0FQQUJJTElUWQ0KR0xMUDEgTk9PUA0KR0xMUDIgTE9HT1VUDQo=",
+      "client_stream_sha256": "a80f0c22d5a2da64a569d1800c05e50c6ffa084f9e2cbb99d9e81dc83de783bc",
+      "client_stream_text": "GLLP0 CAPABILITY\r\nGLLP1 NOOP\r\nGLLP2 LOGOUT\r\n"
+    }
+  ]
+}
