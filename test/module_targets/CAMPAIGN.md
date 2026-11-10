@@ -771,10 +771,20 @@ evidence gap are retained explicitly. No production or shared code change.
 
 ## SIP qualification
 
-The [current checkpoint](VERIFICATION-20261110-sip.md) qualifies161 runtime
+The [SIP checkpoint](VERIFICATION-20261110-sip.md) qualifies161 runtime
 modules,89families and1,177cases. Seven modules pass42 real Asterisk/client cases
 after separately reproduced source repairs. Native John interoperability corrects
 both an invalid initial oracle and real captured URI/format/reporting defects.
 Parent41 examples,94 current inputs, all295 resource checks and exact inherited
 lint/docs comparisons pass. TLS trust, legacy deregistration policy and seven
 other individual endpoint requirements remain explicit.
+
+## Spark qualification
+
+The [current checkpoint](VERIFICATION-20261110-spark.md) qualifies163 runtime
+modules,91families and1,204cases. Two genuine profiles pass27cases and ten used
+sessions after an actual raw-vs-encoded form counterfactual and source-only
+regression establish the plus-byte defect. Corrected Apache advisory coverage
+includes affected3.1.3. Parent72 current inputs, all168 resource checks, focused
+regressions and exact inherited static limits pass. REST undeclared option and
+passive-job semantics remain explicit; the full campaign continues.

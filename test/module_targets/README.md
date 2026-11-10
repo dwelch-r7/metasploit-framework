@@ -316,11 +316,16 @@ NiFi processor module passes 19 cases, ten used shells and exact canary/graph
 restoration after fixture observer, bearer-option and compatibility corrections.
 Current hashes and owned teardown pass; unsupported Fetch, TLS and other limits
 remain explicit.
-The [current integrated checkpoint](VERIFICATION-20261110-sip.md) records
+The [SIP checkpoint](VERIFICATION-20261110-sip.md) records
 **161 runtime modules, 89 families and 1,177 functional cases**. Seven SIP/Manager
 modules pass42 cases after native-proven enumeration, deregistration and capture
 repairs. Native password recovery, current inputs, parent41 focused cases and owned
 cleanup pass; TLS trust and legacy policy limits remain explicit.
+The [current integrated checkpoint](VERIFICATION-20261110-spark.md) records
+**163 runtime modules, 91 families and 1,204 functional cases**. Two genuine Spark
+profiles pass27 cases and ten used sessions after a native-proven form encoding
+repair. Corrected3.1.3 advisory coverage, auth/negative controls, current hashes
+and owned cleanup pass; REST option and other scope limits remain explicit.
 The full campaign remains incomplete while feasible, valuable modules await review
 or functional verification.
 See [deferred investigations](DEFERRED.md) for retained failures that remain
