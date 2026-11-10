@@ -331,11 +331,18 @@ The [InfluxDB checkpoint](VERIFICATION-20261110-influxdb.md) records
 cases in60.7 seconds with its original owner, exact JSON loot, native auth/role/
 query/path controls and repeated state checks. Current hashes and owned cleanup
 pass; fixture attribution and1.x scope remain explicit.
-The [current integrated checkpoint](VERIFICATION-20261110-nifi-h2.md) records
+The [NiFi H2 checkpoint](VERIFICATION-20261110-nifi-h2.md) records
 **165 runtime modules, 95 families and 1,233 functional cases**. H2 adds13 cases;
 scanner15 and processor19 are requalified after the shared state-body repair.
 Native DTO/state/delay controls, parent37 focused examples,120 current inputs and
 all187 exact object checks pass. Shell-use and operator-cleanup limits remain
+explicit.
+The [current integrated checkpoint](VERIFICATION-20261110-smb-directory.md) records
+**168 runtime modules, 98 families and 1,265 functional cases**. Three SMB modules
+pass 32 cases across three identified runs, with 64 operations, eight real SMB
+sessions, exact interface notes, credential/loot proof and repeat checks.
+Parent 46 focused examples, 96 current inputs and all 147 cleanup checks pass.
+Native/observer attribution, Windows limits and the serial resource cap remain
 explicit.
 The full campaign remains incomplete while feasible, valuable modules await review
 or functional verification.

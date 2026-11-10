@@ -11,6 +11,16 @@ failures for investigation or fix them in a separate worktree. Exclude targets
 only with a specific feasibility reason. Publish cohesive verified commits to
 the author's Framework fork without creating a pull request.
 
+## Local execution limit
+
+The current campaign runs one test Compose project at a time, with at most five
+running test containers including Framework and helpers. Builds, native smoke
+projects and cold console starts share the same serial queue. Confirm the prior
+project is down before starting another. Larger profiles must be split into
+sequential releases/scenarios or remain queued; the resource limit is not evidence
+that their modules are infeasible or broken. Existing tool connector containers
+are outside the test-lab scope.
+
 ## Activity
 
 The first batch establishes the runner, complete static inventory and Redis,
@@ -801,7 +811,7 @@ and1.x query/auth/path limits remain explicit. No production repair.
 
 ## NiFi H2 qualification
 
-The [current checkpoint](VERIFICATION-20261110-nifi-h2.md) qualifies165 runtime
+The [NiFi H2 checkpoint](VERIFICATION-20261110-nifi-h2.md) qualifies165 runtime
 modules,95families and1,233cases. H2 adds13 cases after separately reproduced
 DTO/cleanup/shared-state repairs; scanner15 and processor19 remain current after
 requalification. All47 selected cases pass across two identified invocations.
@@ -810,3 +820,15 @@ without a timeout/source workaround. Parent37 focused examples,120 current input
 hashes,2,805 worker manifest entries and187 exact object checks pass. Used-shell,
 operator-file-cleanup, original/mixed failures and inherited lint limits remain
 explicit; the campaign continues.
+
+## SMB directory qualification
+
+The [current checkpoint](VERIFICATION-20261110-smb-directory.md) qualifies 168
+runtime modules, 98 families and 1,265 cases. Three modules pass 32 current cases across
+three explicitly identified invocations after native-proven Unicode/null-pointer/
+session-port/whole-write repairs. Binary observer and stdout/stderr corrections
+are retained separately from source defects. Parent 46 focused examples, 96 current
+inputs, 2,587 worker checksum entries and 147 cleanup checks pass. The campaign now
+uses one project and at most five test containers; larger profiles are queued,
+not declared infeasible. Windows/AD and the first unrecorded volume-ID limit remain
+explicit. The full campaign continues.
