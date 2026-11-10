@@ -1,0 +1,60 @@
+{
+  "provenance": "Actual native client TCP streams, original-source capture baseline 20261110T005240-9cfdb2; disposable local fixture credentials only. Unit candidates pending matched baseline.",
+  "captures": [
+    {
+      "case": "capture_1_1_0",
+      "capture_path": "tmp/module-target-tests/20261110T005240-9cfdb2/capture_mail/capture_1_1_0.wire.json",
+      "pcap_sha256": "d03209403812b47f344876e51f8a7077bca98bdc5d831a6d602562cdb157879b",
+      "client_stream_base64": "ZWhsbyBbMTcyLjI2LjAuM10NCkFVVEggTE9HSU4NClkyRndkSFZ5WlY5MWMyVnkNCklHMXZaSFZzWlMxMFlYSm5aWFE2SUdOaGNIUjFjbVVnSW5GMWIzUmxaQ0lnWENCMFlXbHNJQT09DQpRVUlUDQo=",
+      "client_stream_sha256": "e84dc1671207385c266de5ad7a43d31f6ae2f6726610d651f1d159000a484e18",
+      "client_stream_text": "ehlo [172.26.0.3]\r\nAUTH LOGIN\r\nY2FwdHVyZV91c2Vy\r\nIG1vZHVsZS10YXJnZXQ6IGNhcHR1cmUgInF1b3RlZCIgXCB0YWlsIA==\r\nQUIT\r\n"
+    },
+    {
+      "case": "capture_1_2_0",
+      "capture_path": "tmp/module-target-tests/20261110T005240-9cfdb2/capture_mail/capture_1_2_0.wire.json",
+      "pcap_sha256": "62bddadb3f306602d11b8dc12876573783163a099bb4c0d1f9121273e1b1a556",
+      "client_stream_base64": "ZWhsbyBbMTcyLjI2LjAuM10NCkFVVEggTE9HSU4gWTJGd2RIVnlaVjkxYzJWeQ0KUVVJVA0K",
+      "client_stream_sha256": "67270f5c28d4921250207715f375328b7cc376312360789387e262bbceeaf7cb",
+      "client_stream_text": "ehlo [172.26.0.3]\r\nAUTH LOGIN Y2FwdHVyZV91c2Vy\r\nQUIT\r\n"
+    },
+    {
+      "case": "capture_1_6_0",
+      "capture_path": "tmp/module-target-tests/20261110T005240-9cfdb2/capture_mail/capture_1_6_0.wire.json",
+      "pcap_sha256": "5d0446265af020636c4a0bc6cbcfe88ab84361e469bef7fbaf903fd5d7715602",
+      "client_stream_base64": "ZWhsbyBbMTcyLjI2LjAuM10NCm1haWwgZnJvbTo8c2VuZGVyQG1vZHVsZS10YXJnZXQudGVzdD4NCnJjcHQgdG86PG1vZHVsZV90YXJnZXRAbW9kdWxlLXRhcmdldC50ZXN0Pg0KZGF0YQ0KU3ViamVjdDogTW9kdWxlIHRhcmdldCBjYXB0dXJlDQoNCm1vZHVsZS10YXJnZXQtbWVzc2FnZS1wcm9vZg0KLg0KUVVJVA0K",
+      "client_stream_sha256": "f264a9816ab5223f7f1a28821e5722ebc0957162ed8edd514b6d6a1856b93ab5",
+      "client_stream_text": "ehlo [172.26.0.3]\r\nmail from:<sender@module-target.test>\r\nrcpt to:<module_target@module-target.test>\r\ndata\r\nSubject: Module target capture\r\n\r\nmodule-target-message-proof\r\n.\r\nQUIT\r\n"
+    },
+    {
+      "case": "capture_1_7_0",
+      "capture_path": "tmp/module-target-tests/20261110T005240-9cfdb2/capture_mail/capture_1_7_0.wire.json",
+      "pcap_sha256": "c9838db5251a16e68fc73cb75342998cb9d7cf50ea8820d639b72a44be10ead4",
+      "client_stream_base64": "ZWhsbyBbMTcyLjI2LjAuM10NCm1haWwgZnJvbTo8c2VuZGVyQG1vZHVsZS10YXJnZXQudGVzdD4NCnJjcHQgdG86PG1vZHVsZV90YXJnZXRAbW9kdWxlLXRhcmdldC50ZXN0Pg0KZGF0YQ0KU3ViamVjdDogTW9kdWxlIHRhcmdldCBjYXB0dXJlDQoNCm1vZHVsZS10YXJnZXQtbWVzc2FnZS1wcm9vZg0KUlNFVA0KbW9kdWxlLXRhcmdldC1hZnRlci1yc2V0LXByb29mDQouDQpRVUlUDQo=",
+      "client_stream_sha256": "4b5a6cd69523e7e015fcaeb04b83bbe31e27e3de604a4a1b4581133873c90e49",
+      "client_stream_text": "ehlo [172.26.0.3]\r\nmail from:<sender@module-target.test>\r\nrcpt to:<module_target@module-target.test>\r\ndata\r\nSubject: Module target capture\r\n\r\nmodule-target-message-proof\r\nRSET\r\nmodule-target-after-rset-proof\r\n.\r\nQUIT\r\n"
+    },
+    {
+      "case": "native-smtp-login",
+      "capture_path": "tmp/module-target-tests/20261110T005240-9cfdb2/capture_mail/native-smtp-login.wire.json",
+      "pcap_sha256": "cc285d44755a9333b414dad95e3c450ef725972618cc5e2e15296861c7016e9c",
+      "client_stream_base64": "ZWhsbyBbMTcyLjI2LjAuM10NCkFVVEggTE9HSU4gWTJGd2RIVnlaVjkxYzJWeQ0KSUcxdlpIVnNaUzEwWVhKblpYUTZJR05oY0hSMWNtVWdJbkYxYjNSbFpDSWdYQ0IwWVdsc0lBPT0NClFVSVQNCg==",
+      "client_stream_sha256": "d9cfd9f88ee54246ef5190a85d64d5af8f1a776736814c72bc9ebf584fa16f86",
+      "client_stream_text": "ehlo [172.26.0.3]\r\nAUTH LOGIN Y2FwdHVyZV91c2Vy\r\nIG1vZHVsZS10YXJnZXQ6IGNhcHR1cmUgInF1b3RlZCIgXCB0YWlsIA==\r\nQUIT\r\n"
+    },
+    {
+      "case": "native-smtp-login-challenge",
+      "capture_path": "tmp/module-target-tests/20261110T005240-9cfdb2/capture_mail/native-smtp-login-challenge.wire.json",
+      "pcap_sha256": "6462924fdf8a3d483ba5128ba1dd5d8c7b1e72c0433185f5b799fb652fc94299",
+      "client_stream_base64": "ZWhsbyBbMTcyLjI2LjAuM10NCkFVVEggTE9HSU4NClkyRndkSFZ5WlY5MWMyVnkNCklHMXZaSFZzWlMxMFlYSm5aWFE2SUdOaGNIUjFjbVVnSW5GMWIzUmxaQ0lnWENCMFlXbHNJQT09DQpRVUlUDQo=",
+      "client_stream_sha256": "e84dc1671207385c266de5ad7a43d31f6ae2f6726610d651f1d159000a484e18",
+      "client_stream_text": "ehlo [172.26.0.3]\r\nAUTH LOGIN\r\nY2FwdHVyZV91c2Vy\r\nIG1vZHVsZS10YXJnZXQ6IGNhcHR1cmUgInF1b3RlZCIgXCB0YWlsIA==\r\nQUIT\r\n"
+    },
+    {
+      "case": "native-smtp-dot-stuffing",
+      "capture_path": "tmp/capture-dot-native/native-smtp-dot-stuffing.wire.json",
+      "pcap_sha256": "14cc5fdaa3422f74383b7e64efca57b0a1f9b3560e7e3ba78f96be928eb010bb",
+      "client_stream_base64": "ZWhsbyBbMTcyLjI5LjAuM10NCkFVVEggQ1JBTS1NRDUNClkyRndkSFZ5WlY5MWMyVnlJRFJsTUdaak16TTBPRFkyTnprNU5UUm1OVGxoTkRaaFltVTVaakUzT0RVeA0KbWFpbCBmcm9tOjxzZW5kZXJAbW9kdWxlLXRhcmdldC50ZXN0PiBzaXplPTk1DQpyY3B0IHRvOjxtb2R1bGVfdGFyZ2V0QG1vZHVsZS10YXJnZXQudGVzdD4NCmRhdGENClN1YmplY3Q6IE1vZHVsZSB0YXJnZXQgZG90IGNvbnRyb2wNCg0KLi5iZWZvcmUtcnNldA0KUlNFVA0KLi4uYWZ0ZXItcnNldA0KbW9kdWxlLXRhcmdldC1kb3QtZW5kDQouDQpxdWl0DQo=",
+      "native_sink_dot_unstuffing_verified": true
+    }
+  ]
+}

@@ -81,14 +81,11 @@ class MetasploitModule < Msf::Auxiliary
       @state[client][:data_buff] += data
 
       idx = @state[client][:data_buff].index("\r\n.\r\n")
-      if data.include? "RSET\r\n"
-        idx = @state[client][:data_buff].index("RSET\r\n")
-      end
       if idx
         report_note(
           host: @state[client][:ip],
           type: 'smtp_message',
-          data: { :message => @state[client][:data_buff][0, idx] }
+          data: { message: @state[client][:data_buff][0, idx] }
         )
         @state[client][:data_buff][0, idx].split("\n").each do |line|
           print_status("SMTP: #{@state[client][:name]} EMAIL: #{line.strip}")
@@ -214,9 +211,12 @@ class MetasploitModule < Msf::Auxiliary
       return
 
     when 'AUTH'
-      if arg == 'LOGIN'
+      mechanism, initial_response = arg.split(' ', 2)
+      if mechanism == 'LOGIN'
         @state[client][:auth_login] = true
-        client.put "334 #{Rex::Text.encode_base64('Username')}\r\n"
+        @state[client][:user] = initial_response ? Rex::Text.decode_base64(initial_response) : nil
+        prompt = initial_response ? 'Password' : 'Username'
+        client.put "334 #{Rex::Text.encode_base64(prompt)}\r\n"
         return
       elsif arg.split(' ').first == 'PLAIN'
         if arg.include? ' ' # the creds are passed as well
