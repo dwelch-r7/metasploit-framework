@@ -29,6 +29,10 @@ TOMCAT_JAVA_SPAWN=2 bundle exec ruby tools/dev/run_module_target_tests.rb tomcat
 Keep its failures separate from passing `Spawn=0` qualification. Immediate WAR
 removal also broke class loading for in-process payloads; the module cleanup
 lifecycle now keeps deployment available through payload bootstrap.
+The separate [stock Java8 profile](../tomcat_java8/README.md) tests the same
+Manager paths with the real default `Spawn=2` and no payload option override.
+It retains vendor startup scripts and their environment; it does not change
+this Java17 profile or resolve the released SDK's Java17 limitation.
 The application's manager list and deployment files must return to their initial
 state after each exploit. Both Manager APIs also execute Linux x86 command
 payloads twice, with a fresh native file proving each execution and checks that

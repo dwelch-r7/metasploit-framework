@@ -1,0 +1,12 @@
+services:
+  tomcat:
+    build:
+      context: ../../tomcat
+      args:
+        BASE_IMAGE: tomcat:9.0-jre8-temurin@sha256:e521a7fda5e83868191e1629d3cf36afe93b739629f15f09342b70f94c5272e8
+    ports: ["127.0.0.1::8080"]
+    healthcheck:
+      test: ["CMD-SHELL", "curl --fail --silent --user tomcat:tomcat http://127.0.0.1:8080/manager/text/serverinfo | grep -q 'Tomcat/9.0.123'"]
+      interval: 2s
+      timeout: 5s
+      retries: 45
