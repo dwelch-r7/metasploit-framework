@@ -88,8 +88,8 @@ class MetasploitModule < Msf::Auxiliary
   end
 
   def on_request_uri(cli, req)
-    if req['Authorization'] && req['Authorization'] =~ /basic/i
-      _, auth = req['Authorization'].split(/\s+/)
+    scheme, auth = req['Authorization'].to_s.split(/\s+/, 2)
+    if scheme&.casecmp?('Basic') && auth && !auth.empty?
       user, pass = Rex::Text.decode_base64(auth).split(':', 2)
 
       report_cred(

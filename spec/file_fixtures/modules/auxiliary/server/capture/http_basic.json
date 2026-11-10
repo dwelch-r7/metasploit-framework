@@ -1,0 +1,21 @@
+{
+  "provenance": "Actual native client TCP streams, original-source capture baseline 20261110T005240-9cfdb2; disposable local fixture credentials only. Unit candidates pending matched baseline.",
+  "captures": [
+    {
+      "case": "capture_1_6_0",
+      "capture_path": "tmp/module-target-tests/20261110T005240-9cfdb2/capture_core/capture_1_6_0.wire.json",
+      "pcap_sha256": "2a4b43f0ebcb764adee4207f65cbabd18105f47d623b4cc10167ce189382d3c1",
+      "client_stream_base64": "R0VUIC9jYXB0dXJlIEhUVFAvMS4xDQpIb3N0OiAxNzIuMjYuMC40OjgwODANCkF1dGhvcml6YXRpb246IEJhc2ljIFkyRndkSFZ5WlY5MWMyVnlPaUJ0YjJSMWJHVXRkR0Z5WjJWME9pQmpZWEIwZFhKbElDSnhkVzkwWldRaUlGd2dkR0ZwYkNBPQ0KVXNlci1BZ2VudDogY3VybC84LjEzLjANCkFjY2VwdDogKi8qDQoNCg==",
+      "client_stream_sha256": "94afea40e5392f5f6888be8e5f9db03b45f12b02ea7ed38186151fda95b5bfd8",
+      "client_stream_text": "GET /capture HTTP/1.1\r\nHost: 172.26.0.4:8080\r\nAuthorization: Basic Y2FwdHVyZV91c2VyOiBtb2R1bGUtdGFyZ2V0OiBjYXB0dXJlICJxdW90ZWQiIFwgdGFpbCA=\r\nUser-Agent: curl/8.13.0\r\nAccept: */*\r\n\r\n"
+    },
+    {
+      "case": "capture_1_11_0",
+      "capture_path": "tmp/module-target-tests/20261110T005240-9cfdb2/capture_core/capture_1_11_0.wire.json",
+      "pcap_sha256": "78696a7dd7e3e5506d0febb58f50789ca783422282dca712774d5c70c342537b",
+      "client_stream_base64": "R0VUIC9jYXB0dXJlIEhUVFAvMS4xDQpIb3N0OiAxNzIuMjYuMC40OjgwODANClVzZXItQWdlbnQ6IGN1cmwvOC4xMy4wDQpBY2NlcHQ6ICovKg0KQXV0aG9yaXphdGlvbjogQmVhcmVyIGJhc2ljLXRva2VuDQoNCg==",
+      "client_stream_sha256": "ac92f5b96c13ca5c9efc02380335dbdbdb9ce4fe75a277331da5df3c3c797467",
+      "client_stream_text": "GET /capture HTTP/1.1\r\nHost: 172.26.0.4:8080\r\nUser-Agent: curl/8.13.0\r\nAccept: */*\r\nAuthorization: Bearer basic-token\r\n\r\n"
+    }
+  ]
+}
