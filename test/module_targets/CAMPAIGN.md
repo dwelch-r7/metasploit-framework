@@ -584,6 +584,16 @@ recorded inputs and owned teardown. The
 [verification record](VERIFICATION-20261109-grafana.md) retains full failure
 classification, assertion strengthening and two inherited lint limitations.
 
+Solr then qualifies twenty-eight cases across three bounded profiles. Native
+controls prove the actual affected/fixed/default-ineligible deployments before
+classifying shell-variable macro corruption and omitted parent cleanup. Separate
+owning repairs pass eight exact command proofs and sixteen used sessions. A
+pooled-listener assumption and self-deleting download/copy race are corrected
+with native evidence; all profiles are replayed after the common fixture changes.
+Current counts/hashes/teardown establish **129 runtime modules, 63 families and
+860 functional cases**. The [verification record](VERIFICATION-20261110-solr.md)
+retains every phase, resource-lifetime limitation and inherited lint findings.
+
 ## Remaining work
 
 - Review existing protocol suites and supply reusable managed containers.
