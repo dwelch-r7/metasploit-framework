@@ -1,5 +1,10 @@
 # Apache Druid validation checkpoint
 
+The integrated checkpoint is **171 runtime modules, 103 families and 1,310
+functional cases**, adding two modules and 34 cases to the
+[NiFi credential checkpoint](VERIFICATION-20261110-nifi-credentials.md).
+The full campaign remains incomplete.
+
 Thirty-four cases pass across the two Druid exploit modules. The nineteen
 earlier JNDI/session cases and fifteen new compact JavaScript cases have
 separate immutable evidence. Failed exploratory runs are retained and are not
@@ -97,8 +102,10 @@ Human-written module Scenarios, the historical guides and all their selected
 inputs remain unchanged. Pending-status wording in those frozen guides records
 their earlier checkpoints; the table above records the completed qualification.
 Source lint retains its four inherited warnings and
-the JavaScript module document retains five inherited CRLF-related warnings;
-new observer Ruby files lint cleanly. No full RSpec suite or project dependency
+the JavaScript module document retains five inherited CRLF-related warnings
+and one INFO. Actual msftidy returns2 on both sources because of those unchanged
+RuboCop findings; JavaScript docs return1 and JNDI docs return0. All ten new Ruby
+files lint cleanly. No full RSpec suite or project dependency
 installation was performed.
 
 ## Inputs, cleanup and limits
@@ -130,3 +137,33 @@ Raw inputs, actual native/console/socket/packet evidence, original failures,
 before/after source maps and exact teardown records are retained in the named
 invocations and additive checksum exports. This note records the passing
 selection without rewriting any earlier failed result.
+
+## Independent integration checks
+
+Parent imports and byte-checks all 367 files in the two original passing
+invocations. All four results and 103 qualified union inputs match the current
+checkout. The 105-input all-profile union additionally retains two files from
+the unqualified historical JS wrapper. Original 5,684/2,645 documentation bytes
+remain in order, with only three-line insertions; both human Scenarios remain
+byte-identical. Parent source/observer checks pass22/26, selected dry counts are
+14/5/14/1, and six Python syntax checks pass. Initial parent bootstrap/autoload
+and append-only documentation assumptions are recorded as observer diagnostics.
+
+Parent independently checks all 299 recorded objects absent:134 containers,
+127 volumes and38 networks, plus two temporary native image aliases. Tiny
+auto-removed probes retain their explicit ID-preservation limits. These checks
+leave the later OpenTSDB lab untouched.
+
+The three independently verified worker manifests retain1,959/829/746 entries:
+
+- `/Users/dwelch/.codex/reports/druid-validation-20261110-72b46e93d6ad`, SHA-256
+  `6e2ce7fcedc42372a5ac7d3cd5e606fbc67867b6b30c50f172c959ba1ec781c5`.
+- `/Users/dwelch/.codex/reports/druid-low-resource-native-20261110-38cac303e751`, SHA-256
+  `03ffb7443ed68bb371f457b55992c2a538a4369ea7ee41c6fe7977ec1713711c`.
+- `/Users/dwelch/.codex/reports/druid-qualified-20261110-41b1daf63a7a`, SHA-256
+  `a2d7029d762216cf5356bbfdd54188248b4a4b02b6e5f1f38dccc91f29807e6b`.
+
+The39-entry parent receipt seal is
+`/Users/dwelch/.codex/reports/module-target-parent-validation-20261110-70202380a0f`,
+manifest SHA-256
+`4e943678fe1a2f552e042a92ba471a55debf3328f486988f7d228643ac19d157`.

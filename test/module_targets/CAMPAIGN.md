@@ -849,3 +849,20 @@ At the user's explicit request, all 31 unrelated containers (14 running and 17
 nonrunning) were removed after NiFi teardown, preserving images and volumes.
 Docker was empty before the next serial Druid run. Only campaign containers may
 run, with the existing five-container limit. The full campaign remains incomplete.
+
+## Druid compact qualification
+
+The [current checkpoint](VERIFICATION-20261110-druid-compact.md) qualifies171 runtime
+modules,103 families and1,310 cases. Two Druid modules pass34 cases: preserved
+JNDI/session19 plus compact JS15. Source-only argument encoding and current JNDI
+delivery repairs reproduce22/9 to22/0; a separate observer visibility correction
+reproduces26/2 to26/0. Failed original/compact attempts remain preserved. Compact
+projects use five containers with actual2208MiB/2.35CPU ceilings and strict actual
+socket-write/native-command proofs. The earlier larger JNDI/session profiles remain
+historical passes and require redesign before local replay under this budget.
+
+Parent103 qualified input hashes, all367 imported files and299 exact resource
+absences plus two temporary aliases pass. Ten new Ruby files lint cleanly; four
+inherited source findings and five docs warnings/one INFO remain explicit.
+Original human Scenarios and every existing documentation byte remain unchanged.
+Only campaign containers may run; serial execution and teardown continue.

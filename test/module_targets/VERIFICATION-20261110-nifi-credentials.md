@@ -20,7 +20,8 @@ Current invocation `20261110T121923-913a1d` passes **11/0** in **430.831474 RSpe
 seconds including console bootstrap**, with zero pending/outside errors and
 successful teardown. Runtime source revision is `c5f5fbc846f`; parent source/lab
 commits are `b8c2f77c91a` and `d74097f6dd9`. Parent imports and byte-checks the whole
-156-file invocation and verifies all 73 selected input hashes.
+156-file original invocation, then both independent image-audit files (158 files
+in total), and verifies all 73 selected input hashes.
 
 All 22 module calls complete. Eleven actual shell/Meterpreter sessions open,
 execute target identity/proof commands and close; native launch PID receipts and
@@ -87,7 +88,11 @@ Parent independently verifies the original 203-entry and corrected-original
 207-entry seals, respectively SHA-256
 `703dfc8655f1c0be93966afc0f8dee5779cc5453ec695d2d655a4a761b6a8416` and
 `d0d2f5a9574fc87327f963f371fb8a3a6bba9b77036968e27e3061160213fa78`.
-The 19-entry parent receipt seal is
+Parent also independently verifies all 1,119 entries in the complete worker seal,
+`/Users/dwelch/.codex/reports/nifi-credentials-20261110-c5f5fbc846f`, manifest SHA-256
+`6d6f4283c00a5e2b8199c8bbad1ef1e40c89c3e3d22c99d823b105d8fc3a2cf7`.
+It retains the before/native/unit/static evidence, selected copies, patches and
+complete current invocation. The 19-entry parent receipt seal is
 `/Users/dwelch/.codex/reports/module-target-parent-validation-20261110-d74097f6dd9`,
 manifest SHA-256
 `ca9646c9b6f0a7148595a104e130f339cc8869dceb9c12fabd52a82b427b7550`.

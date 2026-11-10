@@ -344,7 +344,7 @@ sessions, exact interface notes, credential/loot proof and repeat checks.
 Parent 46 focused examples, 96 current inputs and all 147 cleanup checks pass.
 Native/observer attribution, Windows limits and the serial resource cap remain
 explicit.
-The [current integrated checkpoint](VERIFICATION-20261110-nifi-credentials.md) records
+The [NiFi credential checkpoint](VERIFICATION-20261110-nifi-credentials.md) records
 **169 runtime modules, 99 families and 1,276 functional cases**. NiFi credential
 gathering passes 11 cases with 22 public calls, 11 real used sessions, exact
 decrypted JSON and repeat-stable session-origin SQL credentials. Parent 26 focused
@@ -352,6 +352,14 @@ examples, 73 current inputs, lint and all 16 owned cleanup checks pass. Original
 failures, derived boundary files and unqualified versions remain explicit. Only
 campaign containers may run on the development host, one project/five containers
 at a time, with teardown after each run.
+The [current integrated checkpoint](VERIFICATION-20261110-druid-compact.md) records
+**171 runtime modules, 103 families and 1,310 functional cases**. Two Druid modules
+pass34 cases across two recorded invocations. Compact JavaScript profiles use five
+containers and verify actual socket writes and native command bytes. Earlier
+JNDI/session passes retain ten used sessions, exact PID removal and wire evidence;
+their larger historical profiles require redesign before local replay. Parent
+103 qualified inputs, 22/26 focused examples, ten-file lint and301 resource/alias
+checks pass; inherited source/docs lint and failed fixtures remain explicit.
 The full campaign remains incomplete while feasible, valuable modules await review
 or functional verification.
 See [deferred investigations](DEFERRED.md) for retained failures that remain
