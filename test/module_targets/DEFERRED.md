@@ -20,6 +20,26 @@ an unchanged repository is not qualified. Closed PR history, objects and merge
 caches remain observed state until explicit operator seed removal. Native token
 revocation remains distinct from automatic module cleanup.
 
+## Mettle HTTPS acceptance setup stall
+
+Fork head `6ab53da687b` finishes CI with 62 passing checks, one skipped check and
+one failing [Mettle job](https://github.com/dwelch-r7/metasploit-framework/actions/runs/42901683015/job/130128980930).
+Its Linux x64 stageless HTTPS/base64 `post/test/search` example stalls during
+setup's initial file deletion, before any search assertion. The matching
+`stdapi_fs_delete_file` request appears in Framework TLV and payload debug
+captures without a recorded reply; later heartbeat/allocation records do not
+prove successful network exchange. Cleanup also stalls.
+
+The cause remains unclassified. Prior similar CI stalls were not reproduced by
+the earlier local two-case pass, and no matched campaign-base/head runtime
+comparison or production repair is established. A bounded Ubuntu reproduction
+needs labeled handler/worker and HTTP queue evidence at the first unanswered
+request. Raising timeouts or retrying alone would not establish a repair.
+The independently verified 17-entry assessment is retained at
+`/Users/dwelch/.codex/reports/mettle-search-ci-assessment-20261110-6ab53da687b/`,
+manifest SHA256
+`75fa3de7eb087c5e7955ebd79fd0d804bbc57682ef52ddf9d961c668fdd5cdc1`.
+
 ## WordPress administrator upload sessions
 
 `exploit/unix/webapp/wp_admin_shell_upload` remains unqualified. Its retained
