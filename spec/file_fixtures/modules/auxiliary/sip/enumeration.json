@@ -1,0 +1,196 @@
+{
+  "origin": "tmp/module-target-tests/20261110T061301-a7b6dd/sip/native-probe.json",
+  "origin_sha256": "1ea0e985cc0482e8477bd233bcc69613028d8424e757af0e802d9b045c57d3fb",
+  "captures": [
+    {
+      "operation": {
+        "host": "172.26.0.2",
+        "role": "exposed",
+        "transport": "tcp",
+        "method": "REGISTER",
+        "account": "1000",
+        "expires": 0
+      },
+      "result": {
+        "local": [
+          "172.26.0.5",
+          33718
+        ],
+        "peer": [
+          "172.26.0.2",
+          5060
+        ],
+        "socket_type": 1,
+        "requests": [
+          "UkVHSVNURVIgc2lwOjEwMDBAMTcyLjI2LjAuMiBTSVAvMi4wDQpWaWE6IFNJUC8yLjAvVENQIDE3Mi4yNi4wLjU6MzM3MTg7YnJhbmNoPXo5aEc0YkstZWQ0NjA3ZDA5NGEyNDVkYWI4MDczMTA2NWFlOWQ5ZDUtMTtycG9ydA0KRnJvbTogMTAwMCA8c2lwOm5hdGl2ZS1wcm9iZUAxNzIuMjYuMC41Pjt0YWc9ZWQ0NjA3ZDA5NGEyNDVkYWI4MDczMTA2NWFlOWQ5ZDUNClRvOiAxMDAwIDxzaXA6MTAwMEAxNzIuMjYuMC4yPg0KQ2FsbC1JRDogZWQ0NjA3ZDA5NGEyNDVkYWI4MDczMTA2NWFlOWQ5ZDVAMTcyLjI2LjAuNQ0KQ1NlcTogMSBSRUdJU1RFUg0KQ29udGFjdDogPHNpcDoxMDAwQDE3Mi4yNi4wLjU6NTA5OTt0cmFuc3BvcnQ9dGNwPg0KRXhwaXJlczogMA0KTWF4LUZvcndhcmRzOiA3MA0KQ29udGVudC1MZW5ndGg6IDANCg0K"
+        ],
+        "responses": [
+          {
+            "code": 200,
+            "reason": "OK",
+            "headers": {
+              "via": [
+                "SIP/2.0/TCP 172.26.0.5:33718;branch=z9hG4bK-ed4607d094a245dab80731065ae9d9d5-1;received=172.26.0.5;rport=33718"
+              ],
+              "from": [
+                "1000 <sip:native-probe@172.26.0.5>;tag=ed4607d094a245dab80731065ae9d9d5"
+              ],
+              "to": [
+                "1000 <sip:1000@172.26.0.2>;tag=as2085b337"
+              ],
+              "call-id": [
+                "ed4607d094a245dab80731065ae9d9d5@172.26.0.5"
+              ],
+              "cseq": [
+                "1 REGISTER"
+              ],
+              "server": [
+                "Module Target Asterisk 18.10.0"
+              ],
+              "allow": [
+                "INVITE, ACK, CANCEL, OPTIONS, BYE, REFER, SUBSCRIBE, NOTIFY, INFO, PUBLISH, MESSAGE"
+              ],
+              "supported": [
+                "replaces, timer"
+              ],
+              "expires": [
+                "0"
+              ],
+              "date": [
+                "Tue, 10 Nov 2026 06:14:21 GMT"
+              ],
+              "content-length": [
+                "0"
+              ]
+            },
+            "raw_base64": "U0lQLzIuMCAyMDAgT0sNClZpYTogU0lQLzIuMC9UQ1AgMTcyLjI2LjAuNTozMzcxODticmFuY2g9ejloRzRiSy1lZDQ2MDdkMDk0YTI0NWRhYjgwNzMxMDY1YWU5ZDlkNS0xO3JlY2VpdmVkPTE3Mi4yNi4wLjU7cnBvcnQ9MzM3MTgNCkZyb206IDEwMDAgPHNpcDpuYXRpdmUtcHJvYmVAMTcyLjI2LjAuNT47dGFnPWVkNDYwN2QwOTRhMjQ1ZGFiODA3MzEwNjVhZTlkOWQ1DQpUbzogMTAwMCA8c2lwOjEwMDBAMTcyLjI2LjAuMj47dGFnPWFzMjA4NWIzMzcNCkNhbGwtSUQ6IGVkNDYwN2QwOTRhMjQ1ZGFiODA3MzEwNjVhZTlkOWQ1QDE3Mi4yNi4wLjUNCkNTZXE6IDEgUkVHSVNURVINClNlcnZlcjogTW9kdWxlIFRhcmdldCBBc3RlcmlzayAxOC4xMC4wDQpBbGxvdzogSU5WSVRFLCBBQ0ssIENBTkNFTCwgT1BUSU9OUywgQllFLCBSRUZFUiwgU1VCU0NSSUJFLCBOT1RJRlksIElORk8sIFBVQkxJU0gsIE1FU1NBR0UNClN1cHBvcnRlZDogcmVwbGFjZXMsIHRpbWVyDQpFeHBpcmVzOiAwDQpEYXRlOiBUdWUsIDEwIE5vdiAyMDI2IDA2OjE0OjIxIEdNVA0KQ29udGVudC1MZW5ndGg6IDANCg0K"
+          }
+        ]
+      }
+    },
+    {
+      "operation": {
+        "host": "172.26.0.2",
+        "role": "exposed",
+        "transport": "tcp",
+        "method": "REGISTER",
+        "account": "1001",
+        "expires": 0
+      },
+      "result": {
+        "local": [
+          "172.26.0.5",
+          33734
+        ],
+        "peer": [
+          "172.26.0.2",
+          5060
+        ],
+        "socket_type": 1,
+        "requests": [
+          "UkVHSVNURVIgc2lwOjEwMDFAMTcyLjI2LjAuMiBTSVAvMi4wDQpWaWE6IFNJUC8yLjAvVENQIDE3Mi4yNi4wLjU6MzM3MzQ7YnJhbmNoPXo5aEc0YkstODNlODVlNTc1OTViNDczNGI0YTJiMDVlMDUwY2VmNzAtMTtycG9ydA0KRnJvbTogMTAwMSA8c2lwOm5hdGl2ZS1wcm9iZUAxNzIuMjYuMC41Pjt0YWc9ODNlODVlNTc1OTViNDczNGI0YTJiMDVlMDUwY2VmNzANClRvOiAxMDAxIDxzaXA6MTAwMUAxNzIuMjYuMC4yPg0KQ2FsbC1JRDogODNlODVlNTc1OTViNDczNGI0YTJiMDVlMDUwY2VmNzBAMTcyLjI2LjAuNQ0KQ1NlcTogMSBSRUdJU1RFUg0KQ29udGFjdDogPHNpcDoxMDAxQDE3Mi4yNi4wLjU6NTA5OTt0cmFuc3BvcnQ9dGNwPg0KRXhwaXJlczogMA0KTWF4LUZvcndhcmRzOiA3MA0KQ29udGVudC1MZW5ndGg6IDANCg0K"
+        ],
+        "responses": [
+          {
+            "code": 401,
+            "reason": "Unauthorized",
+            "headers": {
+              "via": [
+                "SIP/2.0/TCP 172.26.0.5:33734;branch=z9hG4bK-83e85e57595b4734b4a2b05e050cef70-1;received=172.26.0.5;rport=33734"
+              ],
+              "from": [
+                "1001 <sip:native-probe@172.26.0.5>;tag=83e85e57595b4734b4a2b05e050cef70"
+              ],
+              "to": [
+                "1001 <sip:1001@172.26.0.2>;tag=as5e992a53"
+              ],
+              "call-id": [
+                "83e85e57595b4734b4a2b05e050cef70@172.26.0.5"
+              ],
+              "cseq": [
+                "1 REGISTER"
+              ],
+              "server": [
+                "Module Target Asterisk 18.10.0"
+              ],
+              "allow": [
+                "INVITE, ACK, CANCEL, OPTIONS, BYE, REFER, SUBSCRIBE, NOTIFY, INFO, PUBLISH, MESSAGE"
+              ],
+              "supported": [
+                "replaces, timer"
+              ],
+              "www-authenticate": [
+                "Digest algorithm=MD5, realm=\"module-target-sip\", nonce=\"669145f0\""
+              ],
+              "content-length": [
+                "0"
+              ]
+            },
+            "raw_base64": "U0lQLzIuMCA0MDEgVW5hdXRob3JpemVkDQpWaWE6IFNJUC8yLjAvVENQIDE3Mi4yNi4wLjU6MzM3MzQ7YnJhbmNoPXo5aEc0YkstODNlODVlNTc1OTViNDczNGI0YTJiMDVlMDUwY2VmNzAtMTtyZWNlaXZlZD0xNzIuMjYuMC41O3Jwb3J0PTMzNzM0DQpGcm9tOiAxMDAxIDxzaXA6bmF0aXZlLXByb2JlQDE3Mi4yNi4wLjU+O3RhZz04M2U4NWU1NzU5NWI0NzM0YjRhMmIwNWUwNTBjZWY3MA0KVG86IDEwMDEgPHNpcDoxMDAxQDE3Mi4yNi4wLjI+O3RhZz1hczVlOTkyYTUzDQpDYWxsLUlEOiA4M2U4NWU1NzU5NWI0NzM0YjRhMmIwNWUwNTBjZWY3MEAxNzIuMjYuMC41DQpDU2VxOiAxIFJFR0lTVEVSDQpTZXJ2ZXI6IE1vZHVsZSBUYXJnZXQgQXN0ZXJpc2sgMTguMTAuMA0KQWxsb3c6IElOVklURSwgQUNLLCBDQU5DRUwsIE9QVElPTlMsIEJZRSwgUkVGRVIsIFNVQlNDUklCRSwgTk9USUZZLCBJTkZPLCBQVUJMSVNILCBNRVNTQUdFDQpTdXBwb3J0ZWQ6IHJlcGxhY2VzLCB0aW1lcg0KV1dXLUF1dGhlbnRpY2F0ZTogRGlnZXN0IGFsZ29yaXRobT1NRDUsIHJlYWxtPSJtb2R1bGUtdGFyZ2V0LXNpcCIsIG5vbmNlPSI2NjkxNDVmMCINCkNvbnRlbnQtTGVuZ3RoOiAwDQoNCg=="
+          }
+        ]
+      }
+    },
+    {
+      "operation": {
+        "host": "172.26.0.2",
+        "role": "exposed",
+        "transport": "tcp",
+        "method": "REGISTER",
+        "account": "1002",
+        "expires": 0
+      },
+      "result": {
+        "local": [
+          "172.26.0.5",
+          33744
+        ],
+        "peer": [
+          "172.26.0.2",
+          5060
+        ],
+        "socket_type": 1,
+        "requests": [
+          "UkVHSVNURVIgc2lwOjEwMDJAMTcyLjI2LjAuMiBTSVAvMi4wDQpWaWE6IFNJUC8yLjAvVENQIDE3Mi4yNi4wLjU6MzM3NDQ7YnJhbmNoPXo5aEc0YkstMDg5NDcyMGQ1MTM2NGY3YWEwYjQwOTc0YjJkNGI5YjMtMTtycG9ydA0KRnJvbTogMTAwMiA8c2lwOm5hdGl2ZS1wcm9iZUAxNzIuMjYuMC41Pjt0YWc9MDg5NDcyMGQ1MTM2NGY3YWEwYjQwOTc0YjJkNGI5YjMNClRvOiAxMDAyIDxzaXA6MTAwMkAxNzIuMjYuMC4yPg0KQ2FsbC1JRDogMDg5NDcyMGQ1MTM2NGY3YWEwYjQwOTc0YjJkNGI5YjNAMTcyLjI2LjAuNQ0KQ1NlcTogMSBSRUdJU1RFUg0KQ29udGFjdDogPHNpcDoxMDAyQDE3Mi4yNi4wLjU6NTA5OTt0cmFuc3BvcnQ9dGNwPg0KRXhwaXJlczogMA0KTWF4LUZvcndhcmRzOiA3MA0KQ29udGVudC1MZW5ndGg6IDANCg0K"
+        ],
+        "responses": [
+          {
+            "code": 404,
+            "reason": "Not found",
+            "headers": {
+              "via": [
+                "SIP/2.0/TCP 172.26.0.5:33744;branch=z9hG4bK-0894720d51364f7aa0b40974b2d4b9b3-1;received=172.26.0.5;rport=33744"
+              ],
+              "from": [
+                "1002 <sip:native-probe@172.26.0.5>;tag=0894720d51364f7aa0b40974b2d4b9b3"
+              ],
+              "to": [
+                "1002 <sip:1002@172.26.0.2>;tag=as335ddbca"
+              ],
+              "call-id": [
+                "0894720d51364f7aa0b40974b2d4b9b3@172.26.0.5"
+              ],
+              "cseq": [
+                "1 REGISTER"
+              ],
+              "server": [
+                "Module Target Asterisk 18.10.0"
+              ],
+              "allow": [
+                "INVITE, ACK, CANCEL, OPTIONS, BYE, REFER, SUBSCRIBE, NOTIFY, INFO, PUBLISH, MESSAGE"
+              ],
+              "supported": [
+                "replaces, timer"
+              ],
+              "content-length": [
+                "0"
+              ]
+            },
+            "raw_base64": "U0lQLzIuMCA0MDQgTm90IGZvdW5kDQpWaWE6IFNJUC8yLjAvVENQIDE3Mi4yNi4wLjU6MzM3NDQ7YnJhbmNoPXo5aEc0YkstMDg5NDcyMGQ1MTM2NGY3YWEwYjQwOTc0YjJkNGI5YjMtMTtyZWNlaXZlZD0xNzIuMjYuMC41O3Jwb3J0PTMzNzQ0DQpGcm9tOiAxMDAyIDxzaXA6bmF0aXZlLXByb2JlQDE3Mi4yNi4wLjU+O3RhZz0wODk0NzIwZDUxMzY0ZjdhYTBiNDA5NzRiMmQ0YjliMw0KVG86IDEwMDIgPHNpcDoxMDAyQDE3Mi4yNi4wLjI+O3RhZz1hczMzNWRkYmNhDQpDYWxsLUlEOiAwODk0NzIwZDUxMzY0ZjdhYTBiNDA5NzRiMmQ0YjliM0AxNzIuMjYuMC41DQpDU2VxOiAxIFJFR0lTVEVSDQpTZXJ2ZXI6IE1vZHVsZSBUYXJnZXQgQXN0ZXJpc2sgMTguMTAuMA0KQWxsb3c6IElOVklURSwgQUNLLCBDQU5DRUwsIE9QVElPTlMsIEJZRSwgUkVGRVIsIFNVQlNDUklCRSwgTk9USUZZLCBJTkZPLCBQVUJMSVNILCBNRVNTQUdFDQpTdXBwb3J0ZWQ6IHJlcGxhY2VzLCB0aW1lcg0KQ29udGVudC1MZW5ndGg6IDANCg0K"
+          }
+        ]
+      }
+    }
+  ],
+  "derived_controls": "Tests remove the native To header or substitute a non-SIP status line; raw native captures remain unchanged."
+}

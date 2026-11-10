@@ -168,8 +168,6 @@ class MetasploitModule < Msf::Auxiliary
   end
 
   def padnum(num, padding)
-    if padding >= num.to_s.length
-      ('0' * (padding - num.to_s.length)) << num.to_s
-    end
+    num.to_s.rjust(padding, '0')
   end
 end
