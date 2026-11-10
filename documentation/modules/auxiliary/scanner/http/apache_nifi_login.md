@@ -1,5 +1,8 @@
 ## Vulnerable Application
 
+The [managed container target tests](../../../../../test/module_targets/nifi_discovery/README.md)
+provide pinned genuine releases, native authentication controls and database-backed verification.
+
 This module attempts to take login details for Apache NiFi websites
 and identify if they are valid or not.
 

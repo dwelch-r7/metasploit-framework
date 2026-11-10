@@ -1,5 +1,8 @@
 ## Vulnerable Application
 
+The [managed container target tests](../../../../../test/module_targets/nifi_discovery/README.md)
+provide pinned genuine releases, independent native controls and automated verification.
+
 This module identifies Apache NiFi websites and reports their version number.
 
 Tested against NiFi major releases 1.14.0 - 1.21.0, and 1.11.0-1.13.0.

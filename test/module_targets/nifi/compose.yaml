@@ -1,0 +1,46 @@
+x-nifi: &nifi
+  platform: linux/amd64
+  init: true
+  cap_drop: [SYS_ADMIN, SYS_TIME]
+  cpus: 2.0
+  mem_limit: 1536m
+  env_file: accounts.env
+  environment: &secure_environment
+    NIFI_WEB_HTTPS_HOST: 0.0.0.0
+    NIFI_WEB_PROXY_HOST: vulnerable:8443,fixed:8443,localhost:8443,127.0.0.1:8443
+    NIFI_JVM_HEAP_INIT: 256m
+    NIFI_JVM_HEAP_MAX: 512m
+  ports: ["127.0.0.1::8443"]
+  healthcheck:
+    test: [CMD-SHELL, 'curl --fail --silent --insecure https://127.0.0.1:8443/nifi-api/access/config >/dev/null']
+    interval: 2s
+    timeout: 4s
+    retries: 150
+
+services:
+  legacy:
+    <<: *nifi
+    cpus: 4.0
+    image: apache/nifi:1.13.2@sha256:2f4dbbe29ec83d8f43ef36ab07c1e4a139e5c2f75bab538c2bf7ee53d1b93bd7
+    hostname: legacy
+    environment:
+      NIFI_WEB_HTTP_HOST: 0.0.0.0
+      NIFI_WEB_HTTP_PORT: '8080'
+      NIFI_JVM_HEAP_INIT: 256m
+      NIFI_JVM_HEAP_MAX: 512m
+    ports: ["127.0.0.1::8080"]
+    healthcheck:
+      test: [CMD-SHELL, 'curl --fail --silent http://127.0.0.1:8080/nifi-api/access/config >/dev/null']
+      interval: 2s
+      timeout: 4s
+      retries: 150
+  vulnerable:
+    <<: *nifi
+    image: apache/nifi:1.21.0@sha256:515559ab6fc2bb650eeb74bef5d8109073b2a4e8c64a7bf56825bcbf6fa3d315
+    hostname: vulnerable
+  fixed:
+    <<: *nifi
+    image: apache/nifi:1.22.0@sha256:ec137e2abd850f9933123902694059f538f7a4d2f28dbe372dd8a18c312d3309
+    hostname: fixed
+  unrelated:
+    extends: {file: ../http/compose.yaml, service: apache}

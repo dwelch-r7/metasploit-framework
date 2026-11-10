@@ -1,0 +1,11 @@
+services:
+  legacy:
+    extends: {file: ../nifi/compose.yaml, service: legacy}
+  vulnerable:
+    extends: {file: ../nifi/compose.yaml, service: vulnerable}
+  fixed:
+    extends: {file: ../nifi/compose.yaml, service: fixed}
+  unrelated:
+    extends: {file: ../nifi/compose.yaml, service: unrelated}
+  reporting_db:
+    extends: {file: ../credential_reporting/compose.yaml, service: reporting_db}
