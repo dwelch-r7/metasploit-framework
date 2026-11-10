@@ -1,0 +1,1 @@
+node_filesystem_avail{device="/dev/vda1",fstype="ext4",mountpoint="/data/metrics,\"quote\""} 5.1018948608e+10

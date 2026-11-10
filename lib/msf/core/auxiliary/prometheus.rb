@@ -65,6 +65,7 @@ module Msf
         password = dns_sd_configs.dig('basic_auth', 'password')
         password = dns_sd_configs.dig('basic_auth', 'password_file') if dns_sd_configs.dig('basic_auth', 'password_file')
         uri = URI("#{dns_sd_configs['scheme']}://#{name}")
+        uri.port = dns_sd_configs['port'] if dns_sd_configs['port']
         cred = credential_data
         cred[:port] = uri.port
         cred[:address] = uri.host
@@ -82,6 +83,29 @@ module Msf
           ''
         ]
       end
+    end
+
+    # @param job_name [String] scrape job name
+    # @param target [String] static host and optional port
+    # @param scheme [String] scrape transport
+    # @param auth [Hash] native basic_auth fields, potentially redacted by the API
+    # @return [Array] the appended credential/reference table row
+    def process_static_basic_auth(job_name, target, scheme, auth)
+      uri = URI("#{scheme || 'http'}://#{target}")
+      password_file = auth['password_file']
+      password = password_file || auth['password']
+      notes = password_file ? 'Password file' : ''
+      notes = 'Redacted password' if !password_file && password == '<secret>'
+      # The API exposes references and redaction markers, not usable secrets.
+      # Preserve them in output without creating a password credential.
+      unless password_file || password.nil? || password == '<secret>'
+        cred = credential_data.merge(
+          port: uri.port, address: uri.host, username: auth['username'],
+          private_data: password, service_name: uri.scheme
+        )
+        create_credential_and_login(cred)
+      end
+      @table_creds << [job_name, 'static_configs', uri.host, uri.port, auth['username'], password, notes]
     end
 
     def process_consul_sd_configs(job_name, consul_sd_configs)
@@ -433,6 +457,8 @@ module Msf
                   uri.password,
                   ''
                 ]
+              elsif scrape['basic_auth']
+                process_static_basic_auth(scrape['job_name'], target, scrape['scheme'], scrape['basic_auth'])
               end
             end
           end
@@ -563,12 +589,17 @@ module Msf
       return nil if page.nil?
 
       results = []
-      page.scan(/^(?<name>\w+)(?:{(?<labels>[^}]+)})? (?<value>[\w.+-]+)/).each do |hit|
+      # Prometheus text labels quote values and escape \\, \" and \n.
+      # Braces inside a quoted value must not terminate the label set.
+      # https://prometheus.io/docs/instrumenting/exposition_formats/
+      page.scan(/^(?<name>\w+)(?:{(?<labels>(?:[^"{}]|"(?:\\.|[^"\\])*")*)})? (?<value>[\w.+-]+)/).each do |hit|
         result = {}
         value = { 'value' => hit[2], 'labels' => {} }
         if hit[1]
-          hit[1].scan(/(?<key>[^=]+?)="(?<value>[^"]*)",?/).each do |label|
-            value['labels'][label[0]] = label[1]
+          hit[1].scan(/(?<key>[a-zA-Z_][a-zA-Z0-9_]*)="(?<value>(?:\\.|[^"\\])*)"/).each do |label|
+            value['labels'][label[0]] = label[1].gsub(/\\([\\n"])/) do
+              Regexp.last_match(1) == 'n' ? "\n" : Regexp.last_match(1)
+            end
           end
         end
         result[hit[0]] = value

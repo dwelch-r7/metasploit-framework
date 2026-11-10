@@ -1,0 +1,1 @@
+node_filesystem_avail_bytes{device="/dev/vda1",device_error="",fstype="ext4",mountpoint="/data/metrics,\"quote\""} 5.101903872e+10

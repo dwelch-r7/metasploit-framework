@@ -1,0 +1,159 @@
+global:
+  scrape_interval: 1s
+  scrape_timeout: 800ms
+  scrape_protocols:
+  - OpenMetricsText1.0.0
+  - OpenMetricsText0.0.1
+  - PrometheusText1.0.0
+  - PrometheusText0.0.4
+  evaluation_interval: 1m
+runtime:
+  gogc: 75
+scrape_configs:
+- job_name: node-modern
+  honor_timestamps: true
+  track_timestamps_staleness: false
+  scrape_interval: 1s
+  scrape_timeout: 800ms
+  scrape_protocols:
+  - OpenMetricsText1.0.0
+  - OpenMetricsText0.0.1
+  - PrometheusText1.0.0
+  - PrometheusText0.0.4
+  metrics_path: /metrics
+  scheme: http
+  enable_compression: true
+  follow_redirects: true
+  enable_http2: true
+  static_configs:
+  - targets:
+    - node:9100
+- job_name: node-legacy
+  honor_timestamps: true
+  track_timestamps_staleness: false
+  scrape_interval: 1s
+  scrape_timeout: 800ms
+  scrape_protocols:
+  - OpenMetricsText1.0.0
+  - OpenMetricsText0.0.1
+  - PrometheusText1.0.0
+  - PrometheusText0.0.4
+  metrics_path: /metrics
+  scheme: http
+  enable_compression: true
+  follow_redirects: true
+  enable_http2: true
+  static_configs:
+  - targets:
+    - node_legacy:9100
+- job_name: dns-file
+  honor_timestamps: true
+  track_timestamps_staleness: false
+  scrape_interval: 1s
+  scrape_timeout: 800ms
+  scrape_protocols:
+  - OpenMetricsText1.0.0
+  - OpenMetricsText0.0.1
+  - PrometheusText1.0.0
+  - PrometheusText0.0.4
+  metrics_path: /metrics
+  scheme: http
+  enable_compression: true
+  basic_auth:
+    username: metrics-user
+    password_file: /etc/prometheus/fixtures/basic-password
+  follow_redirects: true
+  enable_http2: true
+  dns_sd_configs:
+  - names:
+    - node_auth
+    refresh_interval: 1s
+    type: A
+    port: 9100
+- job_name: dns-inline
+  honor_timestamps: true
+  track_timestamps_staleness: false
+  scrape_interval: 1s
+  scrape_timeout: 800ms
+  scrape_protocols:
+  - OpenMetricsText1.0.0
+  - OpenMetricsText0.0.1
+  - PrometheusText1.0.0
+  - PrometheusText0.0.4
+  metrics_path: /metrics
+  scheme: http
+  enable_compression: true
+  basic_auth:
+    username: metrics-user
+    password: <secret>
+  follow_redirects: true
+  enable_http2: true
+  dns_sd_configs:
+  - names:
+    - node_auth
+    refresh_interval: 1s
+    type: A
+    port: 9100
+- job_name: static-basic
+  honor_timestamps: true
+  track_timestamps_staleness: false
+  scrape_interval: 1s
+  scrape_timeout: 800ms
+  scrape_protocols:
+  - OpenMetricsText1.0.0
+  - OpenMetricsText0.0.1
+  - PrometheusText1.0.0
+  - PrometheusText0.0.4
+  metrics_path: /metrics
+  scheme: http
+  enable_compression: true
+  basic_auth:
+    username: metrics-user
+    password_file: /etc/prometheus/fixtures/basic-password
+  follow_redirects: true
+  enable_http2: true
+  static_configs:
+  - targets:
+    - node_auth:9100
+- job_name: bearer-file
+  honor_timestamps: true
+  track_timestamps_staleness: false
+  scrape_interval: 1s
+  scrape_timeout: 800ms
+  scrape_protocols:
+  - OpenMetricsText1.0.0
+  - OpenMetricsText0.0.1
+  - PrometheusText1.0.0
+  - PrometheusText0.0.4
+  metrics_path: /bearer/metrics
+  scheme: http
+  enable_compression: true
+  authorization:
+    type: Bearer
+    credentials_file: /etc/prometheus/fixtures/bearer-secret
+  follow_redirects: true
+  enable_http2: true
+  file_sd_configs:
+  - files:
+    - /etc/prometheus/fixtures/targets.json
+    refresh_interval: 1s
+- job_name: http-discovery
+  honor_timestamps: true
+  track_timestamps_staleness: false
+  scrape_interval: 1s
+  scrape_timeout: 800ms
+  scrape_protocols:
+  - OpenMetricsText1.0.0
+  - OpenMetricsText0.0.1
+  - PrometheusText1.0.0
+  - PrometheusText0.0.4
+  metrics_path: /metrics
+  scheme: http
+  enable_compression: true
+  follow_redirects: true
+  enable_http2: true
+  http_sd_configs:
+  - follow_redirects: true
+    enable_http2: true
+    refresh_interval: 1s
+    url: http://module-test-user:module-test-password@discovery/protected/discovery.json
