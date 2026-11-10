@@ -1,0 +1,14 @@
+{
+  "username": "capture user",
+  "password": " module-target-db: \"quoted\" \\ tail ",
+  "database": "capture database",
+  "rejected_password": "module-target-db-rejected",
+  "empty_username": "capture_empty",
+  "challenge": "112233445566778899AABBCCDDEEFF1122334455",
+  "ntlm_domain": "MODULETARGET",
+  "ntlm_username": "capture_user",
+  "ntlm_password": "Module-target-NTLM-Password!",
+  "ntlm_challenge": "1020304050607080",
+  "tail_0_password": "module-target-tail-2",
+  "tail_32_password": "module-target-tail-567"
+}

@@ -1,5 +1,8 @@
 This module creates a mock MySQL server which accepts credentials.  Upon receiving a login attempt, an `ERROR 1045 (2800): Access denied` error is thrown.
 
+For a reusable isolated target with genuine Oracle/MariaDB clients and native
+authentication controls, see the [container validation guide](../../../../../test/module_targets/database_capture/README.md).
+
 ## Verification Steps
 
   1. Start msfconsole

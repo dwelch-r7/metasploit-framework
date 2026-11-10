@@ -1,0 +1,10 @@
+services:
+  capture_client_base:
+    extends: {file: ../database_capture/compose.yaml, service: capture_client_base}
+  client:
+    extends: {file: ../database_capture/compose.yaml, service: client}
+  native_mssql:
+    extends: {file: ../mssql2019/compose.yaml, service: mssql}
+    ports: !reset []
+  reporting_db:
+    extends: {file: ../credential_reporting/compose.yaml, service: reporting_db}

@@ -1,0 +1,34 @@
+---
+spec: spec/acceptance/module_targets/database_capture_spec.rb
+expected_examples: 12
+console: true
+modules:
+- auxiliary/server/capture/mssql
+ports: {}
+support_files:
+- test/module_targets/database_capture/accounts.json
+- test/module_targets/database_capture/client.Dockerfile
+- test/module_targets/database_capture/client.py
+- test/module_targets/database_capture/compose.yaml
+- test/module_targets/database_capture/controls.py
+- test/module_targets/database_capture/ntlm.py
+- test/module_targets/database_capture/protocols.py
+- test/module_targets/database_capture/run_client.py
+- spec/support/shared/contexts/wait_for_expect.rb
+- lib/msf/core/auxiliary/report.rb
+- lib/msf/core/db_manager/cred.rb
+- lib/metasploit/framework/data_service/proxy/login_data_proxy.rb
+- lib/msf/core/exploit/remote/tcp_server.rb
+- lib/msf/core/exploit/remote/socket_server.rb
+- test/module_targets/capture_core/compose.yaml
+- test/module_targets/capture_core/client.Dockerfile
+- test/module_targets/capture_core/client.py
+- test/module_targets/capture_core/native_client.py
+- test/module_targets/credential_reporting/compose.yaml
+- test/module_targets/mssql2019/compose.yaml
+- test/module_targets/mssql2022/compose.yaml
+- test/module_targets/mssql2022/seed.sql
+- lib/metasploit/framework/hashes.rb
+- test/module_targets/database_capture/README.md
+test_env:
+  DATABASE_CAPTURE_PROFILE: mssql

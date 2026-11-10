@@ -1,0 +1,17 @@
+services:
+  capture_client_base:
+    extends: {file: ../database_capture/compose.yaml, service: capture_client_base}
+  client:
+    extends: {file: ../database_capture/compose.yaml, service: client}
+  oracle_client:
+    extends: {file: ../database_capture/compose.yaml, service: oracle_client}
+  mariadb_client:
+    extends: {file: ../database_capture/compose.yaml, service: mariadb_client}
+  native_mysql:
+    extends: {file: ../mysql8/compose.yaml, service: mysql}
+    ports: !reset []
+  native_mariadb:
+    extends: {file: ../mariadb/compose.yaml, service: mysql}
+    ports: !reset []
+  reporting_db:
+    extends: {file: ../credential_reporting/compose.yaml, service: reporting_db}

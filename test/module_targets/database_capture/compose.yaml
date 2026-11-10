@@ -1,0 +1,33 @@
+services:
+  capture_client_base:
+    profiles: [build-only]
+    build:
+      context: ../capture_core
+      dockerfile: client.Dockerfile
+  client:
+    extends: {file: ../capture_core/compose.yaml, service: client}
+    build:
+      context: .
+      dockerfile: client.Dockerfile
+      additional_contexts:
+        capture_client_base: service:capture_client_base
+  oracle_client:
+    image: mysql:8.0.36@sha256:a532724022429812ec797c285c1b540a644c15e248579c6bfdf12a8fbaab4964
+    network_mode: service:client
+    tmpfs: [/var/lib/mysql]
+    entrypoint: [sleep, infinity]
+    healthcheck:
+      test: [CMD, mysql, --version]
+      interval: 2s
+      timeout: 3s
+      retries: 20
+  mariadb_client:
+    image: mariadb:11.2.2@sha256:c5077bb44d13a3f34dadb5a15861149e29b3251d1e24036d2dad9611dc9d940b
+    network_mode: service:client
+    tmpfs: [/var/lib/mysql]
+    entrypoint: [sleep, infinity]
+    healthcheck:
+      test: [CMD, mariadb, --version]
+      interval: 2s
+      timeout: 3s
+      retries: 20
