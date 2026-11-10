@@ -1,0 +1,53 @@
+---
+spec: spec/acceptance/module_targets/druid_js_single_spec.rb
+expected_examples: 14
+console: true
+modules:
+- exploit/linux/http/apache_druid_js_rce
+ports: {}
+support_files:
+- data/ysoserial_payloads.json
+- documentation/modules/exploit/linux/http/apache_druid_js_rce.md
+- lib/msf/core/exploit.rb
+- lib/msf/core/exploit/java_deserialization.rb
+- lib/msf/core/exploit/remote/auto_check.rb
+- lib/msf/core/exploit/remote/http_client.rb
+- lib/msf/core/exploit/remote/http_server.rb
+- lib/msf/core/exploit/remote/jndi_injection.rb
+- lib/msf/core/exploit/remote/ldap/server.rb
+- lib/msf/core/exploit/remote/socket_server.rb
+- lib/msf/util/java_deserialization.rb
+- lib/rex/parser/arguments.rb
+- lib/rex/proto/http/client.rb
+- lib/rex/proto/http/client_request.rb
+- lib/rex/proto/http/http_logger_subscriber.rb
+- lib/rex/proto/http/http_subscriber.rb
+- lib/rex/proto/http/packet.rb
+- lib/rex/proto/http/packet/header.rb
+- lib/rex/proto/http/request.rb
+- lib/rex/proto/http/response.rb
+- modules/exploits/multi/http/apache_druid_cve_2023_25194.rb
+- modules/payloads/singles/cmd/unix/generic.rb
+- spec/support/shared/contexts/wait_for_expect.rb
+- test/module_targets/capture_core/client.Dockerfile
+- test/module_targets/capture_core/client.py
+- test/module_targets/capture_core/compose.yaml
+- test/module_targets/capture_core/native_client.py
+- test/module_targets/druid/Dockerfile
+- test/module_targets/druid/NativeBeanPayload.java
+- test/module_targets/druid/NativeTranslet.java
+- test/module_targets/druid/README.md
+- test/module_targets/druid/compose.yaml
+- test/module_targets/druid/gateway.conf
+- test/module_targets/druid/input_audit.rb
+- test/module_targets/druid/native_client.py
+- test/module_targets/druid/native_probe.py
+- test/module_targets/druid_js_single/README.md
+- test/module_targets/druid_js_single/acceptance_helpers.rb
+- test/module_targets/druid_js_single/compose.yaml
+- test/module_targets/druid_js_single/gateway.conf
+- test/module_targets/druid_js_single/native_adapter.py
+- test/module_targets/druid_js_single/native_probe.py
+- test/module_targets/druid_js_single/socket_observer.rb
+test_env:
+  DRUID_SINGLE_ROLE: affected

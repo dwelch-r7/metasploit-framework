@@ -1,0 +1,20 @@
+services:
+  metadata:
+    extends: {file: ../druid_js_single/compose.yaml, service: metadata}
+  zookeeper:
+    extends: {file: ../druid_js_single/compose.yaml, service: zookeeper}
+  app:
+    extends: {file: ../druid_js_single/compose.yaml, service: app}
+  gateway:
+    extends: {file: ../druid_js_single/compose.yaml, service: gateway}
+  framework:
+    extends: {file: ../druid_js_single/compose.yaml, service: framework}
+networks:
+  default: {internal: true}
+  public:
+volumes:
+  metadata:
+  zk_data:
+  zk_datalog:
+  zk_logs:
+  vulnerable_var:

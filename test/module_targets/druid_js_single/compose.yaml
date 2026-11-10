@@ -1,0 +1,44 @@
+services:
+  metadata:
+    extends: {file: ../druid/compose.yaml, service: metadata}
+    cpus: 0.25
+    mem_limit: 192m
+    command: [postgres, -c, shared_buffers=32MB, -c, max_connections=30]
+  zookeeper:
+    extends: {file: ../druid/compose.yaml, service: zookeeper}
+    cpus: 0.25
+    environment:
+      JVMFLAGS: -Xms32m -Xmx128m -XX:ActiveProcessorCount=1
+  app:
+    extends: {file: ../druid/compose.yaml, service: vulnerable}
+    cpus: 0.75
+    mem_limit: 896m
+    environment:
+      DRUID_XMX: 384m
+      DRUID_XMS: 64m
+      DRUID_MAXNEWSIZE: 32m
+      DRUID_NEWSIZE: 32m
+      DRUID_MAXDIRECTMEMORYSIZE: 128m
+      JAVA_OPTS: -XX:ActiveProcessorCount=1
+      druid_host: app
+      druid_metadata_storage_tables_base: module_single
+      druid_zk_paths_base: /module_single
+      druid_processing_buffer_sizeBytes: '16777216'
+      druid_extensions_loadList: '["postgresql-metadata-storage"]'
+  gateway:
+    extends: {file: ../druid/compose.yaml, service: gateway}
+    cpus: 0.1
+    volumes: [./gateway.conf:/usr/local/apache2/conf/extra/druid.conf:ro]
+  framework:
+    extends: {file: ../framework.compose.yaml, service: framework}
+    cpus: 1
+    mem_limit: 768m
+networks:
+  default: {internal: true}
+  public:
+volumes:
+  metadata:
+  zk_data:
+  zk_datalog:
+  zk_logs:
+  vulnerable_var:

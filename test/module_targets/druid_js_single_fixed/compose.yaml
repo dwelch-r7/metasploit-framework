@@ -1,0 +1,21 @@
+services:
+  metadata:
+    extends: {file: ../druid_js_single/compose.yaml, service: metadata}
+  zookeeper:
+    extends: {file: ../druid_js_single/compose.yaml, service: zookeeper}
+  app:
+    extends: {file: ../druid_js_single/compose.yaml, service: app}
+    image: apache/druid:0.20.1@sha256:17ce4c32417860468e31c357f1f4b61077f5c4643d6e953dc69f633ce44a7ed6
+  gateway:
+    extends: {file: ../druid_js_single/compose.yaml, service: gateway}
+  framework:
+    extends: {file: ../druid_js_single/compose.yaml, service: framework}
+networks:
+  default: {internal: true}
+  public:
+volumes:
+  metadata:
+  zk_data:
+  zk_datalog:
+  zk_logs:
+  vulnerable_var:
