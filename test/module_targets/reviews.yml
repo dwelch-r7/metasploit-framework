@@ -1,6 +1,18 @@
 # Individual source-reviewed target requirements; these are not blanket exclusions.
 ---
 modules:
+  auxiliary/scanner/http/apache_activemq_traversal:
+    source_sha256: bf2bfc08a0c95d945ac93128494cbdb449fe505d4819ad2347b3bf3c1a1e3559
+    disposition: separate_os_target
+    reason: The owning request constructs Windows-specific /\.. traversal
+      sequences against the Jetty ResourceHandler in ActiveMQ 5.3.1/5.3.2.
+      Its documented positive target is Windows Server 2003 SP2. The existing
+      genuine Linux ActiveMQ source-disclosure and FileServer labs do not
+      establish Windows pathname resolution or arbitrary Windows file reads.
+      Qualify with an isolated affected Windows/JVM target and native file
+      controls; do not count a Linux banner or a simulated response as success.
+      Windows virtualization or compatibility-runtime feasibility remains a
+      separate investigation, rather than a universal container exclusion.
   auxiliary/cloud/aws/enum_ssm:
     source_sha256: 867756d2f657d86bd78c2b7f26e75a1d9f42deeebfb327cc5a5a4f698968f051
     disposition: separate_cloud_target

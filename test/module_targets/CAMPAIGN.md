@@ -18,8 +18,9 @@ running test containers including Framework and helpers. Builds, native smoke
 projects and cold console starts share the same serial queue. Confirm the prior
 project is down before starting another. Larger profiles must be split into
 sequential releases/scenarios or remain queued; the resource limit is not evidence
-that their modules are infeasible or broken. Existing tool connector containers
-are outside the test-lab scope.
+that their modules are infeasible or broken. Only containers for this campaign
+may run on the development host. Remove unrelated containers before starting;
+preserve their images and volumes unless separately requested.
 
 ## Activity
 
@@ -832,3 +833,19 @@ inputs, 2,587 worker checksum entries and 147 cleanup checks pass. The campaign 
 uses one project and at most five test containers; larger profiles are queued,
 not declared infeasible. Windows/AD and the first unrecorded volume-ID limit remain
 explicit. The full campaign continues.
+
+## NiFi credential collection qualification
+
+The [current checkpoint](VERIFICATION-20261110-nifi-credentials.md) qualifies 169
+runtime modules, 99 families and 1,276 cases. NiFi credential gathering passes 11
+cases after capture-backed JSON, keystore association, reporting and partial-file
+repairs. All 22 public calls, 11 used sessions, exact decrypted loot, repeat-stable
+SQL records and owned teardown pass. Parent 26 focused examples, four-file lint,
+73 current inputs and 16 cleanup checks pass. Thirteen source-hashed feasibility
+reviews now include the Windows-specific ActiveMQ traversal requirements; Linux
+ActiveMQ coverage does not qualify that pathname behavior.
+
+At the user's explicit request, all 31 unrelated containers (14 running and 17
+nonrunning) were removed after NiFi teardown, preserving images and volumes.
+Docker was empty before the next serial Druid run. Only campaign containers may
+run, with the existing five-container limit. The full campaign remains incomplete.

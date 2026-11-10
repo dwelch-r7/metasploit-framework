@@ -337,13 +337,21 @@ scanner15 and processor19 are requalified after the shared state-body repair.
 Native DTO/state/delay controls, parent37 focused examples,120 current inputs and
 all187 exact object checks pass. Shell-use and operator-cleanup limits remain
 explicit.
-The [current integrated checkpoint](VERIFICATION-20261110-smb-directory.md) records
+The [SMB directory checkpoint](VERIFICATION-20261110-smb-directory.md) records
 **168 runtime modules, 98 families and 1,265 functional cases**. Three SMB modules
 pass 32 cases across three identified runs, with 64 operations, eight real SMB
 sessions, exact interface notes, credential/loot proof and repeat checks.
 Parent 46 focused examples, 96 current inputs and all 147 cleanup checks pass.
 Native/observer attribution, Windows limits and the serial resource cap remain
 explicit.
+The [current integrated checkpoint](VERIFICATION-20261110-nifi-credentials.md) records
+**169 runtime modules, 99 families and 1,276 functional cases**. NiFi credential
+gathering passes 11 cases with 22 public calls, 11 real used sessions, exact
+decrypted JSON and repeat-stable session-origin SQL credentials. Parent 26 focused
+examples, 73 current inputs, lint and all 16 owned cleanup checks pass. Original
+failures, derived boundary files and unqualified versions remain explicit. Only
+campaign containers may run on the development host, one project/five containers
+at a time, with teardown after each run.
 The full campaign remains incomplete while feasible, valuable modules await review
 or functional verification.
 See [deferred investigations](DEFERRED.md) for retained failures that remain
