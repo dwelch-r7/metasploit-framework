@@ -76,7 +76,7 @@ class MetasploitModule < Msf::Auxiliary
   def report_creds(ip, user, password)
     service_data = {
       address: ip,
-      port: rport,
+      port: session ? session.port : rport,
       protocol: 'tcp',
       service_name: 'smb',
       workspace_id: myworkspace_id
