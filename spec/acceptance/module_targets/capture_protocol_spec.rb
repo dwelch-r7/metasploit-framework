@@ -71,7 +71,7 @@ module CaptureProtocolControls
   def client(kind, label, credential: true)
     module_name = kind.fetch(:module)
     port = PORTS.fetch(module_name)
-    username = module_name == 'postgresql' ? accounts.fetch('pg_username') : accounts.fetch('username')
+    username = kind.fetch(:username) { module_name == 'postgresql' ? accounts.fetch('pg_username') : accounts.fetch('username') }
     password = kind.fetch(:password, accounts.fetch('edge_password'))
     uri = "http://#{listener_host}:#{port}#{kind.fetch(:uri, '/capture')}"
     role = 'curl'
@@ -96,7 +96,7 @@ module CaptureProtocolControls
         role = 'client'
         argv = ['python3', '/opt/module-target-client.py', 'imap-no-auth', '--host', listener_host, '--port', port.to_s]
       else
-        argv += ['--user', "#{username}:#{password}", '--login-options', 'AUTH=+LOGIN', "imap://#{listener_host}:#{port}/"]
+        argv += ['--user', "#{username}:#{password}", '--login-options', 'AUTH=+LOGIN', '--write-out', "\nMODULE_TARGET_TRANSFER_SECONDS=%{time_total}\n", "imap://#{listener_host}:#{port}/"] # rubocop:disable Style/FormatStringToken -- curl write-out syntax
       end
     when 'smtp', 'pop3'
       role = 'client'
@@ -106,6 +106,22 @@ module CaptureProtocolControls
     output, error, status = Open3.capture3('python3', '-B', 'test/module_targets/capture_core/run_client.py', JSON.generate(request))
     expect(status.success?).to be(true), error
     JSON.parse(output)
+  end
+
+  def verify_imap_completion(kind, response, outbound)
+    expect(response.dig('result', 'status')).to eq(kind[:no_auth] ? 0 : 67)
+    unless kind[:no_auth]
+      expect(response.dig('result', 'stdout')).to match(/^MODULE_TARGET_TRANSFER_SECONDS=[0-9]+\.[0-9]+\r?$/)
+    end
+    inbound = response.fetch('wire').select { |stream| stream.fetch('target') == @native.fetch('client_ip') }.map { |stream| Base64.decode64(stream.fetch('base64')) }.join
+    commands = outbound.scan(/^([A-Za-z0-9]+) (CAPABILITY|LOGIN|NOOP|LOGOUT)\b/)
+    expect(commands).not_to be_empty
+    statuses = { 'CAPABILITY' => 'OK', 'LOGIN' => 'NO', 'NOOP' => 'NO', 'LOGOUT' => 'OK' }
+    commands.each do |tag, command|
+      replies = inbound.lines.select { |line| line.start_with?("#{tag} ") }
+      expect(replies.length).to eq(1), "#{command} tagged replies: #{replies.inspect}"
+      expect(replies.first).to match(/\A#{Regexp.escape(tag)} #{statuses.fetch(command)}(?: |\r\n)/)
+    end
   end
 
   def socket_rows(port)
@@ -189,7 +205,7 @@ module CaptureProtocolControls
 
   def verify_record(record, kind, password, workspace: @workspace)
     module_name = kind.fetch(:module)
-    username = module_name == 'postgresql' ? accounts.fetch('pg_username') : accounts.fetch('username')
+    username = kind.fetch(:username) { module_name == 'postgresql' ? accounts.fetch('pg_username') : accounts.fetch('username') }
     verify_context(record, kind, workspace: workspace)
     expect(record).to include('username' => username, 'private_data' => password, 'private_type' => password.empty? ? 'Metasploit::Credential::BlankPassword' : 'Metasploit::Credential::Password')
   end
@@ -233,7 +249,9 @@ mail_cases = [
   ['POP3 USER without PASS', { module: 'pop3', mode: 'user-only', no_auth: true }],
   ['IMAP ordinary quoted password', { module: 'imap', normal: true }],
   ['IMAP quoted space, colon, quote and backslash fields', { module: 'imap' }],
-  ['IMAP commands without LOGIN', { module: 'imap', no_auth: true }]
+  ['IMAP commands without LOGIN', { module: 'imap', no_auth: true }],
+  ['IMAP legal closing-brace user and password', { module: 'imap', account: 'closing_brace' }],
+  ['IMAP legal closing-bracket user and password', { module: 'imap', account: 'closing_bracket' }]
 ]
 
 RSpec.describe 'Genuine clients of Framework capture servers' do
@@ -249,7 +267,7 @@ RSpec.describe 'Genuine clients of Framework capture servers' do
     File.write(File.join(target_runtime.fetch('artifacts'), 'native-preflight-status.json'), JSON.pretty_generate(argv: command, status: status.exitstatus, stderr: error))
     expect(status.success?).to be(true), error
     @native = JSON.parse(output)
-    expect([@native.fetch('commands').length, @native.fetch('wire_captures').length]).to eq(profile == 'core' ? [21, 10] : [23, 10])
+    expect([@native.fetch('commands').length, @native.fetch('wire_captures').length]).to eq(profile == 'core' ? [21, 10] : [35, 13])
     expect(console_command('db_connect module_framework:module-target-framework-db-password@reporting_db:5432/module_targets', timeout: 120)).not_to match(/\[-\]|Exception|Error/)
     expect(console_command('db_status')).to include('Connected to module_targets. Connection type: postgresql.')
     schema = report_sql("SELECT table_name,column_name,data_type FROM information_schema.columns WHERE table_schema='public' ORDER BY table_name,ordinal_position")
@@ -268,6 +286,10 @@ RSpec.describe 'Genuine clients of Framework capture servers' do
     it "#{label} with restart and exact reporting twice" do
       kind = original_kind.dup
       kind[:password] = accounts.fetch('normal_password') if kind.delete(:normal)
+      if (imap_account = kind.delete(:account))
+        kind[:username] = accounts.fetch("imap_#{imap_account}_username")
+        kind[:password] = accounts.fetch("imap_#{imap_account}_password")
+      end
       2.times do |iteration|
         with_listener(kind) do
           response = client(kind, "#{@workspace}_#{iteration}", credential: !kind[:no_auth])
@@ -300,6 +322,7 @@ RSpec.describe 'Genuine clients of Framework capture servers' do
             verify_record(records.first, kind, kind.fetch(:password, accounts.fetch('edge_password')))
             expect(response.dig('result', 'stdout')).to include(kind[:redirect] ? '302' : '404') if kind.fetch(:module) == 'http_basic'
           end
+          verify_imap_completion(kind, response, outbound) if kind.fetch(:module) == 'imap'
         end
       end
     end

@@ -1,6 +1,6 @@
 ---
 spec: spec/acceptance/module_targets/capture_protocol_spec.rb
-expected_examples: 14
+expected_examples: 16
 console: true
 modules:
 - auxiliary/server/capture/smtp

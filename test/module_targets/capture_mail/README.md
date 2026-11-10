@@ -4,7 +4,7 @@
 bundle exec ruby tools/dev/run_module_target_tests.rb capture_mail
 ```
 
-This fourteen-case profile starts the actual SMTP, POP3 and IMAP capture modules
+This sixteen-case profile starts the actual SMTP, POP3 and IMAP capture modules
 through Framework jobs and connects genuine Python/libcurl clients. Existing
 Dovecot 2.3.16 and Exim 4.95 fixtures independently authenticate those clients
 first. Dovecot's real password-file update is reloaded; a genuine Exim plaintext
@@ -24,15 +24,21 @@ Exim-accepted dot-stuffed DATA and a split dot terminator. The capture retains
 raw transmitted body bytes, including dot stuffing, rather than producing a
 decoded mailbox message. POP3 covers password edge fields, a rejected
 fixture password and USER without PASS. IMAP covers ordinary/escaped quoted
-passwords and commands without LOGIN. Every case repeats with a restarted job.
+passwords, legal closing-brace/bracket credentials and commands without LOGIN.
+Dovecot's fixture username policy explicitly adds only `}` and `]` to its default
+whitelist; genuine curl and imaplib authentication prove the exact fields.
+Every case repeats with a restarted job.
 
 Exact credential/service/origin/workspace/UNTRIED checks, actual packet evidence,
 reporting-schema limitations and cleanup follow the [core guide](../capture_core/README.md).
 All listeners and client traffic stay inside owned container namespaces. The
 mail services publish no ports. TLS/STARTTLS, OAuth, Yahoo cookie modes, literal
-LOGIN transfers and other clients/platforms remain unqualified. The existing
-IMAP server also emits an extra CAPABILITY response and leaves LOGIN without
-a tagged completion, so a client can time out after credentials are captured.
-This profile qualifies the capture/reporting path and records the actual client
-status; it does not claim a completed IMAP login conversation. Existing human
-Scenarios are not generated or replaced.
+LOGIN transfers and other clients/platforms remain unqualified. IMAP completion
+gates require one tagged CAPABILITY OK, one tagged LOGIN NO after capture, and
+prompt non-timeout client completion (curl67 for the deliberate refusal; the
+unauthenticated stdlib client exits0). The capture never validates a supplied
+password against a real backend, and reporting stays UNTRIED. NOOP retains its
+existing tagged NO response; complete IMAP-server conformance is unqualified.
+Curl's actual transfer time and every case's result/wire are retained separately.
+Framing/coalescence limits in the core guide still apply. Existing human Scenarios
+are not generated or replaced.

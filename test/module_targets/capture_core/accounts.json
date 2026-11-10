@@ -4,5 +4,9 @@
   "edge_password": " module-target: capture \"quoted\" \\ tail ",
   "pg_username": "capture user",
   "pg_database": "capture database",
-  "http_realm": "Module target capture realm"
+  "http_realm": "Module target capture realm",
+  "imap_closing_brace_username": "capture}user",
+  "imap_closing_brace_password": "password}",
+  "imap_closing_bracket_username": "capture]user",
+  "imap_closing_bracket_password": "password]"
 }

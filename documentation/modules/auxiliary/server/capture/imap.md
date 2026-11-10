@@ -5,6 +5,10 @@ This module creates a mock IMAP server which accepts credentials.
 For isolated genuine-client controls and bounded automated capture/reporting tests,
 see the [reusable capture target guide](../../../../../test/module_targets/capture_mail/README.md).
 
+Captured credentials remain UNTRIED. After collecting a LOGIN attempt the server
+returns a tagged failure so clients finish without treating the supplied password
+as validated against a real authentication backend.
+
 
   1. Start msfconsole
   2. Do: ```use auxiliary/server/capture/imap```

@@ -5,7 +5,7 @@ bundle exec ruby tools/dev/run_module_target_tests.rb capture_core capture_mail
 ```
 
 The sixteen-case core profile runs the FTP, HTTP Basic and PostgreSQL
-capture modules as actual Framework jobs. The fourteen-case [mail profile](../capture_mail/README.md)
+capture modules as actual Framework jobs. The sixteen-case [mail profile](../capture_mail/README.md)
 shares the genuine clients for SMTP, POP3 and IMAP. These modules intentionally
 impersonate servers: the listening service under test is the Framework module,
 and the targets are real libcurl, libpq and Python standard-library clients.
@@ -42,7 +42,7 @@ timestamp. Repeated captures must not duplicate credentials; an explicit
 workspace option must remain isolated when the console workspace changes.
 Captured credentials are not promoted to validated target logins, even when
 a capture server emits a protocol authentication-success response. Capture
-clients may finish with protocol errors or timeouts after transmitting their
+clients may finish with protocol refusals after transmitting their
 credentials; exact reporting is the acceptance condition. Their independent
 genuine-server controls must complete successfully first.
 
