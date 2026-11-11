@@ -5,6 +5,8 @@ module_endpoint_network: default
 modules: [auxiliary/scanner/http/ollama_info]
 ports: {ollama: 11434, proxy: 11800}
 support_files:
+  - spec/modules/auxiliary/scanner/http/ollama_info_system_prompt_spec.rb
+  - spec/file_fixtures/modules/auxiliary/scanner/http/ollama_info/multiline_system.json
   - spec/modules/auxiliary/scanner/http/ollama_info_spec.rb
   - spec/file_fixtures/modules/auxiliary/scanner/http/ollama_info/models.json
   - lib/msf/core/exploit/remote/http_client.rb

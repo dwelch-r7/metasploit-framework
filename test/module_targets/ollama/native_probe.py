@@ -181,6 +181,11 @@ try:
     result['snapshot'] = validate(state)
     if phase in {'before', 'after'}:
         proxy_controls(result['snapshot'])
+    cgroup = Path('/sys/fs/cgroup')
+    result['resources'] = {name: (cgroup / name).read_text() for name in ['memory.current', 'memory.peak', 'memory.events', 'pids.current', 'pids.events'] if (cgroup / name).is_file()}
+    events = result['resources'].get('memory.events')
+    if events:
+        assert int(dict(line.split() for line in events.splitlines())['oom_kill']) == 0, events
     result['status'] = 'native_passed'
 except Exception as error:
     result['error'] = type(error).__name__ + ': ' + str(error)
