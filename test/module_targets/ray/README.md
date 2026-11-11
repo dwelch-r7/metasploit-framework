@@ -55,10 +55,13 @@ corrected plan keeps 1,024MiB for Ray, raises its process/thread ceiling to
 source, API or worker behavior is replaced.
 
 The 2.8.1 comparison uses its own pinned image and twelve immutable official
-source hashes with the same resource plan and controls. It probes actual file
-access as well as core/jobs; the documented fixed-version claim remains
-unverified until this control is observed. A blocked file read requires its own
-classification before treating a failed native control as a module result.
+source hashes with the same resource plan. Its installed build commit is three
+wheel-packaging commits before the release tag; both identities and the official
+comparison are retained in its manifest. The twelve selected server files match.
+Static controls require an ordinary bundled asset with its exact installed hash,
+then explicit outside-file behavior: readable on 2.6.3, confined on 2.8.1. Core
+tasks and SDK jobs remain required for both. A native boundary result does not
+qualify the owning module.
 Its first attempt (`20261111t071542-e6e09a`) exited before application startup
 with `OSError: No space left on device` creating `/tmp/ray`. This is a Docker
 storage failure: no native version behavior or owner outcome was observed.

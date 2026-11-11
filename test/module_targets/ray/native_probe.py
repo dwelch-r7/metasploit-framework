@@ -57,7 +57,7 @@ def main():
     artifacts = Path(runtime['artifacts'])
     native = NativeRay(runtime)
     result = {'status': 'native_failed', 'framework_calls': 0, 'owned_state_restored': False,
-              'scope': ['installed identity', 'real native core task', 'native SDK jobs', 'static file read'],
+              'scope': ['installed identity', 'real native core task', 'native SDK jobs', 'static file boundary'],
               'not_qualified': ['owner modules', 'CPU profiling/injection', 'log traversal/enumeration', 'payloads/sessions']}
     try:
         manifest = runtime['source_manifest']
@@ -77,20 +77,31 @@ def main():
         assert status == 200 and json.loads(body)['ray_version'] == manifest['version']
         status, _ = native.request('unrelated', '/api/version')
         assert status == 404
+        asset = identity['static_asset']
+        status, body = native.request('head', urllib.parse.quote(asset['path'], safe='/'))
+        assert status == 200 and len(body) == asset['size'] and hashlib.sha256(body).hexdigest() == asset['sha256']
+        result['ordinary_static_control'] = dict(asset, status=status, exact_sha256=True)
         result['fixtures'] = native.target('seed', nonce=nonce)
         fixture = result['fixtures']
         assert fixture['uid'] == 1000
         expected = base64.b64decode(fixture['content_base64'])
+        policy = manifest['static_file_policy']
+        assert policy in ['traversable', 'confined']
+        result['static_file_policy'] = policy
         controls = []
         for name in ['utf8', 'reserved', 'empty', 'missing']:
             raw_path = '/static/js/' + '../' * 16 + fixture['paths'][name].lstrip('/')
             path = urllib.parse.quote(raw_path, safe='/')
             status, content = native.request('head', path)
-            if name == 'missing':
+            if policy == 'confined':
+                assert status == 403, native.requests[-1]
+                assert expected not in content, native.requests[-1]
+            elif name == 'missing':
                 assert status == 404, native.requests[-1]
             else:
                 assert status == 200 and content == (b'' if name == 'empty' else expected), native.requests[-1]
-            controls.append({'name': name, 'path': path, 'status': status, 'exact': name != 'missing'})
+            controls.append({'name': name, 'path': path, 'status': status,
+                             'exact': policy == 'traversable' and name != 'missing', 'policy': policy})
         result['static_file_controls'] = controls
         # Preserve genuine API discovery for later profiles; these observations
         # do not substitute for log traversal or profiler native prerequisites.

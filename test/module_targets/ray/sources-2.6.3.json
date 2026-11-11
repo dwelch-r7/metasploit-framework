@@ -50,5 +50,6 @@
       "url": "https://raw.githubusercontent.com/ray-project/ray/8a434b4ee7cd48e60fa1531315d39901fac5d79e/dashboard/modules/job/sdk.py",
       "sha256": "f5ee49214d47eedfa32a473445ba137f6adf05bf970c27618d8a8e9b891c0ea9"
     }
-  }
+  },
+  "static_file_policy": "traversable"
 }

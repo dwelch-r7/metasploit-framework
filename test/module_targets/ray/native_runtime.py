@@ -1,5 +1,6 @@
 """Use the proven native controls on the guarded owner's actual Ray service."""
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -14,6 +15,8 @@ assert phase in ['before', 'after']
 artifacts = Path(runtime['artifacts']) / ('native-' + phase)
 artifacts.mkdir()
 shared = Path(__file__).resolve().parent
+version = os.environ.get('MODULE_TARGET_RAY_VERSION', '2.6.3')
+assert version in ['2.6.3', '2.8.1']
 endpoints = {}
 for name, service, port in [('head', 'ray', '8265'), ('agent', 'ray', '52365'), ('unrelated', 'unrelated', '80')]:
     argv = runtime['compose'] + ['port', service, port]
@@ -23,7 +26,7 @@ for name, service, port in [('head', 'ray', '8265'), ('agent', 'ray', '52365'), 
     assert address.startswith('127.0.0.1:') and address.rsplit(':', 1)[1].isdigit(), address
     endpoints[name] = 'http://' + address
 config = {'compose': runtime['compose'], 'endpoints': endpoints, 'artifacts': str(artifacts),
-          'source_manifest': json.loads((shared / 'sources-2.6.3.json').read_text())}
+          'source_manifest': json.loads((shared / ('sources-' + version + '.json')).read_text())}
 path = artifacts / 'runtime.json'
 path.write_text(json.dumps(config, indent=2) + '\n')
 fixture_path = Path(runtime['artifacts']) / 'owner-fixtures.json'

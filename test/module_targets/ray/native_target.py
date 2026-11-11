@@ -58,8 +58,16 @@ if action == 'identity':
         path = root / relative
         data = path.read_bytes()
         sources[name] = {'sha256': hashlib.sha256(data).hexdigest(), 'bytes_base64': base64.b64encode(data).decode()}
+    static_root = root / 'dashboard/client/build/static'
+    static_files = [path for path in static_root.rglob('*') if path.is_file() and not path.is_symlink()]
+    # The smallest real bundled asset keeps the ordinary static-serving control
+    # short without inventing a route or patching the application.
+    asset = min(static_files, key=lambda path: (path.stat().st_size, str(path)))
+    asset_bytes = asset.read_bytes()
     result = {'version': ray.__version__, 'commit': ray.__commit__, 'python': sys.version,
               'uid': os.getuid(), 'gid': os.getgid(), 'sources': sources, 'processes': processes(),
+              'static_asset': {'path': '/static/' + str(asset.relative_to(static_root)),
+                               'sha256': hashlib.sha256(asset_bytes).hexdigest(), 'size': len(asset_bytes)},
               'static_build_exists': (root / 'dashboard/client/build/static/js').is_dir()}
 elif action == 'core':
     ray.init(address='auto', namespace='module-target-native-' + options['nonce'], logging_level='ERROR')

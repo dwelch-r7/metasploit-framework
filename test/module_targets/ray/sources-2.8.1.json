@@ -52,5 +52,6 @@
     }
   },
   "release_tag_commit": "3546c41b9996c36d0f1bba497dc660d3fcfc59a7",
-  "release_tag_comparison": "https://github.com/ray-project/ray/compare/82a8df138fe7fcc5c42536ebf26e8c3665704fee...3546c41b9996c36d0f1bba497dc660d3fcfc59a7"
+  "release_tag_comparison": "https://github.com/ray-project/ray/compare/82a8df138fe7fcc5c42536ebf26e8c3665704fee...3546c41b9996c36d0f1bba497dc660d3fcfc59a7",
+  "static_file_policy": "confined"
 }
