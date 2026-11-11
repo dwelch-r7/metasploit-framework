@@ -6,6 +6,8 @@ The module returns whether the target is a Java JMX MBeans server and also outpu
 
 While many implementations of JMX are available, the module was successfully tested against an Apache ActiveMQ 5.13.3 server with JMX enabled.  For convenience, a docker container (`antonw/activemq-jmx`) supports JMX and can be tweaked to require authentication.
 
+The repository includes a [bounded JDK lab and automated owning tests](../../../../../test/module_targets/java_jmx/README.md) for anonymous JMX, authentication, registry discovery, and empty/HTTP negatives.
+
 ## Verification Steps
 
   See [PR#10401](https://github.com/rapid7/metasploit-framework/pull/10401) for general information, and [this specific comment](https://github.com/rapid7/metasploit-framework/pull/10401#issuecomment-448705897) for steps to require JMX authentication in the container.  In summary:

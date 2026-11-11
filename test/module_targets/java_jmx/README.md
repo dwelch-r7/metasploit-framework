@@ -20,3 +20,5 @@ checks and call-through reporting/wire observations. DGC positive classification
 has its separate preserved deferred profile; this profile does not qualify the
 Java RMI class-loading scanner. Configuration is not evidence of passing tests.
 SQL persistence and other JVM versions remain separate.
+
+Observed outcomes and limitations are recorded in [the verification report](../VERIFICATION-20261111-java-jmx.md).
