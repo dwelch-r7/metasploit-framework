@@ -154,7 +154,7 @@ class MetasploitModule < Msf::Auxiliary
         model['name'].split(':')[1],
         'Running',
         humanize(model['size']),
-        details.dig('details', 'parameter_size'),
+        details&.dig('details', 'parameter_size') || 'N/A',
         temperature,
         system_prompt
       ]
@@ -178,7 +178,7 @@ class MetasploitModule < Msf::Auxiliary
         model['name'].split(':')[1],
         'Installed',
         humanize(model['size']),
-        details.dig('details', 'parameter_size'),
+        details&.dig('details', 'parameter_size') || 'N/A',
         temperature,
         system_prompt
       ]
