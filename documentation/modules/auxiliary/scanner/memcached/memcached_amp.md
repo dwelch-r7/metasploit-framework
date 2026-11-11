@@ -37,6 +37,14 @@ community supported memcached container and simply expose it:
 docker run -ti --rm -p 11211:11211/udp memcached:1.5.5
 ```
 
+### Automated container tests
+
+The [repository UDP lab](../../../../../test/module_targets/memcached_udp/README.md)
+checks both UDP scanners on pinned 1.4.39 and 1.6.26 servers, disabled UDP,
+closed ports and repeated multi-host batches. It verifies amplification against
+captured module traffic and records reporting API arguments. See the
+[results and limits](../../../../../test/module_targets/VERIFICATION-20261111-memcached-udp.md).
+
 ## Verification Steps
 
 

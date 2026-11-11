@@ -1132,3 +1132,15 @@ gRPC rejections and correlated server errors behind generic HTTP 500 responses.
 Two initial identity/probe failures remain sealed. Root verifies 54 current
 inputs, the unchanged 139-file import, cold/cache provenance and seventeen exact
 cleanup queries. Multi-node and remaining valuable modules still need coverage.
+
+## Memcached UDP scanners
+
+The [UDP checkpoint](VERIFICATION-20261111-memcached-udp.md) qualifies two more
+modules, reaching 192 modules, 137 profiles and 1,516 examples. Genuine 1.4.39
+and 1.6.26 targets pass native protocol checks and ten owner cases. Twenty unique
+call records prove actual versions, single/multi-packet stats, exact amplification,
+reporting API arguments, closed/disabled negatives and repeated batches. Two
+setup/harness failures remain sealed; no production fix is needed. All 38 inputs
+match current source, cold metadata is observed and ten root cleanup queries
+pass. The four-container budget is 960 MiB/1.3 CPUs. Registration covers 194
+sources; the broader feasible-module campaign remains incomplete. No PR is created.

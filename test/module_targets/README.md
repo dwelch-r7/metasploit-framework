@@ -515,3 +515,11 @@ Native gRPC and server-log errors distinguish correct denials from a broken
 HTTP API. All 54 distinct inputs match current source; seventeen root cleanup
 queries pass with global containers empty. Registration remains 192 sources and
 312 pending documented hints. Multi-node and broader campaign coverage remain.
+
+The [Memcached UDP checkpoint](VERIFICATION-20261111-memcached-udp.md) advances
+coverage to **192 modules, 137 profiles and 1,516 examples**. Ten cases verify
+two genuine releases, disabled UDP, closed ports and repeated batches. Twenty
+actual module calls have distinct wire records and checked reporting arguments;
+dynamic amplification matches captured replies. Four containers are capped at
+960 MiB/1.3 CPUs, and ten exact cleanup queries leave Docker empty. Registration
+is 194 sources, with 310 documented container hints still pending review.
