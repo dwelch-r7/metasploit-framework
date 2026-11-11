@@ -5,6 +5,18 @@
 
   A few options for local installation and testing are below.
 
+### Automated container lab
+
+The [repository lab](../../../../../test/module_targets/gopher/README.md) uses the
+pinned genuine server, native content controls and a disposable reporting
+database. It covers complete menus, empty and missing selectors, Unicode and
+spaces, bounded large replies, service records, CSV export and unrelated services.
+Run it from the Framework root:
+
+```sh
+bundle exec ruby tools/dev/run_guarded_module_target_tests.rb gopher
+```
+
 ### Docker Install
 
 A [dockerized gopher server written in Go](https://hub.docker.com/r/prodhe/gopher/) is available.

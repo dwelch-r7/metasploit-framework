@@ -9,3 +9,6 @@ support_files:
   - lib/msf/core/exploit/remote/tcp.rb
   - lib/msf/core/db_manager/service.rb
   - lib/msf/ui/console/command_dispatcher/db.rb
+  - spec/modules/auxiliary/scanner/gopher/gopher_gophermap_spec.rb
+  - spec/file_fixtures/modules/auxiliary/gopher/responses.json
+  - documentation/modules/auxiliary/scanner/gopher/gopher_gophermap.md
