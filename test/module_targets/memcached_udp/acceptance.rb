@@ -27,7 +27,10 @@ module Acceptance
 
     def memcached_scan(owner, services, port: 11211)
       @memcached_call = (@memcached_call || 0) + 1
-      stem = File.join(target_runtime.fetch('artifacts'), format('owning-wire-%02d', @memcached_call))
+      example = RSpec.current_example.id.split('[', 2).last.delete_suffix(']').tr(':', '-')
+      stem = File.join(target_runtime.fetch('artifacts'), format('owning-wire-%<example>s-%<call>02d', example: example, call: @memcached_call))
+      raise 'Owning wire capture already exists' if File.exist?("#{stem}.json")
+
       before = memcached_reports.size
       argv = target_runtime.fetch('compose') + ['exec', '-T', 'framework', 'ruby', 'test/module_targets/memcached_udp/capture.rb', ENV.fetch('MODULE_TARGET_RUNTIME')]
       text = nil
@@ -38,7 +41,7 @@ module Acceptance
           expect(output.gets).to eq("MEMCACHED_CAPTURE_READY\n")
           hosts = services.map { |service| target_runtime.fetch('module_endpoints').fetch(service).fetch('host') }
           text = run_target_module(owner, services.first, {
-            'RHOSTS' => hosts.join(','), 'RPORT' => port,
+            'RHOSTS' => hosts.join(' '), 'RPORT' => port,
             'ScannerRecvWindow' => 1, 'THREADS' => 1, 'BATCHSIZE' => 256
           })
         ensure
