@@ -20,6 +20,9 @@ A vulnerable version (`v11.0.8`) can be found [here](https://hub.docker.com/r/1d
 
 Installation instructions can be found [here](https://docs.onedev.io/).
 
+The [automated container lab](../../../../test/module_targets/onedev_file/README.md)
+provides pinned affected, fixed and unrelated targets with serial tests and cleanup.
+
 ## Verification Steps
 
 1. Install the OneDev application

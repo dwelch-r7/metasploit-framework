@@ -30,6 +30,8 @@ Each OneDev profile uses two containers capped at 1,536 MiB/1.5 CPUs: target
 768 MiB/0.5 CPU/256 tasks and Framework 768 MiB/1 CPU/256 tasks. The vendor JVM
 gets a 320 MiB heap and bounded native areas. Only host-loopback HTTP is published.
 Profiles run serially; each data volume/network/container is removed afterward.
+The unrelated Apache control uses 64 MiB/0.1 CPU/128 tasks, plus the same bounded
+Framework container, and verifies genuine HTTP readiness before tests.
 Registration does not prove qualification: current passing examples, native
 controls, input hashes and independent exact cleanup are required.
 

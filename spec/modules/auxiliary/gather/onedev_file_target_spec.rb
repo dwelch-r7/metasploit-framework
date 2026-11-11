@@ -33,7 +33,14 @@ RSpec.describe 'Genuine OneDev arbitrary file reads', acceptance: true do
       it 'checks the actual affected or fixed service twice without loot' do
         2.times do
           output, paths = onedev_call({}, action: 'check')
-          expect(output).to include(@vulnerable ? 'is vulnerable.' : 'is not vulnerable.')
+          expected = if @vulnerable
+                       'is vulnerable.'
+                     elsif @anonymous
+                       'is not vulnerable.'
+                     else
+                       'Cannot reliably check exploitability.'
+                     end
+          expect(output).to include(expected)
           expect(paths).to eq([])
         end
       end

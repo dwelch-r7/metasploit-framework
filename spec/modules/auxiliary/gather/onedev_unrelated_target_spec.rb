@@ -27,8 +27,10 @@ RSpec.describe 'OneDev unrelated Apache control', acceptance: true do
     resources = target_exec('target', 'sh', '-c', 'cat /sys/fs/cgroup/memory.peak /sys/fs/cgroup/memory.events /sys/fs/cgroup/pids.peak /sys/fs/cgroup/pids.events')
     expect(resources).to include('oom 0', 'oom_kill 0')
     expect(resources.lines.grep(/^max /).map(&:strip)).to all(eq('max 0'))
-    data = { 'status' => response.code, 'headers' => response.to_hash, 'body' => response.body,
-             'identity' => { 'pid' => process.fetch(0), 'starttime' => process.fetch(21) }, 'resources' => resources }
+    data = {
+      'status' => response.code, 'headers' => response.to_hash, 'body' => response.body,
+      'identity' => { 'pid' => process.fetch(0), 'starttime' => process.fetch(21) }, 'resources' => resources
+    }
     File.write(File.join(target_runtime.fetch('artifacts'), "native-http-#{phase}.json"), JSON.pretty_generate(data))
     data
   end

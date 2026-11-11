@@ -9,3 +9,6 @@ support_files:
   - lib/msf/core/exploit/remote/http_client.rb
   - lib/msf/core/auxiliary.rb
   - lib/msf/core/exploit.rb
+  - documentation/modules/auxiliary/gather/onedev_arbitrary_file_read.md
+  - spec/modules/auxiliary/gather/onedev_arbitrary_file_read_spec.rb
+  - spec/file_fixtures/modules/auxiliary/onedev_file/responses.json
