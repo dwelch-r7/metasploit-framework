@@ -531,3 +531,13 @@ authentication/policy negatives and mixed ports. The four-role cap remains
 960 MiB/1.3 CPUs. The original native-log matcher failure is preserved, all
 43 current inputs match and ten exact cleanup queries pass with Docker empty.
 Registration covers 195 sources; 309 documented container hints remain pending.
+
+The [Java registry/JMX checkpoint](VERIFICATION-20261111-java-jmx.md) advances
+coverage to **195 modules, 139 profiles and 1,535 examples**. Nine cases and
+eighteen actual module calls verify registry references, dynamic proxies,
+authentication, empty bindings and HTTP negatives with two passing native phases.
+A confirmed empty-binding scanner error is fixed and independently replayed.
+Four containers are capped at 1,536 MiB/1.3 CPUs; ten exact cleanup queries leave
+Docker empty. The preserved eighteen-case DGC profile needs a historical JVM and
+remains unqualified. Registration covers 197 sources, with sixteen individual
+reviews and 308 documented container hints pending.
