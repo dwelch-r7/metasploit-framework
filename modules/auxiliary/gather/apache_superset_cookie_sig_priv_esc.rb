@@ -178,9 +178,9 @@ class MetasploitModule < Msf::Auxiliary
       db_port = result_json['result']['parameters']['port']
       db_pass = result_json['result']['parameters']['password']
       db_user = result_json['result']['parameters']['username']
-      if framework.db.active
+      if framework.db.active && (db_address = database_address(db_host))
         create_credential_and_login({
-          address: db_host,
+          address: db_address,
           port: db_port,
           protocol: 'tcp',
           workspace_id: myworkspace_id,
@@ -195,5 +195,21 @@ class MetasploitModule < Msf::Auxiliary
       end
       print_good("Found #{db_display_name}: #{db_type}://#{db_user}:#{db_pass}@#{db_host}:#{db_port}/#{db_name}")
     end
+  end
+
+  # Credential services require an IP; some Superset datasources have no host.
+  # @return [String, nil] Resolved reporting address, or nil when unavailable.
+  def database_address(host)
+    return nil unless host.is_a?(String) && !host.strip.empty?
+
+    address = Rex::Socket.getaddress(host)
+    return address if address.is_a?(String) && Rex::Socket.is_ip_addr?(address)
+
+    vprint_warning("Unable to store credentials for database host #{host}: no IP address was resolved")
+    nil
+  rescue SocketError => e
+    vprint_warning("Unable to store credentials for database host #{host}: name could not be resolved")
+    elog("Failed to resolve database host #{host} for credential reporting", error: e)
+    nil
   end
 end

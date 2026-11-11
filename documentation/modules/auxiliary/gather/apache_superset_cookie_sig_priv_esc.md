@@ -25,6 +25,12 @@ Login to the app, click 'list users' under 'Settings', then click '+'.  make a n
 
 If you want any database credentials to be pulled, you'll need to configure a database as well.
 
+With an active Framework database, datasource hostnames are resolved from the
+operator's environment before saving credentials against the resulting IP
+address. If a datasource has no host or its private hostname cannot be resolved,
+its discovered credentials are still printed, but no service/login is saved for
+that datasource. Resolution failures are reported with verbose output.
+
 ## Verification Steps
 
 1. Install the application
