@@ -3,10 +3,6 @@ services:
     extends: {file: ../rocketmq/compose.yaml, service: vulnerable}
     build:
       context: ../rocketmq
-  fixed:
-    extends: {file: ../rocketmq/compose.yaml, service: fixed}
-    build:
-      context: ../rocketmq
   framework:
     cpus: 1
     mem_limit: 768m

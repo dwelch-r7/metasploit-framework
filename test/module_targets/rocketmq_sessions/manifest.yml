@@ -1,8 +1,8 @@
 spec: spec/modules/exploits/multi/http/rocketmq_sessions_target_spec.rb
-expected_examples: 4
+expected_examples: 3
 console: true
 modules: [exploit/multi/http/apache_rocketmq_update_config]
-ports: {vulnerable: 9876, fixed: 9876}
+ports: {vulnerable: 9876}
 support_files:
   - spec/modules/exploits/multi/http/rocketmq_cleanup_spec.rb
   - spec/file_fixtures/modules/exploits/rocketmq_cleanup/broker_state.json

@@ -1,11 +1,11 @@
 # RocketMQ execution and session lab
 
 ```sh
-bundle exec ruby tools/dev/run_guarded_module_target_tests.rb rocketmq rocketmq_sessions
+bundle exec ruby tools/dev/run_guarded_module_target_tests.rb rocketmq rocketmq_sessions rocketmq_fixed_guard rocketmq_commands
 ```
 
 This profile reuses the [genuine RocketMQ targets and SDK controls](../rocketmq/README.md).
-It runs three containers total, capped at 2,048 MiB/1.5 CPUs, with 256 PIDs per
+It runs two containers total, capped at 1,408 MiB/1.25 CPUs, with 256 PIDs per
 container, no extra swap, no privileged mode and random loopback NameServer
 bindings. Profiles run sequentially; Framework metadata may be reused normally
 within the same invocation. No first-profile cache is supplied manually.
@@ -20,7 +20,8 @@ host session, listener and fetched-file cleanup before the exploit is tried.
 No RocketMQ request handler or owning method is replaced.
 
 Owning cases exercise both payload families twice, repeat with AutoCheck
-disabled, and verify the fixed release's automatic refusal twice. Successful
+disabled. The separate [fixed-release guard](../rocketmq_fixed_guard/README.md)
+verifies automatic refusal twice. Successful
 sessions must create a fresh file through the session API, have an actual
 UID3000 process and connected socket, then exit remotely. The module must
 discover Broker port10921; a call-through observer records the actual TCP peers.
