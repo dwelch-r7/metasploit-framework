@@ -204,9 +204,10 @@ def spool(native):
 def delivered_spool(native, previous, needle):
     # Exim acceptance precedes local delivery. Observe actual appended MIME with
     # a bounded target-side readiness predicate, not an unconditional delay.
+    # Pipe the complete prefix; repeated recovery mail can exceed an argv limit.
     script = """import base64,pathlib,sys,time
 p=pathlib.Path('/var/spool/exim4/module-target-mail/capture-message')
-previous=base64.b64decode(sys.argv[1]);needle=sys.argv[2].encode();deadline=time.monotonic()+10;pause=0.05
+previous=base64.b64decode(sys.stdin.buffer.read(),validate=True);needle=sys.argv[1].encode();deadline=time.monotonic()+10;pause=0.05
 while True:
  data=p.read_bytes() if p.exists() else b''
  if data.startswith(previous) and needle in data[len(previous):]:
@@ -216,7 +217,7 @@ while True:
  time.sleep(min(pause,remaining));pause=min(pause*2,0.5)
 """
     encoded = base64.b64encode(previous.encode()).decode()
-    return base64.b64decode(native.cli('smtp', 'python3', '-c', script, encoded, needle)['stdout']).decode()
+    return base64.b64decode(native.cli('smtp', 'python3', '-c', script, needle, data=encoded.encode())['stdout']).decode()
 
 
 def smtp_control(native):
