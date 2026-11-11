@@ -118,7 +118,7 @@ public final class NativeProbe {
       } catch (Exception error) { return errors(error); }
     }
   }
-  static Map<String,Object> jmxProof(String role, MBeanServerConnection server, String runtimeName) throws Exception {
+  static Map<String,Object> jmxProof(String role, MBeanServerConnection server, String runtimeName, String codebaseRole) throws Exception {
     String nonce = token();
     ObjectName loader = new ObjectName("module.target:type=Loader,token=" + nonce);
     ObjectName payload = new ObjectName("module.target:type=Payload,token=" + nonce);
@@ -126,7 +126,7 @@ public final class NativeProbe {
     try {
       require(readProof(server, nonce).equals("ABSENT"), "Fresh JMX proof already exists");
       server.createMBean("javax.management.loading.MLet", loader);
-      server.invoke(loader, "addURL", new Object[]{"http://enabled:" + LabConfig.HTTP + "/probe.jar"}, new String[]{"java.lang.String"});
+      server.invoke(loader, "addURL", new Object[]{"http://" + codebaseRole + ":" + LabConfig.HTTP + "/probe.jar"}, new String[]{"java.lang.String"});
       server.createMBean("ProbePayload", payload, loader);
       proof = (String)server.invoke(payload, "prove", new Object[]{nonce}, new String[]{"java.lang.String"});
       require(readProof(server, nonce).equals(proof), "JMX marker bytes differ");
@@ -139,18 +139,22 @@ public final class NativeProbe {
     return map("role", role, "proof", proof, "loader_removed", !server.isRegistered(loader), "payload_removed", !server.isRegistered(payload), "owned_file_absent", true);
   }
   public static void main(String[] args) throws Exception {
+    String mode = args.length == 0 ? "all" : args[0];
+    require(mode.equals("all") || mode.equals("jmx"), "Unknown native mode");
+    boolean includeDgc = mode.equals("all");
+    String codebaseRole = includeDgc ? "enabled" : "open";
     Map<String,Object> result = map("status", "native_failed", "framework_calls", 0,
-      "java_version", System.getProperty("java.runtime.version"), "java_vendor", System.getProperty("java.vendor"));
+      "mode", mode, "java_version", System.getProperty("java.runtime.version"), "java_vendor", System.getProperty("java.vendor"));
     Map<String,Object> profiles = new LinkedHashMap<>();
     result.put("profiles", profiles);
     try {
       byte[] jar = Files.readAllBytes(Path.of("/lab/probe.jar"));
-      try (var input = URI.create("http://enabled:" + LabConfig.HTTP + "/probe.jar").toURL().openStream()) {
+      try (var input = URI.create("http://" + codebaseRole + ":" + LabConfig.HTTP + "/probe.jar").toURL().openStream()) {
         require(hash(input.readAllBytes()).equals(hash(jar)), "Actual codebase JAR differs");
       }
       result.put("probe_jar_sha256", hash(jar));
       result.put("probe_class_annotation", java.rmi.server.RMIClassLoader.getClassAnnotation(ProbePayload.class));
-      for (String role : List.of("open", "guarded", "enabled", "empty")) {
+      for (String role : includeDgc ? List.of("open", "guarded", "enabled", "empty") : List.of("open", "guarded", "empty")) {
         Registry registry = LocateRegistry.getRegistry(role, LabConfig.REGISTRY);
         String[] names = registry.list();
         Arrays.sort(names);
@@ -172,6 +176,7 @@ public final class NativeProbe {
           }
           profile.put("multi_registry", objects);
           profile.put("loader_policy", echo.loaderPolicy());
+          if (!includeDgc) continue;
           String nonce = token();
           require(echo.readProof(nonce).equals("ABSENT"), "Fresh empty-registry proof exists");
           String error = new DgcClient(role).deliver(nonce);
@@ -197,15 +202,17 @@ public final class NativeProbe {
           profile.put("runtime_name", runtimeName);
           profile.put("mbean_count", server.getMBeanCount());
           profile.put("loader_policy", server.getAttribute(STATE, "LoaderPolicy"));
-          String nonce = token();
-          require(readProof(server, nonce).equals("ABSENT"), "Fresh DGC proof exists");
-          String error = new DgcClient(role).deliver(nonce);
-          String proof = readProof(server, nonce);
-          profile.put("dgc", map("error", error, "proof", proof, "executed", !proof.equals("ABSENT")));
-          if (role.equals("enabled")) checkServerProof(proof, nonce, runtimeName);
-          else require(proof.equals("ABSENT"), "Default DGC unexpectedly executed remote code");
-          removeProof(server, nonce);
-          if (!role.equals("guarded")) profile.put("jmx_execution", jmxProof(role, server, runtimeName));
+          if (includeDgc) {
+            String nonce = token();
+            require(readProof(server, nonce).equals("ABSENT"), "Fresh DGC proof exists");
+            String error = new DgcClient(role).deliver(nonce);
+            String proof = readProof(server, nonce);
+            profile.put("dgc", map("error", error, "proof", proof, "executed", !proof.equals("ABSENT")));
+            if (role.equals("enabled")) checkServerProof(proof, nonce, runtimeName);
+            else require(proof.equals("ABSENT"), "Default DGC unexpectedly executed remote code");
+            removeProof(server, nonce);
+          }
+          if (!role.equals("guarded")) profile.put("jmx_execution", jmxProof(role, server, runtimeName, codebaseRole));
           require(((String[])server.getAttribute(STATE, "Proofs")).length == 0, "Proof cleanup incomplete");
         }
       }

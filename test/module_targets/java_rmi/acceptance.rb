@@ -14,7 +14,7 @@ module Acceptance
     def java_native_phase(phase)
       output = +''
       directory = target_runtime.fetch('artifacts')
-      argv = target_runtime.fetch('compose') + ['exec', '-T', 'enabled', 'bash', '/lab/native.sh']
+      argv = target_runtime.fetch('compose') + ['exec', '-T', ENV.fetch('JAVA_RMI_NATIVE_MODE', 'all') == 'jmx' ? 'open' : 'enabled', 'bash', '/lab/native.sh', ENV.fetch('JAVA_RMI_NATIVE_MODE', 'all')]
       passed = ModuleTargetTests.new.send(:command, argv, path: File.join(directory, "native-#{phase}.log"), timeout: 180, capture: output, quiet: true)
       File.write(File.join(directory, "native-#{phase}.json"), output)
       expect(passed).to be(true), output

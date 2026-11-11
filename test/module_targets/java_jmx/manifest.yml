@@ -1,0 +1,50 @@
+---
+spec: spec/modules/auxiliary/scanner/java_jmx_target_spec.rb
+expected_examples: 9
+console: true
+module_endpoint_network: default
+modules:
+- auxiliary/gather/java_rmi_registry
+- auxiliary/scanner/misc/java_jmx_server
+ports:
+  open: 1099
+  guarded: 1099
+  empty: 1099
+support_files:
+- test/module_targets/ntp/report_observer.rb
+- lib/msf/core/exploit/remote/java/rmi/client.rb
+- lib/msf/core/exploit/remote/java/rmi/client/registry.rb
+- lib/msf/core/exploit/remote/java/rmi/client/registry/parser.rb
+- lib/msf/core/exploit/remote/java/rmi/client/registry/builder.rb
+- lib/msf/core/exploit/remote/java/rmi/client/jmx.rb
+- lib/msf/core/exploit/remote/java/rmi/client/jmx/server.rb
+- lib/msf/core/exploit/remote/java/rmi/client/jmx/server/parser.rb
+- lib/msf/core/exploit/remote/java/rmi/client/jmx/server/builder.rb
+- lib/msf/core/exploit/remote/java/rmi/builder.rb
+- lib/msf/core/exploit/remote/java/rmi/util.rb
+- lib/msf/core/exploit/remote/tcp.rb
+- lib/msf/core/auxiliary/scanner.rb
+- lib/msf/core/auxiliary/report.rb
+- test/module_targets/java_rmi/Dockerfile
+- test/module_targets/java_rmi/README.md
+- test/module_targets/java_rmi/acceptance.rb
+- test/module_targets/java_rmi/build.sh
+- test/module_targets/java_rmi/compose.yaml
+- test/module_targets/java_rmi/health.sh
+- test/module_targets/java_rmi/manifest.deferred.yml
+- test/module_targets/java_rmi/native.sh
+- test/module_targets/java_rmi/report_observer.rb
+- test/module_targets/java_rmi/settings.sh
+- test/module_targets/java_rmi/source/LabConfig.java
+- test/module_targets/java_rmi/source/LabEcho.java
+- test/module_targets/java_rmi/source/LabEchoImpl.java
+- test/module_targets/java_rmi/source/LabHealth.java
+- test/module_targets/java_rmi/source/LabState.java
+- test/module_targets/java_rmi/source/LabStateMBean.java
+- test/module_targets/java_rmi/source/Main.java
+- test/module_targets/java_rmi/source/NativeProbe.java
+- test/module_targets/java_rmi/source/ProbePayload.java
+- test/module_targets/java_rmi/source/ProbePayloadMBean.java
+- test/module_targets/java_rmi/start.sh
+test_env:
+  JAVA_RMI_NATIVE_MODE: jmx

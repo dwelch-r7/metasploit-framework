@@ -1,8 +1,10 @@
-# Genuine JVM JMX/RMI lab
+# Deferred full Java RMI profile
 
-```sh
-DOCKER_CONTEXT=default BUILDX_BUILDER=default nice -n 10 bundle exec ruby tools/dev/run_guarded_module_target_tests.rb java_rmi
-```
+The original eighteen cases and `manifest.deferred.yml` are retained. This
+profile is excluded from automatic registration because current JDK 17 DGC
+refuses the native remote-codebase prerequisite. No module verdict follows
+from these setup failures. A genuine historical JVM remains to be investigated.
+Registry and JMX coverage has a separate [owning profile](../java_jmx/README.md).
 
 Five serial-owned containers are capped at 1,792 MiB and 1.4 CPUs. Four normal
 Temurin 17 JVMs provide unauthenticated JMX, password-protected JMX, deliberately

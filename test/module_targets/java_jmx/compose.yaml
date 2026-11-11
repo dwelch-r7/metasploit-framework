@@ -1,0 +1,36 @@
+x-jvm: &jvm
+  build: ../java_rmi
+  platform: linux/amd64
+  init: true
+  cpus: 0.1
+  mem_limit: 256m
+  memswap_limit: 256m
+  pids_limit: 128
+  networks: [default, public]
+  ports:
+    - {target: 1099, host_ip: 127.0.0.1}
+    - {target: 8180, host_ip: 127.0.0.1}
+  healthcheck:
+    test: [CMD, bash, /lab/health.sh]
+    interval: 10s
+    timeout: 8s
+    retries: 12
+    start_period: 3s
+services:
+  open:
+    <<: *jvm
+    environment: {LAB_ROLE: open}
+  guarded:
+    <<: *jvm
+    environment: {LAB_ROLE: guarded}
+  empty:
+    <<: *jvm
+    environment: {LAB_ROLE: empty}
+  framework:
+    cpus: 1
+    mem_limit: 768m
+    memswap_limit: 768m
+    pids_limit: 256
+networks:
+  default: {internal: true}
+  public:
