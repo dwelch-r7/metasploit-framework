@@ -1,5 +1,9 @@
 # Ray module validation, 2026-11-11
 
+A later [two-version checkpoint](VERIFICATION-20261111-ray-281.md) adds verified
+Ray 2.8.1 confinement and updates the campaign to 187 modules, 130 profiles and
+1,463 examples.
+
 The repaired `auxiliary/gather/ray_lfi_cve_2023_6020` is qualified on genuine
 Ray2.6.3: eight functional cases passed in 61.872901 seconds, with no pending
 examples or errors outside examples. Eleven public module calls include repeated
