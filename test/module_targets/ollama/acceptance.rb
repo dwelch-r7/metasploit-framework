@@ -36,13 +36,13 @@ module Acceptance
       datastore = {
         'TARGETURI' => '/', 'HttpUsername' => '', 'HttpPassword' => '',
         'RHOSTS' => endpoint.fetch('host'), 'RPORT' => endpoint.fetch('port'), 'VERBOSE' => true, 'THREADS' => 1,
-        'ConnectTimeout' => 3, 'HttpClientTimeout' => 5
+        'HttpClientTimeout' => 5
       }.merge(options)
       output = console_command("run #{format_datastore_options(datastore)}", timeout: 35)
       replies = File.file?(observed) ? File.readlines(observed).drop(before).map { |line| JSON.parse(line) } : []
       File.write(path, JSON.pretty_generate(service: service, options: options, output: output, replies: replies) + "\n")
       expect(output).to include('Auxiliary module execution completed')
-      expect(output).not_to match(/Auxiliary failed:|undefined method|Unknown command|Msf::OptionValidateError/)
+      expect(output).not_to match(/Auxiliary failed:|undefined method|Unknown command|Unknown datastore option|Msf::OptionValidateError/)
       expect(output).not_to include('[-]') unless allow_errors
       [output, replies]
     end

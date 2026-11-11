@@ -20,6 +20,7 @@ SYSTEM = 'Module target single-line system prompt'
 MULTILINE = 'Module target first system line\nModule target second system line'
 HTTP = []
 CLI = []
+RUNNER_OPTIONS = {'num_ctx': 128, 'num_batch': 16, 'num_thread': 1}
 
 
 def request(base, path, payload=None, auth=False, expected=200, timeout=15):
@@ -76,7 +77,7 @@ def running():
 
 def unload():
     for model in running():
-        value = request(ROOT, '/api/generate', {'model': model['name'], 'keep_alive': 0}, timeout=60)
+        value = request(ROOT, '/api/generate', {'model': model['name'], 'keep_alive': 0, 'stream': False, 'options': RUNNER_OPTIONS}, timeout=60)
         assert value['done'] is True
     until(lambda: not running())
 
@@ -94,7 +95,7 @@ def create(name, system=None, temperature=None):
 
 def generate():
     value = request(ROOT, '/api/generate', {'model': RUNNING, 'prompt': 'Hello', 'raw': True, 'stream': False, 'keep_alive': -1,
-                    'options': {'num_ctx': 128, 'num_batch': 16, 'num_thread': 1, 'num_predict': 1, 'seed': 7, 'temperature': 0}}, timeout=90)
+                    'options': dict(RUNNER_OPTIONS, num_predict=1, seed=7, temperature=0)}, timeout=90)
     assert value['done'] is True and value['eval_count'] == 1 and value['response'], value
     until(lambda: len(running()) == 1 and running()[0]['name'] == RUNNING)
     return value
