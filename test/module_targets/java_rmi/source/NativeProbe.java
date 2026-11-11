@@ -32,6 +32,10 @@ import sun.rmi.transport.tcp.TCPEndpoint;
 
 public final class NativeProbe {
   static final ObjectName STATE;
+  static final Map<String,String> ADDRESSES = new LinkedHashMap<>();
+  static String host(String role) throws Exception {
+    return ADDRESSES.containsKey(role) ? ADDRESSES.get(role) : InetAddress.getByName(role).getHostAddress();
+  }
   static { try { STATE = new ObjectName(LabConfig.STATE); } catch (Exception e) { throw new ExceptionInInitializerError(e); } }
   static Map<String,Object> map(Object... fields) {
     Map<String,Object> result = new LinkedHashMap<>();
@@ -84,7 +88,7 @@ public final class NativeProbe {
   static JMXConnector connect(String role, String password) throws Exception {
     Map<String,Object> options = new LinkedHashMap<>();
     if (password != null) options.put(JMXConnector.CREDENTIALS, new String[]{"controlRole", password});
-    return JMXConnectorFactory.connect(new JMXServiceURL("service:jmx:rmi:///jndi/rmi://" + role + ":" + LabConfig.REGISTRY + "/jmxrmi"), options);
+    return JMXConnectorFactory.connect(new JMXServiceURL("service:jmx:rmi:///jndi/rmi://" + host(role) + ":" + LabConfig.REGISTRY + "/jmxrmi"), options);
   }
   static String readProof(MBeanServerConnection server, String nonce) throws Exception {
     return (String)server.invoke(STATE, "readProof", new Object[]{nonce}, new String[]{"java.lang.String"});
@@ -126,7 +130,7 @@ public final class NativeProbe {
     try {
       require(readProof(server, nonce).equals("ABSENT"), "Fresh JMX proof already exists");
       server.createMBean("javax.management.loading.MLet", loader);
-      server.invoke(loader, "addURL", new Object[]{"http://" + codebaseRole + ":" + LabConfig.HTTP + "/probe.jar"}, new String[]{"java.lang.String"});
+      server.invoke(loader, "addURL", new Object[]{"http://" + host(codebaseRole) + ":" + LabConfig.HTTP + "/probe.jar"}, new String[]{"java.lang.String"});
       server.createMBean("ProbePayload", payload, loader);
       proof = (String)server.invoke(payload, "prove", new Object[]{nonce}, new String[]{"java.lang.String"});
       require(readProof(server, nonce).equals(proof), "JMX marker bytes differ");
@@ -139,6 +143,15 @@ public final class NativeProbe {
     return map("role", role, "proof", proof, "loader_removed", !server.isRegistered(loader), "payload_removed", !server.isRegistered(payload), "owned_file_absent", true);
   }
   public static void main(String[] args) throws Exception {
+    String configured = System.getenv("JAVA_NATIVE_ENDPOINTS");
+    if (configured != null) {
+      for (String entry : configured.split(",")) {
+        String[] fields = entry.split("=", 2);
+        require(fields.length == 2 && fields[0].matches("open|guarded|enabled|empty")
+          && fields[1].matches("[0-9.]+"), "Invalid owned native endpoint");
+        ADDRESSES.put(fields[0], fields[1]);
+      }
+    }
     String mode = args.length == 0 ? "all" : args[0];
     require(mode.equals("all") || mode.equals("jmx"), "Unknown native mode");
     boolean includeDgc = mode.equals("all");
@@ -149,20 +162,20 @@ public final class NativeProbe {
     result.put("profiles", profiles);
     try {
       byte[] jar = Files.readAllBytes(Path.of("/lab/probe.jar"));
-      try (var input = URI.create("http://" + codebaseRole + ":" + LabConfig.HTTP + "/probe.jar").toURL().openStream()) {
+      try (var input = URI.create("http://" + host(codebaseRole) + ":" + LabConfig.HTTP + "/probe.jar").toURL().openStream()) {
         require(hash(input.readAllBytes()).equals(hash(jar)), "Actual codebase JAR differs");
       }
       result.put("probe_jar_sha256", hash(jar));
       result.put("probe_class_annotation", java.rmi.server.RMIClassLoader.getClassAnnotation(ProbePayload.class));
       for (String role : includeDgc ? List.of("open", "guarded", "enabled", "empty") : List.of("open", "guarded", "empty")) {
-        Registry registry = LocateRegistry.getRegistry(role, LabConfig.REGISTRY);
+        Registry registry = LocateRegistry.getRegistry(host(role), LabConfig.REGISTRY);
         String[] names = registry.list();
         Arrays.sort(names);
         require(Arrays.equals(names, role.equals("empty") ? new String[]{} : new String[]{"jmxrmi"}), "Registry names differ: " + role);
-        Map<String,Object> profile = map("ip", InetAddress.getByName(role).getHostAddress(), "registry_names", Arrays.asList(names));
+        Map<String,Object> profile = map("ip", host(role), "registry_names", Arrays.asList(names));
         profiles.put(role, profile);
         if (role.equals("empty")) {
-          Registry multi = LocateRegistry.getRegistry(role, LabConfig.MULTI);
+          Registry multi = LocateRegistry.getRegistry(host(role), LabConfig.MULTI);
           String[] aliases = multi.list();
           Arrays.sort(aliases);
           require(Arrays.equals(aliases, new String[]{"lab/echo", "quoted café"}), "Genuine multi-registry names differ");
@@ -179,7 +192,7 @@ public final class NativeProbe {
           if (!includeDgc) continue;
           String nonce = token();
           require(echo.readProof(nonce).equals("ABSENT"), "Fresh empty-registry proof exists");
-          String error = new DgcClient(role).deliver(nonce);
+          String error = new DgcClient(host(role)).deliver(nonce);
           require(echo.readProof(nonce).equals("ABSENT"), "Default DGC unexpectedly executed a payload");
           profile.put("dgc", map("error", error, "owned_file_absent", true));
           continue;
@@ -205,7 +218,7 @@ public final class NativeProbe {
           if (includeDgc) {
             String nonce = token();
             require(readProof(server, nonce).equals("ABSENT"), "Fresh DGC proof exists");
-            String error = new DgcClient(role).deliver(nonce);
+            String error = new DgcClient(host(role)).deliver(nonce);
             String proof = readProof(server, nonce);
             profile.put("dgc", map("error", error, "proof", proof, "executed", !proof.equals("ABSENT")));
             if (role.equals("enabled")) checkServerProof(proof, nonce, runtimeName);
