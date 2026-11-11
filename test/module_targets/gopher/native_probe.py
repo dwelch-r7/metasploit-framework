@@ -97,6 +97,9 @@ try:
         assert pid.isdigit(), pid
         stat = execute('target', 'cat', '/proc/' + pid + '/stat').decode().split()
         identity[process] = {'pid': pid, 'starttime': stat[21]}
+    stat = execute('reporting_db', 'cat', '/proc/1/stat').decode().split()
+    assert stat[1] == '(postgres)'
+    identity['postgres'] = {'pid': stat[0], 'starttime': stat[21]}
     source = {}
     for name in ['main.go', 'server.go', 'gophermap.go', 'Dockerfile']:
         raw = execute('target', 'cat', '/go/src/gopher/' + name)

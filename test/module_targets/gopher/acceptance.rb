@@ -26,7 +26,7 @@ module Acceptance
         file.puts(JSON.generate(selector: selector, options: options, workspace: @workspace, output: text))
       end
       expect(text).not_to include('Unknown datastore option')
-      output
+      text
     end
 
     def verify_menu(selector = '')

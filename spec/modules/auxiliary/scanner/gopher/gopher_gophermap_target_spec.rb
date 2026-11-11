@@ -28,6 +28,8 @@ RSpec.describe 'Native Gopher menus and service reporting', acceptance: true do
     expect(service_rows).to eq([])
   end
 
+  after { service_rows if @workspace }
+
   it 'enumerates and persists the full default root menu twice' do
     2.times { verify_menu }
   end
