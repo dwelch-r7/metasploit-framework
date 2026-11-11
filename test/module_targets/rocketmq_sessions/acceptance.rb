@@ -195,12 +195,14 @@ module Acceptance
         record[:failure] = "#{failure.class}: #{failure.message}" if failure
         record[:status] = 'failed' if failure
         errors = []
-        begin
-          rmq_cleanup_runtime
-        rescue RSpec::Expectations::ExpectationNotMetError, StandardError => e
-          errors << "#{e.class}: #{e.message}"
-        end
         if failure
+          # Successful runs already verify cleanup before the final snapshot.
+          # Repeat it only when recovering an interrupted or failed run.
+          begin
+            rmq_cleanup_runtime
+          rescue RSpec::Expectations::ExpectationNotMetError, StandardError => e
+            errors << "#{e.class}: #{e.message}"
+          end
           record[:native_recovery_required] = true
           begin
             rmq_restore('vulnerable', @native.fetch('vulnerable'))
