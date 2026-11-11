@@ -5,10 +5,15 @@ The [automated Superset cookie lab](../../../../test/module_targets/superset_coo
 provides a pinned 2.0.0 target, independent native controls, repeat collection
 and actual PostgreSQL credential-reporting checks.
 
-Apache Superset versions <= 2.0.0 utilize Flask with a known default secret key which is used to sign HTTP cookies.
+Apache Superset versions < 2.1.0 can use Flask with a known default secret key which is used to sign HTTP cookies.
 These cookies can therefore be forged. If a user is able to login to the site, they can decode the cookie, set their user_id to that
 of an administrator, and re-sign the cookie. This valid cookie can then be used to login as the targeted user and retrieve database
 credentials saved in Apache Superset.
+
+The passive check covers `1.4.1 <= version < 2.1.0`. Cookie forgery requires
+a known configured signing key; an unknown custom key prevents this step.
+[Apache's CVE table](https://superset.apache.org/admin-docs/security/cves/)
+lists the default-key issue, CVE-2023-27524, as fixed in 2.1.0.
 
 ### App Install
 

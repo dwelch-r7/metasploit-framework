@@ -13,7 +13,8 @@ class MetasploitModule < Msf::Auxiliary
         info,
         'Name' => 'Apache Superset Signed Cookie Priv Esc',
         'Description' => %q{
-          Apache Superset versions <= 2.0.0 utilize Flask with a known default secret key which is used to sign HTTP cookies.
+          Apache Superset versions < 2.1.0 can use Flask with a known default secret key which is used to sign HTTP cookies.
+          The configured key must be known for cookie forgery to succeed.
           These cookies can therefore be forged. If a user is able to login to the site, they can decode the cookie, set their user_id to that
           of an administrator, and re-sign the cookie. This valid cookie can then be used to login as the targeted user and retrieve database
           credentials saved in Apache Superset.
@@ -25,6 +26,7 @@ class MetasploitModule < Msf::Auxiliary
           'Naveen Sunkavally' # horizon3.ai writeup and cve discovery
         ],
         'References' => [
+          ['URL', 'https://superset.apache.org/admin-docs/security/cves/'],
           ['URL', 'https://github.com/Paradoxis/Flask-Unsign'],
           ['URL', 'https://vulcan.io/blog/cve-2023-27524-in-apache-superset-what-you-need-to-know/'],
           ['URL', 'https://www.horizon3.ai/cve-2023-27524-insecure-default-configuration-in-apache-superset-leads-to-remote-code-execution/'],
@@ -69,7 +71,7 @@ class MetasploitModule < Msf::Auxiliary
     end
 
     version = Rex::Version.new(Regexp.last_match(1))
-    if version < Rex::Version.new('2.0.1') && version >= Rex::Version.new('1.4.1')
+    if version < Rex::Version.new('2.1.0') && version >= Rex::Version.new('1.4.1')
       Exploit::CheckCode::Appears("Apache Supset #{version} is vulnerable")
     else
       Exploit::CheckCode::Safe("Apache Supset #{version} is NOT vulnerable")

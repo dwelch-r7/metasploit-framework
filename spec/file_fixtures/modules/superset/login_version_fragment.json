@@ -1,0 +1,9 @@
+{
+  "origin": "Genuine official pinned Superset2.0.1 image, native HTTP GET /login/; literal excerpt only, no cookie or CSRF data retained",
+  "capture_run": "20261111T050406-79c43c",
+  "status": 200,
+  "full_body_sha256": "b3031a72064c09611db2e603bc55839ddb70048aadb10f8ca37cdcf1c6075ce3",
+  "full_body_bytes": 115144,
+  "fragment_sha256": "91275eca4a1613c731eb4b6e85701a2cf58a8f9be0c5e9d2165ca287cf5d44cf",
+  "boundary_variants": "Only the version token is substituted by explicit deterministic unit examples; these do not claim native runtime behavior for other releases."
+}
