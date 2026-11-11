@@ -72,10 +72,13 @@ public final class NativeProbe {
     }
     return text.append('"').toString();
   }
-  static Map<String,Object> endpoint(Remote object) {
+  static Map<String,Object> endpoint(Remote object) throws Exception {
     RemoteRef reference = object instanceof RemoteObject remote ? remote.getRef()
       : ((RemoteObjectInvocationHandler)Proxy.getInvocationHandler(object)).getRef();
-    TCPEndpoint endpoint = (TCPEndpoint)((UnicastRef)reference).getLiveRef().getEndpoint();
+    // Inspect the native stub; this opens only client-side JDK metadata.
+    var method = LiveRef.class.getDeclaredMethod("getEndpoint");
+    method.setAccessible(true);
+    TCPEndpoint endpoint = (TCPEndpoint)method.invoke(((UnicastRef)reference).getLiveRef());
     return map("class", object.getClass().getName(), "host", endpoint.getHost(), "port", endpoint.getPort(), "reference", reference.remoteToString());
   }
   static JMXConnector connect(String role, String password) throws Exception {
