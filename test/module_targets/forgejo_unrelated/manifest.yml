@@ -28,3 +28,6 @@ support_files:
   - lib/msf/core/module/failure.rb
   - lib/msf/core/db_manager/service.rb
   - lib/msf/core/db_manager/vuln.rb
+  - spec/modules/auxiliary/gather/forgejo_orgmode_fileread_spec.rb
+  - spec/file_fixtures/modules/auxiliary/forgejo_file/responses.json
+  - spec/file_fixtures/modules/auxiliary/forgejo_file/README.md
