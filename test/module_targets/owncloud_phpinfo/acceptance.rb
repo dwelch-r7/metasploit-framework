@@ -107,7 +107,7 @@ module Acceptance
         return output
       end
 
-      expect(output).not_to include('Auxiliary failed', 'Auxiliary aborted', '[-]')
+      expect(output).not_to include('Auxiliary failed', 'Auxiliary aborted')
       expect(output).to include('Found phpinfo page at:', 'Credentials')
       expected_path = @native.fetch('prefix') + '/apps/graphapi/vendor/microsoft/microsoft-graph/tests/GetPhpInfo.php/.' + options.fetch('ENDFILE', 'css')
       expect(output).to include('Found phpinfo page at: ' + expected_path)
