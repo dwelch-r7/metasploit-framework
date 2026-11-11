@@ -18,7 +18,9 @@ module Acceptance
       argv = target_runtime.fetch('compose') + ['logs', '--no-color', '--no-log-prefix', 'destination']
       bounce_command(argv, 'destination-observations.log').lines.filter_map do |line|
         match = line.strip.match(/\AMODULE_TARGET_BOUNCE (\S+) (\d+) "(.*)" (\d+)\z/)
-        next unless match && match[3].include?('module-target.txt')
+        # Apache's %r retains the first three parsed fields of the invalid
+        # directory-listing request; the filename is outside that logged span.
+        next unless match && match[3] == '-rw-r--r-- 1 0' && match[4] == '400'
 
         { 'host' => match[1], 'port' => match[2].to_i, 'request' => match[3], 'status' => match[4].to_i }
       end
@@ -59,7 +61,7 @@ module Acceptance
       options = {
         'BOUNCEHOST' => relay_host, 'BOUNCEPORT' => 21, 'PORTS' => ports,
         'FTPUSER' => 'anonymous', 'FTPPASS' => 'module-target@example.test',
-        'FTPTimeout' => 4, 'THREADS' => 1, 'DELAY' => 0, 'JITTER' => 0
+        'FTPTimeout' => 4, 'FTPDEBUG' => true, 'THREADS' => 1, 'DELAY' => 0, 'JITTER' => 0
       }.merge(extra)
       output = run_target_module(OWNER, 'destination', options, endpoint_options: { 'RHOSTS' => destination }, allow_errors: extra['FTPPASS'] == 'wrong-password')
       reports = bounce_reports.drop(report_count)
