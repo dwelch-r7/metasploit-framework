@@ -1,0 +1,50 @@
+services:
+  ollama:
+    build: .
+    platform: linux/amd64
+    init: true
+    cpus: 0.5
+    mem_limit: 1024m
+    memswap_limit: 1024m
+    pids_limit: 128
+    environment:
+      OLLAMA_HOST: 0.0.0.0:11434
+      OLLAMA_LLM_LIBRARY: cpu
+      OLLAMA_NUM_PARALLEL: '1'
+      OLLAMA_MAX_LOADED_MODELS: '1'
+      OLLAMA_KEEP_ALIVE: '-1'
+      CUDA_VISIBLE_DEVICES: '-1'
+      GOMAXPROCS: '1'
+    networks: [default, public]
+    ports: [{target: 11434, host_ip: 127.0.0.1}]
+    healthcheck:
+      test: [CMD, python3, /lab/health.py]
+      interval: 5s
+      timeout: 4s
+      start_period: 5s
+      retries: 24
+  proxy:
+    image: httpd:2.4.62@sha256:4c7788695c832bf415a662dfb5160f1895e65fc65c025e85f436ee2c9e7d7f3e
+    platform: linux/amd64
+    init: true
+    cpus: 0.1
+    mem_limit: 64m
+    memswap_limit: 64m
+    pids_limit: 64
+    command: [bash, -c, 'htpasswd -bc /tmp/ollama.htpasswd laboperator module-target-password && exec httpd-foreground -c "Include conf/extra/ollama.conf"']
+    volumes: [./proxy.conf:/usr/local/apache2/conf/extra/ollama.conf:ro]
+    networks: [default, public]
+    ports: [{target: 11800, host_ip: 127.0.0.1}]
+    healthcheck:
+      test: [CMD-SHELL, 'kill -0 1']
+      interval: 5s
+      timeout: 2s
+      retries: 24
+  framework:
+    cpus: 1
+    mem_limit: 768m
+    memswap_limit: 768m
+    pids_limit: 256
+networks:
+  default: {internal: true}
+  public:

@@ -1,0 +1,9 @@
+spec: spec/modules/auxiliary/scanner/http/ollama_info_target_spec.rb
+expected_examples: 12
+console: true
+module_endpoint_network: default
+modules: [auxiliary/scanner/http/ollama_info]
+ports: {ollama: 11434, proxy: 11800}
+support_files:
+  - lib/msf/core/exploit/remote/http_client.rb
+  - lib/msf/core/auxiliary/scanner.rb
