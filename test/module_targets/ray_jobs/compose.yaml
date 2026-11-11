@@ -1,0 +1,18 @@
+services:
+  ray:
+    extends: {file: ../ray/compose.yaml, service: ray}
+    environment:
+      MODULE_TARGET_JOB_ARTIFACTS: ${MODULE_TARGET_ARTIFACTS:?Set by the module target runner}
+    volumes:
+      - ./observer.py:/module-target/jobs-observer.py:ro
+      - ${MODULE_TARGET_ARTIFACTS}:${MODULE_TARGET_ARTIFACTS}:ro
+  unrelated:
+    extends: {file: ../ray/compose.yaml, service: unrelated}
+  framework:
+    cpus: 1
+    mem_limit: 768m
+    memswap_limit: 768m
+    pids_limit: 256
+networks:
+  default: {internal: true}
+  public:

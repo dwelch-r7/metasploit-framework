@@ -1,0 +1,40 @@
+spec: spec/modules/exploits/linux/http/ray_jobs_target_spec.rb
+expected_examples: 9
+console: true
+module_endpoint_network: default
+modules:
+  - exploit/linux/http/ray_agent_job_rce
+ports:
+  ray: 8265
+  unrelated: 80
+support_files:
+  - test/module_targets/ray/README.md
+  - test/module_targets/ray/bootstrap.sh
+  - test/module_targets/ray/compose.yaml
+  - test/module_targets/ray/diagnostics.py
+  - test/module_targets/ray/native_gate.rb
+  - test/module_targets/ray/native_probe.py
+  - test/module_targets/ray/native_runtime.py
+  - test/module_targets/ray/native_target.py
+  - test/module_targets/ray/sources-2.6.3.json
+  - test/module_targets/ray/unrelated.conf
+  - test/module_targets/superset/native_gate.rb
+  - test/module_targets/druid/compose.yaml
+  - lib/msf/core/exploit/remote/http_client.rb
+  - lib/rex/proto/http/client.rb
+  - lib/rex/proto/http/response.rb
+  - test/module_targets/superset_rce_owner/connection_state.py
+  - modules/payloads/stagers/linux/x64/reverse_tcp.rb
+  - modules/payloads/stages/linux/x64/meterpreter.rb
+  - modules/payloads/singles/linux/x64/meterpreter_reverse_tcp.rb
+  - modules/payloads/singles/linux/x64/shell_reverse_tcp.rb
+  - modules/payloads/adapters/cmd/linux/http/x64.rb
+  - modules/payloads/singles/cmd/unix/generic.rb
+  - lib/msf/core/payload/linux/x64/reverse_tcp.rb
+  - lib/msf/core/payload/adapter/fetch.rb
+  - lib/msf/core/payload/adapter/fetch/linux_options.rb
+  - lib/msf/core/payload/adapter/fetch/http.rb
+  - lib/msf/core/payload/adapter/fetch/server/http.rb
+  - lib/msf/core/exploit/cmd_stager.rb
+  - lib/msf/core/exploit/remote/http_server.rb
+  - lib/msf/base/sessions/meterpreter_x64_linux.rb
