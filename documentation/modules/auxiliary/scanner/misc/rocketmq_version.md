@@ -2,6 +2,10 @@
 
 Version scanner for the Apache RocketMQ product.
 
+The repository's [bounded RocketMQ lab](../../../../../test/module_targets/rocketmq/README.md)
+provides pinned 4.9.4/5.1.1 targets, native SDK controls, repeated version
+enumeration and error-path tests with automatic teardown.
+
 ### Setup
 
 Instructions taken from https://github.com/Malayke/CVE-2023-33246_RocketMQ_RCE_EXPLOIT

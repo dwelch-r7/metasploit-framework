@@ -1,0 +1,14 @@
+spec: spec/modules/auxiliary/scanner/rocketmq_target_spec.rb
+expected_examples: 8
+console: true
+# The exploit's execution/session paths remain unqualified until exercised.
+modules: [auxiliary/scanner/misc/rocketmq_version]
+ports: {vulnerable: 9876, fixed: 9876}
+support_files:
+  - modules/exploits/multi/http/apache_rocketmq_update_config.rb
+  - lib/msf/core/auxiliary/rocketmq.rb
+  - data/rocketmq_versions_list.json
+  - lib/msf/core/exploit/remote/tcp.rb
+  - lib/msf/core/exploit/remote/auto_check.rb
+  - lib/msf/core/auxiliary/scanner.rb
+  - test/module_targets/ntp/report_observer.rb

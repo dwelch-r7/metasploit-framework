@@ -1,0 +1,34 @@
+x-rocketmq: &rocketmq
+  platform: linux/amd64
+  init: true
+  cpus: 0.25
+  mem_limit: 640m
+  memswap_limit: 640m
+  pids_limit: 256
+  ports: [{target: 9876, host_ip: 127.0.0.1}]
+  healthcheck:
+    test: [CMD, bash, /lab/health.sh]
+    interval: 10s
+    timeout: 8s
+    start_period: 5s
+    retries: 12
+services:
+  vulnerable:
+    <<: *rocketmq
+    build:
+      context: .
+      args:
+        ROCKETMQ_VERSION: 4.9.4
+        ROCKETMQ_IMAGE: apache/rocketmq@sha256:79b41e2956de07c576949bedf8f9bc5eac9f1eeb72362b89ee2344219e5a46b1
+  fixed:
+    <<: *rocketmq
+    build:
+      context: .
+      args:
+        ROCKETMQ_VERSION: 5.1.1
+        ROCKETMQ_IMAGE: apache/rocketmq@sha256:ea678fa94854010d27e1ae82fcb929ee02381e65751921fc188d4f8110065983
+  framework:
+    cpus: 1
+    mem_limit: 768m
+    memswap_limit: 768m
+    pids_limit: 256
