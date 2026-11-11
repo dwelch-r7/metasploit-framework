@@ -132,7 +132,22 @@ public final class NativeProbe {
     public static void main(String[] args) throws Exception {
         NativeProbe probe = new NativeProbe();
         try {
-            Object result = args[0].equals("control") ? probe.control() : probe.snapshot();
+            Object result;
+            if (args[0].equals("control")) {
+                result = probe.control();
+            } else if (args[0].equals("restore")) {
+                // Recovery is a visible native SDK operation, never an owning
+                // module success. Session tests assert state before using it.
+                Properties properties = new Properties();
+                properties.setProperty("rocketmqHome", args[1]);
+                properties.setProperty("filterServerNums", args[2]);
+                Map<String, Object> restored = new LinkedHashMap<>();
+                restored.put("update", probe.update(properties));
+                restored.put("snapshot", probe.snapshot());
+                result = restored;
+            } else {
+                result = probe.snapshot();
+            }
             System.out.println("NATIVE_JSON=" + JSON.toJSONString(result));
         } finally {
             probe.client.shutdown();

@@ -1,0 +1,37 @@
+spec: spec/modules/exploits/multi/http/rocketmq_sessions_target_spec.rb
+expected_examples: 4
+console: true
+modules: [exploit/multi/http/apache_rocketmq_update_config]
+ports: {vulnerable: 9876, fixed: 9876}
+support_files:
+  - test/module_targets/rocketmq/NativeProbe.java
+  - test/module_targets/rocketmq/Dockerfile
+  - test/module_targets/rocketmq/start.sh
+  - test/module_targets/rocketmq/native.sh
+  - test/module_targets/rocketmq/health.sh
+  - test/module_targets/rocketmq/compose.yaml
+  - test/module_targets/rocketmq/acceptance.rb
+  - test/module_targets/druid_sessions/session_control.rb
+  - lib/msf/core/auxiliary/rocketmq.rb
+  - data/rocketmq_versions_list.json
+  - lib/msf/core/exploit/remote/tcp.rb
+  - lib/msf/core/exploit/remote/auto_check.rb
+  - lib/msf/core/exploit.rb
+  - lib/msf/core/exploit_driver.rb
+  - lib/msf/core/encoded_payload.rb
+  - lib/msf/core/payload/adapter/fetch.rb
+  - lib/msf/core/payload/adapter/fetch/linux_options.rb
+  - lib/msf/core/handler/reverse_tcp.rb
+  - lib/msf/base/sessions/command_shell.rb
+  - lib/msf/base/sessions/meterpreter.rb
+  - lib/msf/base/sessions/meterpreter_x64_linux.rb
+  - lib/msf/core/payload/linux/x64/reverse_tcp.rb
+  - modules/payloads/singles/cmd/unix/reverse_bash.rb
+  - modules/payloads/adapters/cmd/linux/http/x64.rb
+  - modules/payloads/stagers/linux/x64/reverse_tcp.rb
+  - modules/payloads/stages/linux/x64/meterpreter.rb
+  - modules/encoders/cmd/base64.rb
+  - modules/encoders/cmd/generic_sh.rb
+  - modules/encoders/cmd/echo.rb
+  - modules/encoders/cmd/ifs.rb
+  - modules/encoders/cmd/brace.rb
