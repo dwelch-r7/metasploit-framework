@@ -1144,3 +1144,14 @@ setup/harness failures remain sealed; no production fix is needed. All 38 inputs
 match current source, cold metadata is observed and ten root cleanup queries
 pass. The four-container budget is 960 MiB/1.3 CPUs. Registration covers 194
 sources; the broader feasible-module campaign remains incomplete. No PR is created.
+
+## FTP bounce port scanning
+
+The [FTP bounce checkpoint](VERIFICATION-20261111-ftp-bounce.md) qualifies the
+unchanged module on genuine ProFTPD 1.3.7c, reaching 193 modules, 138 profiles and
+1,526 examples. Native active transfers and real destination logs support ten
+cases, twenty owning calls and eighteen actual received data connections. Auth,
+relay policy, low/closed ports, lists/ranges and repeats pass. A native-log-field
+matcher failure remains sealed. Root verifies all 43 inputs, actual cold metadata
+and ten exact cleanup queries. Four containers remain capped at 960 MiB/1.3 CPUs.
+Other products/timings and the broader valuable-module queue remain incomplete.

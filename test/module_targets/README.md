@@ -523,3 +523,11 @@ actual module calls have distinct wire records and checked reporting arguments;
 dynamic amplification matches captured replies. Four containers are capped at
 960 MiB/1.3 CPUs, and ten exact cleanup queries leave Docker empty. Registration
 is 194 sources, with 310 documented container hints still pending review.
+
+The [FTP bounce checkpoint](VERIFICATION-20261111-ftp-bounce.md) advances coverage
+to **193 modules, 138 profiles and 1,526 examples**. Ten cases and twenty actual
+module calls verify ProFTPD relay behavior against received Apache connections,
+authentication/policy negatives and mixed ports. The four-role cap remains
+960 MiB/1.3 CPUs. The original native-log matcher failure is preserved, all
+43 current inputs match and ten exact cleanup queries pass with Docker empty.
+Registration covers 195 sources; 309 documented container hints remain pending.

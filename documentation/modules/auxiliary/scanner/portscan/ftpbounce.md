@@ -4,6 +4,16 @@ Enumerate TCP services via the FTP bounce PORT/LIST method
 
 ## Verification Steps
 
+### Automated container lab
+
+The [repository profile](../../../../../test/module_targets/ftp_bounce/README.md)
+uses real ProFTPD relays and an Apache destination. Native FTP/HTTP controls,
+received data connections and reporting API arguments verify repeated scans,
+authentication, mixed port lists/ranges and policy refusals. See the
+[results and limits](../../../../../test/module_targets/VERIFICATION-20261111-ftp-bounce.md).
+
+### Manual verification
+
 1. Start msfconsole
 2. Do: `use modules/auxiliary/scanner/portscan/ftpbounce`
 3. Do: `set BOUNCEHOST [ip]`
