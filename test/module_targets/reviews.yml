@@ -136,3 +136,16 @@ modules:
       merely by seeding OIDs. A genuine device or runnable matching vendor image
       is required; this is an image requirement, not a claim that an emulator
       or container with such an image is impossible.
+  auxiliary/scanner/misc/java_rmi_server:
+    source_sha256: afbec89af215cfa1637cc06100edfe9ab112a3b4fb2992b7c7a58ad8857ac3b1
+    disposition: historical_jvm_required
+    reason: >-
+      Genuine Temurin 17.0.21+9 DGC controls failed before any owning call.
+      Modern vendor dispatch ignores client codebase annotations, and an
+      explicit server HTTP codebase is still denied SocketPermission connect
+      by the restricted DGC context despite AllPermission and a permissive
+      filter. Preserve the original eighteen-case deferred Java profile and
+      investigate a genuine historical runtime; do not substitute a patched
+      dispatcher or count ordinary registry/JMX success as this scanner's
+      qualification. This is a target prerequisite finding, not a verified
+      Framework scanner defect or universal Docker exclusion.
