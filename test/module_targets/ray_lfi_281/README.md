@@ -2,8 +2,8 @@
 
 This profile uses the [genuine Ray component](../ray/README.md) at pinned 2.8.1,
 unrelated Apache and the canonical Framework console. Its three-role
-budget is 2,112MiB/2.1CPUs; Ray uses 1,280MiB after the native supervisor
-hit its memory threshold at 1,024MiB. [The affected 2.6.3 profile](../ray_lfi/README.md)
+budget is 2,368MiB/2.1CPUs; Ray uses 1,536MiB after native workloads
+hit the ordinary memory monitor threshold at both 1,024MiB and 1,280MiB. [The affected 2.6.3 profile](../ray_lfi/README.md)
 retains 1,856MiB/2.1CPUs. Ray's ordinary memory monitor remains enabled.
 
 ```sh
