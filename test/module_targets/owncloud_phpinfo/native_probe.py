@@ -115,8 +115,8 @@ try:
         assert result['owncloud_schema_tables'] > 20
         result['redis_version'] = execute('redis', 'redis-server', '--version').decode().strip()
         assert execute('redis', 'redis-cli', '--no-auth-warning', '-a', 'module-target-redis-password', 'PING').strip() == b'PONG'
-        denied = execute('redis', 'redis-cli', '--no-auth-warning', '-a', 'module-target-rejected-password', 'PING')
-        assert b'NOAUTH' in denied or b'WRONGPASS' in denied
+        execute('redis', 'redis-cli', '--no-auth-warning', '-a', 'module-target-rejected-password', 'PING', expected=1)
+        assert b'WRONGPASS' in base64.b64decode(commands[-1]['stderr_base64'])
         path = prefix + '/apps/graphapi/vendor/microsoft/microsoft-graph/tests/GetPhpInfo.php'
         status, body = request(path)
         assert status in {301, 302} and b'phpinfo()' not in body
@@ -141,5 +141,8 @@ try:
         'begin; TCPSocket.new(ARGV[0], 1); abort "Unexpected listener"; rescue Errno::ECONNREFUSED; puts "refused"; end', endpoint['host'], owner=True)
     assert refused.strip() == b'refused'
     result['status'] = 'native_passed'
+except (AssertionError, OSError, ValueError, subprocess.SubprocessError) as error:
+    result.update(status='native_failed', error=str(error))
+    raise
 finally:
     Path(runtime['artifacts'], 'native-' + phase + '.json').write_text(json.dumps(result, indent=2) + '\n')

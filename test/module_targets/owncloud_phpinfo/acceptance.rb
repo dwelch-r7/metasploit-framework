@@ -87,6 +87,8 @@ module Acceptance
 
       expect(output).not_to include('Auxiliary failed', 'Auxiliary aborted', '[-]')
       expect(output).to include('Found phpinfo page at:', 'Credentials')
+      expected_path = @native.fetch('prefix') + '/apps/graphapi/vendor/microsoft/microsoft-graph/tests/GetPhpInfo.php/.' + options.fetch('ENDFILE', 'css')
+      expect(output).to include('Found phpinfo page at: ' + expected_path)
       expect(paths.size).to eq(1)
       parsed, status = Open3.capture2('python3', 'test/module_targets/owncloud_phpinfo/phpinfo.py', paths.fetch(0))
       expect(status.success?).to be(true)

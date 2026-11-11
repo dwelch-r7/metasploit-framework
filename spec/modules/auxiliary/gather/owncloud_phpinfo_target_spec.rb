@@ -46,6 +46,10 @@ RSpec.describe 'Genuine ownCloud phpinfo collection', acceptance: true do
 
   it 'accepts the explicit empty root at the native application base twice' do
     2.times { owncloud_collection({ 'TARGETURI' => @native.fetch('prefix') + '/', 'ROOT' => '' }) }
+    if profile == 'prefix'
+      # Empty ROOT at / must not silently fall back to discovery of /owncloud.
+      2.times { owncloud_collection({ 'ROOT' => '', 'TARGETURI' => '/' }, exposed: false) }
+    end
   end
 
   it 'handles the explicit owncloud root according to the real deployment twice' do
