@@ -241,12 +241,14 @@ module FlowiseAcceptance
         ancestry.each do |process|
           wait_target(20) { expect(target_exec('app', 'sh', '-c', 'if test -e "$1"; then printf PRESENT; else printf ABSENT; fi', 'sh', "/proc/#{process.fetch('pid')}")).to eq('ABSENT') }
         end
+        # Remote exit is already proved; close only the finished host shell.
+        console_command("irb -e #{"framework.sessions[#{session_id}]&.shell_close".inspect}") unless meterpreter
         wait_target(15) { expect(console_command('sessions -l')).to include('No active sessions') }
         if meterpreter
           fetch_path = "/tmp/#{options.fetch('FETCH_FILENAME')}"
           wait_target(20) { expect(target_exec('app', 'sh', '-c', 'if test -e "$1"; then printf PRESENT; else printf ABSENT; fi', 'sh', fetch_path)).to eq('ABSENT') }
         end
-        record('session-proofs.jsonl', owner: owner, payload: payload, session_id: session_id, pid: pid, exact_bytes_base64: Base64.strict_encode64(value), graceful_pid_absence: true, output: output)
+        record('session-proofs.jsonl', owner: owner, payload: payload, session_id: session_id, pid: pid, exact_bytes_base64: Base64.strict_encode64(value), graceful_pid_absence: true, host_cleanup: meterpreter ? 'meterpreter_exit' : 'operator_shell_close_after_target_exit', output: output)
       end
     end
   end

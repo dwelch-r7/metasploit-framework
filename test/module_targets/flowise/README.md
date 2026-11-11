@@ -50,6 +50,11 @@ The vendor Dockerfile uses an unpinned global npm install; a digest/tag alone do
 not establish installed version. Publisher-distributed package/JS bytes are
 source-only HTTP receipts, not executed substitutes for the target application.
 A mismatch stops setup for investigation.
+Package identity follows the actual Flowise dependency lookup and public entry
+point before reading its real manifest. This supports packages whose exports
+hide `package.json`; package names, versions, entrypoint containment and every
+original publisher hash remain required. Resolving an entry point does not load
+or execute that package.
 
 The native MCP program uses the target's genuine installed MCP SDK and must
 return its actual tool identity/PID and live self /proc snapshot through Flowise.
@@ -68,6 +73,14 @@ Password recovery must consume a token from actual delivered email, not pretend
 that SMTP succeeded. Account restoration proves the original secret works and
 consumed tokens refuse reuse; timestamps/salted hashes/logs may legitimately
 change and remain until disposable target teardown.
+The pinned 3.0.5/3.0.6 reset handlers mask an invalid-token exception with a
+transaction-not-started HTTP500. The replay control requires that exact captured
+error, a distinct replay password, independent read-only SQLite user/token row
+snapshots immediately before/after replay, a fresh current-password login and
+replay-password refusal. The 500 alone cannot satisfy the control. Snapshotting
+before the login probes separates replay effects from authentication metadata.
+The same proof protects native recovery and the affected owner's consumed token;
+existing exact loot, changed/original login checks and restoration remain required.
 
 The 3.0.5/3.0.6 app profiles explicitly set `ALLOW_UNAUTHORIZED_CERTS=true` for
 **unverified local SMTP TLS**. The pinned compiled mailer treats any nonempty
@@ -149,6 +162,11 @@ must be empty, followed by actual404 responses or observed closed-port refusal;
 pooled listener lifetime is recorded separately. Scoped target/npm files, links
 and directories are captured then restored using only exact new owned names.
 This is fixture restoration, not a claim of automatic owner cleanup.
+After a command shell's target ancestry is proved absent, the fixture explicitly
+closes that finished host session through `shell_close` and still requires an
+empty host registry. This is operator stream/session cleanup, separate from the
+already observed remote exit. Meterpreter retains its existing exit path. The
+session proof records which host cleanup path was used.
 
 ## Boundaries and pending paths
 

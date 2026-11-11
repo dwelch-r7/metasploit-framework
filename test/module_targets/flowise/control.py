@@ -8,7 +8,7 @@ import uuid
 
 sys.dont_write_bytecode = True
 from native_adapter import NativeFlowise
-from native_actions import PASSWORD, login, restore_password, spool
+from native_actions import PASSWORD, consumed_token_replay, login, restore_password, spool
 
 
 def main():
@@ -22,6 +22,8 @@ def main():
             result = {'status': status, 'body_base64': base64.b64encode(body).decode()}
         elif action == 'restore':
             result = restore_password(native)
+        elif action == 'consumed_replay':
+            result = consumed_token_replay(native, request['email'], request['token'], request['current_password'])
         elif action in ['state', 'restore_state']:
             from native_state import STATE_SCRIPT
             operation = "console.log(JSON.stringify(snapshot()));" if action == 'state' else "console.log(JSON.stringify(restore(JSON.parse(process.argv[1]))));"

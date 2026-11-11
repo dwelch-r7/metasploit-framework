@@ -159,7 +159,9 @@ RSpec.describe 'Native Flowise command, session and account targets' do
           expect([400, 401, 403, 404]).to include(native(action: 'login').fetch('status'))
           request = @last_inputs.find { |row| row['kind'] == 'REQUEST-ARGS/RESPONSE-BODY' && row['uri'].end_with?('/reset-password') }
           actual = JSON.parse(Base64.strict_decode64(request.fetch('data_base64')))
-          expect(native(action: 'request', path: '/api/v1/account/reset-password', data: actual).fetch('status')).to eq(400)
+          expect(actual.fetch('user').fetch('password')).to eq(changed)
+          replay = native(action: 'consumed_replay', email: actual.fetch('user').fetch('email'), token: actual.fetch('user').fetch('tempToken'), current_password: changed)
+          expect(replay.fetch('replay_rejected')).to be(true)
         else
           expect(output).not_to include('Password reset successful')
           expect(loot_files).to eq(@before_loot)

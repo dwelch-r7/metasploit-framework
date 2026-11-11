@@ -13,6 +13,11 @@ EMAIL = 'module_target@module-target.test'
 PASSWORD = 'FlowiseNative!42'
 BASIC = ('module_native', 'module-target-basic-password')
 SMTP_PASSWORD = ' module-target: capture "quoted" \\ tail '
+RESET_TRANSACTION_ERROR = 'Transaction is not started yet, start transaction before committing or rolling it back.'
+SQLITE_READONLY_SCRIPT = '''import sqlite3,json,sys
+c=sqlite3.connect('file:/root/.flowise/database.sqlite?mode=ro',uri=True)
+c.execute('PRAGMA query_only=ON')
+'''
 
 
 def login(native, password=PASSWORD):
@@ -64,12 +69,32 @@ def remove(native, *paths):
 
 def identity(native):
     expected = json.loads((Path(__file__).parent / 'published_artifacts.json').read_text())[native.definition['version']]
-    script = '''const fs=require('fs'),p=require('path'),crypto=require('crypto');
+    script = '''const fs=require('fs'),p=require('path'),crypto=require('crypto'),{createRequire}=require('module');
 const root=p.dirname(p.dirname(fs.realpathSync('/usr/local/bin/flowise')));
+const lookup=createRequire(p.join(root,'package.json')),packages=new Map();
+// package.json can be private. Resolve the public entrypoint without loading
+// it, then validate its manifest in the genuine dependency lookup order.
+function installedPackage(name){
+if(packages.has(name))return packages.get(name);
+let manifest,entrypoint;
+if(name==='flowise'){manifest=p.join(root,'package.json');entrypoint=fs.realpathSync('/usr/local/bin/flowise');}
+else{
+ entrypoint=fs.realpathSync(lookup.resolve(name));
+ for(const directory of lookup.resolve.paths(name)||[]){
+  const candidate=p.join(directory,name,'package.json');
+  if(fs.existsSync(candidate)){manifest=fs.realpathSync(candidate);break;}
+ }
+ if(!manifest)throw new Error('Installed package manifest not found: '+name);
+}
+const metadata=JSON.parse(fs.readFileSync(manifest)),packageRoot=fs.realpathSync(p.dirname(manifest));
+if(metadata.name!==name||typeof metadata.version!=='string')throw new Error('Unexpected installed package identity: '+manifest);
+const relative=p.relative(packageRoot,entrypoint);
+if(relative==='..'||relative.startsWith('..'+p.sep)||p.isAbsolute(relative))throw new Error('Resolved entrypoint is outside package: '+name);
+const result={manifest,root:packageRoot,entrypoint,name:metadata.name,version:metadata.version};packages.set(name,result);return result;
+}
 const expected=JSON.parse(process.argv[1]);
-const rows=expected.map(item=>{try{const packagePath=item.package==='flowise'?p.join(root,'package.json'):require.resolve(item.package+'/package.json',{paths:[root]});
-const location=p.join(p.dirname(packagePath),item.path);const bytes=fs.readFileSync(location);
-return {...item,location,actual_base64:bytes.toString('base64'),actual_sha256:crypto.createHash('sha256').update(bytes).digest('hex')};}catch(error){return {...item,actual_error:{code:error.code,message:error.message}};}});
+const rows=expected.map(item=>{try{const resolved=installedPackage(item.package),location=p.join(resolved.root,item.path),bytes=fs.readFileSync(location);
+return {...item,location,package_manifest:resolved.manifest,package_entrypoint:resolved.entrypoint,package_name:resolved.name,package_version:resolved.version,actual_base64:bytes.toString('base64'),actual_sha256:crypto.createHash('sha256').update(bytes).digest('hex')};}catch(error){return {...item,actual_error:{code:error.code,message:error.message}};}});
 let mail;
 if(JSON.parse(process.argv[2])){
 const mailer=p.join(root,'dist/enterprise/utils/sendEmail.js');
@@ -211,6 +236,63 @@ s.send_message(m);s.quit()
     return {'version': version, 'real_smtp_authentication': True, 'exact_native_message_present': True}
 
 
+def sqlite_readonly(native, script, *arguments):
+    return json.loads(native.cli('app', 'python3', '-c', SQLITE_READONLY_SCRIPT + script, *arguments)['stdout'])
+
+
+def account_state(native, email_address):
+    # Discover the actual account table/columns and read only the fixture row.
+    # The connection mode and query_only reuse the existing persistence control.
+    script = '''c.row_factory=sqlite3.Row
+matches=[]
+for (name,) in c.execute("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name").fetchall():
+ quote=lambda value:'"'+value.replace('"','""')+'"'
+ columns={row[1].replace('_','').lower():row[1] for row in c.execute('PRAGMA table_info('+quote(name)+')')}
+ if {'id','email','credential','temptoken','tokenexpiry'}.issubset(columns):
+  for row in c.execute('SELECT * FROM '+quote(name)+' WHERE '+quote(columns['email'])+'=?',(sys.argv[1],)):
+   matches.append({'table':name,'columns':columns,'row':dict(row)})
+print(json.dumps({'query_only':c.execute('PRAGMA query_only').fetchone()[0],'matches':matches}))'''
+    result = sqlite_readonly(native, script, email_address)
+    assert result['query_only'] == 1 and len(result['matches']) == 1, 'Read-only account snapshot must identify exactly one fixture account'
+    return result['matches'][0]
+
+
+def known_reset_transaction_error(status, body):
+    """Match the pinned target exception; this alone does not prove replay denial."""
+    if type(status) is not int or status != 500:
+        return False
+    try:
+        value = json.loads(body)
+    except (json.JSONDecodeError, UnicodeDecodeError):
+        return False
+    expected = {'statusCode': 500, 'success': False, 'message': RESET_TRANSACTION_ERROR, 'stack': {}}
+    return isinstance(value, dict) and value == expected and type(value['statusCode']) is int and value['success'] is False
+
+
+def consumed_token_replay(native, email_address, token, current_password):
+    assert native.definition['version'] in ['3.0.5', '3.0.6'], 'Consumed-token exception control requires the pinned SMTP profile'
+    assert email_address == EMAIL and isinstance(token, str) and token, 'Consumed-token replay must identify the actual fixture account and token'
+    before = account_state(native, email_address)
+    assert before['row'][before['columns']['temptoken']] in ['', None], 'Successful reset did not consume the fixture token'
+    replay_password = 'FlowiseReplay!42' if current_password != 'FlowiseReplay!42' else 'FlowiseAlternate!42'
+    status, body = native.request('/api/v1/account/reset-password', {'user': {'email': email_address, 'tempToken': token, 'password': replay_password}})
+    # Observe the replay's database effect before authentication probes can
+    # legitimately affect login metadata or session tables.
+    after = account_state(native, email_address)
+    current_status = login(native, current_password)[0]
+    replay_status = login(native, replay_password)[0]
+    # The pinned handlers throw before startTransaction, then mask that error
+    # with unconditional rollback. Only this captured 500 shape is supported,
+    # together with independent real state and fresh credential controls.
+    assert known_reset_transaction_error(status, body), 'Consumed-token replay did not return the exact captured target exception'
+    assert before == after, 'Consumed-token replay changed the fixture account or token row'
+    assert current_status in [200, 201], 'Current password no longer authenticates after consumed-token replay'
+    assert replay_status == 401, 'Distinct consumed-token replay password was not refused'
+    return {'replay_rejected': True, 'reused_token_status': status, 'response_base64': base64.b64encode(body).decode(),
+            'distinct_replay_password': True, 'current_password_login_status': current_status, 'replay_password_login_status': replay_status,
+            'account_state_unchanged': True, 'before': before, 'after': after}
+
+
 def restore_password(native, password=PASSWORD):
     previous = spool(native)
     status, body = native.request('/api/v1/account/forgot-password', {'user': {'email': EMAIL}})
@@ -229,9 +311,9 @@ def restore_password(native, password=PASSWORD):
     status, response = native.request('/api/v1/account/reset-password', {'user': {'email': EMAIL, 'tempToken': token, 'password': password}})
     assert status == 201, (status, response)
     assert login(native, password)[0] in [200, 201]
-    reused, _ = native.request('/api/v1/account/reset-password', {'user': {'email': EMAIL, 'tempToken': token, 'password': password}})
-    assert reused == 400
-    return {'forgot_status': 201, 'response_base64': base64.b64encode(body).decode(), 'email_delivered': True, 'reset_status': status, 'login_accepted': True, 'reused_token_status': reused}
+    replay = consumed_token_replay(native, EMAIL, token, password)
+    return {'forgot_status': 201, 'response_base64': base64.b64encode(body).decode(), 'email_delivered': True, 'reset_status': status, 'login_accepted': True,
+            'reused_token_status': replay['reused_token_status'], 'consumed_token_proof': replay}
 
 
 def persistence_control(native):
@@ -240,10 +322,7 @@ def persistence_control(native):
     status, body = native.request('/api/v1/chatflows', {'name': name, 'flowData': '{"nodes":[],"edges":[]}', 'deployed': False, 'isPublic': False, 'type': 'CHATFLOW'}, client=client, headers=headers(native))
     assert status == 200, (status, body)
     identifier = json.loads(body)['id']
-    script = '''import sqlite3,json,sys
-c=sqlite3.connect('file:/root/.flowise/database.sqlite?mode=ro',uri=True)
-c.execute('PRAGMA query_only=ON')
-rows=[]
+    script = '''rows=[]
 for (name,) in c.execute("SELECT name FROM sqlite_master WHERE type='table'"):
  q='"'+name.replace('"','""')+'"'
  columns=[r[1] for r in c.execute('PRAGMA table_info('+q+')')]
@@ -251,9 +330,9 @@ for (name,) in c.execute("SELECT name FROM sqlite_master WHERE type='table'"):
   count=c.execute('SELECT count(*) FROM '+q+' WHERE id=?',(sys.argv[1],)).fetchone()[0]
   if count:rows.append({'table':name,'matching_id_count':count})
 print(json.dumps(rows))'''
-    persisted = json.loads(native.cli('app', 'python3', '-c', script, identifier)['stdout'])
+    persisted = sqlite_readonly(native, script, identifier)
     assert len(persisted) == 1 and persisted[0]['matching_id_count'] == 1
     deleted, response = native.request('/api/v1/chatflows/' + identifier, client=client, headers=headers(native), method='DELETE')
     assert deleted == 200, (deleted, response)
-    assert json.loads(native.cli('app', 'python3', '-c', script, identifier)['stdout']) == []
+    assert sqlite_readonly(native, script, identifier) == []
     return {'chatflow_id': identifier, 'persisted_native_sqlite_rows': persisted, 'delete_status': deleted, 'native_sqlite_absence': True}
