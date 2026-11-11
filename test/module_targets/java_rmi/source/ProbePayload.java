@@ -18,20 +18,19 @@ public final class ProbePayload implements ProbePayloadMBean, Serializable {
   @SuppressWarnings("removal")
   public String prove(String value) throws IOException {
     if (!value.matches("[0-9a-f]{32}")) throw new IllegalArgumentException("Invalid owned token");
-    String proof = "MODULE_TARGET_JAVA_PROOF:" + value + ":PID=" + ProcessHandle.current().pid()
-      + ":USER=" + System.getProperty("user.name");
-    // The DGC dispatcher has a restricted calling context. Only the deliberately
-    // permissive enabled-role policy grants this downloaded class its own write
-    // permission; use that domain when proving actual deserialized execution.
+    // The DGC dispatcher has a restricted calling context. Perform marker-only
+    // operations in this downloaded class's domain, granted by the enabled
+    // role policy. PID lookup itself requires RuntimePermission manageProcess.
     try {
-      AccessController.doPrivileged((PrivilegedExceptionAction<Void>)() -> {
+      return AccessController.doPrivileged((PrivilegedExceptionAction<String>)() -> {
+        String proof = "MODULE_TARGET_JAVA_PROOF:" + value + ":PID=" + ProcessHandle.current().pid()
+          + ":USER=" + System.getProperty("user.name");
         Files.writeString(Path.of("/tmp/module-target-java-proof-" + value), proof, StandardOpenOption.CREATE_NEW);
-        return null;
+        return proof;
       });
     } catch (PrivilegedActionException error) {
       throw new IOException("Owned proof write failed", error.getException());
     }
-    return proof;
   }
   private void readObject(ObjectInputStream input) throws IOException, ClassNotFoundException {
     input.defaultReadObject();

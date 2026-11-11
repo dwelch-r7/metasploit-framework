@@ -200,9 +200,9 @@ public final class NativeProbe {
           require(readProof(server, nonce).equals("ABSENT"), "Fresh DGC proof exists");
           String error = new DgcClient(role).deliver(nonce);
           String proof = readProof(server, nonce);
+          profile.put("dgc", map("error", error, "proof", proof, "executed", !proof.equals("ABSENT")));
           if (role.equals("enabled")) checkServerProof(proof, nonce, runtimeName);
           else require(proof.equals("ABSENT"), "Default DGC unexpectedly executed remote code");
-          profile.put("dgc", map("error", error, "proof", proof, "executed", !proof.equals("ABSENT")));
           removeProof(server, nonce);
           if (!role.equals("guarded")) profile.put("jmx_execution", jmxProof(role, server, runtimeName));
           require(((String[])server.getAttribute(STATE, "Proofs")).length == 0, "Proof cleanup incomplete");
