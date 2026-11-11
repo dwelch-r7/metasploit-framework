@@ -7,7 +7,8 @@
 
 ### Docker Install
 
-A [dockerized gopher server written in Go](https://hub.docker.com/r/prodhe/gopher/) is available.  To install and run this, with content being
+A [dockerized gopher server written in Go](https://hub.docker.com/r/prodhe/gopher/) is available.
+To install and run this, with content being
 served out of a temporary directory in which you'll be left:
 
 ```
@@ -94,9 +95,9 @@ The following table contains the file types associated with the characters:
 
   1. Install the application
   2. Start msfconsole
-  3. Do: ```use auxiliary/scanner/gopher/gopher_gophermap```
-  4. Do: ```set rhosts [IPs]```
-  5. Do: ```run```
+  3. Do: `use auxiliary/scanner/gopher/gopher_gophermap`
+  4. Do: `set rhosts [IPs]`
+  5. Do: `run`
   6. You should see the gophermap file printed in a parsed format
 
 ## Options
@@ -105,6 +106,19 @@ The following table contains the file types associated with the characters:
 
   It is possible to view content within a directory of the gophermap.  If the initial run shows directory `Directory: foobar`,
   setting **path** to `/foobar` will enumerate the contents of that folder.  Default: [empty string].
+
+### GopherReadTimeout
+
+  Advanced option: maximum total seconds to receive a complete menu after
+  sending the selector. Default: `10`. Fragmented replies share this time budget;
+  it is separate from the TCP connection timeout and must be positive.
+
+### GopherMaxBytes
+
+  Advanced option: maximum raw menu size in bytes, including its terminating dot
+  line. Default: `1048576` (1 MiB). It must be positive. Increase this for larger
+  legitimate menus. Incomplete, oversized or malformed menus produce no partial
+  success or service record. A valid empty menu is still accepted.
 
 ## Scenarios
 

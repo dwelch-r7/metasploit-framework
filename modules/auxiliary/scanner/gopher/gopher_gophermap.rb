@@ -3,6 +3,8 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
+require 'rex/stopwatch'
+
 class MetasploitModule < Msf::Auxiliary
   include Msf::Exploit::Remote::Tcp
   include Msf::Auxiliary::Report
@@ -28,6 +30,11 @@ class MetasploitModule < Msf::Auxiliary
         OptString.new('PATH', [false, 'Path to enumerate', ''])
       ]
     )
+
+    register_advanced_options([
+      OptInt.new('GopherReadTimeout', [true, 'Maximum seconds to read a complete Gopher menu', 10]),
+      OptInt.new('GopherMaxBytes', [true, 'Maximum bytes in a complete Gopher menu', 1024 * 1024])
+    ])
   end
 
   TYPE_MAP = {
@@ -53,51 +60,96 @@ class MetasploitModule < Msf::Auxiliary
   }.freeze
 
   def get_type(char)
-    TYPE_MAP.fetch(char.chomp)
+    TYPE_MAP.fetch(char.chomp, nil)
   end
 
   def run_host(ip)
-    begin
-      connect
-      sock.put("#{datastore['path']}\r\n")
-      gophermap = sock.get_once
-      if gophermap
-        gophermap.split("\r\n").each do |line|
-          line_parts = line.split("\t")
-          next unless line_parts.length >= 2
+    unless datastore['GopherReadTimeout'].positive? && datastore['GopherMaxBytes'].positive?
+      fail_with(Failure::BadConfig, 'GopherReadTimeout and GopherMaxBytes must be positive')
+    end
 
-          # syntax: [type_character]description[tab]path[tab, after this is optional]server[tab]port
-          line_parts = line.split("\t")
-          desc = line_parts[0]
-          type_char = desc.slice!(0) # remove first character which is the file type
-          file_type = get_type(type_char)
-          if file_type && file_type == 'inline text'
-            print_good(desc)
-            next
-          end
-          if file_type
-            print_good("  #{file_type}: #{desc}")
-          else
-            print_good("  Invalid File Type (#{type_char}): #{desc}")
-          end
-          if line_parts.length >= 3
-            print_good("    Path: #{line_parts[2]}:#{line_parts[3]}#{line_parts[1]}")
-          elsif line.length >= 2
-            print_good("    Path: #{line_parts[2]}#{line_parts[1]}")
-          else
-            print_good("    Path: #{line_parts[1]}")
+    connect
+    sock.put("#{datastore['PATH']}\r\n")
+    gophermap = read_gophermap
+    unless gophermap
+      vprint_error('Failed to read a complete Gopher menu within the configured limits')
+      return
+    end
 
-          end
-        end
-        report_service(host: ip, port: rport, service: 'gopher', info: gophermap)
-      else
-        print_error('No gophermap')
+    rows = gopher_rows(gophermap)
+    unless rows
+      vprint_error('Target did not return a valid Gopher menu')
+      return
+    end
+
+    rows.each { |row| print_gopher_row(row) }
+    report_service(host: ip, port: rport, name: 'gopher', info: gophermap)
+  rescue Rex::ConnectionError, Rex::TimeoutError, ::Timeout::Error, ::IOError, ::Errno::ECONNRESET => e
+    vprint_error("Failed to read Gopher menu: #{e.message}")
+    elog('Gopher menu request failed', error: e)
+  ensure
+    disconnect
+  end
+
+  private
+
+  def read_gophermap
+    remaining = datastore['GopherReadTimeout']
+    maximum = datastore['GopherMaxBytes']
+    response = String.new.b
+
+    # RFC 1436 ends menus with a dot line; TCP receive blocks are not messages.
+    # https://www.rfc-editor.org/rfc/rfc1436.html
+    loop do
+      return nil if remaining <= 0
+
+      data, elapsed = Rex::Stopwatch.elapsed_time do
+        sock.get_once([sock.def_block_size, maximum - response.bytesize + 1].min, remaining)
       end
-    rescue ::Rex::ConnectionError, ::IOError, ::Errno::ECONNRESET
-    rescue ::Exception => e
-      print_error("#{ip}: #{e} #{e.backtrace}")
-    ensure
-      disconnect
+      remaining -= elapsed
+      return nil if remaining.negative? || data.nil? || data.empty?
+
+      response << data
+      return nil if response.bytesize > maximum
+      return response if response == ".\r\n" || response.end_with?("\r\n.\r\n")
+      return nil if response.bytesize == maximum
+    end
+  rescue EOFError
+    nil
+  end
+
+  def gopher_rows(gophermap)
+    payload = gophermap.delete_suffix(".\r\n")
+    return [] if payload.empty?
+
+    rows = payload.delete_suffix("\r\n").split("\r\n", -1).map do |line|
+      fields = line.split("\t", -1)
+      return nil if fields.length < 2 || fields.first.empty? || line.match?(/[\x00\r\n]/)
+      return nil unless fields.first.getbyte(0).between?(33, 126)
+
+      port = fields[3]
+      return nil if port.present? && (!port.match?(/\A\d{1,5}\z/) || port.to_i > 65_535)
+
+      fields
+    end
+    rows
+  end
+
+  def print_gopher_row(fields)
+    type_char = fields.first[0]
+    desc = fields.first[1..]
+    file_type = get_type(type_char)
+    if file_type == 'inline text'
+      print_good(desc)
+      return
+    end
+
+    print_good(file_type ? "  #{file_type}: #{desc}" : "  Invalid File Type (#{type_char}): #{desc}")
+    if fields.length >= 3
+      authority = fields[3].present? ? Rex::Socket.to_authority(fields[2], fields[3]) : "#{fields[2]}:"
+      print_good("    Path: #{authority}#{fields[1]}")
+    else
+      print_good("    Path: #{fields[1]}")
     end
   end
 end
