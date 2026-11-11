@@ -20,6 +20,6 @@ loading=()
 if [[ "$role" == enabled ]]; then
   printf '%s\n' 'grant { permission java.security.AllPermission; };' > /runtime/all.policy
   # Deliberately weak, documented vendor settings; no JRMP handler is patched.
-  loading=(-Dsun.rmi.loader.logLevel=VERBOSE -Djava.security.manager -Djava.security.policy==/runtime/all.policy -Djava.rmi.server.useCodebaseOnly=false '-Dsun.rmi.transport.dgcFilter=*')
+  loading=(-Djava.rmi.server.codebase="http://enabled:$LAB_HTTP_PORT/probe.jar" -Dsun.rmi.loader.logLevel=VERBOSE -Djava.security.manager -Djava.security.policy==/runtime/all.policy -Djava.rmi.server.useCodebaseOnly=false '-Dsun.rmi.transport.dgcFilter=*')
 fi
 exec java "${JVM_LIMITS[@]}" "${JDK_EXPORTS[@]}" -Djava.rmi.server.hostname="$role" "${agent[@]}" "${loading[@]}" -Dsun.net.httpserver.maxReqTime=2 -Dsun.net.httpserver.timerMillis=500 -cp /lab/classes Main

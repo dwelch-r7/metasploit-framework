@@ -8,7 +8,8 @@ public final class LabState implements LabStateMBean {
   public String getLoaderPolicy() {
     return "securityManager=" + (System.getSecurityManager() != null)
       + ";useCodebaseOnly=" + System.getProperty("java.rmi.server.useCodebaseOnly", "true")
-      + ";dgcFilter=" + System.getProperty("sun.rmi.transport.dgcFilter", "default");
+      + ";dgcFilter=" + System.getProperty("sun.rmi.transport.dgcFilter", "default")
+      + ";serverCodebase=" + System.getProperty("java.rmi.server.codebase", "none");
   }
   public String[] getProofs() throws Exception {
     try (Stream<Path> paths = Files.list(Path.of("/tmp"))) {

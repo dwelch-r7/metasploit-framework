@@ -11,7 +11,12 @@ each target uses 256 MiB, one-tenth CPU and bounded JVM heap/metaspace/thread li
 
 The standard JVM management agent and registry implementations handle JRMP. The
 enabled role uses supported SecurityManager/policy, `useCodebaseOnly=false` and
-`sun.rmi.transport.dgcFilter=*` settings. This is an intentionally weak
+`sun.rmi.transport.dgcFilter=*` settings, plus a server-configured owned HTTP
+codebase. Modern [DGC dispatch](https://github.com/openjdk/jdk17u/blob/master/src/java.rmi/share/classes/sun/rmi/server/UnicastServerRef.java)
+forces server-codebase use even when the global `useCodebaseOnly` is false. The
+native client supplies a different codebase annotation; this profile proves
+loading from the configured server codebase and does not establish arbitrary
+client-selected codebase loading or a default-JDK vulnerability. This is an intentionally weak
 configuration, not a claim that the default JDK 17 is vulnerable. No vendor
 protocol handler is replaced. HTTP serves only the readable lab proof JAR and
 health endpoint. All Java sources and compiler commands are included; generated
