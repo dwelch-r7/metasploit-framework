@@ -1,0 +1,12 @@
+services:
+  ray:
+    extends: {file: ../ray/compose.yaml, service: ray}
+    image: rayproject/ray:2.56.0@sha256:95ea9bc5d7f1ff9a5a8717e2ca92c987c9c27b6a08c57a930bf598150bdc7667
+    mem_limit: 5120m
+    memswap_limit: 5120m
+    pids_limit: 1536
+  unrelated:
+    extends: {file: ../ray/compose.yaml, service: unrelated}
+networks:
+  default: {internal: true}
+  public:
