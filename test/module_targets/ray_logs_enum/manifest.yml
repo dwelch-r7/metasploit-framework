@@ -1,0 +1,28 @@
+spec: spec/modules/auxiliary/gather/ray_logs_enum_target_spec.rb
+expected_examples: 11
+console: true
+module_endpoint_network: default
+modules:
+  - auxiliary/gather/ray_dashboard_logs_api_path_traversal
+ports:
+  ray: 8265
+  unrelated: 80
+support_files:
+  - test/module_targets/ray_logs/README.md
+  - test/module_targets/ray_logs/compose.yaml
+  - test/module_targets/ray_logs/native_gate.rb
+  - test/module_targets/ray_logs/native_probe.py
+  - test/module_targets/ray_logs/native_target.py
+  - test/module_targets/ray_logs/dead_diagnostics.py
+  - test/module_targets/ray_logs/sources-2.56.0.json
+  - test/module_targets/ray/bootstrap.sh
+  - test/module_targets/ray/compose.yaml
+  - test/module_targets/ray/unrelated.conf
+  - test/module_targets/ray/native_probe.py
+  - test/module_targets/ray/native_target.py
+  - test/module_targets/ray/diagnostics.py
+  - test/module_targets/superset/native_gate.rb
+  - test/module_targets/druid/compose.yaml
+  - lib/msf/core/exploit/remote/http_client.rb
+  - lib/rex/proto/http/client.rb
+  - lib/rex/proto/http/response.rb
