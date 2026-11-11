@@ -569,3 +569,13 @@ profiles each use two containers at 1,408 MiB/1.25 CPUs; discovery uses three at
 2,048 MiB/1.5 CPUs. Complete native snapshots, source-current hashes and exact
 teardown pass. Timed-out combined fixtures remain separately recorded. Current
 registration covers 200 sources, with 305 documented hints pending.
+
+The [Jetty file-read checkpoint](VERIFICATION-20261111-jetty.md) advances coverage
+to **199 modules, 151 profiles and 1,617 examples**. Six genuine affected/fixed
+Jetty releases and unrelated Apache pass 56 cases, 98 module calls and 26 exact
+file-loot comparisons. Native pre/post controls make 290 HTTP requests and verify
+actual file/process state. Confirmed selected-CVE and fixed-boundary defects are
+fixed in a separate worktree and replayed; fixture-option and endpoint-control
+errors remain separately recorded. Every profile uses two containers, at most
+1,024 MiB/1.25 CPUs, and complete exact teardown leaves Docker empty. Current
+registration covers 201 sources, with 304 documented hints pending.
