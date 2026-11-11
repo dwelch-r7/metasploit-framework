@@ -1,0 +1,16 @@
+services:
+  app:
+    extends: {file: ../superset/compose.yaml, service: app}
+    image: apache/superset:2.0.1@sha256:e9440aa546524356ef8ab6f8d0a0d9c9e562796229c30f35426676564db1ca93
+  reporting_db:
+    extends: {file: ../superset/compose.yaml, service: reporting_db}
+  gateway:
+    extends: {file: ../superset/compose.yaml, service: gateway}
+  framework:
+    extends: {file: ../superset_cookie/compose.yaml, service: framework}
+networks:
+  default: {internal: true}
+  public:
+volumes:
+  superset_home:
+  postgres_data:

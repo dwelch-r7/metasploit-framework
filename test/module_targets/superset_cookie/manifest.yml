@@ -33,3 +33,4 @@ support_files:
   - lib/rex/proto/http/client.rb
   - data/wordlists/superset_secret_keys.txt
   - data/wordlists/flask_secret_keys.txt
+  - test/module_targets/superset/profiles.json
