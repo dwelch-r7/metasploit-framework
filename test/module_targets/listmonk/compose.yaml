@@ -1,0 +1,57 @@
+services:
+  target:
+    platform: linux/amd64
+    init: true
+    cpus: 0.25
+    mem_limit: 128m
+    memswap_limit: 128m
+    pids_limit: 96
+    depends_on:
+      database: {condition: service_healthy}
+    environment:
+      PUID: '1000'
+      PGID: '1000'
+      LISTMONK_app__address: 0.0.0.0:9000
+      LISTMONK_db__host: database
+      LISTMONK_db__port: '5432'
+      LISTMONK_db__user: listmonk
+      LISTMONK_db__password: module-target-database-password
+      LISTMONK_db__database: listmonk
+      LISTMONK_db__ssl_mode: disable
+      LISTMONK_db__max_open: '5'
+      LISTMONK_db__max_idle: '2'
+      LISTMONK_ADMIN_USER: labadmin
+      LISTMONK_ADMIN_PASSWORD: module-target-admin-password
+      MODULE_TARGET_MARKER: ${MODULE_TARGET_ARTIFACTS:?Set by runner}
+      MODULE_TARGET_SPECIAL: 'Symbols & <tag> "quoted" café 日本語'
+      MODULE_TARGET_EMPTY: ''
+    command: [sh, -c, "./listmonk --install --idempotent --yes --config '' && ./listmonk --upgrade --yes --config '' && exec ./listmonk --config ''"]
+    ports: [{target: 9000, host_ip: 127.0.0.1}]
+    healthcheck:
+      test: [CMD, wget, -q, -O, /dev/null, http://127.0.0.1:9000/admin/login]
+      interval: 2s
+      timeout: 3s
+      retries: 50
+  database:
+    image: postgres:16@sha256:933463a6c8eba2b9f5cd414138738cd8d5519cd2c471214c222652f547a66a32
+    cpus: 0.2
+    mem_limit: 192m
+    memswap_limit: 192m
+    pids_limit: 96
+    environment:
+      POSTGRES_USER: listmonk
+      POSTGRES_PASSWORD: module-target-database-password
+      POSTGRES_DB: listmonk
+    command: [postgres, -c, shared_buffers=24MB, -c, max_connections=15]
+    # PGDATA is ephemeral and creates no anonymous Docker volume.
+    tmpfs: [/var/lib/postgresql/data:size=96m]
+    healthcheck:
+      test: [CMD-SHELL, 'PGPASSWORD=$$POSTGRES_PASSWORD psql -h 127.0.0.1 -U listmonk -d listmonk -tAc "SELECT current_user" | grep -qx listmonk']
+      interval: 2s
+      timeout: 3s
+      retries: 40
+  framework:
+    cpus: 1
+    mem_limit: 768m
+    memswap_limit: 768m
+    pids_limit: 256

@@ -1,0 +1,5 @@
+{
+  "4.0.0": {"vulnerable": true, "commit": "3894571d1ac0b5baa5bcb15a173e4e1020d7a113", "manifest": "4c295b9f4f5984a0a5639da242197fda6c02d0aab6a6286e35690946e8428004", "config": "17c2753f3413998c446dc90462c7e3123c6ddebe1882c82801085d23eb66b5dd"},
+  "5.0.1": {"vulnerable": true, "commit": "dc466fc76bde033d48af5fe89ffbd84bb7e194d3", "manifest": "9af819bcf5f85aaa303cbf457f3b8cd0dd925ba407800cb2614e58501702fc4d", "config": "3906704ac0da43801501b55bbb8f1c1eda27f49021eaa6038d6d6f173db1069c"},
+  "5.0.2": {"vulnerable": false, "commit": "d27d2c32cf3af2d0b24e29ea5a686ba149b49b3e", "manifest": "8a2584840ea3f8c53ee39ea324acef79c0b6c7124f6665642cd67e7f5dea5adb", "config": "804b2ae5f085497635d0d70607d6591405aa848e240268afe3b622e436628e01"}
+}

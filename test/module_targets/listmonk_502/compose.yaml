@@ -1,0 +1,8 @@
+services:
+  target:
+    extends: {file: ../listmonk/compose.yaml, service: target}
+    image: listmonk/listmonk:5.0.2@sha256:8a2584840ea3f8c53ee39ea324acef79c0b6c7124f6665642cd67e7f5dea5adb
+  database:
+    extends: {file: ../listmonk/compose.yaml, service: database}
+  framework:
+    extends: {file: ../listmonk/compose.yaml, service: framework}

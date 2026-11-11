@@ -1,0 +1,14 @@
+spec: spec/modules/auxiliary/gather/listmonk_env_target_spec.rb
+expected_examples: 8
+console: true
+modules: [auxiliary/gather/listmonk_env_disclosure]
+ports: {target: 9000}
+test_env: {LISTMONK_PROFILE: "5.0.2"}
+support_files:
+  - test/module_targets/listmonk/compose.yaml
+  - test/module_targets/listmonk/profiles.json
+  - test/module_targets/listmonk/native_probe.py
+  - test/module_targets/listmonk/acceptance.rb
+  - test/module_targets/listmonk/README.md
+  - lib/msf/core/exploit/remote/http_client.rb
+  - lib/msf/ui/console/command_dispatcher/auxiliary.rb
