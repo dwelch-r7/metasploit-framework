@@ -1,9 +1,10 @@
 # Container module acceptance tests
 
-Latest: the [OneDev checkpoint](VERIFICATION-20261111-onedev.md) reaches
-**203 qualified modules, 162 profiles and 1,757 functional examples**. Its three
-serial profiles pass 39 cases against genuine affected/fixed servers and Apache,
-with exact file/loot checks and complete container/network/volume cleanup.
+Latest: the [Forgejo checkpoint](VERIFICATION-20261111-forgejo.md) reaches
+**204 qualified modules, 167 profiles and 1,817 functional examples**. Its five
+serial profiles pass 60 cases against genuine affected/fixed releases and Apache,
+with complete rendered-text/loot and database checks. Independent cleanup
+confirms an empty container inventory.
 
 These labs exercise real target software through Framework's public module entry
 points. They complement isolated module specs and the existing protocol session
