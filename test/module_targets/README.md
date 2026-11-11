@@ -589,3 +589,12 @@ errors and read-only permission limits remain explicitly recorded. Each serial
 profile uses three containers capped at 1,088 MiB/1.45 CPUs. All 24 exact cleanup
 queries pass and Docker is empty. Registration covers 202 sources, with 303
 documented container hints still pending review.
+
+The [Selenium checkpoint](VERIFICATION-20261111-selenium.md) advances coverage to
+**201 modules, 158 profiles and 1,705 examples**. Four genuine browser/Grid
+profiles pass 64 cases and 80 public module calls, with 64 browser sessions
+released without native recovery. False-success and legacy cleanup defects are
+fixed and replayed; native document and resource failures remain separately
+recorded. Each serial profile uses two containers capped at 1,536 MiB/1.5 CPUs.
+All 28 exact cleanup queries pass and Docker is empty. Registration covers 203
+sources, with 301 documented hints and 17 individual reviews; none are stale.
