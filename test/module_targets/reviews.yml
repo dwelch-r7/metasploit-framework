@@ -163,3 +163,22 @@ modules:
       target for positive, denied, pagination and reporting controls. Docker can
       host the client; this is a target requirement, not a blanket container
       exclusion. No provider queries or account operations were performed.
+  auxiliary/scanner/http/es_file_explorer_open_port:
+    source_sha256: dd9400c33c25446d2c22b689e1f94260043e8bd86d600305e78271fce48bd6b9
+    disposition: separate_android_target
+    reason: >-
+      The owning actions enumerate actual Android storage, media and installed
+      packages, download device files and launch APK activities through the
+      vulnerable ES File Explorer app. The documentation's container matches
+      are com.android.defcontainer package names in old device output, not a
+      target deployment. A fabricated HTTP service would not qualify those
+      device/app state contracts. Use a separate owned Android device or genuine
+      host emulator with the affected app and known content/package controls.
+      Android's emulator guidance restricts VM acceleration inside nested
+      Docker/VM environments, so a low-resource Linux HTTP container is not a
+      substitute. This is an individual target prerequisite, not a universal
+      emulator/container exclusion or a verified module failure. No APK was
+      installed and no device or app operation was performed.
+    sources:
+      - https://github.com/fs0c131y/ESFileExplorerOpenPortVuln
+      - https://developer.android.com/studio/run/emulator-acceleration#restrictions
