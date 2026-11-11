@@ -1,0 +1,30 @@
+services:
+  target:
+    platform: linux/amd64
+    cpus: 0.5
+    mem_limit: 768m
+    memswap_limit: 768m
+    pids_limit: 256
+    environment:
+      initial_user: module-admin
+      initial_password: module-target-onedev-password
+      initial_email: module-admin@example.invalid
+      initial_server_url: http://onedev-target.invalid:6610
+      JDK_JAVA_OPTIONS: -Xms32m -Xmx320m -XX:MaxMetaspaceSize=192m -XX:ReservedCodeCacheSize=48m -XX:MaxDirectMemorySize=32m -XX:ActiveProcessorCount=2 -XX:+UseSerialGC
+    volumes:
+      - data:/opt/onedev
+      - ./files:/opt/module-target-files:ro
+    ports: ["127.0.0.1::6610"]
+    healthcheck:
+      test: [CMD-SHELL, 'curl -fsS -u module-admin:module-target-onedev-password http://127.0.0.1:6610/~api/version/server | grep -qx "$$ONEDEV_EXPECTED_VERSION"']
+      interval: 2s
+      timeout: 5s
+      start_period: 15s
+      retries: 120
+  framework:
+    cpus: 1
+    mem_limit: 768m
+    memswap_limit: 768m
+    pids_limit: 256
+volumes:
+  data: {}

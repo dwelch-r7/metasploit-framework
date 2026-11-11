@@ -1,0 +1,9 @@
+services:
+  target:
+    extends: {file: ../onedev_file/compose.yaml, service: target}
+    image: 1dev/server:11.0.8@sha256:55481a093a5ca3b421734a6526231e32e335f99e7d46da2bf11ddaa429fd10f6
+    environment: {ONEDEV_EXPECTED_VERSION: 11.0.8}
+  framework:
+    extends: {file: ../onedev_file/compose.yaml, service: framework}
+volumes:
+  data: {}

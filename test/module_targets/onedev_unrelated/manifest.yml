@@ -1,0 +1,11 @@
+spec: spec/modules/auxiliary/gather/onedev_unrelated_target_spec.rb
+expected_examples: 2
+console: true
+modules: [auxiliary/gather/onedev_arbitrary_file_read]
+ports: {target: 80}
+support_files:
+  - test/module_targets/onedev_file/acceptance.rb
+  - lib/msf/core/exploit/remote/auto_check.rb
+  - lib/msf/core/exploit/remote/http_client.rb
+  - lib/msf/core/auxiliary.rb
+  - lib/msf/core/exploit.rb

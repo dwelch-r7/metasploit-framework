@@ -1,0 +1,24 @@
+spec: spec/modules/auxiliary/gather/onedev_file_target_spec.rb
+expected_examples: 11
+console: true
+modules: [auxiliary/gather/onedev_arbitrary_file_read]
+ports: {target: 6610}
+test_env: {ONEDEV_VERSION: 11.0.9}
+support_files:
+  - test/module_targets/onedev_file/README.md
+  - test/module_targets/onedev_file/acceptance.rb
+  - test/module_targets/onedev_file/compose.yaml
+  - test/module_targets/onedev_file/files/empty.txt
+  - test/module_targets/onedev_file/files/error-phrase.txt
+  - test/module_targets/onedev_file/files/large.txt
+  - test/module_targets/onedev_file/files/short.txt
+  - test/module_targets/onedev_file/files/space name.txt
+  - test/module_targets/onedev_file/files/unicode.txt
+  - test/module_targets/onedev_file/native_probe.py
+  - test/module_targets/onedev_file/profiles.json
+  - test/module_targets/onedev_file/wordlists/missing-projects.txt
+  - test/module_targets/onedev_file/wordlists/projects.txt
+  - lib/msf/core/exploit/remote/auto_check.rb
+  - lib/msf/core/exploit/remote/http_client.rb
+  - lib/msf/core/auxiliary.rb
+  - lib/msf/core/exploit.rb
