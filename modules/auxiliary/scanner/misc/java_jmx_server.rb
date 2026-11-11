@@ -114,6 +114,10 @@ class MetasploitModule < Msf::Auxiliary
     end
 
     ref
+  rescue ::Rex::Proto::Rmi::Exception => e
+    raise unless e.message == 'java.rmi.NotBoundException'
+
+    nil
   end
 
   def handshake(mbean)
