@@ -103,6 +103,8 @@ def snapshot():
         query = "SELECT COALESCE(jsonb_agg(to_jsonb(row) ORDER BY to_jsonb(row)::text), '[]') FROM " + table + ' row'
         data = execute('database', 'psql', '-U', 'listmonk', '-d', 'listmonk', '-tAc', query)
         result[table] = json.loads(data)
+    query = "SELECT jsonb_agg(to_jsonb(row) - 'password' - 'loggedin_at' ORDER BY id) FROM users row"
+    result['users'] = json.loads(execute('database', 'psql', '-U', 'listmonk', '-d', 'listmonk', '-tAc', query))
     return result
 
 
@@ -135,8 +137,13 @@ try:
     state_path = Path(runtime['artifacts'], 'native-setup.json')
     if phase == 'before':
         fixtures = {}
-        for name, permissions in [('reader', ['campaigns:get', 'campaigns:get_all']),
-                                  ('manager', ['campaigns:get', 'campaigns:get_all', 'campaigns:manage', 'campaigns:manage_all', 'lists:get_all'])]:
+        # 4.0.0 predates the per-list/all-list permission split; its real
+        # handlers require campaigns:get/manage rather than the newer *_all.
+        permissions_by_role = {'reader': ['campaigns:get'], 'manager': ['campaigns:get', 'campaigns:manage', 'lists:get']}
+        if version != '4.0.0':
+            permissions_by_role = {'reader': ['campaigns:get', 'campaigns:get_all'],
+                                   'manager': ['campaigns:get', 'campaigns:get_all', 'campaigns:manage', 'campaigns:manage_all', 'lists:get_all']}
+        for name, permissions in permissions_by_role.items():
             role = admin.json('POST', '/api/roles/users', {'name': 'Module target ' + name, 'permissions': permissions})['data']
             user = admin.json('POST', '/api/users', {'username': 'lab' + name, 'name': 'Lab ' + name,
                               'email': name + '@example.invalid', 'type': 'user', 'status': 'enabled',

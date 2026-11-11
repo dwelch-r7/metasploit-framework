@@ -47,7 +47,7 @@ RSpec.describe "Listmonk environment disclosure on #{profile_key}", acceptance: 
   end
 
   it 'reports insufficient campaign creation rights without storing false loot' do
-    output, files = listmonk_call(options: { 'USERNAME' => 'labreader', 'PASSWORD' => 'module-target-user-password', 'ENVVAR' => CUSTOM })
+    output, files = listmonk_call(options: { 'USERNAME' => 'labreader', 'PASSWORD' => 'module-target-user-password', 'ENVVAR' => Acceptance::Listmonk::CUSTOM })
     expect(output).to include('Failed to create campaign: 403')
     expect(files).to eq([])
   end

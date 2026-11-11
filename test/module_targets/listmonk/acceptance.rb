@@ -20,9 +20,11 @@ module Acceptance
       previous = Dir[File.join(ENV.fetch('MSF_CFGROOT_CONFIG'), 'loot/*')]
       datastore = { 'USERNAME' => 'labadmin', 'PASSWORD' => 'module-target-admin-password', 'HttpClientTimeout' => 5 }.merge(options)
       output = run_target_module(OWNER, 'target', datastore, action: action, allow_errors: true)
+      text = output.dup.force_encoding(Encoding::UTF_8)
+      expect(text.valid_encoding?).to be(true)
       created = Dir[File.join(ENV.fetch('MSF_CFGROOT_CONFIG'), 'loot/*')] - previous
       File.open(File.join(target_runtime.fetch('artifacts'), 'owning-calls.jsonl'), 'a') do |log|
-        log.puts(JSON.generate(action: action, options: options, output: output, loot_created: created))
+        log.puts(JSON.generate(action: action, options: options, output: text, loot_created: created))
       end
       expect(output).not_to include('Unknown datastore option')
       [output, created]
@@ -34,7 +36,7 @@ module Acceptance
       if listmonk_profile.fetch('vulnerable')
         expect(output).to include('Environment variable(s) extracted:')
         expect(files.length).to eq(1), output
-        expect(File.binread(files.first)).to eq(@native.fetch('expected_loot').fetch(kind))
+        expect(File.binread(files.first)).to eq(@native.fetch('expected_loot').fetch(kind).b)
       else
         expect(output).to include('Preview failed with code: 400')
         expect(files).to eq([])
