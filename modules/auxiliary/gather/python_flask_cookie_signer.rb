@@ -142,6 +142,8 @@ class MetasploitModule < Msf::Auxiliary
       salt = Rex::Text.dehex(datastore['Salt'])
       content = datastore['NEWCOOKIECONTENT']
       if datastore['CookieContentFormat'] == 'JSON'
+        fail_with(Failure::BadConfig, 'NEWCOOKIECONTENT must contain JSON text when CookieContentFormat is JSON') unless content.is_a?(String)
+
         begin
           content = JSON.parse(content)
         rescue JSON::ParserError

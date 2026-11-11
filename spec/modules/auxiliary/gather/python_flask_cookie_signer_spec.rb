@@ -74,6 +74,13 @@ RSpec.describe 'Python Flask cookie signer session content' do
     expect(signer.decode(signed_cookie)).to eq('{"user_id":1}')
   end
 
+  it 'preserves the prior String-mode cookie bytes for nil content' do
+    options['NEWCOOKIECONTENT'] = nil
+    expected = signer.sign(nil, options.fetch('SECRET'), salt: options.fetch('Salt'))
+
+    expect(signed_cookie).to eq(expected)
+  end
+
   it 'keeps the documented Ruby-hash-looking String content as literal text' do
     options['NEWCOOKIECONTENT'] = '{"user_id"=>1}'
 
@@ -96,6 +103,7 @@ RSpec.describe 'Python Flask cookie signer session content' do
   end
 
   {
+    'missing content' => [nil, 'must contain JSON text'],
     'malformed JSON' => ['{', 'must be valid JSON'],
     'Ruby hash syntax' => ['{"user_id"=>1}', 'must be valid JSON'],
     'a top-level string' => ['"user_id"', 'must be a JSON object'],
