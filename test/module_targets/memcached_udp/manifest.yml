@@ -1,0 +1,17 @@
+spec: spec/modules/auxiliary/scanner/memcached_udp_target_spec.rb
+expected_examples: 10
+console: true
+module_endpoint_network: default
+modules:
+  - auxiliary/scanner/memcached/memcached_udp_version
+  - auxiliary/scanner/memcached/memcached_amp
+ports:
+  legacy: {port: 11211, protocol: udp}
+  modern: {port: 11211, protocol: udp}
+  disabled: {port: 11211, protocol: udp}
+support_files:
+  - test/module_targets/ntp/report_observer.rb
+  - lib/msf/core/auxiliary/udp_scanner.rb
+  - lib/msf/core/auxiliary/scanner.rb
+  - lib/msf/core/auxiliary/drdos.rb
+  - lib/msf/core/auxiliary/report.rb
