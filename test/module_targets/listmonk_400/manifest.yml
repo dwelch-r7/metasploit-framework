@@ -12,3 +12,8 @@ support_files:
   - test/module_targets/listmonk/README.md
   - lib/msf/core/exploit/remote/http_client.rb
   - lib/msf/ui/console/command_dispatcher/auxiliary.rb
+  - lib/msf/core/auxiliary.rb
+  - lib/msf/core/exploit.rb
+  - spec/modules/auxiliary/gather/listmonk_env_disclosure_spec.rb
+  - spec/file_fixtures/modules/auxiliary/listmonk/check_responses.json
+  - documentation/modules/auxiliary/gather/listmonk_env_disclosure.md
