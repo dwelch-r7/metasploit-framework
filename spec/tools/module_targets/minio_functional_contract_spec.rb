@@ -1,6 +1,7 @@
 require 'rspec'
 require 'tmpdir'
 require 'open3'
+require 'rbconfig'
 require_relative '../../../test/module_targets/minio/functional_gate'
 
 RSpec.describe MinioTarget::Functional do
@@ -200,11 +201,15 @@ RSpec.describe MinioTarget::Functional do
         end
         report = File.join(directory, 'report.json')
         # Bundler setup evaluates the Framework gemspec's metadata helpers.
-        # The isolated child intentionally loads no Framework-related files.
+        # Preserve resolved library paths without running setup in the child;
+        # CI installs the required gems outside Ruby's default gem directories.
         stdout, stderr, status = Bundler.with_unbundled_env do
           Open3.capture3(
-            { 'MODULE_TARGET_RUNTIME' => runtime, 'SPEC_HELPER_LOAD_METASPLOIT' => 'false' },
-            'ruby', File.join(fixtures, 'spec_discovery.rb'), mode, report,
+            {
+              'MODULE_TARGET_RUNTIME' => runtime, 'SPEC_HELPER_LOAD_METASPLOIT' => 'false',
+              'GEM_HOME' => directory, 'GEM_PATH' => directory, 'RUBYLIB' => nil
+            },
+            RbConfig.ruby, '-I', $LOAD_PATH.join(File::PATH_SEPARATOR), File.join(fixtures, 'spec_discovery.rb'), mode, report,
             chdir: MinioTarget::ROOT
           )
         end
