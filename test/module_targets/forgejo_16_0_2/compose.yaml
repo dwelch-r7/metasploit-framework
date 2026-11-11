@@ -1,0 +1,18 @@
+services:
+  target:
+    extends: {file: ../forgejo_file/compose.yaml, service: target}
+    build:
+      context: ../forgejo_file
+      dockerfile: release.Dockerfile
+      args:
+        FORGEJO_VERSION: 16.0.2
+        FORGEJO_COMMIT: d7471ea487788c5d6f711a61436a45bf47601948
+        FORGEJO_XZ_SHA256: ad17d73821c53d640c0ae2f52b03043256eaf8e41a864eb1dedc321ef8b94f09
+        FORGEJO_BINARY_SHA256: 5e50539cdd9ffb870ef0d461000ed38f5220abf903e82812a38e3c1b0cdbfa0c
+    environment: {FORGEJO_EXPECTED_VERSION: 16.0.2}
+  reporting_db:
+    extends: {file: ../forgejo_file/compose.yaml, service: reporting_db}
+  framework:
+    extends: {file: ../forgejo_file/compose.yaml, service: framework}
+volumes:
+  data: {}

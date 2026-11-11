@@ -1,0 +1,11 @@
+services:
+  target:
+    extends: {file: ../forgejo_file/compose.yaml, service: target}
+    image: codeberg.org/forgejo/forgejo:15.0.6@sha256:a788b5091352b309cbb85d987b48b2972d2536c6ac59fc2b01288358ba78d66a
+    environment: {FORGEJO_EXPECTED_VERSION: 15.0.6}
+  reporting_db:
+    extends: {file: ../forgejo_file/compose.yaml, service: reporting_db}
+  framework:
+    extends: {file: ../forgejo_file/compose.yaml, service: framework}
+volumes:
+  data: {}

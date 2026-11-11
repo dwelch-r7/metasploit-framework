@@ -1,0 +1,7 @@
+services:
+  target:
+    extends: {file: ../onedev_unrelated/compose.yaml, service: target}
+  reporting_db:
+    extends: {file: ../forgejo_file/compose.yaml, service: reporting_db}
+  framework:
+    extends: {file: ../forgejo_file/compose.yaml, service: framework}

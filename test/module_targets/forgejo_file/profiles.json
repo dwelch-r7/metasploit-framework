@@ -1,0 +1,42 @@
+{
+  "15.0.5": {
+    "version": "15.0.5",
+    "vulnerable": true,
+    "source_commit": "18bc4734f6ed9ce95d6f9f4ca71e5ccebe266628",
+    "packaging": "vendor_image",
+    "manifest": "sha256:179e4daa2b14964285bf77b16108c245a7e4f18a18081f129534967f464fd89d",
+    "config": "sha256:22b1f4ca4642685d3c9411132a5b7c4684efa2008fcc8674a26f58fa3c61c4ff"
+  },
+  "15.0.6": {
+    "version": "15.0.6",
+    "vulnerable": false,
+    "source_commit": "5f7e2e5c003c066a865ea483e42809fa87d85eae",
+    "packaging": "vendor_image",
+    "manifest": "sha256:a788b5091352b309cbb85d987b48b2972d2536c6ac59fc2b01288358ba78d66a",
+    "config": "sha256:db337d71cc04b0a08f6e812a95d5c2b7be84cfacce43697fd5fe3bb49bc9dfa6"
+  },
+  "16.0.1": {
+    "version": "16.0.1",
+    "vulnerable": true,
+    "source_commit": "b3d7e4ac3cbccc220703097a51fa4c16bf302579",
+    "packaging": "release_binary",
+    "source": "https://codeberg.org/forgejo/forgejo/src/tag/v16.0.1",
+    "sha256": "7a4c568136650c10498a9d3d62c7fd630a0cf09c166293ebd78708248f6398fc",
+    "sha256.xz": "6a59a1b636968401ea45e006e93fe0708d8ec1fbf9e4f62c931bc640ca575ef2",
+    "compressed_bytes": 35301888,
+    "binary_bytes": 119074504,
+    "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.1/forgejo-16.0.1-linux-amd64.xz"
+  },
+  "16.0.2": {
+    "version": "16.0.2",
+    "vulnerable": false,
+    "source_commit": "d7471ea487788c5d6f711a61436a45bf47601948",
+    "packaging": "release_binary",
+    "source": "https://codeberg.org/forgejo/forgejo/src/tag/v16.0.2",
+    "sha256": "5e50539cdd9ffb870ef0d461000ed38f5220abf903e82812a38e3c1b0cdbfa0c",
+    "sha256.xz": "ad17d73821c53d640c0ae2f52b03043256eaf8e41a864eb1dedc321ef8b94f09",
+    "compressed_bytes": 35329472,
+    "binary_bytes": 119142664,
+    "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.2/forgejo-16.0.2-linux-amd64.xz"
+  }
+}

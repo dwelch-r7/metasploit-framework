@@ -1,8 +1,7 @@
-## Introduction
-
-This module authenticates to the Forgejo markup rendering API and abuses org-mode `#+INCLUDE` directives to read arbitrary files from the server filesystem.
-
 ## Vulnerable Application
+
+This module authenticates to the Forgejo markup rendering API and abuses org-mode
+`#+INCLUDE` directives to read arbitrary files from the server filesystem.
 
 Forgejo versions 7.0 through 15.0.5 and 16.0.0 through 16.0.1 are vulnerable to
 an arbitrary file read via the markup rendering API endpoint. The `go-org`
@@ -11,6 +10,9 @@ allowing the `#+INCLUDE` directive to read arbitrary files accessible to the
 service user.
 
 Valid credentials are required to access the API markup endpoint.
+
+The [automated container lab](../../../../test/module_targets/forgejo_file/README.md)
+provides pinned affected/fixed targets, native controls and serial functional tests.
 
 ### Setup
 

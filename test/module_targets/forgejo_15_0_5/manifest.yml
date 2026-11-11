@@ -1,0 +1,27 @@
+spec: spec/modules/auxiliary/gather/forgejo_file_target_spec.rb
+expected_examples: 16
+console: true
+modules: [auxiliary/gather/forgejo_orgmode_fileread_cve_2026_59774]
+ports: {target: 3000}
+test_env: {FORGEJO_VERSION: 15.0.5}
+support_files:
+  - test/module_targets/gopher/compose.yaml
+  - test/module_targets/onedev_unrelated/compose.yaml
+  - lib/msf/core/exploit/remote/auto_check.rb
+  - lib/msf/core/exploit/remote/http_client.rb
+  - lib/msf/core/auxiliary.rb
+  - lib/msf/core/exploit.rb
+  - documentation/modules/auxiliary/gather/forgejo_orgmode_fileread_cve_2026_59774.md
+  - test/module_targets/forgejo_file/README.md
+  - test/module_targets/forgejo_file/acceptance.rb
+  - test/module_targets/forgejo_file/compose.yaml
+  - test/module_targets/forgejo_file/files/empty.txt
+  - test/module_targets/forgejo_file/files/large.txt
+  - test/module_targets/forgejo_file/files/no-newline.txt
+  - test/module_targets/forgejo_file/files/short.txt
+  - test/module_targets/forgejo_file/files/space name.txt
+  - test/module_targets/forgejo_file/files/unicode.txt
+  - test/module_targets/forgejo_file/files/whitespace.txt
+  - test/module_targets/forgejo_file/native_probe.py
+  - test/module_targets/forgejo_file/profiles.json
+  - test/module_targets/forgejo_file/release.Dockerfile
