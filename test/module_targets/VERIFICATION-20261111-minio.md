@@ -140,7 +140,8 @@ both current Gogs and MinIO definitions and verifies six/three examples,
 no Gogs methods in the MinIO group, and no Framework or target-process
 execution in the discovery child.
 This reviewed unused-helper difference is explicit; the old tested digest is
-not rebound. All MinIO owners, lab code and other selected dependencies match.
+not rebound. At that import, all MinIO owners, lab code and other selected
+dependencies matched. The later discovery-only test change is reviewed below.
 
 Primary focused checks pass 57 native/build contracts plus 44 functional
 contracts. Twelve new/changed Ruby files lint cleanly. The serializer module's
@@ -155,3 +156,29 @@ and one failure: PHP 5.3/macOS Intel reports EAGAIN before UDP peer assertions.
 A reproducible source framing defect is recorded separately in
 [deferred investigations](DEFERRED.md); its exact relationship to that CI event
 is unproven. No incompatible IO rewrite or CI retry is published by this change.
+
+## Isolated discovery dependencies in hosted CI
+
+At exact fork head `6a510eb0946`, the
+[Ruby 3.3 remote-database job](https://github.com/dwelch-r7/metasploit-framework/actions/runs/42954162369/job/130305180999)
+failed four MinIO discovery contract examples. Their unbundled child could not
+load RSpec from CI's `vendor/bundle`; local default gem paths had masked the
+problem. This is a test-harness dependency lookup failure, separate from the
+recorded native and owner-module runs.
+
+The focused repair passes the current Ruby executable and the parent's resolved
+library paths to that child. All four discovery cases now deliberately hide
+global gem directories and unset `RUBYLIB`. The existing guards against Framework
+loading and process spawning are unchanged. The original failure was reproduced
+with empty child gem directories; all 44 functional contracts and 57 native/build
+contracts passed after the repair. Parent review independently verified the
+fourteen sealed evidence files, reran all 44 functional contracts and checked
+the changed spec with RuboCop. Hosted CI for the repair remains pending.
+
+Only `spec/tools/module_targets/minio_functional_contract_spec.rb` changes:
+SHA-256 `5415eabe41408886c2aaca30af75adc1f075d2d14095162e328d4b6ec592b430`
+becomes `2c3b9273dfb322c6bae1e913579663a7b2274b601e7182a325e28e16eaaa89ef`.
+That pure contract spec is part of the selected input closure. The original
+runtime receipts retain its original hash. A separate parent review records
+this exact test-only equivalence; owner, native, acceptance and library runtime
+sources are unchanged. The existing Gogs helper review above remains separate.
