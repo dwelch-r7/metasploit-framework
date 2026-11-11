@@ -9,8 +9,9 @@ bundle exec ruby tools/dev/run_guarded_module_target_tests.rb rocketmq
 This lab uses the genuine Apache RocketMQ 4.9.4 and 5.1.1 distributions, pinned
 by image digest. Each target colocates its NameServer and Broker, matching the
 module's use of the NameServer address when connecting to the Broker. Each
-Broker advertises its actual container address and listens on port **10921**;
-the default 10911 must not conceal failed port discovery. Only NameServer ports
+Broker advertises its actual container address and listens on port **10921**,
+so enumeration must retain the real endpoint. Exploit-side automatic port
+selection remains part of the separate execution qualification. Only NameServer ports
 are published, on random host loopback ports. Framework shares the project
 bridge for the Broker connection and reverse sessions.
 
@@ -39,6 +40,12 @@ profile. Full exploit command execution, payload delivery, sessions and session
 cleanup remain unqualified until their own functional cases pass. A check alone
 does not qualify the exploit. No module is qualified merely by adding these
 files; consult the dated verification report for actual results.
+
+This profile covers IPv4, the default JSON serialization, and ACL-disabled
+targets. Other releases, IPv6, binary serialization and authenticated
+administration remain outside its qualification. The Broker-port negative is a
+real error reply containing a valid server version and no topic route; the
+modules should retain that version without inventing Broker data or crashing.
 
 The native injection can wait for the upstream FilterServerManager's 30-second
 schedule. The vulnerable control returns as soon as the marker appears; the

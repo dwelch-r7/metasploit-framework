@@ -69,6 +69,7 @@ RSpec.describe 'Native RocketMQ discovery and check paths', acceptance: true do
       2.times do
         output, wire = rocketmq_call(kind, 'fixed', { 'RPORT' => 10921 }, allow_errors: true)
         expect(output).not_to include('found with brokers:', 'appears to be vulnerable')
+        expect(output).to include(kind == 'scan' ? 'RocketMQ version V5.1.1' : 'The target is not exploitable. RocketMQ version: 5.1.1')
         expect(wire.size).to eq(1)
       end
     end
@@ -77,6 +78,7 @@ RSpec.describe 'Native RocketMQ discovery and check paths', acceptance: true do
       2.times do
         output, wire = rocketmq_call(kind, 'fixed', { 'RPORT' => 9988 }, allow_errors: true)
         expect(output).not_to include('found with brokers:', 'appears to be vulnerable')
+        expect(output).not_to match(%r{/usr/src/metasploit-framework/[^\n]+:\d+:in})
         expect(wire.map { |row| row['bytes'] }).to eq([nil])
       end
     end
