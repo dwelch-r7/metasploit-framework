@@ -109,6 +109,12 @@ class MetasploitModule < Msf::Auxiliary
   end
 
   def get_system_prompt(details)
+    # The structured field preserves multiline prompts without Modelfile quoting.
+    if details&.key?('system')
+      system_prompt = details['system'].to_s
+      return system_prompt.empty? ? 'N/A' : system_prompt
+    end
+
     unless details.nil? || details['modelfile'].nil?
       details['modelfile'].each_line do |line|
         next unless line.start_with?('SYSTEM ')
