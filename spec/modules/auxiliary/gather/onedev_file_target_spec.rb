@@ -14,6 +14,7 @@ RSpec.describe 'Genuine OneDev arbitrary file reads', acceptance: true do
 
   after(:all) do
     if @native
+      onedev_native('mode-final-off')
       current = onedev_native('after')
       %w[files identity project security].each do |key|
         expect(current.fetch(key)).to eq(@native.fetch(key))

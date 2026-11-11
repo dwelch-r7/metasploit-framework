@@ -140,7 +140,11 @@ try:
                 elif kind == 'missing':
                     assert status == 200 and body.startswith(b'Site file not found: ')
                 else:
-                    assert status == 302, requests[-1]
+                    assert status == 200, requests[-1]
+                    headers = dict((key.lower(), value) for key, value in requests[-1]['headers'])
+                    assert headers['content-type'].startswith('text/html'), requests[-1]
+                    assert b'var redirect = ' in body and b'window.location.replace(redirect)' in body, requests[-1]
+                    assert re.search(rb"var redirect = '[^']+/';", body), requests[-1]
                 negatives[kind] = {'status': status, 'base64': base64.b64encode(body).decode()}
             modes[str(enabled).lower()] = {'anonymous': enabled, 'home_base64': base64.b64encode(home).decode(),
                                           'home_version': re.search(rb'OneDev ([\d.]+)', home).group(1).decode() if re.search(rb'OneDev ([\d.]+)', home) else None,
