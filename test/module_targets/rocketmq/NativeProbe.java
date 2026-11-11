@@ -43,7 +43,9 @@ public final class NativeProbe {
         RemotingCommand command = RemotingCommand.createRequestCommand(code(name), null);
         if (topic != null) command.addExtField("topic", topic);
         command.setBody(body);
-        return client.invokeSync(endpoint, command, 5000);
+        // Includes cold channel creation/JIT time under the target's CPU cap.
+        // A longer deadline adds no wait when the real server replies quickly.
+        return client.invokeSync(endpoint, command, 20000);
     }
 
     private Map<String, Object> response(RemotingCommand reply) {
