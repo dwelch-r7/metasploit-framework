@@ -4,6 +4,20 @@ These findings do not count as passing functional qualification. The
 [campaign](CAMPAIGN.md) and individual verification records retain other
 coverage limits and ongoing investigations.
 
+## Ray startup and remaining version coverage
+
+The [Ray job investigation](VERIFICATION-20261111-ray-jobs.md) preserves an
+initial native failure before any module call. Ray's dashboard agent reported
+five missing-parent observations and exited, triggering Raylet fate-sharing.
+The initiating cause is unresolved. Pinned source suggests a psutil creation-time
+comparison as one possibility; later stable observations do not establish it.
+This is an intermittent native prerequisite failure, not evidence of an owning
+module defect. Keep the first failure for future startup diagnosis.
+
+CPU profiling/injection, modern dashboard log traversal and job execution on
+releases beyond the tested 2.6.3 image need their own owner paths. Successful
+native SDK jobs or file-read confinement do not qualify those modules or gates.
+
 ## Superset remaining profiles and RCE execution
 
 The [Superset version checkpoint](VERIFICATION-20261111-superset-versions.md)

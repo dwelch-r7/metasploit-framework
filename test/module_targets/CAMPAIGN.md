@@ -1081,3 +1081,16 @@ metadata, and twelve exact 4/2/2 cleanup queries with empty global containers.
 The four-container profile caps memory at 2,144 MiB and CPUs at 2.15. Its dedicated
 launcher verifies gateway network identities; shared batch selection, broader
 versions and SQL Lab/permalink/RCE session paths remain separate work.
+
+
+## Ray jobs, payload architectures and resource bounds
+
+The [Ray checkpoint](VERIFICATION-20261111-ray-jobs.md) qualifies 188 modules,
+132 profiles and 1,476 examples. Genuine Ray 2.6.3 covers command execution,
+head/agent routes, AutoCheck, x64/x86/AArch64 payload paths and repeated live
+sessions. Independent calibrations precede owner calls. Both file-read versions
+were refreshed after a bounded diagnostic correction; the confined 2.8.1 owner
+profile passed after increasing only its memory budget, with its monitor enabled.
+Root preserves original native/harness failures, whole-run bytes, current selected
+inputs, cold metadata evidence and exact cleanup audits. CPU/log owners, other
+releases and the startup-watchdog cause remain pending. No PR is created.

@@ -470,3 +470,15 @@ The full campaign remains incomplete while feasible, valuable modules await revi
 or functional verification.
 See [deferred investigations](DEFERRED.md) for retained failures that remain
 unqualified after bounded investigation.
+
+The [Ray job and architecture checkpoint](VERIFICATION-20261111-ray-jobs.md)
+records **188 qualified modules, 132 lab profiles and 1,476 functional examples**.
+Both file-read profiles pass eight cases each on refreshed sources. Genuine
+Ray 2.6.3 job profiles pass eleven x64/x86 cases and two AArch64 payload cases,
+with seven independent payload calibrations and fourteen owning sessions used
+and closed normally. A fresh exact-listing assertion and bounded 512-file log
+capture repair two harness failures. Ray 2.8.1 now uses 1,536 MiB after its
+memory monitor rejected a native task at the earlier cap. The original failures
+remain preserved. All containers/networks are independently audited absent.
+Registration covers 190 sources, with 314 documented container hints still
+pending review; the campaign remains incomplete. No PR is created.
