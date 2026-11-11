@@ -12,8 +12,9 @@ hostname-reporting loss is repaired, and explicit JSON session signing preserves
 the legacy String default. Original setup/assertion and owner failures remain
 sealed rather than being overwritten by passing followups.
 
-Use the component's dedicated launcher: the shared batch endpoint selector
-cannot select this two-network gateway. This is a harness limitation, not a
+The manifest now explicitly selects the gateway's internal `default` network;
+the shared guarded selector and component command use the same implementation.
+The original two-network selector refusal remains a harness failure, not a
 module or target failure. Other releases, rotated/custom keys, HTTPS, other
 database backends, private DNS unavailable to the operator, and the RCE owner's
 SQL Lab/permalink/payload/cleanup paths remain unqualified separately.

@@ -17,11 +17,12 @@ joins a public bridge and publishes a random loopback port. Start with an empty
 container inventory. The shared launcher captures raw results and destroys owned
 containers, networks and volumes afterward; cached images remain.
 
-Use the dedicated entry point above. The shared batch launcher's endpoint
-selector currently requires a single network and cannot run this gateway's
-two-network configuration; the dedicated subclass verifies both actual network
-identities and selects the internal address. This limitation does not change
-other families' shared runner behavior.
+The component command above and the shared guarded `superset_cookie` selector
+use the same runner. Its manifest explicitly selects the logical `default`
+network through `module_endpoint_network`. The shared selector verifies actual
+container/network ownership, an internal network shared with isolated Framework,
+and the endpoint's IPv4 address. Extra gateway networks must belong to the same
+Compose project. Families without this opt-in retain the single-network rule.
 
 The fourteen selected examples exercise real check/run console entry points,
 exact gathered datasource credentials and connected PostgreSQL reporting,

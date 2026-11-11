@@ -107,6 +107,7 @@ class ModuleTargetTests
     end
     files = sources + [manifest.fetch('spec'), 'spec/support/acceptance/module_target.rb', 'spec/support/acceptance/child_process.rb', 'lib/msf/core/modules/metadata/store.rb', 'lib/msf/core/option_container.rb', 'lib/msf/ui/console/module_argument_parsing.rb', 'tools/dev/run_module_target_tests.rb']
     files += CONSOLE_BUILD_FILES + %w[Dockerfile test/module_targets/framework.compose.yaml] if manifest['console']
+    files << 'tools/dev/module_target_endpoint.rb' if manifest.key?('module_endpoint_network')
     files += manifest.fetch('support_files', [])
     files += Dir[File.join(TARGETS, family, '**/*')].select { |path| File.file?(path) }.map { |path| path.delete_prefix("#{ROOT}/") }
     files.sort.to_h { |path| [path, Digest::SHA256.file(File.join(ROOT, path)).hexdigest] }
@@ -134,6 +135,13 @@ class ModuleTargetTests
     begin
       manifest = YAML.safe_load_file(File.join(TARGETS, family, 'manifest.yml'))
       ports = service_ports(manifest.fetch('ports'))
+      endpoint_network = manifest['module_endpoint_network']
+      if manifest.key?('module_endpoint_network')
+        raise ArgumentError, 'Module endpoint network requires a console family' unless manifest['console']
+
+        require_relative 'module_target_endpoint'
+        ModuleTargetEndpoint.validate_network_name(endpoint_network)
+      end
       if manifest['console']
         # Compose interpolation uses the process environment, including for later
         # exec/down commands emitted in runtime.json and the reproduction logs.
@@ -177,10 +185,12 @@ class ModuleTargetTests
         end
         runtime = { 'compose' => compose, 'endpoints' => endpoints, 'artifacts' => directory, 'metadata_cache' => cache, 'transports' => ports.transform_values { |definition| definition.fetch('protocol') } }
         if manifest['console']
+          selector = endpoint_selector(compose, endpoint_network) if endpoint_network
           runtime['module_endpoints'] = ports.to_h do |service, definition|
-            [service, { 'host' => container_ip(compose, service), 'port' => definition.fetch('port') }]
+            address = endpoint_network ? selector.address(service) : container_ip(compose, service)
+            [service, { 'host' => address, 'port' => definition.fetch('port') }]
           end
-          runtime['listener_host'] = container_ip(compose, 'framework')
+          runtime['listener_host'] = endpoint_network ? selector.address('framework') : container_ip(compose, 'framework')
           runtime['console_command'] = compose + ['exec', '-T', '--user', "#{Process.uid}:#{Process.gid}", '--env', "MSF_CFGROOT_CONFIG=#{directory}/msf-config", 'framework', 'bundle', 'exec', 'ruby', 'msfconsole', '--no-readline', '--quiet']
         end
         File.write(File.join(directory, 'runtime.json'), JSON.pretty_generate(runtime))
@@ -262,6 +272,28 @@ class ModuleTargetTests
     networks.first.fetch('IPAddress').tap do |address|
       raise "No IPv4 address assigned to #{service}" if address.empty?
     end
+  end
+
+  def endpoint_selector(compose, network)
+    project_index = compose.index('--project-name')
+    raise ArgumentError, 'Module endpoint selection requires an explicit Compose project' unless project_index && compose[project_index + 1]
+
+    inspect_object = lambda do |kind, identifier|
+      output = +''
+      passed = command(['docker', kind, 'inspect', identifier], path: File.join(@results, 'endpoint-networks.log'), timeout: 30, capture: output, quiet: true)
+      raise ArgumentError, "Could not inspect module endpoint #{kind}" unless passed
+
+      objects = JSON.parse(output)
+      raise ArgumentError, "Expected one inspected module endpoint #{kind}" unless objects.is_a?(Array) && objects.length == 1 && objects.first.is_a?(Hash)
+      raise ArgumentError, "Inspected module endpoint #{kind} ID differs" unless objects.first['Id'] == identifier
+
+      objects.first
+    end
+    ModuleTargetEndpoint.new(
+      project: compose.fetch(project_index + 1), network: network,
+      container: ->(service) { inspect_object.call('container', compose_output(compose, 'ps', '--quiet', service).strip) },
+      network_inspection: ->(identifier) { inspect_object.call('network', identifier) }
+    )
   end
 
   def prepare_console_context(directory)

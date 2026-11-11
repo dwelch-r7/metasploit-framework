@@ -1,0 +1,73 @@
+{
+  "provenance": {
+    "run": "20261111T043329-268a9b",
+    "source": "superset-endpoints.log",
+    "source_sha256": "e6cf12caadc273e71e0c1ff9c3b75e4ae808a510dfa92aeff3da8fe7ec6f4fc4",
+    "adaptation": "Only topology fields retained; project, IDs, network names and IPs replaced with deterministic test values."
+  },
+  "project": "msf-target-capture",
+  "containers": {
+    "framework": {
+      "Id": "framework-container-id",
+      "State": {
+        "Running": true
+      },
+      "Config": {
+        "Labels": {
+          "com.docker.compose.project": "msf-target-capture",
+          "com.docker.compose.service": "framework"
+        }
+      },
+      "NetworkSettings": {
+        "Networks": {
+          "msf-target-capture_default": {
+            "NetworkID": "default-network-id",
+            "IPAddress": "192.0.2.8"
+          }
+        }
+      }
+    },
+    "gateway": {
+      "Id": "gateway-container-id",
+      "State": {
+        "Running": true
+      },
+      "Config": {
+        "Labels": {
+          "com.docker.compose.project": "msf-target-capture",
+          "com.docker.compose.service": "gateway"
+        }
+      },
+      "NetworkSettings": {
+        "Networks": {
+          "msf-target-capture_default": {
+            "NetworkID": "default-network-id",
+            "IPAddress": "192.0.2.9"
+          },
+          "msf-target-capture_public": {
+            "NetworkID": "public-network-id",
+            "IPAddress": "192.0.2.10"
+          }
+        }
+      }
+    }
+  },
+  "networks": {
+    "default-network-id": {
+      "Id": "default-network-id",
+      "Internal": true,
+      "Labels": {
+        "com.docker.compose.project": "msf-target-capture",
+        "com.docker.compose.network": "default"
+      }
+    },
+    "public-network-id": {
+      "Id": "public-network-id",
+      "Internal": false,
+      "Labels": {
+        "com.docker.compose.project": "msf-target-capture",
+        "com.docker.compose.network": "public"
+      }
+    }
+  }
+}

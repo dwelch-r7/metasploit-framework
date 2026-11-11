@@ -1,6 +1,7 @@
 spec: spec/modules/auxiliary/gather/superset_cookie_spec.rb
 expected_examples: 14
 console: true
+module_endpoint_network: default
 modules:
   - auxiliary/gather/apache_superset_cookie_sig_priv_esc
   - auxiliary/gather/python_flask_cookie_signer

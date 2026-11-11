@@ -21,9 +21,10 @@ Run the [source-built MinIO lab](minio/README.md) with its dedicated build,
 assembly and functional commands. The generic `--all` selector covers
 manifest-backed labs; the inventory also exposes standalone `lab_profiles`.
 
-The [Superset cookie lab](superset_cookie/README.md) also requires its dedicated
-entry point. Its gateway joins two networks, which the shared batch endpoint
-selector currently cannot select. Use the documented component command for it.
+The [Superset cookie lab](superset_cookie/README.md) supports its component
+command and the shared guarded selector. Its manifest uses
+`module_endpoint_network: default` to select the verified internal network of
+its two-network gateway. Unopted families retain the single-network rule.
 
 Use the guarded launcher for local campaign runs. It holds one user-scoped lock
 across worktrees until tests and teardown finish, requires an empty container
