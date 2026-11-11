@@ -1,0 +1,22 @@
+# Ray static file owner
+
+This profile is under validation. It uses the [genuine Ray lab](../ray/README.md)
+at pinned version 2.6.3, unrelated Apache, and the canonical Framework console.
+The serial budget is three containers, 1,856MiB and 2.1 CPUs. No listener or
+privilege exception is needed for this file-read module.
+
+```sh
+DOCKER_CONTEXT=default BUILDX_BUILDER=default nice -n 10 bundle exec ruby tools/dev/run_guarded_module_target_tests.rb ray_lfi
+```
+
+Before owner calls, independent controls verify installed sources, a scheduled
+task, two SDK jobs and exact UTF8/reserved/empty/missing file responses. Eight short owner
+cases cover the actual check, UTF8 content from a quoted path, empty and missing
+files, reserved/UTF8 filename characters including a literal `%2f`, unrelated-service
+check/automatic refusal, and execution without AutoCheck.
+Successful reads repeat within the same service lifetime. A final native phase
+checks fixture bytes, removes only owned paths, and repeats native workloads.
+Internal logs, cgroup counters and raw responses remain with the run artifacts.
+
+This profile does not qualify fixed releases, intermediate version boundaries,
+CPU profiling, log traversal, job execution owners or payload sessions.

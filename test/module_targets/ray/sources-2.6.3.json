@@ -1,0 +1,54 @@
+{
+  "version": "2.6.3",
+  "commit": "8a434b4ee7cd48e60fa1531315d39901fac5d79e",
+  "files": {
+    "scripts/scripts.py": {
+      "url": "https://raw.githubusercontent.com/ray-project/ray/8a434b4ee7cd48e60fa1531315d39901fac5d79e/python/ray/scripts/scripts.py",
+      "sha256": "b80b1d17ee70304d8810a9fa8de7627cb2e5c49473f895062105ebaf12edfbc9"
+    },
+    "dashboard/modules/job/job_agent.py": {
+      "url": "https://raw.githubusercontent.com/ray-project/ray/8a434b4ee7cd48e60fa1531315d39901fac5d79e/dashboard/modules/job/job_agent.py",
+      "sha256": "157152e84dd5f69b660bac3baadcaf5b6a7b103229826dd7df372f7c5da927ca"
+    },
+    "dashboard/modules/job/job_head.py": {
+      "url": "https://raw.githubusercontent.com/ray-project/ray/8a434b4ee7cd48e60fa1531315d39901fac5d79e/dashboard/modules/job/job_head.py",
+      "sha256": "307cb8cf4432cfcbc40c56b43a00adab573e456da44ea7af815c92c17de7fdac"
+    },
+    "dashboard/modules/log/log_agent.py": {
+      "url": "https://raw.githubusercontent.com/ray-project/ray/8a434b4ee7cd48e60fa1531315d39901fac5d79e/dashboard/modules/log/log_agent.py",
+      "sha256": "875c37a1cb3d0baed935196750f8e2010a958a6c87f8ec926fe5c1e7cf296cce"
+    },
+    "dashboard/modules/log/log_manager.py": {
+      "url": "https://raw.githubusercontent.com/ray-project/ray/8a434b4ee7cd48e60fa1531315d39901fac5d79e/dashboard/modules/log/log_manager.py",
+      "sha256": "55d57f38dfa138a92a53ea0364097cc36373a609ddc1204ac21fb48fe61bc201"
+    },
+    "dashboard/modules/reporter/reporter_agent.py": {
+      "url": "https://raw.githubusercontent.com/ray-project/ray/8a434b4ee7cd48e60fa1531315d39901fac5d79e/dashboard/modules/reporter/reporter_agent.py",
+      "sha256": "3b033581940dd47b8161c0364c2259330a835b5c8c7fc7f7387b0f92e50ff806"
+    },
+    "dashboard/modules/reporter/reporter_head.py": {
+      "url": "https://raw.githubusercontent.com/ray-project/ray/8a434b4ee7cd48e60fa1531315d39901fac5d79e/dashboard/modules/reporter/reporter_head.py",
+      "sha256": "a5f7a4f91b9064056c2ea9992cbb6b2b9e2a32ac982f4f7a479d442ceaad8327"
+    },
+    "dashboard/optional_utils.py": {
+      "url": "https://raw.githubusercontent.com/ray-project/ray/8a434b4ee7cd48e60fa1531315d39901fac5d79e/dashboard/optional_utils.py",
+      "sha256": "48a5bd705da41bf0c393210c0901d3b6b39c96c0d4fb3087f73e8830c80ea224"
+    },
+    "dashboard/modules/reporter/profile_manager.py": {
+      "url": "https://raw.githubusercontent.com/ray-project/ray/8a434b4ee7cd48e60fa1531315d39901fac5d79e/dashboard/modules/reporter/profile_manager.py",
+      "sha256": "3c691f55e42e089255a045785a52f2223b8768e2bc97fdf48ef61f1584d99763"
+    },
+    "dashboard/http_server_head.py": {
+      "url": "https://raw.githubusercontent.com/ray-project/ray/8a434b4ee7cd48e60fa1531315d39901fac5d79e/dashboard/http_server_head.py",
+      "sha256": "514713d6895e821e7199cbf57de956aa4d86ad87325a652340b5938739b036f7"
+    },
+    "dashboard/http_server_agent.py": {
+      "url": "https://raw.githubusercontent.com/ray-project/ray/8a434b4ee7cd48e60fa1531315d39901fac5d79e/dashboard/http_server_agent.py",
+      "sha256": "86d2f037c52e3af360869b6fa0c66564a0e04488ce8ce75f0cd249e9fa844d15"
+    },
+    "dashboard/modules/job/sdk.py": {
+      "url": "https://raw.githubusercontent.com/ray-project/ray/8a434b4ee7cd48e60fa1531315d39901fac5d79e/dashboard/modules/job/sdk.py",
+      "sha256": "f5ee49214d47eedfa32a473445ba137f6adf05bf970c27618d8a8e9b891c0ea9"
+    }
+  }
+}

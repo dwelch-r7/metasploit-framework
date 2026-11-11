@@ -1,0 +1,39 @@
+services:
+  ray:
+    image: rayproject/ray:2.6.3@sha256:9db6f33629b743cc0519f17ae9d1f2db986fb1fcc75a56c1b1740fa1fa3ac82c
+    platform: linux/amd64
+    init: true
+    cpus: 1.0
+    mem_limit: 1024m
+    memswap_limit: 1024m
+    pids_limit: 512
+    shm_size: 96m
+    environment:
+      MODULE_TARGET_RAY_HEAD_PORT: &head_port 8265
+      MODULE_TARGET_RAY_AGENT_PORT: &agent_port 52365
+      RAY_USAGE_STATS_ENABLED: '0'
+      OMP_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+    command: [/bin/sh, /module-target/bootstrap.sh]
+    volumes: [./bootstrap.sh:/module-target/bootstrap.sh:ro]
+    networks: [default, public]
+    ports:
+      - {target: *head_port, host_ip: 127.0.0.1}
+      - {target: *agent_port, host_ip: 127.0.0.1}
+    healthcheck:
+      test: [CMD, python, -c, "import os,urllib.request; urllib.request.urlopen('http://127.0.0.1:'+os.environ['MODULE_TARGET_RAY_HEAD_PORT']+'/api/version', timeout=3).read()"]
+      interval: 3s
+      timeout: 5s
+      retries: 80
+  unrelated:
+    extends: {file: ../druid/compose.yaml, service: gateway}
+    cpus: 0.1
+    mem_limit: 64m
+    memswap_limit: 64m
+    pids_limit: 64
+    command: [httpd-foreground, -c, Include conf/extra/druid.conf]
+    volumes: [./unrelated.conf:/usr/local/apache2/conf/extra/druid.conf:ro]
+networks:
+  default: {internal: true}
+  public:
