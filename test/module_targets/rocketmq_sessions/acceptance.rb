@@ -100,8 +100,10 @@ module Acceptance
       proof['connections'] = rmq_remote_connections(port, pid)
       rmq_json("DruidSessionControl.dispatch(framework,'exit',#{identifier})")
       rmq_poll(20) { expect(target_exec('vulnerable', 'bash', '-c', 'if test -e "$1";then printf PRESENT;else printf ABSENT;fi', 'bash', "/proc/#{pid}")).to eq('ABSENT') }
-      rmq_poll(20) { expect(rmq_remote_connections(port)).to eq([]) }
+      # The remote process has exited. Close the host shell handle before
+      # requiring the kernel FIN_WAIT2 record to disappear at the target.
       console_command("irb -e #{"framework.sessions[#{identifier}]&.shell_close".inspect}") unless payload.include?('meterpreter')
+      rmq_poll(20) { expect(rmq_remote_connections(port)).to eq([]) }
       rmq_poll(15) { expect(rmq_json('framework.sessions.keys')).to eq([]) }
       target_exec('vulnerable', 'rm', '-f', path)
       proof.merge!('remote_pid_absent' => true, 'active_target_socket_absent' => true, 'host_session_absent' => true)
@@ -151,6 +153,7 @@ module Acceptance
       ensure
         failure = $ERROR_INFO
         record[:failure] = "#{failure.class}: #{failure.message}" if failure
+        record[:status] = 'setup_failed' if failure
         errors = []
         [-> { rmq_cleanup_runtime }, -> { target_exec('vulnerable', 'rm', '-f', remote) }].each do |cleanup|
           cleanup.call
