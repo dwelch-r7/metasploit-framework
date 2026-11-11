@@ -1,5 +1,6 @@
 """Apply modern native controls to the guarded owner's actual service."""
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -11,6 +12,9 @@ assert phase in ['before', 'after']
 base = Path(__file__).resolve().parents[1]
 component = base / 'ray_logs'
 artifacts = Path(runtime['artifacts'])
+version = os.environ.get('MODULE_TARGET_RAY_LOGS_VERSION', '2.56.0')
+assert version in ['2.56.0', '2.57.0']
+manifest = json.loads((component / ('sources-' + version + '.json')).read_text())
 work = artifacts / ('native-' + phase)
 work.mkdir()
 commands = []
@@ -32,7 +36,7 @@ for name, service, port in [('head', 'ray', '8265'), ('agent', 'ray', '52365'), 
     assert binding.startswith('127.0.0.1:') and binding.rsplit(':', 1)[1].isdigit()
     endpoints[name] = 'http://' + binding
 config = {'compose': runtime['compose'], 'endpoints': endpoints, 'artifacts': str(work),
-          'source_manifest': json.loads((component / 'sources-2.56.0.json').read_text())}
+          'source_manifest': manifest}
 config_path = work / 'runtime.json'
 config_path.write_text(json.dumps(config, indent=2) + '\n')
 fixture_path = artifacts / 'owner-fixtures.json'
@@ -40,14 +44,14 @@ try:
     if phase == 'after':
         fixture = json.loads(fixture_path.read_text())
         assert target('verify', fixture=fixture)['fixture_bytes_unchanged']
-        assert target('sdk', fixture=fixture, policy='traversable')['exact_owned_log_bytes']
+        assert target('sdk', fixture=fixture, policy=manifest['policy'])['exact_owned_log_bytes']
         assert target('cleanup', fixture=fixture)['owned_fixture_paths_absent']
     subprocess.run(['python3', '-B', str(component / 'native_probe.py'), str(config_path)], check=True, timeout=300)
     if phase == 'before':
         result = json.loads((work / 'native-result.json').read_text())
         fixture = target('seed', nonce=uuid.uuid4().hex, node_id=result['fixture']['node_id'])
         fixture_path.write_text(json.dumps(fixture, indent=2) + '\n')
-        assert target('sdk', fixture=fixture, policy='traversable')['exact_owned_log_bytes']
+        assert target('sdk', fixture=fixture, policy=manifest['policy'])['exact_owned_log_bytes']
 finally:
     (work / 'owner-fixture-commands.json').write_text(json.dumps(commands, indent=2) + '\n')
     source = (base / 'ray/diagnostics.py').read_text()

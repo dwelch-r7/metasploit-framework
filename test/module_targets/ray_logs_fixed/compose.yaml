@@ -1,0 +1,10 @@
+include:
+  - path:
+      - ../ray_logs/compose.yaml
+      - ../ray_logs/compose-2.57.0.yaml
+services:
+  framework:
+    cpus: 1
+    mem_limit: 768m
+    memswap_limit: 768m
+    pids_limit: 256
