@@ -45,8 +45,10 @@ class MetasploitModule < Msf::Auxiliary
   def check
     begin
       login
-    rescue Msf::Exploit::Failed
-      return Msf::Exploit::CheckCode::Unknown('Authentication failed')
+    rescue Msf::Auxiliary::Failed => e
+      elog('Listmonk login failed during check', error: e)
+      reason = fail_reason == Failure::NoAccess ? 'Authentication failed' : "Login failed: #{fail_detail}"
+      return Msf::Exploit::CheckCode::Unknown(reason)
     end
 
     res = send_request_cgi({
@@ -56,22 +58,24 @@ class MetasploitModule < Msf::Auxiliary
 
     return Msf::Exploit::CheckCode::Unknown('Connection failed') unless res
 
-    if res.code == 200
-      json = res.get_json_document
-      return Msf::Exploit::CheckCode::Unknown('Failed to parse version information') unless json
+    return Msf::Exploit::CheckCode::Unknown('Could not determine if target is running Listmonk') unless res.code == 200
 
-      if json['version']
-        version_string = json['version'].gsub(/^v/, '')
-        version = Rex::Version.new(version_string)
-        if version >= Rex::Version.new('4.0.0') && version < Rex::Version.new('5.0.2')
-          return Msf::Exploit::CheckCode::Appears("Listmonk version #{version_string} is vulnerable")
-        else
-          return Msf::Exploit::CheckCode::Safe("Listmonk version #{version_string} is patched")
-        end
-      end
+    json = res.get_json_document
+    unless json.is_a?(Hash) && json['version'].is_a?(String)
+      return Msf::Exploit::CheckCode::Unknown('Failed to parse version information')
     end
 
-    Msf::Exploit::CheckCode::Unknown('Could not determine if target is running Listmonk')
+    version_string = json['version'].delete_prefix('v')
+    unless version_string.present? && Rex::Version.correct?(version_string)
+      return Msf::Exploit::CheckCode::Unknown('Failed to parse version information')
+    end
+
+    version = Rex::Version.new(version_string)
+    if version >= Rex::Version.new('4.0.0') && version < Rex::Version.new('5.0.2')
+      return Msf::Exploit::CheckCode::Appears("Listmonk version #{version_string} is vulnerable")
+    end
+
+    Msf::Exploit::CheckCode::Safe("Listmonk version #{version_string} is patched")
   end
 
   def get_nonce
