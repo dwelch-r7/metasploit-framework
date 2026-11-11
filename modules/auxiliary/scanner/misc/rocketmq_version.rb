@@ -43,6 +43,11 @@ class MetasploitModule < Msf::Auxiliary
     end
 
     parsed_data = parse_rocketmq_data(res)
+    unless parsed_data
+      print_error('Invalid or no response received')
+      return
+    end
+
     # grab some data that we need/want out of the response
     output = "RocketMQ version #{parsed_data['version']}"
     output += " found with brokers: #{parsed_data['brokerDatas']}" if parsed_data['brokerDatas']

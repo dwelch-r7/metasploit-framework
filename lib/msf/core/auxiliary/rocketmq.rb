@@ -30,7 +30,7 @@ module Msf
 
         res = sock.timed_read(res_length)
       rescue Rex::AddressInUse, ::Errno::ETIMEDOUT, Rex::HostUnreachable, Rex::ConnectionTimeout, Rex::ConnectionRefused, ::Timeout::Error, ::EOFError => e
-        print_error("Unable to connect: #{e.class} #{e.message}\n#{e.backtrace * "\n"}")
+        print_error("Unable to connect: #{e.class} #{e.message}")
         elog('Error sending the rocketmq version request', error: e)
         return nil
       ensure
@@ -61,50 +61,38 @@ module Msf
       version_list.fetch(id, "UNKNOWN_VERSION_ID_#{id}").gsub('_', '.')
     end
 
-    # This function takes a response from the send_version_request function and parses as it doesn't get returned as
-    # proper json. It returns a Hash including RocketMQ versions info and Broker info if found
+    # Decode the JSON header and optional body returned by send_version_request.
     #
-    # @param [String] res Response form the send_version_request request
-    # @return [Hash] Hash including RocketMQ versions info and Broker info if found
+    # @see https://github.com/apache/rocketmq/blob/rocketmq-all-4.9.4/remoting/src/main/java/org/apache/rocketmq/remoting/protocol/RemotingCommand.java#L141-L183
+    # @param [String, nil] res Response including its serialization/header-length prefix.
+    # @return [Hash, nil] Version and optional Broker data, or nil for unusable data.
     def parse_rocketmq_data(res)
-      # remove a response header so we have json-ish data
-      res = res.split("\x00_")[1]
-      unless res.starts_with?("{")
-        print_error("Failed to successfully remove the response header and now cannot parse the response.")
-        return nil
-      end
+      return nil unless res.is_a?(String) && res.bytesize >= 4
 
-      # we have 2 json objects appended to each other, so we now need to split that out and make it usable
-      res = res.split('}{')
+      # The upper byte identifies serialization; the lower 24 bits give the
+      # actual header size. Error replies need not have a 95-byte header.
+      prefix = res.unpack1('N')
+      return nil unless (prefix >> 24).zero?
 
-      jsonable = []
-      # patch back in the { and }
-      res.each do |r|
-        r += '}' unless r.end_with?('}')
-        r = '{' + r unless r.start_with?('{')
-        jsonable.append(r)
-      end
+      header_size = prefix & 0x00ffffff
+      return nil if header_size.zero? || header_size > res.bytesize - 4
 
-      result = []
-      jsonable.each do |j|
-        res = JSON.parse(j)
-        result.append(res)
-      rescue JSON::ParserError
-        vprint_error("Unable to parse json data: #{j}")
-        next
-      end
+      header = JSON.parse(res.byteslice(4, header_size))
+      # The protocol's version field is a nonnegative Java int.
+      return nil unless header.is_a?(Hash) && header['version'].is_a?(Integer) && header['version'].between?(0, 0x7fffffff)
 
-      parsed_data = {}
-      result.each do |j|
-        parsed_data['version'] = get_rocketmq_version(j['version']) if j['version']
-        parsed_data['brokerDatas'] = j['brokerDatas'] if j['brokerDatas']
-      end
+      body_data = res.byteslice(4 + header_size..)
+      body = body_data.empty? ? {} : JSON.parse(body_data)
+      return nil unless body.is_a?(Hash)
+      return nil if body['brokerDatas'] && !body['brokerDatas'].is_a?(Array)
 
-      if parsed_data == {} || parsed_data['version'].nil?
-        vprint_error('Unable to find version or other data within response.')
-        return
-      end
+      parsed_data = { 'version' => get_rocketmq_version(header['version']) }
+      parsed_data['brokerDatas'] = body['brokerDatas'] if body['brokerDatas']
       parsed_data
+    rescue JSON::ParserError => e
+      vprint_error('Unable to parse RocketMQ response JSON')
+      elog('Unable to parse RocketMQ response JSON', error: e)
+      nil
     end
 
     # This function takes the broker data from the name server response, the rhost address and a default Broker port

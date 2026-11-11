@@ -1,0 +1,100 @@
+{
+  "origin": {
+    "run": "20261111T131052-a4d8c3",
+    "source_revision": "15bb8da89cd (source identical to ce26bffa44b; commit message amended)",
+    "transport": "Actual send_version_request return, including the 4-byte serialization/header-size prefix; outer total size already consumed by helper",
+    "services": "Apache RocketMQ 4.9.4 and5.1.1 genuine Docker images; native SDK preflight passed in same invocation",
+    "capture_file": "msf-config/rocketmq-wire.jsonl",
+    "capture_file_sha256": "21a4b37ec94eee1a3921e7cc40ced8f69cd06b0c6fa017cfd06c235f8c8a0b85",
+    "addresses": "Disposable Docker bridge addresses retained from capture; no external targets"
+  },
+  "responses": {
+    "nameserver_4_9_4": {
+      "base64": "AAAAX3siY29kZSI6MCwiZmxhZyI6MSwibGFuZ3VhZ2UiOiJKQVZBIiwib3BhcXVlIjoxLCJzZXJpYWxpemVUeXBlQ3VycmVudFJQQyI6IkpTT04iLCJ2ZXJzaW9uIjo0MDF9eyJicm9rZXJEYXRhcyI6W3siYnJva2VyQWRkcnMiOnsiMCI6IjE3Mi4yNi4wLjI6MTA5MjEifSwiYnJva2VyTmFtZSI6Im1vZHVsZS10YXJnZXQtNC45LjQiLCJjbHVzdGVyIjoibW9kdWxlLXRhcmdldCJ9XSwiZmlsdGVyU2VydmVyVGFibGUiOnt9LCJxdWV1ZURhdGFzIjpbeyJicm9rZXJOYW1lIjoibW9kdWxlLXRhcmdldC00LjkuNCIsInBlcm0iOjcsInJlYWRRdWV1ZU51bXMiOjgsInRvcGljU3lzRmxhZyI6MCwid3JpdGVRdWV1ZU51bXMiOjh9XX0=",
+      "sha256": "41f3e328918d531805cfa913c28c124f98ef80a7155c53e8bda7d2c2d74ae167",
+      "bytes": 356,
+      "header_bytes": 95,
+      "header": {
+        "code": 0,
+        "flag": 1,
+        "language": "JAVA",
+        "opaque": 1,
+        "serializeTypeCurrentRPC": "JSON",
+        "version": 401
+      },
+      "body": {
+        "brokerDatas": [
+          {
+            "brokerAddrs": {
+              "0": "172.26.0.2:10921"
+            },
+            "brokerName": "module-target-4.9.4",
+            "cluster": "module-target"
+          }
+        ],
+        "filterServerTable": {},
+        "queueDatas": [
+          {
+            "brokerName": "module-target-4.9.4",
+            "perm": 7,
+            "readQueueNums": 8,
+            "topicSysFlag": 0,
+            "writeQueueNums": 8
+          }
+        ]
+      }
+    },
+    "broker_unsupported": {
+      "base64": "AAAAinsiY29kZSI6MywiZmxhZyI6MSwibGFuZ3VhZ2UiOiJKQVZBIiwib3BhcXVlIjoxLCJyZW1hcmsiOiIgcmVxdWVzdCB0eXBlIDEwNSBub3Qgc3VwcG9ydGVkIiwic2VyaWFsaXplVHlwZUN1cnJlbnRSUEMiOiJKU09OIiwidmVyc2lvbiI6NDM1fQ==",
+      "sha256": "28ede505822a07689f89d94c10b22020c8512df87b9a92308835247a41026453",
+      "bytes": 142,
+      "header_bytes": 138,
+      "header": {
+        "code": 3,
+        "flag": 1,
+        "language": "JAVA",
+        "opaque": 1,
+        "remark": " request type 105 not supported",
+        "serializeTypeCurrentRPC": "JSON",
+        "version": 435
+      },
+      "body": null
+    },
+    "nameserver_5_1_1": {
+      "base64": "AAAAX3siY29kZSI6MCwiZmxhZyI6MSwibGFuZ3VhZ2UiOiJKQVZBIiwib3BhcXVlIjoxLCJzZXJpYWxpemVUeXBlQ3VycmVudFJQQyI6IkpTT04iLCJ2ZXJzaW9uIjo0MzV9eyJicm9rZXJEYXRhcyI6W3siYnJva2VyQWRkcnMiOnsiMCI6IjE3Mi4yNi4wLjM6MTA5MjEifSwiYnJva2VyTmFtZSI6Im1vZHVsZS10YXJnZXQtNS4xLjEiLCJjbHVzdGVyIjoibW9kdWxlLXRhcmdldCIsImVuYWJsZUFjdGluZ01hc3RlciI6ZmFsc2V9XSwiZmlsdGVyU2VydmVyVGFibGUiOnt9LCJxdWV1ZURhdGFzIjpbeyJicm9rZXJOYW1lIjoibW9kdWxlLXRhcmdldC01LjEuMSIsInBlcm0iOjcsInJlYWRRdWV1ZU51bXMiOjgsInRvcGljU3lzRmxhZyI6MCwid3JpdGVRdWV1ZU51bXMiOjh9XX0=",
+      "sha256": "0e5bc88070691d0646c37dcc18a71e80734a0ff242ac5aabea7cd96b5069887b",
+      "bytes": 383,
+      "header_bytes": 95,
+      "header": {
+        "code": 0,
+        "flag": 1,
+        "language": "JAVA",
+        "opaque": 1,
+        "serializeTypeCurrentRPC": "JSON",
+        "version": 435
+      },
+      "body": {
+        "brokerDatas": [
+          {
+            "brokerAddrs": {
+              "0": "172.26.0.3:10921"
+            },
+            "brokerName": "module-target-5.1.1",
+            "cluster": "module-target",
+            "enableActingMaster": false
+          }
+        ],
+        "filterServerTable": {},
+        "queueDatas": [
+          {
+            "brokerName": "module-target-5.1.1",
+            "perm": 7,
+            "readQueueNums": 8,
+            "topicSysFlag": 0,
+            "writeQueueNums": 8
+          }
+        ]
+      }
+    }
+  }
+}
