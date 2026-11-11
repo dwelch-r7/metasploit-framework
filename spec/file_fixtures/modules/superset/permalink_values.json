@@ -1,0 +1,44 @@
+{
+  "provenance": {
+    "run": "msf-superset-native-20261111t054132-674966",
+    "version": "Apache Superset 2.0.0",
+    "observations_sha256": "54e16f202f7757b6bed7d022bc6eceee48aa3d200dcafdbf1f45f37475592040",
+    "csv_response_sha256": "b639fb8a8ab0d9b44e83e3e84516cdebad5ed75ae394b7ec6ad6cf5acabc8fe6",
+    "source": "Real native HTTP SQL/CSV response and read-only SQLite snapshot before any module invocation. Values are benign generated dashboard state and the native shared salt; no payload."
+  },
+  "csv": "id,value\n1,b'\\x80\\x04\\x95M\\x00\\x00\\x00\\x00\\x00\\x00\\x00}\\x94(\\x8c\\x0bdashboardId\\x94\\x8c\\x011\\x94\\x8c\\x05state\\x94}\\x94(\\x8c\\x0bfilterState\\x94}\\x94\\x8c\\x06native\\x94K\\x00s\\x8c\\turlParams\\x94]\\x94uu.'\n3,b'\\x80\\x04\\x95M\\x00\\x00\\x00\\x00\\x00\\x00\\x00}\\x94(\\x8c\\x0bdashboardId\\x94\\x8c\\x011\\x94\\x8c\\x05state\\x94}\\x94(\\x8c\\x0bfilterState\\x94}\\x94\\x8c\\x06native\\x94K\\x01s\\x8c\\turlParams\\x94]\\x94uu.'\n",
+  "rows": [
+    {
+      "id": 1,
+      "resource": "dashboard_permalink",
+      "value_hex": "8004954d000000000000007d94288c0b64617368626f6172644964948c0131948c057374617465947d94288c0b66696c7465725374617465947d948c066e6174697665944b00738c0975726c506172616d73945d9475752e"
+    },
+    {
+      "id": 2,
+      "resource": "app",
+      "value_hex": "80049544000000000000008c40625734756250494a66736a39675a6b76756e6653365a666470633241435330785f375a4559457831776b32584d6d515356695133416e525541314f7646547850942e"
+    },
+    {
+      "id": 3,
+      "resource": "dashboard_permalink",
+      "value_hex": "8004954d000000000000007d94288c0b64617368626f6172644964948c0131948c057374617465947d94288c0b66696c7465725374617465947d948c066e6174697665944b01738c0975726c506172616d73945d9475752e"
+    }
+  ],
+  "unit_variants": [
+    {
+      "name": "Quotes, backslashes and line breaks",
+      "id": 4,
+      "resource": "dashboard_permalink",
+      "value_hex": "0080ff27225c0a0d09",
+      "csv_value": "b'\\x00\\x80\\xff\\'\"\\\\\\n\\r\\t'"
+    },
+    {
+      "name": "Empty binary value",
+      "id": 4,
+      "resource": "dashboard_permalink",
+      "value_hex": "",
+      "csv_value": "b''"
+    }
+  ],
+  "unit_variants_provenance": "Additional explicit byte inputs rendered by host Python repr for isolated SQL/CSV compatibility only; these are not native application captures."
+}

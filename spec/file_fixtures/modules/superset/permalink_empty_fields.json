@@ -1,0 +1,48 @@
+{
+  "provenance": {
+    "kind": "Local source-unit producer evidence; not a native target capture",
+    "superset_commit": "067495d954ee0015d35c1437245feb66984e4c49",
+    "superset_csv_url": "https://raw.githubusercontent.com/apache/superset/067495d954ee0015d35c1437245feb66984e4c49/superset/utils/csv.py",
+    "superset_csv_sha256": "ccc53d25e8e6bd3e4095d32223aeaffcd2d8cab6fee0ea298c97f1037c64616a",
+    "function": "Unmodified df_to_escaped_csv and escape_value definitions evaluated from the official source AST",
+    "pandas_runtime_version": "2.2.3",
+    "vendor_requirement": "pandas==1.3.4",
+    "historical_writer": "Official pandas1.3.4 uses csv.writer with QUOTE_MINIMAL; empty strings pass unchanged through the Superset helper",
+    "query": "SELECT id,hex(value) AS value,typeof(value) AS value_type from key_value where resource='dashboard_permalink';",
+    "kwargs": {
+      "index": false,
+      "encoding": "utf-8"
+    },
+    "native_rows_source": "permalink_values.json; additional id4 empty blob/text are explicit unit inputs",
+    "source_files": {
+      "superset-csv.py": {
+        "url": "https://raw.githubusercontent.com/apache/superset/067495d954ee0015d35c1437245feb66984e4c49/superset/utils/csv.py",
+        "sha256": "ccc53d25e8e6bd3e4095d32223aeaffcd2d8cab6fee0ea298c97f1037c64616a"
+      },
+      "superset-requirements.txt": {
+        "url": "https://raw.githubusercontent.com/apache/superset/067495d954ee0015d35c1437245feb66984e4c49/requirements/base.txt",
+        "sha256": "79feace75d9997457526225d9c8dbdc2804619520fbb45a3df31a17e52c00361"
+      },
+      "pandas-csvs.py": {
+        "url": "https://raw.githubusercontent.com/pandas-dev/pandas/v1.3.4/pandas/io/formats/csvs.py",
+        "sha256": "afa96666a0a7948e0fbf423ec2097e673f72fdd83508eefa791f4146f1cb036b"
+      },
+      "pandas-writers.pyx": {
+        "url": "https://raw.githubusercontent.com/pandas-dev/pandas/v1.3.4/pandas/_libs/writers.pyx",
+        "sha256": "ce29d5ef42c83efea75b4ae33423e8678bc9c68e3b1126d9422b89e5d8d875c8"
+      }
+    }
+  },
+  "cases": [
+    {
+      "value_type": "blob",
+      "csv": "id,value,value_type\n1,8004954D000000000000007D94288C0B64617368626F6172644964948C0131948C057374617465947D94288C0B66696C7465725374617465947D948C066E6174697665944B00738C0975726C506172616D73945D9475752E,blob\n3,8004954D000000000000007D94288C0B64617368626F6172644964948C0131948C057374617465947D94288C0B66696C7465725374617465947D948C066E6174697665944B01738C0975726C506172616D73945D9475752E,blob\n4,,blob\n",
+      "sha256": "b2e25eb2fa2fb0331b09fad16ec5fd0197cff8522dccb9287349cefca169b9f2"
+    },
+    {
+      "value_type": "text",
+      "csv": "id,value,value_type\n1,8004954D000000000000007D94288C0B64617368626F6172644964948C0131948C057374617465947D94288C0B66696C7465725374617465947D948C066E6174697665944B00738C0975726C506172616D73945D9475752E,blob\n3,8004954D000000000000007D94288C0B64617368626F6172644964948C0131948C057374617465947D94288C0B66696C7465725374617465947D948C066E6174697665944B01738C0975726C506172616D73945D9475752E,blob\n4,,text\n",
+      "sha256": "0ad7b17aeadc88dcb2a751c879305e2d2c38afa965cfd85af56e38ba8c2f0862"
+    }
+  ]
+}
