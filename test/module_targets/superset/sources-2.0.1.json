@@ -1,0 +1,22 @@
+{
+  "config.py": {
+    "url": "https://raw.githubusercontent.com/apache/superset/2.0.1/superset/config.py",
+    "sha256": "c836565e48e78fd62d47ebd9396db8b32e7403c039783c3a4892e42eff91c207"
+  },
+  "constants.py": {
+    "url": "https://raw.githubusercontent.com/apache/superset/2.0.1/superset/constants.py",
+    "sha256": "dd85ee07c7d946aa7b27514a4932932d36810590196c875ce5434c2c22cf0320"
+  },
+  "initialization/__init__.py": {
+    "url": "https://raw.githubusercontent.com/apache/superset/2.0.1/superset/initialization/__init__.py",
+    "sha256": "4d1cee53914d321eea9844eb3555b812143fcc6a3fdd6e2f94da85a5beba2ce6"
+  },
+  "key_value/commands/get.py": {
+    "url": "https://raw.githubusercontent.com/apache/superset/2.0.1/superset/key_value/commands/get.py",
+    "sha256": "f73ee2c1273ca13a0d0cd1c49bc07f5b47c613aa6958b898d6d6a48471f3aef8"
+  },
+  "key_value/models.py": {
+    "url": "https://raw.githubusercontent.com/apache/superset/2.0.1/superset/key_value/models.py",
+    "sha256": "8fc13c515cbe4f849f896f3d1aeee29dabc55d8dfe74e402a79476c9d1d0b4bf"
+  }
+}

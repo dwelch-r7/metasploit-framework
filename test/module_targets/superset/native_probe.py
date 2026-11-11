@@ -16,7 +16,7 @@ def main():
     try:
         identity = native.app('identity')
         result['identity'] = identity
-        assert identity['packages']['apache-superset'] == '2.0.0', identity
+        assert identity['packages']['apache-superset'] == runtime.get('version', '2.0.0'), identity
         assert identity['uid'] == identity['metadata_stat']['uid'] == 1000, identity
         assert identity['configuration']['SQLALCHEMY_DATABASE_URI'] == 'sqlite:////app/superset_home/superset.db'
         assert identity['configuration']['SECRET_KEY'] == 'CHANGE_ME_TO_A_COMPLEX_RANDOM_SECRET'

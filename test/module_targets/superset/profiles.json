@@ -1,0 +1,4 @@
+{
+  "2.0.0": {"sources": "sources.json"},
+  "2.0.1": {"sources": "sources-2.0.1.json", "compose": "2.0.1.compose.yaml"}
+}

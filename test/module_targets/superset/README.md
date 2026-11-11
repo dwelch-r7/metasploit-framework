@@ -47,9 +47,13 @@ remain pending individually.
 
 ```sh
 nice -n 10 bundle exec ruby test/module_targets/superset/native_gate.rb --native
+nice -n 10 bundle exec ruby test/module_targets/superset/native_gate.rb --native 2.0.1
 ```
 
-This requires an empty container inventory and holds the shared campaign lock.
+Each invocation requires an empty container inventory and holds the shared
+campaign lock. The default remains 2.0.0; 2.0.1 explicitly selects its pinned
+image overlay and corresponding official installed-source hashes. A native
+version comparison alone does not establish module check or run behavior.
 The 900-second operation bounds serial pinned-image pulls, supported application
 initialization and genuine HTTP/serializer controls. Pulls have a 600-second
 command cap, readiness 240 seconds and native controls 240 seconds, each limited

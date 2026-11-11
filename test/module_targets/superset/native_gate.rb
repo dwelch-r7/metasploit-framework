@@ -14,15 +14,18 @@ class SupersetNativeGate
 
   class Error < StandardError; end
 
-  def initialize
+  def initialize(profile: '2.0.0')
+    @profile = profile
+    @configuration = JSON.parse(File.read(File.join(DIRECTORY, 'profiles.json'))).fetch(profile)
     @project = "msf-superset-native-#{Time.now.utc.strftime('%Y%m%dT%H%M%S').downcase}-#{SecureRandom.hex(3)}"
     @directory = File.join(ROOT, 'tmp', 'module-target-superset', @project)
     @runner = GuardedModuleTargetTests.new
     @compose = ['docker', 'compose', '--project-name', @project, '--file', File.join(DIRECTORY, 'compose.yaml')]
+    @compose += ['--file', File.join(DIRECTORY, @configuration.fetch('compose'))] if @configuration['compose']
     @owned = INVENTORY.keys.to_h { |kind| [kind, []] }
     @result = {
       'status' => 'setup_failed', 'project' => @project, 'started_at' => Time.now.utc.iso8601,
-      'inputs_sha256' => inputs, 'commands' => [], 'capture_errors' => [], 'framework_calls' => 0
+      'inputs_sha256' => inputs, 'commands' => [], 'capture_errors' => [], 'framework_calls' => 0, 'profile' => profile
     }
   end
 
@@ -59,8 +62,8 @@ class SupersetNativeGate
       raise Error, 'Native datasource login/query differs' unless output.strip == 'module_native|module_native|42'
 
       runtime = {
-        'compose' => @compose, 'origin' => "http://#{port}", 'artifacts' => @directory,
-        'source_sha256' => JSON.parse(File.read(File.join(DIRECTORY, 'sources.json'))).transform_values { |row| row.fetch('sha256') }
+        'compose' => @compose, 'origin' => "http://#{port}", 'artifacts' => @directory, 'version' => @profile,
+        'source_sha256' => JSON.parse(File.read(File.join(DIRECTORY, @configuration.fetch('sources')))).transform_values { |row| row.fetch('sha256') }
       }
       File.write(File.join(@directory, 'runtime.json'), JSON.pretty_generate(runtime) + "\n")
       required(['python3', '-B', File.join(DIRECTORY, 'native_probe.py'), File.join(@directory, 'runtime.json')], 'native-controls', timeout: 240)
@@ -195,9 +198,9 @@ class SupersetNativeGate
 end
 
 if $PROGRAM_NAME == __FILE__
-  if ARGV == ['--native']
-    exit(SupersetNativeGate.new.run ? 0 : 1)
+  if ARGV == ['--native'] || (ARGV.length == 2 && ARGV.first == '--native' && %w[2.0.0 2.0.1].include?(ARGV.last))
+    exit(SupersetNativeGate.new(profile: ARGV.fetch(1, '2.0.0')).run ? 0 : 1)
   end
-  warn 'Usage: bundle exec ruby test/module_targets/superset/native_gate.rb --native'
+  warn 'Usage: bundle exec ruby test/module_targets/superset/native_gate.rb --native [2.0.0|2.0.1]'
   exit 2
 end
