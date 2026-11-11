@@ -1,0 +1,17 @@
+spec: spec/modules/auxiliary/gather/jetty_webinf_target_spec.rb
+expected_examples: 6
+console: true
+modules: [auxiliary/gather/jetty_web_inf_disclosure]
+ports: {target: 8080}
+test_env: {JETTY_PROFILE: 10.0.6}
+support_files:
+  - test/module_targets/jetty_webinf/Dockerfile
+  - test/module_targets/jetty_webinf/module-target.ini
+  - test/module_targets/jetty_webinf/web.xml
+  - test/module_targets/jetty_webinf/unicode.txt
+  - test/module_targets/jetty_webinf/compose.yaml
+  - test/module_targets/jetty_webinf/profiles.json
+  - test/module_targets/jetty_webinf/native_probe.py
+  - test/module_targets/jetty_webinf/acceptance.rb
+  - test/module_targets/jetty_webinf/README.md
+  - lib/msf/core/exploit/remote/auto_check.rb

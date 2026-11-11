@@ -1,0 +1,11 @@
+services:
+  target:
+    extends: {file: ../http/compose.yaml, service: apache}
+    build:
+      context: ../http
+    cpus: 0.1
+    mem_limit: 96m
+    memswap_limit: 96m
+    pids_limit: 192
+  framework:
+    extends: {file: ../jetty_webinf/compose.yaml, service: framework}

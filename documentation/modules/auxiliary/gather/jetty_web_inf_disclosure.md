@@ -1,7 +1,7 @@
 ## Vulnerable Application
 
 Jetty suffers from a vulnerability where certain encoded URIs and ambiguous paths can access
-protected files in the `WEB-INF` folder. 
+protected files in the `WEB-INF` folder.
 
 Versions effected are:
 
@@ -17,6 +17,14 @@ to have information of value.
 
 Use the Docker image from [ColdFusionX](https://github.com/ColdFusionX/CVE-2021-34429) at
 https://github.com/ColdFusionX/CVE-2021-34429/blob/main/docker-compose.yml
+
+## Automated Container Lab
+
+The repository includes [bounded Jetty file-read tests](../../../../test/module_targets/jetty_webinf/README.md)
+for both CVE selections on vulnerable and fixed 9.x, 10.x and 11.x releases, plus
+an unrelated Apache control. They compare real protected files and HTTP behavior
+with exact module loot; profile registration alone does not establish a pass.
+Existing human Scenarios below are preserved.
 
 ## Verification Steps
 

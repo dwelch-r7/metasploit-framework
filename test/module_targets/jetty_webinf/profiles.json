@@ -1,0 +1,56 @@
+{
+  "9.4.38": {
+    "server_version": "9.4.38.v20210224",
+    "image": "jetty@sha256:dd3fed2ceab1795c59e891fe5c9204d988ce910950f62cd6bddbe89eaa20f933",
+    "vendor_config_sha256": "b890f2e6fc30b18cf41c2edeb936086581d402d7c0bcbe4cda0185da56ac5234",
+    "vulnerable": {
+      "CVE-2021-28164": true,
+      "CVE-2021-34429": true
+    }
+  },
+  "9.4.43": {
+    "server_version": "9.4.43.v20210629",
+    "image": "jetty@sha256:d19c2b3c9bbdb00f3d83b540be13ecbc0dd3749e351cc6e0d76c07f417488a1e",
+    "vendor_config_sha256": "6249eecf1d024e920f2cbfd23662ea1fb14787dc514c023fbee31502067692df",
+    "vulnerable": {
+      "CVE-2021-28164": false,
+      "CVE-2021-34429": false
+    }
+  },
+  "10.0.5": {
+    "server_version": "10.0.5",
+    "image": "jetty@sha256:4325010bbc28b4cb8814c107f5306ee050e3a6bb462296df36afa70f42aa67ee",
+    "vendor_config_sha256": "4216fd52bf0c116b2b26f3a69be37abf16eb0a036199971905dd73eba40b6f7a",
+    "vulnerable": {
+      "CVE-2021-28164": false,
+      "CVE-2021-34429": true
+    }
+  },
+  "10.0.6": {
+    "server_version": "10.0.6",
+    "image": "jetty@sha256:38e1cc4939671164462e5fdbb6d703d694758f8dad2ea3a038c8bfe81a21a33e",
+    "vendor_config_sha256": "4c4568d219ca419452e947b09136ff90c0d78214278b4c9994bfe2a7e0b22d57",
+    "vulnerable": {
+      "CVE-2021-28164": false,
+      "CVE-2021-34429": false
+    }
+  },
+  "11.0.5": {
+    "server_version": "11.0.5",
+    "image": "jetty@sha256:f06ffd92644b5ea6fd4a8d1df6117f68deb484dd0489b11aaac2cf710a83a483",
+    "vendor_config_sha256": "f1866c5eeb58912b4d0551888b81419581a0bad2c94266060e29b80c6686728c",
+    "vulnerable": {
+      "CVE-2021-28164": false,
+      "CVE-2021-34429": true
+    }
+  },
+  "11.0.6": {
+    "server_version": "11.0.6",
+    "image": "jetty@sha256:3f2ffdd6c780d058ae0f8c9ff671fd19f81a9c6a8a13039ffc8ebc44e582396e",
+    "vendor_config_sha256": "a5c9a3b53c7f8b6cbbe6b4083ac85260d435d9148d9da3140a49d09308174c64",
+    "vulnerable": {
+      "CVE-2021-28164": false,
+      "CVE-2021-34429": false
+    }
+  }
+}

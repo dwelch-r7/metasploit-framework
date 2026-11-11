@@ -1,0 +1,9 @@
+services:
+  target:
+    extends: {file: ../jetty_webinf/compose.yaml, service: target}
+    build:
+      context: ../jetty_webinf
+      args:
+        JETTY_IMAGE: jetty@sha256:38e1cc4939671164462e5fdbb6d703d694758f8dad2ea3a038c8bfe81a21a33e
+  framework:
+    extends: {file: ../jetty_webinf/compose.yaml, service: framework}
