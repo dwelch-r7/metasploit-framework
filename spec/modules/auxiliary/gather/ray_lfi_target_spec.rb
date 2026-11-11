@@ -25,7 +25,7 @@ RSpec.describe 'Genuine Ray static file owner', acceptance: true do
   it 'prints exact UTF8 file content from a quoted path twice' do
     2.times do
       output = run_target_module(owner, 'ray', { 'FILEPATH' => @fixture.fetch('paths').fetch('utf8') })
-      expect(output.gsub("\r\n", "\n")).to include(@content.force_encoding(Encoding::UTF_8))
+      expect(output.gsub("\r\n", "\n").b).to include(@content.b)
     end
   end
 
@@ -41,14 +41,14 @@ RSpec.describe 'Genuine Ray static file owner', acceptance: true do
   it 'preserves reserved characters, a literal percent escape and UTF8 in a filename twice' do
     2.times do
       output = run_target_module(owner, 'ray', { 'FILEPATH' => @fixture.fetch('paths').fetch('reserved') })
-      expect(output.gsub("\r\n", "\n")).to include(@content.force_encoding(Encoding::UTF_8))
+      expect(output.gsub("\r\n", "\n").b).to include(@content.b)
     end
   end
 
   it 'reports a genuinely absent file without printing fixture content' do
     output = run_target_module(owner, 'ray', { 'FILEPATH' => @fixture.fetch('paths').fetch('missing') }, allow_errors: true)
     expect(output).to include('Failed to execute LFI')
-    expect(output).not_to include(@content.force_encoding(Encoding::UTF_8).strip)
+    expect(output.b).not_to include(@content.b.strip)
   end
 
   it 'returns unknown on unrelated Apache content' do
@@ -59,12 +59,12 @@ RSpec.describe 'Genuine Ray static file owner', acceptance: true do
   it 'honors automatic refusal on unrelated Apache content' do
     output = run_target_module(owner, 'unrelated', { 'FILEPATH' => @fixture.fetch('paths').fetch('utf8') }, allow_errors: true)
     expect(output).to include('Cannot reliably check exploitability.')
-    expect(output).not_to include(@content.force_encoding(Encoding::UTF_8).strip)
+    expect(output.b).not_to include(@content.b.strip)
   end
 
   it 'reads without relying on check initialization' do
     output = run_target_module(owner, 'ray', { 'FILEPATH' => @fixture.fetch('paths').fetch('utf8'), 'AutoCheck' => false })
-    expect(output.gsub("\r\n", "\n")).to include(@content.force_encoding(Encoding::UTF_8))
+    expect(output.gsub("\r\n", "\n").b).to include(@content.b)
   end
 
   def native_phase(phase)

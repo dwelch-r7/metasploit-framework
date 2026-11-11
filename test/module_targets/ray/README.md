@@ -1,7 +1,8 @@
 # Ray native preparation
 
-This native-only gate is under preparation. It does not register or qualify any
-Framework owner. Begin with one genuine pinned Ray2.6.3 head and an unrelated
+Native prerequisites and actual owner cases have separate results, recorded in
+the [campaign checkpoint](../VERIFICATION-20261111-ray.md). Begin with one
+genuine pinned Ray2.6.3 head and an unrelated
 Apache service: two containers, 1,088 MiB and 1.1 CPUs in total. Framework is not
 started. Containers use the campaign lock and are removed with their owned
 networks after capture, including on prerequisite failures. Cached images stay.
@@ -68,5 +69,6 @@ five passed, while quoted filenames failed with and without AutoCheck. Native
 controls passed before and after. The server captured literal spaces in the
 owner's request target and returned HTTP400. The filename encoding repair passes
 eight isolated tests using the real HttpClient and Rex request serializer at a
-stubbed transport boundary. Its genuine reserved/UTF8 filename replay is pending;
-no owner is qualified from that failed run.
+stubbed transport boundary. Functional qualification requires complete exact-byte and repeated-read
+assertions; see the campaign checkpoint for observed replays. No owner is
+qualified from that failed baseline.

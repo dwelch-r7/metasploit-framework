@@ -10,6 +10,15 @@ This module was successfully tested on:
 
     * Ray (v2.6.3) installed with Docker on Kali Linux 6.6.15
 
+### Automated container verification
+
+The [container acceptance profile](../../../../test/module_targets/ray_lfi/README.md)
+pins genuine Ray 2.6.3 and exercises check, repeated reads, quoted and reserved
+filename characters, empty and missing files, unrelated content and AutoCheck.
+It performs independent native controls and removes its containers after each
+run. The profile covers 2.6.3; other version boundaries require separate
+validation.
+
 ### Install and run the vulnerable Ray (v2.6.3)
 
 1. Install your favorite virtualization engine (VirtualBox or VMware) on your preferred platform.

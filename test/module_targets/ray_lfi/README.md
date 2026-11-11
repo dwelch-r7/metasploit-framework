@@ -1,6 +1,6 @@
 # Ray static file owner
 
-This profile is under validation. It uses the [genuine Ray lab](../ray/README.md)
+This profile uses the [genuine Ray lab](../ray/README.md)
 at pinned version 2.6.3, unrelated Apache, and the canonical Framework console.
 The serial budget is three containers, 1,856MiB and 2.1 CPUs. No listener or
 privilege exception is needed for this file-read module.
@@ -20,3 +20,7 @@ Internal logs, cgroup counters and raw responses remain with the run artifacts.
 
 This profile does not qualify fixed releases, intermediate version boundaries,
 CPU profiling, log traversal, job execution owners or payload sessions.
+
+Completed runs and known limits are recorded in the
+[campaign checkpoint](../VERIFICATION-20261111-ray.md). A configured profile
+and a successful native preflight alone do not establish owner qualification.
