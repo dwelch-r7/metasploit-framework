@@ -1,0 +1,46 @@
+x-relay: &relay
+  extends: {file: ../ftp/compose.yaml, service: read_only}
+  platform: linux/amd64
+  init: true
+  cpus: 0.1
+  mem_limit: 64m
+  memswap_limit: 64m
+  pids_limit: 64
+  command: [python3, /opt/bounce_bootstrap.py]
+  volumes:
+    - ./bootstrap.py:/opt/bounce_bootstrap.py:ro
+    - ./native_probe.py:/opt/bounce_native_probe.py:ro
+    - ${MODULE_TARGET_ARTIFACTS:?Set by runner}:${MODULE_TARGET_ARTIFACTS}
+  networks: [default, public]
+services:
+  permissive:
+    <<: *relay
+    environment: {MODULE_TARGET_ALLOW_FOREIGN: 'on'}
+  protected:
+    <<: *relay
+    environment: {MODULE_TARGET_ALLOW_FOREIGN: 'off'}
+  destination:
+    image: httpd:2.4.62@sha256:4c7788695c832bf415a662dfb5160f1895e65fc65c025e85f436ee2c9e7d7f3e
+    platform: linux/amd64
+    init: true
+    cpus: 0.1
+    mem_limit: 64m
+    memswap_limit: 64m
+    pids_limit: 64
+    command: [httpd-foreground, -c, Include conf/extra/bounce.conf]
+    volumes: [./destination.conf:/usr/local/apache2/conf/extra/bounce.conf:ro]
+    networks: [default, public]
+    ports: [{target: 8080, host_ip: 127.0.0.1}]
+    healthcheck:
+      test: [CMD-SHELL, 'kill -0 1']
+      interval: 1s
+      timeout: 2s
+      retries: 30
+  framework:
+    cpus: 1
+    mem_limit: 768m
+    memswap_limit: 768m
+    pids_limit: 256
+networks:
+  default: {internal: true}
+  public:

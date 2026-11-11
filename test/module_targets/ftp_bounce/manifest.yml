@@ -1,0 +1,22 @@
+spec: spec/modules/auxiliary/scanner/ftpbounce_target_spec.rb
+expected_examples: 10
+console: true
+module_endpoint_network: default
+modules:
+  - auxiliary/scanner/portscan/ftpbounce
+ports:
+  permissive: 21
+  protected: 21
+  destination: 8080
+support_files:
+  - test/module_targets/ftp/compose.yaml
+  - test/module_targets/ftp/Dockerfile
+  - test/module_targets/ftp/entrypoint.sh
+  - test/module_targets/ftp/proftpd.conf
+  - test/module_targets/ftp/native_probe.py
+  - test/module_targets/ntp/report_observer.rb
+  - spec/support/shared/contexts/wait_for_expect.rb
+  - lib/msf/core/auxiliary/scanner.rb
+  - lib/msf/core/auxiliary/report.rb
+  - lib/msf/core/exploit/remote/ftp.rb
+  - lib/msf/core/exploit/remote/tcp.rb
