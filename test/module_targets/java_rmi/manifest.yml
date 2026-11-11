@@ -1,0 +1,28 @@
+spec: spec/modules/auxiliary/scanner/java_rmi_target_spec.rb
+expected_examples: 18
+console: true
+module_endpoint_network: default
+modules:
+  - auxiliary/gather/java_rmi_registry
+  - auxiliary/scanner/misc/java_jmx_server
+  - auxiliary/scanner/misc/java_rmi_server
+ports:
+  open: 1099
+  guarded: 1099
+  enabled: 1099
+  empty: 1099
+support_files:
+  - test/module_targets/ntp/report_observer.rb
+  - lib/msf/core/exploit/remote/java/rmi/client.rb
+  - lib/msf/core/exploit/remote/java/rmi/client/registry.rb
+  - lib/msf/core/exploit/remote/java/rmi/client/registry/parser.rb
+  - lib/msf/core/exploit/remote/java/rmi/client/registry/builder.rb
+  - lib/msf/core/exploit/remote/java/rmi/client/jmx.rb
+  - lib/msf/core/exploit/remote/java/rmi/client/jmx/server.rb
+  - lib/msf/core/exploit/remote/java/rmi/client/jmx/server/parser.rb
+  - lib/msf/core/exploit/remote/java/rmi/client/jmx/server/builder.rb
+  - lib/msf/core/exploit/remote/java/rmi/builder.rb
+  - lib/msf/core/exploit/remote/java/rmi/util.rb
+  - lib/msf/core/exploit/remote/tcp.rb
+  - lib/msf/core/auxiliary/scanner.rb
+  - lib/msf/core/auxiliary/report.rb
