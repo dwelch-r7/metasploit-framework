@@ -1,0 +1,209 @@
+{
+  "native-postgres.html": {
+    "source": "tmp/module-target-tests/20261111T222310-5f3eb5/owncloud_graph_0_3_0/native-before.json",
+    "source_sha256": "e21bdae16a9f4885a2232a59560fe5417eb20694efbc4bda8fa3edb3fc7b5b51",
+    "body_sha256": "c8ad5a63ba2f047bf6b119227e3655a694156c1ea1c2da59aebabcd260e17df5",
+    "bytes": 134894,
+    "request": {
+      "method": "GET",
+      "path": "/apps/graphapi/vendor/microsoft/microsoft-graph/tests/GetPhpInfo.php/.css",
+      "authenticated": false,
+      "status": 200,
+      "headers": [
+        [
+          "Date",
+          "Wed, 11 Nov 2026 22:26:17 GMT"
+        ],
+        [
+          "Server",
+          "Apache"
+        ],
+        [
+          "X-Content-Type-Options",
+          "nosniff"
+        ],
+        [
+          "X-XSS-Protection",
+          "0"
+        ],
+        [
+          "X-Robots-Tag",
+          "none"
+        ],
+        [
+          "X-Frame-Options",
+          "SAMEORIGIN"
+        ],
+        [
+          "X-Download-Options",
+          "noopen"
+        ],
+        [
+          "X-Permitted-Cross-Domain-Policies",
+          "none"
+        ],
+        [
+          "Vary",
+          "Accept-Encoding"
+        ],
+        [
+          "Transfer-Encoding",
+          "chunked"
+        ],
+        [
+          "Content-Type",
+          "text/html; charset=UTF-8"
+        ]
+      ]
+    },
+    "environment": {
+      "OWNCLOUD_ADMIN_USERNAME": "module-admin",
+      "OWNCLOUD_ADMIN_PASSWORD": "module-target-owncloud-password",
+      "OWNCLOUD_DB_HOST": "reporting_db:5432",
+      "OWNCLOUD_DB_USERNAME": "module_framework",
+      "OWNCLOUD_DB_PASSWORD": "module-target-framework-db-password",
+      "OWNCLOUD_DB_NAME": "owncloud",
+      "OWNCLOUD_DB_TYPE": "pgsql",
+      "OWNCLOUD_MAIL_SMTP_HOST": "127.0.0.1",
+      "OWNCLOUD_MAIL_SMTP_PORT": "2525",
+      "OWNCLOUD_MAIL_SMTP_NAME": "module-mail-user",
+      "OWNCLOUD_MAIL_SMTP_PASSWORD": "module-mail password & <encoded>",
+      "OWNCLOUD_REDIS_HOST": "redis",
+      "OWNCLOUD_REDIS_PORT": "6379",
+      "OWNCLOUD_REDIS_PASSWORD": "module-target-redis-password",
+      "OWNCLOUD_REDIS_ENABLED": "true",
+      "OWNCLOUD_LICENSE_KEY": "module-target-license",
+      "OWNCLOUD_OBJECTSTORE_KEY": "module-target-s3-key",
+      "OWNCLOUD_OBJECTSTORE_SECRET": "module-s3 secret & <encoded>",
+      "OWNCLOUD_OBJECTSTORE_REGION": "us-east-1",
+      "OWNCLOUD_OBJECTSTORE_ENDPOINT": "https://s3.us-east-1.amazonaws.com",
+      "OWNCLOUD_OBJECTSTORE_BUCKET": "owncloud",
+      "OWNCLOUD_OBJECTSTORE_ENABLED": "false"
+    },
+    "addresses": {
+      "reporting_db": "172.26.0.2",
+      "redis": "172.26.0.4"
+    },
+    "native_status": "native_passed",
+    "graph_version": "0.3.0"
+  },
+  "native-sqlite.html": {
+    "source": "owncloud-fixture-original-20261111/vendor-source/native-20261111T215730/observed-phpinfo.html",
+    "body_sha256": "c5d9abf926fa9a04640a9b53eb0acfc81716cd5cc6884dae7813f51003ff7c3d",
+    "bytes": 134788,
+    "owncloud_version": "10.12.1",
+    "graph_version": "0.3.0",
+    "php_file_sha256": "89769091f2f01307fece3134d723f4651df022d0a46d0757c8ae274f364167ce",
+    "environment": {
+      "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "HOSTNAME": "ad89ee4ea42b",
+      "OWNCLOUD_REDIS_ENABLED": "false",
+      "OWNCLOUD_ADMIN_PASSWORD": "module-target-owncloud-password",
+      "OWNCLOUD_MAIL_SMTP_HOST": "127.0.0.1",
+      "OWNCLOUD_MAIL_SMTP_NAME": "module-mail-user",
+      "OWNCLOUD_LICENSE_KEY": "module-target-license",
+      "OWNCLOUD_DOMAIN": "localhost",
+      "OWNCLOUD_MAIL_SMTP_PASSWORD": "module-mail password & <encoded>",
+      "OWNCLOUD_CROND_ENABLED": "false",
+      "OWNCLOUD_DB_TYPE": "sqlite",
+      "OWNCLOUD_ADMIN_USERNAME": "module-admin",
+      "OWNCLOUD_TRUSTED_DOMAINS": "localhost,127.0.0.1,target",
+      "OWNCLOUD_BACKGROUND_MODE": "ajax",
+      "OWNCLOUD_MAIL_SMTP_PORT": "2525",
+      "DEBIAN_FRONTEND": "noninteractive",
+      "TERM": "xterm",
+      "GOMPLATE_VERSION": "v3.11.5",
+      "WAIT_FOR_VERSION": "v2.0.1",
+      "RETRY_VERSION": "v2.0.0",
+      "HOME": "/root"
+    },
+    "limitations": "SQLite pilot, not the PostgreSQL/Redis acceptance deployment; no module execution is asserted by this capture."
+  },
+  "native-prefix.html": {
+    "source": "tmp/module-target-tests/20261111T222310-5f3eb5/owncloud_graph_0_3_0_prefix/native-before.json",
+    "source_sha256": "41ac4402ca370dc8e94ffbd8f3cb389700c75793a0cab7aeefeb7d682d7fb6f4",
+    "body_sha256": "60394edd32089668d59bf4d710ddafa33210d104146de4c6ee11be38aee81ca7",
+    "bytes": 135623,
+    "environment": {
+      "OWNCLOUD_ADMIN_USERNAME": "module-admin",
+      "OWNCLOUD_ADMIN_PASSWORD": "module&<owncloud-password>",
+      "OWNCLOUD_DB_HOST": "reporting_db:5432",
+      "OWNCLOUD_DB_USERNAME": "module_framework",
+      "OWNCLOUD_DB_PASSWORD": "module-target-framework-db-password",
+      "OWNCLOUD_DB_NAME": "owncloud",
+      "OWNCLOUD_DB_TYPE": "pgsql",
+      "OWNCLOUD_MAIL_SMTP_HOST": "127.0.0.1",
+      "OWNCLOUD_MAIL_SMTP_PORT": "2525",
+      "OWNCLOUD_MAIL_SMTP_NAME": "module-mail-user",
+      "OWNCLOUD_MAIL_SMTP_PASSWORD": "module-mail password & <encoded>",
+      "OWNCLOUD_REDIS_HOST": "redis",
+      "OWNCLOUD_REDIS_PORT": "6379",
+      "OWNCLOUD_REDIS_PASSWORD": "module-target-redis-password",
+      "OWNCLOUD_REDIS_ENABLED": "true",
+      "OWNCLOUD_LICENSE_KEY": "module-target-license",
+      "OWNCLOUD_OBJECTSTORE_KEY": "module-target-s3-key",
+      "OWNCLOUD_OBJECTSTORE_SECRET": "module-s3 secret & <encoded>",
+      "OWNCLOUD_OBJECTSTORE_REGION": "us-east-1",
+      "OWNCLOUD_OBJECTSTORE_ENDPOINT": "https://s3.us-east-1.amazonaws.com",
+      "OWNCLOUD_OBJECTSTORE_BUCKET": "owncloud",
+      "OWNCLOUD_OBJECTSTORE_ENABLED": "false"
+    },
+    "addresses": {
+      "reporting_db": "172.26.0.3",
+      "redis": "172.26.0.4"
+    },
+    "native_status": "native_passed",
+    "request": {
+      "method": "GET",
+      "path": "/owncloud/apps/graphapi/vendor/microsoft/microsoft-graph/tests/GetPhpInfo.php/.css",
+      "authenticated": false,
+      "status": 200,
+      "headers": [
+        [
+          "Date",
+          "Wed, 11 Nov 2026 22:30:20 GMT"
+        ],
+        [
+          "Server",
+          "Apache"
+        ],
+        [
+          "X-Content-Type-Options",
+          "nosniff"
+        ],
+        [
+          "X-XSS-Protection",
+          "0"
+        ],
+        [
+          "X-Robots-Tag",
+          "none"
+        ],
+        [
+          "X-Frame-Options",
+          "SAMEORIGIN"
+        ],
+        [
+          "X-Download-Options",
+          "noopen"
+        ],
+        [
+          "X-Permitted-Cross-Domain-Policies",
+          "none"
+        ],
+        [
+          "Vary",
+          "Accept-Encoding"
+        ],
+        [
+          "Transfer-Encoding",
+          "chunked"
+        ],
+        [
+          "Content-Type",
+          "text/html; charset=UTF-8"
+        ]
+      ]
+    }
+  }
+}
