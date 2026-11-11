@@ -24,3 +24,6 @@ support_files:
   - lib/msf/ui/console/command_dispatcher/auxiliary.rb
   - test/module_targets/selenium_file/files/blank.html
   - test/module_targets/selenium_file/files/empty space.txt
+  - spec/modules/auxiliary/gather/selenium_file_read_spec.rb
+  - spec/file_fixtures/modules/auxiliary/selenium_file/responses.json
+  - documentation/modules/auxiliary/gather/selenium_file_read.md

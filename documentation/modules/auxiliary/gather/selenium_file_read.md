@@ -17,6 +17,17 @@ This module was successfully tested on:
     * selenium/standalone-edge:4.27.0 installed with Docker on Ubuntu 24.04
 
 
+### Automated container tests
+
+The repository includes [serial browser profiles](../../../../test/module_targets/selenium_file/README.md)
+for genuine Firefox 3/4, Chrome 4 and Edge 4 targets. They cover text reads,
+empty documents, redirects, errors and browser-session cleanup with native
+controls and bounded resources. Run them from the Framework repository root:
+
+```sh
+bundle exec ruby tools/dev/run_guarded_module_target_tests.rb selenium_firefox3 selenium_firefox4 selenium_chrome4 selenium_edge4
+```
+
 ### Installation
 
 1. `docker pull selenium/standalone-firefox:3.141.59`
