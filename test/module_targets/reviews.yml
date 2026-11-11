@@ -149,3 +149,17 @@ modules:
       dispatcher or count ordinary registry/JMX success as this scanner's
       qualification. This is a target prerequisite finding, not a verified
       Framework scanner defect or universal Docker exclusion.
+  auxiliary/gather/zoomeye_search:
+    source_sha256: 4f862151c8fc3ba7fa977a70485a7b295d87bd3273e58f3e127a5a36d4720e99
+    disposition: separate_cloud_target
+    reason: >-
+      The main search path queries fixed HTTPS api.zoomeye.ai/v2/search with an
+      API key and consumes the provider's host/web records, facets and pages.
+      The documentation's container-keyword match comes from "composed" in
+      search-query prose, which supplies no target deployment. The provider's
+      published SDK documents API-key-authenticated hosted searches; a local
+      HTTP container seeded with invented records cannot qualify those provider
+      query, authentication and index contracts. Use a separate owned API/account
+      target for positive, denied, pagination and reporting controls. Docker can
+      host the client; this is a target requirement, not a blanket container
+      exclusion. No provider queries or account operations were performed.
