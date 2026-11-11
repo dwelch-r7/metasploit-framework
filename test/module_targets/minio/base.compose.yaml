@@ -1,0 +1,74 @@
+x-minio: &minio
+  image: ${MINIO_TARGET_IMAGE:?Use the native gate with a verified assembly receipt}
+  pull_policy: never
+  user: ${MINIO_UID:?}:${MINIO_GID:?}
+  command: ${MINIO_SERVER_COMMAND:?}
+  mem_limit: ${MINIO_MEMORY_BYTES:?}
+  memswap_limit: ${MINIO_MEMORY_BYTES:?}
+  cpus: ${MINIO_CPUS:?}
+  pids_limit: ${MINIO_PIDS:?}
+  cap_drop: [ALL]
+  security_opt: [no-new-privileges:true]
+  environment:
+    - MINIO_ROOT_USER=${MINIO_ROOT_USER:?}
+    - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD:?}
+    - ${MINIO_SENTINEL_ENV:?}
+    - ${MINIO_EXCLUDED_ENV:?}
+    - GOMAXPROCS=${MINIO_GOMAXPROCS:?}
+    - GOGC=${MINIO_GOGC:?}
+    - GOMEMLIMIT=${MINIO_GOMEMLIMIT:?}
+    - MC_HOST_readiness=${MINIO_HEALTH_URL:?}
+  healthcheck:
+    test: [CMD, /usr/local/bin/mc, --config-dir, /tmp/module-target-health, ready, readiness]
+    interval: ${MINIO_HEALTH_INTERVAL:?}
+    timeout: ${MINIO_HEALTH_TIMEOUT:?}
+    retries: ${MINIO_HEALTH_RETRIES:?}
+  networks: [default]
+services:
+  node1:
+    <<: *minio
+    volumes:
+      - node1_data1:${MINIO_DRIVE1:?}
+      - node1_data2:${MINIO_DRIVE2:?}
+  node2:
+    <<: *minio
+    volumes:
+      - node2_data1:${MINIO_DRIVE1:?}
+      - node2_data2:${MINIO_DRIVE2:?}
+  gateway:
+    image: ${MINIO_GATEWAY_IMAGE:?}
+    platform: linux/amd64
+    pull_policy: never
+    user: ${MINIO_UID:?}:${MINIO_GID:?}
+    command: [/usr/local/apache2/bin/httpd, -DFOREGROUND, -f, /usr/local/apache2/conf/minio-gateway.conf]
+    mem_limit: ${MINIO_GATEWAY_MEMORY_BYTES:?}
+    memswap_limit: ${MINIO_GATEWAY_MEMORY_BYTES:?}
+    cpus: ${MINIO_GATEWAY_CPUS:?}
+    pids_limit: ${MINIO_GATEWAY_PIDS:?}
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    read_only: true
+    tmpfs: ['/tmp:rw,noexec,nosuid,size=8m,mode=0700,uid=${MINIO_UID:?},gid=${MINIO_GID:?}']
+    volumes:
+      - ${MINIO_GATEWAY_CONFIG:?}:/usr/local/apache2/conf/minio-gateway.conf:ro
+    ports:
+      - '127.0.0.1::${MINIO_GATEWAY_NODE1_PORT:?}'
+      - '127.0.0.1::${MINIO_GATEWAY_NODE2_PORT:?}'
+    networks: [default, public]
+    depends_on:
+      node1: {condition: service_healthy}
+      node2: {condition: service_healthy}
+    healthcheck:
+      test: [CMD, /usr/local/apache2/bin/httpd, -t, -f, /usr/local/apache2/conf/minio-gateway.conf]
+      interval: ${MINIO_HEALTH_INTERVAL:?}
+      timeout: ${MINIO_HEALTH_TIMEOUT:?}
+      retries: ${MINIO_HEALTH_RETRIES:?}
+volumes:
+  node1_data1: {}
+  node1_data2: {}
+  node2_data1: {}
+  node2_data2: {}
+networks:
+  default:
+    internal: true
+  public: {}

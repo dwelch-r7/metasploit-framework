@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:54978/minio/bootstrap/v1/verify",
+  "method": "POST",
+  "status": 403,
+  "headers": {
+    "Date": "Wed, 11 Nov 2026 00:00:15 GMT",
+    "Server": "Apache/2.4.62 (Unix)",
+    "Content-Security-Policy": "block-all-mixed-content",
+    "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+    "Vary": "Origin",
+    "X-Amz-Id-2": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "X-Amz-Request-Id": "18E6D48FBEB5D596",
+    "X-Content-Type-Options": "nosniff",
+    "X-Xss-Protection": "1; mode=block",
+    "Content-Length": "17",
+    "Content-Type": "text/plain; charset=utf-8",
+    "Connection": "close"
+  },
+  "body": "JWT token missing"
+}

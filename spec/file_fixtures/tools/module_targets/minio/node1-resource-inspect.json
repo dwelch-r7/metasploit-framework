@@ -1,0 +1,28 @@
+{
+  "Config": {
+    "Labels": {
+      "com.docker.compose.config-hash": "4d7310481e1f393eb7641ea89c065a8d8113177b1330705e953a353c8431b010",
+      "com.docker.compose.container-number": "1",
+      "com.docker.compose.depends_on": "",
+      "com.docker.compose.image": "sha256:2cdc548a4641c9748c56b22bfe94f0daed79c433e67cc2b50b24117261adb113",
+      "com.docker.compose.oneoff": "False",
+      "com.docker.compose.project": "msf-minio-native-20261110t235502-f9e237",
+      "com.docker.compose.project.config_files": "/Users/dwelch/.codex/worktrees/grafana-expression-validation/metasploit-framework/test/module_targets/minio/base.compose.yaml",
+      "com.docker.compose.project.working_dir": "/Users/dwelch/.codex/worktrees/grafana-expression-validation/metasploit-framework/test/module_targets/minio",
+      "com.docker.compose.service": "node1",
+      "com.docker.compose.version": "5.6.1",
+      "module-target.minio.mc-sha256": "243632b9f033fb595630292dac19c0bfa3fa36355471f1eee1f134dd422a207d",
+      "module-target.minio.server-sha256": "f9a8a91ac8433b0c044734ef51f6f3696db48aef68990866a007ed645bef9f20",
+      "org.opencontainers.image.revision": "0ff931dc765d5d8fdddcdf7687fec1b0b194fca9",
+      "org.opencontainers.image.source": "https://github.com/minio/minio.git"
+    }
+  },
+  "HostConfig": {
+    "Memory": 268435456,
+    "MemorySwap": 268435456,
+    "NanoCpus": 500000000,
+    "PidsLimit": 128,
+    "Privileged": false,
+    "PortBindings": {}
+  }
+}

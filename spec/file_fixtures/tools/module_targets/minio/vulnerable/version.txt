@@ -1,0 +1,4 @@
+binary version RELEASE.2023-02-27T18-10-45Z (commit-id=0ff931dc765d5d8fdddcdf7687fec1b0b194fca9)
+Runtime: go1.19.13 linux/amd64
+License: GNU AGPLv3 <https://www.gnu.org/licenses/agpl-3.0.html>
+Copyright: 2015-2023 MinIO, Inc.

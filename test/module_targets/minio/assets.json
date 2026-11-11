@@ -1,0 +1,194 @@
+{
+  "schema": 1,
+  "platform": "linux/amd64",
+  "images": {
+    "builder": {
+      "reference": "golang:1.19.13-bullseye@sha256:cd5577e0782cf25fbd8a5f9c14ba1d03926162990193a1f6f555bc4b044a2da4",
+      "index_digest": "sha256:2fdfcb03b1445f06f1cf8a342516bfd34026b527fef8427f40ea7b140168fda2",
+      "manifest_digest": "sha256:cd5577e0782cf25fbd8a5f9c14ba1d03926162990193a1f6f555bc4b044a2da4",
+      "config_digest": "sha256:1a0238958a95316b7c6844417a5940027c86ea7d56031192407c2f056c53cbb5",
+      "rootfs": [
+        "sha256:b87f83d47633da2de70947855018f1f75b057d1cf80b1da8eef7c108da51a8aa",
+        "sha256:79606aebcd794fd4bc2650bf14cbb8d2a976935b1b6087360e50003c0602c154",
+        "sha256:dc19a3da79c3c1cb18ca6d5c918d79276d82009de70e0dc28d626b2a8be1045c",
+        "sha256:724492bd30ac52b6d5cd42b9a5c7e778565a623817f40fe786740fe64d1eb738",
+        "sha256:f08254d2a04ef37c6c988f1b24ea2f3dbe505b018de5ffa8d692a9daa781bedb",
+        "sha256:8fc8c8bf475414894955dd707af0f9e63e2edfed8df7a9a9d14878bb8a3e4038"
+      ],
+      "registry_url": "https://registry-1.docker.io/v2/library/golang/manifests/sha256:cd5577e0782cf25fbd8a5f9c14ba1d03926162990193a1f6f555bc4b044a2da4",
+      "compressed_layer_bytes": 360614905
+    },
+    "runtime": {
+      "reference": "debian:bullseye-slim@sha256:70509c95d1857a3704c0a5d92ee2e0adac95f612a9386889d70760bfd7c1ebba",
+      "index_digest": "sha256:e5b6442dd2e9684cf5e87d8338b5968f3b348636fc0be6d7850a381e3731a2bd",
+      "manifest_digest": "sha256:70509c95d1857a3704c0a5d92ee2e0adac95f612a9386889d70760bfd7c1ebba",
+      "config_digest": "sha256:d38033c65c2a9d9b288116787724b5bae6667f79d6e2592154042ba312759ff8",
+      "rootfs": [
+        "sha256:7fa716d1e5dcd5e47b13509206762a82e123c26d38401a84b44287e8731de7a0"
+      ],
+      "registry_url": "https://registry-1.docker.io/v2/library/debian/manifests/sha256:70509c95d1857a3704c0a5d92ee2e0adac95f612a9386889d70760bfd7c1ebba",
+      "compressed_layer_bytes": 30259727
+    }
+  },
+  "sources": {
+    "vulnerable": {
+      "repository": "https://github.com/minio/minio.git",
+      "tag": "RELEASE.2023-02-27T18-10-45Z",
+      "commit": "0ff931dc765d5d8fdddcdf7687fec1b0b194fca9",
+      "release_variable": "MINIO_RELEASE",
+      "files": {
+        "go.mod": "15f0185d7fa049bd8422a8404fa93b7089b6a9f40dcef9c80618f594df1f942d",
+        "go.sum": "65fd57bb1d4b035cda124deb4b1dd3f0dce4d7ed1d0e30c79eb353c5796e4ddc",
+        "Makefile": "a2ff3f1dfb2e41ce8a23820bd90aeb91cad6beed80271cda4617a8c95697b55a",
+        "Dockerfile": "f15c27c92414ad0606ca353bb8316eecaf74926943838e68d63042c35ab6b16c",
+        "buildscripts/gen-ldflags.go": "aa7ecefcb05793bf4104fc0c1a08b783fe51eff7217baa358ac27c27fc7cdcb7"
+      },
+      "reference": {
+        "binary_sha256": "f9a8a91ac8433b0c044734ef51f6f3696db48aef68990866a007ed645bef9f20",
+        "binary_bytes": 99983360,
+        "source_archive_sha256": "254d37d973685046b718e754e384a673563c8ddc9a7e9ffbfb0630577cc21923",
+        "ldflags_sha256": "d48c593a7a42ee0d83d08d051eba96ac20ebce1824cf5c0f772aa465aecbcdd4",
+        "go_build_info_sha256": "b29e1f5e3c2246f170c1db9a65893256015fc0bf6edf706f3f400caff02a8cf4"
+      }
+    },
+    "fixed": {
+      "repository": "https://github.com/minio/minio.git",
+      "tag": "RELEASE.2023-03-20T20-16-18Z",
+      "commit": "05444a0f6af8389b9bb85280fc31337c556d4300",
+      "release_variable": "MINIO_RELEASE",
+      "files": {
+        "go.mod": "ab8ed42e413f5e28f2fc7bea51bdb7bc20184110161091c11e318c132a6ff8da",
+        "go.sum": "bf1aeaf7b6444706cab063982f86db85e71ca3597a7c540a3a6037895a577e13",
+        "Makefile": "9ae2eacb4fe32d8024de13ffc482e86692ba4d1398a9270b9575911997e0094f",
+        "Dockerfile": "f15c27c92414ad0606ca353bb8316eecaf74926943838e68d63042c35ab6b16c",
+        "buildscripts/gen-ldflags.go": "aa7ecefcb05793bf4104fc0c1a08b783fe51eff7217baa358ac27c27fc7cdcb7"
+      },
+      "reference": {
+        "binary_sha256": "fe55fc23131224129b67d81777855578dc1bb7d03e1cd6449ac553de7ad3beb1",
+        "binary_bytes": 96829440,
+        "source_archive_sha256": "c2a8a9ffb76840342a0a65e17f8926cb1da6e00b11d8b6a4f5cd6c75c7ea1a94",
+        "ldflags_sha256": "9986bfbe518a19d226cbd4adbe98f6b5c3f5c250cf712157ad61258824ea46cc",
+        "go_build_info_sha256": "cb8feb71c914906e0c3fb2faa7e97d7c0cdeec46f240319afc17511971e3303b"
+      }
+    },
+    "client": {
+      "repository": "https://github.com/minio/mc.git",
+      "tag": "RELEASE.2023-03-20T17-17-53Z",
+      "commit": "88896ae495128646081d8f809b8934c74cb90194",
+      "release_variable": "MC_RELEASE",
+      "files": {
+        "go.mod": "8595250682be55f099efa88e828c4de562f2b3d038fa9af682e0fb8e9d735836",
+        "go.sum": "6512a8d6bfcee6708f3a0350d145309b2a09bfe534867e36e66364d935926e11",
+        "Makefile": "fdb1fb1b53c695d44ce78b7a7f9209dc50d9c80b322783444aea3c71bb717027",
+        "Dockerfile": "7bf05b8716805850d246044b2be74e8a80a9d8e2b72e98ec661170aa8790252d",
+        "buildscripts/gen-ldflags.go": "5eefc88db0f4f5a0352f2cfd2b7e7353c2e7ab48de94fcc43e85b2dd2c653d93"
+      },
+      "reference": {
+        "binary_sha256": "243632b9f033fb595630292dac19c0bfa3fa36355471f1eee1f134dd422a207d",
+        "binary_bytes": 26050560,
+        "source_archive_sha256": "5e2038cf27d825a4d2f03d43d1c45eda8cbc290f79dea08fa15272ea356e0680",
+        "ldflags_sha256": "d7cd823a1a789b97a863363cf9043cb4398e2e87d7b0bf9e55b43567631ec5a5",
+        "go_build_info_sha256": "2ceb61a2455c59bf3aa314ffc517e927e55372309bf125d2a6dce44599a63eb8"
+      }
+    }
+  },
+  "build_order": [
+    "client",
+    "vulnerable",
+    "fixed"
+  ],
+  "build": {
+    "limits": {
+      "memory_bytes": 1073741824,
+      "nano_cpus": 1000000000,
+      "total_seconds": 1800,
+      "pull_seconds": 600,
+      "component_seconds": 900,
+      "git_fetch_seconds": 120,
+      "generator_seconds": 120,
+      "pids": 128
+    },
+    "environment": {
+      "HOME": "/work/home",
+      "GOPATH": "/work/cache/gopath",
+      "GOMODCACHE": "/work/cache/mod",
+      "GOCACHE": "/work/cache/build",
+      "GOFLAGS": "-mod=readonly -p=1",
+      "GOMAXPROCS": "1",
+      "GOGC": "25",
+      "GOMEMLIMIT": "768MiB",
+      "GOOS": "linux",
+      "GOARCH": "amd64",
+      "CGO_ENABLED": "0",
+      "GO111MODULE": "on",
+      "GOPROXY": "https://proxy.golang.org",
+      "GOSUMDB": "sum.golang.org",
+      "GIT_CONFIG_NOSYSTEM": "1",
+      "GIT_CONFIG_GLOBAL": "/dev/null",
+      "GIT_TERMINAL_PROMPT": "0"
+    },
+    "arguments": [
+      "-tags",
+      "kqueue",
+      "-trimpath",
+      "-buildvcs=true"
+    ],
+    "reference_kind": "Locally compiled historical source, not publisher binaries/signatures",
+    "reference_receipt_sha256": "468f2b9fa055189638407c775ffad958ffa5ebbef6670fad16e4023d34ae957b",
+    "toolchain": "go1.19.13"
+  },
+  "assembly": {
+    "seconds": 180,
+    "image_prefix": "msf-module-target-minio",
+    "uid": 1000,
+    "gid": 1000,
+    "home": "/home/minio",
+    "binary_directory": "/usr/local/bin",
+    "builder": "default"
+  },
+  "native": {
+    "readiness_seconds": 120,
+    "seconds": 180,
+    "command_seconds": 25,
+    "memory_bytes": 268435456,
+    "nano_cpus": 500000000,
+    "pids": 128,
+    "api_port": 9000,
+    "console_port": 9001,
+    "services": [
+      "node1",
+      "node2"
+    ],
+    "drives": [
+      "/data1",
+      "/data2"
+    ],
+    "root_user": "module-target-root",
+    "root_password": "module-target-minio-root-password",
+    "sentinel_key": "MINIO_MODULE_TARGET_SENTINEL",
+    "sentinel_value": "minio-native-prefixed-proof",
+    "excluded_key": "MODULE_TARGET_NOT_EXPOSED",
+    "excluded_value": "minio-native-nonprefixed-proof",
+    "environment": {
+      "GOMAXPROCS": "1",
+      "GOGC": "25",
+      "GOMEMLIMIT": "192MiB"
+    },
+    "health_interval_seconds": 2,
+    "health_timeout_seconds": 3,
+    "health_retries": 60,
+    "bootstrap_path": "/minio/bootstrap/v1/verify",
+    "health_path": "/minio/health/cluster",
+    "gateway": {
+      "service": "gateway",
+      "image": "httpd:2.4.62@sha256:4c7788695c832bf415a662dfb5160f1895e65fc65c025e85f436ee2c9e7d7f3e",
+      "memory_bytes": 67108864,
+      "nano_cpus": 200000000,
+      "pids": 128,
+      "ports": {
+        "node1": 19001,
+        "node2": 19002
+      }
+    }
+  }
+}

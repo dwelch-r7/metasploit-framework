@@ -1,0 +1,1 @@
+-s -w -X github.com/minio/mc/cmd.Version=2023-03-20T17:17:53Z -X github.com/minio/mc/cmd.CopyrightYear=2023 -X github.com/minio/mc/cmd.ReleaseTag=RELEASE.2023-03-20T17-17-53Z -X github.com/minio/mc/cmd.CommitID=88896ae495128646081d8f809b8934c74cb90194 -X github.com/minio/mc/cmd.ShortCommitID=88896ae49512

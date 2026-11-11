@@ -11,6 +11,12 @@ resulting in information disclosure.
 1. Execute `docker-compose up` inside the same directory containing the docker-compose.yml
 1. Then MinIO's login page should be available at http://127.0.0.1:9001/
 
+### Automated container lab
+
+The [automated MinIO lab](../../../../test/module_targets/minio/README.md) builds pinned affected and fixed sources and verifies
+disclosure, valid JSON loot, database reporting and real S3 credential reuse on a genuine two-node cluster. The two profiles run
+serially and remove their owned containers and volumes.
+
 ## Verification Steps
 
 1. Start msfconsole

@@ -9,6 +9,12 @@ Its credential file is saved in the user's home directory in plaintext json.
   2. Run `mc alias set myminio https://play.min.io minioadmin minioadmin`.
   3. Run `mc admin info myminio`,check for working.
 
+### Automated container lab
+
+The [automated Linux lab](../../../../../test/module_targets/minio/README.md) uses the genuine MinIO client with shell and
+Meterpreter sessions. It checks default and custom paths, missing, empty and malformed inputs, repeated collection and
+restoration. Its seven input states per session type do not qualify the other declared platforms or session types.
+
 ## Verification Steps
 
   1. Get a `meterpreter` session on a Windows host.

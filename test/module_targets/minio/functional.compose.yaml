@@ -1,0 +1,43 @@
+# Additional roles are started only after genuine three-service native controls.
+services:
+  framework:
+    image: ${MINIO_FRAMEWORK_IMAGE:?An independently reviewed cached canonical image is required}
+    pull_policy: never
+    mem_limit: 805306368
+    memswap_limit: 805306368
+    cpus: 1.0
+    pids_limit: 128
+    environment:
+      MSF_UID: ${MODULE_TARGET_UID:?}
+      MSF_GID: ${MODULE_TARGET_GID:?}
+    volumes:
+      - ${MODULE_TARGET_ROOT:?}:/usr/src/metasploit-framework:ro
+      - ${MODULE_TARGET_ARTIFACTS:?}:${MODULE_TARGET_ARTIFACTS:?}
+    command: [sleep, infinity]
+    networks: [default]
+    healthcheck:
+      test: [CMD-SHELL, 'getent passwd "$$MSF_UID" >/dev/null']
+      interval: 2s
+      timeout: 3s
+      retries: 40
+  reporting_db:
+    image: postgres:16@sha256:933463a6c8eba2b9f5cd414138738cd8d5519cd2c471214c222652f547a66a32
+    pull_policy: never
+    mem_limit: 268435456
+    memswap_limit: 268435456
+    cpus: 0.15
+    pids_limit: 128
+    environment:
+      POSTGRES_USER: module_framework
+      POSTGRES_PASSWORD: module-target-framework-db-password
+      POSTGRES_DB: module_targets
+      POSTGRES_INITDB_ARGS: --auth-host=scram-sha-256 --auth-local=trust
+    volumes: [reporting_data:/var/lib/postgresql/data]
+    networks: [default]
+    healthcheck:
+      test: [CMD-SHELL, "PGPASSWORD=module-target-framework-db-password psql -h 127.0.0.1 -U module_framework -d module_targets -Atc 'SELECT current_database()' | grep -qx module_targets"]
+      interval: 2s
+      timeout: 3s
+      retries: 40
+volumes:
+  reporting_data: {}

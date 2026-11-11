@@ -1,6 +1,27 @@
 # Individual source-reviewed target requirements; these are not blanket exclusions.
 ---
 modules:
+  auxiliary/gather/minio_bootstrap_verify_info_disc:
+    source_sha256: e8e1de4e51df1948f9a6ae76a8286bd6dbbf498e0ddb18aceedeba809c531ad0
+    disposition: container_lab
+    lab_profiles:
+      minio: [vulnerable, fixed]
+    reason: >-
+      The standalone source-built MinIO lab qualifies both real cluster builds,
+      bootstrap JSON loot, Untried SQL reporting, repeat/workspace isolation and
+      real S3 reuse. Its dedicated launcher performs native controls before and
+      after module execution; it is separate from the generic --all runner.
+  post/multi/gather/minio_client:
+    source_sha256: 06cfa49faabb2748f2a4367f3f20fccdf454a9dbd216ac041b427e9697ca9655
+    disposition: container_lab
+    lab_profiles:
+      minio: [vulnerable]
+    reason: >-
+      The standalone MinIO lab qualifies genuine Linux shell and Meterpreter
+      sessions across seven client input states each, with real mc configuration,
+      exact text loot and input restoration. Windows shell, Windows Meterpreter,
+      Windows PowerShell, macOS and other Unix targets remain individually
+      pending.
   auxiliary/scanner/http/apache_activemq_traversal:
     source_sha256: bf2bfc08a0c95d945ac93128494cbdb449fe505d4819ad2347b3bf3c1a1e3559
     disposition: separate_os_target

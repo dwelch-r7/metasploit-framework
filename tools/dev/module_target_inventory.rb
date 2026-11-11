@@ -38,9 +38,14 @@ inventory = Dir[File.join(root, 'modules/**/*.{rb,py,go}')].map do |path|
   documentation = File.file?(doc_path) ? File.read(doc_path) : ''
   digest = Digest::SHA256.hexdigest(source)
   review = reviews[fullname]
+  module_labs = registered.fetch(fullname, []).dup
+  if review && review.fetch('source_sha256') == digest
+    module_labs.concat(review.fetch('lab_profiles', {}).keys)
+  end
+  module_labs.uniq!
   review_state = if review && review.fetch('source_sha256') != digest
                    'review_stale'
-                 elsif registered.key?(fullname)
+                 elsif !module_labs.empty?
                    'registered_not_proof_of_pass'
                  elsif review
                    review.fetch('disposition')
@@ -57,7 +62,7 @@ inventory = Dir[File.join(root, 'modules/**/*.{rb,py,go}')].map do |path|
     documentation: File.file?(doc_path) ? document : nil,
     documented_container_hint: documentation.match?(/docker|podman|container|compose/i),
     check_implementation: source.match?(/^\s*def check(?:_host)?\b/),
-    labs: registered.fetch(fullname, []),
+    labs: module_labs,
     feasibility_review: review,
     review_state: review_state
   }

@@ -1,0 +1,30 @@
+ServerRoot "/usr/local/apache2"
+ServerName module-target-minio
+PidFile /tmp/minio-gateway.pid
+DefaultRuntimeDir /tmp
+LoadModule mpm_event_module modules/mod_mpm_event.so
+LoadModule unixd_module modules/mod_unixd.so
+LoadModule authz_core_module modules/mod_authz_core.so
+LoadModule proxy_module modules/mod_proxy.so
+LoadModule proxy_http_module modules/mod_proxy_http.so
+ErrorLog /proc/self/fd/2
+LogLevel warn
+StartServers 1
+ServerLimit 1
+ThreadsPerChild 8
+MaxRequestWorkers 8
+MinSpareThreads 2
+MaxSpareThreads 8
+MaxConnectionsPerChild 256
+ProxyRequests Off
+ProxyErrorOverride Off
+ProxyPreserveHost On
+<% native.fetch('services').each do |service| -%>
+Listen <%= native.fetch('gateway').fetch('ports').fetch(service) %>
+<VirtualHost *:<%= native.fetch('gateway').fetch('ports').fetch(service) %>>
+  ProxyPass / http://<%= service %>:<%= native.fetch('api_port') %>/ connectiontimeout=3 timeout=<%= native.fetch('command_seconds') %>
+  <Location />
+    Require all granted
+  </Location>
+</VirtualHost>
+<% end -%>

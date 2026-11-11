@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:54913/minio/bootstrap/v1/verify",
+  "method": "POST",
+  "status": 200,
+  "headers": {
+    "Date": "Tue, 10 Nov 2026 23:55:34 GMT",
+    "Server": "Apache/2.4.62 (Unix)",
+    "Content-Security-Policy": "block-all-mixed-content",
+    "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+    "Vary": "Origin",
+    "X-Amz-Id-2": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "X-Amz-Request-Id": "18E6D44E5179831E",
+    "X-Content-Type-Options": "nosniff",
+    "X-Xss-Protection": "1; mode=block",
+    "Content-Length": "1147",
+    "Content-Type": "text/plain; charset=utf-8",
+    "Connection": "close"
+  },
+  "body": "{\"MinioEndpoints\":[{\"Legacy\":true,\"SetCount\":1,\"DrivesPerSet\":4,\"Endpoints\":[{\"Scheme\":\"http\",\"Opaque\":\"\",\"User\":null,\"Host\":\"node1:9000\",\"Path\":\"/data1\",\"RawPath\":\"\",\"OmitHost\":false,\"ForceQuery\":false,\"RawQuery\":\"\",\"Fragment\":\"\",\"RawFragment\":\"\",\"IsLocal\":true},{\"Scheme\":\"http\",\"Opaque\":\"\",\"User\":null,\"Host\":\"node1:9000\",\"Path\":\"/data2\",\"RawPath\":\"\",\"OmitHost\":false,\"ForceQuery\":false,\"RawQuery\":\"\",\"Fragment\":\"\",\"RawFragment\":\"\",\"IsLocal\":true},{\"Scheme\":\"http\",\"Opaque\":\"\",\"User\":null,\"Host\":\"node2:9000\",\"Path\":\"/data1\",\"RawPath\":\"\",\"OmitHost\":false,\"ForceQuery\":false,\"RawQuery\":\"\",\"Fragment\":\"\",\"RawFragment\":\"\",\"IsLocal\":false},{\"Scheme\":\"http\",\"Opaque\":\"\",\"User\":null,\"Host\":\"node2:9000\",\"Path\":\"/data2\",\"RawPath\":\"\",\"OmitHost\":false,\"ForceQuery\":false,\"RawQuery\":\"\",\"Fragment\":\"\",\"RawFragment\":\"\",\"IsLocal\":false}],\"CmdLine\":\"http://node1:9000/data1 http://node1:9000/data2 http://node2:9000/data1 http://node2:9000/data2\",\"Platform\":\"OS: linux | Arch: amd64\"}],\"MinioEnv\":{\"MINIO_MODULE_TARGET_SENTINEL\":\"minio-native-prefixed-proof\",\"MINIO_ROOT_PASSWORD\":\"module-target-minio-root-password\",\"MINIO_ROOT_USER\":\"module-target-root\"}}\n"
+}

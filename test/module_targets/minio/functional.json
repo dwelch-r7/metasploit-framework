@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "seconds": 1260,
+  "suite_seconds": 600,
+  "auxiliary_readiness_seconds": 120,
+  "expected_examples": { "vulnerable": 6, "fixed": 3 },
+  "framework": { "memory_bytes": 805306368, "nano_cpus": 1000000000, "pids": 128 },
+  "reporting_db": {
+    "image": "postgres:16@sha256:933463a6c8eba2b9f5cd414138738cd8d5519cd2c471214c222652f547a66a32",
+    "memory_bytes": 268435456,
+    "nano_cpus": 150000000,
+    "pids": 128
+  },
+  "pending": ["Windows shell", "Windows Meterpreter", "Windows PowerShell", "macOS sessions", "other Unix sessions"]
+}

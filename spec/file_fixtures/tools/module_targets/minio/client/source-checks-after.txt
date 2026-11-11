@@ -1,0 +1,5 @@
+go.mod: OK
+go.sum: OK
+Makefile: OK
+Dockerfile: OK
+buildscripts/gen-ldflags.go: OK
