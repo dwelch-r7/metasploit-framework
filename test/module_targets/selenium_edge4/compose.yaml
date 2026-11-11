@@ -1,0 +1,7 @@
+services:
+  target:
+    extends: {file: ../selenium_file/compose.yaml, service: target}
+    image: selenium/standalone-edge:4.27.0@sha256:8b692723debd667ec98bf734aead49522f4ed28800a6d8b43c071a381b7d2898
+    environment: {START_XVFB: 'true', SE_START_XVFB: 'true', SE_BROWSER_ARGS_HEADLESS: ''}
+  framework:
+    extends: {file: ../selenium_file/compose.yaml, service: framework}

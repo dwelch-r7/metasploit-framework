@@ -1,0 +1,2 @@
+module_target=true
+mode=preview-only

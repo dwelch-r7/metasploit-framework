@@ -1,0 +1,24 @@
+spec: spec/modules/auxiliary/gather/selenium_file_target_spec.rb
+expected_examples: 13
+console: true
+modules: [auxiliary/gather/selenium_file_read]
+ports: {target: 4444}
+test_env: {SELENIUM_PROFILE: firefox3}
+support_files:
+  - test/module_targets/selenium_file/README.md
+  - test/module_targets/selenium_file/acceptance.rb
+  - test/module_targets/selenium_file/compose.yaml
+  - test/module_targets/selenium_file/files/empty.txt
+  - test/module_targets/selenium_file/files/large.txt
+  - test/module_targets/selenium_file/files/nested/settings.txt
+  - test/module_targets/selenium_file/files/short.txt
+  - test/module_targets/selenium_file/files/space name.txt
+  - test/module_targets/selenium_file/files/unicode.txt
+  - test/module_targets/selenium_file/http_fixture.py
+  - test/module_targets/selenium_file/native_probe.py
+  - test/module_targets/selenium_file/profiles.json
+  - lib/msf/core/exploit/remote/auto_check.rb
+  - lib/msf/core/exploit/remote/http_client.rb
+  - lib/msf/core/auxiliary.rb
+  - lib/msf/core/exploit.rb
+  - lib/msf/ui/console/command_dispatcher/auxiliary.rb

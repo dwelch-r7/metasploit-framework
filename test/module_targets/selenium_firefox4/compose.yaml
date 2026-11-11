@@ -1,0 +1,6 @@
+services:
+  target:
+    extends: {file: ../selenium_file/compose.yaml, service: target}
+    image: selenium/standalone-firefox:4.27.0@sha256:b1292054ce909ccc474a6c59a475039aeb4adf77c1d77ab5a160185fa562948d
+  framework:
+    extends: {file: ../selenium_file/compose.yaml, service: framework}

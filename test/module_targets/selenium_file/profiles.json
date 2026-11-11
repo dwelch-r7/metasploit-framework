@@ -1,0 +1,34 @@
+{
+  "firefox3": {
+    "browser": "firefox",
+    "version": "3.141.59",
+    "image": "selenium/standalone-firefox:3.141.59@sha256:738eeec4eba6e44d0e5f0697e36b77b907e3c6fb647759a82fe47dec0d188abf",
+    "manifest": "sha256:738eeec4eba6e44d0e5f0697e36b77b907e3c6fb647759a82fe47dec0d188abf",
+    "config": "sha256:d1f4408519cde5342baefc7dab7f39580409deb4264bcb34503d88ba2799b341",
+    "source_tag": "3.141.59-20210929"
+  },
+  "firefox4": {
+    "browser": "firefox",
+    "version": "4.27.0",
+    "image": "selenium/standalone-firefox:4.27.0@sha256:b1292054ce909ccc474a6c59a475039aeb4adf77c1d77ab5a160185fa562948d",
+    "manifest": "sha256:b1292054ce909ccc474a6c59a475039aeb4adf77c1d77ab5a160185fa562948d",
+    "config": "sha256:ed813a11c96d556ae0f2003684eecea8f4a88e40084c851d9ee772e44c144df4",
+    "source_tag": "4.27.0-20250101"
+  },
+  "chrome4": {
+    "browser": "chrome",
+    "version": "4.27.0",
+    "image": "selenium/standalone-chrome:4.27.0@sha256:804b481cd5d13c6508adc0e6a4364bb67248fb15dbef0f2d7a1a7221743c17ac",
+    "manifest": "sha256:804b481cd5d13c6508adc0e6a4364bb67248fb15dbef0f2d7a1a7221743c17ac",
+    "config": "sha256:42b6cb58ea07bd052a27b00937e4d2c7fcb73e25affd70ae4a3ec0667a34b446",
+    "source_tag": "4.27.0-20250101"
+  },
+  "edge4": {
+    "browser": "MicrosoftEdge",
+    "version": "4.27.0",
+    "image": "selenium/standalone-edge:4.27.0@sha256:8b692723debd667ec98bf734aead49522f4ed28800a6d8b43c071a381b7d2898",
+    "manifest": "sha256:8b692723debd667ec98bf734aead49522f4ed28800a6d8b43c071a381b7d2898",
+    "config": "sha256:f15e93847f7b1c97e94cf8fbd745ed4472bf57ab82f8b7f16e957b55a0005c38",
+    "source_tag": "4.27.0-20250101"
+  }
+}
