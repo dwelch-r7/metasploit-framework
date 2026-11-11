@@ -48,7 +48,7 @@ try:
         path = '/api/v0/logs?' + urllib.parse.urlencode({'node_id': fixture['node_id'], 'glob': item['glob'], 'timeout': 10})
         status, raw = native.request('head', path)
         if manifest['policy'] == 'confined' and name != 'ordinary':
-            assert status in [400, 500] and b'Invalid glob filter' in raw, (name, status, raw)
+            assert status == 500, (name, status, raw)
         else:
             assert status == 200, (name, status, raw)
             payload = json.loads(raw)
@@ -59,6 +59,12 @@ try:
             assert isinstance(entries, list)
             canonical = sorted(posixpath.normpath(fixture['log_dir'] + '/' + entry.rstrip('/')) + ('/' if entry.endswith('/') else '') for entry in entries)
             assert canonical == sorted(item['expected']), (name, entries, canonical)
+    if manifest['policy'] == 'confined':
+        absolute = str(Path(fixture['root']) / 'outside/plain.txt')
+        path = '/api/v0/logs?' + urllib.parse.urlencode({'node_id': fixture['node_id'], 'glob': absolute, 'timeout': 10})
+        status, raw = native.request('head', path)
+        assert status == 500, (status, raw)
+        result['http_denials'] = target('http_denials', fixture=fixture)
     status, raw = native.request('head', '/api/cluster_status')
     assert status == 200 and fixture['node_id'].encode() in raw
     status, raw = native.request('unrelated', '/api/v0/logs')

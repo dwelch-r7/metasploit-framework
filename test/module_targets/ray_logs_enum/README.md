@@ -18,5 +18,6 @@ explicit node IDs, ordinary log names, outside directories, UTF8/quoted/percent
 names, glob/literal wildcards and empty files. Missing paths, unknown nodes and
 unrelated-service check/AutoCheck paths have separate failure assertions.
 This tests path enumeration and loot, not reading arbitrary file contents.
-Only a single genuine node is covered; multi-node behavior and the fixed
-version remain separate. A configured profile is not passing evidence.
+Only a single genuine node is covered; multi-node behavior remains separate.
+The [fixed-release profile](../ray_logs_fixed/README.md) reuses these controls
+with native gRPC/HTTP denials. A configured profile is not passing evidence.

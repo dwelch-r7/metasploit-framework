@@ -11,6 +11,47 @@ options = json.loads(sys.argv[1])
 action = options['action']
 log_dir = Path('/tmp/ray/session_latest/logs').resolve(strict=True)
 
+
+def rejected_patterns(fixture):
+    patterns = {name: item['glob'] for name, item in fixture['patterns'].items() if name != 'ordinary'}
+    patterns['absolute'] = str(Path(fixture['root']) / 'outside/plain.txt')
+    return patterns
+
+
+def grpc_controls(fixture):
+    import grpc
+    from ray._common.network_utils import build_address
+    from ray._private import ray_constants
+    from ray._private.grpc_utils import init_grpc_channel
+    from ray._private.services import canonicalize_bootstrap_address_or_die
+    from ray._raylet import GcsClient
+    from ray.core.generated.reporter_pb2 import ListLogsRequest
+    from ray.core.generated.reporter_pb2_grpc import LogServiceStub
+    from ray.dashboard import consts
+
+    # Resolve the actual registered agent exactly as StateDataSourceClient does.
+    gcs = GcsClient(address=canonicalize_bootstrap_address_or_die('auto'))
+    address = gcs.internal_kv_get(
+        (consts.DASHBOARD_AGENT_ADDR_NODE_ID_PREFIX + fixture['node_id']).encode(),
+        namespace=ray_constants.KV_NAMESPACE_DASHBOARD, timeout=10)
+    ip, http_port, grpc_port = json.loads(address)
+    records = []
+    with init_grpc_channel(build_address(ip, grpc_port), options=ray_constants.GLOBAL_GRPC_OPTIONS) as channel:
+        stub = LogServiceStub(channel)
+        ordinary = stub.ListLogs(ListLogsRequest(glob_filter=Path(fixture['log_file']).name), timeout=10)
+        assert list(ordinary.log_files) == [Path(fixture['log_file']).name]
+        for name, pattern in rejected_patterns(fixture).items():
+            try:
+                stub.ListLogs(ListLogsRequest(glob_filter=pattern), timeout=10)
+            except grpc.RpcError as error:
+                expected = f"Invalid glob filter: {pattern}. It must be a relative path and cannot contain '..'."
+                assert error.code() == grpc.StatusCode.INVALID_ARGUMENT and error.details() == expected
+                records.append({'name': name, 'glob': pattern, 'code': error.code().name, 'details': error.details()})
+            else:
+                raise AssertionError('Agent accepted an outside glob: ' + pattern)
+    return {'agent': [ip, http_port, grpc_port], 'ordinary_log_files': list(ordinary.log_files), 'denials': records}
+
+
 if action == 'seed':
     nonce = options['nonce']
     root = Path('/tmp/module-target-ray-logs-' + nonce)
@@ -62,6 +103,20 @@ elif action == 'sdk':
     joined = ''.join(chunks).encode()
     assert joined == base64.b64decode(fixture['log_base64'])
     result = {'records': records, 'exact_owned_log_bytes': True, 'log_sha256': hashlib.sha256(joined).hexdigest()}
+    if options['policy'] == 'confined':
+        result['grpc'] = grpc_controls(fixture)
+elif action == 'http_denials':
+    # The HTTP layer emits a generic 500. Require the genuine head's precise
+    # upstream gRPC error for every actual glob, rather than accepting any 500.
+    path = log_dir / 'dashboard_StateHead.log'
+    raw = path.read_bytes()
+    text = raw.decode(errors='replace')
+    messages = [f"Invalid glob filter: {pattern}. It must be a relative path and cannot contain '..'."
+                for pattern in rejected_patterns(options['fixture']).values()]
+    assert all(message in text for message in messages)
+    assert 'StatusCode.INVALID_ARGUMENT' in text
+    result = {'path': str(path), 'sha256': hashlib.sha256(raw).hexdigest(), 'exact_messages': messages,
+              'grpc_status': 'INVALID_ARGUMENT'}
 elif action == 'verify':
     fixture = options['fixture']
     for record in fixture['files']:
