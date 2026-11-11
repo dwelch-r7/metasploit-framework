@@ -1,10 +1,10 @@
 # Container module acceptance tests
 
-Latest: the [Forgejo checkpoint](VERIFICATION-20261111-forgejo.md) reaches
-**204 qualified modules, 167 profiles and 1,817 functional examples**. Its five
-serial profiles pass 60 cases against genuine affected/fixed releases and Apache,
-with complete rendered-text/loot and database checks. Independent cleanup
-confirms an empty container inventory.
+Latest: the [ownCloud checkpoint](VERIFICATION-20261111-owncloud.md) reaches
+**205 qualified modules, 171 profiles and 1,885 functional examples**. Its four
+serial profiles pass 68 cases with complete loot and real credential/service
+checks. Independent cleanup confirms an empty container inventory. A separate
+hostname-only database-port case remains queued for investigation.
 
 These labs exercise real target software through Framework's public module entry
 points. They complement isolated module specs and the existing protocol session
