@@ -51,12 +51,12 @@ RSpec.describe 'Genuine OneDev arbitrary file reads', acceptance: true do
       end
 
       it 'supports the documented wordlist path with no supplied project name twice' do
-        2.times { onedev_read('short', options: { 'PROJECT_NAMES_FILE' => WORDLIST }, omit_project: true) }
+        2.times { onedev_read('short', options: { 'PROJECT_NAMES_FILE' => Acceptance::OneDevFile::WORDLIST }, omit_project: true) }
       end
 
       if profile_version == '11.0.8'
         it 'initializes wordlist lookup without AutoCheck twice' do
-          2.times { onedev_read('short', options: { 'PROJECT_NAMES_FILE' => WORDLIST, 'AutoCheck' => false }, omit_project: true) }
+          2.times { onedev_read('short', options: { 'PROJECT_NAMES_FILE' => Acceptance::OneDevFile::WORDLIST, 'AutoCheck' => false }, omit_project: true) }
         end
       end
     end
@@ -97,8 +97,8 @@ RSpec.describe 'Genuine OneDev arbitrary file reads', acceptance: true do
       expect(paths).to eq([])
     end
 
-    it 'reports an unreadable wordlist without a developer backtrace' do
-      output, paths = onedev_call({ 'PROJECT_NAMES_FILE' => '/opt/module-target-wordlist-missing', 'AutoCheck' => false }, omit_project: true)
+    it 'rejects a missing wordlist through public option validation' do
+      output, paths = onedev_call({ 'PROJECT_NAMES_FILE' => '/opt/module-target-wordlist-missing', 'AutoCheck' => false }, omit_project: true, expected_invalid_option: 'PROJECT_NAMES_FILE')
       expect(output).to include('[-]')
       expect(output).not_to include('file retrieved with success.', 'file stored in loot.', 'Errno::ENOENT')
       expect(paths).to eq([])

@@ -22,19 +22,32 @@ module Acceptance
       Dir[File.join(target_runtime.fetch('artifacts'), 'msf-config', 'loot', '**', '*')].select { |path| File.file?(path) }.sort
     end
 
-    def onedev_call(options = {}, action: 'run', omit_project: false)
+    def onedev_call(options = {}, action: 'run', omit_project: false, expected_invalid_option: nil)
       data = { 'TARGETURI' => '/', 'HttpClientTimeout' => 20 }
       data['PROJECT_NAME'] = PROJECT unless omit_project
       data.merge!(options)
       before = onedev_loot
       output = nil
       begin
-        output = run_target_module(OWNER, 'target', data, action: action, allow_errors: true, command_timeout: 90)
+        if expected_invalid_option
+          # OptPath rejects a missing wordlist before module execution. The shared
+          # runner rejects option errors, so observe this expected public path directly.
+          endpoint = target_runtime.fetch('module_endpoints').fetch('target')
+          console_command('back')
+          selected = console_command("use #{OWNER}")
+          expect(selected).not_to match(/Failed to load|Unknown command|No results/)
+          values = { 'RHOSTS' => endpoint.fetch('host'), 'RPORT' => endpoint.fetch('port'), 'VERBOSE' => true }.merge(data)
+          output = console_command("#{action} #{format_datastore_options(values)}", timeout: 90)
+          expect(output).to include("[-] Msf::OptionValidateError One or more options failed to validate: #{expected_invalid_option}.")
+          expect(output).not_to match(/Exception|undefined method|Unknown command/)
+        else
+          output = run_target_module(OWNER, 'target', data, action: action, allow_errors: true, command_timeout: 90)
+        end
       ensure
         text = (output || console.all_data).dup.force_encoding(Encoding::UTF_8)
         File.open(File.join(target_runtime.fetch('artifacts'), 'owning-calls.jsonl'), 'a') do |log|
           log.puts(JSON.generate(action: action, options: options, omit_project: omit_project,
-                                 anonymous: @anonymous, wrapper_returned: !output.nil?, output: text,
+                                 anonymous: @anonymous, expected_invalid_option: expected_invalid_option, wrapper_returned: !output.nil?, output: text,
                                  new_loot: onedev_loot - before))
         end
       end
