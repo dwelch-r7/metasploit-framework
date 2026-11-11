@@ -443,16 +443,20 @@ Parent 101 focused examples, twelve-file lint, whole 557/171-file imports and
 sixteen exact cleanup queries per profile pass. An unused Gogs-helper difference
 is explicitly reviewed, with current Gogs fixes preserved. Other OS/session
 paths and the unrelated UDP CI investigation remain pending.
-The [current Superset checkpoint](VERIFICATION-20261111-superset.md) records
-**186 runtime modules, 127 qualified lab profiles and 1,443 functional examples**.
-Fourteen cases pass with native controls, exact SQL reporting, repeat execution,
-legacy String and explicit JSON session signing, and actual administrator
-identity. The gatherer now resolves reporting addresses; the signer preserves
-compatibility while supporting session objects. All 28 focused unit examples
-pass. Parent 57 current inputs, 74 imported files, 135 sealed entries and twelve
-exact cleanup queries verify. The dedicated launcher handles the two-network
-gateway; the shared batch selector remains a documented limitation. Other
-versions and the separate RCE owner remain pending.
+The [current Superset checkpoint](VERIFICATION-20261111-superset-versions.md)
+records **186 runtime modules, 128 qualified lab profiles and 1,447 functional
+examples**. The shared guarded command passes fourteen cases on 2.0.0 and four
+on 2.0.1, with native controls before and after each profile, actual SQL reporting
+and repeat execution. The 2.0.1 baseline exposed false `Safe` checks in both
+Superset owners; the corrected boundary also permits the gatherer's default
+AutoCheck path. The RCE owner has check-only coverage and remains unqualified
+for exploitation. Explicit internal-network selection now supports the gateway
+through the shared runner. All 73 focused examples pass; earlier qualified
+families retain their original receipts through an exact reviewed comparison of
+the unchanged default runner path, rather than a claim of fresh runtime replay.
+Parent verification confirms 68 current input files, 129 byte-preserved imported
+run files, a 206-file seal and 23 independent cleanup queries. Other releases,
+rotated keys and the separate RCE execution paths remain pending.
 The full campaign remains incomplete while feasible, valuable modules await review
 or functional verification.
 See [deferred investigations](DEFERRED.md) for retained failures that remain

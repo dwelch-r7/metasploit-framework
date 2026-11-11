@@ -4,20 +4,22 @@ These findings do not count as passing functional qualification. The
 [campaign](CAMPAIGN.md) and individual verification records retain other
 coverage limits and ongoing investigations.
 
-## Superset remaining profiles and batch selection
+## Superset remaining profiles and RCE execution
 
-The [Superset cookie checkpoint](VERIFICATION-20261111-superset.md) passes
-fourteen cases for the gatherer and generic Flask signer on 2.0.0. The confirmed
-hostname-reporting loss is repaired, and explicit JSON session signing preserves
-the legacy String default. Original setup/assertion and owner failures remain
-sealed rather than being overwritten by passing followups.
+The [Superset version checkpoint](VERIFICATION-20261111-superset-versions.md)
+passes fourteen cases on 2.0.0 and four on 2.0.1 through the shared guarded
+selector. Genuine 2.0.1 native escalation and forced gather success exposed
+false `Safe` checks in both owners; the corrected version boundary and default
+AutoCheck gather now pass. The earlier hostname-reporting loss is repaired,
+and explicit JSON signing preserves the legacy String default. Original setup,
+assertion and owner failures remain separately sealed.
 
-The manifest now explicitly selects the gateway's internal `default` network;
-the shared guarded selector and component command use the same implementation.
-The original two-network selector refusal remains a harness failure, not a
-module or target failure. Other releases, rotated/custom keys, HTTPS, other
-database backends, private DNS unavailable to the operator, and the RCE owner's
-SQL Lab/permalink/payload/cleanup paths remain unqualified separately.
+The manifest explicitly selects the gateway's internal `default` network;
+the shared selector and component command use the same verified implementation.
+The original two-network refusal remains a harness failure. Other releases,
+rotated/custom keys, HTTPS, other database backends, private DNS unavailable to
+the operator, and the RCE owner's SQL Lab/permalink/payload/session/cleanup paths
+remain unqualified. A successful RCE `check` does not qualify those paths.
 
 ## MinIO remaining coverage and retained failures
 
