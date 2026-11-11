@@ -1,0 +1,3 @@
+services:
+  ray:
+    image: rayproject/ray:2.57.0@sha256:0efd29764b34ceaeee8b5b91c72d34bfea56ba3f31cfa3eeb882d63f33988b06
