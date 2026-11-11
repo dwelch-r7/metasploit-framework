@@ -26,3 +26,5 @@ support_files:
   - lib/msf/core/exploit/remote/http_client.rb
   - lib/rex/proto/http/client.rb
   - lib/rex/proto/http/response.rb
+test_env:
+  MODULE_TARGET_RAY_LOGS_VERSION: 2.56.0
