@@ -416,13 +416,14 @@ failures remain preserved. Parent 81 current inputs, all 276 imported files,
 528 export entries and 52 exact cleanup queries verify. Other platforms,
 same-instance reset and unchanged-existing-repository repeatability remain
 pending.
-The [current integrated checkpoint](VERIFICATION-20261110-flowise-open-basic.md)
-records **180 runtime modules, 120 qualified families and 1,412 functional cases**.
-Flowise 3.0.0 open/Basic profiles pass four repeated command/session/authentication
-cases. JWT/reset, npx session cleanup and fixed-package identity profiles retain
-their actual failures and remain unqualified. Parent 102 current inputs, all
-365 imported files, 483 immutable entries, focused checks and 61 exact cleanup
-queries verify. Production owners and human Scenarios are unchanged.
+The [current integrated checkpoint](VERIFICATION-20261111-flowise-recovery-sessions.md)
+records **182 runtime modules, 124 qualified families and 1,420 functional cases**.
+All six selected Flowise profiles pass 12/0, including repeated account takeover,
+genuine recovery, JWT/Basic authentication, used Meterpreter/Python sessions and
+fixed-release refusals. Earlier fixture failures remain preserved. Parent 102
+current inputs, all 475 imported files, 599 immutable entries and 61 exact cleanup
+queries verify. Production owners and human Scenarios are unchanged. Mail scope
+is unverified local SMTP TLS; other platforms and listed paths remain pending.
 The full campaign remains incomplete while feasible, valuable modules await review
 or functional verification.
 See [deferred investigations](DEFERRED.md) for retained failures that remain

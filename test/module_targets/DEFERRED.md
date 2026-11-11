@@ -20,21 +20,37 @@ an unchanged repository is not qualified. Closed PR history, objects and merge
 caches remain observed state until explicit operator seed removal. Native token
 revocation remains distinct from automatic module cleanup.
 
-## Flowise native and session observers
+## Flowise remaining coverage and historical fixture failures
 
-The [open/Basic checkpoint](VERIFICATION-20261110-flowise-open-basic.md) passes
-3/0 and 1/0 while retaining JWT/reset 3/3 and 2/2, npx 2/1 and fixed npx 1/1
-as whole-family unqualified results. Native consumed-token replay expects400
-but actual305/306 return a source-bound transaction rollback500. Same-password
-replay does not prove denial or unchanged state; owning tests are unreached.
-The npx shell is used and remote PID absence passes before host registry
-deregistration times out; its repeated positive is incomplete. Fixed npx stops
-at a private package-manifest lookup before components identity or owner calls.
+The [current checkpoint](VERIFICATION-20261111-flowise-recovery-sessions.md)
+passes all six selected profiles 12/0 after fixture corrections. Exact 3.0.1,
+Windows, application HTTPS, other roles/branches/payloads and the CSV-agent owner
+with real model inference remain individually pending. Trusted SMTP certificates
+are not qualified; the lab explicitly uses unverified local SMTP TLS.
 
-The complete 483-entry export preserves these failures. Separate fixture work
-must strengthen replay/state proof, use supported host closure after remote
-proof, and locate actual installed manifests without weakening publisher hashes.
-No failed family or first positive iteration counts as passing qualification.
+The historical 483- and 557-entry exports preserve the original replay-status,
+mail-argument, package-export and host session/readiness failures. The current
+599-entry export retains the genuine passing rerun. Strong account-row and
+distinct-password replay proof, complete mailbox prefixes, publisher hashes,
+bootstrap readiness, remote PID absence and supported host closure remain
+required. Earlier partial iterations and failed families are not retroactive
+passing coverage; no production owner/core repair is claimed.
+
+## Mettle CI cancellation at `89b7bca8f36`
+
+The previous public head has 62 successful checks, one skipped check and a
+cancelled [Mettle Ubuntu job](https://github.com/dwelch-r7/metasploit-framework/actions/runs/42925707613/job/130211519024).
+Its retained log contains successful binary-data output followed by nine repeated
+send-timeout reports in filesystem/process tests, then cancellation after about
+60 minutes. The suite does not complete. Source and cancellation causes remain
+unclassified; trigger metadata does not identify a cancellation actor, and
+missing replies do not establish wire silence. No matched base/head runtime,
+production repair or retry is established.
+
+The eight-entry official-log/API/workflow assessment verifies at
+`/Users/dwelch/.codex/reports/mettle-ci-cancellation-20261111-89b7bca8f36/`,
+manifest `39fc9641ce9e48ec2377fcab7abea07b438971f7e009f3de28e51b4185d4210a`.
+The earlier search-setup stall and macOS bootstrap failure below remain separate.
 
 ## macOS Python CI console bootstrap
 

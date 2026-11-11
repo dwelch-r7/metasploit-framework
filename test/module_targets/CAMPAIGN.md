@@ -999,7 +999,7 @@ repeatability remain pending; earlier failures remain immutable.
 
 ## Flowise open and Basic qualification
 
-The [current checkpoint](VERIFICATION-20261110-flowise-open-basic.md) qualifies
+The [checkpoint at that stage](VERIFICATION-20261110-flowise-open-basic.md) qualifies
 180 runtime modules, 120 families and 1,412 cases. The frozen six-profile run
 finishes naturally with 3/0, 1/0, 3/3, 2/2, 2/1 and 1/1; all teardown passes.
 Only open/Basic profiles qualify. JWT/reset stops at native replay status500
@@ -1016,3 +1016,23 @@ observed live. After natural termination, 61 fresh queries verify exact
 inventory. One project runs at a time, capped at three/four containers for these
 profiles. Observed unrelated container removals reach 60; images and unrelated
 volumes are preserved. The campaign remains active and incomplete.
+
+## Flowise recovery, sessions and fixed releases
+
+The [current checkpoint](VERIFICATION-20261111-flowise-recovery-sessions.md)
+qualifies 182 runtime modules, 124 families and 1,420 cases. A fresh unchanged
+invocation at reviewed worker revision `edbba171de8` naturally exits zero: 3/0,1/0,3/0,2/0,2/0,1/0.
+Repeated takeover and legitimate mail recovery, complete consumed-token row and
+distinct-password proof, JWT/Basic refusals, six used owning sessions and fixed
+release negatives all pass. Three native calibrations remain separate evidence.
+Private exports, stdin transport and shell bootstrap/host closure are fixture
+corrections; production owners, core, runner and human Scenarios are unchanged.
+
+The parent verifies all 102 inputs, 475 whole imported files including eight
+hidden/cache files, and 599 immutable entries. First cold prompt/BOOT and fresh
+atomic metadata are observed live. All 61 fresh checks of 22 exact container IDs, 12 networks,
+8 volumes and label/global absence queries pass. One project runs at a time,
+with three/four capped containers. Earlier 483/557-entry failures remain
+unchanged. The previous public CI head has a cancelled Mettle job with repeated
+send timeouts; cause remains unclassified. Other listed Flowise paths and the
+broader module inventory remain incomplete.
