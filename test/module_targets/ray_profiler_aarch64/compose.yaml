@@ -1,0 +1,10 @@
+services:
+  ray:
+    extends: {file: ../ray_profiler/compose.yaml, service: ray}
+  unrelated:
+    extends: {file: ../ray_profiler/compose.yaml, service: unrelated}
+  framework:
+    extends: {file: ../ray_profiler/compose.yaml, service: framework}
+networks:
+  default: {internal: true}
+  public:
