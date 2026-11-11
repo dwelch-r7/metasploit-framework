@@ -1,0 +1,54 @@
+{
+  "views/core.py": {
+    "url": "https://raw.githubusercontent.com/apache/superset/067495d954ee0015d35c1437245feb66984e4c49/superset/views/core.py",
+    "sha256": "0ce4aab1a3e8c898e2e5136782ad243428dc8d662e4d04313e9910371a5b84f5"
+  },
+  "views/sql_lab.py": {
+    "url": "https://raw.githubusercontent.com/apache/superset/067495d954ee0015d35c1437245feb66984e4c49/superset/views/sql_lab.py",
+    "sha256": "ff78f718582dd9dbb6773b7fb2cdca984e4f1519bd8e852953541225c0acd161"
+  },
+  "dashboards/api.py": {
+    "url": "https://raw.githubusercontent.com/apache/superset/067495d954ee0015d35c1437245feb66984e4c49/superset/dashboards/api.py",
+    "sha256": "dfb7c2f244f7a78d981278ad2a582f85feebdda41c5084854560ffd17f01dd10"
+  },
+  "dashboards/permalink/commands/get.py": {
+    "url": "https://raw.githubusercontent.com/apache/superset/067495d954ee0015d35c1437245feb66984e4c49/superset/dashboards/permalink/commands/get.py",
+    "sha256": "0fc2e30cfc403ead0296ef1e4287f4ad1e4f0e2c5db248d6b93b9f4c8b476066"
+  },
+  "dashboards/permalink/commands/create.py": {
+    "url": "https://raw.githubusercontent.com/apache/superset/067495d954ee0015d35c1437245feb66984e4c49/superset/dashboards/permalink/commands/create.py",
+    "sha256": "184e17d5d75ade4da232635430430dd44ae958a6662073d396282d0619e07c94"
+  },
+  "key_value/commands/create.py": {
+    "url": "https://raw.githubusercontent.com/apache/superset/067495d954ee0015d35c1437245feb66984e4c49/superset/key_value/commands/create.py",
+    "sha256": "03c5ace33e8598ab0d2e1ae4d7ac5e6e9e9b9b1014ec3b7c45487729b63a473f"
+  },
+  "key_value/commands/get.py": {
+    "url": "https://raw.githubusercontent.com/apache/superset/067495d954ee0015d35c1437245feb66984e4c49/superset/key_value/commands/get.py",
+    "sha256": "f73ee2c1273ca13a0d0cd1c49bc07f5b47c613aa6958b898d6d6a48471f3aef8"
+  },
+  "key_value/utils.py": {
+    "url": "https://raw.githubusercontent.com/apache/superset/067495d954ee0015d35c1437245feb66984e4c49/superset/key_value/utils.py",
+    "sha256": "20663ceeb2b46560fd79a4d35ebb4edb477febbf1e99f66b82ddfab0247ccb73"
+  },
+  "key_value/models.py": {
+    "url": "https://raw.githubusercontent.com/apache/superset/067495d954ee0015d35c1437245feb66984e4c49/superset/key_value/models.py",
+    "sha256": "8fc13c515cbe4f849f896f3d1aeee29dabc55d8dfe74e402a79476c9d1d0b4bf"
+  },
+  "databases/commands/create.py": {
+    "url": "https://raw.githubusercontent.com/apache/superset/067495d954ee0015d35c1437245feb66984e4c49/superset/databases/commands/create.py",
+    "sha256": "e598e1cf4391d90892446e8fd60dfa1c163d5f30f013fac9a26341443b775deb"
+  },
+  "databases/schemas.py": {
+    "url": "https://raw.githubusercontent.com/apache/superset/067495d954ee0015d35c1437245feb66984e4c49/superset/databases/schemas.py",
+    "sha256": "a045e108c11c9bd6e41faa01cf2cb223bb586816d3aedd4865a57ef8af9447f9"
+  },
+  "sql_lab.py": {
+    "url": "https://raw.githubusercontent.com/apache/superset/067495d954ee0015d35c1437245feb66984e4c49/superset/sql_lab.py",
+    "sha256": "d7f9a296977dab7833d00c5ae95e3395dd905edd83705ab07c2218209b81bda9"
+  },
+  "models/sql_lab.py": {
+    "url": "https://raw.githubusercontent.com/apache/superset/067495d954ee0015d35c1437245feb66984e4c49/superset/models/sql_lab.py",
+    "sha256": "11c12001005f1c3789786ccb50c25df970d5316359eefd966142c00ea5dbab2a"
+  }
+}
