@@ -18,7 +18,8 @@ Successful reads repeat within the same service lifetime. A final native phase
 checks fixture bytes, removes only owned paths, and repeats native workloads.
 Internal logs, cgroup counters and raw responses remain with the run artifacts.
 
-This profile does not qualify fixed releases, intermediate version boundaries,
+The [2.8.1 profile](../ray_lfi_281/README.md) separately verifies confined reads
+and Safe/AutoCheck behavior. This 2.6.3 profile does not qualify other versions,
 CPU profiling, log traversal, job execution owners or payload sessions.
 
 Completed runs and known limits are recorded in the

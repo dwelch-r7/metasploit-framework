@@ -16,8 +16,9 @@ The [container acceptance profile](../../../../test/module_targets/ray_lfi/READM
 pins genuine Ray 2.6.3 and exercises check, repeated reads, quoted and reserved
 filename characters, empty and missing files, unrelated content and AutoCheck.
 It performs independent native controls and removes its containers after each
-run. The profile covers 2.6.3; other version boundaries require separate
-validation.
+run. A separate [2.8.1 boundary profile](../../../../test/module_targets/ray_lfi_281/README.md)
+checks native file confinement, Safe and AutoCheck refusal, and unsuccessful
+forced reads. Other version boundaries require separate validation.
 
 ### Install and run the vulnerable Ray (v2.6.3)
 

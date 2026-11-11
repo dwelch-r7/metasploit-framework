@@ -1,3 +1,5 @@
 services:
   ray:
     image: rayproject/ray:2.8.1@sha256:31df379cf4d63c6640b0f3f8bf7ad8bebf3f6ea5182545aa7a795e89929079c0
+    mem_limit: 1280m
+    memswap_limit: 1280m

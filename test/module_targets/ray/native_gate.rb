@@ -13,6 +13,8 @@ class RayNativeGate < SupersetNativeGate
     raise ArgumentError, 'Unsupported native Ray profile' unless %w[2.6.3 2.8.1].include?(profile)
 
     @profile = profile
+    @resources = RESOURCES.transform_values(&:dup)
+    @resources.fetch('ray')[0] = 1280 if @profile == '2.8.1'
     @project = "msf-ray-native-#{Time.now.utc.strftime('%Y%m%dT%H%M%S').downcase}-#{SecureRandom.hex(3)}"
     @directory = File.join(ROOT, 'tmp', 'module-target-ray', @project)
     @runner = GuardedModuleTargetTests.new
@@ -42,7 +44,7 @@ class RayNativeGate < SupersetNativeGate
       @result['tracked_changes'] = required(%w[git status --porcelain --untracked-files=no], 'tracked-changes')
       definition = JSON.parse(required(@compose + ['config', '--format', 'json'], 'compose-config'))
       validate_definition(definition)
-      RESOURCES.each_key do |service|
+      @resources.each_key do |service|
         reference = definition.fetch('services').fetch(service).fetch('image')
         required(['docker', 'pull', '--platform', 'linux/amd64', reference], "pull-#{service}", timeout: 600)
         image = JSON.parse(required(['docker', 'image', 'inspect', reference], "image-#{service}")).fetch(0)
@@ -118,10 +120,10 @@ class RayNativeGate < SupersetNativeGate
   end
 
   def validate_definition(definition)
-    raise Error, 'Unexpected Ray service/network plan' unless definition.fetch('services').keys.sort == RESOURCES.keys.sort && definition.dig('networks', 'default', 'internal') == true && definition.dig('networks', 'public', 'internal') != true
+    raise Error, 'Unexpected Ray service/network plan' unless definition.fetch('services').keys.sort == @resources.keys.sort && definition.dig('networks', 'default', 'internal') == true && definition.dig('networks', 'public', 'internal') != true
 
     definition.fetch('services').each do |name, service|
-      memory, cpus, pids = RESOURCES.fetch(name)
+      memory, cpus, pids = @resources.fetch(name)
       raise Error, "#{name} resource limits differ" unless service.fetch('mem_limit').to_i == memory * 1024 * 1024 && service['memswap_limit'] == service['mem_limit'] && Rational(service.fetch('cpus').to_s) == Rational(cpus, 1_000_000_000) && service['pids_limit'] == pids
       raise Error, "#{name} image/networks differ" unless service['image'].match?(/@sha256:[0-9a-f]{64}\z/) && service.fetch('networks').keys.sort == %w[default public] && service['privileged'] != true
       raise Error, 'Unexpected host publishing' unless Array(service['ports']).all? { |row| row['host_ip'] == '127.0.0.1' && !row.key?('published') }
@@ -132,7 +134,7 @@ class RayNativeGate < SupersetNativeGate
     @owned.fetch('containers').each do |identifier|
       item = JSON.parse(required(['docker', 'inspect', identifier], "live-#{identifier}")).fetch(0)
       role = item.dig('Config', 'Labels', 'com.docker.compose.service')
-      memory, cpus, pids = RESOURCES.fetch(role)
+      memory, cpus, pids = @resources.fetch(role)
       host = item.fetch('HostConfig')
       raise Error, "#{role} running limits differ" unless item.dig('State', 'Running') && !item.dig('State', 'OOMKilled') && host['Memory'] == memory * 1024 * 1024 && host['MemorySwap'] == host['Memory'] && host['NanoCpus'] == cpus && host['PidsLimit'] == pids && host['Privileged'] == false
       raise Error, "#{role} project ownership differs" unless item.dig('Config', 'Labels', 'com.docker.compose.project') == @project

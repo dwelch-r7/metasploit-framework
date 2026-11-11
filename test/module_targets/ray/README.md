@@ -3,8 +3,9 @@
 Native prerequisites and actual owner cases have separate results, recorded in
 the [campaign checkpoint](../VERIFICATION-20261111-ray.md). Begin with one
 genuine pinned Ray2.6.3 head and an unrelated
-Apache service: two containers, 1,088 MiB and 1.1 CPUs in total. Framework is not
-started. Containers use the campaign lock and are removed with their owned
+Apache service: two containers, 1,088 MiB and 1.1 CPUs in total. The 2.8.1
+override uses 1,344MiB in total: its native supervisor hit the normal memory
+monitor threshold under the older 1GiB target cap. Framework is not started. Containers use the campaign lock and are removed with their owned
 networks after capture, including on prerequisite failures. Cached images stay.
 
 ```sh
