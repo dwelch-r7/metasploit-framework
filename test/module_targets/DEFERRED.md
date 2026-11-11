@@ -14,9 +14,14 @@ comparison as one possibility; later stable observations do not establish it.
 This is an intermittent native prerequisite failure, not evidence of an owning
 module defect. Keep the first failure for future startup diagnosis.
 
-CPU profiling/injection, modern dashboard log traversal and job execution on
-releases beyond the tested 2.6.3 image need their own owner paths. Successful
-native SDK jobs or file-read confinement do not qualify those modules or gates.
+The [CPU profile owner](VERIFICATION-20261111-ray-profiler.md) now passes its
+Ray 2.6.3 x64/x86/AArch64 main paths and repeated sessions. Ordinary py-spy
+profiling remains permission-denied at default capabilities, while genuine
+command substitution and owning sessions still work. A fully working ordinary
+profiler privilege variant and additional versions remain separate targets.
+Modern dashboard log traversal and job execution on releases beyond 2.6.3 still
+need their own owner paths. Successful native SDK jobs, source inspection or
+file-read confinement do not qualify those modules or version gates.
 
 ## Superset remaining profiles and RCE execution
 

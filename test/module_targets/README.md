@@ -482,3 +482,15 @@ memory monitor rejected a native task at the earlier cap. The original failures
 remain preserved. All containers/networks are independently audited absent.
 Registration covers 190 sources, with 314 documented container hints still
 pending review; the campaign remains incomplete. No PR is created.
+
+The [Ray CPU profile checkpoint](VERIFICATION-20261111-ray-profiler.md) records
+**189 qualified modules, 134 lab profiles and 1,488 functional examples**.
+Ten x64/x86 cases and two AArch64 payload cases pass on genuine Ray 2.6.3,
+covering all four declared targets with seven independent payload calibrations
+and fourteen owning sessions used and closed normally. Ordinary py-spy profiling
+is permission-denied under the default capabilities, while independent command
+markers and the owning exploitation paths still execute through the real API.
+No extra capability or application patch is needed for those verified RCE paths.
+Both profile teardowns pass nine exact-resource/root inventory queries each.
+Registration covers 191 sources; 313 documented container hints remain pending.
+The broader campaign remains incomplete, and no PR is created.

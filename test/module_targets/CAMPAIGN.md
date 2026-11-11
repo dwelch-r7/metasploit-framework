@@ -1094,3 +1094,16 @@ profile passed after increasing only its memory budget, with its monitor enabled
 Root preserves original native/harness failures, whole-run bytes, current selected
 inputs, cold metadata evidence and exact cleanup audits. CPU/log owners, other
 releases and the startup-watchdog cause remain pending. No PR is created.
+
+
+## Ray CPU profile owner
+
+The [CPU profile checkpoint](VERIFICATION-20261111-ray-profiler.md) qualifies
+189 modules, 134 profiles and 1,488 examples. The unchanged owner passes checks,
+command paths, AutoCheck, unrelated negatives and repeated x64/x86/AArch64
+sessions on real Ray 2.6.3. Native controls distinguish ordinary py-spy permission
+denial from successful same-user command substitution; HTTP 500 alone does not
+prove the injection failed. Seven independent calibrations and fourteen owning
+sessions pass. Root verifies 88/96 current inputs, whole 135/79-file imports,
+fresh cold metadata and exact cleanup. Ordinary profiling with additional
+privileges, newer versions and the modern log owner remain separately pending.
