@@ -1,5 +1,5 @@
 spec: spec/modules/auxiliary/gather/selenium_file_target_spec.rb
-expected_examples: 13
+expected_examples: 16
 console: true
 modules: [auxiliary/gather/selenium_file_read]
 ports: {target: 4444}
@@ -22,3 +22,5 @@ support_files:
   - lib/msf/core/auxiliary.rb
   - lib/msf/core/exploit.rb
   - lib/msf/ui/console/command_dispatcher/auxiliary.rb
+  - test/module_targets/selenium_file/files/blank.html
+  - test/module_targets/selenium_file/files/empty space.txt

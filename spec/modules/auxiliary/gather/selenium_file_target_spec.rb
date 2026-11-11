@@ -36,7 +36,7 @@ RSpec.describe "Selenium file reads with #{profile_key}", acceptance: true do
     2.times { selenium_read('default', default: true) }
   end
 
-  %w[short empty unicode large nested space].each do |kind|
+  %w[short empty unicode large nested space empty_space].each do |kind|
     it "reads the native #{kind} text file exactly" do
       selenium_read(kind)
     end
@@ -47,6 +47,13 @@ RSpec.describe "Selenium file reads with #{profile_key}", acceptance: true do
     expect(output).to include('[+] 127.0.0.1:8123/short.txt')
     expect(output.b).to include(@native.fetch('http_document').fetch('text').b)
     expect(output).to include('Deleted session (')
+  end
+
+  it 'reads an empty HTTP text document after a real redirect' do
+    output = selenium_call(options: { 'SCHEME' => 'http', 'FILEPATH' => '127.0.0.1:8123/redirect-empty.txt' })
+    expect(output).to include('[+] 127.0.0.1:8123/redirect-empty.txt')
+    expect(output).to include('Started session (', 'Deleted session (')
+    expect(output).not_to include('[-]', 'Failed to delete', 'Auxiliary aborted')
   end
 
   it 'initializes cleanup correctly with AutoCheck disabled on repeated runs' do
@@ -64,6 +71,13 @@ RSpec.describe "Selenium file reads with #{profile_key}", acceptance: true do
     output = selenium_call(options: { 'FILEPATH' => '/etc/shadow' })
     expect(output).to include('[-]')
     expect(output).not_to include('[+] /etc/shadow')
+  end
+
+  it 'does not mistake nonempty HTML with an empty body for an empty text file' do
+    path = @native.fetch('unsupported_document').fetch('path')
+    output = selenium_call(options: { 'FILEPATH' => path })
+    expect(output).to include('[-]')
+    expect(output).not_to include("[+] #{path}")
   end
 
   it 'handles the same-namespace native-verified refused port twice' do

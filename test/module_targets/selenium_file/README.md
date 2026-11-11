@@ -19,14 +19,18 @@ exercise the file and HTTP schemes. Nothing targets the developer's browser.
 
 The independent native client checks actual file bytes, browser DOMs, versions,
 missing/unreadable files, active sessions and ordinary HTTP file serving before
-and after module calls. The empty file must have a real empty `pre` element;
-absence of that element is a failed read. UTF-8 fixture bytes include a BOM for
+and after module calls. Firefox renders empty text with an empty `pre`; Chromium
+returns an empty document. The latter requires genuine `text/plain` metadata,
+empty body text and matching driver/document URLs. Initial blank pages and HTML
+must not be accepted. The nonempty HTML fixture deliberately has no trailing
+newline so its rendered body is exactly empty. UTF-8 fixture bytes include a BOM for
 consistent browser decoding. The large file exceeds 32 KiB. Both direct target
 reads and browser-rendered text are retained in the evidence.
 
-Thirteen module examples per profile cover ready checks, repeated default
-reads, six text/path variants, HTTP, repeated AutoCheck-disabled execution,
-missing files, permission denial and native-proven refused connections.
+Sixteen module examples per profile cover ready checks, repeated default
+reads, seven text/path variants, HTTP, an empty-text redirect, repeated
+AutoCheck-disabled execution, missing files, permission denial, unsupported
+blank HTML and native-proven refused connections.
 After every module call, an independent audit checks for leaked browser
 sessions. If a failed call leaks one, the audit records and deletes it to prevent
 cascading failures, then the example still fails. A passing result must require

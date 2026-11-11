@@ -8,7 +8,7 @@ from pathlib import Path
 import subprocess
 import sys
 import time
-from urllib.parse import quote
+from urllib.parse import quote, urlsplit
 
 runtime = json.loads(Path(sys.argv[1]).read_text())
 profile_key, phase = sys.argv[2:4]
@@ -93,8 +93,23 @@ def document(session, url):
     html = successful('GET', '/wd/hub/session/' + session + '/source')['value']
     parser = Pre()
     parser.feed(html)
-    return {'url': url, 'navigation_status': status, 'navigation': navigation,
-            'pre_count': parser.count, 'text': parser.text, 'source': html}
+    result = {'url': url, 'navigation_status': status, 'navigation': navigation,
+              'pre_count': parser.count, 'text': parser.text, 'source': html}
+    if status == 200 and parser.count == 0:
+        result['current_url'] = successful('GET', '/wd/hub/session/' + session + '/url')['value']
+        script = 'return {href: location.href, content_type: document.contentType, body_text: document.body.textContent};'
+        result['metadata'] = successful('POST', '/wd/hub/session/' + session + '/execute/sync', {'script': script, 'args': []})
+    return result
+
+
+def empty_text_document(row):
+    metadata = row.get('metadata', {}).get('value', {})
+    expected_scheme = urlsplit(row['url']).scheme
+    actual_scheme = urlsplit(row.get('current_url', '')).scheme
+    allowed_schemes = ('http', 'https') if expected_scheme in ('http', 'https') else (expected_scheme,)
+    return (row['navigation_status'] == 200 and row['pre_count'] == 0 and
+            metadata.get('content_type') == 'text/plain' and metadata.get('body_text') == '' and
+            metadata.get('href') == row.get('current_url') and actual_scheme in allowed_schemes)
 
 
 try:
@@ -131,7 +146,8 @@ try:
                  'short': '/opt/module-target-files/short.txt', 'empty': '/opt/module-target-files/empty.txt',
                  'unicode': '/opt/module-target-files/unicode.txt', 'large': '/opt/module-target-files/large.txt',
                  'nested': '/opt/module-target-files/nested/settings.txt',
-                 'space': '/opt/module-target-files/space name.txt'}
+                 'space': '/opt/module-target-files/space name.txt',
+                 'empty_space': '/opt/module-target-files/empty space.txt'}
         files = {}
         for key, path in paths.items():
             body = execute('target', 'cat', path)
@@ -164,14 +180,29 @@ try:
                 assert row['pre_count'] == 0, row
                 negatives[key] = row
             result['negative_documents'] = negatives
+            html_path = '/opt/module-target-files/blank.html'
+            html_bytes = execute('target', 'cat', html_path)
+            assert html_bytes
+            html = document(session, 'file://' + html_path)
+            assert html['navigation_status'] == 200 and html['pre_count'] == 0, html
+            assert html['metadata']['value']['content_type'] == 'text/html' and html['metadata']['value']['body_text'] == '', html
+            html.update(path=html_path, base64=base64.b64encode(html_bytes).decode(), sha256=hashlib.sha256(html_bytes).hexdigest())
+            result['unsupported_document'] = html
             for key, entry in files.items():
                 row = document(session, 'file://' + quote(entry['path'], safe='/'))
-                assert row['navigation_status'] == 200 and row['pre_count'] == 1, row
+                if entry['text'] == '':
+                    assert row['navigation_status'] == 200 and (row['pre_count'] == 1 or empty_text_document(row)), row
+                else:
+                    assert row['navigation_status'] == 200 and row['pre_count'] == 1, row
                 assert row['text'] == entry['text'], (key, row)
                 entry['browser_document'] = row
             row = document(session, 'http://127.0.0.1:8123/short.txt')
             assert row['navigation_status'] == 200 and row['pre_count'] == 1 and row['text'] == files['short']['text'], row
             result['http_document'] = row
+            row = document(session, 'http://127.0.0.1:8123/redirect-empty.txt')
+            assert row['navigation_status'] == 200 and row['text'] == '', row
+            assert row['pre_count'] == 1 or empty_text_document(row), row
+            result['http_empty_document'] = row
         finally:
             successful('DELETE', '/wd/hub/session/' + session)
         active, result['final_status'] = sessions()

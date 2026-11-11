@@ -6,6 +6,15 @@ import sys
 
 
 class Handler(SimpleHTTPRequestHandler):
+    def do_GET(self):
+        if self.path == '/redirect-empty.txt':
+            self.send_response(302)
+            self.send_header('Location', '/empty.txt')
+            self.send_header('Content-Length', '0')
+            self.end_headers()
+            return
+        super().do_GET()
+
     def log_message(self, format, *args):
         print(json.dumps({'method': self.command, 'path': self.path, 'message': format % args}), flush=True)
 
