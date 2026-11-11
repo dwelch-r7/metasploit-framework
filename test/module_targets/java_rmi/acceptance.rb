@@ -40,12 +40,22 @@ module Acceptance
       wire_before = java_rows('rmi-wire.jsonl').size
       defaults = { 'ConnectTimeout' => 3 }
       defaults['THREADS'] = 1 unless kind == 'registry'
-      output = run_target_module(OWNERS.fetch(kind), role, defaults.merge(options), allow_errors: allow_errors, command_timeout: 45)
+      # Serialized Java exceptions can be expected protocol results. Retain the
+      # real console/wire output before checking for unhandled module failures.
+      endpoint = target_runtime.fetch('module_endpoints').fetch(role)
+      console_command('back')
+      selected = console_command("use #{OWNERS.fetch(kind)}")
+      expect(selected).not_to match(/Failed to load|Unknown command|No results/)
+      datastore = { 'RHOSTS' => endpoint.fetch('host'), 'RPORT' => endpoint.fetch('port'), 'VERBOSE' => true }.merge(defaults).merge(options)
+      output = console_command("run #{format_datastore_options(datastore)}", timeout: 45)
       reports = java_rows('ntp-reports.jsonl').drop(reports_before)
       wire = java_rows('rmi-wire.jsonl').drop(wire_before)
       File.write(File.join(target_runtime.fetch('artifacts'), name), JSON.pretty_generate(
         kind: kind, role: role, options: options, output: output, reports: reports, wire: wire
       ) + "\n")
+      expect(output).to include('Auxiliary module execution completed')
+      expect(output).not_to match(/Auxiliary failed:|undefined method|Unknown command|Msf::OptionValidateError/)
+      expect(output).not_to include('[-]') unless allow_errors
       [output, reports, wire]
     end
 
@@ -64,7 +74,7 @@ module Acceptance
     end
 
     def verify_java_jmx(role)
-      output, reports, = java_scan('jmx', role)
+      output, reports, = java_scan('jmx', role, {}, allow_errors: role == 'guarded')
       if role == 'guarded'
         expect(output).to include('Java JMX MBean authentication required')
         expect(reports).to be_empty
