@@ -38,3 +38,16 @@ support_files:
   - lib/msf/core/exploit/cmd_stager.rb
   - lib/msf/core/exploit/remote/http_server.rb
   - lib/msf/base/sessions/meterpreter_x64_linux.rb
+  - lib/msf/base/sessions/mettle_config.rb
+  - lib/msf/base/sessions/meterpreter_options/linux.rb
+  - lib/msf/base/sessions/meterpreter_options/common.rb
+  - lib/msf/core/payload/linux.rb
+  - lib/msf/core/payload/linux/x64/elf_loader.rb
+  - lib/msf/core/payload/linux/x64/prepends.rb
+  - lib/msf/core/handler/reverse_tcp.rb
+  - lib/msf/core/payload/transport_config.rb
+  - lib/rex/post/meterpreter/packet_dispatcher.rb
+  - lib/rex/post/meterpreter/packet.rb
+  - lib/rex/post/meterpreter/client.rb
+  - lib/rex/post/meterpreter/client_core.rb
+  - lib/msf/base/sessions/command_shell.rb
