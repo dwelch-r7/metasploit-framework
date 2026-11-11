@@ -15,9 +15,15 @@ commands = []
 
 
 def execute(*argv, service='target'):
-    completed = subprocess.run(runtime['compose'] + ['exec', '-T', service, *argv],
+    options = ['exec', '-T']
+    user = None
+    if service == 'framework':
+        command = runtime['console_command']
+        user = command[command.index('--user') + 1]
+        options += ['--user', user]
+    completed = subprocess.run(runtime['compose'] + options + [service, *argv],
                                capture_output=True, timeout=20)
-    commands.append({'service': service, 'argv': argv, 'exitstatus': completed.returncode,
+    commands.append({'service': service, 'user': user, 'argv': argv, 'exitstatus': completed.returncode,
                      'stdout_base64': base64.b64encode(completed.stdout).decode(),
                      'stderr_base64': base64.b64encode(completed.stderr).decode()})
     assert completed.returncode == 0, commands[-1]

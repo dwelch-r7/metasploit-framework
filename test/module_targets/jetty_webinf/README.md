@@ -31,8 +31,10 @@ vulnerable.
 
 Before owning calls, the independent Python standard-library client verifies the
 real root document and Server version, unprivileged server process identity,
-protected ordinary paths, both actual encoded-URI behaviors, missing resources,
-and a refused TCP port. Exact HTTP status/headers/body bytes and direct on-disk
+protected ordinary paths, both actual encoded-URI behaviors and missing resources.
+A Ruby standard-library socket control uses Framework's actual network namespace
+and console UID/GID to verify the target's refused TCP port. Exact HTTP
+status/headers/body bytes and direct on-disk
 file bytes are retained. Short, empty, Unicode, binary, multi-buffer and nested
 files must agree with actual target files on affected releases. Fixed releases
 must reject the same requests. These controls run again after module cases;

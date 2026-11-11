@@ -18,3 +18,5 @@ support_files:
   - lib/msf/core/exploit/remote/http_client.rb
   - lib/msf/core/exploit.rb
   - lib/msf/ui/console/command_dispatcher/auxiliary.rb
+  - spec/modules/auxiliary/gather/jetty_web_inf_disclosure_spec.rb
+  - spec/file_fixtures/modules/auxiliary/jetty_webinf/server_headers.json
