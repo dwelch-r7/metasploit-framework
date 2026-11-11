@@ -1,9 +1,9 @@
 # Superset RCE owner investigation
 
 This profile remains unqualified. The native controls and independent Python
-session calibrations pass, and owning sessions executed commands. Owning-session
-shutdown and target state restoration fail; repeat runs and later cases are
-blocked by those guards. See the [runtime investigation](../VERIFICATION-20261111-superset-rce-owner.md).
+session calibrations pass, and owning sessions executed commands. The owning Meterpreter baseline fails shutdown, while the repaired-owner shell
+closes cleanly. A residual target row blocks strict state restoration; repeat
+runs and later cases remain unqualified. See the [runtime investigation](../VERIFICATION-20261111-superset-rce-owner.md).
 Registration or a running target is not qualification.
 
 The target reuses the pinned genuine 2.0.0 preparation and its installed-source,
@@ -42,9 +42,9 @@ and after each owning attempt, without native database repair.
 The original owner corrupted the pre-existing permalink bytes. The reviewed SQL
 hex/type repair restores all three original key rows exactly, including both
 canary permalinks and their native salt. One newly created permalink row remains;
-the suite does not repair or discard it before comparison. Owning sessions also
-leave target sockets in CLOSE_WAIT after shutdown. The socket cause remains
-unresolved. These failures keep this profile out of qualified totals.
+the suite does not repair or discard it before comparison. The owning Meterpreter baseline also leaves target sockets in CLOSE_WAIT after
+shutdown; its cause remains unresolved. The repaired-owner shell releases its
+socket and Framework session. These failures keep this profile out of qualified totals.
 
 The independent SQL capture proves two exact native account hashes and their
 connected service/origin/workspace graph. It shows lowercase service names and

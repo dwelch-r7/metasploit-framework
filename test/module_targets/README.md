@@ -443,7 +443,7 @@ Parent 101 focused examples, twelve-file lint, whole 557/171-file imports and
 sixteen exact cleanup queries per profile pass. An unused Gogs-helper difference
 is explicitly reviewed, with current Gogs fixes preserved. Other OS/session
 paths and the unrelated UDP CI investigation remain pending.
-The [current Superset checkpoint](VERIFICATION-20261111-superset-versions.md)
+The [Superset version checkpoint](VERIFICATION-20261111-superset-versions.md)
 records **186 runtime modules, 128 qualified lab profiles and 1,447 functional
 examples**. The shared guarded command passes fourteen cases on 2.0.0 and four
 on 2.0.1, with native controls before and after each profile, actual SQL reporting
@@ -460,6 +460,12 @@ rotated keys and the separate RCE execution paths remain pending.
 The [native RCE preparation](VERIFICATION-20261111-superset-rce-native.md) also
 passes two genuine SQL/permalink/deserialization cycles with exact cleanup and
 zero Framework calls. It adds no qualified owner, profile or functional example.
+The [RCE owner investigation](VERIFICATION-20261111-superset-rce-owner.md)
+verifies the binary permalink repair in the real application and passes eleven
+isolated source examples. The owning shell ran and closed cleanly; Meterpreter
+shutdown, a residual row and unreached repeat/negative paths keep the five-case
+owner profile unqualified. The repaired source retains four passing 2.0.1 cases.
+The qualified totals remain unchanged; registration now covers 188 sources.
 The full campaign remains incomplete while feasible, valuable modules await review
 or functional verification.
 See [deferred investigations](DEFERRED.md) for retained failures that remain

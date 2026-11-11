@@ -20,10 +20,17 @@ The original two-network refusal remains a harness failure. Other releases,
 rotated/custom keys, HTTPS, other database backends, private DNS unavailable to
 the operator, and the RCE owner's SQL Lab/permalink/payload/session/cleanup paths
 remain unqualified. A successful RCE `check` does not qualify those paths.
-The [native RCE preparation](VERIFICATION-20261111-superset-rce-native.md) now
-passes two genuine SQL/permalink/deserialization and cleanup cycles. No owner
-exploit or session ran. Actual CSV captures support a separate source-only
-investigation of the owner's binary restoration.
+The [native RCE preparation](VERIFICATION-20261111-superset-rce-native.md) passes
+two genuine SQL/permalink/deserialization and cleanup cycles. The
+[owner investigation](VERIFICATION-20261111-superset-rce-owner.md) confirms and
+repairs original permalink byte corruption. Its owning shell was used and
+closed; the earlier owning Meterpreter shutdown retains CLOSE_WAIT sockets.
+One created permalink row remains, blocking the strict state guard and later
+cases. The intended residual-artifact contract needs investigation. Draft SQL
+expectations were corrected from actual normalized service/login rows, with
+status/attempt timestamps and repeat behavior still unqualified. The profile
+is excluded from passing totals; its five failures are not five owner defects.
+
 
 ## MinIO remaining coverage and retained failures
 
