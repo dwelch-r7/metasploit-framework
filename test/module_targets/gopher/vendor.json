@@ -1,0 +1,12 @@
+{
+  "repository": "prodhe/gopher",
+  "manifest": "sha256:69931d56946d192d9bd155a88b6f365cb276e9edf453129d374e64d244d1edaa",
+  "config": "sha256:cbe527ae4d35e67833e05bcf564d2e5fc1daf818433cb90c6250ea2fe6237685",
+  "source_commit": "971d4ad174ae17943b47d6fbaf2c437eb1d9257d",
+  "source_sha256": {
+    "main.go": "d0210faa6f958c10894e7550344abe5a5b982b60793f8c81293d71229fff0d82",
+    "server.go": "22ed0d58b3393a949f6d046733db55a3ac283f6c9f18ef57b354cb3d57d1cd95",
+    "gophermap.go": "c11b74d185dd5cd8a8fe839924ee180145bc37f05a36ccc0b70fc6ba24ca5ca1",
+    "Dockerfile": "7363493f5a48740ee20042b4e744b2c9eaa6f029f0617106d6b2fe1f130515ac"
+  }
+}

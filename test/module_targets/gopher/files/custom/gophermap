@@ -1,0 +1,5 @@
+Native Gopher information marker
+0Unicode café 日本語	/text.txt
+1Nested directory	/dir
+0Explicit location	/dir/nested.txt	192.0.2.70	7070
+qUnsupported native row	/text.txt

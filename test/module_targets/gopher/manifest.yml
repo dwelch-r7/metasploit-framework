@@ -1,0 +1,11 @@
+spec: spec/modules/auxiliary/scanner/gopher/gopher_gophermap_target_spec.rb
+expected_examples: 12
+console: true
+modules: [auxiliary/scanner/gopher/gopher_gophermap]
+ports: {target: 70}
+support_files:
+  - lib/msf/core/auxiliary/report.rb
+  - lib/msf/core/auxiliary/scanner.rb
+  - lib/msf/core/exploit/remote/tcp.rb
+  - lib/msf/core/db_manager/service.rb
+  - lib/msf/ui/console/command_dispatcher/db.rb

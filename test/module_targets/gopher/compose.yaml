@@ -1,0 +1,42 @@
+services:
+  target:
+    image: prodhe/gopher@sha256:69931d56946d192d9bd155a88b6f365cb276e9edf453129d374e64d244d1edaa
+    platform: linux/amd64
+    cpus: 0.2
+    mem_limit: 64m
+    memswap_limit: 64m
+    pids_limit: 64
+    environment: {GOPHER_ADDRESS: gopher-target.invalid}
+    volumes:
+      - ./files:/public:ro
+      # Compose creates the empty host directory on a fresh clone.
+      - ./files/empty:/public/empty:ro
+    ports: ["127.0.0.1::70", "127.0.0.1::8080"]
+    healthcheck:
+      test: [CMD, nc, -z, -w, '1', 127.0.0.1, '70']
+      interval: 2s
+      timeout: 3s
+      retries: 30
+  reporting_db:
+    image: postgres:16@sha256:933463a6c8eba2b9f5cd414138738cd8d5519cd2c471214c222652f547a66a32
+    cpus: 0.2
+    mem_limit: 128m
+    memswap_limit: 128m
+    pids_limit: 64
+    command: [postgres, -c, shared_buffers=8MB, -c, max_connections=15, -c, work_mem=1MB, -c, maintenance_work_mem=16MB]
+    environment:
+      POSTGRES_USER: module_framework
+      POSTGRES_PASSWORD: module-target-framework-db-password
+      POSTGRES_DB: module_targets
+      POSTGRES_INITDB_ARGS: --auth-host=scram-sha-256 --auth-local=trust
+    tmpfs: [/var/lib/postgresql/data:rw,size=100m,mode=0700]
+    healthcheck:
+      test: [CMD-SHELL, "PGPASSWORD=module-target-framework-db-password psql -h 127.0.0.1 -U module_framework -d module_targets -Atc 'SELECT current_database()' | grep -qx module_targets"]
+      interval: 2s
+      timeout: 3s
+      retries: 40
+  framework:
+    cpus: 1
+    mem_limit: 768m
+    memswap_limit: 768m
+    pids_limit: 256
