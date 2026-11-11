@@ -549,3 +549,12 @@ authentication, multiline prompts and negatives. Two confirmed reporting errors
 are fixed in separate source worktrees and replayed against the genuine server.
 Three containers are capped at 1,856 MiB/1.6 CPUs; nine exact cleanup queries leave
 Docker empty. Registration covers 198 sources, with 307 documented hints pending.
+
+The [RocketMQ checkpoint](VERIFICATION-20261111-rocketmq.md) advances coverage to
+**197 modules, 141 profiles and 1,555 examples**. Eight cases and sixteen actual
+module calls verify genuine 4.9.4/5.1.1 discovery, version checks, unsupported
+requests and refused connections. A confirmed variable-header parser crash is
+fixed in a separate worktree and replayed with native before/after controls.
+Three containers are capped at 2,048 MiB/1.5 CPUs; eight exact cleanup queries
+leave Docker empty. Full exploit/session paths remain unqualified. Registration
+covers 199 sources, with 307 documented hints pending.
