@@ -9,6 +9,9 @@ bundle exec ruby tools/dev/run_guarded_module_target_tests.rb selenium_firefox3 
 Each profile uses one stock browser/Grid container (768 MiB, 0.5 CPU) and the
 shared Framework console (768 MiB, 1 CPU). Only one browser session is opened at
 a time. Official image/platform config digests are in [profiles.json](profiles.json).
+The browser container permits 512 tasks, including threads. Its earlier 256-task
+ceiling was reached during repeated legacy browser creation; native pre/post
+controls reject any PID exhaustion. Memory and CPU caps remain unchanged.
 Firefox runs headless; Chrome and Edge retain the vendor's virtual X display,
 with VNC disabled. No browser, driver, Grid handler or file response is replaced.
 Read-only text fixtures and an ordinary target-loopback Python HTTP server

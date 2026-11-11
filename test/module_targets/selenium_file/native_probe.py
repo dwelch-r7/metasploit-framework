@@ -178,6 +178,9 @@ try:
         assert active == [], active
         result['cgroups'] = execute('target', 'sh', '-c', 'cat /sys/fs/cgroup/memory.peak /sys/fs/cgroup/memory.events /sys/fs/cgroup/pids.peak /sys/fs/cgroup/pids.events').decode()
         assert 'oom_kill 0' in result['cgroups'] and 'oom 0' in result['cgroups']
+        pid_events = execute('target', 'cat', '/sys/fs/cgroup/pids.events').decode()
+        result['pid_events'] = {key: int(value) for key, value in (line.split() for line in pid_events.splitlines())}
+        assert result['pid_events']['max'] == 0, result['pid_events']
         host = runtime['module_endpoints']['target']['host']
         code = "begin; Socket.tcp(ARGV.fetch(0), 1, connect_timeout: 2) { abort 'Unexpected open port' }; rescue Errno::ECONNREFUSED; puts 'REFUSED'; end"
         assert execute('framework', 'ruby', '-rsocket', '-e', code, host).strip() == b'REFUSED'

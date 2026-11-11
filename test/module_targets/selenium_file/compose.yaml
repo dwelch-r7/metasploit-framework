@@ -5,7 +5,7 @@ services:
     cpus: 0.5
     mem_limit: 768m
     memswap_limit: 768m
-    pids_limit: 256
+    pids_limit: 512
     shm_size: 128m
     environment:
       # Native headless browser settings preserve the module's empty options.
