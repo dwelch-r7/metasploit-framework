@@ -138,6 +138,37 @@ elif action == 'launch':
                                    stderr=subprocess.STDOUT, start_new_session=True)
     result = {'pid': process.pid, 'path': str(path), 'log': str(log), 'uid': path.stat().st_uid,
               'gid': path.stat().st_gid, 'bytes': len(raw)}
+elif action == 'architecture-control':
+    root = Path(options['root'])
+    assert root.parent == Path('/tmp') and root.name.startswith('module-target-ray-jobs-')
+    marker = root / ('native-arch-' + options['architecture'])
+    assert marker.parent == root and not marker.exists()
+    source = Path(options['source']).resolve(strict=True)
+    assert source.parent == Path(os.environ['MODULE_TARGET_JOB_ARTIFACTS'])
+    assert source.name.startswith('native-arch-')
+    raw = source.read_bytes()
+    assert raw.startswith(b'\x7fELF')
+    executable = root / ('native-arch-' + options['architecture'] + '.elf')
+    assert not executable.exists()
+    executable.write_bytes(raw)
+    executable.chmod(0o700)
+    result = {'architecture': options['architecture'], 'uid': os.getuid(), 'gid': os.getgid(),
+              'elf_machine': int.from_bytes(raw[18:20], 'little'), 'uname': list(os.uname())}
+    try:
+        process = subprocess.run([str(executable)], capture_output=True, timeout=10)
+        result.update(status='executed', exitstatus=process.returncode,
+                      stdout_base64=base64.b64encode(process.stdout).decode(),
+                      stderr_base64=base64.b64encode(process.stderr).decode())
+        assert process.returncode == 0, result
+        assert marker.read_text() == options['value'] and marker.stat().st_uid == 1000
+        result['exact_marker'] = True
+        marker.unlink()
+    except OSError as error:
+        if error.errno != 8:
+            raise
+        result.update(status='unsupported_executable_format', errno=error.errno, error=str(error))
+    finally:
+        executable.unlink()
 elif action == 'cleanup-root':
     root = Path(options['root'])
     assert root.parent == Path('/tmp') and root.name.startswith('module-target-ray-jobs-')

@@ -86,6 +86,21 @@ module Acceptance
       end
     end
 
+    def ray_architecture(architecture)
+      value = SecureRandom.hex(12)
+      marker = File.join(@ray_root, "native-arch-#{architecture}")
+      artifact = File.join(target_runtime.fetch('artifacts'), "native-arch-#{architecture}.elf")
+      console_command('back')
+      console_command("use payload/linux/#{architecture}/exec")
+      console_command("set CMD printf #{value} > #{marker}")
+      expect(console_command("generate -f elf -o #{artifact}")).not_to match(/\[-\]|Exception|Unknown command/)
+      File.chmod(0o644, artifact)
+      result = ray_native('architecture-control', source: artifact, root: @ray_root, architecture: architecture, value: value)
+      expect(result).to include('uid' => 1000, 'gid' => 100)
+      File.open(File.join(target_runtime.fetch('artifacts'), 'ray-architecture-controls.jsonl'), 'a') { |file| file.puts(JSON.generate(result)) }
+      result
+    end
+
     def ray_calibrate(payload, port, fork: false)
       artifact = File.join(target_runtime.fetch('artifacts'), "native-#{port}.elf")
       remote = "/tmp/module-target-ray-calibration-#{port}.elf"

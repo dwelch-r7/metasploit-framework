@@ -1,5 +1,5 @@
 spec: spec/modules/exploits/linux/http/ray_jobs_target_spec.rb
-expected_examples: 9
+expected_examples: 11
 console: true
 module_endpoint_network: default
 modules:
@@ -51,3 +51,13 @@ support_files:
   - lib/rex/post/meterpreter/client.rb
   - lib/rex/post/meterpreter/client_core.rb
   - lib/msf/base/sessions/command_shell.rb
+  - modules/payloads/singles/linux/x86/exec.rb
+  - modules/payloads/singles/linux/aarch64/exec.rb
+  - modules/payloads/stagers/linux/x86/reverse_tcp.rb
+  - modules/payloads/stages/linux/x86/meterpreter.rb
+  - modules/payloads/stages/linux/x86/shell.rb
+  - lib/msf/core/payload/linux/reverse_tcp_x86.rb
+  - lib/msf/base/sessions/meterpreter_x86_linux.rb
+  - lib/msf/core/payload/linux/x86/prepends.rb
+  - lib/msf/core/payload/linux/x86/elf_loader.rb
+  - lib/msf/core/payload/linux/aarch64/prepends.rb

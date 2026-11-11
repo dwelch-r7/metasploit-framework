@@ -18,6 +18,9 @@ Native driver history and product logs can persist. Only owned submission
 records and narrowly scoped artifact paths are removed before a repeat.
 
 The configured scope includes default/disabled AutoCheck, head/agent routes,
-command markers, x64 wget staging, command-fetch payload delivery, real sessions
-and unrelated-service negatives. Native x86/aarch64 execution remains a separate
-architecture feasibility check. No job owner is qualified by preparation alone.
+command markers, x64/x86 wget staging, command-fetch payload delivery, real sessions
+and unrelated-service negatives. Two independently generated command ELFs record native x86/AArch64 execution
+feasibility. Successful x86 command execution is required before x86 payload
+calibration and owning-target calls. AArch64 owner execution remains separate
+until its native control succeeds and corresponding session paths are covered.
+No job owner is qualified by preparation alone.
