@@ -4,6 +4,8 @@ console: true
 modules: [exploit/multi/http/apache_rocketmq_update_config]
 ports: {vulnerable: 9876, fixed: 9876}
 support_files:
+  - spec/modules/exploits/multi/http/rocketmq_command_properties_spec.rb
+  - spec/file_fixtures/rocketmq/command_properties.json
   - test/module_targets/rocketmq/NativeProbe.java
   - test/module_targets/rocketmq/Dockerfile
   - test/module_targets/rocketmq/start.sh
