@@ -457,6 +457,9 @@ the unchanged default runner path, rather than a claim of fresh runtime replay.
 Parent verification confirms 68 current input files, 129 byte-preserved imported
 run files, a 206-file seal and 23 independent cleanup queries. Other releases,
 rotated keys and the separate RCE execution paths remain pending.
+The [native RCE preparation](VERIFICATION-20261111-superset-rce-native.md) also
+passes two genuine SQL/permalink/deserialization cycles with exact cleanup and
+zero Framework calls. It adds no qualified owner, profile or functional example.
 The full campaign remains incomplete while feasible, valuable modules await review
 or functional verification.
 See [deferred investigations](DEFERRED.md) for retained failures that remain

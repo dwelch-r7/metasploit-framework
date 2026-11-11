@@ -20,6 +20,10 @@ The original two-network refusal remains a harness failure. Other releases,
 rotated/custom keys, HTTPS, other database backends, private DNS unavailable to
 the operator, and the RCE owner's SQL Lab/permalink/payload/session/cleanup paths
 remain unqualified. A successful RCE `check` does not qualify those paths.
+The [native RCE preparation](VERIFICATION-20261111-superset-rce-native.md) now
+passes two genuine SQL/permalink/deserialization and cleanup cycles. No owner
+exploit or session ran. Actual CSV captures support a separate source-only
+investigation of the owner's binary restoration.
 
 ## MinIO remaining coverage and retained failures
 
