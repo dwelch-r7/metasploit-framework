@@ -579,3 +579,13 @@ fixed in a separate worktree and replayed; fixture-option and endpoint-control
 errors remain separately recorded. Every profile uses two containers, at most
 1,024 MiB/1.25 CPUs, and complete exact teardown leaves Docker empty. Current
 registration covers 201 sources, with 304 documented hints pending.
+
+The [Listmonk checkpoint](VERIFICATION-20261111-listmonk.md) advances coverage to
+**200 modules, 154 profiles and 1,641 examples**. Three genuine affected/fixed
+releases pass 24 cases, 45 module calls and 12 exact loot checks, with 150 native
+HTTP controls and unchanged database/process content. A confirmed auxiliary
+check error contract is fixed in a separate worktree and replayed; fixture
+errors and read-only permission limits remain explicitly recorded. Each serial
+profile uses three containers capped at 1,088 MiB/1.45 CPUs. All 24 exact cleanup
+queries pass and Docker is empty. Registration covers 202 sources, with 303
+documented container hints still pending review.
