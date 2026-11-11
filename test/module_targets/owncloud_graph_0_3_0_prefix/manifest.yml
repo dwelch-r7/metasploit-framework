@@ -28,3 +28,9 @@ support_files:
 - test/module_targets/owncloud_phpinfo/native_probe.py
 - test/module_targets/owncloud_phpinfo/phpinfo.py
 - test/module_targets/owncloud_phpinfo/profiles.json
+- spec/modules/auxiliary/gather/owncloud_phpinfo_reader_spec.rb
+- spec/file_fixtures/modules/auxiliary/owncloud_phpinfo/README.md
+- spec/file_fixtures/modules/auxiliary/owncloud_phpinfo/native-postgres.html
+- spec/file_fixtures/modules/auxiliary/owncloud_phpinfo/native-prefix.html
+- spec/file_fixtures/modules/auxiliary/owncloud_phpinfo/native-sqlite.html
+- spec/file_fixtures/modules/auxiliary/owncloud_phpinfo/provenance.json

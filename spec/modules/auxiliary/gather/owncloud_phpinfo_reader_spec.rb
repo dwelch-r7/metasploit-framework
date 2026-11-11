@@ -327,7 +327,7 @@ RSpec.describe 'ownCloud phpinfo collection contracts' do
       row = changed.lines.find { |line| line.start_with?("<tr><td class=\"e\">#{name} </td>") }
       raise "Missing captured field #{name}" unless row
 
-      replacement = value.nil? ? '' : row.sub(/<td class="v">.*?<\/td>/) { "<td class=\"v\">#{CGI.escapeHTML(value)} </td>" }
+      replacement = value.nil? ? '' : row.sub(%r{<td class="v">.*?</td>}) { "<td class=\"v\">#{CGI.escapeHTML(value)} </td>" }
       changed.sub!(row, replacement)
     end
     allow(mod).to receive(:send_request_cgi).and_return(response(200, changed))
