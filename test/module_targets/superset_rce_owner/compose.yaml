@@ -1,0 +1,15 @@
+services:
+  app:
+    extends: {file: ../superset_cookie/compose.yaml, service: app}
+  reporting_db:
+    extends: {file: ../superset_cookie/compose.yaml, service: reporting_db}
+  gateway:
+    extends: {file: ../superset_cookie/compose.yaml, service: gateway}
+  framework:
+    extends: {file: ../superset_cookie/compose.yaml, service: framework}
+networks:
+  default: {internal: true}
+  public:
+volumes:
+  superset_home:
+  postgres_data:

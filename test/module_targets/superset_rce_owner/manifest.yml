@@ -1,0 +1,50 @@
+---
+spec: spec/modules/exploits/linux/http/superset_cookie_rce_target_spec.rb
+expected_examples: 5
+console: true
+module_endpoint_network: default
+modules:
+- exploit/linux/http/apache_superset_cookie_sig_rce
+ports:
+  gateway: 80
+support_files:
+- test/module_targets/superset/README.md
+- test/module_targets/superset/bootstrap.sh
+- test/module_targets/superset/compose.yaml
+- test/module_targets/superset/gateway.conf
+- test/module_targets/superset/init.sql
+- test/module_targets/superset/native_app.py
+- test/module_targets/superset/native_gate.rb
+- test/module_targets/superset/native_http.py
+- test/module_targets/superset/native_probe.py
+- test/module_targets/superset/sources.json
+- test/module_targets/superset/superset_config.py
+- test/module_targets/credential_reporting/compose.yaml
+- test/module_targets/druid/compose.yaml
+- lib/msf/core/exploit/remote/http/flask_unsign.rb
+- lib/msf/core/auxiliary/report.rb
+- lib/msf/core/db_manager/cred.rb
+- lib/msf/core/db_manager/login.rb
+- lib/msf/core/exploit/remote/http/http_cookie.rb
+- lib/msf/core/exploit/remote/http/http_cookie_jar.rb
+- lib/msf/core/exploit/remote/http_client.rb
+- lib/msf/core/db_manager/host.rb
+- lib/msf/core/db_manager/service.rb
+- lib/rex/proto/http/response.rb
+- lib/rex/proto/http/client.rb
+- data/wordlists/superset_secret_keys.txt
+- test/module_targets/superset/profiles.json
+- test/module_targets/superset_cookie/acceptance.rb
+- test/module_targets/superset_cookie/native_runtime.py
+- test/module_targets/superset_cookie/compose.yaml
+- lib/msf/util/python_deserialization.rb
+- modules/payloads/singles/python/shell_reverse_tcp.rb
+- modules/payloads/stagers/python/reverse_tcp.rb
+- modules/payloads/stages/python/meterpreter.rb
+- lib/msf/core/payload/python.rb
+- lib/msf/base/sessions/meterpreter_python.rb
+- test/module_targets/superset_rce/README.md
+- test/module_targets/superset_rce/native_gate.rb
+- test/module_targets/superset_rce/native_probe.py
+- test/module_targets/superset_rce/sources.json
+- test/module_targets/superset_rce/target_observer.py
