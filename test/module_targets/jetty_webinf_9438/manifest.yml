@@ -15,3 +15,6 @@ support_files:
   - test/module_targets/jetty_webinf/acceptance.rb
   - test/module_targets/jetty_webinf/README.md
   - lib/msf/core/exploit/remote/auto_check.rb
+  - lib/msf/core/exploit/remote/http_client.rb
+  - lib/msf/core/exploit.rb
+  - lib/msf/ui/console/command_dispatcher/auxiliary.rb

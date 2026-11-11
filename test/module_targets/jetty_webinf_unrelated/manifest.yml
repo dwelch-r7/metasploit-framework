@@ -24,3 +24,6 @@ support_files:
 - test/module_targets/http/Dockerfile
 - test/module_targets/http/module-target.conf
 - test/module_targets/http/htdocs/index.html
+- lib/msf/core/exploit/remote/http_client.rb
+- lib/msf/core/exploit.rb
+- lib/msf/ui/console/command_dispatcher/auxiliary.rb

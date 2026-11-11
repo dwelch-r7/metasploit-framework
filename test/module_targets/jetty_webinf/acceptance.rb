@@ -20,7 +20,7 @@ module Acceptance
 
     def jetty_call(cve, file: nil, action: 'run', options: {})
       previous = Dir[File.join(ENV.fetch('MSF_CFGROOT_CONFIG'), 'loot/*')]
-      datastore = { 'CVE' => cve, 'ConnectTimeout' => 2 }.merge(options)
+      datastore = { 'CVE' => cve, 'HttpClientTimeout' => 3 }.merge(options)
       datastore['FILE'] = file if file
       output = run_target_module(OWNER, 'target', datastore, action: action, allow_errors: true)
       after = Dir[File.join(ENV.fetch('MSF_CFGROOT_CONFIG'), 'loot/*')]

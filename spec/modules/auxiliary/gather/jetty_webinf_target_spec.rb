@@ -59,7 +59,7 @@ RSpec.describe "Jetty WEB-INF file reads on #{profile_key}", acceptance: true do
   it 'handles a native-verified refused connection twice without discovering Jetty' do
     2.times do
       output, files = jetty_call('CVE-2021-34429', action: 'check', options: { 'RPORT' => 1 })
-      expect(output).to include('Could not connect to web service - no response')
+      expect(output).to include('Cannot reliably check exploitability.')
       expect(output).not_to include('target appears to be vulnerable', 'File stored to')
       expect(files).to eq([])
     end
