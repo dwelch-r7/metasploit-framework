@@ -3,12 +3,22 @@
 Jetty suffers from a vulnerability where certain encoded URIs and ambiguous paths can access
 protected files in the `WEB-INF` folder.
 
-Versions effected are:
+The affected versions depend on the selected `CVE` option:
 
- - 9.4.37.v20210219, 9.4.38.v20210224
- - 9.4.37-9.4.42
- - 10.0.1-10.0.5
- - 11.0.1-11.0.5
+| CVE | Affected releases | First fixed releases |
+| --- | --- | --- |
+| [CVE-2021-28164][cve-28164] | 9.4.37.v20210219, 9.4.38.v20210224 | 9.4.39 |
+| [CVE-2021-34429][cve-34429] | 9.4.37-9.4.42, 10.0.1-10.0.5, 11.0.1-11.0.5 | 9.4.43, 10.0.6, 11.0.6 |
+
+[cve-28164]: https://github.com/jetty/jetty.project/security/advisories/GHSA-v7ff-8wcx-gmc5
+[cve-34429]: https://github.com/jetty/jetty.project/security/advisories/GHSA-vjv5-gp2w-65vm
+
+The check compares the advertised release with the selected CVE's range. An
+affected version returns `Appears`; it does not prove that a protected file can
+be read under the server's current URI compliance configuration. Fixed releases
+are excluded, including Jetty 9.x headers with a `.vYYYYMMDD` build suffix.
+Recognizable Jetty banners with malformed or unsupported version formats return
+`Unknown` because their affected release range cannot be determined.
 
 Exploitation can obtain any file in the `WEB-INF` folder, but web.xml is most likely
 to have information of value.
@@ -43,7 +53,9 @@ The file in the `WEB-INF` folder to retrieve. Defaults to `web.xml`
 
 ### CVE
 
-Which vulnerability to use.  Options: `CVE-2021-34429`, `CVE-2021-28164`. Defaults to `CVE-2021-34429`
+Which vulnerability to check and use. Options: `CVE-2021-34429`, `CVE-2021-28164`.
+Defaults to `CVE-2021-34429`. AutoCheck refuses execution when the advertised
+version is outside the selected CVE's affected range.
 
 ## Scenarios
 

@@ -1,0 +1,47 @@
+{
+  "description": "Real root-response Server headers captured from pinned official images on 2026-11-11. Initial run native controls passed; its owning RSpec results were invalidated by an unsupported test option. The clean run corrected that fixture option. Only the root HTTP status and Server header are used here.",
+  "captures": {
+    "9438": {
+      "code": 200,
+      "server": "Jetty(9.4.38.v20210224)",
+      "source": "jetty-unsupported-fixture-option-20261111/run/jetty_webinf_9438/native-before.json",
+      "source_sha256": "34c5fcbb35d5e9d0ab530032ebed422c7e5c9576c67cadf140ea223982e62786"
+    },
+    "9443": {
+      "code": 200,
+      "server": "Jetty(9.4.43.v20210629)",
+      "source": "jetty-unsupported-fixture-option-20261111/run/jetty_webinf_9443/native-before.json",
+      "source_sha256": "7e078ca7d0d5935640d64d6abd412977f18e04b0bb9c8b03baf095cea80126c1"
+    },
+    "1005": {
+      "code": 200,
+      "server": "Jetty(10.0.5)",
+      "source": "jetty-cve-check-clean-failure-20261111/run/jetty_webinf_1005/native-before.json",
+      "source_sha256": "3dbc9d15bbec099dc7d07deace89c52adda94d139e739e63d7908a90e32493c8"
+    },
+    "1006": {
+      "code": 200,
+      "server": "Jetty(10.0.6)",
+      "source": "jetty-cve-check-clean-failure-20261111/run/jetty_webinf_1006/native-before.json",
+      "source_sha256": "186eabe05a03f5b0e629edb074a449723e11a526d8aeaf4d519c1efda0036473"
+    },
+    "1105": {
+      "code": 200,
+      "server": "Jetty(11.0.5)",
+      "source": "jetty-unsupported-fixture-option-20261111/run/jetty_webinf_1105/native-before.json",
+      "source_sha256": "0c3590c9d3f0fdb3ee69247c37a78b15d5f7e95ab4c619ded58c70f74e827bbc"
+    },
+    "1106": {
+      "code": 200,
+      "server": "Jetty(11.0.6)",
+      "source": "jetty-unsupported-fixture-option-20261111/run/jetty_webinf_1106/native-before.json",
+      "source_sha256": "9f9768134f32fb1d9e0e6708d976cadd627331a07bed85cbb63fcf5ac78ea8f2"
+    },
+    "unrelated": {
+      "code": 200,
+      "server": "Apache/2.4.62 (Unix)",
+      "source": "jetty-unsupported-fixture-option-20261111/run/jetty_webinf_unrelated/native-before.json",
+      "source_sha256": "52f4e69a56b2a0ee285ed3352e83a05086bca1153f3d34781ff91f0ce7148106"
+    }
+  }
+}

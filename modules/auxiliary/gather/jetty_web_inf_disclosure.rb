@@ -15,8 +15,9 @@ class MetasploitModule < Msf::Auxiliary
         'Name' => 'Jetty WEB-INF File Disclosure',
         'Description' => %q{
           Jetty suffers from a vulnerability where certain encoded URIs and ambiguous paths can access
-          protected files in the WEB-INF folder. Versions effected are:
-          9.4.37.v20210219, 9.4.38.v20210224 and 9.4.37-9.4.42, 10.0.1-10.0.5, 11.0.1-11.0.5.
+          protected files in the WEB-INF folder. CVE-2021-28164 affects versions
+          9.4.37.v20210219 and 9.4.38.v20210224. CVE-2021-34429 affects versions
+          9.4.37-9.4.42, 10.0.1-10.0.5, and 11.0.1-11.0.5.
           Exploitation can obtain any file in the WEB-INF folder, but web.xml is most likely
           to have information of value.
         },
@@ -61,21 +62,30 @@ class MetasploitModule < Msf::Auxiliary
     return Exploit::CheckCode::Unknown("#{peer} - Could not connect to web service - no response") if res.nil?
     return Exploit::CheckCode::Safe("#{peer} - Check URI Path, unexpected HTTP response code: #{res.code}") unless res.code == 200
     return Exploit::CheckCode::Safe("#{peer} - No Server header found") unless res.headers['Server']
-    unless /Jetty\((?<version>[^)]+)\)/ =~ res.headers['Server']
+    unless /(?:\A|\s)Jetty\(/.match?(res.headers['Server'])
       return Exploit::CheckCode::Safe("#{peer} - Unable to detect Jetty version from server header: #{res.headers['Server']}")
+    end
+    unless /(?:\A|\s)Jetty\((?<version>(?<release>\d+\.\d+\.\d+)(?:\.v\d{8})?)\)/ =~ res.headers['Server']
+      return Exploit::CheckCode::Unknown("#{peer} - Unable to parse Jetty version from server header: #{res.headers['Server']}")
     end
 
     vprint_status("Found version: #{version}")
-    version = Rex::Version.new(version)
+    # Jetty's .vYYYYMMDD suffix is a build date, but Gem::Version orders it as
+    # a prerelease. Compare numeric releases so fixed 9.x builds stay excluded.
+    release = Rex::Version.new(release)
+    cve = datastore['CVE']
+    vulnerable = case cve
+                 when 'CVE-2021-28164'
+                   release >= Rex::Version.new('9.4.37') && release < Rex::Version.new('9.4.39')
+                 when 'CVE-2021-34429'
+                   (release >= Rex::Version.new('9.4.37') && release < Rex::Version.new('9.4.43')) ||
+                   (release >= Rex::Version.new('10.0.1') && release < Rex::Version.new('10.0.6')) ||
+                   (release >= Rex::Version.new('11.0.1') && release < Rex::Version.new('11.0.6'))
+                 end
 
-    if version == Rex::Version.new('9.4.37.v20210219') || version == Rex::Version.new('9.4.38.v20210224')
-      print_good("#{version} vulnerable to CVE-2021-28164")
-      return Exploit::CheckCode::Detected("Jetty #{version} vulnerable to CVE-2021-28164")
-    elsif version.between?(Rex::Version.new('9.4.37'), Rex::Version.new('9.4.43')) ||
-          version.between?(Rex::Version.new('10.0.1'), Rex::Version.new('10.0.6')) ||
-          version.between?(Rex::Version.new('11.0.1'), Rex::Version.new('11.0.6'))
-      print_good("#{version} vulnerable to CVE-2021-34429")
-      return Exploit::CheckCode::Appears("Jetty #{version} vulnerable to CVE-2021-34429")
+    if vulnerable
+      print_good("Jetty #{version} vulnerable to #{cve}")
+      return Exploit::CheckCode::Appears("Jetty #{version} vulnerable to #{cve}")
     end
 
     Exploit::CheckCode::Safe("Jetty #{version} is not vulnerable")
