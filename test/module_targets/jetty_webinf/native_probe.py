@@ -4,7 +4,6 @@ import hashlib
 import http.client
 import json
 from pathlib import Path
-import socket
 import subprocess
 import sys
 
@@ -15,10 +14,10 @@ requests = []
 commands = []
 
 
-def execute(*argv):
-    completed = subprocess.run(runtime['compose'] + ['exec', '-T', 'target', *argv],
+def execute(*argv, service='target'):
+    completed = subprocess.run(runtime['compose'] + ['exec', '-T', service, *argv],
                                capture_output=True, timeout=20)
-    commands.append({'argv': argv, 'exitstatus': completed.returncode,
+    commands.append({'service': service, 'argv': argv, 'exitstatus': completed.returncode,
                      'stdout_base64': base64.b64encode(completed.stdout).decode(),
                      'stderr_base64': base64.b64encode(completed.stderr).decode()})
     assert completed.returncode == 0, commands[-1]
@@ -73,14 +72,12 @@ try:
                 assert response['status'] in (400, 403, 404), response
         missing, _body = request('/' + prefix + '/WEB-INF/module-target-missing.txt')
         assert missing['status'] in (400, 403, 404), missing
-    endpoint = runtime['endpoints']['target']
-    try:
-        connection = socket.create_connection((endpoint['host'], 1), timeout=2)
-    except ConnectionRefusedError:
-        result['port_one'] = 'refused'
-    else:
-        connection.close()
-        raise AssertionError('The closed-port control is not closed')
+    # Probe the same target address from the same network namespace as the
+    # module. A host-loopback port does not identify a container's closed port.
+    host = runtime['module_endpoints']['target']['host']
+    code = "begin; Socket.tcp(ARGV.fetch(0), 1, connect_timeout: 2) { raise 'Target port one is open' }; rescue Errno::ECONNREFUSED; puts 'REFUSED'; end"
+    assert execute('ruby', '-rsocket', '-e', code, host, service='framework').strip() == b'REFUSED'
+    result['port_one'] = {'service': 'framework', 'target_host': host, 'target_port': 1, 'result': 'refused'}
     result['status'] = 'native_passed'
 finally:
     Path(runtime['artifacts'], 'native-' + phase + '.json').write_text(json.dumps(result, indent=2) + '\n')
