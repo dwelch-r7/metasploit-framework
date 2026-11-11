@@ -1,0 +1,14 @@
+services:
+  target:
+    extends: {file: ../owncloud_phpinfo/compose.yaml, service: target}
+    environment:
+      OWNCLOUD_SUB_URL: /owncloud
+      OWNCLOUD_ADMIN_PASSWORD: 'module&<owncloud-password>'
+  reporting_db:
+    extends: {file: ../owncloud_phpinfo/compose.yaml, service: reporting_db}
+  redis:
+    extends: {file: ../owncloud_phpinfo/compose.yaml, service: redis}
+  framework:
+    extends: {file: ../owncloud_phpinfo/compose.yaml, service: framework}
+volumes:
+  data: {}

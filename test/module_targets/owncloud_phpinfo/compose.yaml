@@ -1,0 +1,62 @@
+services:
+  target:
+    image: owncloud/server@sha256:00dcd8fb95abc507bc920e859c50f272dfd12b2ccfef63930c0006ada03fb064
+    platform: linux/amd64
+    cpus: 0.35
+    mem_limit: 512m
+    memswap_limit: 512m
+    pids_limit: 128
+    environment:
+      OWNCLOUD_DOMAIN: localhost
+      OWNCLOUD_TRUSTED_DOMAINS: localhost,127.0.0.1,target
+      OWNCLOUD_DB_TYPE: pgsql
+      OWNCLOUD_DB_HOST: reporting_db:5432
+      OWNCLOUD_DB_NAME: owncloud
+      OWNCLOUD_DB_USERNAME: module_framework
+      OWNCLOUD_DB_PASSWORD: module-target-framework-db-password
+      OWNCLOUD_ADMIN_USERNAME: module-admin
+      OWNCLOUD_ADMIN_PASSWORD: module-target-owncloud-password
+      OWNCLOUD_REDIS_ENABLED: 'true'
+      OWNCLOUD_REDIS_HOST: redis
+      OWNCLOUD_REDIS_PORT: '6379'
+      OWNCLOUD_REDIS_PASSWORD: module-target-redis-password
+      OWNCLOUD_CROND_ENABLED: 'false'
+      OWNCLOUD_BACKGROUND_MODE: ajax
+      OWNCLOUD_MAIL_SMTP_HOST: 127.0.0.1
+      OWNCLOUD_MAIL_SMTP_PORT: '2525'
+      OWNCLOUD_MAIL_SMTP_NAME: module-mail-user
+      OWNCLOUD_MAIL_SMTP_PASSWORD: 'module-mail password & <encoded>'
+      OWNCLOUD_LICENSE_KEY: module-target-license
+      OWNCLOUD_OBJECTSTORE_ENABLED: 'false'
+      OWNCLOUD_OBJECTSTORE_KEY: module-target-s3-key
+      OWNCLOUD_OBJECTSTORE_SECRET: 'module-s3 secret & <encoded>'
+    volumes: [data:/mnt/data]
+    ports: ["127.0.0.1::8080"]
+    depends_on:
+      reporting_db: {condition: service_healthy}
+      redis: {condition: service_healthy}
+    healthcheck:
+      test: [CMD, /usr/bin/healthcheck]
+      interval: 2s
+      timeout: 5s
+      retries: 90
+  reporting_db:
+    extends: {file: ../gopher/compose.yaml, service: reporting_db}
+    mem_limit: 192m
+    memswap_limit: 192m
+    tmpfs: ["/var/lib/postgresql/data:rw,size=160m,mode=0700"]
+    volumes: [./init-owncloud.sql:/docker-entrypoint-initdb.d/10-owncloud.sql:ro]
+  redis:
+    image: redis:6.2.14@sha256:90a6e70bbef8b9ca4aa4108bf2e24040bd68aa5c669a8bd568766c962a911f3d
+    cpus: 0.1
+    mem_limit: 32m
+    memswap_limit: 32m
+    pids_limit: 32
+    command: [redis-server, --save, "", --appendonly, "no", --requirepass, module-target-redis-password]
+    healthcheck:
+      test: [CMD, redis-cli, --no-auth-warning, -a, module-target-redis-password, ping]
+      interval: 2s
+      timeout: 3s
+      retries: 40
+  framework:
+    extends: {file: ../gopher/compose.yaml, service: framework}

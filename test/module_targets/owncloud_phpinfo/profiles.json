@@ -1,0 +1,26 @@
+{
+  "runtime": {
+    "image": "owncloud/server@sha256:00dcd8fb95abc507bc920e859c50f272dfd12b2ccfef63930c0006ada03fb064",
+    "config": "sha256:776e6158f97bfeb3ebf6da35111db2e1beeeee2d823774f5135833e65912135c",
+    "core_version": "10.12.1",
+    "graphapi_version": "0.3.0",
+    "created": "2023-06-03T02:43:07.026793551Z",
+    "test_file_sha256": "89769091f2f01307fece3134d723f4651df022d0a46d0757c8ae274f364167ce"
+  },
+  "fixed_app": {
+    "vendor_image_manifest": "sha256:73bcb7352f6c9085d78d3724bf30d4b2ff6ed9137c9be583e75b4707483ad784",
+    "url": "https://registry-1.docker.io/v2/owncloud/server/blobs/sha256:81ee684122331ba159621715b217cf63ade13ffce7bf0cc45979bef57bda8dff",
+    "layer_sha256": "sha256:81ee684122331ba159621715b217cf63ade13ffce7bf0cc45979bef57bda8dff",
+    "layer_bytes": 87082240,
+    "graphapi_version": "0.3.1",
+    "graphapi_entries": 5596,
+    "info_path": "var/www/owncloud/apps/graphapi/appinfo/info.xml",
+    "GetPhpInfo_files": [],
+    "info_sha256": "f35442219c584727e97678e29c77c0d0e48f4c52f5749278261f0148248291cc",
+    "app_tree_sha256": "3a669c7a3ac2d99d028b233b4f66b320d321f28483f59569c1d9de91e748163a",
+    "app_file_count": 5527,
+    "core_runtime_remains": "10.12.1"
+  },
+  "advisory": "https://owncloud.com/security-advisories/disclosure-of-sensitive-credentials-and-configuration-in-containerized-deployments/",
+  "vendor_configuration": "https://github.com/owncloud-docker/base/blob/master/ENVIRONMENT.md"
+}

@@ -1,0 +1,15 @@
+services:
+  target:
+    extends: {file: ../owncloud_phpinfo/compose.yaml, service: target}
+    image: msf-module-target-owncloud-graphapi:0.3.1
+    build:
+      context: ../owncloud_phpinfo
+      dockerfile: graphapi.Dockerfile
+  reporting_db:
+    extends: {file: ../owncloud_phpinfo/compose.yaml, service: reporting_db}
+  redis:
+    extends: {file: ../owncloud_phpinfo/compose.yaml, service: redis}
+  framework:
+    extends: {file: ../owncloud_phpinfo/compose.yaml, service: framework}
+volumes:
+  data: {}

@@ -1,8 +1,10 @@
 ## Vulnerable Application
 
-Docker containers of ownCloud compiled after February 2023, which have version 0.2.0 before 0.2.1 or 0.3.0 before 0.3.1 of the app `graph` installed
-contain a test file which prints `phpinfo()` to an unauthenticated user. A post file name must be appended to the URL to bypass the login filter.
-Docker may export sensitive environment variables including ownCloud, DB, redis, SMTP, and S3 credentials, as well as other host information.
+Docker containers of ownCloud compiled after February 2023, with affected Graph API app versions
+0.2.0 before 0.2.1 or 0.3.0 before 0.3.1, contain a test file which prints `phpinfo()`
+to an unauthenticated user. A post file name must be appended to the URL to bypass the login filter.
+Docker may export sensitive environment variables including ownCloud, DB, Redis, SMTP, and S3 credentials,
+as well as other host information.
 
 ### Docker-Compose Build
 
@@ -80,18 +82,24 @@ services:
       retries: 5
 ```
 
-You may need to add an aditional entry to `OWNCLOUD_TRUSTED_DOMAINS` which has the IP address of the host, such as `OWNCLOUD_TRUSTED_DOMAINS=localhost,192.68.1.1`
+You may need to add an entry to `OWNCLOUD_TRUSTED_DOMAINS` with the host's IP address,
+such as `OWNCLOUD_TRUSTED_DOMAINS=localhost,192.0.2.1`.
 
-If the `graph` app needs to be installed, use the following instructions:
+The pinned 10.12.1 vendor image in the automated lab includes Graph API 0.3.0.
+The historical Marketplace installation URL now returns 404. Use the lab's verified
+app sources for reproducible version selection. To enable the bundled app:
 
 ```
-docker exec -it owncloud_server /bin/bash
-cd apps
-wget "$(curl 'https://marketplace.owncloud.com/ajax/apps/graphapi/0.3.0' | sed 's/\\//g' | cut -d '"' -f 4)" -O graphapi-0.3.0.tar.gz
-rm -rf graphapi
-tar -zxf graphapi-0.3.0.tar.gz
-occ app:enable graphapi
+docker exec owncloud_server occ app:enable graphapi
 ```
+
+### Automated container lab
+
+The [ownCloud acceptance lab](../../../../test/module_targets/owncloud_phpinfo/README.md)
+provides serial profiles for the genuine vendor runtime, affected/fixed Graph API
+apps, root/subpath deployments and an unrelated HTTP server. It checks native
+authentication, exposed environment values, actual loot, database records and
+cleanup. Registration alone does not establish a passing result.
 
 ## Verification Steps
 
@@ -106,7 +114,8 @@ occ app:enable graphapi
 
 ### ROOT
 
-Root path of the URI, which is different than `TARGETURI` as its ownCloud specific. Defaults to `all` which will try `''` (empty), and `owncloud`
+Root path of the URI, which is ownCloud specific and distinct from `TARGETURI`.
+Defaults to `all`, which tries `''` (empty) and `owncloud`.
 
 ### ENDFILE
 
