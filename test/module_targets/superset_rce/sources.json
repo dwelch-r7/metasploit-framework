@@ -50,5 +50,17 @@
   "models/sql_lab.py": {
     "url": "https://raw.githubusercontent.com/apache/superset/067495d954ee0015d35c1437245feb66984e4c49/superset/models/sql_lab.py",
     "sha256": "11c12001005f1c3789786ccb50c25df970d5316359eefd966142c00ea5dbab2a"
+  },
+  "dashboards/permalink/commands/base.py": {
+    "url": "https://raw.githubusercontent.com/apache/superset/067495d954ee0015d35c1437245feb66984e4c49/superset/dashboards/permalink/commands/base.py",
+    "sha256": "50d6434525cac8a15db93852614638a1d523d31b8b13435c3e1a450b3d6e2f3c"
+  },
+  "key_value/shared_entries.py": {
+    "url": "https://raw.githubusercontent.com/apache/superset/067495d954ee0015d35c1437245feb66984e4c49/superset/key_value/shared_entries.py",
+    "sha256": "f63a52d7d7fdabd903c8b7c7dd3fb09e109a34dc0834efa9db3b2da944e16acf"
+  },
+  "key_value/types.py": {
+    "url": "https://raw.githubusercontent.com/apache/superset/067495d954ee0015d35c1437245feb66984e4c49/superset/key_value/types.py",
+    "sha256": "50ca558acaeb40911a8149caf2db7797d0865f2e7d58aa08daba82954d47dcdb"
   }
 }

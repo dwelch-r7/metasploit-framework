@@ -24,6 +24,8 @@ mapping. Two cycles exercise actual SQL account hashes, dashboard/permalink
 creation, CSV binary values, a single-row SQL mutation and harmless pickle
 execution that writes a unique marker inside the disposable application.
 
+The first permalink lazily creates a shared application salt. Its UUID is
+bound to the source-defined namespace and key; its bytes must remain intact.
 Each cycle restores exact original permalink bytes, verifies the other row,
 deletes only its own API/SQL state, compares account/datasource/dashboard/key
 state and SQL tabs, and removes its observed marker. The independent target

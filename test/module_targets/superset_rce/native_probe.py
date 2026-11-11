@@ -162,8 +162,16 @@ def main():
                                                 method='POST', csrf=csrf, data={'filterState': {'native': index}, 'urlParams': []}))
                 links.append(item['key'])
                 native.expect(admin, '/superset/dashboard/p/' + item['key'] + '/', 302)
-            rows = native.observe('snapshot')['key_value']
-            assert len(rows) == 2 and all(row['resource'] == 'dashboard_permalink' for row in rows)
+            all_rows = native.observe('snapshot')['key_value']
+            rows = [row for row in all_rows if row['resource'] == 'dashboard_permalink']
+            salt_rows = [row for row in all_rows if row['resource'] == 'app']
+            assert len(rows) == 2 and len(salt_rows) == 1 and len(all_rows) == 3, all_rows
+            # The release lazily creates its shared salt on first permalink
+            # use. Bind that extra row to the source-defined namespace/key;
+            # keep and restore its exact bytes along with both native links.
+            salt_uuid = uuid.uuid3(uuid.UUID(hashlib.md5(b'').hexdigest()), 'dashboard_permalink_salt')
+            assert base64.b64decode(salt_rows[0]['uuid']['bytes_base64']) == salt_uuid.bytes
+            cycle['native_shared_salt_verified'] = True
             original = {row['id']: base64.b64decode(row['value']['bytes_base64']) for row in rows}
             client_id, _ = native.query(admin, csrf, database_id, tab, "SELECT id,value FROM key_value WHERE resource='dashboard_permalink' ORDER BY id;")
             csv_body = native.expect(admin, '/superset/csv/' + client_id, 200)
@@ -187,18 +195,18 @@ def main():
             native.query(admin, csrf, database_id, tab, "UPDATE key_value SET value=X'" + payload.hex() + "' WHERE id=" + str(first_id) + ';')
             modified = native.observe('snapshot')['key_value']
             assert base64.b64decode(modified[0]['value']['bytes_base64']) == payload
-            assert modified[1] == rows[1], 'Other native permalink row changed'
+            assert [row for row in modified if row['id'] != first_id] == [row for row in all_rows if row['id'] != first_id], 'Other native permalink or shared salt changed'
             native.expect(admin, '/superset/dashboard/p/' + links[0] + '/', 302)
             assert native.observe('marker', path=marker) == {'exists': True, 'content': nonce}
             cycle['native_deserialization_marker'] = {'path': marker, 'content': nonce}
             for identifier, data in original.items():
                 native.query(admin, csrf, database_id, tab, "UPDATE key_value SET value=X'" + data.hex() + "' WHERE id=" + str(identifier) + ';')
-            assert native.observe('snapshot')['key_value'] == rows, 'Original permalink bytes were not restored'
+            assert native.observe('snapshot')['key_value'] == all_rows, 'Original permalink and shared salt bytes were not restored'
             for key in links:
                 native.expect(admin, '/superset/dashboard/p/' + key + '/', 302)
             # Delete only this cycle's native-created state through the API and
             # SQL surface being calibrated; never mask it with direct DB repair.
-            native.query(admin, csrf, database_id, tab, 'DELETE FROM key_value WHERE id IN (' + ','.join(str(x) for x in original) + ');')
+            native.query(admin, csrf, database_id, tab, 'DELETE FROM key_value WHERE id IN (' + ','.join(str(row['id']) for row in all_rows) + ');')
             native.expect(admin, '/api/v1/dashboard/' + str(dashboard), 200, method='DELETE', csrf=csrf)
             native.expect(admin, '/tabstateview/' + str(tab), 200, method='DELETE', csrf=csrf)
             native.expect(admin, '/api/v1/database/' + str(database_id), 200, method='DELETE', csrf=csrf)
