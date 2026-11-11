@@ -1036,3 +1036,29 @@ with three/four capped containers. Earlier 483/557-entry failures remain
 unchanged. The previous public CI head has a cancelled Mettle job with repeated
 send timeouts; cause remains unclassified. Other listed Flowise paths and the
 broader module inventory remain incomplete.
+
+## MinIO source builds, JSON loot and session collection
+
+The [current checkpoint](VERIFICATION-20261111-minio.md) qualifies 184 modules,
+126 lab profiles and 1,429 examples. Dedicated source-build/assembly/native/
+functional commands keep MinIO reproducible in the repository; static inventory
+metadata exposes its profiles alongside ordinary manifest-backed labs.
+The real public compiler wrapper passes, and final affected/fixed profiles pass
+6/0 and 3/0. Four real module-derived S3 cycles, exact JSON/Untried SQL reporting,
+workspace/repeat checks, two used Linux session types and all fourteen client
+states/22 post calls complete with restoration. The original Hash-as-JSON defect
+is corrected by a one-line serialization change. Earlier failures and a
+600-second fixture timeout remain immutable, rather than being counted as passes.
+
+Parent 101 focused checks and twelve-file lint pass. Complete 557/171-file runs
+and 841/439-entry exports verify. Integration preserves a newer Gogs-only helper;
+guarded namespace/discovery probes establish that it is not included by MinIO,
+while all other 238 selected inputs match. Each profile has sixteen fresh exact
+cleanup queries. One project runs at a time within five containers, 1,600 MiB
+and 2.35 CPUs; global containers are empty after teardown. Other declared OS/
+session types remain pending. The campaign remains active and incomplete.
+
+The prior published head's PHP 5.3/macOS CI failure is retained separately.
+Its UDP receive EAGAIN is not proof of wrong peer data; source investigation
+reproduces an existing two-frame transport defect, but exact CI attribution is
+unproven. No incompatible IO capability removal is merged.

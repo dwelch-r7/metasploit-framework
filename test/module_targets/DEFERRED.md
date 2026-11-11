@@ -4,6 +4,50 @@ These findings do not count as passing functional qualification. The
 [campaign](CAMPAIGN.md) and individual verification records retain other
 coverage limits and ongoing investigations.
 
+## MinIO remaining coverage and retained failures
+
+The [MinIO checkpoint](VERIFICATION-20261111-minio.md) passes the final six/three
+examples, fourteen client states and 22 post calls. The original invalid JSON
+loot is a verified owner defect, repaired by full-document serialization.
+The 632-entry original failure and 811-entry timeout remain historical evidence.
+The timeout's incomplete Meterpreter fixture restoration and unreached states
+are not retroactively qualified by its successful native or physical cleanup.
+Final 841/439-entry cohorts supply the actual passing evidence.
+
+Windows shell, Windows Meterpreter, Windows PowerShell, macOS, other Unix,
+other architectures/delivery modes and additional releases remain individually
+pending. The Linux shell default path uses an explicit real HOME export;
+unconfigured HOME is not qualified. Source compilation and multi-node storage
+controls are prerequisites, not module success by themselves.
+
+## PHP 5.3/macOS UDP channel CI investigation
+
+Head `69f779414da` finishes with 62 successful checks, one skip and one failing
+[PHP 5.3/macOS Intel job](https://github.com/dwelch-r7/metasploit-framework/actions/runs/42937416882/job/130250815806).
+Its 91-example suite has one failing stageless TCP session/socket-channel case.
+`[UDP] Has the correct peer information` raises `IO::EAGAINWaitReadable` during
+receive, before peer-field comparisons. Subsequent distinct UDP channels receive
+and send data successfully. This does not establish incorrect peer metadata.
+
+Source investigation independently reproduces a payload/address framing race:
+the local channel writes two datagrams, and an intervening read consumes payload
+before the address is available. Forced schedules also reproduce mispairing and
+incorrect peek behavior. Critical source matches cached upstream merge-base
+`7673832c30657be675656b53ece208759314bed7`; exact CI-event attribution remains
+unproven without local frame timing/backtrace or a matching runtime reproduction.
+
+A complete-record queue proposal remains deferred because native inherited IO
+methods could expose a private notification or require broader buffering/API
+work. Removing public IO capabilities is not accepted as a workaround.
+Production channel code is unchanged. A test-only uncommitted draft hit a
+load error before executing examples; that is not evidence of a fixed defect.
+The nine-file investigation export is retained at
+`/Users/dwelch/.codex/reports/meterpreter-udp-framing-deferred-20261111-69f779414da/`,
+manifest `59d98fd3451af8327c8c878a3992f80036df285a4d79383e60b5376b6d8e7d35`.
+The official job log is separately retained with SHA256
+`56a00132258acbb8d8f51c90e4f887225a9e3497605e0db3e294789ed5337a59`.
+No CI retry, matched base/head runtime or compatible production fix is claimed.
+
 ## Gogs remaining platform and repeatability coverage
 
 The [repository checkpoint](VERIFICATION-20261110-gogs-repositories.md) passes

@@ -17,6 +17,10 @@ bundle exec ruby tools/dev/run_guarded_module_target_tests.rb redis
 bundle exec ruby tools/dev/run_guarded_module_target_tests.rb --all
 ```
 
+Run the [source-built MinIO lab](minio/README.md) with its dedicated build,
+assembly and functional commands. The generic `--all` selector covers
+manifest-backed labs; the inventory also exposes standalone `lab_profiles`.
+
 Use the guarded launcher for local campaign runs. It holds one user-scoped lock
 across worktrees until tests and teardown finish, requires an empty container
 inventory before startup, and refuses a resolved Compose plan exceeding five
@@ -416,7 +420,7 @@ failures remain preserved. Parent 81 current inputs, all 276 imported files,
 528 export entries and 52 exact cleanup queries verify. Other platforms,
 same-instance reset and unchanged-existing-repository repeatability remain
 pending.
-The [current integrated checkpoint](VERIFICATION-20261111-flowise-recovery-sessions.md)
+The [Flowise checkpoint](VERIFICATION-20261111-flowise-recovery-sessions.md)
 records **182 runtime modules, 124 qualified families and 1,420 functional cases**.
 All six selected Flowise profiles pass 12/0, including repeated account takeover,
 genuine recovery, JWT/Basic authentication, used Meterpreter/Python sessions and
@@ -424,6 +428,16 @@ fixed-release refusals. Earlier fixture failures remain preserved. Parent 102
 current inputs, all 475 imported files, 599 immutable entries and 61 exact cleanup
 queries verify. Production owners and human Scenarios are unchanged. Mail scope
 is unverified local SMTP TLS; other platforms and listed paths remain pending.
+The [current integrated checkpoint](VERIFICATION-20261111-minio.md) records
+**184 runtime modules, 126 qualified lab profiles and 1,429 functional examples**.
+Both MinIO profiles pass 6/0 and 3/0 with genuine native controls, complete JSON
+loot, exact SQL reporting, real S3 reuse and fourteen restored client states
+through Linux shell/Meterpreter sessions. The original invalid-JSON defect is
+repaired; original failures and a bounded fixture timeout remain preserved.
+Parent 101 focused examples, twelve-file lint, whole 557/171-file imports and
+sixteen exact cleanup queries per profile pass. An unused Gogs-helper difference
+is explicitly reviewed, with current Gogs fixes preserved. Other OS/session
+paths and the unrelated UDP CI investigation remain pending.
 The full campaign remains incomplete while feasible, valuable modules await review
 or functional verification.
 See [deferred investigations](DEFERRED.md) for retained failures that remain
