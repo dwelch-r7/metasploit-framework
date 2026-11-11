@@ -22,8 +22,10 @@ profiler privilege variant and additional versions remain separate targets.
 The [modern log owner](VERIFICATION-20261111-ray-modern-logs.md) now passes
 single-node Ray 2.56.0 path enumeration and exact loot. Its full dashboard's
 resource requirements and original native/probe failures are recorded. The
-fixed-version comparison, multi-node grouping and smaller-footprint supported
-variants remain separate. Job execution on releases beyond 2.6.3 still needs
+[fixed comparison](VERIFICATION-20261111-ray-fixed-logs.md) now passes seven
+owner cases on 2.57.0, with a current eleven-case affected replay and exact
+native gRPC/HTTP rejection evidence. Multi-node grouping and smaller-footprint
+supported variants remain separate. Job execution on releases beyond 2.6.3 still needs
 owning paths. Successful native SDK jobs, source inspection or file-read
 confinement do not qualify those remaining module paths or version gates.
 

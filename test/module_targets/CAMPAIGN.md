@@ -1121,3 +1121,14 @@ fourteen exact new loot files. Root verifies all 48 current inputs, a whole
 cleanup queries. Enumeration does not establish arbitrary file-content retrieval;
 one genuine node and this exact image are qualified. The fixed comparison and
 multi-node grouping still need their own main-path evidence. No PR is created.
+
+## Ray log API fixed-release boundary
+
+The [fixed log comparison](VERIFICATION-20261111-ray-fixed-logs.md) advances the
+checkpoint to 190 modules, 136 profiles and 1,506 examples. The affected owner
+replays eleven cases, and the fixed 2.57.0 owner passes seven cases, including
+forced denials and exact ordinary-log loot. Native controls require precise
+gRPC rejections and correlated server errors behind generic HTTP 500 responses.
+Two initial identity/probe failures remain sealed. Root verifies 54 current
+inputs, the unchanged 139-file import, cold/cache provenance and seventeen exact
+cleanup queries. Multi-node and remaining valuable modules still need coverage.

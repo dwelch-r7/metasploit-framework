@@ -39,7 +39,13 @@ The [repository enumeration profile](../../../../test/module_targets/ray_logs_en
 provides pinned targets, native State API controls, repeated module calls and
 exact path/loot checks with automatic container cleanup. It covers path
 enumeration rather than retrieving arbitrary file contents. Resource budgets,
-actual results and remaining limits are recorded in the [validation report](../../../../test/module_targets/VERIFICATION-20261111-ray-modern-logs.md).
+actual results and remaining limits are recorded in the
+[validation report](../../../../test/module_targets/VERIFICATION-20261111-ray-modern-logs.md).
+
+The [fixed-release comparison](../../../../test/module_targets/ray_logs_fixed/README.md)
+also covers real Ray 2.57.0 refusals with AutoCheck disabled and successful
+ordinary-log enumeration. Its [results](../../../../test/module_targets/VERIFICATION-20261111-ray-fixed-logs.md)
+include a current affected-release replay and native gRPC/HTTP controls.
 
 ## Verification Steps
 1. Install the application

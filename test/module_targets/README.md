@@ -504,5 +504,14 @@ required a measured resource budget: Ray is capped at 5,120 MiB/one CPU, and the
 three-role owner profile totals 5,952 MiB/2.1 CPUs. Actual target peak was about
 4.0 GB with no limit events in the final run. Native resource/probe failures are
 preserved separately; none is classified as a module defect. Registration covers
-192 sources, with 312 documented container hints pending review. Multi-node and
-fixed-version comparisons remain separate; the wider campaign is incomplete.
+192 sources, with 312 documented container hints pending review. At that checkpoint,
+multi-node and fixed-version comparisons remained separate.
+
+The [Ray log fixed-release comparison](VERIFICATION-20261111-ray-fixed-logs.md)
+advances the checkpoint to **190 modules, 136 profiles and 1,506 examples**.
+The current affected replay passes eleven cases; seven fixed 2.57.0 cases pass
+Safe/AutoCheck, forced traversal/absolute-path refusals and ordinary log loot.
+Native gRPC and server-log errors distinguish correct denials from a broken
+HTTP API. All 54 distinct inputs match current source; seventeen root cleanup
+queries pass with global containers empty. Registration remains 192 sources and
+312 pending documented hints. Multi-node and broader campaign coverage remain.
