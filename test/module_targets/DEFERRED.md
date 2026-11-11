@@ -4,6 +4,20 @@ These findings do not count as passing functional qualification. The
 [campaign](CAMPAIGN.md) and individual verification records retain other
 coverage limits and ongoing investigations.
 
+## Superset remaining profiles and batch selection
+
+The [Superset cookie checkpoint](VERIFICATION-20261111-superset.md) passes
+fourteen cases for the gatherer and generic Flask signer on 2.0.0. The confirmed
+hostname-reporting loss is repaired, and explicit JSON session signing preserves
+the legacy String default. Original setup/assertion and owner failures remain
+sealed rather than being overwritten by passing followups.
+
+Use the component's dedicated launcher: the shared batch endpoint selector
+cannot select this two-network gateway. This is a harness limitation, not a
+module or target failure. Other releases, rotated/custom keys, HTTPS, other
+database backends, private DNS unavailable to the operator, and the RCE owner's
+SQL Lab/permalink/payload/cleanup paths remain unqualified separately.
+
 ## MinIO remaining coverage and retained failures
 
 The [MinIO checkpoint](VERIFICATION-20261111-minio.md) passes the final six/three

@@ -1039,7 +1039,7 @@ broader module inventory remain incomplete.
 
 ## MinIO source builds, JSON loot and session collection
 
-The [current checkpoint](VERIFICATION-20261111-minio.md) qualifies 184 modules,
+The [MinIO checkpoint](VERIFICATION-20261111-minio.md) qualifies 184 modules,
 126 lab profiles and 1,429 examples. Dedicated source-build/assembly/native/
 functional commands keep MinIO reproducible in the repository; static inventory
 metadata exposes its profiles alongside ordinary manifest-backed labs.
@@ -1062,3 +1062,22 @@ The prior published head's PHP 5.3/macOS CI failure is retained separately.
 Its UDP receive EAGAIN is not proof of wrong peer data; source investigation
 reproduces an existing two-frame transport defect, but exact CI attribution is
 unproven. No incompatible IO capability removal is merged.
+
+## Superset cookie native controls and owner repairs
+
+The [current checkpoint](VERIFICATION-20261111-superset.md) qualifies 186 modules,
+127 profiles and 1,443 functional examples. The fourteen-case Superset 2.0.0 lab
+passes with genuine installed-source/cookie/identity controls and exact logical
+state preservation before and after owner calls. Actual SQL graphs and repeat
+IDs establish credential reporting; a native-proven anonymous-cookie path also
+works after a rejected password. Explicit JSON signing produces an accepted
+administrator identity while the legacy String default stays unchanged.
+
+Separate worktrees repair JSON session support and hostname reporting; 28
+focused unit cases pass after parent integration. Original native/setup/control
+and owner failures remain sealed. Parent verifies all 57 selected inputs, all
+74 imported run files, the 135-entry final seal, fresh actual BOOT/atomic
+metadata, and twelve exact 4/2/2 cleanup queries with empty global containers.
+The four-container profile caps memory at 2,144 MiB and CPUs at 2.15. Its dedicated
+launcher verifies gateway network identities; shared batch selection, broader
+versions and SQL Lab/permalink/RCE session paths remain separate work.

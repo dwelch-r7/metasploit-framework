@@ -21,6 +21,10 @@ Run the [source-built MinIO lab](minio/README.md) with its dedicated build,
 assembly and functional commands. The generic `--all` selector covers
 manifest-backed labs; the inventory also exposes standalone `lab_profiles`.
 
+The [Superset cookie lab](superset_cookie/README.md) also requires its dedicated
+entry point. Its gateway joins two networks, which the shared batch endpoint
+selector currently cannot select. Use the documented component command for it.
+
 Use the guarded launcher for local campaign runs. It holds one user-scoped lock
 across worktrees until tests and teardown finish, requires an empty container
 inventory before startup, and refuses a resolved Compose plan exceeding five
@@ -428,7 +432,7 @@ fixed-release refusals. Earlier fixture failures remain preserved. Parent 102
 current inputs, all 475 imported files, 599 immutable entries and 61 exact cleanup
 queries verify. Production owners and human Scenarios are unchanged. Mail scope
 is unverified local SMTP TLS; other platforms and listed paths remain pending.
-The [current integrated checkpoint](VERIFICATION-20261111-minio.md) records
+The [MinIO integrated checkpoint](VERIFICATION-20261111-minio.md) records
 **184 runtime modules, 126 qualified lab profiles and 1,429 functional examples**.
 Both MinIO profiles pass 6/0 and 3/0 with genuine native controls, complete JSON
 loot, exact SQL reporting, real S3 reuse and fourteen restored client states
@@ -438,6 +442,16 @@ Parent 101 focused examples, twelve-file lint, whole 557/171-file imports and
 sixteen exact cleanup queries per profile pass. An unused Gogs-helper difference
 is explicitly reviewed, with current Gogs fixes preserved. Other OS/session
 paths and the unrelated UDP CI investigation remain pending.
+The [current Superset checkpoint](VERIFICATION-20261111-superset.md) records
+**186 runtime modules, 127 qualified lab profiles and 1,443 functional examples**.
+Fourteen cases pass with native controls, exact SQL reporting, repeat execution,
+legacy String and explicit JSON session signing, and actual administrator
+identity. The gatherer now resolves reporting addresses; the signer preserves
+compatibility while supporting session objects. All 28 focused unit examples
+pass. Parent 57 current inputs, 74 imported files, 135 sealed entries and twelve
+exact cleanup queries verify. The dedicated launcher handles the two-network
+gateway; the shared batch selector remains a documented limitation. Other
+versions and the separate RCE owner remain pending.
 The full campaign remains incomplete while feasible, valuable modules await review
 or functional verification.
 See [deferred investigations](DEFERRED.md) for retained failures that remain
