@@ -541,3 +541,11 @@ Four containers are capped at 1,536 MiB/1.3 CPUs; ten exact cleanup queries leav
 Docker empty. The preserved eighteen-case DGC profile needs a historical JVM and
 remains unqualified. Registration covers 197 sources, with sixteen individual
 reviews and 308 documented container hints pending.
+
+The [Ollama checkpoint](VERIFICATION-20261111-ollama.md) advances coverage to
+**196 modules, 140 profiles and 1,547 examples**. Twelve cases and twenty-four
+actual module calls verify real model metadata, running/installed/empty states,
+authentication, multiline prompts and negatives. Two confirmed reporting errors
+are fixed in separate source worktrees and replayed against the genuine server.
+Three containers are capped at 1,856 MiB/1.6 CPUs; nine exact cleanup queries leave
+Docker empty. Registration covers 198 sources, with 307 documented hints pending.
