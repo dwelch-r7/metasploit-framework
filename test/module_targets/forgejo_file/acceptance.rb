@@ -52,7 +52,7 @@ module Acceptance
       data
     end
 
-    def forgejo_assert_reports(service:, vulnerable: false, path: nil)
+    def forgejo_assert_reports(service:, vulnerable: false, path: nil, passive: false, automatic: false)
       rows = forgejo_reports
       endpoint = target_runtime.fetch('module_endpoints').fetch('target')
       if service
@@ -62,11 +62,20 @@ module Acceptance
       else
         expect(rows.fetch('services')).to eq([])
       end
-      if vulnerable
+      if vulnerable || passive
         expect(rows.fetch('vulnerabilities').size).to eq(1)
         record = rows.fetch('vulnerabilities').fetch(0)
-        expect(record.values_at('host', 'service_id', 'name')).to eq([endpoint.fetch('host'), rows.fetch('services').fetch(0).fetch('id'), 'Forgejo Arbitrary File Read via Org-mode Include'])
-        expect(record.fetch('info')).to include(path)
+        expected_name = automatic ? OWNER : 'Forgejo Arbitrary File Read via Org-mode Include'
+        expect(record.values_at('host', 'service_id', 'name')).to eq([endpoint.fetch('host'), rows.fetch('services').fetch(0).fetch('id'), expected_name])
+        if passive
+          expect(record.fetch('info')).to include('based on check of ' + OWNER)
+        elsif automatic
+          # AutoCheck reports its version evidence before run. The database merges
+          # the module's later same-reference report into that existing record.
+          expect(record.fetch('info')).to include('go-org', '#+INCLUDE')
+        else
+          expect(record.fetch('info')).to include(path)
+        end
         expect(record.fetch('refs')).to include('CVE-2026-59774')
       else
         expect(rows.fetch('vulnerabilities')).to eq([])
@@ -117,7 +126,7 @@ module Acceptance
         else
           expect(paths).to eq([])
         end
-        forgejo_assert_reports(service: true, vulnerable: true, path: file.fetch('path'))
+        forgejo_assert_reports(service: true, vulnerable: true, path: file.fetch('path'), automatic: values.fetch('AutoCheck', true))
       else
         expect(output).to include('[-]')
         expect(output).not_to include('Successfully read ', 'File saved to: ')

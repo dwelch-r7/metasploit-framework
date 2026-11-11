@@ -39,7 +39,7 @@ RSpec.describe 'Genuine Forgejo org-mode file reads', acceptance: true do
       output, paths = forgejo_call({}, action: 'check')
       expect(output).to include(@vulnerable ? 'The target appears to be vulnerable.' : 'The target is not exploitable.')
       expect(paths).to eq([])
-      rows = forgejo_assert_reports(service: true)
+      rows = forgejo_assert_reports(service: true, passive: @vulnerable)
       expect(rows.fetch('services').fetch(0).fetch('info')).to eq('Forgejo ' + @native.fetch('server_version'))
       expect(rows).to eq(first) if first
       first = rows

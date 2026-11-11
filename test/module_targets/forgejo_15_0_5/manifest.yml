@@ -25,3 +25,7 @@ support_files:
   - test/module_targets/forgejo_file/native_probe.py
   - test/module_targets/forgejo_file/profiles.json
   - test/module_targets/forgejo_file/release.Dockerfile
+  - lib/rex/proto/http/response.rb
+  - lib/msf/core/module/failure.rb
+  - lib/msf/core/db_manager/service.rb
+  - lib/msf/core/db_manager/vuln.rb

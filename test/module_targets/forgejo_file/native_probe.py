@@ -122,6 +122,8 @@ try:
     assert status == 200, requests[-1]
     account = json.loads(body)
     assert account['login'] == user and account['is_admin'] is False
+    password_hash_algorithm = execute('target', 'sqlite3', '/data/gitea/gitea.db', 'SELECT passwd_hash_algo FROM user;').decode().strip()
+    assert password_hash_algorithm == 'pbkdf2$50000$50', password_hash_algorithm
     assert request('GET', '/api/v1/user', auth='none')[0] == 401
     assert request('GET', '/api/v1/user', auth='wrong')[0] == 401
     for name, private in [('public-test', False), ('private-test', True)]:
@@ -199,6 +201,7 @@ try:
                   files=files, negative=negative, ordinary_markup=ordinary, contexts=contexts,
                   repositories=repo_state, search_first=search_first, account={'id': account['id'], 'login': user, 'is_admin': False},
                   identity=identity, configuration_sha256=hashlib.sha256(configuration).hexdigest(),
+                  password_hash_algorithm=password_hash_algorithm,
                   cgroups={service: resources(service) for service in ['target', 'reporting_db']}, database=database,
                   refused_port={'host': host, 'port': 1, 'owner': owner})
 finally:

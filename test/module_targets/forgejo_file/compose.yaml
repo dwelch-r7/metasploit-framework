@@ -7,6 +7,7 @@ services:
     pids_limit: 128
     environment:
       FORGEJO__security__INSTALL_LOCK: 'true'
+      FORGEJO__security__PASSWORD_HASH_ALGO: 'pbkdf2$$50000$$50'
       FORGEJO__service__DISABLE_REGISTRATION: 'true'
       FORGEJO__server__DISABLE_SSH: 'true'
       FORGEJO__database__DB_TYPE: sqlite3

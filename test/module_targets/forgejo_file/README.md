@@ -18,6 +18,9 @@ supported environment variables. Native CLI/API operations create one ordinary
 user and public/private repositories. No Docker socket, executor or CI runner is
 used. The native probe verifies actual versions, binary hashes, authentication,
 ordinary org-mode rendering, file bytes, permission failures and private context.
+Disposable accounts use the supported `pbkdf2$50000$50` setting to shorten repeated
+API authentication. Native checks verify that exact setting and accepted/rejected
+credentials; no authentication handler is replaced.
 It uses Python's standard HTTP/HTML libraries independently of Framework's client
 and Nokogiri parser. Existing Gitea controls hardcode other releases and migration
 fixtures, so this product-specific probe is shared across all four profiles.
@@ -34,6 +37,8 @@ state, configuration/binary hashes and process identity. They verify clean
 memory/PID counters and a refused port from Framework's actual UID/namespace.
 The shared Gopher reporting-database service provides real PostgreSQL records,
 authentication and per-example workspaces for service/vulnerability checks.
+Checks and AutoCheck can create passive vulnerability records before a read;
+tests preserve their distinct names/evidence instead of treating them as confirmed file reads.
 The unrelated profile reuses the genuine, bounded Apache control.
 
 Only one project runs at a time. Forgejo projects have three containers capped
