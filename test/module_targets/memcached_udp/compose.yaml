@@ -5,7 +5,7 @@ x-target: &target
   mem_limit: 64m
   memswap_limit: 64m
   pids_limit: 32
-  networks: [default]
+  networks: [default, public]
   ports:
     - {target: 11211, protocol: udp, host_ip: 127.0.0.1}
   healthcheck:
@@ -33,3 +33,4 @@ services:
     pids_limit: 256
 networks:
   default: {internal: true}
+  public:
