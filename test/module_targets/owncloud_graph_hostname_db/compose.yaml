@@ -1,0 +1,13 @@
+services:
+  target:
+    extends: {file: ../owncloud_phpinfo/compose.yaml, service: target}
+    environment:
+      OWNCLOUD_DB_HOST: reporting_db
+  reporting_db:
+    extends: {file: ../owncloud_phpinfo/compose.yaml, service: reporting_db}
+  redis:
+    extends: {file: ../owncloud_phpinfo/compose.yaml, service: redis}
+  framework:
+    extends: {file: ../owncloud_phpinfo/compose.yaml, service: framework}
+volumes:
+  data: {}

@@ -1,0 +1,37 @@
+---
+spec: spec/modules/auxiliary/gather/owncloud_hostname_db_target_spec.rb
+expected_examples: 1
+console: true
+modules:
+- auxiliary/gather/owncloud_phpinfo_reader
+ports:
+  target: 8080
+test_env:
+  OWNCLOUD_PROFILE: hostname
+support_files:
+- test/module_targets/gopher/compose.yaml
+- test/module_targets/onedev_unrelated/compose.yaml
+- lib/msf/core/exploit/remote/http_client.rb
+- lib/msf/core/auxiliary.rb
+- lib/rex/proto/http/response.rb
+- lib/rex/proto/http/packet.rb
+- lib/rex/proto/http/http_logger_subscriber.rb
+- lib/msf/core/db_manager/cred.rb
+- lib/msf/core/db_manager/service.rb
+- lib/msf/core/db_manager/host.rb
+- documentation/modules/auxiliary/gather/owncloud_phpinfo_reader.md
+- test/module_targets/owncloud_phpinfo/README.md
+- test/module_targets/owncloud_phpinfo/acceptance.rb
+- test/module_targets/owncloud_phpinfo/compose.yaml
+- test/module_targets/owncloud_phpinfo/graphapi.Dockerfile
+- test/module_targets/owncloud_phpinfo/init-owncloud.sql
+- test/module_targets/owncloud_phpinfo/native_probe.py
+- test/module_targets/owncloud_phpinfo/phpinfo.py
+- test/module_targets/owncloud_phpinfo/profiles.json
+- spec/modules/auxiliary/gather/owncloud_phpinfo_reader_spec.rb
+- spec/file_fixtures/modules/auxiliary/owncloud_phpinfo/README.md
+- spec/file_fixtures/modules/auxiliary/owncloud_phpinfo/native-postgres.html
+- spec/file_fixtures/modules/auxiliary/owncloud_phpinfo/native-prefix.html
+- spec/file_fixtures/modules/auxiliary/owncloud_phpinfo/native-sqlite.html
+- spec/file_fixtures/modules/auxiliary/owncloud_phpinfo/provenance.json
+- test/module_targets/owncloud_graph_hostname_db/native_application.py
