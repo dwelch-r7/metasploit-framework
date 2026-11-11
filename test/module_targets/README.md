@@ -598,3 +598,13 @@ fixed and replayed; native document and resource failures remain separately
 recorded. Each serial profile uses two containers capped at 1,536 MiB/1.5 CPUs.
 All 28 exact cleanup queries pass and Docker is empty. Registration covers 203
 sources, with 301 documented hints and 17 individual reviews; none are stale.
+
+The [Gopher checkpoint](VERIFICATION-20261111-gopher.md) advances coverage to
+**202 modules, 159 profiles and 1,718 examples**. Genuine menu/HTTP/database
+controls qualify 13 cases and 25 module calls, including complete 52,739-byte
+menus, correctly named SQL services, CSV export and byte-limit recovery. Three
+confirmed module defects are fixed and replayed; setup/encoding/audit failures
+remain separately preserved. Three serial containers are capped at 960 MiB/1.4
+CPUs, all eight exact cleanup queries pass and Docker is empty. Registration
+covers 204 sources, with 299 documented hints and 18 individual reviews; none
+are stale. The broader campaign and three unqualified profiles remain open.
