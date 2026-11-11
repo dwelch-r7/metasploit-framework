@@ -178,6 +178,7 @@ module FlowiseAcceptance
           ids = JSON.parse(status[/^FLOWISE_SESSIONS=(\[.*\])\r?$/, 1])
           expect(ids.length).to eq(1)
           session_id = ids.fetch(0).to_i
+          expect(console.all_data).to include("Command shell session #{session_id} opened") unless meterpreter
         end
         value = "FlowiseSession#{iteration}"
         if meterpreter

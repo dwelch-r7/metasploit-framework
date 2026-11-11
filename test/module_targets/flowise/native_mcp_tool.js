@@ -2,8 +2,9 @@
 const fs = require('fs');
 const path = require('path');
 const root = path.dirname(path.dirname(fs.realpathSync('/usr/local/bin/flowise')));
-const componentRoot = path.dirname(require.resolve('flowise-components/package.json', { paths: [root] }));
-const resolve = (name) => require.resolve(name, { paths: [root, componentRoot] });
+// Resolve the public entrypoint without loading component code or importing its manifest.
+const componentDirectory = path.dirname(require.resolve('flowise-components', { paths: [root] }));
+const resolve = (name) => require.resolve(name, { paths: [root, componentDirectory] });
 const { Server } = require(resolve('@modelcontextprotocol/sdk/server/index.js'));
 const { StdioServerTransport } = require(resolve('@modelcontextprotocol/sdk/server/stdio.js'));
 const { ListToolsRequestSchema } = require(resolve('@modelcontextprotocol/sdk/types.js'));
