@@ -5,6 +5,10 @@ console: true
 modules: [auxiliary/scanner/misc/rocketmq_version]
 ports: {vulnerable: 9876, fixed: 9876}
 support_files:
+  - spec/lib/msf/core/auxiliary/rocketmq_spec.rb
+  - spec/lib/msf/core/auxiliary/rocketmq_framing_spec.rb
+  - spec/modules/auxiliary/scanner/rocketmq_response_spec.rb
+  - spec/file_fixtures/rocketmq/captured_responses.json
   - modules/exploits/multi/http/apache_rocketmq_update_config.rb
   - lib/msf/core/auxiliary/rocketmq.rb
   - data/rocketmq_versions_list.json
