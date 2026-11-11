@@ -2,12 +2,16 @@
 
 OneDev is a Git Server with CI/CD, kanban, and packages.
 This module exploits an unauthenticated arbitrary file read vulnerability (CVE-2024-45309), which affects OneDev versions <= 11.0.8.
-This vulnerability arises due to the lack of user-input sanitization of path traversal sequences `..` in the `ProjectBlobPage.java` file.
+This vulnerability arises due to the lack of user-input sanitization of path traversal sequences `..` in `SiteFileResource.java`.
+OneDev 11.0.9 rejects these traversal paths.
 
 To exploit this vulnerability, a valid OneDev project name is required. If anonymous access is enabled on the OneDev server, any visitor
 can view existing projects without authentication.
 However, when anonymous access is disabled, an attacker who lacks prior knowledge of existing project names can use a brute-force approach.
 By providing a user-supplied wordlist, the module may be able to guess a valid project name and subsequently exploit the vulnerability.
+
+When anonymous access is disabled, the version is hidden. The check tries to read `/etc/passwd` using a known or discovered project;
+it returns Unknown if it cannot confirm that read. An error response alone does not establish that the server is patched.
 
 ## Installation
 
@@ -42,6 +46,7 @@ If there is no information about existing projects:
 A valid OneDev project name is required to exploit the vulnerability. If anonymous access is enabled on the OneDev server,
 any visitor can see the existing projects, and collect a valid project name. On the other hand, if anonymous access is disabled,
 the user needs to have previous knowledge of a valid project name or use the `PROJECT_NAMES_FILE` option to find one through brute force.
+Leave `PROJECT_NAME` unset to try the wordlist instead.
 
 ### PROJECT_NAMES_FILE
 Absolute path of a wordlist containing multiple possible values for valid project names. Once this option is set,
