@@ -139,7 +139,7 @@ try:
         fixtures = {}
         # 4.0.0 predates the per-list/all-list permission split; its real
         # handlers require campaigns:get/manage rather than the newer *_all.
-        permissions_by_role = {'reader': ['campaigns:get'], 'manager': ['campaigns:get', 'campaigns:manage', 'lists:get']}
+        permissions_by_role = {'reader': ['campaigns:get'], 'manager': ['campaigns:get', 'campaigns:manage', 'lists:get_all']}
         if version != '4.0.0':
             permissions_by_role = {'reader': ['campaigns:get', 'campaigns:get_all'],
                                    'manager': ['campaigns:get', 'campaigns:get_all', 'campaigns:manage', 'campaigns:manage_all', 'lists:get_all']}
