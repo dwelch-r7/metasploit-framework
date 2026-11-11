@@ -11,13 +11,17 @@ SMTP passwords, API keys, and admin credentials.
 
 ### Required Privileges
 
-For this exploit to work, the authenticated user must have the following privileges:
-- `campaigns:get` - Permission to get and view campaigns belonging to permitted lists
-- `campaigns:get_all` - Permission to get and view campaigns across all lists
+The underlying vulnerability can be triggered by previewing an existing campaign with read
+permissions. This module creates and deletes a temporary campaign, so it also requires campaign
+management privileges. On 4.0.0, these are `campaigns:get` and `campaigns:manage`; later releases
+split campaign access into per-list and all-list permissions. A super administrator works too.
+The target must retain the default list and campaign template with ID 1, which this module uses.
 
-These are minimal privileges that can be assigned to non-admin users in multi-user Listmonk
-installations, making this vulnerability particularly dangerous as it allows privilege escalation
-through environment variable disclosure.
+The [container acceptance lab](../../../../test/module_targets/listmonk/README.md) runs stock
+4.0.0, 5.0.1 and fixed 5.0.2 sequentially with independent native controls, exact loot checks and
+cleanup. It verifies a non-admin campaign manager and explicitly checks that a read-only user
+cannot run the module's campaign-creation path. The read-only preview vulnerability remains a
+separate native control; it is not claimed as a supported module execution path.
 
 #### Docker Installation (Vulnerable Version)
 
@@ -53,7 +57,7 @@ docker compose up
 ### USERNAME
 
 The Listmonk username for authentication. This must be a valid user account with
-the required `campaigns:get` and `campaigns:get_all` permissions.
+campaign read and management permissions for the target release.
 
 ### PASSWORD
 
