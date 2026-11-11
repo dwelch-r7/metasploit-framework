@@ -167,10 +167,10 @@ try:
     result['gguf_sha256'] = DIGEST
     def ready():
         try:
-            return request(ROOT, '/api/version')['version'] == '0.1.48'
-        except urllib.error.URLError:
+            return request(ROOT, '/api/version', timeout=3)['version'] == '0.1.48'
+        except (urllib.error.URLError, TimeoutError):
             return False
-    until(ready, 30)
+    until(ready, 90)
     result['cli_version'] = cli('--version')
     assert '0.1.48' in result['cli_version']
     if phase in {'bootstrap', 'prepare'}:
