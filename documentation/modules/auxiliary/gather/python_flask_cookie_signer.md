@@ -1,5 +1,9 @@
 ## Vulnerable Application
 
+The [automated Superset cookie lab](../../../../test/module_targets/superset_cookie/README.md)
+provides a pinned target and native controls for all three actions, including
+literal signing, JSON session objects and actual accepted identity.
+
 This is a generic module which can manipulate Python Flask-based application cookies.
 The Retrieve action will connect to a web server, grab the cookie, and decode it.
 The Resign action will do the same as above, but after decoding it, it will replace

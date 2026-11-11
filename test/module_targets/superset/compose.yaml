@@ -1,0 +1,46 @@
+services:
+  app:
+    image: apache/superset:2.0.0@sha256:ca32ff641daca7447edfe78345e1abbc3b278895b1d4a245e69e28020e3310b7
+    platform: linux/amd64
+    init: true
+    cpus: 0.9
+    mem_limit: 1024m
+    memswap_limit: 1024m
+    pids_limit: 128
+    environment:
+      SUPERSET_CONFIG_PATH: /module-target/superset_config.py
+      SERVER_WORKER_AMOUNT: '1'
+      SERVER_THREADS_AMOUNT: '2'
+    entrypoint: [/bin/sh, /module-target/bootstrap.sh]
+    volumes:
+      - superset_home:/app/superset_home
+      - ./bootstrap.sh:/module-target/bootstrap.sh:ro
+      - ./superset_config.py:/module-target/superset_config.py:ro
+    healthcheck:
+      test: [CMD-SHELL, 'curl --fail --silent --show-error http://127.0.0.1:8088/health']
+      interval: 3s
+      timeout: 5s
+      retries: 40
+  reporting_db:
+    extends: {file: ../credential_reporting/compose.yaml, service: reporting_db}
+    cpus: 0.15
+    mem_limit: 256m
+    memswap_limit: 256m
+    pids_limit: 128
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/module-target-superset.sql:ro
+  gateway:
+    extends: {file: ../druid/compose.yaml, service: gateway}
+    cpus: 0.1
+    mem_limit: 96m
+    memswap_limit: 96m
+    pids_limit: 64
+    command: [httpd-foreground, -c, Include conf/extra/druid.conf]
+    volumes: [./gateway.conf:/usr/local/apache2/conf/extra/druid.conf:ro]
+networks:
+  default: {internal: true}
+  public:
+volumes:
+  superset_home:
+  postgres_data:

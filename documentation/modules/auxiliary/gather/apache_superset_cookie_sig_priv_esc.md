@@ -1,6 +1,10 @@
 
 ## Vulnerable Application
 
+The [automated Superset cookie lab](../../../../test/module_targets/superset_cookie/README.md)
+provides a pinned 2.0.0 target, independent native controls, repeat collection
+and actual PostgreSQL credential-reporting checks.
+
 Apache Superset versions <= 2.0.0 utilize Flask with a known default secret key which is used to sign HTTP cookies.
 These cookies can therefore be forged. If a user is able to login to the site, they can decode the cookie, set their user_id to that
 of an administrator, and re-sign the cookie. This valid cookie can then be used to login as the targeted user and retrieve database

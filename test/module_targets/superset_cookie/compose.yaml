@@ -1,0 +1,18 @@
+services:
+  app:
+    extends: {file: ../superset/compose.yaml, service: app}
+  reporting_db:
+    extends: {file: ../superset/compose.yaml, service: reporting_db}
+  gateway:
+    extends: {file: ../superset/compose.yaml, service: gateway}
+  framework:
+    cpus: 1
+    mem_limit: 768m
+    memswap_limit: 768m
+    pids_limit: 256
+networks:
+  default: {internal: true}
+  public:
+volumes:
+  superset_home:
+  postgres_data:

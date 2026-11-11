@@ -1,0 +1,35 @@
+spec: spec/modules/auxiliary/gather/superset_cookie_spec.rb
+expected_examples: 14
+console: true
+modules:
+  - auxiliary/gather/apache_superset_cookie_sig_priv_esc
+  - auxiliary/gather/python_flask_cookie_signer
+ports:
+  gateway: 80
+support_files:
+  - test/module_targets/superset/README.md
+  - test/module_targets/superset/bootstrap.sh
+  - test/module_targets/superset/compose.yaml
+  - test/module_targets/superset/gateway.conf
+  - test/module_targets/superset/init.sql
+  - test/module_targets/superset/native_app.py
+  - test/module_targets/superset/native_gate.rb
+  - test/module_targets/superset/native_http.py
+  - test/module_targets/superset/native_probe.py
+  - test/module_targets/superset/sources.json
+  - test/module_targets/superset/superset_config.py
+  - test/module_targets/credential_reporting/compose.yaml
+  - test/module_targets/druid/compose.yaml
+  - lib/msf/core/exploit/remote/http/flask_unsign.rb
+  - lib/msf/core/auxiliary/report.rb
+  - lib/msf/core/db_manager/cred.rb
+  - lib/msf/core/db_manager/login.rb
+  - lib/msf/core/exploit/remote/http/http_cookie.rb
+  - lib/msf/core/exploit/remote/http/http_cookie_jar.rb
+  - lib/msf/core/exploit/remote/http_client.rb
+  - lib/msf/core/db_manager/host.rb
+  - lib/msf/core/db_manager/service.rb
+  - lib/rex/proto/http/response.rb
+  - lib/rex/proto/http/client.rb
+  - data/wordlists/superset_secret_keys.txt
+  - data/wordlists/flask_secret_keys.txt
