@@ -29,7 +29,7 @@ module Acceptance
 
       credentials = JSON.parse(owncloud_sql(<<~SQL))
         SELECT coalesce(json_agg(row ORDER BY row.id), '[]'::json) FROM (
-          SELECT c.id,p.username,secret.data AS private_data,secret.type AS private_type,c.origin_type,
+          SELECT c.id,p.username,secret.data AS private_data,secret.type AS private_type,c.origin_type,s.id AS service_id,
             o.module_full_name,s.port,s.proto,s.name AS service,host(h.address::inet) AS host,
             (SELECT count(*) FROM metasploit_credential_logins l WHERE l.core_id=c.id) AS login_count,
             (SELECT json_agg(json_build_object('status',l.status,'last_attempted_at',l.last_attempted_at) ORDER BY l.id)
@@ -49,7 +49,14 @@ module Acceptance
           WHERE w.name='#{@workspace}'
         ) row
       SQL
-      data = { 'credentials' => credentials, 'loot' => loot }
+      services = JSON.parse(owncloud_sql(<<~SQL))
+        SELECT coalesce(json_agg(row ORDER BY row.id), '[]'::json) FROM (
+          SELECT s.id,host(h.address::inet) AS host,s.port,s.proto,s.name,s.state,s.info
+          FROM services s JOIN hosts h ON h.id=s.host_id JOIN workspaces w ON w.id=h.workspace_id
+          WHERE w.name='#{@workspace}'
+        ) row
+      SQL
+      data = { 'credentials' => credentials, 'loot' => loot, 'services' => services }
       File.open(File.join(target_runtime.fetch('artifacts'), 'native-report-snapshots.jsonl'), 'a') do |file|
         file.puts(JSON.generate(workspace: @workspace, reports: data))
       end
@@ -64,7 +71,21 @@ module Acceptance
       before = owncloud_loot
       output = nil
       begin
-        output = run_target_module(OWNER, 'target', { 'VHOST' => 'localhost', 'HttpClientTimeout' => 15 }.merge(options), allow_errors: true, command_timeout: 90)
+        values = { 'VHOST' => 'localhost', 'HttpClientTimeout' => 15 }.merge(options)
+        if values['HttpTrace']
+          # phpinfo lists legitimate Exception classes. The generic helper's
+          # unanchored error check treats those traced response bytes as errors.
+          console_command('back')
+          selected = console_command('use ' + OWNER)
+          expect(selected).not_to match(/Failed to load|Unknown command|No results/)
+          endpoint = target_runtime.fetch('module_endpoints').fetch('target')
+          datastore = { 'RHOSTS' => endpoint.fetch('host'), 'RPORT' => endpoint.fetch('port'), 'VERBOSE' => true }.merge(values)
+          output = console_command('run ' + format_datastore_options(datastore), timeout: 90)
+          expect(output).not_to match(/^\[-\] Auxiliary (?:failed|aborted)/)
+          expect(output).to include('Auxiliary module execution completed')
+        else
+          output = run_target_module(OWNER, 'target', values, allow_errors: true, command_timeout: 90)
+        end
       ensure
         text = (output || console.all_data).dup.force_encoding(Encoding::UTF_8)
         File.open(File.join(target_runtime.fetch('artifacts'), 'owning-calls.jsonl'), 'a') do |file|
@@ -77,11 +98,12 @@ module Acceptance
     end
 
     def owncloud_collection(options = {}, exposed: !@fixed)
+      baseline = owncloud_reports unless exposed
       output, paths = owncloud_call(options)
       unless exposed
         expect(output).not_to include('Found phpinfo page', 'Loot stored to:', 'Credentials')
         expect(paths).to eq([])
-        expect(owncloud_reports.values).to all(eq([]))
+        expect(owncloud_reports).to eq(baseline)
         return output
       end
 
@@ -121,6 +143,8 @@ module Acceptance
         expect(row.values_at('proto', 'private_type', 'origin_type', 'module_full_name', 'login_count')).to eq(['tcp', 'Metasploit::Credential::Password', 'Metasploit::Credential::Origin::Service', OWNER, 1])
         expect(row.fetch('logins')).to eq([{ 'status' => 'Untried', 'last_attempted_at' => nil }])
       end
+      expect(rows.fetch('services').size).to eq(4)
+      expect(rows.fetch('services').map { |row| row.fetch('id') }.sort).to eq(rows.fetch('credentials').map { |row| row.fetch('service_id') }.sort)
       expect(rows.fetch('loot').last.values_at('path', 'ltype', 'content_type', 'host')).to eq([paths.fetch(0), 'owncloud.phpinfo', 'text/html', endpoint.fetch('host')])
       output
     end
