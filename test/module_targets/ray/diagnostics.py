@@ -4,7 +4,9 @@ from pathlib import Path
 import psutil
 directory = Path('/tmp/ray/session_latest/logs').resolve()
 files = sorted(path for path in directory.rglob('*') if path.is_file())
-assert len(files) <= 200, len(files)
+# Session and command jobs each create several genuine Ray log files.
+# Bound both file count and per-file tails for the longer owner profiles.
+assert len(files) <= 512, len(files)
 records = []
 for path in files:
     raw = path.read_bytes()
