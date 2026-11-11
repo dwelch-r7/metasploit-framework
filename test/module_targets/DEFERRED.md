@@ -19,9 +19,13 @@ Ray 2.6.3 x64/x86/AArch64 main paths and repeated sessions. Ordinary py-spy
 profiling remains permission-denied at default capabilities, while genuine
 command substitution and owning sessions still work. A fully working ordinary
 profiler privilege variant and additional versions remain separate targets.
-Modern dashboard log traversal and job execution on releases beyond 2.6.3 still
-need their own owner paths. Successful native SDK jobs, source inspection or
-file-read confinement do not qualify those modules or version gates.
+The [modern log owner](VERIFICATION-20261111-ray-modern-logs.md) now passes
+single-node Ray 2.56.0 path enumeration and exact loot. Its full dashboard's
+resource requirements and original native/probe failures are recorded. The
+fixed-version comparison, multi-node grouping and smaller-footprint supported
+variants remain separate. Job execution on releases beyond 2.6.3 still needs
+owning paths. Successful native SDK jobs, source inspection or file-read
+confinement do not qualify those remaining module paths or version gates.
 
 ## Superset remaining profiles and RCE execution
 

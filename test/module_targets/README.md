@@ -494,3 +494,15 @@ No extra capability or application patch is needed for those verified RCE paths.
 Both profile teardowns pass nine exact-resource/root inventory queries each.
 Registration covers 191 sources; 313 documented container hints remain pending.
 The broader campaign remains incomplete, and no PR is created.
+
+The [modern Ray log checkpoint](VERIFICATION-20261111-ray-modern-logs.md) records
+**190 qualified modules, 135 lab profiles and 1,499 functional examples**.
+Eleven cases pass on genuine Ray 2.56.0 with fourteen exact new loot files,
+repeated discovery/node/glob paths, missing/unknown/unrelated negatives, and
+independent native controls before and after. The normal nine-process dashboard
+required a measured resource budget: Ray is capped at 5,120 MiB/one CPU, and the
+three-role owner profile totals 5,952 MiB/2.1 CPUs. Actual target peak was about
+4.0 GB with no limit events in the final run. Native resource/probe failures are
+preserved separately; none is classified as a module defect. Registration covers
+192 sources, with 312 documented container hints pending review. Multi-node and
+fixed-version comparisons remain separate; the wider campaign is incomplete.

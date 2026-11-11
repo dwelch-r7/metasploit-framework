@@ -1107,3 +1107,17 @@ prove the injection failed. Seven independent calibrations and fourteen owning
 sessions pass. Root verifies 88/96 current inputs, whole 135/79-file imports,
 fresh cold metadata and exact cleanup. Ordinary profiling with additional
 privileges, newer versions and the modern log owner remain separately pending.
+
+
+## Modern Ray log path enumeration
+
+The [modern log checkpoint](VERIFICATION-20261111-ray-modern-logs.md) qualifies
+190 modules, 135 profiles and 1,499 examples. A pinned full Ray 2.56.0 deployment
+passes native source/core/SDK/HTTP controls and eleven real module/loot cases.
+Five native resource/probe failures remain sealed, followed by a complete native
+baseline and two passing owner runs. The final 68.947202-second suite writes
+fourteen exact new loot files. Root verifies all 48 current inputs, a whole
+79-file import, actual cold metadata, three-role resource limits and nine exact
+cleanup queries. Enumeration does not establish arbitrary file-content retrieval;
+one genuine node and this exact image are qualified. The fixed comparison and
+multi-node grouping still need their own main-path evidence. No PR is created.

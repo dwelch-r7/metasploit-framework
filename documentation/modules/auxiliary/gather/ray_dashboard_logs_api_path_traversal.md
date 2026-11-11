@@ -33,6 +33,14 @@ sudo docker run -d \
 ```
 
 
+### Automated container tests
+
+The [repository enumeration profile](../../../../test/module_targets/ray_logs_enum/README.md)
+provides pinned targets, native State API controls, repeated module calls and
+exact path/loot checks with automatic container cleanup. It covers path
+enumeration rather than retrieving arbitrary file contents. Resource budgets,
+actual results and remaining limits are recorded in the [validation report](../../../../test/module_targets/VERIFICATION-20261111-ray-modern-logs.md).
+
 ## Verification Steps
 1. Install the application
 2. Start msfconsole
