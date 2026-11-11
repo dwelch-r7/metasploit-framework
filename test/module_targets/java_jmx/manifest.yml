@@ -11,6 +11,7 @@ ports:
   guarded: 1099
   empty: 1099
 support_files:
+- spec/modules/auxiliary/scanner/misc/java_jmx_server_spec.rb
 - test/module_targets/ntp/report_observer.rb
 - lib/msf/core/exploit/remote/java/rmi/client.rb
 - lib/msf/core/exploit/remote/java/rmi/client/registry.rb
