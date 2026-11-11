@@ -165,7 +165,10 @@ class MetasploitModule < Msf::Auxiliary
   end
 
   def extract_content(res)
-    doc = res.get_html_document
+    # Forgejo returns UTF-8 HTML fragments without an embedded charset declaration.
+    utf8_response = res.dup
+    utf8_response.body = res.body.dup.force_encoding(::Encoding::UTF_8)
+    doc = utf8_response.get_html_document
     return nil unless doc
 
     # "src text" mode wraps content in <pre><code>...</code></pre>
@@ -201,6 +204,7 @@ class MetasploitModule < Msf::Auxiliary
     print_good("Successfully read #{file_path} (#{content.bytesize} bytes)")
     print_line(content)
 
+    report_service(host: rhost, port: rport, proto: 'tcp', name: 'http')
     report_vuln(
       host: rhost,
       port: rport,

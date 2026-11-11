@@ -3,6 +3,12 @@
 This module authenticates to the Forgejo markup rendering API and abuses org-mode
 `#+INCLUDE` directives to read arbitrary files from the server filesystem.
 
+The module prints and optionally stores the UTF-8 text from Forgejo's rendered
+HTML, including decoded HTML entities. The renderer can remove a final newline,
+so the result is not a byte-for-byte copy of the original file. Empty or
+whitespace-only renderings are treated as unsuccessful reads. A confirmed read
+records the HTTP service even when `AutoCheck` is disabled.
+
 Forgejo versions 7.0 through 15.0.5 and 16.0.0 through 16.0.1 are vulnerable to
 an arbitrary file read via the markup rendering API endpoint. The `go-org`
 library's default `ReadFile` callback (`ioutil.ReadFile`) is not overridden,

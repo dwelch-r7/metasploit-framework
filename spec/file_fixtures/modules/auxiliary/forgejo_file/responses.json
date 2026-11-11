@@ -1,0 +1,302 @@
+{
+  "provenance": {
+    "run": "20261111T210610-2a5d4c/forgejo_15_0_5",
+    "source": "native-before.json",
+    "source_sha256": "ded1d0efb7aad438e4f00780a7317f93715d40b7fd0a05d28140ae54098bbb26",
+    "server_version": "15.0.5+gitea-1.22.0",
+    "binary_sha256": "4673749ff47e2d69da3640b9e9a60221c5a4dd2bd3c273422e478517086fc108",
+    "module_sha256": "54b1f7f8326e6ea2ac27640b64b245e6edae6c317097ec02f2a57592479b49ef"
+  },
+  "files": {
+    "unicode": {
+      "path": "/opt/module-target-files/unicode.txt",
+      "rendered": {
+        "status": 200,
+        "headers": [
+          [
+            "Cache-Control",
+            "max-age=0, private, must-revalidate, no-transform"
+          ],
+          [
+            "X-Content-Type-Options",
+            "nosniff"
+          ],
+          [
+            "X-Frame-Options",
+            "SAMEORIGIN"
+          ],
+          [
+            "Date",
+            "Wed, 11 Nov 2026 21:07:50 GMT"
+          ],
+          [
+            "Content-Length",
+            "97"
+          ],
+          [
+            "Content-Type",
+            "text/html; charset=utf-8"
+          ]
+        ],
+        "body_base64": "PGRpdj4KPHByZT48Y29kZSBjbGFzcz0iY2hyb21hIGxhbmd1YWdlLXRleHQiPk5hdGl2ZSBjYWbDqSDml6XmnKzoqp4gR3LDvMOfZTwvY29kZT48L3ByZT4KPC9kaXY+Cg=="
+      },
+      "text": "Native café 日本語 Grüße"
+    },
+    "short": {
+      "path": "/opt/module-target-files/short.txt",
+      "rendered": {
+        "status": 200,
+        "headers": [
+          [
+            "Cache-Control",
+            "max-age=0, private, must-revalidate, no-transform"
+          ],
+          [
+            "X-Content-Type-Options",
+            "nosniff"
+          ],
+          [
+            "X-Frame-Options",
+            "SAMEORIGIN"
+          ],
+          [
+            "Date",
+            "Wed, 11 Nov 2026 21:07:48 GMT"
+          ],
+          [
+            "Content-Length",
+            "128"
+          ],
+          [
+            "Content-Type",
+            "text/html; charset=utf-8"
+          ]
+        ],
+        "body_base64": "PGRpdj4KPHByZT48Y29kZSBjbGFzcz0iY2hyb21hIGxhbmd1YWdlLXRleHQiPk5hdGl2ZSBGb3JnZWpvIHRleHQgJmFtcDsgJmx0O3RhZyZndDsgJiMzNDtxdW90ZWQmIzM0OyBtYXJrZXI8L2NvZGU+PC9wcmU+CjwvZGl2Pgo="
+      },
+      "text": "Native Forgejo text & <tag> \"quoted\" marker"
+    },
+    "no_newline": {
+      "path": "/opt/module-target-files/no-newline.txt",
+      "rendered": {
+        "status": 200,
+        "headers": [
+          [
+            "Cache-Control",
+            "max-age=0, private, must-revalidate, no-transform"
+          ],
+          [
+            "X-Content-Type-Options",
+            "nosniff"
+          ],
+          [
+            "X-Frame-Options",
+            "SAMEORIGIN"
+          ],
+          [
+            "Date",
+            "Wed, 11 Nov 2026 21:07:47 GMT"
+          ],
+          [
+            "Content-Length",
+            "103"
+          ],
+          [
+            "Content-Type",
+            "text/html; charset=utf-8"
+          ]
+        ],
+        "body_base64": "PGRpdj4KPHByZT48Y29kZSBjbGFzcz0iY2hyb21hIGxhbmd1YWdlLXRleHQiPk5hdGl2ZSBGb3JnZWpvIHdpdGhvdXQgZmluYWwgbmV3bGluZTwvY29kZT48L3ByZT4KPC9kaXY+Cg=="
+      },
+      "text": "Native Forgejo without final newline"
+    },
+    "empty": {
+      "path": "/opt/module-target-files/empty.txt",
+      "rendered": {
+        "status": 200,
+        "headers": [
+          [
+            "Cache-Control",
+            "max-age=0, private, must-revalidate, no-transform"
+          ],
+          [
+            "X-Content-Type-Options",
+            "nosniff"
+          ],
+          [
+            "X-Frame-Options",
+            "SAMEORIGIN"
+          ],
+          [
+            "Date",
+            "Wed, 11 Nov 2026 21:07:45 GMT"
+          ],
+          [
+            "Content-Length",
+            "67"
+          ],
+          [
+            "Content-Type",
+            "text/html; charset=utf-8"
+          ]
+        ],
+        "body_base64": "PGRpdj4KPHByZT48Y29kZSBjbGFzcz0iY2hyb21hIGxhbmd1YWdlLXRleHQiPjwvY29kZT48L3ByZT4KPC9kaXY+Cg=="
+      },
+      "text": ""
+    },
+    "whitespace": {
+      "path": "/opt/module-target-files/whitespace.txt",
+      "rendered": {
+        "status": 200,
+        "headers": [
+          [
+            "Cache-Control",
+            "max-age=0, private, must-revalidate, no-transform"
+          ],
+          [
+            "X-Content-Type-Options",
+            "nosniff"
+          ],
+          [
+            "X-Frame-Options",
+            "SAMEORIGIN"
+          ],
+          [
+            "Date",
+            "Wed, 11 Nov 2026 21:07:45 GMT"
+          ],
+          [
+            "Content-Length",
+            "67"
+          ],
+          [
+            "Content-Type",
+            "text/html; charset=utf-8"
+          ]
+        ],
+        "body_base64": "PGRpdj4KPHByZT48Y29kZSBjbGFzcz0iY2hyb21hIGxhbmd1YWdlLXRleHQiPjwvY29kZT48L3ByZT4KPC9kaXY+Cg=="
+      },
+      "text": ""
+    },
+    "space_name": {
+      "path": "/opt/module-target-files/space name.txt",
+      "rendered": {
+        "status": 200,
+        "headers": [
+          [
+            "Cache-Control",
+            "max-age=0, private, must-revalidate, no-transform"
+          ],
+          [
+            "X-Content-Type-Options",
+            "nosniff"
+          ],
+          [
+            "X-Frame-Options",
+            "SAMEORIGIN"
+          ],
+          [
+            "Date",
+            "Wed, 11 Nov 2026 21:07:56 GMT"
+          ],
+          [
+            "Content-Length",
+            "93"
+          ],
+          [
+            "Content-Type",
+            "text/html; charset=utf-8"
+          ]
+        ],
+        "body_base64": "PGRpdj4KPHByZT48Y29kZSBjbGFzcz0iY2hyb21hIGxhbmd1YWdlLXRleHQiPk5hdGl2ZSBGb3JnZWpvIHNwYWNlZCBwYXRoPC9jb2RlPjwvcHJlPgo8L2Rpdj4K"
+      },
+      "text": "Native Forgejo spaced path"
+    }
+  },
+  "missing": {
+    "status": 200,
+    "headers": [
+      [
+        "Cache-Control",
+        "max-age=0, private, must-revalidate, no-transform"
+      ],
+      [
+        "X-Content-Type-Options",
+        "nosniff"
+      ],
+      [
+        "X-Frame-Options",
+        "SAMEORIGIN"
+      ],
+      [
+        "Date",
+        "Wed, 11 Nov 2026 21:07:59 GMT"
+      ],
+      [
+        "Content-Length",
+        "0"
+      ]
+    ],
+    "body_base64": ""
+  },
+  "version": {
+    "status": 200,
+    "headers": [
+      [
+        "Cache-Control",
+        "max-age=0, private, must-revalidate, no-transform"
+      ],
+      [
+        "Content-Type",
+        "application/json;charset=utf-8"
+      ],
+      [
+        "X-Content-Type-Options",
+        "nosniff"
+      ],
+      [
+        "X-Frame-Options",
+        "SAMEORIGIN"
+      ],
+      [
+        "Date",
+        "Wed, 11 Nov 2026 21:07:10 GMT"
+      ],
+      [
+        "Content-Length",
+        "34"
+      ]
+    ],
+    "body_base64": "eyJ2ZXJzaW9uIjoiMTUuMC41K2dpdGVhLTEuMjIuMCJ9Cg=="
+  },
+  "denied": {
+    "status": 401,
+    "headers": [
+      [
+        "Cache-Control",
+        "max-age=0, private, must-revalidate, no-transform"
+      ],
+      [
+        "Content-Type",
+        "application/json;charset=utf-8"
+      ],
+      [
+        "X-Content-Type-Options",
+        "nosniff"
+      ],
+      [
+        "X-Frame-Options",
+        "SAMEORIGIN"
+      ],
+      [
+        "Date",
+        "Wed, 11 Nov 2026 21:07:17 GMT"
+      ],
+      [
+        "Content-Length",
+        "87"
+      ]
+    ],
+    "body_base64": "eyJtZXNzYWdlIjoidG9rZW4gaXMgcmVxdWlyZWQiLCJ1cmwiOiJodHRwOi8vZm9yZ2Vqby10YXJnZXQuaW52YWxpZDozMDAwL2FwaS9zd2FnZ2VyIn0K"
+  }
+}
