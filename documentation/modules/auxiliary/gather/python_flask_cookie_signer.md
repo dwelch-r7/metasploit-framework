@@ -56,13 +56,41 @@ The URI which gives a cookie. Redirects are NOT followed.
 
 When action is set to `Resign`, the content of the decoded cookie will be replaced with this content.
 
+### CookieContentFormat
+
+For `Resign`, select `JSON` to interpret `NEWCOOKIECONTENT` as a JSON object for
+a standard Flask session. Nested objects, arrays and JSON values are preserved.
+Malformed JSON and top-level values other than an object are rejected before
+signing. Ruby hash syntax such as `{"user_id"=>1}` is not JSON and is not evaluated.
+
+The default, `String`, preserves the existing behavior: the whole option value
+is signed as literal text, including JSON-looking text. Its decoded value is a
+string, which is not a standard Flask session dictionary. Existing commands keep
+that behavior; select `JSON` explicitly when creating a normal session cookie.
+
+For a Superset 2.0.0 lab using the example application's default secret, sign a
+session object with the administrator ID observed in that lab:
+
+```text
+set ACTION Resign
+set CookieContentFormat JSON
+set NEWCOOKIECONTENT '{"user_id":1}'
+set SECRET CHANGE_ME_TO_A_COMPLEX_RANDOM_SECRET
+run
+```
+
+The resulting cookie should decode as an object using the application's actual
+session serializer. Verify its accepted identity with `/api/v1/me/`; a valid
+signature alone does not establish the desired identity or privileges.
+
 ### SECRET
 
 When action is set to `Resign`, the cookie is signed with this secret.
 
 ### SECRET_KEYS_FILE
 
-When action is set to `FindSecret`, a file containing secret keys to try. One per line. Defaults to `metasploit-framework/data/wordlists/flask_secret_keys.txt`
+When action is set to `FindSecret`, a file containing secret keys to try. One per line.
+Defaults to `metasploit-framework/data/wordlists/flask_secret_keys.txt`
 
 ## Scenarios
 
