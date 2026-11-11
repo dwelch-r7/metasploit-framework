@@ -34,5 +34,6 @@ The original state and actual difference remain in the run artifacts.
 
 This profile does not become qualified merely by registration. Consult its
 actual functional result, native calibration records and dated verification
-report. Direct command-only payloads, forced execution on fixed targets, other
-releases, authentication, IPv6 and binary serialization remain separate work.
+report. The [command-only profile](../rocketmq_commands/README.md) covers asynchronous
+generic commands separately. Forced execution on fixed targets, other releases,
+authentication, IPv6 and binary serialization remain separate work.
