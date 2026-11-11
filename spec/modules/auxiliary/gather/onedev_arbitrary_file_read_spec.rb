@@ -86,6 +86,17 @@ RSpec.describe 'OneDev file read response contracts' do
         expect(mod).to have_received(:store_loot).with('short.txt', anything, '192.0.2.1', "\x00\xffAB\n".b, mod.datastore['TARGETFILE'], anything)
       end
     end
+
+    context 'with the literal space-containing path from the native capture' do
+      let(:file_response) { captured_response('space') }
+
+      before { mod.datastore['TARGETFILE'] = '/opt/module-target-files/space name.txt' }
+
+      it 'uses the native encoded file path while preserving traversal and slash separators' do
+        mod.run
+        expect(requests.last.fetch('uri')).to eq(captures.fetch('responses').fetch('space').fetch('path'))
+      end
+    end
   end
 
   { 'missing' => /not found|file response/i, 'directory' => /file response/i, 'fixed' => /HTTP 500/ }.each do |name, reason|
