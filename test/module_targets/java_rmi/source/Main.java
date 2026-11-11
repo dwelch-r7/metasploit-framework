@@ -31,6 +31,7 @@ public final class Main {
       try (var output = exchange.getResponseBody()) { output.write(body); }
     });
     server.createContext("/probe.jar", exchange -> {
+      System.out.println("MODULE_TARGET_CODEBASE_REQUEST:" + exchange.getRemoteAddress() + ":" + exchange.getRequestMethod() + ":" + exchange.getRequestURI());
       byte[] body = Files.readAllBytes(Path.of("/lab/probe.jar"));
       exchange.sendResponseHeaders(200, body.length);
       try (var output = exchange.getResponseBody()) { output.write(body); }

@@ -149,6 +149,7 @@ public final class NativeProbe {
         require(hash(input.readAllBytes()).equals(hash(jar)), "Actual codebase JAR differs");
       }
       result.put("probe_jar_sha256", hash(jar));
+      result.put("probe_class_annotation", java.rmi.server.RMIClassLoader.getClassAnnotation(ProbePayload.class));
       for (String role : List.of("open", "guarded", "enabled", "empty")) {
         Registry registry = LocateRegistry.getRegistry(role, LabConfig.REGISTRY);
         String[] names = registry.list();
