@@ -179,10 +179,14 @@ module Acceptance
         expect(output).to include('on Broker port: 10921')
         identifier = rmq_wait_session(payload)
         record[:session] = identifier
+        callbacks = File.readlines(File.join(target_runtime.fetch('artifacts'), 'msf-config/rocketmq-callbacks.jsonl')).map { |line| JSON.parse(line) }
+        record[:callback] = callbacks.find { |callback| callback.fetch('session') == identifier }
         rmq_use_and_exit(identifier, payload, CALLBACK)
         rmq_cleanup_runtime
         after = rmq_native_snapshot('vulnerable', 'post-owner')
         record[:after] = after
+        expect(record.fetch(:callback)).to include('successful' => true)
+        expect(record.fetch(:callback).fetch('session_count')).to be > 0
         expect(after.fetch('config')).to eq(baseline.fetch('config'))
         expect(after.fetch('broker_pid')).to eq(baseline.fetch('broker_pid'))
         record[:status] = 'passed'

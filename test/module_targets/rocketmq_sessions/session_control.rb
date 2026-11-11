@@ -12,6 +12,14 @@ module RocketmqSessionConnections
     end
     connection
   end
+
+  def on_new_session(session)
+    result = super
+    File.open(File.join(Msf::Config.config_directory, 'rocketmq-callbacks.jsonl'), 'a') do |file|
+      file.puts(JSON.generate(session: session.sid, type: session.type, session_count: session_count, successful: successful))
+    end
+    result
+  end
 end
 
 # Use the ordinary handler's already generated command; never generate another
