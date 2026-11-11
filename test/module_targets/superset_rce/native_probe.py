@@ -126,8 +126,10 @@ def main():
                 'extra': json.dumps({'metadata_params': {}, 'engine_params': {}, 'schemas_allowed_for_file_upload': []})}
         # The ordinary sqlite URI is denied; the real driver-qualified bypass is
         # calibrated separately against the release's native validation/API.
-        native.expect(admin, '/api/v1/database/', 422, method='POST', csrf=csrf,
-                      data=dict(spec, database_name='Module Native Rejected', sqlalchemy_uri='sqlite:////app/superset_home/superset.db'))
+        rejected = json.loads(native.expect(admin, '/api/v1/database/', 400, method='POST', csrf=csrf,
+                                            data=dict(spec, database_name='Module Native Rejected', sqlalchemy_uri='sqlite:////app/superset_home/superset.db')))
+        assert rejected == {'message': {'sqlalchemy_uri': ['SQLiteDialect_pysqlite cannot be used as a data source for security reasons.']}}, rejected
+        assert native.app('state') == baseline, 'Rejected URI created or changed native state'
         result['ordinary_sqlite_refused'] = True
         for _ in range(2):
             cycle = {'restored': False}
