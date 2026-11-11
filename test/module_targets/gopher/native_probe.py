@@ -104,8 +104,8 @@ try:
     assert source == json.loads((Path(__file__).parent / 'vendor.json').read_text())['source_sha256']
     database = execute('reporting_db', 'psql', '-U', 'module_framework', '-d', 'module_targets', '-Atc', 'SELECT current_user, current_database(), version()').decode()
     assert 'module_framework|module_targets|PostgreSQL 16.' in database
-    invalid = execute('reporting_db', 'env', 'PGPASSWORD=module-target-wrong-password', 'psql', '-h', '127.0.0.1', '-U', 'module_framework', '-d', 'module_targets', '-Atc', 'SELECT current_user', expected=2)
-    assert b'password authentication failed' in invalid
+    execute('reporting_db', 'env', 'PGPASSWORD=module-target-wrong-password', 'psql', '-h', '127.0.0.1', '-U', 'module_framework', '-d', 'module_targets', '-Atc', 'SELECT current_user', expected=2)
+    assert b'password authentication failed' in base64.b64decode(commands[-1]['stderr_base64'])
     cgroups = {}
     for service in ['target', 'reporting_db']:
         text = execute(service, 'sh', '-c', 'cat /sys/fs/cgroup/memory.events; cat /sys/fs/cgroup/pids.events').decode()
