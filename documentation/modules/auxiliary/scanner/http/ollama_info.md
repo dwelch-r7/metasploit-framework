@@ -3,6 +3,11 @@
 This module identifies ollama instances and enumerates the LLM
 models which have been loaded and are running.
 
+A repository lab provides
+[bounded automated module tests](../../../../../test/module_targets/ollama/README.md)
+for installed/running/empty models, HTTP authentication, and multiline system
+prompts using a small real CPU model.
+
 ### Building Image
 
 Write the following dockerfile.

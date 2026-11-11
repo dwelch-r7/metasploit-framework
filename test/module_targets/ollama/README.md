@@ -28,3 +28,5 @@ Source references: [versioned API](https://github.com/ollama/ollama/blob/v0.1.48
 [official image build](https://github.com/ollama/ollama/blob/v0.1.48/Dockerfile),
 and [SmolLM model](https://ollama.com/library/smollm:135m).
 Other Ollama releases and GPU inference remain separate qualifications.
+
+Observed results and preserved failures are recorded in [the verification report](../VERIFICATION-20261111-ollama.md).
