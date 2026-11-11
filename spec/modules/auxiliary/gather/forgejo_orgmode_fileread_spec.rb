@@ -83,6 +83,12 @@ RSpec.describe 'Forgejo org-mode file read output and reporting' do
       it('retains the unsuccessful-read sentinel') { expect(mod.extract_content(rendered_response)).to be_nil }
     end
 
+    context 'with a synthetic nil response body' do
+      let(:rendered_response) { response(200, '').tap { |reply| reply.body = nil } }
+
+      it('retains the unsuccessful-read sentinel') { expect(mod.extract_content(rendered_response)).to be_nil }
+    end
+
     context 'with a synthetic whitespace-only code element' do
       let(:rendered_response) { response(200, "<pre><code> \t\n</code></pre>") }
 

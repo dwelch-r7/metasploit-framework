@@ -167,7 +167,7 @@ class MetasploitModule < Msf::Auxiliary
   def extract_content(res)
     # Forgejo returns UTF-8 HTML fragments without an embedded charset declaration.
     utf8_response = res.dup
-    utf8_response.body = res.body.dup.force_encoding(::Encoding::UTF_8)
+    utf8_response.body = res.body.to_s.dup.force_encoding(::Encoding::UTF_8)
     doc = utf8_response.get_html_document
     return nil unless doc
 
