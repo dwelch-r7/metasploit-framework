@@ -103,4 +103,13 @@ RSpec.describe 'Native Gopher menus and service reporting', acceptance: true do
       expect(service_rows).to eq([])
     end
   end
+
+  it 'rejects an oversized native menu twice and then reads it with the default bound' do
+    2.times do
+      output = gopher_call('/large', options: { 'GopherMaxBytes' => 1024 })
+      expect(output).not_to include('[+]')
+      expect(service_rows).to eq([])
+    end
+    verify_menu('/large')
+  end
 end

@@ -19,6 +19,8 @@ The independent client verifies HTTP file bytes and records its response to an
 empty Gopher selector. PostgreSQL authenticates real native clients and stores
 the module's actual service records, including menu bytes, service identity,
 deduplication and ordinary console CSV export. No report API is stubbed.
+The byte bound is also tested against the genuine large menu twice, followed
+by a successful default-bound read in the same workspace.
 
 Three containers run serially as one project, capped at 960 MiB and 1.4 CPUs:
 Gopher 64 MiB/0.2 CPU, PostgreSQL 128 MiB/0.2 CPU, Framework 768 MiB/1 CPU.

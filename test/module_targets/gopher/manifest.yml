@@ -1,5 +1,5 @@
 spec: spec/modules/auxiliary/scanner/gopher/gopher_gophermap_target_spec.rb
-expected_examples: 12
+expected_examples: 13
 console: true
 modules: [auxiliary/scanner/gopher/gopher_gophermap]
 ports: {target: 70}
