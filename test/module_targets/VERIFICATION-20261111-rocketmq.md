@@ -1,5 +1,9 @@
 # RocketMQ discovery verification — 11 November 2026
 
+Later execution/session coverage is recorded in the
+[execution checkpoint](VERIFICATION-20261111-rocketmq-execution.md). This report
+retains its discovery-only scope.
+
 The checkpoint is **197 qualified modules, 141 profiles and 1,555 passing
 functional examples**. The new [RocketMQ lab](rocketmq/README.md) qualifies
 `auxiliary/scanner/misc/rocketmq_version` and exercises the exploit's version
@@ -20,8 +24,8 @@ The pinned Linux amd64 manifests are
 `ea678fa94854010d27e1ae82fcb929ee02381e65751921fc188d4f8110065983`.
 Root verifies both registry config digests and every vendor `rootfs.diff_ids`
 entry against the corresponding actual runtime image's layer prefix. The target
-images are `3d38c450e30941191d3078f1b0447dcd3f3dbfd9e358140598e478ab0e72df7e`
-and `2cadc642d3861b554815a9acb557277a09a20f5776542276e2b126521c524551`.
+images are `273c8fa4541b3c5e4da6179a626893ffa9efc152ed74b541d173ea2555451bc5`
+and `88236ad53ae58f998fa833f73bd79e91afd44084158495a80d937672684a0097`.
 The SDK probe compiles separately against each distribution's bundled jars with
 Java 8 bytecode; its native Netty client supplies the protocol serialization.
 
@@ -130,7 +134,7 @@ byte-identical, and their lab links resolve.
 Coverage is limited to these releases, IPv4, JSON serialization and ACL-disabled
 services. Other version boundaries, authentication, IPv6, binary serialization,
 transport fragmentation/length limits and all full exploit/session paths remain
-outside this qualification. The inventory registers 199 sources, with 307
+outside this qualification. The inventory registers 199 sources, with 306
 documented container hints pending, sixteen individual reviews and no stale
 reviews. Registration alone is not a passing result. No PR is created.
 

@@ -556,5 +556,16 @@ module calls verify genuine 4.9.4/5.1.1 discovery, version checks, unsupported
 requests and refused connections. A confirmed variable-header parser crash is
 fixed in a separate worktree and replayed with native before/after controls.
 Three containers are capped at 2,048 MiB/1.5 CPUs; eight exact cleanup queries
-leave Docker empty. Full exploit/session paths remain unqualified. Registration
-covers 199 sources, with 307 documented hints pending.
+leave Docker empty. Full exploit/session paths were unqualified at this discovery
+checkpoint. Registration covers 199 sources, with 306 documented hints pending.
+
+The [RocketMQ execution checkpoint](VERIFICATION-20261111-rocketmq-execution.md)
+advances coverage to **198 modules, 144 profiles and 1,561 examples**. Six owning
+sessions cover Bash, default fetched staged Meterpreter and AutoCheck-disabled
+execution; two fixed-target refusals and four marker-proven generic commands
+complete the tested paths. Payload-property corruption and broker-state cleanup
+are fixed and replayed with independent native controls. Session/fixed/command
+profiles each use two containers at 1,408 MiB/1.25 CPUs; discovery uses three at
+2,048 MiB/1.5 CPUs. Complete native snapshots, source-current hashes and exact
+teardown pass. Timed-out combined fixtures remain separately recorded. Current
+registration covers 200 sources, with 305 documented hints pending.
