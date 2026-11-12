@@ -1,12 +1,14 @@
 # Container module acceptance tests
 
-Latest: the [Audiobookshelf checkpoint](VERIFICATION-20261112-audiobookshelf.md)
-reaches **207 qualified modules, 180 profiles and 1,940 functional examples**.
-Four serial profiles pass 26 cases on affected, fixed, uninitialized and unrelated
-targets. Native SQLite/process controls, actual HTTP traces and Framework SQL
-verify bypass detection, negative cases and deduplication. Container inventory
-is empty after teardown. The [4gaBoards reporting fix](VERIFICATION-20261112-4gaboards.md)
-and [ownCloud input regression](VERIFICATION-20261112-owncloud-hostname.md) remain current.
+Latest: the [Pi-hole checkpoint](VERIFICATION-20261112-pihole.md) reaches
+**208 qualified modules, 184 profiles and 1,968 functional examples**. Four
+serial profiles pass 28 cases and verify a corrected fixed-version boundary,
+real command execution, passwordless operation and negative controls. Native
+SQLite/configuration controls and Framework SQL distinguish actual behavior
+from passive vulnerability records. Container inventory is empty after teardown.
+The [Audiobookshelf](VERIFICATION-20261112-audiobookshelf.md),
+[4gaBoards](VERIFICATION-20261112-4gaboards.md) and
+[ownCloud](VERIFICATION-20261112-owncloud-hostname.md) checkpoints remain current.
 
 These labs exercise real target software through Framework's public module entry
 points. They complement isolated module specs and the existing protocol session
