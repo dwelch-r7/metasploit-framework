@@ -15,6 +15,7 @@ RSpec.describe 'ownCloud phpinfo collection contracts' do
   let(:mod) { @framework.modules.create('auxiliary/gather/owncloud_phpinfo_reader') }
 
   before(:context) do
+    @original_thread_factory_provider = Rex::ThreadFactory.class_variable_get(:@@provider)
     # Real Framework loader, initialization, options, URI builder and failure
     # classes; no SQL connection, console or target service is started.
     @framework = Msf::Simple::Framework.create('DisableDatabase' => true, 'DeferModuleLoads' => true)
@@ -24,7 +25,16 @@ RSpec.describe 'ownCloud phpinfo collection contracts' do
   end
 
   after(:context) do
-    @framework.threads.each { |thread| thread.kill if thread&.alive? }
+    # Reading threads would create a monitor merely to perform cleanup.
+    if @framework&.threads?
+      manager = @framework.threads
+      [*manager, manager.monitor].compact.each do |thread|
+        thread.kill
+        thread.join
+      end
+    end
+  ensure
+    Rex::ThreadFactory.provider = @original_thread_factory_provider
   end
 
   before do

@@ -16,6 +16,7 @@ RSpec.describe '4gaBoards disclosure reporting contracts' do
   let(:mod) { @framework.modules.create('auxiliary/gather/4gaboards_users_info_disclosure_cve_2026_53959') }
 
   before(:context) do
+    @original_thread_factory_provider = Rex::ThreadFactory.class_variable_get(:@@provider)
     @framework = Msf::Simple::Framework.create('DisableDatabase' => true, 'DeferModuleLoads' => true)
     path = ENV.fetch('FOURGA_UNIT_MODULE_ROOT', File.expand_path('../../../../modules', __dir__))
     loader = @framework.modules.send(:loaders).find { |candidate| candidate.loadable?(path) }
@@ -23,7 +24,16 @@ RSpec.describe '4gaBoards disclosure reporting contracts' do
   end
 
   after(:context) do
-    @framework.threads.each { |thread| thread.kill if thread&.alive? }
+    # Reading threads would create a monitor merely to perform cleanup.
+    if @framework&.threads?
+      manager = @framework.threads
+      [*manager, manager.monitor].compact.each do |thread|
+        thread.kill
+        thread.join
+      end
+    end
+  ensure
+    Rex::ThreadFactory.provider = @original_thread_factory_provider
   end
 
   before do

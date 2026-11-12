@@ -13,6 +13,13 @@ RSpec.describe 'Jenkins CLI ampersand file reads' do
   let(:reference) { JSON.parse(File.read(File.join(fixture_directory, 'java_reference.json'))).fetch('values') }
   let(:host) { '192.0.2.53' }
 
+  around do |example|
+    original_thread_factory_provider = Rex::ThreadFactory.class_variable_get(:@@provider)
+    example.run
+  ensure
+    Rex::ThreadFactory.provider = original_thread_factory_provider
+  end
+
   before do
     mod.datastore['AutoCheck'] = false
     mod.datastore['FILE_PATH'] = '/opt/module-target/two.txt'
@@ -208,6 +215,22 @@ RSpec.describe 'Jenkins CLI ampersand file reads' do
   end
 
   describe 'duplex request state' do
+    after do
+      manager = framework.threads if framework.threads?
+      manager&.each do |thread|
+        # The example already observed any terminated worker's exception.
+        next unless thread&.alive?
+
+        thread.kill
+        thread.join
+      end
+    ensure
+      if manager
+        manager.monitor.kill
+        manager.monitor.join
+      end
+    end
+
     it 'propagates a failed request thread instead of silently reporting no data' do
       allow(mod).to receive(:upload_request).and_raise(Msf::Auxiliary::Failed, 'Expected upload failure')
       allow(mod).to receive(:download_request)
