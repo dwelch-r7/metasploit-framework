@@ -1,154 +1,127 @@
-# Salt minion deployer investigation — 2026-11-12
+# Salt minion deployment verification — 2026-11-12
 
 ## Summary
 
-`exploit/linux/local/saltstack_salt_minion_deployer` remains **unqualified**.
-The original diagnostic at `b2e78a965a037544d8bc3ab2debc6591c859631e`
-ran four examples with two failures and no pending or outside-example errors.
-The production module and existing shared Salt helper were unchanged.
+`exploit/linux/local/saltstack_salt_minion_deployer` is qualified for the scope
+below: **12 examples, zero failures, pending cases or outside-example errors**.
+The campaign reaches **213 qualified modules, 199 profiles and 2,080 functional
+examples**. This does not establish every Salt version or Meterpreter transport.
+
+The tested source is `530d3420f035519cbc7f581e677925a7710c8715`.
+The owner SHA-256 is
+`b46fb12c5c694ee702635cfac4b01e79d7f11315f66a4d4e910a511e25a551e3`.
+
+| Profile | Owning payload | Examples / failures | RSpec duration |
+|---|---|---|---|
+| saltstack_deployer_3000_1 | linux/x64/meterpreter/reverse_tcp | 3 / 0 | 374.503 s |
+| saltstack_deployer_x86_meterpreter | linux/x86/meterpreter/reverse_tcp | 3 / 0 | 390.112 s |
+| saltstack_deployer_x64_shell | linux/x64/shell/reverse_tcp | 3 / 0 | 403.697 s |
+| saltstack_deployer_x86_shell | linux/x86/shell/reverse_tcp | 3 / 0 | 365.701 s |
+
+The first profile ran in `20261112T132115-5738eb`; the other three ran in
+`20261112T132951-bd683e`. Each invocation began with an independently observed
+cold console prompt, BOOT and two freshly generated metadata snapshots. Only
+subsequent profiles in the second invocation used its own verified metadata seed.
+All four profiles retain exact current input fingerprints: 112 each, 118 distinct.
 
 ## What looks good
 
-The genuine source-pinned Salt 3000.1 master and two minions run in three
-separate filesystems. Native controls established distinct mount namespaces,
-per-daemon identity, 22 vendor source hashes and 15 package versions per host,
-authenticated encrypted RPC, both/all and selected-minion copy/decode/execute,
-exact bytes and executable modes. Before/after identities matched.
+Eight real owning calls opened twelve owning sessions across the four x86/x64
+shell/Meterpreter payload combinations. Each payload was first calibrated with
+an ordinary public handler's exact ELF bytes, native file hashes, ELF machine,
+mode and real session RPC. Administrative setup established two master session
+types: native Linux x64 Meterpreter and Unix command shell. The native master
+ELF matches the documented initial-session family; the shell setup uses genuine
+authenticated Salt RPC. These setup calls do not qualify unauthenticated access.
 
-Ordinary public handlers supplied the exact generated x86 and x64 payload bytes.
-Both ELF calibration cases opened real Meterpreter sessions on the selected
-minion, with RPC-written proof files, native root PID checks and reporting
-database records. The ordinary local module subsequently opened real owning
-Meterpreter sessions on both minions from a master command shell. These owning
-sessions passed the same per-host RPC, identity, peer, PID and SQL checks.
+Each profile deploys to both minions with default `CALCULATE=true`, then performs
+a second deployment selecting only minion A with calculation disabled. Native
+before-controls independently prove all/selected Salt copy, decode and execution.
+The master and two minions have genuinely separate filesystems. Each host's
+22 vendor source hashes, 15 package versions, daemon birth identity, configuration
+and unique role state remain stable. Fresh authenticated pings succeed afterward.
 
-The first console was genuinely cold: the parent independently observed the
-returned prompt, BOOT record and both freshly generated metadata snapshots.
-Five bounded containers used an aggregate 1,408 MiB/1.7 CPUs/480 tasks. Compose
-teardown succeeded; ten independent parent queries verified all five container
-IDs, the network and project resources absent.
+All 24 real sessions have RPC-written per-host proof, root/native PID birth
+identity, peer/role attribution, actual database identity and closure records.
+Fresh RPC immediately precedes public `session.kill`, with handlers still live
+and dependent minions closed before their master. Verification records 24 PID
+absence proofs, 216 socket absence snapshots and 24 closed SQL rows. All 24
+owning-artifact snapshots are empty before harness fallback deletion.
+
+The source fix scopes FileDropper registrations to each minion filesystem while
+preserving the original master's registrations. It retains failed paths for
+retry, preserves parent callbacks, guards deployment ownership and uses the
+existing framed Salt helper to confirm copy completion before deleting the
+master upload. The execution command, passive listener, options and declared
+architectures/session types remain compatible.
+
+A focused identical 17-case suite, seed `63127`, produced **15 failures on the
+original source → zero on the fix**. These are multiple cases, not fifteen
+separate bugs. The real Payload callback reproduced the original swallowed
+`cli` NameError at debug level 1. FileDropper, counters and module replication
+remain real; sessions, filesystems, transport, delivery and payload bytes are
+unit doubles. The live matrix supplies genuine target coverage. Both source
+versions passed strict module RuboCop and msftidy; final changed harness Ruby,
+module docs, syntax and registration checks passed. Human Scenarios are unchanged.
 
 ## Concerns
 
-The normal shell-based owning run left its 336-byte encoded master upload and
-both minions' 336-byte encoded files plus 250-byte ELF executables. These files
-were captured before harness fallback deletion. The module did not satisfy
-cleanup expectations after its job and sessions closed.
+Python HTTPS master execution and file cleanup were observed, but its remote
+process remained alive after public shutdown in a separate diagnostic. That
+transport is **unqualified**, with cause unverified. The bulk console timeout
+is 15 seconds, while passive `core.shutdown` explicitly waits ten seconds;
+that alone does not establish the cause. Native Linux Meterpreter and Unix shell
+are the qualified initial transports. Other Meterpreter implementations,
+non-root operation, complex/quoted paths, other operating systems and Salt
+versions remain untested.
 
-The master Python Meterpreter case reached the diagnostic's 60-second job-wait
-limit with its owner job still running. It had no demonstrated owning callback;
-the master upload and empty minion executable files remained. This case is
-**inconclusive**, not proof of a module timeout or payload defect. A follow-up
-diagnostic increases the job bound and compares legacy versus argv-based copy
-through the same real master session.
+The module's existing `check` establishes only availability of a salt-master
+executable; its `Vulnerable` label is not evidence of a vulnerability. This lab
+uses legitimate administrative deployment. No full RSpec suite was requested or run.
 
-The source's callback contains unresolved `cli` and `payload_name` references,
-but neither the console nor Framework log recorded that exception in this run.
-Its invocation path requires investigation before attributing the observed
-cleanup failure to those references alone. The current `check` result establishes
-only that a salt-master executable exists.
+Native controls alone did not reveal initial resource exhaustion. A stopped
+attempt recorded seven master child OOM kills under a 256 MiB cap. The corrected
+allocation gives the master 384 MiB, each minion 128 MiB, Framework 640 MiB and
+PostgreSQL 128 MiB: the same **1,408 MiB/1.7 CPUs/480 tasks**, at most five
+containers, one serial project. All 160 final cgroup OOM/PID-limit snapshots are
+zero. Forty independent parent queries verify all twenty container IDs, four
+networks and project resources absent. Docker is empty after completion.
 
 ## Suggestions
 
-Fix multi-minion and original-master cleanup in a separate source worktree,
-verify callback integration, and repeat the actual owning paths. Then expand
-selectors, repeated execution, both declared initial session types and feasible
-payload/architecture paths. Other Salt versions and non-Linux targets remain
-untested. Registration and native calibration alone do not qualify the module.
+Investigate Python HTTPS process termination separately, retaining the successful
+owning/file-cleanup observations without promoting that transport to qualified.
+Expand current Salt releases and exceptional path/failure cases when a suitable
+bounded lab is available. Keep native controls and resource counters independent
+of module expectations when extending coverage.
 
 ## Retained evidence
 
-Original run: `tmp/module-target-tests/20261112T115258-1532b9`.
-The read-only evidence snapshot contains 244 files and 107 pinned inputs;
-every file was independently rehashed by the parent. Manifest SHA-256:
-`fecb562c533fb06ed0edf8052eefabf26fa09d4d61fbeb075cbfaba5817da3a8`.
-The private snapshot is named `saltstack-deployer-original-diagnostic-20261112`.
+The final read-only snapshot `saltstack-deployer-verified-20261112` contains both
+complete final runs, 118 pinned inputs and static preflight evidence: **621
+manifest entries**, all independently rehashed with read-only modes and single
+links. Manifest SHA-256:
+`ce0e4cae3d731c82b692c914a77ec7317b3a2007578d6c3d4bae5da43ac07770`.
 
-The earlier native-only pilot also passed and was torn down with eight parent
-absence queries. Its six source digests were observed after completion; it did
-not have a pre-runtime source map. The later Framework diagnostic pins its
-actual inputs before startup. No human-authored module Scenarios were changed.
+The separately copied/rehashed unit seal has 100 entries plus its manifest;
+all fourteen pinned unit inputs match the parent checkout. Its manifest SHA-256:
+`0babd1d34ae1a6222ac216a440cfd6e63503b0309fcd83b641c3c06b30aa2a95`.
+Worker commit `677d5b08cf30a2d6cbc99866ad913abf348e0989` was imported as
+`10debebd680`. Unit spec SHA-256:
+`4e47604986fc4d9b3a843dad196066b02fa8d4c69e2cff4052c860ff74e625bb`.
 
-## Longer-bound diagnostic
+Earlier failures remain separately sealed; none was overwritten or counted as a
+passing module result:
 
-Run `20261112T120308-ab8714` at
-`e79e91ceefd37e095d4fe97a217d8e1775eb1a9f` again ran four examples with two
-failures, no pending or outside-example errors, and passing native controls
-before and after. The first console again passed the independent cold-cache
-observation. The unmodified owner opened and proved two genuine minion sessions
-through the master Python Meterpreter session. All three hosts retained its
-files, confirming the cleanup defect on that initial transport as well.
+| Run | Disposition | Entries / inputs | Manifest SHA-256 |
+|---|---|---|---|
+| `20261112T115258-1532b9` | Original 4/2; genuine shell-owner leftovers; Python 60-second bound inconclusive | 244 / 107 | `fecb562c533fb06ed0edf8052eefabf26fa09d4d61fbeb075cbfaba5817da3a8` |
+| `20261112T120308-ab8714` | Original 4/2; Python owning callbacks/leftovers proved; secondary harness shutdown/setup failures | 249 / 107 | `4a5ba0651085215f806dfb4e414dcebe2abec521700c025fda6e609380cfb2ed` |
+| `20261112T124207-e12acc` | Fixed source, resource-invalidated; agent stopped after OOM evidence | 384 / 111 | `a5a10a0c8afdb557b7d0ba74b4942035fcada65055e79198676682bf64742fb6` |
+| `20261112T125706-3e1cfd` | Fixed source, zero resource events; files clean, Python process closure failed; next owning path blocked by lifecycle guard | 449 / 113 | `82bcff4e347a531316d3629950639dcb5c70b4985f40f26a5c9a1dd1ed308fa9` |
 
-A benign exact-copy control through that real master session returned after
-15.145 seconds from the legacy API with only warning text, despite both files
-being present. The maintained argv API with an explicit 120-second timeout
-returned after 55.848 seconds with both Salt copy results; both native destination
-hashes matched. Partial legacy output alone does not establish copy failure or
-command completion. The final quick matrix omits this diagnostic comparison.
-
-The first owning example failed during harness shutdown because its master
-session PID remained. The following shell setup produced multiple handler
-sessions and timed out before another owner invocation. These are separate
-shutdown/setup failures, not evidence of another owning-module failure.
-Stopping jobs before sessions is the working explanation for losing the
-passive HTTPS listener before shutdown; the harness now closes sessions first. That correction still requires runtime
-verification. Process birth identity and native socket closure checks have
-also been added, without weakening the requirement for remote process removal.
-
-Compose teardown and ten parent absence queries passed. The second read-only
-snapshot contains 249 files and 107 pinned inputs, all independently rehashed.
-Its manifest SHA-256 is
-`4a5ba0651085215f806dfb4e414dcebe2abec521700c025fda6e609380cfb2ed`.
-The private snapshot is named
-`saltstack-deployer-longer-bound-diagnostic-20261112`.
-
-## Resource-invalidated matrix attempt
-
-Run `20261112T124207-e12acc` at
-`a4ba14f42afce269ee5510c073a2b27d134775c7` is **invalid for module
-qualification**. The first profile passed native controls and exact x64 ELF
-calibration, but the master's cgroup recorded 11 OOM events and seven OOM kills
-under its 256 MiB cap. The other four containers recorded no OOM or PID-limit
-events; Framework's observed peak was about 391 MiB.
-
-The agent deliberately interrupted the exact manager after observing those
-counters. Its authoritative exit was 130; the observer controller exited 1 after
-its waiting child was also interrupted. This was a resource-driven stop, not a
-human interruption or a module-error verdict. All five containers and the
-network were removed; ten independent parent absence queries passed.
-
-The read-only snapshot contains 384 files and 111 pinned inputs, all independently
-rehashed. Manifest SHA-256:
-`a5a10a0c8afdb557b7d0ba74b4942035fcada65055e79198676682bf64742fb6`.
-The private snapshot is named `saltstack-deployer-oom-fixture-20261112`.
-
-The revised lab gives the master 384 MiB and Framework 640 MiB, preserving the
-1,408 MiB/1.7 CPU/480-task aggregate and five-container maximum. Tests require
-zero cgroup OOM and PID-limit events. Final native checks retain daemon/source
-identity and fresh authenticated minion pings; they avoid duplicating the initial
-copy/decode controls after two actual owning deployments.
-
-## Resource-valid shutdown investigation
-
-Run `20261112T125706-3e1cfd` at
-`d716def3ce161a36a88364cd893872d6e724fbb6` recorded zero OOM and PID-limit
-events. Native x64 calibration and the owning call through the master Python
-session proved two minion callbacks. The module's files were absent on all three
-hosts before harness fallback deletion. Its first profile nevertheless failed
-two of three examples: the original master Python process remained alive after
-shutdown, and the lifecycle guard prevented evaluating the following owning path.
-
-The agent stopped the remaining matrix rather than repeat a known unhealthy
-lifecycle. Manager exit 130 and observer exit 1 are agent-requested stops. Both
-started projects passed ten independent parent absence queries each. Snapshot:
-449 files, 113 pinned inputs, all independently rehashed. Manifest SHA-256:
-`82bcff4e347a531316d3629950639dcb5c70b4985f40f26a5c9a1dd1ed308fa9`.
-The private snapshot is named `saltstack-deployer-console-shutdown-20261112`.
-
-The bulk console command temporarily sets a 15-second response timeout, but
-passive `core.shutdown` explicitly waits ten seconds, so the console timeout is
-not an established cause. The next harness uses the qualified gather workflow's
-fresh RPC proof immediately followed by public `session.kill`, keeps handlers
-live until termination, and closes dependent minion sessions before the master.
-Remote PID birth identity, sockets and SQL closure remain mandatory; no native
-force-kill fallback can satisfy qualification.
+Both stopped managers exited 130 following deliberate agent SIGINT requests;
+their waiting observers were also stopped. These were not human interruptions.
+Their respective ten and twenty parent absence queries passed. The earlier
+native-only pilot passed with eight parent absence queries; its six source
+digests were observed after completion, without a pre-runtime source map.

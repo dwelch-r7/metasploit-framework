@@ -1,16 +1,17 @@
 # Container module acceptance tests
 
-Latest: the [Salt information collection checkpoint](VERIFICATION-20261112-saltstack-gather.md)
-reaches **212 qualified modules, 195 profiles and 2,068 functional examples**.
-Twelve cases pass across real shell and Meterpreter sessions, with exact loot,
-credential persistence, repeated collection, flag/selector paths and actual
-process/session/SQL closure. Native controls verify both running minions and
-locked dependencies. Three capped containers run serially; all sixteen
-independent cleanup queries pass and Docker is empty after teardown.
+Latest: the [Salt minion deployment checkpoint](VERIFICATION-20261112-saltstack-deployer.md)
+reaches **213 qualified modules, 199 profiles and 2,080 functional examples**.
+Twelve cases pass across x86/x64 shell/Meterpreter payloads from native Linux
+Meterpreter and Unix shell master sessions. Real RPC, per-host file cleanup,
+process/socket/SQL closure and zero OOM/PID-limit events are verified. Five
+capped containers run serially; all forty parent cleanup queries pass and Docker
+is empty after teardown. Python HTTPS process termination remains unqualified
+and is retained separately for investigation.
 
-The [Salt minion deployer investigation](VERIFICATION-20261112-saltstack-deployer.md)
-is unqualified. Genuine owning sessions expose a cleanup defect; native controls,
-inconclusive results and harness corrections are recorded separately.
+The [Salt information collection checkpoint](VERIFICATION-20261112-saltstack-gather.md)
+remains current, with twelve real shell/Meterpreter cases covering exact loot,
+credentials, repeated collection, flags/selectors and process/session/SQL closure.
 
 The [Salt master/minion session checkpoint](VERIFICATION-20261112-saltstack-rce.md)
 also remains current: nine cases, eleven owning sessions across all four targets,

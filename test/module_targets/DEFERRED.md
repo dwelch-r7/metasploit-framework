@@ -311,3 +311,15 @@ The legacy native/encoding export is
 `/Users/dwelch/.codex/reports/grafana-expression-legacy1100-native-20261110-e2d165/`
 (209 entries, manifest `f767aa338667b88866bc80beb1609f71e25338726bebbb1b663e5d7e90e2935a`).
 These retained failures add no passing module or functional case to the checkpoint.
+
+## Salt deployer Python HTTPS master termination
+
+The native Linux Meterpreter/Unix shell matrix is qualified separately. A real
+Python HTTPS master session successfully ran the owner and all three hosts had
+no remaining module files, but its exact remote PID/birth identity remained
+alive after public shutdown. Cause is unverified; the latest fresh-RPC/dependent
+shutdown sequence has not been qualified for that transport. Preserve this as a
+transport/lifecycle investigation rather than assuming another owner defect.
+See [the verification report](VERIFICATION-20261112-saltstack-deployer.md) for
+sealed runs, resource-invalidated results and scope. Other Salt versions,
+non-root masters and exceptional paths remain untested.
