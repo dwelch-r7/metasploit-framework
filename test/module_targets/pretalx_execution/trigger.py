@@ -1,7 +1,9 @@
 """Observe genuine Celery completion, then start exactly one target interpreter."""
 import hashlib
+import datetime as dt
 import json
 from pathlib import Path
+import re
 import subprocess
 import sys
 import time
@@ -15,6 +17,7 @@ user_site = sys.argv[3]
 deadline = time.monotonic() + 80
 state = {'phase': 'waiting_for_export', 'commands': []}
 process = None
+since = (dt.datetime.now(dt.timezone.utc) - dt.timedelta(seconds=5)).isoformat()
 
 
 def save():
@@ -34,22 +37,35 @@ def command(role, *args):
 
 
 try:
+    target_id = subprocess.check_output(compose + ['ps', '-q', 'target'], text=True).strip()
+    assert re.fullmatch(r'[0-9a-f]{64}', target_id)
     save()
+    export_id = None
     while time.monotonic() < deadline:
         if (directory / 'stop').exists():
             state['phase'] = 'stopped_before_trigger'
             save()
             sys.exit(0)
-        keys = set(command('broker', 'redis-cli', '--raw', '-n', '1', 'KEYS', 'celery-task-meta-*').splitlines()) - before
-        terminal = []
-        for key in sorted(keys):
-            task = json.loads(command('broker', 'redis-cli', '--raw', '-n', '1', 'GET', key))
-            if task['status'] == 'SUCCESS' or (task['status'] == 'FAILURE' and task['result'].get('exc_type') == 'CommandError'):
-                terminal.append(task)
-        if terminal:
-            assert len(terminal) == 1, terminal
-            state['export'] = terminal[0]
-            break
+        if export_id is None:
+            logs = subprocess.run(['docker', 'logs', '--since', since, '--tail', '1000', target_id], capture_output=True, text=True, timeout=15)
+            assert logs.returncode == 0, logs.stderr
+            text = logs.stdout + logs.stderr
+            identifiers = set(re.findall(r'(?:Received task: |Task )pretalx\.agenda\.tasks\.export_schedule_html\[([a-z0-9-]+)\]', text))
+            identifiers = {value for value in identifiers if 'celery-task-meta-' + value not in before}
+            if identifiers:
+                assert len(identifiers) == 1, identifiers
+                export_id = identifiers.pop()
+                state['export_task_id'] = export_id
+                state['export_worker_lines'] = [line for line in text.splitlines() if export_id in line]
+                save()
+        if export_id:
+            data = command('broker', 'redis-cli', '--raw', '-n', '1', 'GET', 'celery-task-meta-' + export_id).strip()
+            if data:
+                task = json.loads(data)
+                assert task['task_id'] == export_id
+                if task['status'] in ['SUCCESS', 'FAILURE']:
+                    state['export'] = task
+                    break
         time.sleep(0.3)
     else:
         raise TimeoutError('No terminal export task was observed')
@@ -80,7 +96,7 @@ try:
     state.update(phase='trigger_terminal', actual_exit=process.returncode, stdout=output, stderr=error)
     save()
     assert not state.get('trigger_timed_out'), state
-except BaseException as error:
+except Exception as error:
     state['error'] = str(error)
     save()
     raise
