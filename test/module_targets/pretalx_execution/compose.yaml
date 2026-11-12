@@ -1,0 +1,31 @@
+services:
+  target:
+    image: msf-module-target-pretalx-execution-2.3.1:fixture
+    platform: linux/amd64
+    build: {context: .}
+    init: true
+    cpus: 0.7
+    mem_limit: 512m
+    memswap_limit: 512m
+    pids_limit: 128
+    environment:
+      PYTHONUNBUFFERED: '1'
+      PRETALX_DEBUG: 'True'
+      PYTHONHASHSEED: '0'
+    volumes:
+      - ../pretalx:/lab:ro
+    tmpfs:
+      - /data:rw,size=128m,mode=0777
+      - /etc/pretalx:rw,size=1m,mode=0755
+      - /tmp:rw,exec,size=32m,mode=1777
+      - /pretalx/.local:rw,size=16m,mode=0777
+    ports: ["127.0.0.1::8000"]
+    depends_on:
+      broker: {condition: service_healthy}
+    healthcheck:
+      test: [CMD, /bin/bash, /execution/health.sh]
+      interval: 2s
+      timeout: 3s
+      retries: 90
+  broker:
+    extends: {file: ../pretalx/compose.yaml, service: broker}

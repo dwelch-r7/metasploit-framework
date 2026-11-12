@@ -1,0 +1,47 @@
+---
+spec: spec/modules/exploits/linux/http/pretalx_execution_target_spec.rb
+expected_examples: 5
+console: true
+modules:
+- exploit/linux/http/pretalx_rce_cve_2023_28458
+test_env:
+  PRETALX_VERSION: 2.3.1
+  PRETALX_DEBUG: 'true'
+ports:
+  target: 8000
+support_files:
+- documentation/modules/exploit/linux/http/pretalx_rce_cve_2023_28458.md
+- lib/msf/core/exploit/remote/http/pretalx.rb
+- lib/msf/core/exploit/remote/http/pretalx/error.rb
+- lib/msf/core/exploit/remote/auto_check.rb
+- lib/msf/core/exploit/remote/http_client.rb
+- lib/msf/core/db_manager/session.rb
+- lib/msf/base/simple/exploit.rb
+- lib/msf/core/exploit_driver.rb
+- lib/msf/ui/console/module_command_dispatcher.rb
+- test/module_targets/log4shell_execution/session_control.rb
+- test/module_targets/gopher/compose.yaml
+- test/module_targets/pretalx/Dockerfile
+- test/module_targets/pretalx/README.md
+- test/module_targets/pretalx/assets.py
+- test/module_targets/pretalx/bootstrap.py
+- test/module_targets/pretalx/compose.yaml
+- test/module_targets/pretalx/control.rb
+- test/module_targets/pretalx/native.py
+- test/module_targets/pretalx/pretalx.cfg
+- test/module_targets/pretalx/start.sh
+- test/module_targets/pretalx/vendor.json
+- test/module_targets/pretalx_execution/Dockerfile
+- test/module_targets/pretalx_execution/README.md
+- test/module_targets/pretalx_execution/compose.yaml
+- test/module_targets/pretalx_execution/configure.py
+- test/module_targets/pretalx_execution/health.sh
+- test/module_targets/pretalx_execution/native.py
+- test/module_targets/pretalx_execution/start.sh
+- test/module_targets/pretalx_execution/state.py
+- test/module_targets/pretalx_execution/trigger.py
+- modules/payloads/singles/cmd/unix/reverse_bash.rb
+- modules/payloads/singles/cmd/unix/generic.rb
+- modules/payloads/adapters/cmd/linux/http/x64.rb
+- modules/payloads/stagers/linux/x64/reverse_tcp.rb
+- modules/payloads/stages/linux/x64/meterpreter.rb

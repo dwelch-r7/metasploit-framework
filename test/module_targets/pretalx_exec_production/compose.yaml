@@ -1,0 +1,28 @@
+---
+services:
+  target:
+    extends:
+      file: "../pretalx_execution/compose.yaml"
+      service: target
+    image: msf-module-target-pretalx-execution-2.3.1:fixture
+    build:
+      args:
+        PRETALX_IMAGE: pretalx/standalone@sha256:ad44382132798d83402755d9ffad9b2f24c3d2bdddc40ed6f28cdfb3ebc14f1c
+    environment:
+      PRETALX_DEBUG: 'False'
+  broker:
+    extends:
+      file: "../pretalx_execution/compose.yaml"
+      service: broker
+  framework:
+    extends:
+      file: "../gopher/compose.yaml"
+      service: framework
+    mem_limit: 640m
+    memswap_limit: 640m
+    tmpfs:
+    - "/tmp:rw,exec,size=64m,mode=1777"
+  reporting_db:
+    extends:
+      file: "../gopher/compose.yaml"
+      service: reporting_db
