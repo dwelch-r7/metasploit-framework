@@ -1,6 +1,14 @@
 # Container module acceptance tests
 
-Latest: the [Salt minion deployment checkpoint](VERIFICATION-20261112-saltstack-deployer.md)
+Latest: the [Log4Shell scanner checkpoint](VERIFICATION-20261112-log4shell.md)
+reaches **214 qualified modules, 203 profiles and 2,104 functional examples**.
+Twenty-four cases and 48 public module runs pass against genuine Log4j 2.14.1,
+patched 2.17.1, disabled lookups and the standard Java logger. Native BER lookup
+controls, actual vulnerability reporting, repeated scans and listener cleanup
+are verified. Three capped containers run serially; all current cleanup audits
+pass and Docker is empty. Earlier fixture failures remain separately preserved.
+
+The [Salt minion deployment checkpoint](VERIFICATION-20261112-saltstack-deployer.md)
 reaches **213 qualified modules, 199 profiles and 2,080 functional examples**.
 Twelve cases pass across x86/x64 shell/Meterpreter payloads from native Linux
 Meterpreter and Unix shell master sessions. Real RPC, per-host file cleanup,
