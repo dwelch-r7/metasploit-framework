@@ -1,0 +1,20 @@
+services:
+  target:
+    image: msf-module-target-nextjs-middleware:15.2.2-root
+    platform: linux/amd64
+    build:
+      context: .
+      args: {NEXT_VERSION: 15.2.2, MIDDLEWARE_LAYOUT: root}
+    cpus: 0.3
+    mem_limit: 320m
+    memswap_limit: 320m
+    pids_limit: 128
+    environment:
+      NODE_OPTIONS: --max-old-space-size=160
+    tmpfs: ["/srv/next/.next/cache:rw,size=16m,uid=1000,gid=1000"]
+    ports: ["127.0.0.1::3000"]
+    healthcheck:
+      test: [CMD, node, -e, "fetch('http://127.0.0.1:3000/').then(async r=>process.exit(r.status===200&&(await r.text()).includes('PUBLIC MODULE TARGET')?0:1)).catch(()=>process.exit(1))"]
+      interval: 2s
+      timeout: 5s
+      retries: 40

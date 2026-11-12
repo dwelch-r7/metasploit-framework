@@ -71,6 +71,13 @@ docker run --rm -d --name next-vuln -p 3000:3000 -v "$PWD":/work -w /work node:2
 Patched instance (Next.js 15.2.3) on port 3001 — identical, pinning `15.2.3` and
 mapping `-p 3001:3000`.
 
+### Automated acceptance lab
+
+The [serial acceptance lab](../../../../../test/module_targets/nextjs_middleware/README.md)
+provides pinned affected and fixed production targets, both middleware layouts,
+independent HTTP/source controls and real Framework reporting checks. Consult
+its verification report for results and untested limits.
+
 ## Verification Steps
 
 1. Start a vulnerable Next.js instance (see Setup with Docker)

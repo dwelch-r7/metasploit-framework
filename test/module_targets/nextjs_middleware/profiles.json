@@ -1,0 +1,63 @@
+{
+  "node": {
+    "at": "2026-11-12T03:53:24.908867+00:00",
+    "repository": "library/node",
+    "queried_tag": "22-bookworm-slim",
+    "manifest": "sha256:47725aca53d3295ec2d3be8f62726599b3033cc262edc2c7e429909b3ac599fc",
+    "config": "sha256:b774d993885c47eca14db241ba8cc7e5789235142f76e4a2a6a65ec350a1bac0",
+    "compressed_bytes": 79868570,
+    "env": [
+      "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "NODE_VERSION=22.23.5",
+      "YARN_VERSION=1.22.22"
+    ],
+    "entrypoint": [
+      "docker-entrypoint.sh"
+    ],
+    "command": [
+      "node"
+    ]
+  },
+  "packages": {
+    "15.2.2": {
+      "version": "15.2.2",
+      "tarball": "https://registry.npmjs.org/next/-/next-15.2.2.tgz",
+      "integrity": "sha512-dgp8Kcx5XZRjMw2KNwBtUzhngRaURPioxoNIVl5BOyJbhi9CUgEtKDO7fx5wh8Z8vOVX1nYZ9meawJoRrlASYA==",
+      "vendor_files_sha256": {
+        "/srv/next/node_modules/next/dist/server/web/sandbox/sandbox.js": "1023641136e6b5dfc20c8575237a90dfff3d94699891ffbb33eecd8e2bdca386",
+        "/srv/next/node_modules/next/dist/server/web/sandbox/context.js": "6f4f5b245e75fed13e9da911268f4a1f715756457062a991a1a76053fb6cb041",
+        "/srv/next/node_modules/next/dist/server/lib/router-utils/resolve-routes.js": "0a463d80dce4a698c947797370df1ad7515e320bccaf1924f15d5365053151d1",
+        "/srv/next/node_modules/next/dist/server/next-server.js": "3349b2db353eefb2da275a59de7b93a3bdf30db4039b715c3c5ab6cf3623b005"
+      }
+    },
+    "15.2.3": {
+      "version": "15.2.3",
+      "tarball": "https://registry.npmjs.org/next/-/next-15.2.3.tgz",
+      "integrity": "sha512-x6eDkZxk2rPpu46E1ZVUWIBhYCLszmUY6fvHBFcbzJ9dD+qRX6vcHusaqqDlnY+VngKzKbAiG2iRCkPbmi8f7w==",
+      "vendor_files_sha256": {
+        "/srv/next/node_modules/next/dist/server/web/sandbox/sandbox.js": "1023641136e6b5dfc20c8575237a90dfff3d94699891ffbb33eecd8e2bdca386",
+        "/srv/next/node_modules/next/dist/server/web/sandbox/context.js": "9830b1873c272bba9ba97dd9fe5e8b08ef84fcffccb7cc409854e8d9e3b87782",
+        "/srv/next/node_modules/next/dist/server/lib/router-utils/resolve-routes.js": "0a463d80dce4a698c947797370df1ad7515e320bccaf1924f15d5365053151d1",
+        "/srv/next/node_modules/next/dist/server/next-server.js": "3349b2db353eefb2da275a59de7b93a3bdf30db4039b715c3c5ab6cf3623b005"
+      }
+    }
+  },
+  "profiles": {
+    "vulnerable_root": {
+      "version": "15.2.2",
+      "layout": "root"
+    },
+    "vulnerable_src": {
+      "version": "15.2.2",
+      "layout": "src"
+    },
+    "fixed_root": {
+      "version": "15.2.3",
+      "layout": "root"
+    },
+    "fixed_src": {
+      "version": "15.2.3",
+      "layout": "src"
+    }
+  }
+}

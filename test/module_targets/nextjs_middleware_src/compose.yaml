@@ -1,0 +1,10 @@
+services:
+  target:
+    extends: {file: ../nextjs_middleware/compose.yaml, service: target}
+    image: msf-module-target-nextjs-middleware:15.2.2-src
+    build:
+      args: {NEXT_VERSION: 15.2.2, MIDDLEWARE_LAYOUT: src}
+  reporting_db:
+    extends: {file: ../gopher/compose.yaml, service: reporting_db}
+  framework:
+    extends: {file: ../gopher/compose.yaml, service: framework}

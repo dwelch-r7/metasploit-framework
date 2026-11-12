@@ -1,0 +1,48 @@
+---
+spec: spec/modules/auxiliary/scanner/http/nextjs_middleware_target_spec.rb
+expected_examples: 13
+console: true
+modules:
+- auxiliary/scanner/http/nextjs_middleware_auth_bypass
+ports:
+  target: 3000
+test_env:
+  NEXTJS_PROFILE: vulnerable_src
+support_files:
+- test/module_targets/gopher/compose.yaml
+- test/module_targets/onedev_unrelated/compose.yaml
+- lib/msf/core/exploit/remote/http_client.rb
+- lib/msf/core/auxiliary.rb
+- lib/msf/core/auxiliary/scanner.rb
+- lib/msf/core/auxiliary/multiple_target_hosts.rb
+- lib/msf/core/auxiliary/report.rb
+- lib/msf/core/module/failure.rb
+- lib/msf/core/db_manager/vuln.rb
+- lib/msf/core/db_manager/service.rb
+- documentation/modules/auxiliary/scanner/http/nextjs_middleware_auth_bypass.md
+- test/module_targets/nextjs_middleware/Dockerfile
+- test/module_targets/nextjs_middleware/README.md
+- test/module_targets/nextjs_middleware/acceptance.rb
+- test/module_targets/nextjs_middleware/application/middleware.js
+- test/module_targets/nextjs_middleware/application/next.config.js
+- test/module_targets/nextjs_middleware/application/pages/api/protected.js
+- test/module_targets/nextjs_middleware/application/pages/dashboard.js
+- test/module_targets/nextjs_middleware/application/pages/forbidden.js
+- test/module_targets/nextjs_middleware/application/pages/index.js
+- test/module_targets/nextjs_middleware/application/pages/login.js
+- test/module_targets/nextjs_middleware/application/pages/redirect302.js
+- test/module_targets/nextjs_middleware/compose.yaml
+- test/module_targets/nextjs_middleware/native_probe.py
+- test/module_targets/nextjs_middleware/packages/15.2.2/package-lock.json
+- test/module_targets/nextjs_middleware/packages/15.2.2/package.json
+- test/module_targets/nextjs_middleware/packages/15.2.3/package-lock.json
+- test/module_targets/nextjs_middleware/packages/15.2.3/package.json
+- test/module_targets/nextjs_middleware/profiles.json
+- test/module_targets/http/Dockerfile
+- test/module_targets/http/htdocs/final.html
+- test/module_targets/http/htdocs/index.html
+- test/module_targets/http/htdocs/listing/evidence.txt
+- test/module_targets/http/htdocs/plain.txt
+- test/module_targets/http/htdocs/protected/index.html
+- test/module_targets/http/htdocs/robots.txt
+- test/module_targets/http/module-target.conf
