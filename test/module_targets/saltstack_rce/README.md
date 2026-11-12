@@ -24,6 +24,9 @@ Session RPC or command APIs write proof files, expose actual execution identity
 and link to persisted SQL sessions. The SSL command payload executes a fresh
 shell for each command; its connected owning process is verified separately.
 Session processes, sockets, listeners and jobs must close before another run.
+The concurrent Python minion case runs before any other Meterpreter case and
+asserts that the Stdapi class is still unloaded. This preserves coverage of
+cold extension initialization; a prior single session must not conceal it.
 An independent SSL command payload control uses the ordinary handler's generated
 bytes through legitimate authenticated Salt RPC. This calibrates the payload
 transport; it does not establish unauthenticated exploitation. Actual Salt job

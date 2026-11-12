@@ -43,6 +43,11 @@ support_files:
 - lib/msf/core/exploit/file_dropper.rb
 - lib/msf/base/simple/auxiliary.rb
 - lib/msf/core/module/failure.rb
+- lib/msf/core/handler.rb
+- lib/msf/core/framework.rb
+- lib/rex/post/meterpreter/extension_mapper.rb
+- lib/rex/post/meterpreter/extensions/stdapi/stdapi.rb
+- lib/rex/post/meterpreter/extensions/stdapi/fs/dir.rb
 - documentation/modules/exploit/linux/misc/saltstack_salt_unauth_rce.md
 - modules/payloads/stagers/python/reverse_https.rb
 - modules/payloads/singles/cmd/unix/reverse_python.rb
