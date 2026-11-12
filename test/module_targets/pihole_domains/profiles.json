@@ -12,7 +12,8 @@
       "/opt/pihole/gravity.sh": "3f479b4b8c9f5bbbcf8dce964fef10fcdc3dc3b37c9047394f5a66478df48d9d",
       "/start.sh": "6c74200f874ed5e1fd001fc6b5a02d84ec25ab0bff525c4245a0fde28b75f91c",
       "/bash_functions.sh": "64e2ce89d9f007a147575378715cbc4f2dd6d227d6eb6695d8f5a50de02c7b43"
-    }
+    },
+    "ftl_version": "5.5"
   },
   "fixed": {
     "image_manifest": "sha256:4653aee50cff8a679e03f2bcd1b05fc2f8b6614896c5554e081b08a3ce60a578",
@@ -27,6 +28,7 @@
       "/opt/pihole/gravity.sh": "04ac96a8ef6c4cabc01fd6aca704e1b5cc94d7773219c08a26ff9e7f2c26e48d",
       "/start.sh": "72519069856922518084e50bff146c68bee71ebe8221520bba4a2eb3f3d4feb3",
       "/bash_functions.sh": "8002de1395790bd6d53609d40ba9376b4ae7f258d6508426c2f3aa52e804cc05"
-    }
+    },
+    "ftl_version": "5.9"
   }
 }

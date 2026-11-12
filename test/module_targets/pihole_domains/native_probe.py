@@ -102,6 +102,13 @@ try:
             digest, path = line.split('  ', 1)
             result['files'][path] = digest
         assert result['files'] == vendor['files_sha256']
+        # Cold disposable configuration can omit the web component from this
+        # historical cache. Generate it using the vendor's local maintenance API.
+        execute('target', 'pihole', 'updatechecker', 'local')
+        cached = execute('target', 'cat', '/etc/pihole/localversions').decode().split()
+        assert len(cached) == 3
+        result['version_cache'] = [cached[0].split('-', 1)[0], cached[1].split('-', 1)[0], cached[2]]
+        assert result['version_cache'] == [vendor['core_tag'], 'v' + vendor['web_version'], 'v' + vendor['ftl_version']]
         if phase == 'before':
             execute('target', 'php', '-r', "file_put_contents('/etc/pihole/adlists.list', \"http://127.0.0.1/module-target-blocklist.txt\\n\");")
             # Newer images ship a gravity database; older images migrate adlists.list.

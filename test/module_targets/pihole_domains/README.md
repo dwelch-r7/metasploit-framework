@@ -16,6 +16,13 @@ retained. Its release-date expiry check is disabled for the archived release.
 No package is installed and no application source is patched. Bounded writable
 metadata storage and the lighttpd user's log-directory ownership are explicit.
 
+The web interface is explicitly enabled during cold startup. Native preflight
+uses the vendor's local update-check command to refresh its version cache and
+verifies all three cached components against installed releases and source
+hashes. A fresh empty configuration can otherwise omit the web component and
+display the FTL version in its place. No banner or version file is supplied by
+the fixture.
+
 Initial automatic gravity refresh is disabled through the vendor's existing
 environment option. Native setup then configures and fetches a small blocklist
 from the target's own loopback HTTP endpoint. This exercises the normal database

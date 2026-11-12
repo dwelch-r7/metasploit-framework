@@ -9,6 +9,7 @@ services:
     environment:
       TZ: UTC
       WEBPASSWORD: module-target-pihole-password
+      INSTALL_WEB_INTERFACE: 'true'
       SKIPGRAVITYONBOOT: '1'
       ServerIP: 127.0.0.1
       PIHOLE_DNS_: '192.0.2.53;192.0.2.54'
