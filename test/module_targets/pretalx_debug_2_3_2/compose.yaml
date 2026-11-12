@@ -10,6 +10,7 @@ services:
         PRETALX_IMAGE: pretalx/standalone@sha256:bedafcb43859e7cccd9191aba6e80910327a1856fe6a0e4685d35f7b097d6d16
     environment:
       PRETALX_DEBUG: 'True'
+      PYTHONHASHSEED: '0'
   broker:
     extends:
       file: "../pretalx/compose.yaml"
