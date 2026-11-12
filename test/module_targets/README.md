@@ -1,17 +1,18 @@
 # Container module acceptance tests
 
-Latest: the [Pi-hole checkpoint](VERIFICATION-20261112-pihole.md) reaches
-**208 qualified modules, 184 profiles and 1,968 functional examples**. Four
-serial profiles pass 28 cases and verify a corrected fixed-version boundary,
-real command execution, passwordless operation and negative controls. Native
-SQLite/configuration controls and Framework SQL distinguish actual behavior
-from passive vulnerability records. Container inventory is empty after teardown.
-The [Audiobookshelf](VERIFICATION-20261112-audiobookshelf.md),
+Latest: the [Next.js checkpoint](VERIFICATION-20261112-nextjs.md) reaches
+**209 qualified modules, 189 profiles and 2,038 functional examples**. Five
+serial profiles pass 70 cases on genuine affected/fixed root and src middleware
+and an unrelated Apache authentication gate. A verified scanner fix prevents
+HTTP 400/431 parser errors from becoming false CVE reports while preserving
+genuine downstream 404 detection. All 40 independent cleanup queries pass and
+Docker is empty after teardown. The [Pi-hole](VERIFICATION-20261112-pihole.md),
+[Audiobookshelf](VERIFICATION-20261112-audiobookshelf.md),
 [4gaBoards](VERIFICATION-20261112-4gaboards.md) and
 [ownCloud](VERIFICATION-20261112-owncloud-hostname.md) checkpoints remain current.
-The [unit-fixture thread cleanup](VERIFICATION-20261112-thread-cleanup.md)
-reproduces and fixes a CI monitor leak; its explicit acceptance dependency
-review preserves the same functional totals without claiming new target runs.
+The [unit-fixture thread cleanup](VERIFICATION-20261112-thread-cleanup.md) also
+passes the previously failing published Ruby 3.3 CI suites; other CI results are
+reported separately.
 
 These labs exercise real target software through Framework's public module entry
 points. They complement isolated module specs and the existing protocol session

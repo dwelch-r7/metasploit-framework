@@ -113,3 +113,17 @@ functional results. Its manifest SHA256 is
 Every entry is rehashed, read-only and single-link. The separate worker branch
 preserves `f9053a07679cfe25eff132c85aba4d72bf54f041`. Publication is to the user's
 fork branch without a PR.
+
+## Follow-up CI observation
+
+All four Ruby 3.3 jobs on published `b211a001792bff7336247f329e540351a0c87c21`
+pass. The [suite excluding content](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43150781107/job/130959155606)
+reports 18,257 examples, zero failures and 33 pending examples; the
+[content suite](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43150781107/job/130959155581)
+reports 6,781 examples and zero failures. Neither log has an outside-example
+error. These are remote CI observations, additional to the focused local proof.
+
+The same head has a separate [macOS Intel Mettle failure](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43150781384/job/130959157439):
+one of 46 examples fails the reverse-HTTPS special-character filename test with
+malformed output and no process binary returned. Its cause is unverified;
+these Ruby suite results do not establish that every CI job is green.
