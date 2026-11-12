@@ -35,17 +35,20 @@ try:
         code = "import hashlib,json,pathlib,sys;print(json.dumps({key:hashlib.sha256((pathlib.Path('/app')/key).read_bytes()).hexdigest() for key in json.loads(sys.argv[1])}))"
         actual = json.loads(client.command('python3', '-c', code, json.dumps(list(catalog))))
         assert actual == catalog
-        executable = '/tmp/module-target-netalertx-native-elf'
+        directory = '/tmp/module-target-netalertx-native-elf'
+        executable = directory + '/busybox'
         client.command('/bin/busybox', 'true')
-        client.command('test', '!', '-e', executable)
-        client.command('cp', '/bin/busybox', executable)
+        client.command('test', '!', '-e', directory)
+        client.command('mkdir', directory)
         try:
+            client.command('cp', '/bin/busybox', executable)
             client.command('chmod', '0755', executable)
             hashes = client.command('sha256sum', '/bin/busybox', executable).splitlines()
             assert hashes[0].split()[0] == hashes[1].split()[0]
             client.command(executable, 'true')
         finally:
             client.command('rm', '-f', executable)
+            client.command('rmdir', directory)
         response, body = client.request('/index.php')
         assert response['status'] == 200 and 'name="loginpassword"' in body
         for password, expected in [('module-target-wrong', 200), ('module-target-netalertx-password', 302)]:
