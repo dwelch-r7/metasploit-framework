@@ -36,6 +36,11 @@ caller's HTTP receive bound; its exact response-write `Broken pipe` event is
 retained and admitted only after successful session proof and complete closure.
 Missing-header configuration and unlogged endpoints are negative controls.
 Artifacts record HTTP input, SQL state, native counters and session lifecycle.
+Cleanup is inspected before any harness fallback; passing cases never bulk-kill
+jobs or sessions. The original 20-second HTTP receive bound is retained for one
+Java shell control. Other calls use the public `HttpClientTimeout=2` option to
+avoid unnecessary waits on blocking Java replies, while retaining a three-second
+callback/staging grace period and identical execution and shutdown checks.
 A failing case remains unclassified until setup, payload and owner evidence agree.
 
 Run profiles serially with the guarded launcher:
