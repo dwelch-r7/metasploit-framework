@@ -1,12 +1,14 @@
 # Container module acceptance tests
 
-Latest: the [Next.js checkpoint](VERIFICATION-20261112-nextjs.md) reaches
-**209 qualified modules, 189 profiles and 2,038 functional examples**. Five
-serial profiles pass 70 cases on genuine affected/fixed root and src middleware
-and an unrelated Apache authentication gate. A verified scanner fix prevents
-HTTP 400/431 parser errors from becoming false CVE reports while preserving
-genuine downstream 404 detection. All 40 independent cleanup queries pass and
-Docker is empty after teardown. The [Pi-hole](VERIFICATION-20261112-pihole.md),
+Latest: the [Salt master checkpoint](VERIFICATION-20261112-saltstack.md) reaches
+**210 qualified modules, 192 profiles and 2,047 functional examples**. Three
+serial profiles pass nine cases on genuine affected, fixed and multi-user Salt
+masters. Native controls reproduce a large-response framing defect; the verified
+fix restores key collection and real credential/CVE reporting. All 24 independent
+cleanup queries pass and Docker is empty after teardown.
+
+The [Next.js](VERIFICATION-20261112-nextjs.md),
+[Pi-hole](VERIFICATION-20261112-pihole.md),
 [Audiobookshelf](VERIFICATION-20261112-audiobookshelf.md),
 [4gaBoards](VERIFICATION-20261112-4gaboards.md) and
 [ownCloud](VERIFICATION-20261112-owncloud-hostname.md) checkpoints remain current.
