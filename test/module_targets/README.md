@@ -1,6 +1,14 @@
 # Container module acceptance tests
 
-Latest: the [Log4Shell scanner checkpoint](VERIFICATION-20261112-log4shell.md)
+Latest: the [Log4Shell execution checkpoint](VERIFICATION-20261112-log4shell-execution.md)
+reaches **215 qualified modules, 206 profiles and 2,134 functional examples**.
+Thirty cases and 57 public calls cover Java/Unix delivery, with twelve verified
+sessions, eight command executions, native class/gadget controls and exact
+cleanup before recovery. Three capped containers run serially; all final parent
+cleanup queries pass and Docker is empty. Windows/product deployments remain
+unqualified. Earlier setup, fixture and baseline evidence stays separate.
+
+The [Log4Shell scanner checkpoint](VERIFICATION-20261112-log4shell.md)
 reaches **214 qualified modules, 203 profiles and 2,104 functional examples**.
 Twenty-four cases and 48 public module runs pass against genuine Log4j 2.14.1,
 patched 2.17.1, disabled lookups and the standard Java logger. Native BER lookup
