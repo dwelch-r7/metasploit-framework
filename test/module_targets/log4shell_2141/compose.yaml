@@ -1,0 +1,19 @@
+---
+services:
+  target:
+    extends:
+      file: "../log4shell_http/compose.yaml"
+      service: target
+    environment:
+      LOG4J_VERSION: 2.14.1
+      LOG4J_MODE: log4j
+  reporting_db:
+    extends:
+      file: "../gopher/compose.yaml"
+      service: reporting_db
+  framework:
+    extends:
+      file: "../gopher/compose.yaml"
+      service: framework
+    mem_limit: 640m
+    memswap_limit: 640m

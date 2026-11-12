@@ -1,0 +1,30 @@
+---
+spec: spec/modules/auxiliary/scanner/http/log4shell_target_spec.rb
+expected_examples: 6
+console: true
+modules:
+- auxiliary/scanner/http/log4shell_scanner
+test_env:
+  LOG4SHELL_VERSION: 2.17.1
+  LOG4SHELL_MODE: log4j
+ports:
+  target: 8080
+support_files:
+- test/module_targets/log4shell_http/Dockerfile
+- test/module_targets/log4shell_http/Target.java
+- test/module_targets/log4shell_http/compose.yaml
+- test/module_targets/log4shell_http/entrypoint.sh
+- test/module_targets/log4shell_http/fetch_vendor.rb
+- test/module_targets/log4shell_http/log4j2.xml
+- test/module_targets/log4shell_http/native_probe.py
+- test/module_targets/log4shell_http/vendor.json
+- test/module_targets/gopher/compose.yaml
+- lib/msf/core/exploit/remote/log4_shell.rb
+- lib/msf/core/exploit/remote/jndi_injection.rb
+- lib/msf/core/exploit/remote/ldap/server.rb
+- lib/rex/proto/ldap/server.rb
+- lib/msf/core/exploit/remote/http_client.rb
+- lib/msf/core/auxiliary/scanner.rb
+- lib/msf/core/auxiliary/report.rb
+- documentation/modules/auxiliary/scanner/http/log4shell_scanner.md
+- test/module_targets/log4shell_http/README.md

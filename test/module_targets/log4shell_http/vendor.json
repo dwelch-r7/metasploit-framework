@@ -1,0 +1,44 @@
+{
+  "artifacts": [
+    {
+      "version": "2.14.1",
+      "artifact": "log4j-api",
+      "file": "log4j-api-2.14.1.jar",
+      "url": "https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-api/2.14.1/log4j-api-2.14.1.jar",
+      "publisher_checksum_url": "https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-api/2.14.1/log4j-api-2.14.1.jar.sha1",
+      "publisher_sha1": "cd8858fbbde69f46bce8db1152c18a43328aae78",
+      "sha256": "8caf58db006c609949a0068110395a33067a2bad707c3da35e959c0473f9a916",
+      "bytes": 300365
+    },
+    {
+      "version": "2.14.1",
+      "artifact": "log4j-core",
+      "file": "log4j-core-2.14.1.jar",
+      "url": "https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-core/2.14.1/log4j-core-2.14.1.jar",
+      "publisher_checksum_url": "https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-core/2.14.1/log4j-core-2.14.1.jar.sha1",
+      "publisher_sha1": "9141212b8507ab50a45525b545b39d224614528b",
+      "sha256": "ade7402a70667a727635d5c4c29495f4ff96f061f12539763f6f123973b465b0",
+      "bytes": 1745700
+    },
+    {
+      "version": "2.17.1",
+      "artifact": "log4j-api",
+      "file": "log4j-api-2.17.1.jar",
+      "url": "https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-api/2.17.1/log4j-api-2.17.1.jar",
+      "publisher_checksum_url": "https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-api/2.17.1/log4j-api-2.17.1.jar.sha1",
+      "publisher_sha1": "d771af8e336e372fb5399c99edabe0919aeaf5b2",
+      "sha256": "b0d8a4c8ab4fb8b1888d0095822703b0e6d4793c419550203da9e69196161de4",
+      "bytes": 301872
+    },
+    {
+      "version": "2.17.1",
+      "artifact": "log4j-core",
+      "file": "log4j-core-2.17.1.jar",
+      "url": "https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-core/2.17.1/log4j-core-2.17.1.jar",
+      "publisher_checksum_url": "https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-core/2.17.1/log4j-core-2.17.1.jar.sha1",
+      "publisher_sha1": "779f60f3844dadc3ef597976fcb1e5127b1f343d",
+      "sha256": "c967f223487980b9364e94a7c7f9a8a01fd3ee7c19bdbf0b0f9f8cb8511f3d41",
+      "bytes": 1790452
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+services:
+  target:
+    build: {context: .}
+    image: msf-module-target-log4shell-http:fixture
+    platform: linux/amd64
+    init: true
+    cpus: 0.3
+    mem_limit: 192m
+    memswap_limit: 192m
+    pids_limit: 96
+    environment:
+      LOG4J_VERSION: 2.14.1
+      LOG4J_MODE: log4j
+      MSF_MODULE_TARGET_LEAK: module-target-environment
+    ports: ["127.0.0.1::8080"]
+    tmpfs: ["/tmp:rw,size=16m,mode=1777"]
+    healthcheck:
+      test: [CMD, /bin/sh, /opt/module-target/entrypoint.sh, health]
+      interval: 3s
+      timeout: 5s
+      retries: 30
