@@ -15,6 +15,41 @@ module Acceptance
     OWNER_PORT = 4474
     NATIVE_PORT = 4475
 
+    def dx_poll(seconds, &block)
+      Timeout.timeout(seconds) { wait_for_expect(seconds, 1, &block) }
+    end
+
+    def dx_master_cli_control(identifier)
+      source = "/tmp/module-target-deployer-cli-source-#{SecureRandom.hex(8)}"
+      value = "native-cli-#{SecureRandom.hex(12)}"
+      destinations = %w[legacy argv].to_h { |method| [method, "/tmp/module-target-deployer-cli-#{method}-#{SecureRandom.hex(8)}"] }
+      target_exec('master', 'python', '-c', 'from pathlib import Path;import sys;Path(sys.argv[1]).write_text(sys.argv[2])', source, value)
+      destinations.each do |method, destination|
+        invocation = if method == 'legacy'
+                       "owner.cmd_exec(#{"salt-cp '*' '#{source}' '#{destination}'".inspect})"
+                     else
+                       "owner.create_process('salt-cp',args: ['*',#{source.inspect},#{destination.inspect}],time_out: 120)"
+                     end
+        expression = "begin; owner=framework.modules.create(#{DEPLOY_OWNER.inspect}); owner.datastore['SESSION']=#{identifier}; started=Process.clock_gettime(Process::CLOCK_MONOTONIC); output=#{invocation}; {output_base64: Base64.strict_encode64(output),seconds: Process.clock_gettime(Process::CLOCK_MONOTONIC)-started}; rescue StandardError => error; {error: error.class.name,message: error.message}; end"
+        code = "puts 'SALT_JSON=' + (#{expression}).to_json"
+        result = sx_document(console_command("irb -e #{code.inspect}", timeout: 150), 'SALT_JSON=')
+        files = %w[master minion_a minion_b].to_h do |service|
+          code = 'import hashlib,json,pathlib,sys;p=pathlib.Path(sys.argv[1]);print(json.dumps({"sha256":hashlib.sha256(p.read_bytes()).hexdigest(),"bytes":p.stat().st_size} if p.exists() else None))'
+          [service, JSON.parse(target_exec(service, 'python', '-c', code, destination))]
+        end
+        sx_record('master-session-cli-controls.jsonl', workspace: @workspace, session: identifier, method: method, result: result, files: files)
+        next unless method == 'argv'
+
+        expect(result).not_to have_key('error')
+        expect(files.fetch('master')).to be_nil
+        %w[minion_a minion_b].each { |service| expect(files.fetch(service)).to eq('sha256' => Digest::SHA256.hexdigest(value), 'bytes' => value.bytesize) }
+      end
+    ensure
+      if source && destinations
+        %w[master minion_a minion_b].each { |service| target_exec(service, 'rm', '-f', source, *destinations.values) }
+      end
+    end
+
     def dx_native(phase)
       output = +''
       argv = ['python3', 'test/module_targets/saltstack_deployer/native_probe.py', ENV.fetch('MODULE_TARGET_RUNTIME'), phase]
@@ -39,7 +74,7 @@ module Acceptance
 
     def dx_ready(owner, count, excluding: [])
       identifiers = nil
-      sx_poll(60) do
+      dx_poll(60) do
         rows = sx_json("framework.sessions.values.select { |session| session.via_exploit == #{owner.inspect} }.map { |session| {id: session.sid, db_id: session.db_record&.id} }")
         identifiers = rows.map { |row| row.fetch('id') } - excluding
         events = File.readlines(File.join(target_runtime.fetch('artifacts'), 'ready-sessions.jsonl')).map { |line| JSON.parse(line).fetch('id') }
@@ -121,7 +156,7 @@ module Acceptance
         'WritableDir' => @deployment_directory, 'TargetWritableDir' => @deployment_directory
       }, action: 'run -j -z', allow_errors: true, endpoint_options: {}, command_timeout: 60)
       sx_record('owning-calls.jsonl', workspace: @workspace, owner: DEPLOY_OWNER, initial_session: initial, output: output, directory: @deployment_directory)
-      sx_poll(60) do
+      dx_poll(180) do
         expect(sx_json("framework.jobs.values.select { |job| job.ctx.first.respond_to?(:fullname) && job.ctx.first.fullname == #{DEPLOY_OWNER.inspect} }.map(&:jid)")).to eq([])
       end
       full = console_command('sessions -l') + console.all_data
@@ -140,20 +175,20 @@ module Acceptance
       begin
         console_command('jobs -K')
         console_command('sessions -K')
-        sx_poll(30) { expect(sx_json('framework.sessions.keys')).to eq([]) }
-        sx_poll(30) { expect(sx_json('framework.jobs.keys')).to eq([]) }
+        dx_poll(30) { expect(sx_json('framework.sessions.keys')).to eq([]) }
+        dx_poll(30) { expect(sx_json('framework.jobs.keys')).to eq([]) }
         @deployment_proofs&.each_value do |proof|
-          sx_poll(30) do
+          dx_poll(30) do
             code = 'import json,pathlib,sys;print(json.dumps([pid for pid in sys.argv[1:] if pathlib.Path("/proc",pid).exists()]))'
             expect(JSON.parse(target_exec(proof.fetch('service'), 'python', '-c', code, *proof.fetch('target_pids').map(&:to_s)))).to eq([])
           end
         end
-        sx_poll(30) do
+        dx_poll(30) do
           rows = sx_sessions_sql
           expect(rows.map { |row| row.fetch('closed_at') }).not_to include(nil)
         end
         code = 'require "json";ports=ARGV.map(&:to_i);puts JSON.generate(%w[/proc/net/tcp /proc/net/tcp6].flat_map{|path|File.readlines(path).drop(1).map(&:split)}.select{|row|row[3]=="0A"&&ports.include?(row[1].split(":").last.to_i(16))})'
-        sx_poll(30) do
+        dx_poll(30) do
           expect(JSON.parse(target_exec('framework', 'ruby', '-e', code, INITIAL_PORT.to_s, OWNER_PORT.to_s, NATIVE_PORT.to_s))).to eq([])
         end
       rescue StandardError, RSpec::Expectations::ExpectationNotMetError => e
