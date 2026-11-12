@@ -1,6 +1,15 @@
 # Container module acceptance tests
 
-Latest: the [NetAlertX queued execution checkpoint](VERIFICATION-20261112-netalertx-execution.md)
+Latest: the [Pretalx checkpoint](VERIFICATION-20261112-pretalx.md) reaches
+**219 qualified modules, 219 profiles and 2,215 functional examples**. Twenty-three
+cases and 50 public calls verify ten exact loot files, affected/fixed production
+and development applications, honest version checks and a companion prerequisite.
+False version/error-page reporting and comparison-path handling are fixed. Four
+capped containers run serially; all final cleanup audits pass and Docker is empty.
+Companion execution remains unqualified; earlier source and setup failures are
+preserved separately.
+
+The [NetAlertX queued execution checkpoint](VERIFICATION-20261112-netalertx-execution.md)
 reaches **218 qualified modules, 214 profiles and 2,192 functional examples**.
 Ten cases and 20 public calls verify eleven Bash/Meterpreter sessions, complete
 configuration preservation, read-only checks and actual cron/SQL/process/socket
