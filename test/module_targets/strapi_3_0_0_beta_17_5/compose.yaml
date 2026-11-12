@@ -1,0 +1,15 @@
+services:
+  target:
+    extends: {file: ../strapi/compose.yaml, service: target}
+    environment:
+      STRAPI_VERSION: 3.0.0-beta.17.5
+    volumes:
+    - "${MODULE_TARGET_ROOT}/tmp/module-target-strapi-dependencies/3.0.0-beta.17.5:/dependencies:ro"
+  database:
+    extends: {file: ../strapi/compose.yaml, service: database}
+  framework:
+    extends: {file: ../gopher/compose.yaml, service: framework}
+    mem_limit: 640m
+    memswap_limit: 640m
+  reporting_db:
+    extends: {file: ../gopher/compose.yaml, service: reporting_db}

@@ -1,0 +1,64 @@
+---
+spec: spec/modules/auxiliary/scanner/http/strapi_password_reset_target_spec.rb
+expected_examples: 6
+console: true
+modules:
+- auxiliary/scanner/http/strapi_3_password_reset
+test_env:
+  STRAPI_VERSION: 3.0.0-beta.17.5
+ports:
+  target: 1337
+support_files:
+- documentation/modules/auxiliary/scanner/http/strapi_3_password_reset.md
+- lib/msf/base/simple/auxiliary.rb
+- lib/msf/core/auxiliary/multiple_target_hosts.rb
+- lib/msf/core/auxiliary/report.rb
+- lib/msf/core/auxiliary/scanner.rb
+- lib/msf/core/exploit/remote/http_client.rb
+- test/module_targets/gopher/compose.yaml
+- test/module_targets/strapi/README.md
+- test/module_targets/strapi/app/api/.gitkeep
+- test/module_targets/strapi/app/config/application.json
+- test/module_targets/strapi/app/config/environments/development/database.json
+- test/module_targets/strapi/app/config/environments/development/request.json
+- test/module_targets/strapi/app/config/environments/development/response.json
+- test/module_targets/strapi/app/config/environments/development/security.json
+- test/module_targets/strapi/app/config/environments/development/server.json
+- test/module_targets/strapi/app/config/environments/production/database.json
+- test/module_targets/strapi/app/config/environments/production/request.json
+- test/module_targets/strapi/app/config/environments/production/response.json
+- test/module_targets/strapi/app/config/environments/production/security.json
+- test/module_targets/strapi/app/config/environments/production/server.json
+- test/module_targets/strapi/app/config/environments/staging/database.json
+- test/module_targets/strapi/app/config/environments/staging/request.json
+- test/module_targets/strapi/app/config/environments/staging/response.json
+- test/module_targets/strapi/app/config/environments/staging/security.json
+- test/module_targets/strapi/app/config/environments/staging/server.json
+- test/module_targets/strapi/app/config/functions/bootstrap.js
+- test/module_targets/strapi/app/config/functions/cron.js
+- test/module_targets/strapi/app/config/functions/responses/404.js
+- test/module_targets/strapi/app/config/hook.json
+- test/module_targets/strapi/app/config/language.json
+- test/module_targets/strapi/app/config/locales/de_de.json
+- test/module_targets/strapi/app/config/locales/en_us.json
+- test/module_targets/strapi/app/config/locales/es_es.json
+- test/module_targets/strapi/app/config/locales/fr_fr.json
+- test/module_targets/strapi/app/config/locales/it_it.json
+- test/module_targets/strapi/app/config/locales/ja_jp.json
+- test/module_targets/strapi/app/config/locales/ru_ru.json
+- test/module_targets/strapi/app/config/locales/tr_tr.json
+- test/module_targets/strapi/app/config/middleware.json
+- test/module_targets/strapi/app/extensions/.gitkeep
+- test/module_targets/strapi/app/public/.gitkeep
+- test/module_targets/strapi/app/server.js
+- test/module_targets/strapi/compose.yaml
+- test/module_targets/strapi/packages/3.0.0-beta.17.4/package-lock.json
+- test/module_targets/strapi/packages/3.0.0-beta.17.4/package.json
+- test/module_targets/strapi/packages/3.0.0-beta.17.5/package-lock.json
+- test/module_targets/strapi/packages/3.0.0-beta.17.5/package.json
+- test/module_targets/strapi/prepare.rb
+- test/module_targets/strapi/prepare.sh
+- test/module_targets/strapi/run.rb
+- test/module_targets/strapi/start.sh
+- test/module_targets/strapi/vendor.json
+- test/module_targets/strapi/verify.js

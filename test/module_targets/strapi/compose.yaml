@@ -1,0 +1,43 @@
+services:
+  target:
+    image: node@sha256:4b150b48b4116e2a22f2c39cc27025fbf4f153e2078fd3b14d159fdb5c7279da
+    platform: linux/amd64
+    init: true
+    user: node
+    cpus: 0.7
+    mem_limit: 512m
+    memswap_limit: 512m
+    pids_limit: 128
+    entrypoint: [/bin/sh, /lab/start.sh]
+    environment:
+      NODE_ENV: development
+      NODE_OPTIONS: --max-old-space-size=256
+      HOST: 0.0.0.0
+      HOSTNAME: target
+      PORT: '1337'
+    volumes:
+    - .:/lab:ro
+    tmpfs: ["/tmp:rw,size=64m,mode=1777"]
+    ports: ["127.0.0.1::1337"]
+    depends_on:
+      database: {condition: service_healthy}
+    healthcheck:
+      test: [CMD, node, -e, "require('http').get('http://127.0.0.1:1337/admin/init', r=>process.exit(r.statusCode===200?0:1)).on('error',()=>process.exit(1))"]
+      interval: 3s
+      timeout: 3s
+      retries: 40
+  database:
+    image: mongo:4.4.30@sha256:4be76f674fc4b27859816811b8baa3c51830eb1dbf4ca81a51e26b79edd662ef
+    platform: linux/amd64
+    init: true
+    cpus: 0.1
+    mem_limit: 384m
+    memswap_limit: 384m
+    pids_limit: 64
+    command: [mongod, --bind_ip_all, --wiredTigerCacheSizeGB, '0.25', --nojournal, --quiet, --setParameter, diagnosticDataCollectionEnabled=false]
+    tmpfs: ["/data/db:rw,size=96m,mode=0777", "/data/configdb:rw,size=1m,mode=0777", "/tmp:rw,size=8m,mode=1777"]
+    healthcheck:
+      test: [CMD, mongo, --quiet, --eval, 'quit(db.adminCommand({ping:1}).ok===1?0:1)']
+      interval: 3s
+      timeout: 4s
+      retries: 40

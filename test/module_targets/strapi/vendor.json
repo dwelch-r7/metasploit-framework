@@ -1,0 +1,66 @@
+{
+  "3.0.0-beta.17.4": {
+    "source_sha256": {
+      "strapi/lib/Strapi.js": "598b46408594ab260ccf70faad2e8ddbec8794e31bba07afbecdf5b5a4945e67",
+      "strapi/lib/core/bootstrap.js": "69480be68ba81ec5fc7abcbc84fbb099ffdfbf78e5b31f2fff349e32cebc1512",
+      "strapi-admin/controllers/Auth.js": "0697212639479a7d90a715fc9400a5dc46f5d5004aad1d6839a708dbe5c87446",
+      "strapi-admin/controllers/Admin.js": "61cf7795e192601143b81ccee82fb843ea657597f6280a644d4764016e0ce94a",
+      "strapi-admin/services/Auth.js": "6a93d2ed210b418f43acc265eb8107cebd89b9f737ef5d97d31c808584d2921e",
+      "strapi-admin/config/routes.json": "fd7797f7c4a9d1b2a12e52b42f2a17c10ba75a88d1078439dc596eb7831b8245",
+      "strapi-admin/models/Administrator.settings.json": "ffbefd07eec8ea90ac72777416527fce4cfeacf98bb88ea3e6956bdab8293c58",
+      "strapi-hook-mongoose/lib/index.js": "3e40f9ac0253e4325c2b479068f18750c2c105b0e717b6aeb8df057bd1d9ad18",
+      "strapi-hook-mongoose/lib/queries.js": "3c7c146436bd9f44727f971b9582472a6317acb07356627cea8523cfbc23d45b",
+      "strapi-hook-mongoose/lib/get-query-params.js": "4f5d765aa00421ae896c430db7dc2e20a56aa05cbca44e3d0feeb7ba96c24f2a",
+      "strapi-plugin-users-permissions/controllers/Auth.js": "66007be17f558410147448c6b7ec35474a2fcdb60ac56b6f6ce2b13f54e2807d",
+      "strapi-plugin-users-permissions/services/Jwt.js": "d8b99f9995e5460a6c79bf956b066b2e9f705e54df02b030010a332c0cffce87",
+      "strapi-plugin-users-permissions/config/functions/bootstrap.js": "e33c3bfeb689aaa1f1a87f99dc05ca3e465a979568a223c3f00ce67699408a7b"
+    },
+    "source_urls": {
+      "strapi/lib/Strapi.js": "https://raw.githubusercontent.com/strapi/strapi/v3.0.0-beta.17.4/packages/strapi/lib/Strapi.js",
+      "strapi/lib/core/bootstrap.js": "https://raw.githubusercontent.com/strapi/strapi/v3.0.0-beta.17.4/packages/strapi/lib/core/bootstrap.js",
+      "strapi-admin/controllers/Auth.js": "https://raw.githubusercontent.com/strapi/strapi/v3.0.0-beta.17.4/packages/strapi-admin/controllers/Auth.js",
+      "strapi-admin/controllers/Admin.js": "https://raw.githubusercontent.com/strapi/strapi/v3.0.0-beta.17.4/packages/strapi-admin/controllers/Admin.js",
+      "strapi-admin/services/Auth.js": "https://raw.githubusercontent.com/strapi/strapi/v3.0.0-beta.17.4/packages/strapi-admin/services/auth.js",
+      "strapi-admin/config/routes.json": "https://raw.githubusercontent.com/strapi/strapi/v3.0.0-beta.17.4/packages/strapi-admin/config/routes.json",
+      "strapi-admin/models/Administrator.settings.json": "https://raw.githubusercontent.com/strapi/strapi/v3.0.0-beta.17.4/packages/strapi-admin/models/Administrator.settings.json",
+      "strapi-hook-mongoose/lib/index.js": "https://raw.githubusercontent.com/strapi/strapi/v3.0.0-beta.17.4/packages/strapi-hook-mongoose/lib/index.js",
+      "strapi-hook-mongoose/lib/queries.js": "https://raw.githubusercontent.com/strapi/strapi/v3.0.0-beta.17.4/packages/strapi-hook-mongoose/lib/queries.js",
+      "strapi-hook-mongoose/lib/get-query-params.js": "https://raw.githubusercontent.com/strapi/strapi/v3.0.0-beta.17.4/packages/strapi-hook-mongoose/lib/get-query-params.js",
+      "strapi-plugin-users-permissions/controllers/Auth.js": "https://raw.githubusercontent.com/strapi/strapi/v3.0.0-beta.17.4/packages/strapi-plugin-users-permissions/controllers/Auth.js",
+      "strapi-plugin-users-permissions/services/Jwt.js": "https://raw.githubusercontent.com/strapi/strapi/v3.0.0-beta.17.4/packages/strapi-plugin-users-permissions/services/Jwt.js",
+      "strapi-plugin-users-permissions/config/functions/bootstrap.js": "https://raw.githubusercontent.com/strapi/strapi/v3.0.0-beta.17.4/packages/strapi-plugin-users-permissions/config/functions/bootstrap.js"
+    }
+  },
+  "3.0.0-beta.17.5": {
+    "source_sha256": {
+      "strapi/lib/Strapi.js": "598b46408594ab260ccf70faad2e8ddbec8794e31bba07afbecdf5b5a4945e67",
+      "strapi/lib/core/bootstrap.js": "69480be68ba81ec5fc7abcbc84fbb099ffdfbf78e5b31f2fff349e32cebc1512",
+      "strapi-admin/controllers/Auth.js": "168e780ddfbdc1e2f27320e5701c89c74861ebd55ec1e996e9e116e9929d71ed",
+      "strapi-admin/controllers/Admin.js": "61cf7795e192601143b81ccee82fb843ea657597f6280a644d4764016e0ce94a",
+      "strapi-admin/services/Auth.js": "6a93d2ed210b418f43acc265eb8107cebd89b9f737ef5d97d31c808584d2921e",
+      "strapi-admin/config/routes.json": "fd7797f7c4a9d1b2a12e52b42f2a17c10ba75a88d1078439dc596eb7831b8245",
+      "strapi-admin/models/Administrator.settings.json": "ffbefd07eec8ea90ac72777416527fce4cfeacf98bb88ea3e6956bdab8293c58",
+      "strapi-hook-mongoose/lib/index.js": "3e40f9ac0253e4325c2b479068f18750c2c105b0e717b6aeb8df057bd1d9ad18",
+      "strapi-hook-mongoose/lib/queries.js": "3c7c146436bd9f44727f971b9582472a6317acb07356627cea8523cfbc23d45b",
+      "strapi-hook-mongoose/lib/get-query-params.js": "4f5d765aa00421ae896c430db7dc2e20a56aa05cbca44e3d0feeb7ba96c24f2a",
+      "strapi-plugin-users-permissions/controllers/Auth.js": "3d269c520f82115f0dcadf96842095e8f66ce2016120d0642f71c4d02e1a0d17",
+      "strapi-plugin-users-permissions/services/Jwt.js": "d8b99f9995e5460a6c79bf956b066b2e9f705e54df02b030010a332c0cffce87",
+      "strapi-plugin-users-permissions/config/functions/bootstrap.js": "e33c3bfeb689aaa1f1a87f99dc05ca3e465a979568a223c3f00ce67699408a7b"
+    },
+    "source_urls": {
+      "strapi/lib/Strapi.js": "https://raw.githubusercontent.com/strapi/strapi/v3.0.0-beta.17.5/packages/strapi/lib/Strapi.js",
+      "strapi/lib/core/bootstrap.js": "https://raw.githubusercontent.com/strapi/strapi/v3.0.0-beta.17.5/packages/strapi/lib/core/bootstrap.js",
+      "strapi-admin/controllers/Auth.js": "https://raw.githubusercontent.com/strapi/strapi/v3.0.0-beta.17.5/packages/strapi-admin/controllers/Auth.js",
+      "strapi-admin/controllers/Admin.js": "https://raw.githubusercontent.com/strapi/strapi/v3.0.0-beta.17.5/packages/strapi-admin/controllers/Admin.js",
+      "strapi-admin/services/Auth.js": "https://raw.githubusercontent.com/strapi/strapi/v3.0.0-beta.17.5/packages/strapi-admin/services/auth.js",
+      "strapi-admin/config/routes.json": "https://raw.githubusercontent.com/strapi/strapi/v3.0.0-beta.17.5/packages/strapi-admin/config/routes.json",
+      "strapi-admin/models/Administrator.settings.json": "https://raw.githubusercontent.com/strapi/strapi/v3.0.0-beta.17.5/packages/strapi-admin/models/Administrator.settings.json",
+      "strapi-hook-mongoose/lib/index.js": "https://raw.githubusercontent.com/strapi/strapi/v3.0.0-beta.17.5/packages/strapi-hook-mongoose/lib/index.js",
+      "strapi-hook-mongoose/lib/queries.js": "https://raw.githubusercontent.com/strapi/strapi/v3.0.0-beta.17.5/packages/strapi-hook-mongoose/lib/queries.js",
+      "strapi-hook-mongoose/lib/get-query-params.js": "https://raw.githubusercontent.com/strapi/strapi/v3.0.0-beta.17.5/packages/strapi-hook-mongoose/lib/get-query-params.js",
+      "strapi-plugin-users-permissions/controllers/Auth.js": "https://raw.githubusercontent.com/strapi/strapi/v3.0.0-beta.17.5/packages/strapi-plugin-users-permissions/controllers/Auth.js",
+      "strapi-plugin-users-permissions/services/Jwt.js": "https://raw.githubusercontent.com/strapi/strapi/v3.0.0-beta.17.5/packages/strapi-plugin-users-permissions/services/Jwt.js",
+      "strapi-plugin-users-permissions/config/functions/bootstrap.js": "https://raw.githubusercontent.com/strapi/strapi/v3.0.0-beta.17.5/packages/strapi-plugin-users-permissions/config/functions/bootstrap.js"
+    }
+  }
+}
