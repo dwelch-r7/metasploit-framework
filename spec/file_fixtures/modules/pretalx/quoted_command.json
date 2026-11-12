@@ -1,0 +1,9 @@
+{
+  "source": "tmp/module-target-tests/20261112T202102-c09ded/pretalx_exec_2_3_1/trigger-1_5-0/state.json",
+  "source_sha256": "a4c4c657a222f0e5ef11ce9e651a639235d9c4a46bd912e94be4ba13aace0703",
+  "hook": "import os;os.system(\"printf 'Pretalx \"quoted\" line\\n' > /data/own-command-1_5-0\") ",
+  "hook_sha256": "60c4e7c6449d75c3168999827b0749d127fb9f77d2b4cbc11bb00dc75285ef86",
+  "command": "printf 'Pretalx \"quoted\" line\\n' > /data/own-command-1_5-0",
+  "command_hex": "7072696e7466202750726574616c78202271756f74656422206c696e655c6e27203e202f646174612f6f776e2d636f6d6d616e642d315f352d30",
+  "projection": "Exact command recovered by removing only the known original os.system string wrapper; no evaluation. Original target Python3.8 reports SyntaxError for the hook."
+}
