@@ -62,7 +62,7 @@ class MetasploitModule < Msf::Auxiliary
         return Exploit::CheckCode::Unknown('Could not connect to web service')
       end
 
-      if web_version && Rex::Version.new(web_version) <= Rex::Version.new('5.6')
+      if web_version && Rex::Version.new(web_version) < Rex::Version.new('5.5.1')
         vprint_good("Web Interface Version Detected: #{web_version}")
         return Exploit::CheckCode::Appears("Pi-hole web interface version #{web_version} is vulnerable")
       else
