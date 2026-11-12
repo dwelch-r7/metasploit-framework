@@ -34,3 +34,8 @@ and absent administrators are exercised through public console commands.
 
 The existing module guide retains its human-written Scenarios. Dated verification
 reports distinguish native setup failures, source defects and qualified results.
+
+Application configuration derives from the original
+[`strapi-generate-new` beta.17.4 generator](https://github.com/strapi/strapi/tree/v3.0.0-beta.17.4/packages/strapi-generate-new/lib/resources/files),
+with lab database/server settings and unused sample keys removed. Its
+[MIT license](APP-LICENSE.md) is retained.

@@ -16,6 +16,7 @@ support_files:
 - lib/msf/core/auxiliary/scanner.rb
 - lib/msf/core/exploit/remote/http_client.rb
 - test/module_targets/gopher/compose.yaml
+- test/module_targets/strapi/APP-LICENSE.md
 - test/module_targets/strapi/README.md
 - test/module_targets/strapi/app/api/.gitkeep
 - test/module_targets/strapi/app/config/application.json
