@@ -10,11 +10,8 @@ phase = sys.argv[2]
 result = {'status': 'starting', 'phase': phase, 'commands': []}
 
 
-def execute(script, user=None):
-    argv = runtime['compose'] + ['exec', '-T']
-    if user:
-        argv += ['--user', user]
-    argv += ['target', 'php', '-r', script]
+def execute(script):
+    argv = runtime['compose'] + ['exec', '-T', 'target', 'php', '-r', script]
     process = subprocess.run(argv, capture_output=True, timeout=60)
     row = {'argv': argv, 'exit': process.returncode,
            'stdout_base64': base64.b64encode(process.stdout).decode(),
@@ -32,6 +29,14 @@ try:
     echo json_encode($selected);
     ''')
     result['application'] = execute(r'''
+    // docker exec does not inherit defaults exported by the vendor entrypoint.
+    // Reuse the running server's environment, then drop privileges before bootstrapping.
+    $serverEnv=[];foreach(explode("\0",file_get_contents("/proc/1/environ")) as $entry){
+      if(strpos($entry,"=")!==false){[$key,$value]=explode("=",$entry,2);$serverEnv[$key]=$value;}}
+    foreach(array_keys(getenv()) as $key){putenv($key);unset($_ENV[$key],$_SERVER[$key]);}
+    foreach($serverEnv as $key=>$value){putenv($key."=".$value);$_ENV[$key]=$value;$_SERVER[$key]=$value;}
+    $user=posix_getpwnam("www-data");
+    if(!posix_setgid($user["gid"])||!posix_setuid($user["uid"])){throw new RuntimeException("Cannot drop privileges");}
     define("OC_CONSOLE",true);
     require_once "/var/www/owncloud/lib/base.php";
     $config=\OC::$server->getConfig();
@@ -39,7 +44,7 @@ try:
     $row=$connection->fetchAssoc("SELECT inet_server_port() AS port, inet_server_addr() AS server_address, current_database() AS database, current_user AS username");
     $values=[];foreach(["dbtype","dbhost","dbname","dbuser"] as $key){$values[$key]=$config->getSystemValue($key);}
     echo json_encode(["configuration"=>$values,"connection"=>$row,"effective_uid"=>posix_geteuid(),"sapi"=>php_sapi_name()]);
-    ''', user='www-data')
+    ''')
     app = result['application']
     assert app['configuration'] == {'dbtype': 'pgsql', 'dbhost': 'reporting_db',
                                     'dbname': 'owncloud', 'dbuser': 'module_framework'}

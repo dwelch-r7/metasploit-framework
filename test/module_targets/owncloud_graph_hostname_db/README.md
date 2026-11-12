@@ -15,6 +15,10 @@ application's configured host and libpq environment overrides. These observation
 must precede the owning module's SQL persistence assertions: a provider default
 is not assumed merely because a hostname has no port.
 
+The query process copies PID 1's environment and drops to `www-data` before
+bootstrapping ownCloud. A plain `docker compose exec` misses defaults exported
+by the vendor entrypoint, including the database table prefix.
+
 The single functional example repeats collection and verifies all four real
 credential/service records, decoded fields, actual loot and deduplication.
 Registration alone is not a passing result.
