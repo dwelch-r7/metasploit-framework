@@ -10,7 +10,11 @@
       "orga/views/schedule.py": "a22018134c5307688f82348354cc9973752571b450d30e7a8900a35c050848fb",
       "common/templatetags/rich_text.py": "c02bd790088e285f77f375d43fa75d275de26efcb255be7b1827d80e76cba29d",
       "cfp/flow.py": "5e00adec54774fe768805d4783291fae0ea0eb24b3a6cd1c452c6439a7b556d8",
-      "orga/views/submission.py": "1dcb32f9164c95aef015303a2bbe020f7856abb749c17d43ab05a31cdafe2341"
+      "orga/views/submission.py": "1dcb32f9164c95aef015303a2bbe020f7856abb749c17d43ab05a31cdafe2341",
+      "common/context_processors.py": "05a7b1625995e1d384b9e3e6d31f6d7bdee06c15dd032405ac9925b4a310052b",
+      "common/templates/404.html": "0b970fe2291644278aed7325942ca8a6ff2b04ea20ac24d4c48a0cf0adf79cff",
+      "common/templates/common/error.html": "09e4315449b514689fbe4c3c1709f181bfd9be71ccf15823f47a02062c082526",
+      "orga/templates/orga/base.html": "91f11c6958690323883d35d7d328ac641ec884fa380c40b9745908ca79b2e6d7"
     }
   },
   "2.3.2": {
@@ -24,7 +28,11 @@
       "orga/views/schedule.py": "a22018134c5307688f82348354cc9973752571b450d30e7a8900a35c050848fb",
       "common/templatetags/rich_text.py": "c02bd790088e285f77f375d43fa75d275de26efcb255be7b1827d80e76cba29d",
       "cfp/flow.py": "5e00adec54774fe768805d4783291fae0ea0eb24b3a6cd1c452c6439a7b556d8",
-      "orga/views/submission.py": "1dcb32f9164c95aef015303a2bbe020f7856abb749c17d43ab05a31cdafe2341"
+      "orga/views/submission.py": "1dcb32f9164c95aef015303a2bbe020f7856abb749c17d43ab05a31cdafe2341",
+      "common/context_processors.py": "05a7b1625995e1d384b9e3e6d31f6d7bdee06c15dd032405ac9925b4a310052b",
+      "common/templates/404.html": "0b970fe2291644278aed7325942ca8a6ff2b04ea20ac24d4c48a0cf0adf79cff",
+      "common/templates/common/error.html": "09e4315449b514689fbe4c3c1709f181bfd9be71ccf15823f47a02062c082526",
+      "orga/templates/orga/base.html": "91f11c6958690323883d35d7d328ac641ec884fa380c40b9745908ca79b2e6d7"
     }
   }
 }

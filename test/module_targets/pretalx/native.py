@@ -103,7 +103,8 @@ def native():
     assert speaker.login('speaker@example.invalid')[0] == 200
     assert speaker.request('/orga/event/native/schedule/export/')[0] == 404
     organizer = Browser()
-    assert organizer.login('organizer@example.invalid')[0] == 200
+    code, orga_html = organizer.login('organizer@example.invalid')
+    assert code == 200
     assert organizer.history[-1]['final'] == '/orga/event/'
     assert organizer.post('/orga/event/native/schedule/export/trigger', '/orga/event/native/schedule/export/')[0] == 200
     deadline = time.monotonic() + 90
@@ -127,7 +128,8 @@ def native():
         assert exposed == (__version__ == '2.3.1'), (names, exposed)
     return {'version': __version__, 'debug': settings.DEBUG, 'sqlite': settings.DATABASES['default']['ENGINE'],
             'celery': settings.HAS_CELERY, 'zip_bytes': len(data), 'zip_sha256': hashlib.sha256(data).hexdigest(),
-            'zip_names': names, 'exposed': exposed, 'source_hashes': source_hashes, 'organizer': organizer.history,
+            'zip_names': names, 'exposed': exposed, 'source_hashes': source_hashes,
+            'orga_event_html': orga_html.decode('utf-8'), 'organizer': organizer.history,
             'speaker': speaker.history, 'wrong': wrong.history}
 
 

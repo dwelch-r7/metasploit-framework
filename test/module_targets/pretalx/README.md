@@ -8,7 +8,7 @@ Public fixture credentials and files exist only inside the disposable lab.
 Run both profiles serially:
 
 ```sh
-DOCKER_CONTEXT=default BUILDX_BUILDER=default bundle exec ruby tools/dev/run_guarded_module_target_tests.rb pretalx_2_3_1 pretalx_2_3_2
+DOCKER_CONTEXT=default BUILDX_BUILDER=default bundle exec ruby tools/dev/run_guarded_module_target_tests.rb pretalx_2_3_1 pretalx_2_3_2 pretalx_debug_2_3_1 pretalx_debug_2_3_2
 ```
 
 Four containers are capped at 1,312 MiB memory, two CPUs and 480 tasks in total.
@@ -16,7 +16,9 @@ Only the target HTTP port is published, on a random loopback port. Data, media,
 exports and Redis state use temporary filesystems; teardown removes containers
 and their single network. The vendor launcher's CPU-count-derived worker count
 is replaced with explicit worker limits. Application vulnerability logic is
-unchanged. Debug mode stays disabled.
+unchanged. The main profiles use production mode; the two `pretalx_debug_*`
+profiles additionally qualify the genuinely disclosed development versions and
+their default AutoCheck decisions.
 
 The independent native control creates a separate conference and published talk
 through native models, attaches an HTML resource, then uses real authenticated
@@ -32,7 +34,8 @@ forced execution, disabled AutoCheck, spaces, missing/empty files, incorrect
 credentials and insufficient organizer permissions. Current results and any
 unresolved source failures belong in the dated verification report. No Windows,
 alternate database, reverse-proxy prefix, custom media URL or newer UI is
-qualified by these profiles.
+qualified by these profiles. Forced reads and missing/empty paths in development
+mode remain separate from the production-mode error-page checks.
 
 Sources: [vendor advisory](https://pretalx.com/p/news/security-release-232/),
 [research advisory](https://www.sonarsource.com/blog/pretalx-vulnerabilities-how-to-get-accepted-at-every-conference/),

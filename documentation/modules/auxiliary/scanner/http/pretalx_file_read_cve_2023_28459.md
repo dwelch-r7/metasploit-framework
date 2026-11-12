@@ -127,6 +127,15 @@ volumes:
 1. Make sure you have correct right on `/data` folder, so `pretalx` user can write export there
 
 
+## Container acceptance tests
+
+The repository includes pinned, disposable targets and automated checks in the
+[Pretalx container lab](../../../../../test/module_targets/pretalx/README.md).
+The profiles use real SQLite, Celery exports and Framework reporting, with four
+capped containers at a time. Production-mode tests cover file collection and
+error handling; separate development-mode tests cover disclosed versions and
+AutoCheck. See the lab report for actual results and unqualified cases.
+
 ## Verification Steps
 
 1. Install the application
