@@ -7,8 +7,8 @@ DOCKER_CONTEXT=default BUILDX_BUILDER=default bundle exec ruby \
   test/module_targets/springcloud_config/run.rb
 ```
 
-These profiles are under qualification. A fixture starting or an HTTP 200 does
-not prove the module collected its requested file.
+Qualification results belong in dated verification reports. A fixture starting
+or an HTTP 200 does not prove the module collected its requested file.
 
 Six profiles exercise four original server/client library pairs (2.1.8, 2.1.9, 2.2.2 and 2.2.3) match
 Maven Central. Immutable distribution layer and executable-archive SHA256 values
