@@ -1,8 +1,9 @@
 # Salt post-module collection validation — 12 November 2026
 
-The module remains **unqualified**. Both real declared session types reproduced
-module failures after independent native controls passed. Source fixes and
-stronger functional replay are in progress; registration is not a passing result.
+The corrected Linux Salt 3000.1 lab is **qualified**: both declared session
+types passed all twelve functional examples, including exact loot/reporting,
+repeated collection, each collection flag, and a selected minion. Earlier genuine
+module failures and separate setup/harness failures are preserved below.
 
 The [lab](saltstack_gather/README.md) runs a genuine source-built Salt 3000.1
 master and two minions on one Linux host. Native checks verify daemon identity,
@@ -45,22 +46,6 @@ Original evidence is preserved in a read-only 248-file seal, with ninety exact
 source inputs. SHA-256 of `MANIFEST.sha256`:
 `a325034d2a9cb4afacec4ee5386256cc1475a5d927dc45942ba9bcd09db83560`.
 Every entry, file mode and single-link identity was independently rechecked.
-
-## Review
-
-**Summary:** genuine module errors reproduced; no passing module claim yet.
-
-**What looks good:** real daemons and native controls, original failure captures,
-both declared session types, isolated state and independently checked cleanup.
-
-**Concerns:** fixes, exact semantic assertions, repeated collection, flag and
-selector paths still require a complete replay. Linux co-installed roles only;
-other versions, operating systems and separate hosts remain unqualified. Roster
-credentials are inventory fixtures, with no real SSH authentication claim.
-
-**Suggestions:** complete capture-derived fixes in a separate worktree, then
-require exact loot, credential/reporting, native state and session cleanup before
-qualifying this owner.
 
 ## Fixed source and harness review
 
@@ -105,3 +90,67 @@ verified to reach engine `10febd11-6998-4e44-a0e9-00397e7a0624`. An isolated
 BuildKit container created by an earlier unsuccessful build was removed and
 its absence independently checked. No application test was run in that failed
 build attempt. The canonical Dockerfiles and shared launcher remain unchanged.
+
+## Final verified replay
+
+Source `5177e73734d6794f5565d2506ae94a972a1b0c9c`, run
+`20261112T110616-13459e`, completed with actual manager exit **0**.
+
+| Profile | Functional examples | Owning post calls | Real sessions with SQL closure | RSpec seconds |
+| --- | ---: | ---: | ---: | ---: |
+| Python Meterpreter HTTPS | 6 passed, 0 failed | 8 | 6 | 301.772152 |
+| Unix command shell | 6 passed, 0 failed | 8 | 6 | 293.613325 |
+
+Both profiles have zero pending or outside errors and unchanged exact source
+inputs: 93 per profile, 95 distinct. Native checks passed before and after both
+profiles; daemon identities, configuration, generated input files, administrative
+key lists and dependencies remained stable. Default and inventory collection ran
+twice on the same session. Individual hostname/interface/OS flags and selection
+of minion A were checked on both session types.
+
+The checks require exact local minion configuration, all four key categories,
+both selected node responses, compiled SLS blocks, roster and nested pillars.
+Original plain/encrypted key loot matches native file hashes. Three credential
+identities produce four Untried SSH logins, including reuse of one plain key;
+decrypted credential keys match the native public key material. Passphrase notes
+and real host records are verified, with disabled fields preserving existing
+metadata. This is inventory collection, not SSH authentication.
+
+Before and after collection, genuine session APIs prove root execution, daemon
+role/token, actual PID identity and file contents. Public Framework termination
+removes the identified processes and sessions; SQL records prove closure. No
+cleanup proof error remains. The first console's cold prompt/BOOT/two fresh
+metadata snapshots were independently observed. The shell profile used only the
+normal cache produced earlier in that same invocation.
+
+All sixteen independent exact resource and global absence queries passed. Docker
+was empty after teardown. The 692-entry read-only evidence seal has manifest
+SHA-256 `5d2a8ed238e5a1cead0e2e8a51300cd45493776588296ca16a6420dac67cb916`;
+every entry, mode and single-link identity was independently verified.
+
+The campaign checkpoint now contains **212 qualified modules, 195 profiles and
+2,068 functional examples**. The broader module campaign remains incomplete.
+No pull request was created.
+
+## Review
+
+**Summary:** the corrected source and complete twelve-case Linux replay pass;
+the original and intermediate failures remain independently preserved.
+
+**What looks good:** real native controls, exact collected evidence, actual
+credential persistence, both session types, repeats, flags, selection, metadata
+retention and physical/session/database cleanup. No source method is replaced.
+
+**Concerns:** qualification covers root sessions on Linux Salt 3000.1 with
+co-installed roles and generated RSA keys. Other versions, operating systems,
+separate hosts, unprivileged sessions and other key formats remain unqualified.
+Remote minion configuration collection and actual roster SSH authentication are
+not established. The previous published head `2e8019e7ae4` finished CI with 62
+successes, one skip and one Windows Meterpreter TCP/UDP send-timeout failure
+([job](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43192122040/job/131093797086));
+its cause is unverified and this local replay does not clear that failure.
+
+**Suggestions:** continue the remaining Docker-feasible owners, including the
+local Salt minion deployer using independent deployment/cleanup controls. Inspect
+the new publication's CI separately; do not infer broad platform correctness
+from these two Linux profiles.
