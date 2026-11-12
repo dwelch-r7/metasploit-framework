@@ -1,0 +1,53 @@
+---
+spec: spec/modules/exploits/linux/http/netalertx_execution_target_spec.rb
+expected_examples: 5
+console: true
+modules:
+- exploit/linux/http/netalertx_rce_cve_2024_46506
+test_env:
+  NETALERTX_VERSION: 24.9.12
+ports: {}
+support_files:
+- documentation/modules/exploit/linux/http/netalertx_rce_cve_2024_46506.md
+- lib/msf/base/simple/exploit.rb
+- lib/msf/core/exploit_driver.rb
+- lib/msf/core/exploit/remote/auto_check.rb
+- lib/msf/core/exploit/remote/http_client.rb
+- lib/msf/core/exploit/retry.rb
+- lib/msf/core/db_manager/session.rb
+- lib/msf/ui/console/module_argument_parsing.rb
+- lib/msf/ui/console/module_command_dispatcher.rb
+- modules/payloads/singles/cmd/unix/reverse_bash.rb
+- modules/payloads/adapters/cmd/linux/http/x64.rb
+- modules/payloads/stagers/linux/x64/reverse_tcp.rb
+- modules/payloads/stages/linux/x64/meterpreter.rb
+- test/module_targets/gopher/compose.yaml
+- test/module_targets/netalertx_file_read/bootstrap.py
+- test/module_targets/netalertx_file_read/native_probe.py
+- test/module_targets/log4shell_execution/session_control.rb
+- test/module_targets/netalertx_execution/Dockerfile
+- test/module_targets/netalertx_execution/client.py
+- test/module_targets/netalertx_execution/compose.yaml
+- test/module_targets/netalertx_execution/configure.py
+- test/module_targets/netalertx_execution/native_probe.py
+- test/module_targets/netalertx_execution/start.sh
+- test/module_targets/netalertx_execution/state.py
+- test/module_targets/netalertx_execution/transport.py
+- test/module_targets/netalertx_execution/vendor.json
+- test/module_targets/netalertx_execution/README.md
+- lib/msf/core/payload/adapter/fetch/fileless.rb
+- lib/msf/core/payload/adapter/fetch/ftp.rb
+- lib/msf/core/payload/adapter/fetch/http.rb
+- lib/msf/core/payload/adapter/fetch/https.rb
+- lib/msf/core/payload/adapter/fetch/linux_options.rb
+- lib/msf/core/payload/adapter/fetch/pipe.rb
+- lib/msf/core/payload/adapter/fetch/server/ftp.rb
+- lib/msf/core/payload/adapter/fetch/server/http.rb
+- lib/msf/core/payload/adapter/fetch/server/https.rb
+- lib/msf/core/payload/adapter/fetch/server/smb.rb
+- lib/msf/core/payload/adapter/fetch/server/tftp.rb
+- lib/msf/core/payload/adapter/fetch/smb.rb
+- lib/msf/core/payload/adapter/fetch/tftp.rb
+- lib/msf/core/payload/adapter/fetch/windows_options.rb
+- lib/msf/core/payload/adapter/fetch.rb
+- lib/msf/core/payload/adapter.rb

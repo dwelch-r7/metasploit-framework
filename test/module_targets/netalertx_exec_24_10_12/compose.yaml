@@ -1,0 +1,16 @@
+services:
+  target:
+    extends: {file: ../netalertx_execution/compose.yaml, service: target}
+    image: msf-module-target-netalertx-execution-24.10.12:fixture
+    build:
+      args:
+        NETALERTX_IMAGE: jokobsk/netalertx@sha256:cceca4de8ab65dc272bf0ce60798a024a59e93da9dccdd4d41413bf2e88cb244
+  framework:
+    extends: {file: ../gopher/compose.yaml, service: framework}
+    mem_limit: 640m
+    memswap_limit: 640m
+  reporting_db:
+    extends: {file: ../gopher/compose.yaml, service: reporting_db}
+networks:
+  default:
+    internal: true
