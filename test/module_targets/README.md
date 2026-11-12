@@ -1,11 +1,12 @@
 # Container module acceptance tests
 
-Latest: the [4gaBoards checkpoint](VERIFICATION-20261112-4gaboards.md) reaches
-**206 qualified modules, 176 profiles and 1,914 functional examples**. Its four
-serial profiles pass 28 cases, including a fix for false CVE records on the
-patched release. Complete JSON loot, real reporting records and account cleanup
-are independently checked. Container inventory is empty after teardown. The
-[ownCloud input regression](VERIFICATION-20261112-owncloud-hostname.md) remains current.
+Latest: the [Audiobookshelf checkpoint](VERIFICATION-20261112-audiobookshelf.md)
+reaches **207 qualified modules, 180 profiles and 1,940 functional examples**.
+Four serial profiles pass 26 cases on affected, fixed, uninitialized and unrelated
+targets. Native SQLite/process controls, actual HTTP traces and Framework SQL
+verify bypass detection, negative cases and deduplication. Container inventory
+is empty after teardown. The [4gaBoards reporting fix](VERIFICATION-20261112-4gaboards.md)
+and [ownCloud input regression](VERIFICATION-20261112-owncloud-hostname.md) remain current.
 
 These labs exercise real target software through Framework's public module entry
 points. They complement isolated module specs and the existing protocol session
