@@ -5,6 +5,15 @@ Strapi CMS version 3.0.0-beta.17.4 to change the password of the admin user.
 
 Successfully tested against Strapi CMS version 3.0.0-beta.17.4.
 
+An administrator account must already have an unused pending password-reset
+token. The normal forgot-password flow can establish this prerequisite; the
+module does not request a reset or verify SMTP/email delivery. A successful reset
+changes the administrator password and consumes that token.
+
+The passive version check reports `Appears` for the verified affected release
+and `Safe` for 3.0.0-beta.17.5 or later. Earlier releases remain unverified, and
+the version check cannot determine whether a reset token is pending.
+
 ### Install
 
 
@@ -20,6 +29,7 @@ Navigate to http://localhost:1337/ to verify the application is running. Now cre
 ## Verification Steps
 
 1. Install the application
+1. Ensure an admin account has a pending password-reset request that has not been used
 1. Start msfconsole
 1. Do: `use auxiliary/scanner/http/strapi_3_password_reset`
 1. Do: `set new_password testtesttest`
@@ -33,6 +43,9 @@ Navigate to http://localhost:1337/ to verify the application is running. Now cre
 ### NEW_PASSWORD
 
 New Admin password. No default.
+
+The transcript below is historical output from an older module revision and
+predates the supported check and credential-reporting fixes.
 
 ## Scenarios
 

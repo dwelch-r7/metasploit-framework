@@ -1,0 +1,68 @@
+{
+  "affected_init": {
+    "status": 200,
+    "body": {
+      "data": {
+        "uuid": "",
+        "currentEnvironment": "development",
+        "autoReload": false,
+        "strapiVersion": "3.0.0-beta.17.4"
+      }
+    }
+  },
+  "reset_success": {
+    "status": 200,
+    "body": {
+      "user": {
+        "username": "moduleadmin",
+        "email": "admin@example.invalid"
+      }
+    }
+  },
+  "reset_refused": {
+    "status": 400,
+    "body": {
+      "statusCode": 400,
+      "error": "Bad Request",
+      "message": [
+        {
+          "messages": [
+            {
+              "id": "Auth.form.error.code.provide",
+              "message": "Incorrect code provided."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "fixed_init": {
+    "status": 200,
+    "body": {
+      "data": {
+        "uuid": "",
+        "currentEnvironment": "development",
+        "autoReload": false,
+        "strapiVersion": "3.0.0-beta.17.5"
+      }
+    }
+  },
+  "complex_password": "Strapi \"quote\" 'space' \\ Ω0!",
+  "provenance": {
+    "records": {
+      "affected_native_http": {
+        "source": "tmp/module-target-tests/20261112T220359-bf2666/strapi_3_0_0_beta_17_4/native-http.jsonl",
+        "sha256": "cf7ecf877952c602cfe78deff2244fabf37313ef7d1481f56f75651c2986445a"
+      },
+      "fixed_native_http": {
+        "source": "tmp/module-target-tests/20261112T220359-bf2666/strapi_3_0_0_beta_17_5/native-http.jsonl",
+        "sha256": "2e6b1a2424e84b6b27339fc40d65956ecfc9feaf5dd9bf85554afc937c3a6823"
+      },
+      "owning_calls": {
+        "source": "tmp/module-target-tests/20261112T220359-bf2666/strapi_3_0_0_beta_17_4/owning-calls.jsonl",
+        "sha256": "cbfb2b717fbff1957373e8b43b29957f6b259466827f678e5b636708bc13cd27"
+      }
+    },
+    "projection": "Init and refusal bodies unchanged. Successful reset response retains only genuine username/email fields; JWT, IDs and timestamps omitted. Exact public complex password retained. Persistence and HTTP delivery are explicit unit doubles."
+  }
+}

