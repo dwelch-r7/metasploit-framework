@@ -1,0 +1,98 @@
+[
+  {
+    "version": "6.5.53",
+    "jars": [
+      {
+        "path": "./log4j-api-2.13.3.jar",
+        "size": 292301,
+        "sha256": "2b4b1965c9dce7f3732a0fbf5c8493199c1e6bf8cf65c3e235b57d98da5f36af",
+        "relevant_classes": {}
+      },
+      {
+        "path": "./log4j-core-2.13.3.jar",
+        "size": 1714164,
+        "sha256": "9529c55814264ab96b0eeba2920ac0805170969c994cc479bd3d4d7eb24a35a8",
+        "relevant_classes": {
+          "org/apache/logging/log4j/core/lookup/JndiLookup.class": "2b32bfc0556ea59307b9b2fde75b6dfbb5bf4f1d008d1402bc9a2357d8a8c61f"
+        }
+      },
+      {
+        "path": "./log4j-slf4j-impl-2.13.3.jar",
+        "size": 23590,
+        "sha256": "9010069ee8ec2a1fbd0e5f14810f01c0c162a9aa21b41909fd1d851bf02257d6",
+        "relevant_classes": {}
+      },
+      {
+        "path": "./tomcat-embed-core-8.5.56.jar",
+        "size": 3273354,
+        "sha256": "269ce0876d1c537c4ce5763840fbe47cd6209d254bbc25cbe470a001e8619f43",
+        "relevant_classes": {
+          "org/apache/naming/factory/BeanFactory.class": "f2894c49681fa5c060d54004274684197b6dcb31cb03bcefccc54d7f378c55e3",
+          "org/apache/naming/ResourceRef.class": "6f16eed2f4d2480f380a7d2725551753643912da647943b7d6d58baf360604fe"
+        }
+      },
+      {
+        "path": "./tomcat-embed-el-8.5.56.jar",
+        "size": 251614,
+        "sha256": "c4b87ee52ca544054001098a0a6b3a4779d48912077f038503cb602d6ff595d4",
+        "relevant_classes": {
+          "javax/el/ELProcessor.class": "6f14796bb470d7c9a228c6e7d5c8f884fb6acab94741ed66b951062898392410"
+        }
+      },
+      {
+        "path": "./tomcat-embed-logging-log4j-8.5.2.jar",
+        "size": 87310,
+        "sha256": "489819177db3b4962fc1ec7d4abf4066a86c8dca15bb4d08365f27e71d282390",
+        "relevant_classes": {}
+      }
+    ]
+  },
+  {
+    "version": "6.5.54",
+    "jars": [
+      {
+        "path": "./log4j-api-2.15.0.jar",
+        "size": 301892,
+        "sha256": "6de1c6d2ae088470813ebcf9ca78082f41ecc91881b801604ebb31fdbd99333e",
+        "relevant_classes": {}
+      },
+      {
+        "path": "./log4j-core-2.15.0.jar",
+        "size": 1789565,
+        "sha256": "085e0b34e40533015ba6a73e85933472702654e471c32f276e76cffcf7b13869",
+        "relevant_classes": {
+          "org/apache/logging/log4j/core/lookup/JndiLookup.class": "84057480ba7da6fb6d9ea50c53a00848315833c1f34bf8f4a47f11a14499ae3f"
+        }
+      },
+      {
+        "path": "./log4j-slf4j-impl-2.15.0.jar",
+        "size": 24258,
+        "sha256": "8860a3ff66f24858b3791bd7d2603da3f56eb94cb5c36b2b75d602d620110ae6",
+        "relevant_classes": {}
+      },
+      {
+        "path": "./tomcat-embed-core-8.5.56.jar",
+        "size": 3273354,
+        "sha256": "269ce0876d1c537c4ce5763840fbe47cd6209d254bbc25cbe470a001e8619f43",
+        "relevant_classes": {
+          "org/apache/naming/factory/BeanFactory.class": "f2894c49681fa5c060d54004274684197b6dcb31cb03bcefccc54d7f378c55e3",
+          "org/apache/naming/ResourceRef.class": "6f16eed2f4d2480f380a7d2725551753643912da647943b7d6d58baf360604fe"
+        }
+      },
+      {
+        "path": "./tomcat-embed-el-8.5.56.jar",
+        "size": 251614,
+        "sha256": "c4b87ee52ca544054001098a0a6b3a4779d48912077f038503cb602d6ff595d4",
+        "relevant_classes": {
+          "javax/el/ELProcessor.class": "6f14796bb470d7c9a228c6e7d5c8f884fb6acab94741ed66b951062898392410"
+        }
+      },
+      {
+        "path": "./tomcat-embed-logging-log4j-8.5.2.jar",
+        "size": 87310,
+        "sha256": "489819177db3b4962fc1ec7d4abf4066a86c8dca15bb4d08365f27e71d282390",
+        "relevant_classes": {}
+      }
+    ]
+  }
+]

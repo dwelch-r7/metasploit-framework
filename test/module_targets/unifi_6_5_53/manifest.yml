@@ -1,0 +1,62 @@
+---
+spec: spec/modules/exploits/multi/http/unifi_log4shell_target_spec.rb
+expected_examples: 8
+console: true
+modules:
+- exploit/multi/http/ubiquiti_unifi_log4shell
+test_env:
+  UNIFI_VERSION: 6.5.53
+ports:
+  target: 8443
+support_files:
+- documentation/modules/exploit/multi/http/ubiquiti_unifi_log4shell.md
+- lib/msf/base/sessions/command_shell.rb
+- lib/msf/base/sessions/meterpreter.rb
+- lib/msf/core/db_manager/session.rb
+- lib/msf/core/exploit/java_deserialization.rb
+- lib/msf/core/exploit/remote/auto_check.rb
+- lib/msf/core/exploit/remote/http_client.rb
+- lib/msf/core/exploit/remote/jndi_injection.rb
+- lib/msf/core/exploit/remote/ldap/server.rb
+- lib/msf/core/exploit/remote/log4_shell.rb
+- lib/msf/core/handler.rb
+- lib/msf/core/handler/reverse_tcp.rb
+- lib/msf/core/payload/adapter.rb
+- lib/msf/core/payload/adapter/fetch.rb
+- lib/msf/core/payload/adapter/fetch/fileless.rb
+- lib/msf/core/payload/adapter/fetch/ftp.rb
+- lib/msf/core/payload/adapter/fetch/http.rb
+- lib/msf/core/payload/adapter/fetch/https.rb
+- lib/msf/core/payload/adapter/fetch/linux_options.rb
+- lib/msf/core/payload/adapter/fetch/pipe.rb
+- lib/msf/core/payload/adapter/fetch/server/ftp.rb
+- lib/msf/core/payload/adapter/fetch/server/http.rb
+- lib/msf/core/payload/adapter/fetch/server/https.rb
+- lib/msf/core/payload/adapter/fetch/server/smb.rb
+- lib/msf/core/payload/adapter/fetch/server/tftp.rb
+- lib/msf/core/payload/adapter/fetch/smb.rb
+- lib/msf/core/payload/adapter/fetch/tftp.rb
+- lib/msf/core/payload/adapter/fetch/windows_options.rb
+- lib/msf/util/java_deserialization/bean_factory.rb
+- lib/rex/proto/http/server.rb
+- lib/rex/proto/ldap/server.rb
+- lib/rex/service_manager.rb
+- modules/payloads/adapters/cmd/linux/http/x64.rb
+- modules/payloads/singles/cmd/unix/generic.rb
+- modules/payloads/singles/cmd/unix/reverse_bash.rb
+- modules/payloads/stagers/linux/x64/reverse_tcp.rb
+- modules/payloads/stages/linux/x64/meterpreter.rb
+- spec/support/shared/contexts/wait_for_expect.rb
+- test/module_targets/gopher/compose.yaml
+- test/module_targets/log4shell_execution/session_control.rb
+- test/module_targets/log4shell_http/native_probe.py
+- test/module_targets/unifi_log4shell/Dockerfile
+- test/module_targets/unifi_log4shell/IdentityAgent.java
+- test/module_targets/unifi_log4shell/NativeBeanFactory.java
+- test/module_targets/unifi_log4shell/README.md
+- test/module_targets/unifi_log4shell/compose.yaml
+- test/module_targets/unifi_log4shell/configure-lab.sh
+- test/module_targets/unifi_log4shell/native_client.py
+- test/module_targets/unifi_log4shell/native_oracle.py
+- test/module_targets/unifi_log4shell/native_probe.py
+- test/module_targets/unifi_log4shell/vendor.json

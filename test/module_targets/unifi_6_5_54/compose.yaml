@@ -1,0 +1,20 @@
+---
+services:
+  target:
+    extends:
+      file: "../unifi_log4shell/compose.yaml"
+      service: target
+    image: msf-module-target-unifi-6.5.54:fixture
+    build:
+      args:
+        UNIFI_IMAGE: jacobalberty/unifi@sha256:776ac3d44864701c70fe655b8b650f53a91f256ba652fdc704acac7bec07319e
+  framework:
+    extends:
+      file: "../gopher/compose.yaml"
+      service: framework
+    mem_limit: 640m
+    memswap_limit: 640m
+  reporting_db:
+    extends:
+      file: "../gopher/compose.yaml"
+      service: reporting_db
