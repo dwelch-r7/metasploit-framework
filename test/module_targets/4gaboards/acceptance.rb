@@ -123,6 +123,7 @@ module Acceptance
       end
       account = boards_users.find { |row| row.fetch('email').casecmp?(email) }
       expect(account).not_to be_nil
+      expect(account.fetch('is_admin')).to be(false)
       if cleanup
         expect(output).to include("User '#{email}' deleted successfully")
         expect(account.fetch('deleted_at')).not_to be_nil

@@ -115,6 +115,8 @@ try:
             assert status == 200
             status, _, limited = request('/api/users', token=auth['item'])
             assert status == 200
+            reader = next(row for row in limited['items'] if row.get('email') == reader_email)
+            assert reader['isAdmin'] is False
             other = next(row for row in limited['items'] if row['id'] == admin['id'])
             if profile == 'fixed':
                 assert set(other) == public_fields
