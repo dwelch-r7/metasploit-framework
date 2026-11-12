@@ -1,0 +1,9 @@
+services:
+  target:
+    extends: {file: ../4gaboards/compose.yaml, service: target}
+    environment:
+      DEFAULT_REGISTRATION_ENABLED: "false"
+  reporting_db:
+    extends: {file: ../4gaboards/compose.yaml, service: reporting_db}
+  framework:
+    extends: {file: ../4gaboards/compose.yaml, service: framework}

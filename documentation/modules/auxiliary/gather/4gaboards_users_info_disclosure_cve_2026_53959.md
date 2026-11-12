@@ -65,6 +65,13 @@ The module should:
 - Use the access token to dump the information of all users on the application
 - Delete the newly created user using the supplied admin credentials
 
+## Automated lab
+
+The [4gaBoards acceptance lab](../../../../test/module_targets/4gaboards/README.md)
+provides pinned affected/fixed, registration-disabled and unrelated targets. It
+checks native API behavior, real loot/reporting records and account cleanup.
+Consult its verification report for actual qualification and unresolved failures.
+
 ## Options
 
 - **TARGETURI**(`/`): Base path to 4gaBoards installation

@@ -1,0 +1,26 @@
+---
+spec: spec/modules/auxiliary/gather/4gaboards_target_spec.rb
+expected_examples: 11
+console: true
+modules:
+- auxiliary/gather/4gaboards_users_info_disclosure_cve_2026_53959
+ports:
+  target: 1337
+test_env:
+  BOARDS_PROFILE: vulnerable
+support_files:
+- test/module_targets/gopher/compose.yaml
+- test/module_targets/onedev_unrelated/compose.yaml
+- lib/msf/core/exploit/remote/http_client.rb
+- lib/msf/core/auxiliary.rb
+- lib/msf/core/auxiliary/report.rb
+- lib/msf/core/db_manager/vuln.rb
+- lib/msf/core/db_manager/service.rb
+- lib/msf/core/db_manager/loot.rb
+- documentation/modules/auxiliary/gather/4gaboards_users_info_disclosure_cve_2026_53959.md
+- test/module_targets/4gaboards/README.md
+- test/module_targets/4gaboards/acceptance.rb
+- test/module_targets/4gaboards/compose.yaml
+- test/module_targets/4gaboards/init-application.sql
+- test/module_targets/4gaboards/native_probe.py
+- test/module_targets/4gaboards/profiles.json

@@ -1,0 +1,23 @@
+{
+  "3.3.8": {
+    "image_manifest": "sha256:6c64ccc198bf0ed856d2c84b1304e478f32554a33b2cafac1e03780a175d52ae",
+    "image_config": "sha256:22264b9065b3641e57bf620e8551187acc0044a7f5a840be2f86a464cf35166b",
+    "source_tag": "https://github.com/RARgames/4gaBoards/tree/v3.3.8",
+    "files_sha256": {
+      "api/controllers/users/index.js": "168a49c631cd5ba2f464be594d00d1ee56e549b0e5d10b8c68722781c4e56dbc",
+      "api/controllers/register/create.js": "cdfabbe1b8e0e7cc40a3e753fe21a0ba107fc5ecefa38d6a5128ae4b873df08c",
+      "api/controllers/users/delete.js": "16c2ce030c61c9310b5adb99f8b0cb0bd075ccefc9f234121c18653a4d9b228f"
+    }
+  },
+  "3.3.9": {
+    "image_manifest": "sha256:87beec792a3baaab72c0918f929d02821301b042dd2ba8c793257646af999a20",
+    "image_config": "sha256:9f8e507b06864c13c36215b2f4fcb44ecd5ec7a5e3cb1b939f16d571fdb56a55",
+    "source_tag": "https://github.com/RARgames/4gaBoards/tree/v3.3.9",
+    "files_sha256": {
+      "api/controllers/users/index.js": "489229547b0ddc5814af149d1fdc9550e163f90cb760fa3febff67e949a18a8d",
+      "api/controllers/register/create.js": "cdfabbe1b8e0e7cc40a3e753fe21a0ba107fc5ecefa38d6a5128ae4b873df08c",
+      "api/controllers/users/delete.js": "7acbf4961a71f79cb9dde5d1d4037796c0588c8d7fddd891eb37242545e67bd5",
+      "api/helpers/users/sanitize.js": "d4cd586a72c7c31df22943eeb1e80f6c808603aaf3d0dfbcb8257a5aa301dbae"
+    }
+  }
+}

@@ -1,0 +1,37 @@
+services:
+  target:
+    image: ghcr.io/rargames/4gaboards@sha256:6c64ccc198bf0ed856d2c84b1304e478f32554a33b2cafac1e03780a175d52ae
+    platform: linux/amd64
+    cpus: 0.35
+    mem_limit: 384m
+    memswap_limit: 384m
+    pids_limit: 64
+    environment:
+      NODE_ENV: production
+      BASE_URL: http://localhost:1337
+      SECRET_KEY: module-target-4gaboards-public-fixture-secret-key
+      DATABASE_URL: postgresql://module_app:module-target-application-db-password@reporting_db:5432/module_app
+      DEFAULT_ADMIN_USERNAME: module_admin
+      DEFAULT_ADMIN_EMAIL: administrator@module-target.invalid
+      DEFAULT_ADMIN_NAME: Module Target Administrator
+      DEFAULT_ADMIN_PASSWORD: module-target-admin-password
+    tmpfs:
+      - /app/public/user-avatars:rw,size=8m,uid=1000,gid=1000,mode=0700
+      - /app/public/project-background-images:rw,size=8m,uid=1000,gid=1000,mode=0700
+      - /app/private/attachments:rw,size=8m,uid=1000,gid=1000,mode=0700
+    ports: ["127.0.0.1::1337"]
+    depends_on:
+      reporting_db: {condition: service_healthy}
+    healthcheck:
+      test: [CMD, wget, --quiet, --spider, http://127.0.0.1:1337/]
+      interval: 2s
+      timeout: 5s
+      retries: 90
+  reporting_db:
+    extends: {file: ../gopher/compose.yaml, service: reporting_db}
+    mem_limit: 192m
+    memswap_limit: 192m
+    tmpfs: ["/var/lib/postgresql/data:rw,size=160m,mode=0700"]
+    volumes: [./init-application.sql:/docker-entrypoint-initdb.d/10-application.sql:ro]
+  framework:
+    extends: {file: ../gopher/compose.yaml, service: framework}

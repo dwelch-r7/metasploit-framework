@@ -1,0 +1,8 @@
+services:
+  target:
+    extends: {file: ../4gaboards/compose.yaml, service: target}
+    image: ghcr.io/rargames/4gaboards@sha256:87beec792a3baaab72c0918f929d02821301b042dd2ba8c793257646af999a20
+  reporting_db:
+    extends: {file: ../4gaboards/compose.yaml, service: reporting_db}
+  framework:
+    extends: {file: ../4gaboards/compose.yaml, service: framework}

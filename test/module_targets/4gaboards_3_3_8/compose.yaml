@@ -1,0 +1,7 @@
+services:
+  target:
+    extends: {file: ../4gaboards/compose.yaml, service: target}
+  reporting_db:
+    extends: {file: ../4gaboards/compose.yaml, service: reporting_db}
+  framework:
+    extends: {file: ../4gaboards/compose.yaml, service: framework}
