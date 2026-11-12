@@ -1,0 +1,39 @@
+{
+  "observation_manifest_sha256": "6f8dc99a246bd04af1732ac94a3bd5d8e80d26b408253caea588dd9d2c5f3105",
+  "source_revision": "5b010ca8b0770a1dcc70dc460ce936800ceeac94",
+  "captures": {
+    "native-3.3.8-reader-users.json": {
+      "run": "20261112T002047-a98c4f",
+      "profile": "4gaboards_3_3_8",
+      "native_probe_phase": "before",
+      "request_index_zero_based": 8,
+      "method": "GET",
+      "path": "/api/users",
+      "status": 200,
+      "authenticated_role": "native-reader, non-administrator",
+      "complete_unmodified_response_body": true,
+      "sha256": "17ee48bb070dd962dc066174f370ce4d2854423b8999e2f3d08b255d935b9e2d",
+      "bytes": 1195,
+      "native_capture_sha256": "6c077bd1dd50dba26c4ad568b84a5a221f8038d17b75190322d3c60b66b57028",
+      "sealed_source": "run/4gaboards_3_3_8/native-before.json",
+      "image_manifest": "sha256:6c64ccc198bf0ed856d2c84b1304e478f32554a33b2cafac1e03780a175d52ae"
+    },
+    "native-3.3.9-reader-users.json": {
+      "run": "20261112T002047-a98c4f",
+      "profile": "4gaboards_3_3_9",
+      "native_probe_phase": "before",
+      "request_index_zero_based": 8,
+      "method": "GET",
+      "path": "/api/users",
+      "status": 200,
+      "authenticated_role": "native-reader, non-administrator",
+      "complete_unmodified_response_body": true,
+      "sha256": "cc3b3f6f241ac7119f644f5bfe6e2f6db9f8014748ba02e73d3a88b4f1e60bc2",
+      "bytes": 683,
+      "native_capture_sha256": "a02c6ebc3977bb009c9f03bd73c48825ba270f9a3870b4b2dad2e5765413d133",
+      "sealed_source": "run/4gaboards_3_3_9/native-before.json",
+      "image_manifest": "sha256:87beec792a3baaab72c0918f929d02821301b042dd2ba8c793257646af999a20"
+    }
+  },
+  "sealed_original_manifest_sha256": "4922a830691c58e03531af5c13f18f3c70aaf51fa68c8ad717a5ee3225d4f050"
+}

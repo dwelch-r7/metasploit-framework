@@ -8,6 +8,14 @@ class MetasploitModule < Msf::Auxiliary
   include Msf::Exploit::Remote::HttpClient
   require 'json'
 
+  # Fixed releases retain public profile fields for other users. Only populated
+  # private fields establish this disclosure after excluding our own account.
+  # https://github.com/RARgames/4gaBoards/blob/v3.3.9/server/api/helpers/users/sanitize.js
+  SENSITIVE_USER_FIELDS = %w[
+    email phone organization isAdmin ssoGoogleEmail ssoGithubUsername
+    ssoGithubEmail ssoMicrosoftEmail ssoOidcEmail
+  ].freeze
+
   def initialize(info = {})
     super(
       update_info(
@@ -134,7 +142,9 @@ class MetasploitModule < Msf::Auxiliary
           )
           print_good("Users information saved to: #{path}")
           report_service(host: rhost, port: rport, proto: 'tcp', name: ssl ? 'https' : 'http')
-          report_vuln(host: rhost, port: rport, proto: 'tcp', name: fullname, refs: references, info: description.strip)
+          if infos.any? { |profile| SENSITIVE_USER_FIELDS.any? { |field| profile[field].present? || profile[field] == false } }
+            report_vuln(host: rhost, port: rport, proto: 'tcp', name: fullname, refs: references, info: description.strip)
+          end
         else
           fail_with(Failure::NoAccess, 'Users information not found in response')
         end
