@@ -45,7 +45,13 @@ module Acceptance
         ) row
       SQL
       loot = JSON.parse(salt_sql("SELECT coalesce(json_agg(l.id),'[]'::json) FROM loots l JOIN workspaces w ON w.id=l.workspace_id WHERE w.name='#{@workspace}'"))
-      vulns = JSON.parse(salt_sql("SELECT coalesce(json_agg(v.id),'[]'::json) FROM vulns v JOIN hosts h ON h.id=v.host_id JOIN workspaces w ON w.id=h.workspace_id WHERE w.name='#{@workspace}'"))
+      vulns = JSON.parse(salt_sql(<<~SQL))
+        SELECT coalesce(json_agg(row ORDER BY row.id),'[]'::json) FROM (
+          SELECT v.id,v.name,v.info,v.service_id,host(h.address::inet) AS host,
+            (SELECT coalesce(json_agg(r.name ORDER BY r.name),'[]'::json) FROM refs r JOIN vulns_refs vr ON vr.ref_id=r.id WHERE vr.vuln_id=v.id) AS refs
+          FROM vulns v JOIN hosts h ON h.id=v.host_id JOIN workspaces w ON w.id=h.workspace_id WHERE w.name='#{@workspace}'
+        ) row
+      SQL
       result = { 'credentials' => credentials, 'services' => services, 'loot' => loot, 'vulns' => vulns }
       File.open(File.join(target_runtime.fetch('artifacts'), 'native-report-snapshots.jsonl'), 'a') { |file| file.puts(JSON.generate(workspace: @workspace, reports: result)) }
       result
@@ -90,7 +96,12 @@ module Acceptance
       expect(credential.values_at('host', 'port', 'proto', 'service', 'service_id')).to eq([endpoint.fetch('host'), 4506, 'tcp', 'salt/zeromq', service.fetch('id')])
       expect(credential.fetch('logins')).to eq([{ 'status' => 'Untried', 'last_attempted_at' => nil }])
       expect(service.values_at('host', 'port', 'proto', 'name', 'state')).to eq([endpoint.fetch('host'), 4506, 'tcp', 'salt/zeromq', 'open'])
-      expect(rows.values_at('loot', 'vulns')).to eq([[], []])
+      expect(rows.fetch('loot')).to eq([])
+      expect(rows.fetch('vulns').length).to eq(1)
+      vuln = rows.fetch('vulns').fetch(0)
+      expect(vuln.values_at('host', 'service_id', 'name')).to eq([endpoint.fetch('host'), service.fetch('id'), 'SaltStack Salt Master Server Root Key Disclosure'])
+      expect(vuln.fetch('info')).to eq("Vulnerability confirmed by check of #{OWNER}.")
+      expect(vuln.fetch('refs')).to include('CVE-2020-11651')
       rows
     end
   end

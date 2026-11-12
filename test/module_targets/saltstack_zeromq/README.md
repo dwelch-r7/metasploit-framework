@@ -31,7 +31,9 @@ workspace isolation, hostname resolution, the explicit Dump action, and recovery
 after a natively proved refused port. Collected key bytes must match the native
 master key and the stored credential. Generated keys are disposable runtime
 data; no key is configured in this repository. The module records its disclosed
-credential as Untried. These tests do not claim that it records a CVE or loot.
+credential as Untried. Framework also persists a confirmed vulnerability from
+the returned CheckCode; SQL checks verify its service and reference identity.
+No loot is expected.
 
 Each profile has three containers capped at **1,216 MiB and 1.5 CPUs**:
 Salt 320 MiB/0.3 CPU/128 tasks, reporting PostgreSQL 128 MiB/0.2 CPU/64 tasks,

@@ -32,3 +32,4 @@ support_files:
 - lib/msf/core/module/failure.rb
 - lib/msf/core/db_manager/service.rb
 - documentation/modules/auxiliary/gather/saltstack_salt_root_key.md
+- lib/msf/base/simple/auxiliary.rb
