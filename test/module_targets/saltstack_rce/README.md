@@ -48,3 +48,9 @@ the shared CPU cap. Negative calls use shorter waits after native-proven denial.
 Registration is not qualification. Consult the campaign verification reports
 for actual results and classified failures. This profile does not qualify
 2019.x, fixed releases, separate hosts, other products, or Salt post modules.
+
+The current nine-case session run passes, but minion workers still report
+`KeyError: 'ret'` after both native custom and owning publications execute.
+Return metadata and job completion require further validation before this
+profile is qualified. The two minions use distinct cache directories, so the
+module's hardcoded default proc-file cleanup path is also not covered here.

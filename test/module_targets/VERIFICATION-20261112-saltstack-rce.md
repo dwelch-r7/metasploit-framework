@@ -57,7 +57,7 @@ functional run. The qualified collection lab remains unchanged.
 The SDK control initially polls registered session objects before bootstrap and
 database reporting complete, then dereferences a nil database record. Its helper
 now waits for the ordinary session-open event and real persisted record before
-using proof APIs. This correction still requires a fresh functional run.
+using proof APIs. The subsequent session-success run below validates it.
 
 ## Preserved functional diagnostic
 
@@ -105,13 +105,46 @@ uncached, reentrant, identity and error-release controls pass before and after.
 All six fixed child processes exit zero with no live probe threads. Strict lint
 retains the same twenty existing mapper findings; both new files are clean.
 The primary checkout passes **27/zero** across these six examples and the 21
-owning selector examples. Real cold-session validation remains pending.
+owning selector examples. The subsequent real cold-session run below passes.
 
-Future acceptance deliberately makes concurrent
+Acceptance deliberately makes concurrent
 minion Python sessions the first Meterpreter use and asserts Stdapi is unloaded.
 Preloading a single session would conceal this case.
 
 ## Evidence and review
+
+### Subsequent session success, outstanding job completion
+
+Run `20261112T075719-f22e0e` at
+`11be8b62cb1214a95ddc27521da7fcfcb9bedc9a` completes **nine/zero**, with no
+pending examples or outside errors. Its manager and independent observer exit
+zero. The cold Stdapi assertion is false, followed by two actual minion
+Meterpreter proofs and a successful repeat. All four owning target paths pass
+twice: **eleven owning session proofs**, all independently linked to actual SQL
+IDs, plus one genuine native SDK SSL session proof. Fourteen owning calls
+execute. Native controls pass before and after; all eight independent cleanup
+queries pass and Docker is empty.
+
+This run proves the session and loader corrections, but log review finds 42
+`KeyError: 'ret'` traceback lines from minion workers after native custom and
+owning publications. Their missing return metadata and clean job completion
+remain under investigation. Session success alone does not resolve this issue,
+so **the profile stays unqualified**. Its custom minion cache paths also do not
+validate the module's hardcoded default proc-file cleanup path. Tested cleanup
+covers proof files, session processes/transports, listeners, Framework jobs and
+native markers.
+
+Vendor inspection identifies the narrow omitted field as top-level `ret: ''`.
+It also shows that `_return_pub` removes the actual proc file and sends the
+normal return before optional returner handling reads `data['ret']`. Therefore,
+the traceback alone does not establish missing returns or stale proc files.
+Native comparison and explicit completion checks are being prepared.
+
+The exact-source session-success seal has **460 entries / 71 inputs**, manifest
+`949a89af1e556fa24c7d11b3cf420c444bf364e7672b277458d81b174c5330f5`.
+The separately copied and independently rehashed loader-unit seal has 139
+entries plus manifest,
+`9ef53a02eeda37527775efa1c782ff24912f02be54aea7f2ff35045b3abd0e56`.
 
 Raw artifacts remain under `tmp/module-target-tests/<run>/saltstack_rce_3000_1`.
 Independent read-only copies retain raw results and exact input bytes:
@@ -130,9 +163,11 @@ module Scenarios remain unchanged.
 **Summary:** the minion selector defect is verified and corrected; this complete
 session profile remains unqualified. **What looks good:** native prerequisites,
 three target paths, repeated cleanup and SQL identity are independently proved.
-**Concerns:** the loader correction and SDK helper still need successful
-functional validation. **Suggestions:** retain the failed captures and require all
-nine cases before increasing the checkpoint. Other Salt releases, separate hosts
+**Concerns:** minion return metadata and clean job completion still need
+correction and validation. Default proc-file cleanup remains uncovered with the
+custom cache paths. **Suggestions:** retain the failed captures and add job
+completion controls alongside the nine session cases before increasing the
+checkpoint. Other Salt releases, separate hosts
 and the remaining Salt modules are individually pending.
 
 CI on the earlier published `9c17653681edcf3e1163907cd1751693d92516d6`

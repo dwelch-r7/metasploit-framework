@@ -9,8 +9,9 @@ cleanup queries pass and Docker is empty after teardown.
 
 The [Salt master/minion session investigation](VERIFICATION-20261112-saltstack-rce.md)
 adds a genuine three-container lab and corrects a verified minion-selector
-serialization defect. It remains unqualified while cold concurrent Meterpreter
-bootstrap and the SDK control's readiness assertion are being validated.
+serialization defect and cold Meterpreter extension-loading defect. All nine
+session cases pass, but the profile remains unqualified while minion return
+metadata and clean job completion are investigated.
 
 The [Next.js](VERIFICATION-20261112-nextjs.md),
 [Pi-hole](VERIFICATION-20261112-pihole.md),
