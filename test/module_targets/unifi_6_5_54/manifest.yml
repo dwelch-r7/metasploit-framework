@@ -60,3 +60,5 @@ support_files:
 - test/module_targets/unifi_log4shell/native_oracle.py
 - test/module_targets/unifi_log4shell/native_probe.py
 - test/module_targets/unifi_log4shell/vendor.json
+- lib/msf/ui/console/module_command_dispatcher.rb
+- lib/msf/base/simple/exploit.rb
