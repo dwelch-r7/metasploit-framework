@@ -336,14 +336,16 @@ class FrameworkEventSubscriber
   #
   def module_event(name, instance, opts={})
     if framework.db.active
+      info = {
+        :module_name => instance.fullname,
+        :module_uuid => instance.uuid
+      }
+      info[:run_uuid] = instance.run_uuid if instance.run_uuid
       event = {
         :workspace => framework.db.find_workspace(instance.workspace),
         :name      => name,
         :username  => instance.owner,
-        :info => {
-          :module_name => instance.fullname,
-          :module_uuid => instance.uuid
-        }.merge(opts)
+        :info => info.merge(opts)
       }
 
       report_event(event)
