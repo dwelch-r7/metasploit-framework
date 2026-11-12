@@ -1,0 +1,9 @@
+minions:
+- module-target-minion-a
+- module-target-minion-b
+minions_denied:
+- collection-denied
+minions_pre:
+- collection-pending
+minions_rejected:
+- collection-rejected

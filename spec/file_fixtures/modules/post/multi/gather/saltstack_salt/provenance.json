@@ -1,0 +1,90 @@
+{
+  "source_sha256": "c820f277d0db00b19e31a88bf7862e1cd13d52257ea582d9a5747e24329e1282",
+  "source_run": "20261112T095009-227646",
+  "seal_manifest_sha256": "a325034d2a9cb4afacec4ee5386256cc1475a5d927dc45942ba9bcd09db83560",
+  "files": {
+    "keys.yml": {
+      "argv": [
+        "salt-key",
+        "-L",
+        "--output=yaml"
+      ],
+      "original_stdout_sha256": "6af6efe9768fe61361ffd6e02bd4aba86c5373389943fe1b139d4bebf59552c5",
+      "fixture_sha256": "6af6efe9768fe61361ffd6e02bd4aba86c5373389943fe1b139d4bebf59552c5",
+      "transformations": [
+        "Container hostname replaced with captured-salt-host",
+        "Target address172.26.0.4 replaced with192.0.2.20; other shape/bytes retained"
+      ]
+    },
+    "hostname.yml": {
+      "argv": [
+        "salt",
+        "*",
+        "--output=yaml",
+        "network.get_hostname"
+      ],
+      "original_stdout_sha256": "c2d0909c1d2538b4dc8cc693143cf6cc0619d8017ec8932873b38ff89444404a",
+      "fixture_sha256": "6afd7f504d834182796040d3dc49aed05b4b17cb396c61560903c61dea5c2447",
+      "transformations": [
+        "Container hostname replaced with captured-salt-host",
+        "Target address172.26.0.4 replaced with192.0.2.20; other shape/bytes retained"
+      ]
+    },
+    "interfaces.yml": {
+      "argv": [
+        "salt",
+        "*",
+        "--output=yaml",
+        "network.interfaces"
+      ],
+      "original_stdout_sha256": "e46853d37b22f8d5afc9478891f8614ad8b99200a56a9c2e3e54a461a88d985e",
+      "fixture_sha256": "d0825f7b59a3aa108ca646adf18bf73fb6730034f4fa103715bf41defa90e9e7",
+      "transformations": [
+        "Container hostname replaced with captured-salt-host",
+        "Target address172.26.0.4 replaced with192.0.2.20; other shape/bytes retained"
+      ]
+    },
+    "os-version.yml": {
+      "argv": [
+        "salt",
+        "*",
+        "--output=yaml",
+        "status.version"
+      ],
+      "original_stdout_sha256": "c450ea76aab2481d766328a5870ac30bf3cae0db5786267d26d31c6c59c390eb",
+      "fixture_sha256": "c450ea76aab2481d766328a5870ac30bf3cae0db5786267d26d31c6c59c390eb",
+      "transformations": [
+        "Container hostname replaced with captured-salt-host",
+        "Target address172.26.0.4 replaced with192.0.2.20; other shape/bytes retained"
+      ]
+    },
+    "pillars.yml": {
+      "argv": [
+        "salt",
+        "*",
+        "--output=yaml",
+        "pillar.items"
+      ],
+      "original_stdout_sha256": "24ee482334c0aacf2abb07f0e5c0ef8e264c55fe459e41863ece0f108d44bcf2",
+      "fixture_sha256": "24ee482334c0aacf2abb07f0e5c0ef8e264c55fe459e41863ece0f108d44bcf2",
+      "transformations": [
+        "Container hostname replaced with captured-salt-host",
+        "Target address172.26.0.4 replaced with192.0.2.20; other shape/bytes retained"
+      ]
+    },
+    "roster.yml": {
+      "projection": "native-before.cluster.inputs.roster serialized as JSON (valid YAML)",
+      "fixture_sha256": "6a936acbd8ff904c3c2b85cf7f07f284e7037496c4a0f9b0276d30a82f5dd126",
+      "note": "Only disposable fixture accounts/passphrases; no target key material copied"
+    },
+    "public-test-key.pem": {
+      "source": "spec/lib/rex/proto/x509/request_spec.rb pkcs12_key; existing public test key, not target material"
+    },
+    "encrypted-test-key.pem": {
+      "source": "Existing public-test-key.pem encrypted once locally using OpenSSL AES-128-CBC and disposable fixture passphrase; no captured target private key",
+      "fixture_sha256": "f4fa1f138f09850eb15ca8890007e637ba9a8dd206137cc762db77e5f8e939c3",
+      "prep_host_handle": 4536,
+      "prep_actual_exit": 0
+    }
+  }
+}

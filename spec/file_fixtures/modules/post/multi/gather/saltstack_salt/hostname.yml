@@ -1,0 +1,2 @@
+module-target-minion-a: captured-salt-host
+module-target-minion-b: captured-salt-host

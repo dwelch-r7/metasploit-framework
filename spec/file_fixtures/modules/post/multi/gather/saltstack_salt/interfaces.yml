@@ -1,0 +1,74 @@
+module-target-minion-a:
+  erspan0:
+    hwaddr: 00:00:00:00:00:00
+    up: false
+  eth0:
+    hwaddr: d6:2e:59:48:5f:a0
+    inet:
+    - address: 192.0.2.20
+      broadcast: 172.26.255.255
+      netmask: 255.255.0.0
+    up: true
+  gre0:
+    up: false
+  gretap0:
+    hwaddr: 00:00:00:00:00:00
+    up: false
+  ip6_vti0:
+    up: false
+  ip6gre0:
+    up: false
+  ip6tnl0:
+    up: false
+  ip_vti0:
+    up: false
+  lo:
+    inet:
+    - address: 127.0.0.1
+      netmask: 255.0.0.0
+    inet6:
+    - address: ::1
+      prefixlen: '128'
+      scope: null
+    up: true
+  sit0:
+    up: false
+  tunl0:
+    up: false
+module-target-minion-b:
+  erspan0:
+    hwaddr: 00:00:00:00:00:00
+    up: false
+  eth0:
+    hwaddr: d6:2e:59:48:5f:a0
+    inet:
+    - address: 192.0.2.20
+      broadcast: 172.26.255.255
+      netmask: 255.255.0.0
+    up: true
+  gre0:
+    up: false
+  gretap0:
+    hwaddr: 00:00:00:00:00:00
+    up: false
+  ip6_vti0:
+    up: false
+  ip6gre0:
+    up: false
+  ip6tnl0:
+    up: false
+  ip_vti0:
+    up: false
+  lo:
+    inet:
+    - address: 127.0.0.1
+      netmask: 255.0.0.0
+    inet6:
+    - address: ::1
+      prefixlen: '128'
+      scope: null
+    up: true
+  sit0:
+    up: false
+  tunl0:
+    up: false

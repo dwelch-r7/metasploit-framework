@@ -1,0 +1,12 @@
+module-target-minion-b:
+  module_target:
+    marker: module-target-pillar-marker
+    nested:
+      enabled: true
+      number: 17
+module-target-minion-a:
+  module_target:
+    marker: module-target-pillar-marker
+    nested:
+      enabled: true
+      number: 17

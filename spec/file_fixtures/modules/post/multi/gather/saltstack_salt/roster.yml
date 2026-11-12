@@ -1,0 +1,24 @@
+{
+  "collection-encrypted": {
+    "host": "192.0.2.13",
+    "priv": "/etc/salt/pki/collection/encrypted.pem",
+    "priv_passwd": "module-target-key-passphrase",
+    "user": "root"
+  },
+  "collection-key": {
+    "host": "192.0.2.11",
+    "priv": "/etc/salt/pki/collection/plain.pem",
+    "user": "root"
+  },
+  "collection-key-reuse": {
+    "host": "192.0.2.12",
+    "priv": "/etc/salt/pki/collection/plain.pem",
+    "user": "root"
+  },
+  "collection-password": {
+    "host": "192.0.2.10",
+    "passwd": "module-target-inventory-password",
+    "port": 2222,
+    "user": "root"
+  }
+}

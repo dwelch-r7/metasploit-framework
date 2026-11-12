@@ -1,0 +1,6 @@
+module-target-minion-b: 'Linux version 7.0.14-linuxkit (root@buildkitsandbox) (gcc
+  (Alpine 15.2.0) 15.2.0, GNU ld (GNU Binutils) 2.45.1) #1 SMP PREEMPT_DYNAMIC Fri
+  Oct 30 13:52:58 UTC 2026'
+module-target-minion-a: 'Linux version 7.0.14-linuxkit (root@buildkitsandbox) (gcc
+  (Alpine 15.2.0) 15.2.0, GNU ld (GNU Binutils) 2.45.1) #1 SMP PREEMPT_DYNAMIC Fri
+  Oct 30 13:52:58 UTC 2026'

