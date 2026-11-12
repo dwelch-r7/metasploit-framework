@@ -1,11 +1,11 @@
 # Container module acceptance tests
 
-Latest: the [ownCloud input regression](VERIFICATION-20261112-owncloud-hostname.md)
-reaches **205 qualified modules, 172 profiles and 1,886 functional examples**.
-The added case verifies vendor normalization of a hostname-only database input,
-real application connectivity, two collections and credential deduplication.
-Independent cleanup confirms an empty container inventory. The earlier
-[affected/fixed checkpoint](VERIFICATION-20261111-owncloud.md) remains current.
+Latest: the [4gaBoards checkpoint](VERIFICATION-20261112-4gaboards.md) reaches
+**206 qualified modules, 176 profiles and 1,914 functional examples**. Its four
+serial profiles pass 28 cases, including a fix for false CVE records on the
+patched release. Complete JSON loot, real reporting records and account cleanup
+are independently checked. Container inventory is empty after teardown. The
+[ownCloud input regression](VERIFICATION-20261112-owncloud-hostname.md) remains current.
 
 These labs exercise real target software through Framework's public module entry
 points. They complement isolated module specs and the existing protocol session
