@@ -1,0 +1,36 @@
+services:
+  target:
+    image: msf-module-target-pretalx-2.3.1:fixture
+    platform: linux/amd64
+    build: {context: .}
+    init: true
+    cpus: 0.7
+    mem_limit: 512m
+    memswap_limit: 512m
+    pids_limit: 128
+    environment: {PYTHONUNBUFFERED: '1'}
+    tmpfs:
+      - /data:rw,size=128m,mode=0777
+      - /etc/pretalx:rw,size=1m,mode=0755
+      - /tmp:rw,size=32m,mode=1777
+    ports: ["127.0.0.1::8000"]
+    depends_on:
+      broker: {condition: service_healthy}
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; assert urllib.request.urlopen(urllib.request.Request('http://127.0.0.1:8000/orga/login/', headers={'Host': 'target:8000'})).status == 200"]
+      interval: 2s
+      timeout: 4s
+      retries: 60
+  broker:
+    image: redis:6.2.14@sha256:90a6e70bbef8b9ca4aa4108bf2e24040bd68aa5c669a8bd568766c962a911f3d
+    cpus: 0.1
+    mem_limit: 32m
+    memswap_limit: 32m
+    pids_limit: 32
+    command: [redis-server, --save, '', --appendonly, 'no', --maxmemory, 16mb, --maxmemory-policy, noeviction]
+    tmpfs: ["/data:rw,size=4m,mode=0777"]
+    healthcheck:
+      test: [CMD, redis-cli, ping]
+      interval: 2s
+      timeout: 2s
+      retries: 30

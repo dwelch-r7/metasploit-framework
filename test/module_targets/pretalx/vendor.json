@@ -1,0 +1,30 @@
+{
+  "2.3.1": {
+    "image": "pretalx/standalone@sha256:ad44382132798d83402755d9ffad9b2f24c3d2bdddc40ed6f28cdfb3ebc14f1c",
+    "commit": "01bfe30e2185215f3f89626efe6d305afc1e1396",
+    "source_sha256": {
+      "__init__.py": "9de67178c9847e385564ceb17ad46292b05d1d6b794f97a12fbd9961d3ed27e1",
+      "settings.py": "5c263325b9fe4ebd6e324b564342b617be227a88b5606a19be27173377b0964b",
+      "agenda/management/commands/export_schedule_html.py": "01b9ad3d465a2a4d264ce2eb0a709cebb86f5caab776a9ea66b91121ba79b550",
+      "agenda/tasks.py": "1af1d68155f08d781cdfda5bb2e51b32ce410238530495a1de938afbee03fded",
+      "orga/views/schedule.py": "a22018134c5307688f82348354cc9973752571b450d30e7a8900a35c050848fb",
+      "common/templatetags/rich_text.py": "c02bd790088e285f77f375d43fa75d275de26efcb255be7b1827d80e76cba29d",
+      "cfp/flow.py": "5e00adec54774fe768805d4783291fae0ea0eb24b3a6cd1c452c6439a7b556d8",
+      "orga/views/submission.py": "1dcb32f9164c95aef015303a2bbe020f7856abb749c17d43ab05a31cdafe2341"
+    }
+  },
+  "2.3.2": {
+    "image": "pretalx/standalone@sha256:bedafcb43859e7cccd9191aba6e80910327a1856fe6a0e4685d35f7b097d6d16",
+    "commit": "44f4b4fb1531af24f9504a804028970193fa57c9",
+    "source_sha256": {
+      "__init__.py": "2780919e9477bfbd8518e329f20a92b9afd7599a407d7baa8155a240507e8136",
+      "settings.py": "5c263325b9fe4ebd6e324b564342b617be227a88b5606a19be27173377b0964b",
+      "agenda/management/commands/export_schedule_html.py": "d3d2203cb4d725a84135ab71151c69f6c2036f0efb7c8cc92045999f878786ee",
+      "agenda/tasks.py": "1af1d68155f08d781cdfda5bb2e51b32ce410238530495a1de938afbee03fded",
+      "orga/views/schedule.py": "a22018134c5307688f82348354cc9973752571b450d30e7a8900a35c050848fb",
+      "common/templatetags/rich_text.py": "c02bd790088e285f77f375d43fa75d275de26efcb255be7b1827d80e76cba29d",
+      "cfp/flow.py": "5e00adec54774fe768805d4783291fae0ea0eb24b3a6cd1c452c6439a7b556d8",
+      "orga/views/submission.py": "1dcb32f9164c95aef015303a2bbe020f7856abb749c17d43ab05a31cdafe2341"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+---
+spec: spec/modules/auxiliary/scanner/http/pretalx_file_read_target_spec.rb
+expected_examples: 8
+console: true
+modules:
+- auxiliary/scanner/http/pretalx_file_read_cve_2023_28459
+test_env:
+  PRETALX_VERSION: 2.3.1
+ports:
+  target: 8000
+support_files:
+- documentation/modules/auxiliary/scanner/http/pretalx_file_read_cve_2023_28459.md
+- lib/msf/core/exploit/remote/http/pretalx.rb
+- lib/msf/core/exploit/remote/http/pretalx/error.rb
+- lib/msf/core/exploit/remote/auto_check.rb
+- lib/msf/core/exploit/remote/http_client.rb
+- test/module_targets/gopher/compose.yaml
+- test/module_targets/pretalx/Dockerfile
+- test/module_targets/pretalx/README.md
+- test/module_targets/pretalx/bootstrap.py
+- test/module_targets/pretalx/compose.yaml
+- test/module_targets/pretalx/native.py
+- test/module_targets/pretalx/pretalx.cfg
+- test/module_targets/pretalx/start.sh
+- test/module_targets/pretalx/vendor.json
