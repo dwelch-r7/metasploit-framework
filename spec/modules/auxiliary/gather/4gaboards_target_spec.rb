@@ -55,7 +55,7 @@ RSpec.describe 'Genuine 4gaBoards user information collection', acceptance: true
     end
 
     it 'accepts the administrator email for account cleanup' do
-      boards_harvest(@email, 'ADMIN_USERNAME' => 'administrator@module-target.invalid')
+      boards_harvest(@email, { 'ADMIN_USERNAME' => 'administrator@module-target.invalid' })
     end
 
     {
