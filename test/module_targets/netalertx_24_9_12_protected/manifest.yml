@@ -23,3 +23,6 @@ support_files:
 - test/module_targets/netalertx_file_read/start-web.sh
 - test/module_targets/netalertx_file_read/vendor.json
 - test/module_targets/netalertx_file_read/README.md
+- lib/msf/core/auxiliary/scanner.rb
+- lib/msf/core/auxiliary/multiple_target_hosts.rb
+- lib/msf/base/simple/auxiliary.rb
