@@ -24,3 +24,8 @@ support_files:
 - test/module_targets/4gaboards/init-application.sql
 - test/module_targets/4gaboards/native_probe.py
 - test/module_targets/4gaboards/profiles.json
+- spec/modules/auxiliary/gather/4gaboards_disclosure_reporting_spec.rb
+- spec/file_fixtures/modules/auxiliary/4gaboards_disclosure/README.md
+- spec/file_fixtures/modules/auxiliary/4gaboards_disclosure/native-3.3.8-reader-users.json
+- spec/file_fixtures/modules/auxiliary/4gaboards_disclosure/native-3.3.9-reader-users.json
+- spec/file_fixtures/modules/auxiliary/4gaboards_disclosure/provenance.json
