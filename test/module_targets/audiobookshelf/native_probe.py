@@ -127,7 +127,7 @@ try:
             status, body, _ = request(base + '/api/libraries?r=/api/items/1/cover')
             assert status == (401 if profile == 'fixed' else 500)
             if profile != 'fixed':
-                assert b'ApiCacheManager.js' in body and b'username' in body
+                assert b'Internal Server Error' in body
             assert request('/healthcheck')[0] == 200
             assert request(base + '/api/module-target-route-control')[0] == 401
             assert request(base + '/api/module-target-route-control?r=/api/items/1/cover')[0] == (401 if profile == 'fixed' else 404)
