@@ -72,6 +72,9 @@ provides pinned affected/fixed, registration-disabled and unrelated targets. It
 checks native API behavior, real loot/reporting records and account cleanup.
 Consult its verification report for actual qualification and unresolved failures.
 
+Fixed targets may still return public user profiles, which the module saves as
+loot. CVE reporting requires another user's recognized private profile data.
+
 ## Options
 
 - **TARGETURI**(`/`): Base path to 4gaBoards installation
