@@ -1,6 +1,13 @@
 # Container module acceptance tests
 
-Latest: the [Strapi password-reset checkpoint](VERIFICATION-20261112-strapi.md)
+Latest: the [Spring Cloud Config checkpoint](VERIFICATION-20261112-springcloud.md)
+reaches **222 qualified modules, 230 profiles and 2,284 functional examples**.
+Forty-two cases and 84 public calls verify 24 exact loot files across affected,
+fixed and unexposed configurations. The module now requests the correct resource
+endpoint and preserves root-level, Unicode, binary and empty files. Two capped
+containers run serially; final cleanup audits pass and Docker is empty.
+
+The [Strapi password-reset checkpoint](VERIFICATION-20261112-strapi.md)
 reaches **221 qualified modules, 224 profiles and 2,242 functional examples**.
 Twelve cases and 24 public calls verify genuine affected/fixed releases, exact
 password changes, credential persistence and token-related refusals. Credential
