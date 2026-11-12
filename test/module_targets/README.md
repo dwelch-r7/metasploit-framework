@@ -9,6 +9,9 @@ from passive vulnerability records. Container inventory is empty after teardown.
 The [Audiobookshelf](VERIFICATION-20261112-audiobookshelf.md),
 [4gaBoards](VERIFICATION-20261112-4gaboards.md) and
 [ownCloud](VERIFICATION-20261112-owncloud-hostname.md) checkpoints remain current.
+The [unit-fixture thread cleanup](VERIFICATION-20261112-thread-cleanup.md)
+reproduces and fixes a CI monitor leak; its explicit acceptance dependency
+review preserves the same functional totals without claiming new target runs.
 
 These labs exercise real target software through Framework's public module entry
 points. They complement isolated module specs and the existing protocol session
