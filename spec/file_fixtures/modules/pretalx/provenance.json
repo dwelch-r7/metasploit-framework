@@ -1,5 +1,5 @@
 {
-  "origin": "Real Pretalx2.3.1 DEBUG=False target captures from20261112T183857-f93102 and one fresh target-only native followup, obtained by the parent. No child target runtime.",
+  "origin": "Real Pretalx target captures from the baseline and named follow-up runs; per-file entries record version/run context. No child target runtime.",
   "files": [
     {
       "fixture": "orga_production_footer.html",
@@ -32,6 +32,13 @@
       "source_sha256": "4961bd599ff4919a627e54e0fa6f957a5e51a3cbe8a8d999ac636808ef36f474",
       "projection": "complete unchanged exported missing-file HTTP404 body",
       "fixture_sha256": "4961bd599ff4919a627e54e0fa6f957a5e51a3cbe8a8d999ac636808ef36f474"
+    },
+    {
+      "fixture": "patched_space_fallback.html",
+      "source": "tmp/module-target-tests/20261112T185326-d8fcaf/pretalx_2_3_2/msf-config/loot/20261112190123_pretalx_1_5_172.26.0.5_pretalx.datapr_383681.txt",
+      "source_sha256": "88f96dcf074799e90517b9ad2088f2342922991df2e7e1f8e2f97e9d2c03ab43",
+      "projection": "complete unchanged false-loot body from genuine patched2.3.2 public space-path case1_5 in follow-up replay20261112T185326-d8fcaf",
+      "fixture_sha256": "88f96dcf074799e90517b9ad2088f2342922991df2e7e1f8e2f97e9d2c03ab43"
     }
   ],
   "compatibility_cases": "Numeric linked/plain footers in pretalx_spec.rb are explicit projections of official orga/base.html branches, not native DEBUG=True captures."

