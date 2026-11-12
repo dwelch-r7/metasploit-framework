@@ -1,0 +1,86 @@
+{
+  "2.1.8.RELEASE": {
+    "image_digest": "sha256:6475d9a2fdf9901a3b465065ff47e2de78a3736f054ca3274edfba326d319545",
+    "layer": {
+      "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+      "size": 44686995,
+      "digest": "sha256:fa643a4a2664327468a97030cf9858437785337fc1283dd2bb5170fa53612aa6"
+    },
+    "jar_path": "opt/spring-cloud-config-server/spring-cloud-config-server.jar",
+    "jar_sha256": "0a407339619cc4841412582727875c5be07e33991e6d3c1dfe85bb601c053592",
+    "jar_size": 48068260,
+    "config_libraries": {
+      "BOOT-INF/lib/spring-cloud-config-server-2.1.8.RELEASE.jar": "d21459546acf30c408b0a9d9e2a01ff8f42378d9c9a8e09d29f514665be4f717",
+      "BOOT-INF/lib/spring-cloud-config-client-2.1.8.RELEASE.jar": "cd93cf2cee0937b79bafeb12e50edeaffc250819df957bd987668e06642b88e5"
+    },
+    "image": "hyness/spring-cloud-config-server",
+    "official_sources": {
+      "BOOT-INF/lib/spring-cloud-config-server-2.1.8.RELEASE.jar": "https://repo.maven.apache.org/maven2/org/springframework/cloud/spring-cloud-config-server/2.1.8.RELEASE/spring-cloud-config-server-2.1.8.RELEASE.jar",
+      "BOOT-INF/lib/spring-cloud-config-client-2.1.8.RELEASE.jar": "https://repo.maven.apache.org/maven2/org/springframework/cloud/spring-cloud-config-client/2.1.8.RELEASE/spring-cloud-config-client-2.1.8.RELEASE.jar"
+    },
+    "source_tag": "https://github.com/spring-cloud/spring-cloud-config/tree/v2.1.8.RELEASE"
+  },
+  "2.1.9.RELEASE": {
+    "image_digest": "sha256:efeeb2939f6c18edd0c407b967735b65f2ebc14430f6c988bacd63f91862f838",
+    "layer": {
+      "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+      "size": 44680550,
+      "digest": "sha256:dc863e9ca27a93941c8c88375ad1151b401d90af490783a08505263728649612"
+    },
+    "jar_path": "opt/spring-cloud-config-server/spring-cloud-config-server.jar",
+    "jar_sha256": "673960c403e50247ce2032b6f7202be6d4a6e959fedd1a7b6126dc8d615f2d14",
+    "jar_size": 48069433,
+    "config_libraries": {
+      "BOOT-INF/lib/spring-cloud-config-server-2.1.9.RELEASE.jar": "d3ccbed93d4aa20fd168665d6c95eb79f6f7e7fc4faa0603c56ec0d76d38dd6c",
+      "BOOT-INF/lib/spring-cloud-config-client-2.1.9.RELEASE.jar": "59670da816c03c9ee4f125448be09d3363908192e616742fb154ff882b390f8a"
+    },
+    "image": "hyness/spring-cloud-config-server",
+    "official_sources": {
+      "BOOT-INF/lib/spring-cloud-config-server-2.1.9.RELEASE.jar": "https://repo.maven.apache.org/maven2/org/springframework/cloud/spring-cloud-config-server/2.1.9.RELEASE/spring-cloud-config-server-2.1.9.RELEASE.jar",
+      "BOOT-INF/lib/spring-cloud-config-client-2.1.9.RELEASE.jar": "https://repo.maven.apache.org/maven2/org/springframework/cloud/spring-cloud-config-client/2.1.9.RELEASE/spring-cloud-config-client-2.1.9.RELEASE.jar"
+    },
+    "source_tag": "https://github.com/spring-cloud/spring-cloud-config/tree/v2.1.9.RELEASE"
+  },
+  "2.2.2.RELEASE": {
+    "image_digest": "sha256:d45a7cc17ee645aaa1fad87f9765d91c275a8bf1809eb2dab66aa830e54b5d3a",
+    "layer": {
+      "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+      "size": 79060748,
+      "digest": "sha256:eb12ff626f3cb951bdc7cf96a5f13d10bbe41a67382e8482a82dae34cbf6c1cc"
+    },
+    "jar_path": "opt/spring-cloud-config-server/target/spring-cloud-config-server.jar",
+    "jar_sha256": "004af2374555b35efdf932cacb843911547f834f9f5c24e14f1cdd6b350e9630",
+    "jar_size": 30448324,
+    "config_libraries": {
+      "BOOT-INF/lib/spring-cloud-config-server-2.2.2.RELEASE.jar": "db3bac02669b8bff7e43e44630bc5e50331f450a9fb1531511aa0fbacb79544f",
+      "BOOT-INF/lib/spring-cloud-config-client-2.2.2.RELEASE.jar": "1b014b3657551254c7e50da9d125796548a549ef321efc6de0ea1b7174b40485"
+    },
+    "image": "hyness/spring-cloud-config-server",
+    "official_sources": {
+      "BOOT-INF/lib/spring-cloud-config-server-2.2.2.RELEASE.jar": "https://repo.maven.apache.org/maven2/org/springframework/cloud/spring-cloud-config-server/2.2.2.RELEASE/spring-cloud-config-server-2.2.2.RELEASE.jar",
+      "BOOT-INF/lib/spring-cloud-config-client-2.2.2.RELEASE.jar": "https://repo.maven.apache.org/maven2/org/springframework/cloud/spring-cloud-config-client/2.2.2.RELEASE/spring-cloud-config-client-2.2.2.RELEASE.jar"
+    },
+    "source_tag": "https://github.com/spring-cloud/spring-cloud-config/tree/v2.2.2.RELEASE"
+  },
+  "2.2.3.RELEASE": {
+    "image_digest": "sha256:da215c44a3f5e3f6ad320c72d30c14725c8ed7c3a114d9cbac7c4d153a8f0bdd",
+    "layer": {
+      "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+      "size": 45414623,
+      "digest": "sha256:d54d103435667606cef80f667dd4f4a9926a6162541c114e4d871cde819b34a6"
+    },
+    "jar_path": "opt/spring-cloud-config-server/spring-cloud-config-server.jar",
+    "jar_sha256": "f4f5211753939833b7b58346b6b1a1452b10cbd7192d65a65923c77cb4d79ce4",
+    "jar_size": 51014843,
+    "config_libraries": {
+      "BOOT-INF/lib/spring-cloud-config-server-2.2.3.RELEASE.jar": "a49f52f2d6268521bb1befc2865174d53e41e679b4d62b31835f812435a70254",
+      "BOOT-INF/lib/spring-cloud-config-client-2.2.3.RELEASE.jar": "29d0b0c307b9e082679ece3747b37afb37c31c8af4fadbb0c091a4eaa816f812"
+    },
+    "image": "hyness/spring-cloud-config-server",
+    "official_sources": {
+      "BOOT-INF/lib/spring-cloud-config-server-2.2.3.RELEASE.jar": "https://repo.maven.apache.org/maven2/org/springframework/cloud/spring-cloud-config-server/2.2.3.RELEASE/spring-cloud-config-server-2.2.3.RELEASE.jar",
+      "BOOT-INF/lib/spring-cloud-config-client-2.2.3.RELEASE.jar": "https://repo.maven.apache.org/maven2/org/springframework/cloud/spring-cloud-config-client/2.2.3.RELEASE/spring-cloud-config-client-2.2.3.RELEASE.jar"
+    },
+    "source_tag": "https://github.com/spring-cloud/spring-cloud-config/tree/v2.2.3.RELEASE"
+  }
+}

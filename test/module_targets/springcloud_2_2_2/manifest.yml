@@ -1,0 +1,26 @@
+---
+spec: spec/modules/auxiliary/scanner/http/springcloud_directory_traversal_target_spec.rb
+expected_examples: 6
+console: true
+modules:
+- auxiliary/scanner/http/springcloud_directory_traversal
+test_env:
+  SPRINGCLOUD_VERSION: 2.2.2.RELEASE
+ports:
+  target: 8888
+support_files:
+- documentation/modules/auxiliary/scanner/http/springcloud_directory_traversal.md
+- lib/msf/core/auxiliary/report.rb
+- lib/msf/core/auxiliary/scanner.rb
+- lib/msf/core/exploit/remote/http_client.rb
+- test/module_targets/springcloud_config/README.md
+- test/module_targets/springcloud_config/compose.yaml
+- test/module_targets/springcloud_config/fixture/proof/empty.txt
+- test/module_targets/springcloud_config/fixture/proof/plain.txt
+- test/module_targets/springcloud_config/fixture/proof/secret.properties
+- test/module_targets/springcloud_config/fixture/proof/sp ace-Ω.txt
+- test/module_targets/springcloud_config/fixture/repository/application.properties
+- test/module_targets/springcloud_config/prepare.rb
+- test/module_targets/springcloud_config/run.rb
+- test/module_targets/springcloud_config/start.sh
+- test/module_targets/springcloud_config/vendor.json
