@@ -1,0 +1,30 @@
+services:
+  target:
+    build:
+      context: ..
+      dockerfile: log4shell_execution/Dockerfile
+    image: msf-module-target-log4shell-execution:fixture
+    platform: linux/amd64
+    init: true
+    cpus: 0.3
+    mem_limit: 256m
+    memswap_limit: 256m
+    pids_limit: 96
+    environment:
+      LOG4J_VERSION: 2.14.1
+      LOG4J_MODE: log4j
+      LOG4J_TRUST_CODEBASE: 'true'
+      MSF_MODULE_TARGET_LEAK: module-target-environment
+    ports: ["127.0.0.1::8080"]
+    tmpfs: ["/tmp:rw,size=16m,mode=1777"]
+    healthcheck:
+      test: [CMD, /bin/sh, /opt/module-target/entrypoint.sh, health]
+      interval: 3s
+      timeout: 5s
+      retries: 30
+  reporting_db:
+    extends: {file: ../gopher/compose.yaml, service: reporting_db}
+  framework:
+    extends: {file: ../gopher/compose.yaml, service: framework}
+    mem_limit: 640m
+    memswap_limit: 640m

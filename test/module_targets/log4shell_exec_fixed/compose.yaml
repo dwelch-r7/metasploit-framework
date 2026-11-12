@@ -1,0 +1,17 @@
+---
+services:
+  target:
+    extends:
+      file: "../log4shell_execution/compose.yaml"
+      service: target
+    environment:
+      LOG4J_VERSION: 2.17.1
+      LOG4J_TRUST_CODEBASE: 'true'
+  framework:
+    extends:
+      file: "../log4shell_execution/compose.yaml"
+      service: framework
+  reporting_db:
+    extends:
+      file: "../log4shell_execution/compose.yaml"
+      service: reporting_db

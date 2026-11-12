@@ -1,0 +1,34 @@
+{
+  "artifacts": [
+    {
+      "artifact": "commons-beanutils",
+      "version": "1.9.2",
+      "file": "commons-beanutils-1.9.2.jar",
+      "url": "https://repo.maven.apache.org/maven2/commons-beanutils/commons-beanutils/1.9.2/commons-beanutils-1.9.2.jar",
+      "publisher_checksum_url": "https://repo.maven.apache.org/maven2/commons-beanutils/commons-beanutils/1.9.2/commons-beanutils-1.9.2.jar.sha1",
+      "publisher_sha1": "7a87d845ad3a155297e8f67d9008f4c1e5656b71",
+      "sha256": "23729e3a2677ed5fb164ec999ba3fcdde3f8460e5ed086b6a43d8b5d46998d42",
+      "bytes": 233859
+    },
+    {
+      "artifact": "commons-collections",
+      "version": "3.1",
+      "file": "commons-collections-3.1.jar",
+      "url": "https://repo.maven.apache.org/maven2/commons-collections/commons-collections/3.1/commons-collections-3.1.jar",
+      "publisher_checksum_url": "https://repo.maven.apache.org/maven2/commons-collections/commons-collections/3.1/commons-collections-3.1.jar.sha1",
+      "publisher_sha1": "40fb048097caeacdb11dbb33b5755854d89efdeb",
+      "sha256": "c1547d185ba6880bcc2da261c5f7533512b6ffdbbc1898db5b793c0cb830fcf0",
+      "bytes": 559366
+    },
+    {
+      "artifact": "commons-logging",
+      "version": "1.2",
+      "file": "commons-logging-1.2.jar",
+      "url": "https://repo.maven.apache.org/maven2/commons-logging/commons-logging/1.2/commons-logging-1.2.jar",
+      "publisher_checksum_url": "https://repo.maven.apache.org/maven2/commons-logging/commons-logging/1.2/commons-logging-1.2.jar.sha1",
+      "publisher_sha1": "4bfc12adfe4842bf07b657f0369c4cb522955686",
+      "sha256": "daddea1ea0be0f56978ab3006b8ac92834afeefbd9b7e4e6316fca57df0fa636",
+      "bytes": 61829
+    }
+  ]
+}

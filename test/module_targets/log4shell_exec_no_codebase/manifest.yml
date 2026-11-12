@@ -1,0 +1,63 @@
+---
+spec: spec/modules/exploits/multi/http/log4shell_execution_target_spec.rb
+expected_examples: 9
+console: true
+modules:
+- exploit/multi/http/log4shell_header_injection
+test_env:
+  LOG4SHELL_VERSION: 2.14.1
+  LOG4SHELL_TRUST_CODEBASE: 'false'
+ports:
+  target: 8080
+support_files:
+- test/module_targets/log4shell_execution/Dockerfile
+- test/module_targets/log4shell_execution/ExecutionBootstrap.java
+- test/module_targets/log4shell_execution/NativeFactory.java
+- test/module_targets/log4shell_execution/NativePayload.java
+- test/module_targets/log4shell_execution/NativeTranslet.java
+- test/module_targets/log4shell_execution/README.md
+- test/module_targets/log4shell_execution/compose.yaml
+- test/module_targets/log4shell_execution/entrypoint.sh
+- test/module_targets/log4shell_execution/native_oracle.py
+- test/module_targets/log4shell_execution/native_probe.py
+- test/module_targets/log4shell_execution/session_control.rb
+- test/module_targets/log4shell_execution/vendor.json
+- test/module_targets/log4shell_http/Dockerfile
+- test/module_targets/log4shell_http/README.md
+- test/module_targets/log4shell_http/Target.java
+- test/module_targets/log4shell_http/compose.yaml
+- test/module_targets/log4shell_http/entrypoint.sh
+- test/module_targets/log4shell_http/fetch_vendor.rb
+- test/module_targets/log4shell_http/log4j2.xml
+- test/module_targets/log4shell_http/native_probe.py
+- test/module_targets/log4shell_http/vendor.json
+- test/module_targets/gopher/compose.yaml
+- lib/msf/core/exploit/remote/log4_shell.rb
+- lib/msf/core/exploit/remote/jndi_injection.rb
+- lib/msf/core/exploit/remote/check_module.rb
+- lib/msf/core/exploit/remote/auto_check.rb
+- lib/msf/core/exploit/remote/ldap/server.rb
+- lib/rex/proto/ldap/server.rb
+- lib/msf/core/exploit/remote/http_client.rb
+- lib/msf/core/auxiliary/scanner.rb
+- lib/msf/core/auxiliary/report.rb
+- lib/msf/core/exploit/java_deserialization.rb
+- lib/msf/util/java_deserialization.rb
+- lib/msf/core/exploit/java.rb
+- lib/msf/core/payload/java.rb
+- lib/msf/base/sessions/command_shell.rb
+- lib/msf/base/sessions/meterpreter.rb
+- lib/msf/core/handler/reverse_tcp.rb
+- lib/rex/proto/http/server.rb
+- lib/rex/service_manager.rb
+- data/ysoserial_payloads.json
+- data/exploits/CVE-2021-44228/metasploit/PayloadFactory.class
+- external/source/exploits/CVE-2021-44228/PayloadFactory.java
+- modules/auxiliary/scanner/http/log4shell_scanner.rb
+- modules/payloads/singles/java/shell_reverse_tcp.rb
+- modules/payloads/stagers/java/reverse_tcp.rb
+- modules/payloads/stages/java/meterpreter.rb
+- modules/payloads/singles/cmd/unix/generic.rb
+- modules/payloads/singles/cmd/unix/reverse_bash.rb
+- documentation/modules/exploit/multi/http/log4shell_header_injection.md
+- spec/support/shared/contexts/wait_for_expect.rb
