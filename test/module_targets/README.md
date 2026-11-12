@@ -1,13 +1,26 @@
 # Container module acceptance tests
 
-Latest: the [Pretalx checkpoint](VERIFICATION-20261112-pretalx.md) reaches
+Latest: the [Strapi password-reset checkpoint](VERIFICATION-20261112-strapi.md)
+reaches **221 qualified modules, 224 profiles and 2,242 functional examples**.
+Twelve cases and 24 public calls verify genuine affected/fixed releases, exact
+password changes, credential persistence and token-related refusals. Credential
+reporting and Unicode request framing are fixed; the intended public check works.
+Four capped containers run serially; all cleanup audits pass and Docker is empty.
+
+The [Pretalx execution checkpoint](VERIFICATION-20261112-pretalx-execution.md)
+reaches **220 qualified modules, 222 profiles and 2,230 functional examples**.
+Sixteen cases verify sessions and exact command output against affected, fixed
+and production targets. Quoted-command encoding is fixed; persistent startup
+hooks require explicit operator restoration, which the tests verify.
+
+The [Pretalx collection checkpoint](VERIFICATION-20261112-pretalx.md) reaches
 **219 qualified modules, 219 profiles and 2,215 functional examples**. Twenty-three
 cases and 50 public calls verify ten exact loot files, affected/fixed production
 and development applications, honest version checks and a companion prerequisite.
 False version/error-page reporting and comparison-path handling are fixed. Four
 capped containers run serially; all final cleanup audits pass and Docker is empty.
-Companion execution remains unqualified; earlier source and setup failures are
-preserved separately.
+Companion execution is covered by the later checkpoint above. Earlier source
+and setup failures are preserved separately.
 
 The [NetAlertX queued execution checkpoint](VERIFICATION-20261112-netalertx-execution.md)
 reaches **218 qualified modules, 214 profiles and 2,192 functional examples**.
