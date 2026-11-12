@@ -137,7 +137,9 @@ module Auxiliary
     run_uuid = Rex::Text.rand_text_alphanumeric(24)
     mod.run_uuid = run_uuid
     job_listener.waiting run_uuid
-    ctx = [mod, run_uuid, job_listener]
+    # Background checks must not share mutable state with the next invocation.
+    check_mod = opts['RunAsJob'] ? mod.replicant : mod
+    ctx = [check_mod, run_uuid, job_listener]
 
     if opts['RunAsJob']
       mod.job_id = mod.framework.jobs.start_bg_job(
@@ -150,6 +152,7 @@ module Auxiliary
         end,
         Proc.new { |ctx_| self.job_cleanup_proc(ctx_) }
       )
+      check_mod.job_id = mod.job_id
 
       [run_uuid, mod.job_id]
     else
