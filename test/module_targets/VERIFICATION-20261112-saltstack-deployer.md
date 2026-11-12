@@ -101,3 +101,29 @@ Its manifest SHA-256 is
 `4a5ba0651085215f806dfb4e414dcebe2abec521700c025fda6e609380cfb2ed`.
 The private snapshot is named
 `saltstack-deployer-longer-bound-diagnostic-20261112`.
+
+## Resource-invalidated matrix attempt
+
+Run `20261112T124207-e12acc` at
+`a4ba14f42afce269ee5510c073a2b27d134775c7` is **invalid for module
+qualification**. The first profile passed native controls and exact x64 ELF
+calibration, but the master's cgroup recorded 11 OOM events and seven OOM kills
+under its 256 MiB cap. The other four containers recorded no OOM or PID-limit
+events; Framework's observed peak was about 391 MiB.
+
+The agent deliberately interrupted the exact manager after observing those
+counters. Its authoritative exit was 130; the observer controller exited 1 after
+its waiting child was also interrupted. This was a resource-driven stop, not a
+human interruption or a module-error verdict. All five containers and the
+network were removed; ten independent parent absence queries passed.
+
+The read-only snapshot contains 384 files and 111 pinned inputs, all independently
+rehashed. Manifest SHA-256:
+`a5a10a0c8afdb557b7d0ba74b4942035fcada65055e79198676682bf64742fb6`.
+The private snapshot is named `saltstack-deployer-oom-fixture-20261112`.
+
+The revised lab gives the master 384 MiB and Framework 640 MiB, preserving the
+1,408 MiB/1.7 CPU/480-task aggregate and five-container maximum. Tests require
+zero cgroup OOM and PID-limit events. Final native checks retain daemon/source
+identity and fresh authenticated minion pings; they avoid duplicating the initial
+copy/decode controls after two actual owning deployments.

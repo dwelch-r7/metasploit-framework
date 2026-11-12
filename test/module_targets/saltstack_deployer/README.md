@@ -31,6 +31,10 @@ results, remaining failures and tested limits. The module's current check
 establishes only the availability of a salt-master executable.
 
 The serial launcher removes all five containers and the network on completion.
-Three Salt daemons total 512 MiB/0.5 CPUs; Framework and PostgreSQL bring the
-aggregate to 1,408 MiB/1.7 CPUs, the same limits as the collection lab. All
+Three Salt daemons total 640 MiB/0.5 CPUs; Framework has 640 MiB and PostgreSQL
+has 128 MiB. The aggregate is 1,408 MiB/1.7 CPUs, the same limits as the collection lab. All
 containers have bounded task counts, and runtime state lives in bounded tmpfs.
+
+Cgroup v2 OOM and PID-limit events must remain zero. Native copy/decode controls
+run before the suite; final controls verify daemon/source identity and fresh
+authenticated ping responses after the owning deployments.

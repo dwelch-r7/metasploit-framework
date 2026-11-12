@@ -56,35 +56,40 @@ try:
         execute(service, 'python', '-c', 'from pathlib import Path;import sys;Path(sys.argv[1]).write_text(sys.argv[2])', isolation, role)
     for service, role in services.items():
         assert execute(service, 'cat', isolation) == role
-    script = b'#!/bin/sh\nprintf "SALT_DEPLOY_ROLE=%s\\nSALT_DEPLOY_TOKEN=%s\\nSALT_DEPLOY_UID=" "$MSF_MODULE_TARGET_ROLE" "$MSF_MODULE_TARGET_TOKEN"\nid -u\n'
-    encoded = base64.b64encode(script)
-    cases = []
-    for name, selector in [('all', '*'), ('selected', 'module-target-minion-a')]:
-        identifier = uuid.uuid4().hex
-        upload = '/tmp/module-target-deployer-source-' + identifier
-        executable = '/tmp/module-target-deployer-exe-' + identifier
-        cases.append({'name': name, 'selector': selector, 'source': upload,
-                      'encoded_destination': executable + '.b64', 'executable_destination': executable,
-                      'bytes_base64': base64.b64encode(encoded).decode()})
-        cleanup['master'].append(upload)
-        for service in ['minion_a', 'minion_b']:
-            cleanup[service] += [executable, executable + '.b64']
-    controls = {'cases': cases, 'tokens': {role: value['state']['token'] for role, value in record['identities'].items()}}
-    record['deployment'] = document(execute('master', 'python', '-c', (source / 'control.py').read_text(),
-        stdin=json.dumps(controls).encode(), timeout=420), 'SALT_DEPLOY_NATIVE=')
-    assert record['deployment']['status'] == 'native_deployment_passed'
-    for case in cases:
-        assert execute('master', 'sha256sum', case['source']).split()[0] == hashlib.sha256(encoded).hexdigest()
-        for service, role in services.items():
-            code = 'import hashlib,json,pathlib,sys;print(json.dumps({name:{"sha256":hashlib.sha256(pathlib.Path(name).read_bytes()).hexdigest(),"mode":oct(pathlib.Path(name).stat().st_mode&511)} if pathlib.Path(name).exists() else None for name in sys.argv[1:]}))'
-            files = json.loads(execute(service, 'python', '-c', code, case['encoded_destination'], case['executable_destination']))
-            selected = service != 'master' and (case['selector'] == '*' or role == 'minion-a')
-            if selected:
-                assert files[case['encoded_destination']]['sha256'] == hashlib.sha256(encoded).hexdigest()
-                assert files[case['executable_destination']]['sha256'] == hashlib.sha256(script).hexdigest()
-                assert files[case['executable_destination']]['mode'] == '0o755'
-            else:
-                assert all(value is None for value in files.values())
+    if phase == 'before':
+        script = b'#!/bin/sh\nprintf "SALT_DEPLOY_ROLE=%s\\nSALT_DEPLOY_TOKEN=%s\\nSALT_DEPLOY_UID=" "$MSF_MODULE_TARGET_ROLE" "$MSF_MODULE_TARGET_TOKEN"\nid -u\n'
+        encoded = base64.b64encode(script)
+        cases = []
+        for name, selector in [('all', '*'), ('selected', 'module-target-minion-a')]:
+            identifier = uuid.uuid4().hex
+            upload = '/tmp/module-target-deployer-source-' + identifier
+            executable = '/tmp/module-target-deployer-exe-' + identifier
+            cases.append({'name': name, 'selector': selector, 'source': upload,
+                          'encoded_destination': executable + '.b64', 'executable_destination': executable,
+                          'bytes_base64': base64.b64encode(encoded).decode()})
+            cleanup['master'].append(upload)
+            for service in ['minion_a', 'minion_b']:
+                cleanup[service] += [executable, executable + '.b64']
+        controls = {'cases': cases, 'tokens': {role: value['state']['token'] for role, value in record['identities'].items()}}
+        record['deployment'] = document(execute('master', 'python', '-c', (source / 'control.py').read_text(),
+            stdin=json.dumps(controls).encode(), timeout=420), 'SALT_DEPLOY_NATIVE=')
+        assert record['deployment']['status'] == 'native_deployment_passed'
+        for case in cases:
+            assert execute('master', 'sha256sum', case['source']).split()[0] == hashlib.sha256(encoded).hexdigest()
+            for service, role in services.items():
+                code = 'import hashlib,json,pathlib,sys;print(json.dumps({name:{"sha256":hashlib.sha256(pathlib.Path(name).read_bytes()).hexdigest(),"mode":oct(pathlib.Path(name).stat().st_mode&511)} if pathlib.Path(name).exists() else None for name in sys.argv[1:]}))'
+                files = json.loads(execute(service, 'python', '-c', code, case['encoded_destination'], case['executable_destination']))
+                selected = service != 'master' and (case['selector'] == '*' or role == 'minion-a')
+                if selected:
+                    assert files[case['encoded_destination']]['sha256'] == hashlib.sha256(encoded).hexdigest()
+                    assert files[case['executable_destination']]['sha256'] == hashlib.sha256(script).hexdigest()
+                    assert files[case['executable_destination']]['mode'] == '0o755'
+                else:
+                    assert all(value is None for value in files.values())
+    else:
+        code = "import json,salt.client;print(json.dumps(salt.client.get_local_client('/etc/salt/master').cmd('module-target-minion-*','test.ping',timeout=15)))"
+        record['post_deployment_ping'] = json.loads(execute('master', 'python', '-c', code))
+        assert record['post_deployment_ping'] == {'module-target-minion-a': True, 'module-target-minion-b': True}
     pg = ['psql', '-h', '127.0.0.1', '-U', 'module_framework', '-d', 'module_targets', '-v', 'ON_ERROR_STOP=1', '-Atc']
     record['postgres_version'] = execute('reporting_db', 'env', 'PGPASSWORD=module-target-framework-db-password', *pg, 'SELECT version()').strip()
     assert not execute('reporting_db', 'env', 'PGPASSWORD=module-target-rejected-password', *pg, 'SELECT 1', expected=2)

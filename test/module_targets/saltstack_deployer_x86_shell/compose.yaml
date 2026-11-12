@@ -9,3 +9,5 @@ services:
     extends: {file: ../gopher/compose.yaml, service: reporting_db}
   framework:
     extends: {file: ../gopher/compose.yaml, service: framework}
+    mem_limit: 640m
+    memswap_limit: 640m

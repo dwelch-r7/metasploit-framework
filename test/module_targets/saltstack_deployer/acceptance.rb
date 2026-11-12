@@ -19,6 +19,16 @@ module Acceptance
       Timeout.timeout(seconds) { wait_for_expect(seconds, 1, &block) }
     end
 
+    def dx_resource_health(phase)
+      %w[master minion_a minion_b framework reporting_db].each do |service|
+        memory = target_exec(service, 'cat', '/sys/fs/cgroup/memory.events').lines.to_h { |line| line.split.map(&:strip) }
+        tasks = target_exec(service, 'cat', '/sys/fs/cgroup/pids.events').lines.to_h { |line| line.split.map(&:strip) }
+        sx_record('cgroup-resource-events.jsonl', workspace: @workspace, phase: phase, service: service, memory: memory, tasks: tasks)
+        expect(memory.values_at('oom', 'oom_kill', 'oom_group_kill')).to eq(%w[0 0 0]), "Fixture memory exhaustion in #{service}"
+        expect(tasks.fetch('max')).to eq('0'), "Fixture PID exhaustion in #{service}"
+      end
+    end
+
     def dx_native(phase)
       output = +''
       argv = ['python3', 'test/module_targets/saltstack_deployer/native_probe.py', ENV.fetch('MODULE_TARGET_RUNTIME'), phase]
@@ -165,6 +175,11 @@ module Acceptance
 
     def dx_cleanup
       errors = []
+      begin
+        dx_resource_health('cleanup')
+      rescue StandardError, RSpec::Expectations::ExpectationNotMetError => e
+        errors << e
+      end
       begin
         console_command('sessions -K')
         # Passive HTTP sessions need their live listener to deliver shutdown.
