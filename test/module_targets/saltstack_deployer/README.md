@@ -13,18 +13,22 @@ DOCKER_CONTEXT=default BUILDX_BUILDER=default \
 DOCKER_CONTEXT=default BUILDX_BUILDER=default \
   docker compose -f test/module_targets/saltstack_gather/compose.yaml build target
 DOCKER_CONTEXT=default BUILDX_BUILDER=default \
-  bundle exec ruby tools/dev/run_guarded_module_target_tests.rb saltstack_deployer_3000_1
+  bundle exec ruby tools/dev/run_guarded_module_target_tests.rb saltstack_deployer_3000_1 \
+    saltstack_deployer_x86_meterpreter saltstack_deployer_x64_shell \
+    saltstack_deployer_x86_shell
 ```
 
-The diagnostic tests calibrate native x86/x64 ELF execution with ordinary public
-handlers before invoking the unchanged local module from both declared session
-types. Real session RPC, per-host proof files, process identity and reporting
-database rows establish where callbacks landed. Harness fallback deletion is
+Each profile calibrates its exact native ELF payload with an ordinary public
+handler before invoking the local module from both declared master session types.
+Four profiles cover x86/x64 and shell/Meterpreter output sessions. The second
+owning deployment selects one minion and disables the calculation pause. Real
+session RPC, per-host proof files, process identity and reporting database rows establish where callbacks landed. Harness fallback deletion is
 recorded separately and does not satisfy module cleanup expectations.
 
-Registration is not qualification. This profile is under investigation; no
-successful module outcome is claimed here. The module's current check establishes
-only the availability of a salt-master executable.
+Registration is not qualification. Consult the
+[verification report](../VERIFICATION-20261112-saltstack-deployer.md) for actual
+results, remaining failures and tested limits. The module's current check
+establishes only the availability of a salt-master executable.
 
 The serial launcher removes all five containers and the network on completion.
 Three Salt daemons total 512 MiB/0.5 CPUs; Framework and PostgreSQL bring the

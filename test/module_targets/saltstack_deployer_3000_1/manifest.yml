@@ -1,6 +1,6 @@
 ---
 spec: spec/modules/exploits/saltstack_deployer_target_spec.rb
-expected_examples: 4
+expected_examples: 3
 console: true
 modules:
 - exploit/linux/local/saltstack_salt_minion_deployer
@@ -88,3 +88,9 @@ support_files:
 - lib/msf/util/exe/linux/x64.rb
 - lib/msf/util/exe/linux/x86.rb
 - lib/msf/core/exploit/exe.rb
+- test/module_targets/saltstack_deployer/processes.py
+- spec/modules/exploits/linux/local/saltstack_salt_minion_deployer_spec.rb
+- lib/msf/core/payload.rb
+- lib/msf/core/module.rb
+test_env:
+  SALT_DEPLOY_PAYLOAD: linux/x64/meterpreter/reverse_tcp

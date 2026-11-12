@@ -1,0 +1,11 @@
+services:
+  master:
+    extends: {file: ../saltstack_deployer/compose.yaml, service: master}
+  minion_a:
+    extends: {file: ../saltstack_deployer/compose.yaml, service: minion_a}
+  minion_b:
+    extends: {file: ../saltstack_deployer/compose.yaml, service: minion_b}
+  reporting_db:
+    extends: {file: ../gopher/compose.yaml, service: reporting_db}
+  framework:
+    extends: {file: ../gopher/compose.yaml, service: framework}

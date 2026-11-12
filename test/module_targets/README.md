@@ -8,6 +8,10 @@ process/session/SQL closure. Native controls verify both running minions and
 locked dependencies. Three capped containers run serially; all sixteen
 independent cleanup queries pass and Docker is empty after teardown.
 
+The [Salt minion deployer investigation](VERIFICATION-20261112-saltstack-deployer.md)
+is unqualified. Genuine owning sessions expose a cleanup defect; native controls,
+inconclusive results and harness corrections are recorded separately.
+
 The [Salt master/minion session checkpoint](VERIFICATION-20261112-saltstack-rce.md)
 also remains current: nine cases, eleven owning sessions across all four targets,
 actual SQL identity and passive job-completion checks.
