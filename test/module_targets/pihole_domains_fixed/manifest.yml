@@ -27,3 +27,4 @@ support_files:
 - test/module_targets/pihole_domains/native_probe.py
 - test/module_targets/pihole_domains/acceptance.rb
 - test/module_targets/pihole_domains/README.md
+- spec/modules/auxiliary/admin/http/pihole_domains_api_exec_spec.rb

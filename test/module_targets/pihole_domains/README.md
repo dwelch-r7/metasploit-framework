@@ -28,11 +28,26 @@ environment option. Native setup then configures and fetches a small blocklist
 from the target's own loopback HTTP endpoint. This exercises the normal database
 and gravity pipeline without downloading external blocklists.
 
-The planned serial selectors are `pihole_domains_fixed`,
-`pihole_domains_unrelated`, `pihole_domains_vulnerable` and
-`pihole_domains_noauth`. Functional qualification remains pending until their
-acceptance results and independent teardown have been recorded. Native pilots
-alone do not qualify the module.
+```sh
+bundle exec ruby tools/dev/run_guarded_module_target_tests.rb pihole_domains_fixed pihole_domains_unrelated
+bundle exec ruby tools/dev/run_guarded_module_target_tests.rb pihole_domains_vulnerable pihole_domains_noauth
+```
+
+The paired commands allow one Pi-hole image to remain cached at a time on a
+small Docker disk. Remove each inactive image only after its run and teardown
+have completed. Each invocation starts with a genuine cold console.
+
+Public tests cover checks, command output, repeated execution, actual HTTP
+trace, password-protected and passwordless targets, invalid commands, missing
+paths and refused ports. They compare real Framework reporting rows and retain
+the target configuration before and after each call. The module leaves its
+injected setting in place; one example executes a second, different command
+while retaining the first injected setting. Tests verify those changes and
+restore the configuration natively afterward. This fixture cleanup is separate
+from module behavior.
+
+Registration and native pilots alone do not qualify the module. Consult the
+campaign verification report for actual results and untested limits.
 
 Application profiles budget three containers at **1,152 MiB/1.45 CPUs**:
 target 256 MiB/0.25 CPU/128 tasks, reporting PostgreSQL 128 MiB/0.2 CPU/64 tasks

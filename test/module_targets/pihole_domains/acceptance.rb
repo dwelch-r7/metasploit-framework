@@ -48,7 +48,12 @@ module Acceptance
       target_exec('target', 'cat', '/etc/pihole/setupVars.conf')
     end
 
-    def ph_call(action, options = {})
+    def ph_restore(encoded)
+      target_exec('target', 'php', '-r', "file_put_contents('/etc/pihole/setupVars.conf',base64_decode($argv[1]));", encoded)
+      expect(ph_config).to eq(Base64.strict_decode64(encoded))
+    end
+
+    def ph_call(action, options = {}, cleanup: true)
       before = ph_config if @app
       output = nil
       cleaned = false
@@ -58,14 +63,13 @@ module Acceptance
       ensure
         text = (output || console.all_data).dup.force_encoding(Encoding::UTF_8)
         current = ph_config if @app
-        if @app && current != before
-          target_exec('target', 'php', '-r', "file_put_contents('/etc/pihole/setupVars.conf',base64_decode($argv[1]));", Base64.strict_encode64(before))
+        if @app && current != before && cleanup
+          ph_restore(Base64.strict_encode64(before))
           cleaned = true
-          expect(ph_config).to eq(before)
         end
         @last_call = {
           action: action, options: options, workspace: @workspace, wrapper_returned: !output.nil?, output: text,
-          config_before: before && Base64.strict_encode64(before), config_after: current && Base64.strict_encode64(current), native_cleanup_applied: cleaned
+          config_before: before && Base64.strict_encode64(before), config_after: current && Base64.strict_encode64(current), native_cleanup_requested: cleanup, native_cleanup_applied: cleaned
         }
         File.open(File.join(target_runtime.fetch('artifacts'), 'owning-calls.jsonl'), 'a') { |file| file.puts(JSON.generate(@last_call)) }
       end
@@ -100,8 +104,8 @@ module Acceptance
       ph_expect_reports(vulnerable: @vulnerable)
     end
 
-    def ph_execute(options = {})
-      output = ph_call('run', options)
+    def ph_execute(options = {}, cleanup: true)
+      output = ph_call('run', options, cleanup: cleanup)
       if @vulnerable
         command = options.fetch('COMMAND', 'id')
         expected = @native.fetch('oracles').fetch(command).split.join("\n")
@@ -112,7 +116,7 @@ module Acceptance
           Base64.strict_decode64(encoded).lines.reject { |line| line.start_with?('API_EXCLUDE_DOMAINS=') }
         end
         expect(protected_values.first).to eq(protected_values.last)
-        expect(@last_call.fetch(:native_cleanup_applied)).to be(true)
+        expect(@last_call.fetch(:native_cleanup_applied)).to eq(cleanup)
       else
         expect(output).to include('Target is not vulnerable')
         expect(@last_call.values_at(:config_before, :config_after).uniq.length).to eq(1)

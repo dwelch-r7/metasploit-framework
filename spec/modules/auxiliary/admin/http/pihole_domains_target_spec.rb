@@ -47,19 +47,26 @@ RSpec.describe 'Genuine Pi-hole Top Domains command execution', acceptance: true
       end
     end
 
-    it 'runs id twice and proves both command output and persistent target-side changes' do
-      2.times { ph_execute }
+    it 'runs id then pwd without resetting target configuration between commands' do
+      begin
+        ph_execute({}, cleanup: false)
+        retained = ph_config
+        ph_execute({ 'COMMAND' => 'pwd' })
+        expect(Base64.strict_decode64(@last_call.fetch(:config_before))).to eq(retained)
+      ensure
+        ph_restore(@native.fetch('config_base64'))
+      end
       ph_expect_reports
     end
 
     it 'executes pwd using the independently captured native working directory' do
-      ph_execute('COMMAND' => 'pwd')
+      ph_execute({ 'COMMAND' => 'pwd' })
       ph_expect_reports
     end
 
     it 'checks and runs with actual HTTP trace while preserving the prior check record' do
       prior = ph_positive_check
-      ph_execute('HttpTrace' => true)
+      ph_execute({ 'HttpTrace' => true })
       expect(ph_reports).to eq(prior)
     end
 
@@ -82,7 +89,7 @@ RSpec.describe 'Genuine Pi-hole Top Domains command execution', acceptance: true
   end
 
   it 'rejects an invalid command before changing the target' do
-    expect(ph_call('run', 'COMMAND' => 'id;uname')).to include('COMMAND invalid')
+    expect(ph_call('run', { 'COMMAND' => 'id;uname' })).to include('COMMAND invalid')
     expect(@last_call.values_at(:config_before, :config_after).uniq.length).to eq(1)
     ph_expect_reports
   end
