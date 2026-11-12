@@ -7,6 +7,10 @@ The vulnerability affects:
 
     * v24.7.18 <= NetAlertX <= v24.9.12
 
+The [reusable file-collection lab](../../../../../test/module_targets/netalertx_file_read/README.md)
+provides pinned application versions, configured authentication controls, native
+file-access checks and serial automated tests.
+
 ## Verification Steps
 
 ### Installation

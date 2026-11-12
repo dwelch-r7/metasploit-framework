@@ -1,0 +1,29 @@
+services:
+  target:
+    image: msf-module-target-netalertx-24.9.12:fixture
+    platform: linux/amd64
+    build:
+      context: .
+    init: true
+    cpus: 0.3
+    mem_limit: 192m
+    memswap_limit: 192m
+    pids_limit: 64
+    environment:
+      WEB_PROTECTION: 'true'
+      PORT: '20211'
+      LISTEN_ADDR: 0.0.0.0
+    tmpfs:
+      - /app/config:rw,size=8m,mode=0755
+      - /app/db:rw,size=16m,mode=0755
+      - /app/front/log:rw,size=16m,mode=0755
+      - /app/front/api:rw,size=16m,mode=0755
+      - /tmp:rw,size=16m,mode=1777
+      - /run:rw,size=8m,mode=0755
+      - /var/lib/php83/sessions:rw,size=4m,mode=0770
+    ports: ["127.0.0.1::20211"]
+    healthcheck:
+      test: [CMD-SHELL, 'test -f /tmp/module-target-netalertx-bootstrap.json && curl -fsS -o /dev/null http://127.0.0.1:20211/index.php']
+      interval: 2s
+      timeout: 3s
+      retries: 45

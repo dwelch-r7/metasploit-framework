@@ -1,0 +1,25 @@
+---
+spec: spec/modules/auxiliary/scanner/http/netalertx_file_read_target_spec.rb
+expected_examples: 8
+console: true
+modules:
+- auxiliary/scanner/http/netalertx_file_read
+test_env:
+  NETALERTX_VERSION: 24.10.12
+  NETALERTX_PROTECTED: "false"
+ports:
+  target: 20211
+support_files:
+- documentation/modules/auxiliary/scanner/http/netalertx_file_read.md
+- lib/msf/core/exploit/remote/auto_check.rb
+- lib/msf/core/exploit/remote/http_client.rb
+- lib/msf/ui/console/module_argument_parsing.rb
+- lib/msf/ui/console/module_command_dispatcher.rb
+- test/module_targets/gopher/compose.yaml
+- test/module_targets/netalertx_file_read/Dockerfile
+- test/module_targets/netalertx_file_read/bootstrap.py
+- test/module_targets/netalertx_file_read/compose.yaml
+- test/module_targets/netalertx_file_read/native_probe.py
+- test/module_targets/netalertx_file_read/start-web.sh
+- test/module_targets/netalertx_file_read/vendor.json
+- test/module_targets/netalertx_file_read/README.md
