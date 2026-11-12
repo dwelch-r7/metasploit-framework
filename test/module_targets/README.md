@@ -1,6 +1,14 @@
 # Container module acceptance tests
 
-Latest: the [NetAlertX file collection checkpoint](VERIFICATION-20261112-netalertx-file-read.md)
+Latest: the [NetAlertX queued execution checkpoint](VERIFICATION-20261112-netalertx-execution.md)
+reaches **218 qualified modules, 214 profiles and 2,192 functional examples**.
+Ten cases and 20 public calls verify eleven Bash/Meterpreter sessions, complete
+configuration preservation, read-only checks and actual cron/SQL/process/socket
+closure. Destructive settings/cleanup behavior is fixed. Three capped containers
+run serially on an internal-only network with no published ports; cleanup audits
+pass and Docker is empty. Older protocol variants remain unqualified.
+
+The [NetAlertX file collection checkpoint](VERIFICATION-20261112-netalertx-file-read.md)
 reaches **217 qualified modules, 212 profiles and 2,182 functional examples**.
 Thirty-two cases and 64 public calls cover genuine affected/fixed applications
 with web protection enabled/disabled. Native controls and 32 exact loot files
