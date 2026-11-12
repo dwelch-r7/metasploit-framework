@@ -1,0 +1,24 @@
+---
+services:
+  target:
+    extends:
+      file: "../pretalx/compose.yaml"
+      service: target
+    image: msf-module-target-pretalx-2.3.1:fixture
+    build:
+      args:
+        PRETALX_IMAGE: pretalx/standalone@sha256:ad44382132798d83402755d9ffad9b2f24c3d2bdddc40ed6f28cdfb3ebc14f1c
+  broker:
+    extends:
+      file: "../pretalx/compose.yaml"
+      service: broker
+  framework:
+    extends:
+      file: "../gopher/compose.yaml"
+      service: framework
+    mem_limit: 640m
+    memswap_limit: 640m
+  reporting_db:
+    extends:
+      file: "../gopher/compose.yaml"
+      service: reporting_db
