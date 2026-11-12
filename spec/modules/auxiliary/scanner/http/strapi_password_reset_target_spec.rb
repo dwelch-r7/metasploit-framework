@@ -208,7 +208,7 @@ RSpec.describe 'Genuine Strapi administrator password reset', acceptance: true, 
         expect(credentials.length).to eq(iteration + 1)
         row = credentials.find { |credential| credential.fetch('private_data') == password }
         endpoint = target_runtime.fetch('module_endpoints').fetch('target')
-        expect(row).to include('username' => 'moduleadmin', 'private_type' => 'Metasploit::Credential::Password', 'module_full_name' => owner_fullname, 'host' => endpoint.fetch('host'), 'port' => endpoint.fetch('port'))
+        expect(row).to include('username' => 'moduleadmin', 'private_type' => 'Metasploit::Credential::Password', 'origin_type' => 'Metasploit::Credential::Origin::Service', 'module_full_name' => owner_fullname, 'host' => endpoint.fetch('host'), 'port' => endpoint.fetch('port'), 'proto' => 'tcp', 'service' => 'strapi cms')
         old_password = password
       else
         expect(output).to include('Could not change admin user password')
