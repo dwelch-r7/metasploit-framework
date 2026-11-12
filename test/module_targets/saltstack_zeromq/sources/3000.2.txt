@@ -1,0 +1,1 @@
+https://files.pythonhosted.org/packages/74/b7/c7f1ba7a787307c6013f07d506b062bfa2112a583ad58de5f37110e35895/salt-3000.2.tar.gz --hash=sha256:0e33429d094a6109dfed955c4b1c638baee9641eca2f7609bbc4adad21c620d9

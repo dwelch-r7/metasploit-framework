@@ -1,0 +1,179 @@
+{
+  "python": {
+    "repository": "library/python",
+    "queried_tag": "3.7.17-slim-bullseye",
+    "manifest": "sha256:ea8897698c0955ba96144bd2b7310ef7884ccce4db7a1f97ffc21fb8b89d1673",
+    "config": "sha256:b5b0a67a91504c733095fdc8785063e5732d19237524be91c600d1608f1c7c99",
+    "compressed_bytes": 46211952,
+    "env": [
+      "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "LANG=C.UTF-8",
+      "GPG_KEY=0D96DF4D4110E5C43FBFB17F2D347EA6AA65421D",
+      "PYTHON_VERSION=3.7.17",
+      "PYTHON_PIP_VERSION=23.0.1",
+      "PYTHON_SETUPTOOLS_VERSION=57.5.0",
+      "PYTHON_GET_PIP_URL=https://github.com/pypa/get-pip/raw/9af82b715db434abb94a0a6f3569f43e72157346/public/get-pip.py",
+      "PYTHON_GET_PIP_SHA256=45a2bb8bf2bb5eff16fdd00faef6f29731831c7c59bd9fc2bf1f3bed511ff1fe"
+    ],
+    "entrypoint": null,
+    "command": [
+      "python3"
+    ]
+  },
+  "packages": {
+    "3000.1": {
+      "version": "3000.1",
+      "url": "https://files.pythonhosted.org/packages/b5/7b/e591ad97f038f32298ee6303414767cdd8df811c9daf5b48c37afe9610c3/salt-3000.1.tar.gz",
+      "sha256": "5ad18044b4a47690d09c3ebc842a64d58144d63f40019e867683377dbf337aab",
+      "bytes": 15224161,
+      "vendor_files": {
+        "salt/master.py": "b4df7f7a86bdca008a7a5af528fa1748b08f79761a2c3e1dec45fc99f410d172",
+        "salt/crypt.py": "ca9806b30127813b8fb8d1f590e0b9d062f7df54ab430851f9aff187d23efe02",
+        "salt/version.py": "e921a5384a42aacec7c10c4a4e0f2e7e1275d86092d604673e79c6f9b6ea8cb6",
+        "salt/auth/__init__.py": "2113a5d512cbe5d59db03c149a0e7251577ccbc7f49f59890eaa7f6a5be58bd5",
+        "salt/transport/client.py": "dadb520c6792005c666f4113ad7be65db17c8dd0d0db63479fbb86cfa036cf03",
+        "salt/transport/zeromq.py": "11f0e8f6d27b201b3a0955a18f7980f28ff8b24caa5fa4f7178de9b0798a9c75",
+        "salt/runners/salt.py": "ef7b48b47418b35632c4b31d62a4dba8a79c5989ec15f4aa11d5e17853368f9e",
+        "salt/utils/master.py": "9591a2711a59e660596e853d62b4b522bb3f3a610b6dcd38bc8fb08ece19bb33"
+      }
+    },
+    "3000.2": {
+      "version": "3000.2",
+      "url": "https://files.pythonhosted.org/packages/74/b7/c7f1ba7a787307c6013f07d506b062bfa2112a583ad58de5f37110e35895/salt-3000.2.tar.gz",
+      "sha256": "0e33429d094a6109dfed955c4b1c638baee9641eca2f7609bbc4adad21c620d9",
+      "bytes": 15231513,
+      "vendor_files": {
+        "salt/master.py": "795a1789b6d4a5e723c2734085e9e35c54edca87532f4fcf0cb9ff59ab1c0114",
+        "salt/crypt.py": "ca9806b30127813b8fb8d1f590e0b9d062f7df54ab430851f9aff187d23efe02",
+        "salt/version.py": "e921a5384a42aacec7c10c4a4e0f2e7e1275d86092d604673e79c6f9b6ea8cb6",
+        "salt/auth/__init__.py": "2113a5d512cbe5d59db03c149a0e7251577ccbc7f49f59890eaa7f6a5be58bd5",
+        "salt/transport/client.py": "dadb520c6792005c666f4113ad7be65db17c8dd0d0db63479fbb86cfa036cf03",
+        "salt/transport/zeromq.py": "11f0e8f6d27b201b3a0955a18f7980f28ff8b24caa5fa4f7178de9b0798a9c75",
+        "salt/runners/salt.py": "ef7b48b47418b35632c4b31d62a4dba8a79c5989ec15f4aa11d5e17853368f9e",
+        "salt/utils/master.py": "9591a2711a59e660596e853d62b4b522bb3f3a610b6dcd38bc8fb08ece19bb33"
+      }
+    }
+  },
+  "runtime": [
+    {
+      "package": "Jinja2",
+      "version": "2.11.3",
+      "filename": "Jinja2-2.11.3-py2.py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/7e/c2/1eece8c95ddbc9b1aeb64f5783a9e07a286de42191b7204d67b7496ddf35/Jinja2-2.11.3-py2.py3-none-any.whl",
+      "sha256": "03e47ad063331dd6a3f04a43eddca8a966a26ba0c5b7207a9a9e4e08f1b29419",
+      "bytes": 125699
+    },
+    {
+      "package": "MarkupSafe",
+      "version": "1.1.1",
+      "filename": "MarkupSafe-1.1.1-cp37-cp37m-manylinux1_x86_64.whl",
+      "url": "https://files.pythonhosted.org/packages/98/7b/ff284bd8c80654e471b769062a9b43cc5d03e7a615048d96f4619df8d420/MarkupSafe-1.1.1-cp37-cp37m-manylinux1_x86_64.whl",
+      "sha256": "ba59edeaa2fc6114428f1637ffff42da1e311e29382d81b339c1817d37ec93c6",
+      "bytes": 27523
+    },
+    {
+      "package": "msgpack",
+      "version": "0.6.2",
+      "filename": "msgpack-0.6.2-cp37-cp37m-manylinux1_x86_64.whl",
+      "url": "https://files.pythonhosted.org/packages/25/f8/6009e73f5b08743718d0660a18ecbc44b013a68980347a3835b63e875cdb/msgpack-0.6.2-cp37-cp37m-manylinux1_x86_64.whl",
+      "sha256": "dedf54d72d9e7b6d043c244c8213fe2b8bbfe66874b9a65b39c4cc892dd99dd4",
+      "bytes": 243404
+    },
+    {
+      "package": "PyYAML",
+      "version": "5.4.1",
+      "filename": "PyYAML-5.4.1-cp37-cp37m-manylinux1_x86_64.whl",
+      "url": "https://files.pythonhosted.org/packages/7a/a5/393c087efdc78091afa2af9f1378762f9821c9c1d7a22c5753fb5ac5f97a/PyYAML-5.4.1-cp37-cp37m-manylinux1_x86_64.whl",
+      "sha256": "e1d4970ea66be07ae37a3c2e48b5ec63f7ba6804bdddfdbd3cfd954d25a82e63",
+      "bytes": 636647
+    },
+    {
+      "package": "pyzmq",
+      "version": "19.0.2",
+      "filename": "pyzmq-19.0.2-cp37-cp37m-manylinux1_x86_64.whl",
+      "url": "https://files.pythonhosted.org/packages/cd/ba/144b5f68fcd643937a4a953017abf1527ff34d43d2d912206fed962efde0/pyzmq-19.0.2-cp37-cp37m-manylinux1_x86_64.whl",
+      "sha256": "5d9fc809aa8d636e757e4ced2302569d6e60e9b9c26114a83f0d9d6519c40493",
+      "bytes": 1054485
+    },
+    {
+      "package": "pycryptodomex",
+      "version": "3.9.7",
+      "filename": "pycryptodomex-3.9.7-cp37-cp37m-manylinux1_x86_64.whl",
+      "url": "https://files.pythonhosted.org/packages/0f/12/e199901e310840450ce3bf5eaccce21ee75bef65211793c27e98281f1131/pycryptodomex-3.9.7-cp37-cp37m-manylinux1_x86_64.whl",
+      "sha256": "b1515ce3a8a2c3fa537d137c5ca5f8b7a902044d04e07d7c3aa26c3e026120fb",
+      "bytes": 13683613
+    },
+    {
+      "package": "requests",
+      "version": "2.23.0",
+      "filename": "requests-2.23.0-py2.py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/1a/70/1935c770cb3be6e3a8b78ced23d7e0f3b187f5cbfab4749523ed65d7c9b1/requests-2.23.0-py2.py3-none-any.whl",
+      "sha256": "43999036bfa82904b6af1d99e4882b560e5e2c68e5c4b0aa03b655f3d7d73fee",
+      "bytes": 58406
+    },
+    {
+      "package": "urllib3",
+      "version": "1.25.11",
+      "filename": "urllib3-1.25.11-py2.py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/56/aa/4ef5aa67a9a62505db124a5cb5262332d1d4153462eb8fd89c9fa41e5d92/urllib3-1.25.11-py2.py3-none-any.whl",
+      "sha256": "f5321fbe4bf3fefa0efd0bfe7fb14e90909eb62a48ccda331726b4319897dd5e",
+      "bytes": 127978
+    },
+    {
+      "package": "chardet",
+      "version": "3.0.4",
+      "filename": "chardet-3.0.4-py2.py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/bc/a9/01ffebfb562e4274b6487b4bb1ddec7ca55ec7510b22e4c51f14098443b8/chardet-3.0.4-py2.py3-none-any.whl",
+      "sha256": "fc323ffcaeaed0e0a02bf4d117757b98aed530d9ed4531e3e15460124c106691",
+      "bytes": 133356
+    },
+    {
+      "package": "idna",
+      "version": "2.10",
+      "filename": "idna-2.10-py2.py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/a2/38/928ddce2273eaa564f6f50de919327bf3a00f091b5baba8dfa9460f3a8a8/idna-2.10-py2.py3-none-any.whl",
+      "sha256": "b97d804b1e9b523befed77c48dacec60e6dcb0b5391d57af6a65a312a90648c0",
+      "bytes": 58811
+    },
+    {
+      "package": "certifi",
+      "version": "2020.6.20",
+      "filename": "certifi-2020.6.20-py2.py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/5e/c4/6c4fe722df5343c33226f0b4e0bb042e4dc13483228b4718baf286f86d87/certifi-2020.6.20-py2.py3-none-any.whl",
+      "sha256": "8fc0819f1f30ba15bdb34cceffb9ef04d99f420f68eb75d901e9560b8749fc41",
+      "bytes": 156576
+    },
+    {
+      "package": "psutil",
+      "version": "5.9.5",
+      "filename": "psutil-5.9.5-cp36-abi3-manylinux_2_12_x86_64.manylinux2010_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "url": "https://files.pythonhosted.org/packages/af/4d/389441079ecef400e2551a3933224885a7bde6b8a4810091d628cdd75afe/psutil-5.9.5-cp36-abi3-manylinux_2_12_x86_64.manylinux2010_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "sha256": "89518112647f1276b03ca97b65cc7f64ca587b1eb0278383017c2a0dcc26cbe4",
+      "bytes": 282082
+    },
+    {
+      "package": "distro",
+      "version": "1.5.0",
+      "filename": "distro-1.5.0-py2.py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/25/b7/b3c4270a11414cb22c6352ebc7a83aaa3712043be29daa05018fd5a5c956/distro-1.5.0-py2.py3-none-any.whl",
+      "sha256": "df74eed763e18d10d0da624258524ae80486432cd17392d9c3d96f5e83cd2799",
+      "bytes": 18001
+    },
+    {
+      "package": "six",
+      "version": "1.16.0",
+      "filename": "six-1.16.0-py2.py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/d9/5a/e7c31adbe875f2abbb91bd84cf2dc52d792b5a01506781dbcf25c91daf11/six-1.16.0-py2.py3-none-any.whl",
+      "sha256": "8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254",
+      "bytes": 11053
+    },
+    {
+      "package": "wheel",
+      "version": "0.38.4",
+      "filename": "wheel-0.38.4-py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/bd/7c/d38a0b30ce22fc26ed7dbc087c6d00851fb3395e9d0dac40bec1f905030c/wheel-0.38.4-py3-none-any.whl",
+      "sha256": "b60533f3f5d530e971d6737ca6d58681ee434818fab630c83a734bb10c083ce8",
+      "bytes": 36051
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+master: 127.0.0.1
+master_port: 4506
+id: module-target-minion
+user: root
+cachedir: /var/cache/salt/minion
+pki_dir: /etc/salt/pki/minion
+sock_dir: /var/run/salt/minion
+pidfile: /var/run/salt/minion.pid
+log_file: /var/log/salt/minion
+acceptance_wait_time: 1
+acceptance_wait_time_max: 2

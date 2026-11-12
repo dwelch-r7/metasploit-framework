@@ -1,0 +1,24 @@
+services:
+  target:
+    image: msf-module-target-saltstack:3000.1
+    platform: linux/amd64
+    build:
+      context: .
+      args: {SALT_VERSION: 3000.1}
+    cpus: 0.3
+    mem_limit: 320m
+    memswap_limit: 320m
+    pids_limit: 128
+    tmpfs:
+      - /etc/salt/pki:rw,size=16m,mode=0700
+      - /var/cache/salt:rw,size=64m,mode=0700
+      - /var/run/salt:rw,size=8m,mode=0700
+      - /var/log/salt:rw,size=8m,mode=0700
+      - /tmp:rw,size=32m,mode=1777
+    ports: ["127.0.0.1::4506"]
+    healthcheck:
+      test: [CMD, python, /opt/module-target/health.py]
+      interval: 10s
+      timeout: 20s
+      start_period: 20s
+      retries: 12

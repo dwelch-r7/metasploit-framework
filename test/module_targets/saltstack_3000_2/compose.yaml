@@ -1,0 +1,18 @@
+---
+services:
+  target:
+    extends:
+      file: "../saltstack_zeromq/compose.yaml"
+      service: target
+    image: msf-module-target-saltstack:3000.2
+    build:
+      args:
+        SALT_VERSION: '3000.2'
+  reporting_db:
+    extends:
+      file: "../gopher/compose.yaml"
+      service: reporting_db
+  framework:
+    extends:
+      file: "../gopher/compose.yaml"
+      service: framework

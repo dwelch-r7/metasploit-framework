@@ -18,6 +18,10 @@ well as Vulhub's Docker image.
 
 ### Setup
 
+The repository's [automated Salt master lab](../../../../test/module_targets/saltstack_zeromq/README.md)
+provides serial affected, fixed and multi-user targets with native controls and
+actual credential-reporting checks. See its verification reports for results.
+
 **Note:** I did the bulk of my testing after manually installing Salt in
 an [Ubuntu 18.04 VM](#using-a-virtual-machine), but the [Docker image
 from Vulhub](#using-docker) may be quicker. YMMV.

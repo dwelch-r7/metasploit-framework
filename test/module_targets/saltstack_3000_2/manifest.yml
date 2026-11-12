@@ -1,0 +1,34 @@
+---
+spec: spec/modules/auxiliary/gather/saltstack_root_key_target_spec.rb
+expected_examples: 3
+console: true
+modules:
+- auxiliary/gather/saltstack_salt_root_key
+ports:
+  target: 4506
+test_env:
+  SALT_VERSION: '3000.2'
+  SALT_ACL: 'false'
+support_files:
+- test/module_targets/saltstack_zeromq/Dockerfile
+- test/module_targets/saltstack_zeromq/README.md
+- test/module_targets/saltstack_zeromq/acceptance.rb
+- test/module_targets/saltstack_zeromq/compose.yaml
+- test/module_targets/saltstack_zeromq/health.py
+- test/module_targets/saltstack_zeromq/master
+- test/module_targets/saltstack_zeromq/master-acl
+- test/module_targets/saltstack_zeromq/minion
+- test/module_targets/saltstack_zeromq/native_client.py
+- test/module_targets/saltstack_zeromq/native_probe.py
+- test/module_targets/saltstack_zeromq/profiles.json
+- test/module_targets/saltstack_zeromq/requirements-runtime.txt
+- test/module_targets/saltstack_zeromq/sources/3000.1.txt
+- test/module_targets/saltstack_zeromq/sources/3000.2.txt
+- test/module_targets/gopher/compose.yaml
+- lib/msf/core/exploit/remote/zeromq.rb
+- lib/msf/core/exploit/remote/tcp.rb
+- lib/msf/core/auxiliary.rb
+- lib/msf/core/auxiliary/report.rb
+- lib/msf/core/module/failure.rb
+- lib/msf/core/db_manager/service.rb
+- documentation/modules/auxiliary/gather/saltstack_salt_root_key.md
