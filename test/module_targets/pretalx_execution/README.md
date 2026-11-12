@@ -30,8 +30,12 @@ removal and a second clean interpreter startup are verified.
 Functional cases exercise public checks, Bash and fetched Meterpreter sessions,
 command execution, quoted commands, AutoCheck controls and repeated runs. A host
 observer watches actual Celery results and starts one target Python process only
-after export completion. Session proof, remote shutdown, PID disappearance and
-closed SQL records must be observed before normal console reset.
+after the specific export task finishes. Session proof, remote shutdown, PID
+disappearance and closed SQL records must be observed before normal console reset.
+The Bash payload can print a diagnostic when closing an unopened descriptor;
+only the exact captured diagnostic is allowed, after the session lifecycle passes.
+Negative targets use a shorter handler wait, but the observer still waits for
+the actual export and interpreter to finish before asserting no execution.
 
 The existing module installs a persistent startup hook and leaves a write vector
 in its proposal. Tests explicitly remove the hook and neutralize that disposable
