@@ -140,6 +140,31 @@ normal return before optional returner handling reads `data['ret']`. Therefore,
 the traceback alone does not establish missing returns or stale proc files.
 Native comparison and explicit completion checks are being prepared.
 
+The corrected native comparison, `20261112T082958-1b6c16`, confirms that both
+otherwise identical publications execute on both nodes, produce successful
+cached returns and remove their actual proc files. Missing `ret` then produces
+a returner exception and terminal workers with raw wait status 256 (exit one).
+Empty `ret` produces no exception and raw wait status zero. The observed
+workers are zombies awaiting reaping, not live workers or already absent PIDs.
+The one-container controller exits zero; its six absence checks pass. An earlier
+attempt fails ordinary client readiness before any raw publication; that is
+preserved as a setup failure. The parent independently repeats twelve absence
+queries across both projects, all empty.
+
+The narrow production follow-up adds only `'ret' => ''`. Removing that line
+reproduces the prior owning source byte-for-byte. Identical focused specs,
+seed 52741 and ordered IDs give **23/three before, 23/zero after**. The primary
+checkout passes **29/zero**, including the six loader regressions. The existing
+four default-payload lint findings remain unchanged. The module SHA256 is
+`19d777dbd7b52933d976dd57f2408e49a9a484f2d86c7a104d2ed7f83190a082`.
+Genuine replay with explicit completion controls remains outstanding, so this
+does not increase the qualified count.
+
+The independently copied return-metadata unit/native seal contains 146 entries,
+manifest `b93eebb5a26ab5df5ff593cd39969125685387e67456d7113d53bbf0d8ad5857`.
+The successful native JSON SHA256 is
+`d87da2ac4bd473fe91944a9eee8b32ec3f25af42079b4302d9f1734d1728850a`.
+
 The exact-source session-success seal has **460 entries / 71 inputs**, manifest
 `949a89af1e556fa24c7d11b3cf420c444bf364e7672b277458d81b174c5330f5`.
 The separately copied and independently rehashed loader-unit seal has 139

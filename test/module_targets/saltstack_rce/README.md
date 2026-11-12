@@ -49,8 +49,17 @@ Registration is not qualification. Consult the campaign verification reports
 for actual results and classified failures. This profile does not qualify
 2019.x, fixed releases, separate hosts, other products, or Salt post modules.
 
-The current nine-case session run passes, but minion workers still report
-`KeyError: 'ret'` after both native custom and owning publications execute.
-Return metadata and job completion require further validation before this
-profile is qualified. The two minions use distinct cache directories, so the
-module's hardcoded default proc-file cleanup path is also not covered here.
+Session success alone is insufficient. Minion calls start a bounded passive
+observer before publication, capture real proc records and worker identities,
+link session processes to witnessed ancestry, then require successful native
+cache envelopes, actual proc removal and no job exceptions after callback close.
+Terminal zombies with wait status zero and reaped workers are distinguished.
+Observer evidence is exported and rehashed before its exact temporary directory
+is removed; the observer does not alter owning payloads or application methods.
+
+An earlier nine-case session run exposed missing returner metadata after the
+normal return had already been sent. The source now supplies Salt's ordinary
+empty returner string. Consult the verification report for complete current
+results. The two minions use distinct cache directories, so the module's
+hardcoded default proc-file cleanup path remains outside this profile's claim;
+native proc removal is credited to Salt itself.
