@@ -150,6 +150,7 @@ module Acceptance
     def sx_sdk_ssl
       payload = 'cmd/unix/reverse_python_ssl'
       expect(sx_json('framework.sessions.keys')).to eq([])
+      File.write(File.join(target_runtime.fetch('artifacts'), 'ready-sessions.jsonl'), '')
       console_command('use exploit/multi/handler')
       { 'PAYLOAD' => payload, 'LHOST' => listener_host, 'LPORT' => CALLBACK, 'ExitOnSession' => false }.each do |name, value|
         console_command("set #{name} #{value}")
@@ -162,11 +163,7 @@ module Acceptance
       launch = sx_document(output, 'SALT_SDK=')
       sx_record('native-payload-dispatches.jsonl', workspace: @workspace, generated: generated, launch: launch)
       expect(launch.fetch('status')).to eq('sdk_dispatched')
-      identifiers = nil
-      sx_poll(35) do
-        identifiers = sx_json('framework.sessions.keys')
-        expect(identifiers.length).to eq(1)
-      end
+      identifiers = sx_ready(1)
       proof = sx_proof(identifiers.fetch(0), payload, owner: 'exploit/multi/handler')
       expect(proof.fetch('role')).to eq('master')
       sx_record('native-payload-calibrations.jsonl', workspace: @workspace, generated: generated, launch: launch, proof: proof)
@@ -174,18 +171,27 @@ module Acceptance
       sx_cleanup
     end
 
-    def sx_exploit(target, roles: TARGETS.fetch(target).fetch(2), options: {})
-      expect(sx_json('framework.sessions.keys')).to eq([])
-      File.write(File.join(target_runtime.fetch('artifacts'), 'ready-sessions.jsonl'), '')
-      output = sx_call(target, options)
-      expect(output).not_to include('Exploit completed, but no session was created')
+    def sx_ready(count)
       identifiers = nil
       sx_poll(35) do
         active = sx_json('framework.sessions.keys')
         events = File.readlines(File.join(target_runtime.fetch('artifacts'), 'ready-sessions.jsonl')).map { |line| JSON.parse(line) }
         identifiers = events.map { |row| row.fetch('id') }.select { |identifier| active.include?(identifier) }.uniq
-        expect(identifiers.length).to eq(roles.length)
+        expect(identifiers.length).to eq(count)
+        # Registration precedes bootstrap and database reporting in the real
+        # scheduler. A registered object alone is not ready for proof APIs.
+        rows = sx_json("framework.sessions.values.select { |session| #{identifiers.inspect}.include?(session.sid) }.map { |session| session.db_record&.id }")
+        expect(rows).to all(be_a(Integer))
       end
+      identifiers
+    end
+
+    def sx_exploit(target, roles: TARGETS.fetch(target).fetch(2), options: {})
+      expect(sx_json('framework.sessions.keys')).to eq([])
+      File.write(File.join(target_runtime.fetch('artifacts'), 'ready-sessions.jsonl'), '')
+      output = sx_call(target, options)
+      expect(output).not_to include('Exploit completed, but no session was created')
+      identifiers = sx_ready(roles.length)
       proofs = identifiers.map { |identifier| sx_proof(identifier, TARGETS.fetch(target).fetch(1)) }
       expect(proofs.map { |proof| proof.fetch('role') }.sort).to eq(roles.sort)
       rows = sx_sessions_sql
