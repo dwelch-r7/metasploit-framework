@@ -1,0 +1,43 @@
+x-role: &role
+  image: msf-module-target-saltstack-gather:3000.1
+  platform: linux/amd64
+  init: true
+  memswap_limit: 128m
+  pids_limit: 40
+  cpus: 0.1
+  mem_limit: 128m
+  tmpfs:
+    - /etc/salt/pki:rw,size=16m,mode=0700
+    - /var/cache/salt:rw,size=64m,mode=0700
+    - /var/run/salt:rw,size=8m,mode=0700
+    - /var/log/salt:rw,size=8m,mode=0700
+    - /tmp:rw,exec,nosuid,nodev,size=32m,mode=1777
+  command: [python, /opt/module-target/deployer-role.py]
+  volumes:
+    - ./role.py:/opt/module-target/deployer-role.py:ro
+    - ./health.py:/opt/module-target/deployer-health.py:ro
+  healthcheck:
+    test: [CMD, python, /opt/module-target/deployer-health.py]
+    interval: 10s
+    timeout: 20s
+    start_period: 20s
+    retries: 12
+services:
+  master:
+    <<: *role
+    mem_limit: 256m
+    memswap_limit: 256m
+    pids_limit: 80
+    cpus: 0.3
+    environment: {SALT_DEPLOY_ROLE: master}
+    volumes:
+      - ./role.py:/opt/module-target/deployer-role.py:ro
+      - ./health.py:/opt/module-target/deployer-health.py:ro
+      - ../saltstack_rce/master:/etc/salt/master:ro
+    ports: ["127.0.0.1::4506"]
+  minion_a:
+    <<: *role
+    environment: {SALT_DEPLOY_ROLE: minion-a}
+  minion_b:
+    <<: *role
+    environment: {SALT_DEPLOY_ROLE: minion-b}
