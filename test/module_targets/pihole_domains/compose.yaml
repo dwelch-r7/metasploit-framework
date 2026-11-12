@@ -1,0 +1,33 @@
+services:
+  target:
+    image: pihole/pihole@sha256:71283ed2722f8185e241b8926c960f9d8fcdadf97841b97bb0960e99b6727091
+    platform: linux/amd64
+    cpus: 0.25
+    mem_limit: 256m
+    memswap_limit: 256m
+    pids_limit: 128
+    environment:
+      TZ: UTC
+      WEBPASSWORD: module-target-pihole-password
+      SKIPGRAVITYONBOOT: '1'
+      ServerIP: 127.0.0.1
+      PIHOLE_DNS_: '192.0.2.53;192.0.2.54'
+      DNSMASQ_LISTENING: all
+    extra_hosts: ['pi.hole:127.0.0.1']
+    tmpfs:
+      - /etc/pihole:rw,size=64m,mode=0755
+      - /etc/dnsmasq.d:rw,size=4m,mode=0755
+      - /var/log/pihole:rw,size=8m,mode=0755
+      - /var/log/lighttpd:rw,size=8m,mode=0755,uid=33,gid=33
+      - /var/lib/apt/lists:rw,size=96m,mode=0755
+      - /etc/apt/sources.list.d:rw,size=1m,mode=0755
+    volumes:
+      - ./module-target-blocklist.txt:/var/www/html/module-target-blocklist.txt:ro
+      - ./archive.sources.list:/etc/apt/sources.list:ro
+      - ./archive-apt.conf:/etc/apt/apt.conf.d/99-module-target-archive:ro
+    ports: ['127.0.0.1::80']
+    healthcheck:
+      test: [CMD, curl, --fail, --silent, http://127.0.0.1/admin/index.php]
+      interval: 2s
+      timeout: 5s
+      retries: 45

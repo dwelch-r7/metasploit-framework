@@ -1,0 +1,32 @@
+{
+  "vulnerable": {
+    "image_manifest": "sha256:71283ed2722f8185e241b8926c960f9d8fcdadf97841b97bb0960e99b6727091",
+    "image_config": "sha256:e3f5ba168c379da0652b3195bbd2da1ba79fdf4fd661ca24b0a9e5bf1e6ef620",
+    "docker_tag": "v5.5",
+    "core_tag": "v5.2.4",
+    "web_version": "5.3.1",
+    "files_sha256": {
+      "/var/www/html/admin/scripts/pi-hole/php/savesettings.php": "4281c26ed442819450178df1eb91a58c7a6829025890d01056d415f7bdc27166",
+      "/var/www/html/admin/scripts/pi-hole/php/gravity.sh.php": "43710a9ad581f5d3d189bd5f7b658163f8073267a6ba03c7846bc81ad5e74bb6",
+      "/var/www/html/admin/scripts/pi-hole/php/func.php": "bb33116a27dcab61ec4cfc08781fa89f171075b43d4cf4e3a9a66e36449670c7",
+      "/opt/pihole/gravity.sh": "3f479b4b8c9f5bbbcf8dce964fef10fcdc3dc3b37c9047394f5a66478df48d9d",
+      "/start.sh": "6c74200f874ed5e1fd001fc6b5a02d84ec25ab0bff525c4245a0fde28b75f91c",
+      "/bash_functions.sh": "64e2ce89d9f007a147575378715cbc4f2dd6d227d6eb6695d8f5a50de02c7b43"
+    }
+  },
+  "fixed": {
+    "image_manifest": "sha256:4653aee50cff8a679e03f2bcd1b05fc2f8b6614896c5554e081b08a3ce60a578",
+    "image_config": "sha256:82e6ffa7c001bde5e7a287eebb812a6e1386fa25f0888cd2a61bc81686c155f5",
+    "docker_tag": "2021.09",
+    "core_tag": "v5.4",
+    "web_version": "5.6",
+    "files_sha256": {
+      "/var/www/html/admin/scripts/pi-hole/php/savesettings.php": "e4603909bd2f02a573d695eed33edb56951004bdff6deee5da89dd911e35ec6c",
+      "/var/www/html/admin/scripts/pi-hole/php/gravity.sh.php": "43710a9ad581f5d3d189bd5f7b658163f8073267a6ba03c7846bc81ad5e74bb6",
+      "/var/www/html/admin/scripts/pi-hole/php/func.php": "31b2350491c3ac96a553b9838146c45be3e77b82387183357374cd6703f2179a",
+      "/opt/pihole/gravity.sh": "04ac96a8ef6c4cabc01fd6aca704e1b5cc94d7773219c08a26ff9e7f2c26e48d",
+      "/start.sh": "72519069856922518084e50bff146c68bee71ebe8221520bba4a2eb3f3d4feb3",
+      "/bash_functions.sh": "8002de1395790bd6d53609d40ba9376b4ae7f258d6508426c2f3aa52e804cc05"
+    }
+  }
+}

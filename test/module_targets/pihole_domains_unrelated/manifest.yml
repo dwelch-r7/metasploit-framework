@@ -1,0 +1,29 @@
+---
+spec: spec/modules/auxiliary/admin/http/pihole_domains_target_spec.rb
+expected_examples: 4
+console: true
+modules:
+- auxiliary/admin/http/pihole_domains_api_exec
+ports:
+  target: 80
+test_env:
+  PH_PROFILE: unrelated
+support_files:
+- test/module_targets/gopher/compose.yaml
+- test/module_targets/onedev_unrelated/compose.yaml
+- lib/msf/core/exploit/remote/http_client.rb
+- lib/msf/core/exploit/remote/http/pihole.rb
+- lib/msf/core/auxiliary.rb
+- lib/msf/core/auxiliary/report.rb
+- lib/msf/core/module/failure.rb
+- lib/msf/core/db_manager/vuln.rb
+- lib/msf/core/db_manager/service.rb
+- documentation/modules/auxiliary/admin/http/pihole_domains_api_exec.md
+- test/module_targets/pihole_domains/compose.yaml
+- test/module_targets/pihole_domains/archive.sources.list
+- test/module_targets/pihole_domains/archive-apt.conf
+- test/module_targets/pihole_domains/module-target-blocklist.txt
+- test/module_targets/pihole_domains/profiles.json
+- test/module_targets/pihole_domains/native_probe.py
+- test/module_targets/pihole_domains/acceptance.rb
+- test/module_targets/pihole_domains/README.md

@@ -38,6 +38,13 @@ services:
     restart: unless-stopped
 ```
 
+## Automated lab
+
+The [Pi-hole acceptance lab](../../../../../test/module_targets/pihole_domains/README.md)
+provides pinned official targets, archived Debian startup configuration, a local
+blocklist, native command/database controls and serial resource limits. Its
+README distinguishes native feasibility from completed module qualification.
+
 ## Verification Steps
 
 1. Install the application

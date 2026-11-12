@@ -1,0 +1,8 @@
+services:
+  target:
+    extends: {file: ../pihole_domains/compose.yaml, service: target}
+    image: pihole/pihole@sha256:4653aee50cff8a679e03f2bcd1b05fc2f8b6614896c5554e081b08a3ce60a578
+  reporting_db:
+    extends: {file: ../gopher/compose.yaml, service: reporting_db}
+  framework:
+    extends: {file: ../gopher/compose.yaml, service: framework}

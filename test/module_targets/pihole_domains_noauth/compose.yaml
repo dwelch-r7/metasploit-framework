@@ -1,0 +1,8 @@
+services:
+  target:
+    extends: {file: ../pihole_domains/compose.yaml, service: target}
+    environment: {WEBPASSWORD: ""}
+  reporting_db:
+    extends: {file: ../gopher/compose.yaml, service: reporting_db}
+  framework:
+    extends: {file: ../gopher/compose.yaml, service: framework}
