@@ -1,0 +1,13 @@
+services:
+  target:
+    extends: {file: ../saltstack_zeromq/compose.yaml, service: target}
+    init: true
+    cpus: 0.5
+    mem_limit: 512m
+    memswap_limit: 512m
+    pids_limit: 160
+    command: [python, /opt/module-target/session-target.py]
+    volumes:
+      - ./session-target.py:/opt/module-target/session-target.py:ro
+      - ./master:/etc/salt/master:ro
+      - ./minion:/opt/module-target/minion-template:ro

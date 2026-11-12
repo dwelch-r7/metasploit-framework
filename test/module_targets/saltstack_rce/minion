@@ -1,0 +1,5 @@
+master: 127.0.0.1
+master_port: 4506
+user: root
+acceptance_wait_time: 1
+acceptance_wait_time_max: 2

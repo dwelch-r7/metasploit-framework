@@ -1,0 +1,11 @@
+{
+  "version": "3000.1",
+  "source_sha256": "5ad18044b4a47690d09c3ebc842a64d58144d63f40019e867683377dbf337aab",
+  "extra_vendor_files": {
+    "salt/client/__init__.py": "5850b9e504dc297a130453e018274806c51f96343dd4d53e850f735805f7433f",
+    "salt/minion.py": "421a6f4d56994dcd0e51e3f23d560694ccf40f18222e46adc711f98941950b7a",
+    "salt/modules/cmdmod.py": "1abe6a44e4262a0568f0b8850ff3a11c9b661ec75c22f1a293b85cd8d3477850",
+    "salt/modules/environ.py": "6497ce14c006819c9a78232b3c5e3aabd29a963bf63eb7517e0be76b61d844cd",
+    "salt/key.py": "387303c973c78a873f34903e8cf5ef68255b7d81b1bd6496e46e18d07170e008"
+  }
+}

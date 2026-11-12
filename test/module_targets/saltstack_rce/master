@@ -1,0 +1,24 @@
+interface: 0.0.0.0
+publish_port: 4505
+ret_port: 4506
+worker_threads: 2
+user: root
+open_mode: false
+auto_accept: true
+cachedir: /var/cache/salt/master
+pki_dir: /etc/salt/pki/master
+sock_dir: /var/run/salt/master
+pidfile: /var/run/salt/master.pid
+log_file: /var/log/salt/master
+file_roots:
+  base:
+    - /srv/salt
+pillar_roots:
+  base:
+    - /srv/pillar
+
+# Exercise check-derived keys with an ordinary long access-key map.
+publisher_acl:
+  bin: [test.ping]
+  daemon: [test.ping]
+  nobody: [test.ping]
