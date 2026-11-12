@@ -1,8 +1,13 @@
+---
 services:
   target:
-    extends: {file: ../springcloud_config/compose.yaml, service: target}
+    extends:
+      file: "../springcloud_config/compose.yaml"
+      service: target
     volumes:
     - "${MODULE_TARGET_ROOT}/tmp/module-target-springcloud-artifacts/2.2.3.RELEASE.jar:/opt/app.jar:ro"
+    environment:
+      SPRINGCLOUD_LOCATION: file:/lab/repository/
   framework:
     cpus: 1.0
     mem_limit: 512m

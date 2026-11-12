@@ -10,10 +10,13 @@ services:
     memswap_limit: 512m
     pids_limit: 128
     entrypoint: [/bin/sh, /fixture/start.sh]
+    environment:
+      SPRINGCLOUD_LOCATION: file:./
     volumes:
     - '${MODULE_TARGET_ROOT}/test/module_targets/springcloud_config:/fixture:ro'
     - '${MODULE_TARGET_ROOT}/test/module_targets/springcloud_config/fixture:/lab:ro'
     - '${MODULE_TARGET_ROOT}/tmp/module-target-springcloud-artifacts/proof/binary.bin:/lab/proof/binary.bin:ro'
+    - '${MODULE_TARGET_ROOT}/test/module_targets/springcloud_config/fixture/proof/root.txt:/springcloud-proof.txt:ro'
     ports: ['127.0.0.1::8888']
     tmpfs: ['/tmp:rw,size=128m,mode=1777']
     healthcheck:

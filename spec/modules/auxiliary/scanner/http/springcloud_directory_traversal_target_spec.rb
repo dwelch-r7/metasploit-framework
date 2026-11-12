@@ -7,7 +7,8 @@ RSpec.describe 'Genuine Spring Cloud Config file collection', acceptance: true, 
 
   before(:all) do
     @version = ENV.fetch('SPRINGCLOUD_VERSION')
-    @exposed = %w[2.1.8.RELEASE 2.2.2.RELEASE].include?(@version)
+    @location = target_exec('target', 'printenv', 'SPRINGCLOUD_LOCATION').strip
+    @exposed = %w[2.1.8.RELEASE 2.2.2.RELEASE].include?(@version) && @location == 'file:./'
     @birth = target_exec('target', 'cat', '/proc/1/stat').split(') ', 2).last.split.fetch(19)
     verify_artifact
     native_control('before')
@@ -31,6 +32,10 @@ RSpec.describe 'Genuine Spring Cloud Config file collection', acceptance: true, 
 
   it 'collects the outside properties file exactly twice' do
     collect_twice('secret.properties', "lab.secret=TRAVERSAL-PROOF-UNRELATED-PATH\n")
+  end
+
+  it 'collects a root-level file without selecting the environment route twice' do
+    collect_twice('/springcloud-proof.txt', "Spring Cloud Config root-level proof\n")
   end
 
   it 'collects plain text exactly twice' do
@@ -68,7 +73,7 @@ RSpec.describe 'Genuine Spring Cloud Config file collection', acceptance: true, 
     request = Net::HTTP::Get.new(path)
     request['Accept'] = 'application/octet-stream' if binary
     response = Net::HTTP.start(endpoint.fetch('host'), endpoint.fetch('port'), nil, open_timeout: 5, read_timeout: 10) { |http| http.request(request) }
-    journal('native-http.jsonl', phase: phase, path: path, accept: request['Accept'], status: response.code.to_i, bytes: response.body.to_s.bytesize, body_hex: response.body.to_s.unpack1('H*'))
+    journal('native-http.jsonl', phase: phase, path: path, accept: request['Accept'], status: response.code.to_i, bytes: response.body.to_s.bytesize, content_type: response['Content-Type'], body_hex: response.body.to_s.unpack1('H*'))
     response
   end
 
@@ -79,6 +84,9 @@ RSpec.describe 'Genuine Spring Cloud Config file collection', acceptance: true, 
     resource = native_request('/foo/default/master/application.properties', phase, binary: true)
     expect(resource.code.to_i).to eq(200)
     expect(resource.body.b).to eq("lab.normal=GENUINE-CONFIG-BASELINE\n".b)
+    root = native_request('/foo/default/master/%252Fspringcloud-proof.txt', phase, binary: true)
+    expect(root.code.to_i).to eq(@exposed ? 200 : 404)
+    expect(root.body.b).to eq("Spring Cloud Config root-level proof\n".b) if @exposed
     {
       'secret.properties' => "lab.secret=TRAVERSAL-PROOF-UNRELATED-PATH\n",
       'plain.txt' => "SpringCloud outside repository exact plain text\n",
@@ -105,7 +113,7 @@ RSpec.describe 'Genuine Spring Cloud Config file collection', acceptance: true, 
       before = loot_files
       output = nil
       begin
-        output = run_target_module('auxiliary/scanner/http/springcloud_directory_traversal', 'target', { 'FILEPATH' => '/lab/proof/' + name, 'THREADS' => 1, 'HttpClientTimeout' => 8 }, allow_errors: true, command_timeout: 40)
+        output = run_target_module('auxiliary/scanner/http/springcloud_directory_traversal', 'target', { 'FILEPATH' => name.start_with?('/') ? name : '/lab/proof/' + name, 'THREADS' => 1, 'HttpClientTimeout' => 8 }, allow_errors: true, command_timeout: 40)
       ensure
         journal('owning-calls.jsonl', file: name, output: (output || console.all_data).dup.force_encoding(Encoding::UTF_8), wrapper_returned: !output.nil?)
       end
