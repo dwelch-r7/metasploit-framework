@@ -18,3 +18,5 @@ services:
       - ./session-target.py:/opt/module-target/session-target.py:ro
       - ./master:/etc/salt/master:ro
       - ./minion:/opt/module-target/minion-template:ro
+      - ./job_control.py:/opt/module-target/job_control.py:ro
+      - ./jobs.py:/opt/module-target/jobs.py:ro

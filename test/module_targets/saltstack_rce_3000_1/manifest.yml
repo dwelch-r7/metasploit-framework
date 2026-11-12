@@ -18,6 +18,7 @@ support_files:
 - test/module_targets/saltstack_rce/session_control.rb
 - test/module_targets/saltstack_rce/sdk_launch.py
 - test/module_targets/saltstack_rce/jobs.py
+- test/module_targets/saltstack_rce/job_control.py
 - test/module_targets/saltstack_rce/vendor-files.json
 - test/module_targets/saltstack_zeromq/Dockerfile
 - test/module_targets/saltstack_zeromq/README.md

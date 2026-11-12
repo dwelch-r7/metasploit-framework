@@ -2,6 +2,8 @@
 
 require 'base64'
 require 'digest'
+require 'English'
+require 'fileutils'
 require 'securerandom'
 require 'timeout'
 require_relative '../../../tools/dev/run_module_target_tests'
@@ -80,12 +82,106 @@ module Acceptance
     end
 
     def sx_cleanup
-      console_command('sessions -K')
-      console_command('jobs -K')
-      sx_poll(20) { expect(sx_json('framework.sessions.keys')).to eq([]) }
-      sx_poll(20) { expect(sx_json('framework.jobs.keys')).to eq([]) }
-      sx_poll(20) { expect(sx_listeners).to eq([]) }
-      sx_poll(20) { expect(sx_connections.reject { |row| row.fetch('state') == '06' }).to eq([]) }
+      original_error = RSpec.current_example&.exception || $ERROR_INFO
+      begin
+        console_command('sessions -K')
+        console_command('jobs -K')
+        sx_poll(20) { expect(sx_json('framework.sessions.keys')).to eq([]) }
+        sx_poll(20) { expect(sx_json('framework.jobs.keys')).to eq([]) }
+        sx_poll(20) { expect(sx_listeners).to eq([]) }
+        sx_poll(20) { expect(sx_connections.reject { |row| row.fetch('state') == '06' }).to eq([]) }
+      ensure
+        if @salt_job_observer
+          failure = original_error || $ERROR_INFO
+          sx_finish_job_observer(abort: !failure.nil?, original_error: failure)
+        end
+      end
+    end
+
+    def sx_start_job_observer(target, options)
+      raise 'Previous Salt observer was not cleaned up' if @salt_job_observer
+
+      configuration = {
+        selector: options.fetch('MINIONS', '.*'),
+        function: target == 2 ? 'cmd.exec_code' : 'cmd.run'
+      }
+      output = target_exec('target', 'python', '/opt/module-target/job_control.py', 'start', JSON.generate(configuration))
+      document = sx_document(output, 'SALT_JOB_CONTROL=')
+      @salt_job_observer = document
+      sx_record('salt-job-observers.jsonl', workspace: @workspace, phase: 'ready', observer: document)
+      expect(document.fetch('status')).to eq('ready')
+      expect(document.fetch('worker').fetch('state')).not_to eq('Z')
+      expect(document.fetch('worker').fetch('starttime')).to match(/\A[0-9]+\z/)
+      expect(document.fetch('script_sha256')).to eq(Digest::SHA256.file('test/module_targets/saltstack_rce/job_control.py').hexdigest)
+    end
+
+    def sx_observer_command(observer, action)
+      arguments = ['target', 'python', '/opt/module-target/job_control.py', action, observer.fetch('observer_identifier')]
+      arguments << observer.fetch('jid') if action == 'finish'
+      sx_document(target_exec(*arguments), 'SALT_JOB_CONTROL=')
+    end
+
+    def sx_export_job_observer(observer)
+      identifier = observer.fetch('observer_identifier')
+      raise ArgumentError, 'Invalid observer identifier' unless identifier.match?(/\A[a-f0-9]{32}\z/)
+
+      document = sx_observer_command(observer, 'export')
+      expect(document.fetch('status')).to eq('exported')
+      expect(document.fetch('observer_identifier')).to eq(identifier)
+      directory = File.join(target_runtime.fetch('artifacts'), 'salt-job-observers', identifier)
+      document.fetch('files').each do |entry|
+        parts = entry.fetch('name').split('/')
+        unless parts.length.between?(1, 2) && parts.all? { |part| part.match?(/\A[a-z0-9][a-z0-9.-]*\z/) && !%w[. ..].include?(part) }
+          raise ArgumentError, 'Unexpected observer export path'
+        end
+
+        raw = Base64.strict_decode64(entry.fetch('bytes_base64'))
+        expect(Digest::SHA256.hexdigest(raw)).to eq(entry.fetch('sha256'))
+        destination = File.join(directory, *parts)
+        FileUtils.mkdir_p(File.dirname(destination))
+        File.binwrite(destination, raw)
+        expect(Digest::SHA256.file(destination).hexdigest).to eq(entry.fetch('sha256'))
+      end
+      manifest = document.fetch('files').map { |entry| entry.except('bytes_base64') }
+      File.write(File.join(directory, 'export-manifest.json'), JSON.generate(manifest))
+      sx_record('salt-job-observer-exports.jsonl', workspace: @workspace, observer_identifier: identifier, files: manifest)
+    end
+
+    def sx_finish_job_observer(abort: false, original_error: nil)
+      observer = @salt_job_observer
+      stopped = false
+      failure = nil
+      begin
+        action = !abort && observer['jid'] ? 'finish' : 'abort'
+        document = sx_observer_command(observer, action)
+        stopped = document.fetch('observer_stopped')
+        sx_record('salt-job-observers.jsonl', workspace: @workspace, phase: action, observer: document)
+        expect(stopped).to be(true)
+        if action == 'finish'
+          expect(document.fetch('status')).to eq('passed'), JSON.generate(document)
+          expect(document.fetch('file_dropper_qualified')).to be(false)
+        end
+      rescue StandardError, RSpec::Expectations::ExpectationNotMetError => e
+        failure = e
+      ensure
+        begin
+          unless stopped
+            document = sx_observer_command(observer, 'abort')
+            sx_record('salt-job-observers.jsonl', workspace: @workspace, phase: 'abort_fallback', observer: document)
+            stopped = document.fetch('observer_stopped')
+            raise 'Salt observer abort did not stop its actual process' unless stopped
+          end
+          sx_export_job_observer(observer)
+          document = sx_observer_command(observer, 'prune')
+          expect(document.fetch('status')).to eq('pruned')
+          sx_record('salt-job-observer-cleanup.jsonl', workspace: @workspace, observer_identifier: observer.fetch('observer_identifier'), stopped: stopped, pruned: true)
+          @salt_job_observer = nil
+        rescue StandardError, RSpec::Expectations::ExpectationNotMetError => e
+          sx_record('salt-job-observer-cleanup.jsonl', workspace: @workspace, observer_identifier: observer.fetch('observer_identifier'), error: e.class.name, message: e.message)
+          failure ||= e
+        end
+      end
+      raise failure if failure && original_error.nil?
     end
 
     def sx_call(target, options = {}, action: 'run -z')
@@ -97,7 +193,19 @@ module Acceptance
         'WfsDelay' => 15
       }.merge(options)
       begin
+        if target >= 2 && action != 'check'
+          # Existing verbose output exposes the genuine JID even when no minion
+          # matches. No payload/handler/source method is altered for observation.
+          values['VERBOSE'] = true
+          sx_start_job_observer(target, options)
+        end
         output = run_target_module(OWNER, 'target', values, action: action, allow_errors: true, command_timeout: 90)
+        if @salt_job_observer
+          publications = output.lines.grep(/Unserialized clear load:.*"cmd"=>"_send_pub"/)
+          identifiers = publications.filter_map { |line| line[/"jid"=>"([0-9]{20})"/, 1] }
+          expect(identifiers.length).to eq(1), output
+          @salt_job_observer['jid'] = identifiers.fetch(0)
+        end
       ensure
         sx_record('owning-calls.jsonl', {
           workspace: @workspace, action: action, target: target, options: values,
@@ -134,6 +242,14 @@ module Acceptance
       expect(pids).not_to be_empty
       pids.each do |pid|
         expect(target_exec('target', 'cat', "/proc/#{pid}/status")).to match(/^Uid:\s+0\s+0\s+0\s+0$/)
+      end
+      if @salt_job_observer
+        request = { jid: @salt_job_observer.fetch('jid'), role: role, pids: pids, token: proof.fetch('token') }
+        output = target_exec('target', 'python', '/opt/module-target/job_control.py', 'proof', @salt_job_observer.fetch('observer_identifier'), JSON.generate(request))
+        ancestry = sx_document(output, 'SALT_JOB_CONTROL=')
+        sx_record('salt-job-ancestry.jsonl', workspace: @workspace, session_id: identifier, observation: ancestry)
+        expect(ancestry.fetch('status')).to eq('passed'), JSON.generate(ancestry)
+        proof['salt_job_ancestry'] = ancestry.fetch('proof')
       end
       proof['target_pids'] = pids
       proof['proof_sha256'] = Digest::SHA256.hexdigest(value)
