@@ -27,6 +27,8 @@ Initial automatic gravity refresh is disabled through the vendor's existing
 environment option. Native setup then configures and fetches a small blocklist
 from the target's own loopback HTTP endpoint. This exercises the normal database
 and gravity pipeline without downloading external blocklists.
+The version page is validated after that initialization: older images can
+return an incomplete HTTP 200 index page while `gravity.db` is still missing.
 
 ```sh
 bundle exec ruby tools/dev/run_guarded_module_target_tests.rb pihole_domains_fixed pihole_domains_unrelated

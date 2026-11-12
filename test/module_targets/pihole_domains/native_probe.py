@@ -123,7 +123,7 @@ try:
             ''')
         assert request('/module-target-blocklist.txt')[1] == b'0.0.0.0 blocked.module-target.invalid\n'
         status, body = request('/admin/index.php')
-        assert status == 200 and ('v' + vendor['web_version']).encode() in body
+        assert status == 200
         status, body = request('/admin/settings.php?tab=api')
         assert status == 200
         if profile != 'noauth':
@@ -139,6 +139,11 @@ try:
         # through the real API so their first save cannot mimic an injection.
         assert b'The API settings have been updated' in api_settings('')
         gravity()
+        # Older images return a truncated HTTP 200 page until gravity.db exists.
+        # Accept the version page only after the real gravity pipeline succeeds.
+        status, body = request('/admin/index.php')
+        assert status == 200 and ('v' + vendor['web_version']).encode() in body
+        assert b'Error connecting to database' not in body
         original = execute('target', 'cat', '/etc/pihole/setupVars.conf')
         result['config_base64'] = base64.b64encode(original).decode()
         result['oracles'] = {name: execute('target', name).decode().strip() for name in ['id', 'whoami']}
