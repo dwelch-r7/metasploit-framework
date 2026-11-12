@@ -1,0 +1,101 @@
+{
+  "native_files": {
+    "secret.properties": {
+      "path": "/foo/default/master/%252Flab/proof/secret.properties",
+      "accept": "application/octet-stream",
+      "status": 200,
+      "bytes": 42,
+      "body_hex": "6c61622e7365637265743d54524156455253414c2d50524f4f462d554e52454c415445442d504154480a"
+    },
+    "plain.txt": {
+      "path": "/foo/default/master/%252Flab/proof/plain.txt",
+      "accept": "application/octet-stream",
+      "status": 200,
+      "bytes": 48,
+      "body_hex": "537072696e67436c6f7564206f757473696465207265706f7369746f727920657861637420706c61696e20746578740a"
+    },
+    "sp%20ace-%CE%A9.txt": {
+      "path": "/foo/default/master/%252Flab/proof/sp%20ace-%CE%A9.txt",
+      "accept": "application/octet-stream",
+      "status": 200,
+      "bytes": 35,
+      "body_hex": "537072696e6720436c6f756420436f6e666967205554462d3820706174683a20cea90a"
+    },
+    "binary.bin": {
+      "path": "/foo/default/master/%252Flab/proof/binary.bin",
+      "accept": "application/octet-stream",
+      "status": 200,
+      "bytes": 256,
+      "body_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9fafbfcfdfeff"
+    },
+    "empty.txt": {
+      "path": "/foo/default/master/%252Flab/proof/empty.txt",
+      "accept": "application/octet-stream",
+      "status": 200,
+      "bytes": 0,
+      "body_hex": ""
+    },
+    "missing.txt": {
+      "path": "/foo/default/master/%252Flab/proof/missing.txt",
+      "accept": "application/octet-stream",
+      "status": 404,
+      "bytes": 0,
+      "body_hex": ""
+    }
+  },
+  "old_environment_route": {
+    "path": "/%252Flab%252Fproof%252Fmissing%23foo/development",
+    "status": 200,
+    "body": "{\"name\":\"%2Flab%2Fproof%2Fmissing#foo\",\"profiles\":[\"development\"],\"label\":null,\"version\":null,\"state\":null,\"propertySources\":[{\"name\":\"file:./application.properties\",\"source\":{\"lab.normal\":\"GENUINE-CONFIG-BASELINE\"}}]}",
+    "sha256": "6695d310a390f01b6fbe874c8d6f9752cff603634fbc94f8fba1770a74df0da0",
+    "headers": {
+      "Content-Type": "application/json",
+      "Transfer-Encoding": "chunked",
+      "Date": "Thu, 12 Nov 2026 22:55:30 GMT",
+      "Connection": "close"
+    }
+  },
+  "provenance": {
+    "native_files": {
+      "path": "tmp/module-target-tests/20261112T230410-7ef992/springcloud_2_1_8/native-http.jsonl",
+      "sha256": "8a0af0df2fd7c408167681eb0b6257df63b624911a50a8b2ffb0db26c60c7bc3",
+      "projection": "Only before-phase file HTTP path/Accept/status/body bytes retained. Response headers were not captured by this client."
+    },
+    "old_environment_route": {
+      "path": "tmp/springcloud-feasibility/native-222-native-r1/http.json",
+      "sha256": "a91f75cc0f79580603508e156b31a240658d094ba861251197fc5d51e0ac5610",
+      "projection": "One unchanged genuine HTTP200 ordinary configuration response for a nonexistent filename at the old endpoint."
+    },
+    "source_contract": "ResourceController.binary declares application/octet-stream, independently observed in the native header capture. Main before/after file captures retain exact body bytes/status; Content-Type for those unit response projections uses this observed binary-route header. Transport and loot persistence are explicit doubles.",
+    "binary_response_header": {
+      "path": "tmp/springcloud-feasibility/native-218-default-label-r1/http.json",
+      "sha256": "345067614085ba1c11b8b24ebfe07231177bcf9b344a06cb7b34436a67702df5",
+      "request_path": "/foo/default/%252Flab/proof/binary.bin?useDefaultLabel=true",
+      "status": 200,
+      "header": {
+        "Content-Type": "application/octet-stream"
+      },
+      "body_hex": "0001027f80ff"
+    },
+    "root_file": {
+      "path": "tmp/springcloud-feasibility/native-218-root-label-r1/http.json",
+      "sha256": "d52bed76a260c64941f0a456ee848523a681a5eca752575052051f36b90a1959",
+      "projection": "One unchanged explicit-label root-file response, including real response headers and body_hex."
+    }
+  },
+  "binary_content_type": "application/octet-stream",
+  "root_file": {
+    "path": "/foo/default/master/%252Fspringcloud-proof.txt",
+    "status": 200,
+    "body": "lab.secret=TRAVERSAL-PROOF-UNRELATED-PATH\n",
+    "sha256": "456f4865cdaa82ac71b9b531226c3c923538ec4ff7905b997615fe96b275e51b",
+    "body_hex": "6c61622e7365637265743d54524156455253414c2d50524f4f462d554e52454c415445442d504154480a",
+    "headers": {
+      "Last-Modified": "Thu, 12 Nov 2026 23:11:17 GMT",
+      "Content-Type": "application/octet-stream",
+      "Content-Length": "42",
+      "Date": "Thu, 12 Nov 2026 23:11:33 GMT",
+      "Connection": "close"
+    }
+  }
+}
