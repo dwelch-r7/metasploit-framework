@@ -23,7 +23,7 @@ services:
       - /app/db:rw,size=24m,mode=0755
       - /app/front/log:rw,size=24m,mode=0755
       - /app/front/api:rw,size=24m,mode=0755
-      - /tmp:rw,size=24m,mode=1777
+      - /tmp:rw,exec,size=24m,mode=1777
       - /run:rw,exec,size=12m,mode=0755
       - /var/lib/php83/sessions:rw,size=4m,mode=0770
     healthcheck:

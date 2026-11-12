@@ -35,6 +35,17 @@ try:
         code = "import hashlib,json,pathlib,sys;print(json.dumps({key:hashlib.sha256((pathlib.Path('/app')/key).read_bytes()).hexdigest() for key in json.loads(sys.argv[1])}))"
         actual = json.loads(client.command('python3', '-c', code, json.dumps(list(catalog))))
         assert actual == catalog
+        executable = '/tmp/module-target-netalertx-native-elf'
+        client.command('/bin/busybox', 'true')
+        client.command('test', '!', '-e', executable)
+        client.command('cp', '/bin/busybox', executable)
+        try:
+            client.command('chmod', '0755', executable)
+            hashes = client.command('sha256sum', '/bin/busybox', executable).splitlines()
+            assert hashes[0].split()[0] == hashes[1].split()[0]
+            client.command(executable, 'true')
+        finally:
+            client.command('rm', '-f', executable)
         response, body = client.request('/index.php')
         assert response['status'] == 200 and 'name="loginpassword"' in body
         for password, expected in [('module-target-wrong', 200), ('module-target-netalertx-password', 302)]:
@@ -67,7 +78,7 @@ try:
         proof = client.state()
         assert proof['marker'] == '' and proof['init_birth'] == state['init_birth']
         (artifacts / 'native-baseline.json').write_text(json.dumps(proof, indent=2) + '\n')
-        proof = dict(proof, native_source_hashes=actual, native_marker=marker, native_version=version)
+        proof = dict(proof, native_source_hashes=actual, native_marker=marker, native_version=version, native_elf_sha256=hashes[0].split()[0])
 finally:
     client.write(artifacts, proof)
     source = artifacts / 'native-execution.json'

@@ -42,7 +42,9 @@ Only three containers run at a time: target **256 MiB / 0.4 CPU / 96 tasks**,
 Framework **640 MiB / 1 CPU / 256 tasks**, PostgreSQL **128 MiB / 0.2 CPU /
 64 tasks**. Memory/swap limits match. The vendor's s6-overlay owns PID 1; Docker's
 additional init wrapper is disabled for this target. `/run` is temporary and
-executable, as required by s6-overlay. Target state is temporary, and no persistent
+executable, as required by s6-overlay. `/tmp` is executable like the vendor's
+ordinary writable filesystem; native calibration copies and runs a hashed vendor
+ELF there before testing fetched payloads. Target state is temporary, and no persistent
 or anonymous volume is needed. The shared bootstrap is a read-only bind mount.
 
 This is separate from the qualified web-only file collection lab. Do not extend
