@@ -1,5 +1,4 @@
 """Native execution prerequisite and explicit recovery for the isolated full stack."""
-import hashlib
 import json
 import os
 from pathlib import Path
@@ -11,20 +10,21 @@ from client import ExecutionClient, KEYS
 runtime = json.loads(Path(os.environ['MODULE_TARGET_RUNTIME']).read_text())
 artifacts = Path(runtime['artifacts'])
 mode, phase = sys.argv[1:3]
-assert mode in ['control', 'snapshot', 'restore'] and re.fullmatch(r'[a-z0-9_-]+', phase)
+assert mode in ['control', 'snapshot', 'restore', 'settle'] and re.fullmatch(r'[a-z0-9_-]+', phase)
 client = ExecutionClient(runtime)
 proof = {}
 try:
     state = client.state()
     if mode == 'snapshot':
         proof = state
-    elif mode == 'restore':
+    elif mode in ['restore', 'settle']:
         baseline = json.loads((artifacts / 'native-baseline.json').read_text())
         client.full_configuration = baseline['all_configuration']
-        response, _ = client.request('/index.php', {'loginpassword': 'module-target-netalertx-password'}, True)
-        assert response['status'] == 302
-        assert client.settings({}, True)['status'] == 200
-        proof = client.wait(lambda s: s['all_configuration'] == baseline['all_configuration'] and not s['api_error'] and all(s['settings'].get(key) == baseline['settings'][key] for key in KEYS) and 'cron_restart_backend' not in s['queue'] and len(s['backend']) == 2, 85, 'Native recovery did not settle')
+        if mode == 'restore':
+            response, _ = client.request('/index.php', {'loginpassword': 'module-target-netalertx-password'}, True)
+            assert response['status'] == 302
+            assert client.settings({}, True)['status'] == 200
+        proof = client.wait(lambda s: s['all_configuration'] == baseline['all_configuration'] and not s['api_error'] and all(s['settings'].get(key) == baseline['settings'][key] for key in KEYS) and not s['queue'].strip() and len(s['backend']) == 2 and not [row for row in s['callbacks'] if row['state'] != '06'], 85, 'Native configuration/queue/callback state did not settle')
         client.assert_environment(proof)
     else:
         version = os.environ['NETALERTX_VERSION']

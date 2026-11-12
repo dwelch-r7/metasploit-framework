@@ -1,7 +1,7 @@
 # NetAlertX queued execution investigation
 
-Functional qualification is in progress. Do not count these profiles as passing
-without a current guarded result and verification report.
+Use a current guarded result and verification report to establish functional
+qualification. A container starting successfully is not sufficient.
 
 This component runs the full, genuine NetAlertX backend, PHP/FPM, NGINX, cron and
 s6-overlay from pinned Linux amd64 24.9.12 and 24.10.12 images. `vendor.json`
@@ -33,7 +33,8 @@ DOCKER_CONTEXT=default BUILDX_BUILDER=default bundle exec ruby tools/dev/run_gua
 The intended matrix covers repeated checks, refused AutoCheck without state
 changes, Bash and default fetched Linux Meterpreter sessions, and CLEANUP enabled
 or disabled. Public session RPC/file proof, SQL closure, native child termination,
-fetch-file deletion and configuration comparisons precede recovery. Unexpected
+fetch-file deletion and configuration comparisons precede recovery. Active settings, the real cron queue
+and callback sockets must settle before the next run. Unexpected
 configuration changes fail the example and are recorded before explicit native
 recovery. A recovered test is not a passing test. Intentional restoration after
 CLEANUP=false is recorded separately.
@@ -58,3 +59,11 @@ Sources:
 - [Control vendor source](https://github.com/netalertx/NetAlertX/tree/d36486ef6de3985dac19195cf333e4de31601bcb)
 - [Vendor cron restart implementation](https://github.com/netalertx/NetAlertX/blob/dcc43d1f3c6611cf1900c4d2d7aae0c5ec077ab4/back/cron_script.sh)
 - [Module guide](../../../documentation/modules/exploit/linux/http/netalertx_rce_cve_2024_46506.md)
+
+The module must read a complete original configuration through the logs endpoint
+before updating settings. Unavailable or potentially truncated snapshots are
+refused before any write. API settings alone omit inactive plugin keys and are
+insufficient for restoration. The vendor's generated header/comments may differ;
+all original assignments are preserved. Older declared affected releases remain
+unqualified: official 23.01.14 source lacks this logs endpoint and uses a different
+settings-array format. A version-based check does not establish those prerequisites.

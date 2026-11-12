@@ -36,10 +36,16 @@ proof = Path('/tmp/module-target-netalertx-native-proof')
 cgroups = {}
 for name in ['memory.events', 'pids.events']:
     cgroups[name] = dict(line.split() for line in (Path('/sys/fs/cgroup') / name).read_text().splitlines())
+callbacks = []
+for name in ['/proc/net/tcp', '/proc/net/tcp6']:
+    for line in Path(name).read_text().splitlines()[1:]:
+        fields = line.split()
+        if int(fields[2].rsplit(':', 1)[1], 16) == 4446:
+            callbacks.append(dict(state=fields[3], inode=fields[9]))
 state = dict(backend=backend, configuration=configuration, settings=settings, plugins=plugins, api_error=api_error,
              all_configuration=all_configuration,
              address=socket.gethostbyname(socket.gethostname()),
              queue=(root / 'front/log/execution_queue.log').read_text(),
              marker=proof.read_text() if proof.exists() else '', marker_uid=proof.stat().st_uid if proof.exists() else None,
-             init_birth=Path('/proc/1/stat').read_text().rsplit(') ', 1)[1].split()[19], cgroups=cgroups)
+             init_birth=Path('/proc/1/stat').read_text().rsplit(') ', 1)[1].split()[19], cgroups=cgroups, callbacks=callbacks)
 print(json.dumps(state))
