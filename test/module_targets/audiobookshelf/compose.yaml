@@ -1,0 +1,18 @@
+services:
+  target:
+    image: ghcr.io/advplyr/audiobookshelf@sha256:e87c14b372320f959e3792082299e5b7b0d96477307fa98211fc2ca0095094d1
+    platform: linux/amd64
+    cpus: 0.3
+    mem_limit: 320m
+    memswap_limit: 320m
+    pids_limit: 96
+    tmpfs:
+      - /config:rw,size=64m,mode=0700
+      - /metadata:rw,size=32m,mode=0700
+      - /audiobooks:rw,size=1m,mode=0700
+    ports: ["127.0.0.1::80"]
+    healthcheck:
+      test: [CMD, curl, --fail, --silent, http://127.0.0.1/healthcheck]
+      interval: 2s
+      timeout: 5s
+      retries: 60

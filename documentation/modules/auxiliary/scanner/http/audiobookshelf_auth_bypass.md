@@ -36,12 +36,12 @@ tag:
 docker run -d --name abs-vuln -p 13378:80 ghcr.io/advplyr/audiobookshelf:2.19.0
 ```
 
-Browse to `http://127.0.0.1:13378` and complete the initial root-user setup. This
-is required: before initialization the server returns HTTP 500 to the protected
-API. After setup, the bypass request to `/api/libraries` returns HTTP 500 on a
-vulnerable server (the auth check is skipped and the handler runs without a user),
-which the module treats as confirmation; the same request returns HTTP 401 on a
-patched server.
+Browse to `http://127.0.0.1:13378` and complete the initial root-user setup for
+an authenticated control and protected library data. The scanner does not use
+initialization status as a vulnerability gate. Its bypass request returns HTTP
+500 on the affected image because API cache middleware runs without a user;
+the same request returns HTTP 401 on a patched server. The automated lab also
+covers an uninitialized instance and verifies process health after the probe.
 
 To confirm the true-negative behavior, run a patched instance on a different port
 and complete its setup the same way:
@@ -49,6 +49,13 @@ and complete its setup the same way:
 ```
 docker run -d --name abs-patched -p 13379:80 ghcr.io/advplyr/audiobookshelf:2.19.1
 ```
+
+## Automated lab
+
+The [Audiobookshelf acceptance lab](../../../../../test/module_targets/audiobookshelf/README.md)
+provides pinned affected/fixed images, initialization controls, real SQLite and
+Framework reporting checks, and exact teardown. Consult its verification report
+for actual results and untested limits.
 
 ## Verification Steps
 

@@ -1,0 +1,8 @@
+services:
+  target:
+    extends: {file: ../audiobookshelf/compose.yaml, service: target}
+    image: ghcr.io/advplyr/audiobookshelf@sha256:ba1ba4cf138260df25c8ba79a65be48b08738d9d2f02b1320a5761fe860c52ba
+  reporting_db:
+    extends: {file: ../gopher/compose.yaml, service: reporting_db}
+  framework:
+    extends: {file: ../gopher/compose.yaml, service: framework}

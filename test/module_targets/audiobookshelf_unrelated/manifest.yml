@@ -1,0 +1,27 @@
+---
+spec: spec/modules/auxiliary/scanner/http/audiobookshelf_target_spec.rb
+expected_examples: 3
+console: true
+modules:
+- auxiliary/scanner/http/audiobookshelf_auth_bypass
+ports:
+  target: 80
+test_env:
+  ABS_PROFILE: unrelated
+support_files:
+- test/module_targets/gopher/compose.yaml
+- test/module_targets/onedev_unrelated/compose.yaml
+- lib/msf/core/exploit/remote/http_client.rb
+- lib/rex/proto/http/client_request.rb
+- lib/msf/core/auxiliary/multiple_target_hosts.rb
+- lib/msf/core/auxiliary/scanner.rb
+- lib/msf/core/module/failure.rb
+- lib/msf/base/simple/auxiliary.rb
+- lib/msf/core/db_manager/vuln.rb
+- lib/msf/core/db_manager/service.rb
+- documentation/modules/auxiliary/scanner/http/audiobookshelf_auth_bypass.md
+- test/module_targets/audiobookshelf/compose.yaml
+- test/module_targets/audiobookshelf/profiles.json
+- test/module_targets/audiobookshelf/native_probe.py
+- test/module_targets/audiobookshelf/acceptance.rb
+- test/module_targets/audiobookshelf/README.md

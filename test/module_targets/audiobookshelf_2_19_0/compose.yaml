@@ -1,0 +1,7 @@
+services:
+  target:
+    extends: {file: ../audiobookshelf/compose.yaml, service: target}
+  reporting_db:
+    extends: {file: ../gopher/compose.yaml, service: reporting_db}
+  framework:
+    extends: {file: ../gopher/compose.yaml, service: framework}

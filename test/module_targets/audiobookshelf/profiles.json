@@ -1,0 +1,28 @@
+{
+  "2.19.0": {
+    "image_manifest": "sha256:e87c14b372320f959e3792082299e5b7b0d96477307fa98211fc2ca0095094d1",
+    "image_config": "sha256:2eaa37b63c3cd42cc3f083db1561b5f6c7cea88ec7a9d2df395f1d4fa0323a22",
+    "source_commit": "82ab95ab028711626b01838a2c562c796b36c2b0",
+    "files_sha256": {
+      "/server/Auth.js": "03a61990760354aa34ceebac086312cd9c4bcabf0b1d12f43ff63ebda16431e1",
+      "/server/Server.js": "012ccf7b72085d2fc609515993309ce34a1edf0b5d20dcb1a3461e5925314837",
+      "/server/controllers/LibraryController.js": "e2d1d720925cacddf19e7ff7ed41accc9fd2f14a7a745fa59fa29402dd9d7f6a",
+      "/server/managers/ApiCacheManager.js": "aa6399864614a4ebf43d813fb16f968bbaa22ca5bf8ca3129f3da8e8bef0dc89",
+      "/server/routers/ApiRouter.js": "81ef923a245d81ffee2b8005441a16045c19aad0ce710f177b40ad93bbe874b0",
+      "/package.json": "c56ddceab1c45b15bf6ceaa0505257e4954a41b60b5028bc6ac70cec4040c4a3"
+    }
+  },
+  "2.19.1": {
+    "image_manifest": "sha256:ba1ba4cf138260df25c8ba79a65be48b08738d9d2f02b1320a5761fe860c52ba",
+    "image_config": "sha256:b80c7f0384e8e63ee25523d0319d4ef41304850592c184dec58d3417c82832b0",
+    "source_commit": "725192fbc0f5b289bc70a4eed451710359464ca6",
+    "files_sha256": {
+      "/server/Auth.js": "578e8effebef0c310ee2ef468e8410865baabf1b8c885bce7c620a10e2b0492b",
+      "/server/Server.js": "012ccf7b72085d2fc609515993309ce34a1edf0b5d20dcb1a3461e5925314837",
+      "/server/controllers/LibraryController.js": "e2d1d720925cacddf19e7ff7ed41accc9fd2f14a7a745fa59fa29402dd9d7f6a",
+      "/server/managers/ApiCacheManager.js": "aa6399864614a4ebf43d813fb16f968bbaa22ca5bf8ca3129f3da8e8bef0dc89",
+      "/server/routers/ApiRouter.js": "81ef923a245d81ffee2b8005441a16045c19aad0ce710f177b40ad93bbe874b0",
+      "/package.json": "d650af219375a9259ea066c1cb8c66be622532676de37f3c4c6f9032c82ae590"
+    }
+  }
+}
