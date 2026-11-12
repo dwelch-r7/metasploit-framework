@@ -127,3 +127,28 @@ The revised lab gives the master 384 MiB and Framework 640 MiB, preserving the
 zero cgroup OOM and PID-limit events. Final native checks retain daemon/source
 identity and fresh authenticated minion pings; they avoid duplicating the initial
 copy/decode controls after two actual owning deployments.
+
+## Resource-valid shutdown investigation
+
+Run `20261112T125706-3e1cfd` at
+`d716def3ce161a36a88364cd893872d6e724fbb6` recorded zero OOM and PID-limit
+events. Native x64 calibration and the owning call through the master Python
+session proved two minion callbacks. The module's files were absent on all three
+hosts before harness fallback deletion. Its first profile nevertheless failed
+two of three examples: the original master Python process remained alive after
+shutdown, and the lifecycle guard prevented evaluating the following owning path.
+
+The agent stopped the remaining matrix rather than repeat a known unhealthy
+lifecycle. Manager exit 130 and observer exit 1 are agent-requested stops. Both
+started projects passed ten independent parent absence queries each. Snapshot:
+449 files, 113 pinned inputs, all independently rehashed. Manifest SHA-256:
+`82bcff4e347a531316d3629950639dcb5c70b4985f40f26a5c9a1dd1ed308fa9`.
+The private snapshot is named `saltstack-deployer-console-shutdown-20261112`.
+
+The bulk console command temporarily sets a 15-second response timeout, but
+passive `core.shutdown` explicitly waits ten seconds, so the console timeout is
+not an established cause. The next harness uses the qualified gather workflow's
+fresh RPC proof immediately followed by public `session.kill`, keeps handlers
+live until termination, and closes dependent minion sessions before the master.
+Remote PID birth identity, sockets and SQL closure remain mandatory; no native
+force-kill fallback can satisfy qualification.

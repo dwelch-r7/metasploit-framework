@@ -81,7 +81,21 @@ module Acceptance
 
           target_exec(entry.fetch('service'), 'test', '!', '-e', path)
         end
-        pids = proof.fetch('type') == 'meterpreter' ? [proof.fetch('pid')] : [Integer(proof.fetch('command_pid'))]
+        pids = if proof.fetch('type') == 'meterpreter'
+                 [proof.fetch('pid')]
+               else
+                 port = if owner == DEPLOY_OWNER
+                          OWNER_PORT
+                        elsif proof.fetch('via_payload').include?('/cmd/')
+                          INITIAL_PORT
+                        else
+                          NATIVE_PORT
+                        end
+                 connections = dx_connections(service, port).select { |row| row.fetch('state') == '01' }
+                 expect(connections).not_to be_empty
+                 proof['connections'] = connections
+                 connections.flat_map { |row| row.fetch('owners') }.map { |row| row.fetch('pid') } + [Integer(proof.fetch('command_pid'))]
+               end.uniq
         processes = dx_processes(service, pids)
         expect(processes.keys.sort).to eq(pids.map(&:to_s).sort)
         processes.each_value do |process|
@@ -104,12 +118,44 @@ module Acceptance
       JSON.parse(target_exec(service, 'python', '-c', File.read('test/module_targets/saltstack_deployer/processes.py'), *pids.map(&:to_s)))
     end
 
+    def dx_connections(service, port)
+      JSON.parse(target_exec(service, 'python', '-c', File.read('test/module_targets/superset_rce_owner/connection_state.py'), listener_host, port.to_s))
+    end
+
+    def dx_close_session(identifier, original)
+      path = "/tmp/module-target-salt-proof-#{SecureRandom.hex(6)}"
+      value = "salt-deployment-close-#{SecureRandom.hex(12)}"
+      begin
+        # Match the qualified gather workflow: fresh real RPC, then the public
+        # session kill immediately, while passive HTTP delivery remains live.
+        expression = "session=framework.sessions.fetch(#{identifier}); context={response_timeout: session.respond_to?(:response_timeout) ? session.response_timeout : nil, skip_cleanup: session.respond_to?(:skip_cleanup) ? session.skip_cleanup : nil, passive_service: session.respond_to?(:passive_service) && !!session.passive_service}; proof=SaltDeploymentSessionControl.proof(framework,#{identifier},#{path.inspect},#{value.inspect}); session.kill; proof.merge(close_context: context)"
+        proof = sx_json("begin; #{expression}; end")
+        expect(proof.fetch('container_role')).to eq(original.fetch('container_role'))
+        expect(proof.fetch('db_id')).to eq(original.fetch('db_id'))
+        expect(target_exec(original.fetch('service'), 'cat', path)).to eq(value)
+        sx_record('public-session-close-proofs.jsonl', workspace: @workspace, proof: proof, proof_sha256: Digest::SHA256.hexdigest(value))
+      ensure
+        target_exec(original.fetch('service'), 'rm', '-f', path)
+      end
+    end
+
     def dx_master(payload)
       job = dx_handler(payload, INITIAL_PORT)
-      generated = sx_json("RocketmqSessionControl.command(framework.jobs.fetch(#{job.inspect}),#{payload.inspect})")
-      output = target_exec('master', 'python', '-c', File.read('test/module_targets/saltstack_gather/sdk_launch.py'), generated.fetch('command_base64'), payload.start_with?('python/') ? 'python' : 'command')
-      launch = sx_document(output, 'SALT_GATHER_SDK=')
-      expect(launch.fetch('payload_sha256')).to eq(generated.fetch('sha256'))
+      if payload.start_with?('linux/')
+        generated = sx_json("SaltDeploymentSessionControl.executable(framework.jobs.fetch(#{job.inspect}),#{payload.inspect},framework)")
+        path = "/tmp/module-target-master-bootstrap-#{SecureRandom.hex(8)}"
+        @bootstrap_paths << path
+        configuration = generated.merge('path' => path)
+        output = target_exec('master', 'python', '-c', File.read('test/module_targets/saltstack_deployer/master_bootstrap.py'), JSON.generate(configuration))
+        launch = sx_document(output, 'SALT_DEPLOY_BOOTSTRAP=')
+        expect(launch.fetch('executable_sha256')).to eq(generated.fetch('executable_sha256'))
+        expect(target_exec('master', 'sha256sum', path).split.first).to eq(generated.fetch('executable_sha256'))
+      else
+        generated = sx_json("RocketmqSessionControl.command(framework.jobs.fetch(#{job.inspect}),#{payload.inspect})")
+        output = target_exec('master', 'python', '-c', File.read('test/module_targets/saltstack_gather/sdk_launch.py'), generated.fetch('command_base64'), 'command')
+        launch = sx_document(output, 'SALT_GATHER_SDK=')
+        expect(launch.fetch('payload_sha256')).to eq(generated.fetch('sha256'))
+      end
       sx_record('native-master-dispatches.jsonl', workspace: @workspace, launch: launch, generated: generated)
       identifier = dx_ready('exploit/multi/handler', 1).fetch(0)
       dx_proof(identifier, 'master', owner: 'exploit/multi/handler')
@@ -181,7 +227,18 @@ module Acceptance
         errors << e
       end
       begin
-        console_command('sessions -K')
+        identifiers = sx_json('framework.sessions.keys')
+        # Stop dependent minion sessions before their original master transport.
+        identifiers.sort_by { |identifier| @deployment_proofs&.dig(identifier, 'container_role', 'role') == 'master' ? 1 : 0 }.each do |identifier|
+          original = @deployment_proofs&.[](identifier)
+          if original
+            dx_close_session(identifier, original)
+          else
+            sx_json("framework.sessions.fetch(#{identifier}).kill; {id: #{identifier}, cleanup_requested: true}")
+          end
+        rescue StandardError, RSpec::Expectations::ExpectationNotMetError => e
+          errors << e
+        end
         # Passive HTTP sessions need their live listener to deliver shutdown.
         console_command('jobs -K')
         dx_poll(30) { expect(sx_json('framework.sessions.keys')).to eq([]) }
@@ -205,7 +262,7 @@ module Acceptance
         %w[master minion_a minion_b].each do |service|
           [INITIAL_PORT, OWNER_PORT, NATIVE_PORT].each do |port|
             dx_poll(20) do
-              sockets = JSON.parse(target_exec(service, 'python', '-c', File.read('test/module_targets/superset_rce_owner/connection_state.py'), listener_host, port.to_s))
+              sockets = dx_connections(service, port)
               sx_record('session-socket-closure.jsonl', workspace: @workspace, service: service, port: port, sockets: sockets)
               expect(sockets.reject { |socket| socket.fetch('state') == '06' }).to eq([])
             end
@@ -233,6 +290,10 @@ module Acceptance
         end
       end
       errors.each { |error| sx_record('cleanup-proof-errors.jsonl', workspace: @workspace, error: error.class.name, message: error.message) }
+      @bootstrap_paths&.each do |path|
+        target_exec('master', 'rm', '-f', path)
+        target_exec('master', 'test', '!', '-e', path)
+      end
       raise errors.first unless errors.empty?
     end
   end

@@ -20,7 +20,11 @@ DOCKER_CONTEXT=default BUILDX_BUILDER=default \
 
 Each profile calibrates its exact native ELF payload with an ordinary public
 handler before invoking the local module from both declared master session types.
-Four profiles cover x86/x64 and shell/Meterpreter output sessions. The second
+The master Meterpreter is native Linux x64, matching the module documentation;
+its exact public handler ELF is started by administrative fixture setup. The
+master shell is started through authenticated Salt RPC. Neither setup establishes
+an unauthenticated exploit. Four profiles cover x86/x64 and shell/Meterpreter
+output sessions. The second
 owning deployment selects one minion and disables the calculation pause. Real
 session RPC, per-host proof files, process identity and reporting database rows establish where callbacks landed. Harness fallback deletion is
 recorded separately and does not satisfy module cleanup expectations.
@@ -38,3 +42,7 @@ containers have bounded task counts, and runtime state lives in bounded tmpfs.
 Cgroup v2 OOM and PID-limit events must remain zero. Native copy/decode controls
 run before the suite; final controls verify daemon/source identity and fresh
 authenticated ping responses after the owning deployments.
+
+Python HTTPS master execution and file cleanup were observed, but its remote
+process termination remains unresolved and is not included in qualification.
+See the investigation report for the retained failure evidence.

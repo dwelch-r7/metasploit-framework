@@ -92,5 +92,6 @@ support_files:
 - spec/modules/exploits/linux/local/saltstack_salt_minion_deployer_spec.rb
 - lib/msf/core/payload.rb
 - lib/msf/core/module.rb
+- test/module_targets/saltstack_deployer/master_bootstrap.py
 test_env:
   SALT_DEPLOY_PAYLOAD: linux/x64/meterpreter/reverse_tcp
