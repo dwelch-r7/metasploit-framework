@@ -1,6 +1,6 @@
 ---
 spec: spec/modules/auxiliary/scanner/http/nextjs_middleware_target_spec.rb
-expected_examples: 13
+expected_examples: 16
 console: true
 modules:
 - auxiliary/scanner/http/nextjs_middleware_auth_bypass
@@ -46,3 +46,4 @@ support_files:
 - test/module_targets/http/htdocs/protected/index.html
 - test/module_targets/http/htdocs/robots.txt
 - test/module_targets/http/module-target.conf
+- spec/modules/auxiliary/scanner/http/nextjs_middleware_auth_bypass_spec.rb

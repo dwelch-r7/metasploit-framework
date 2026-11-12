@@ -142,6 +142,26 @@ try:
         assert request('/module-target-missing')[0]['status'] == 404
         # Preserve the real normalization response without assuming middleware order.
         result['trailing_slash'] = [request('/dashboard/')[0], request('/dashboard/', {'x-middleware-subrequest': correct})[0]]
+    protocol = configuration['protocol_rejection']
+    rejection_payload = protocol['character'] * protocol['length']
+    probe_path = protocol['apache_path'] if profile == 'unrelated' else protocol['nextjs_path']
+    assert request(probe_path)[0]['status'] == 401
+    rejected, body = request(probe_path, {'x-middleware-subrequest': rejection_payload})
+    assert rejected['status'] in [400, 431]
+    assert b'PRIVATE MODULE TARGET API' not in body
+    if profile == 'unrelated':
+        assert Path('test/module_targets/http/htdocs/protected/index.html').read_bytes() not in body
+    result['protocol_rejection'] = {'response': rejected, 'payload_bytes': len(rejection_payload),
+                                    'payload_sha256': hashlib.sha256(rejection_payload.encode()).hexdigest()}
+    healthy, body = request('/')
+    assert healthy['status'] == 200 and hashlib.sha256(body).hexdigest() == result['ordinary_sha256']
+    assert request(probe_path)[0]['status'] == 401
+    if profile != 'unrelated':
+        baseline, body = request(protocol['downstream_path'])
+        assert baseline['status'] == 307
+        bypass, body = request(protocol['downstream_path'], {'x-middleware-subrequest': correct})
+        assert bypass['status'] == (404 if vulnerable else 307)
+        result['downstream_missing'] = {'baseline': baseline, 'probe': bypass}
         result['limits'] = execute('target', 'cat', '/sys/fs/cgroup/memory.events', '/sys/fs/cgroup/pids.events').decode()
         assert all(int(line.split()[1]) == 0 for line in result['limits'].splitlines())
     result['status'] = 'native_passed'

@@ -89,6 +89,12 @@ RSpec.describe 'Genuine Next.js middleware authorization bypass', acceptance: tr
       nx_protected('check')
     end
 
+    it 'retains a genuine middleware bypass ending at a missing downstream route' do
+      options = { 'TARGETURI' => Acceptance::NextjsMiddleware::PROTOCOL_REJECTION.fetch('downstream_path') }
+      nx_protected('check', options)
+      nx_protected('run', options)
+    end
+
     it 'does not mistake ordinary trailing-slash normalization for a bypass' do
       options = { 'TARGETURI' => '/dashboard/' }
       nx_protected('check', options, vulnerable: false)
@@ -107,6 +113,14 @@ RSpec.describe 'Genuine Next.js middleware authorization bypass', acceptance: tr
 
   it 'handles a missing resource without false vulnerability reporting' do
     nx_ungated({ 'TARGETURI' => '/module-target-missing' })
+  end
+
+  it 'does not confirm a bypass when the check request is rejected by the HTTP parser' do
+    nx_protected('check', nx_rejection_options, vulnerable: false)
+  end
+
+  it 'does not report a vulnerability when the run request is rejected by the HTTP parser' do
+    nx_protected('run', nx_rejection_options, vulnerable: false)
   end
 
   it 'handles the independently proved refused port without false reporting' do

@@ -6,6 +6,16 @@ module Acceptance
   # Keep independent native requests and actual Framework reporting observable.
   module NextjsMiddleware
     OWNER = 'auxiliary/scanner/http/nextjs_middleware_auth_bypass'
+    PROTOCOL_REJECTION = JSON.parse(File.read(File.join(__dir__, 'profiles.json'))).fetch('protocol_rejection').freeze
+    REJECTION_PAYLOAD = (PROTOCOL_REJECTION.fetch('character') * PROTOCOL_REJECTION.fetch('length')).freeze
+
+    def nx_rejection_options
+      {
+        'TARGETURI' => PROTOCOL_REJECTION.fetch(@app ? 'nextjs_path' : 'apache_path'),
+        'SUBREQUEST_PAYLOAD' => REJECTION_PAYLOAD,
+        'HttpTrace' => true
+      }
+    end
 
     def nx_native(phase)
       output = +''

@@ -31,6 +31,10 @@ artifacts, verify application sources and production build identity, inspect
 real HTTP behavior and validate separate reporting PostgreSQL credentials.
 Functional tests invoke public `check` and `run`, inspect real service/CVE/loot
 SQL, test repeats, forced payloads, cookies, missing paths and a refused port.
+Protocol-rejection controls also prove that HTTP 400/431 responses cannot
+confirm a bypass, while a genuine middleware skip ending in a downstream 404
+remains detectable. The payload size and probe paths share one component
+configuration consumed by native and public-entrypoint tests.
 Cookie header files contain only public fixture values and live in each run's
 artifact directory. No external account or identity provider is used.
 
