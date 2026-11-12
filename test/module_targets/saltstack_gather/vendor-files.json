@@ -1,0 +1,12 @@
+{
+  "source_sha256": "5ad18044b4a47690d09c3ebc842a64d58144d63f40019e867683377dbf337aab",
+  "vendor_files": {
+    "salt/modules/network.py": "13803caa408589ba9222480448bcfd12cde02aa472fa4d63ff08e579c2527ae1",
+    "salt/modules/status.py": "b8d8c13c291bb441c9f39b69a548a097806b5f2d0f9d514ab833bb0a339d0e47",
+    "salt/modules/win_system.py": "8bbf6d57990aa84f6cc83e7f87de9c1148744677773d1557c37b8ff56b6c9a07",
+    "salt/modules/pillar.py": "9d11e355bd6a64f90511c12755a66ce32b86294caea62e494462ce651cb3d4fe",
+    "salt/modules/state.py": "758109d236d413f7b8ead231172544ec8825d0afc9039e4849de2b088c7f7d1f",
+    "salt/cli/salt.py": "a5dd16c48f64b5eff2a3acca506fe2c64390824ff758748ff800873b9eb6ef8d",
+    "salt/state.py": "3c9de799de534eb83de800671efe74b0ec00252efafe25c60339dfe91ad1ad2e"
+  }
+}

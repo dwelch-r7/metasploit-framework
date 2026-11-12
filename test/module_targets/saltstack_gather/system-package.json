@@ -1,0 +1,12 @@
+{
+  "Package": "net-tools",
+  "Version": "1.60+git20181103.0eebece-1+deb11u1",
+  "Architecture": "amd64",
+  "Depends": "libc6 (>= 2.14), libselinux1 (>= 3.1~)",
+  "Filename": "pool/main/n/net-tools/net-tools_1.60+git20181103.0eebece-1+deb11u1_amd64.deb",
+  "Size": "249940",
+  "SHA256": "9a6ca9b81aaa7ca0ecd7aa23107ce862908a62644149126bff4134b5175e30ce",
+  "url": "https://archive.debian.org/debian/pool/main/n/net-tools/net-tools_1.60+git20181103.0eebece-1+deb11u1_amd64.deb",
+  "index_sha256": "1c3405444297ead864711c18e64bce4810db63b48340a2f9d81182d9f235ad71",
+  "release_url": "https://archive.debian.org/debian/dists/bullseye/Release"
+}

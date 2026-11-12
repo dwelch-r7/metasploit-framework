@@ -1,0 +1,9 @@
+services:
+  target:
+    extends: {file: ../saltstack_rce/compose.yaml, service: target}
+    image: msf-module-target-saltstack-gather:3000.1
+    build: !override
+      context: .
+    command: [python, /opt/module-target/gather-bootstrap.py]
+    volumes:
+      - ./bootstrap.py:/opt/module-target/gather-bootstrap.py:ro
