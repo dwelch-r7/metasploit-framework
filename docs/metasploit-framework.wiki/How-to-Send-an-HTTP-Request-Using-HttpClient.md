@@ -29,6 +29,92 @@ send_request_cgi({
 
 **Please note**: `send_request_raw` and `send_request_cgi` will return a `nil` if there's a timeout, so please make sure to account for that condition when you handle the return value.
 
+## Identifying HTTP test traffic
+
+Optional identification headers help an operator match a module invocation to requests in a defender's application, proxy or WAF logs. Identification is disabled by default. When enabled, it marks existing target requests; it does not make a separate telemetry request or contact a reporting endpoint.
+
+The HttpClient mixin exposes these advanced options:
+
+| Option | Default | Meaning |
+|---|---|---|
+| `HttpIdentification` | `off` | `product` identifies Metasploit Framework; `module` also identifies the module. |
+| `HttpIdentificationHeader` | `Metasploit-Identification` | Name of the generated custom header. Protocol and authentication header names are rejected. |
+| `HttpIdentificationRunId` | `false` | Include the existing execution identifier, shared across that invocation's requests and scanner workers. |
+| `HttpIdentificationTag` | Unset | Optional engagement label containing only ASCII letters, digits, dots, underscores and hyphens. |
+
+For a controlled local test, first configure the receiver's access log to retain the chosen header. Standard access logs do not necessarily record arbitrary request headers. With an HTTP server listening locally on port 8080:
+
+```text
+use auxiliary/scanner/http/http_version
+set RHOSTS 127.0.0.1
+set RPORT 8080
+set HttpIdentification module
+set HttpIdentificationRunId true
+set HttpIdentificationTag exercise-42
+run
+```
+
+The resulting header has this format; `<invocation-id>` is replaced with the current execution identifier:
+
+```http
+Metasploit-Identification: metasploit-framework; module=auxiliary/scanner/http/http_version; run=<invocation-id>; tag=exercise-42
+```
+
+Product mode omits the module parameter. The run parameter is omitted unless enabled and an execution ID is available. An empty or unset tag is omitted. A tag groups related runs; it does not distinguish individual invocations. A subsequent invocation receives a different run ID while retaining the configured tag. Scanner workers, authentication retries and AutoCheck activity within one invocation share its ID.
+
+The module prints a preparation message once, when it first adds an automatic header. Copy the run ID from that message and search for it in the receiver's logs. Normal quiet execution suppresses console output. The message establishes that identification was prepared, not that the request arrived or exploitation succeeded. A failed connection can still leave a preparation message.
+
+### Global settings and overrides
+
+Use `setg` to apply these settings globally to supported modules:
+
+```text
+setg HttpIdentification module
+setg HttpIdentificationRunId true
+setg HttpIdentificationTag exercise-42
+```
+
+Normal datastore precedence applies. A module-level value overrides its global counterpart. To disable automatic identification for the active module even when globally enabled:
+
+```text
+set HttpIdentification off
+```
+
+Unsetting a module value restores normal inheritance; it does not necessarily disable a globally enabled feature. Use `setg HttpIdentification off` to disable the global setting. Identification settings are snapshotted for each invocation, so changing configuration does not alter a running job's metadata.
+
+Explicit matching headers take precedence, case-insensitively, including headers supplied through `HttpRawHeaders` or a client's raw-header configuration. Automatic identification does not add a duplicate or rewrite that explicit value. Existing arbitrary header values and ERB templates remain available through `HttpRawHeaders`.
+
+Module authors can suppress automatic identification for a request requiring exact formatting:
+
+```ruby
+send_request_cgi(
+  'uri' => '/',
+  'http_identification' => false
+)
+```
+
+Suppression also applies throughout an automatically followed redirect chain. This request flag cannot enable identification when the invocation's setting is off.
+
+### Redirects and supported traffic
+
+Generated identification stays within each automatic redirect chain's original scheme, hostname and effective port. It is suppressed on permitted cross-origin hops and restored if the chain returns to its original origin. Existing redirect permissions and protections still apply to explicit headers, cookies and credentials.
+
+This origin restriction applies per redirect chain. Separate top-level requests to different scanner targets can each carry identification. The feature covers `send_request_raw`, `send_request_cgi`, `send_request_cgi!` and the HTTP handshake performed by `connect_ws`. It does not cover separate HTTP login scanners, direct Rex clients, payload callbacks, WebSocket frames after upgrade or non-HTTP protocols. Direct helper calls outside normal execution wrappers do not invent an invocation ID when none is available.
+
+### Event records and correlation limits
+
+Correlation works without a database. With an active data service, the first automatically marked request also attempts to record one `http_identification` event containing the module name, module UUID, run UUID when available, mode, header name/value and optional tag. Module lifecycle events include the existing `run_uuid`, allowing records to be joined without changing the meaning of `module_uuid`.
+
+For example, with a connected database, inspect recent identification events in the current workspace from msfconsole:
+
+```text
+irb -e 'pp framework.db.events(name: "http_identification", limit: 10).map(&:info)'
+```
+
+The event describes preparation rather than delivery. If every request is suppressed or explicitly overridden, no automatic-identification message or event is created. Optional event persistence uses the operator's configured data service, including an existing remote service when selected. Remote submissions retain their normal asynchronous behavior; there is no new delivery guarantee. Reporting failures do not prevent the requested HTTP operation.
+
+These headers, tags and IDs are visible to the target and can be copied or forged. Use them as correlation hints alongside independent evidence, never as authentication or grounds for suppressing detections. They do not prove successful exploitation, session creation, unique users or overall Metasploit usage. Tags are explicitly supplied labels and are never derived automatically from workspace or customer information.
+
 ## Cookies & CookieJars
 
 Part of send\_request\_cgi functionality is the ability to collect, edit, and send cookies via the HttpClient's  `cookie_jar` variable, an instance of the [HttpCookieJar](https://github.com/rapid7/metasploit-framework/blob/master/lib/msf/core/exploit/remote/http/http_cookie_jar.rb) class.
