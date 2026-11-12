@@ -101,7 +101,7 @@ RSpec.describe 'Genuine Log4j HTTP lookup detection', acceptance: true, order: :
   def vulnerabilities
     query = <<~SQL
       SELECT COALESCE(json_agg(record), '[]'::json) FROM (
-        SELECT host.address::text, service.port, vuln.name, vuln.info,
+        SELECT host(host.address) AS address, service.port, vuln.name, vuln.info,
           ARRAY(SELECT reference.name FROM refs reference JOIN vulns_refs vr ON vr.ref_id=reference.id WHERE vr.vuln_id=vuln.id ORDER BY reference.name) refs
         FROM vulns vuln JOIN hosts host ON host.id=vuln.host_id
         JOIN workspaces workspace ON workspace.id=host.workspace_id
