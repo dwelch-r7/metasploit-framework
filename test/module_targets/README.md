@@ -1,6 +1,14 @@
 # Container module acceptance tests
 
-Latest: the [Log4Shell execution checkpoint](VERIFICATION-20261112-log4shell-execution.md)
+Latest: the [UniFi Log4Shell checkpoint](VERIFICATION-20261112-unifi.md)
+reaches **216 qualified modules, 208 profiles and 2,150 functional examples**.
+Sixteen cases and 36 public calls cover genuine affected/patched controllers,
+four verified sessions, four command executions, native JVM/gadget proof and
+SQL reporting. Three capped containers run serially; all final cleanup audits
+pass and Docker is empty. Windows, other rebuilds and later Log4j vulnerabilities
+remain outside this qualification. Earlier fixture failures are preserved.
+
+The [Log4Shell execution checkpoint](VERIFICATION-20261112-log4shell-execution.md)
 reaches **215 qualified modules, 206 profiles and 2,134 functional examples**.
 Thirty cases and 57 public calls cover Java/Unix delivery, with twelve verified
 sessions, eight command executions, native class/gadget controls and exact
