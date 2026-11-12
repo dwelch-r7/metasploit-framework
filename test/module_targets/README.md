@@ -1,6 +1,14 @@
 # Container module acceptance tests
 
-Latest: the [UniFi Log4Shell checkpoint](VERIFICATION-20261112-unifi.md)
+Latest: the [NetAlertX file collection checkpoint](VERIFICATION-20261112-netalertx-file-read.md)
+reaches **217 qualified modules, 212 profiles and 2,182 functional examples**.
+Thirty-two cases and 64 public calls cover genuine affected/fixed applications
+with web protection enabled/disabled. Native controls and 32 exact loot files
+verify collection. Scanner-check and quoted-JSON defects are fixed. Three capped
+containers run serially; cleanup audits pass and Docker is empty. Backend/RCE
+paths remain separate, with earlier source and fixture failures preserved.
+
+The [UniFi Log4Shell checkpoint](VERIFICATION-20261112-unifi.md)
 reaches **216 qualified modules, 208 profiles and 2,150 functional examples**.
 Sixteen cases and 36 public calls cover genuine affected/patched controllers,
 four verified sessions, four command executions, native JVM/gadget proof and
