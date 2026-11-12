@@ -50,7 +50,7 @@ RSpec.describe 'Genuine NetAlertX file collection', acceptance: true, order: :de
         expect(data.fetch('vulns').length).to eq(1)
         row = data.fetch('vulns').first
         expect(row.fetch('name').strip).to eq('NetAlertX File Read Vulnerability')
-        expect(row.fetch('info')).to eq('Target appears vulnerable based on the explicit check of auxiliary/scanner/http/netalertx_file_read.')
+        expect(row.fetch('info')).to eq('Target appears vulnerable based on check of auxiliary/scanner/http/netalertx_file_read.')
       else
         expect(data.fetch('vulns')).to eq([])
       end
@@ -143,16 +143,19 @@ RSpec.describe 'Genuine NetAlertX file collection', acceptance: true, order: :de
         expect(File.binread(row.fetch('path'))).to eq(content)
       end
       automatic_report = version == '24.9.12' && !protected? && options.fetch('AutoCheck', true)
-      expected_names = ['NetAlertX File Read Vulnerability']
-      expected_names << 'auxiliary/scanner/http/netalertx_file_read' if automatic_report
-      expect(data.fetch('vulns').map { |row| row.fetch('name').strip }.sort).to eq(expected_names.sort)
-      data.fetch('vulns').each do |row|
-        expect(row.fetch('address')).to eq(target_runtime.fetch('module_endpoints').fetch('target').fetch('host'))
-        expect(row.fetch('refs')).to include('CVE-2024-48766')
-      end
-      row = data.fetch('vulns').find { |vulnerability| vulnerability.fetch('name').strip == 'NetAlertX File Read Vulnerability' }
-      expect(row.fetch('name').strip).to eq('NetAlertX File Read Vulnerability')
-      expect(row.fetch('info')).to eq('Module auxiliary/scanner/http/netalertx_file_read successfully leaked file')
+      # DBManager merges matching host/service/CVE reports and retains the first
+      # record's name/info. AutoCheck reports before the collection does.
+      expect(data.fetch('vulns').length).to eq(1)
+      row = data.fetch('vulns').first
+      expect(row.fetch('name').strip).to eq(automatic_report ? 'auxiliary/scanner/http/netalertx_file_read' : 'NetAlertX File Read Vulnerability')
+      expect(row.fetch('address')).to eq(target_runtime.fetch('module_endpoints').fetch('target').fetch('host'))
+      expect(row.fetch('refs')).to include('CVE-2024-48766')
+      expected_info = if automatic_report
+                        'This module exploits improper authentication in logs.php endpoint. An unathenticated attacker can request log file and read any file due path traversal vulnerability.'
+                      else
+                        'Module auxiliary/scanner/http/netalertx_file_read successfully leaked file'
+                      end
+      expect(row.fetch('info')).to eq(expected_info)
     end
   end
 

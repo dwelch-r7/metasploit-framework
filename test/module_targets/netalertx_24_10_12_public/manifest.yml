@@ -26,3 +26,6 @@ support_files:
 - lib/msf/core/auxiliary/scanner.rb
 - lib/msf/core/auxiliary/multiple_target_hosts.rb
 - lib/msf/base/simple/auxiliary.rb
+- lib/msf/core/module/failure.rb
+- lib/msf/core/db_manager/vuln.rb
+- lib/msf/core/auxiliary/report.rb
