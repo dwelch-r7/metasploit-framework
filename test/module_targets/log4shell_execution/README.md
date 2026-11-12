@@ -29,8 +29,11 @@ The functional suite exercises real checks, explicit and automatically discovere
 headers, GET/POST, enabled/disabled AutoCheck, remote Java shell/Meterpreter and
 Linux generic/Bash delivery. Every execution case repeats. Public session RPC
 writes per-run proof; native file/PID observations and database rows verify it.
-Java Meterpreter shares the application JVM, so shutdown must preserve the JVM
-and release its callback socket; command-shell child processes must exit.
+Java Meterpreter's default spawned process must exit. A separate `Spawn=0`
+case must preserve the application JVM while releasing its callback socket.
+Command-shell child processes must exit. Blocking Java delivery may outlive the
+caller's HTTP receive bound; its exact response-write `Broken pipe` event is
+retained and admitted only after successful session proof and complete closure.
 Missing-header configuration and unlogged endpoints are negative controls.
 Artifacts record HTTP input, SQL state, native counters and session lifecycle.
 A failing case remains unclassified until setup, payload and owner evidence agree.

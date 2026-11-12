@@ -1,6 +1,6 @@
 ---
 spec: spec/modules/exploits/multi/http/log4shell_execution_target_spec.rb
-expected_examples: 9
+expected_examples: 10
 console: true
 modules:
 - exploit/multi/http/log4shell_header_injection
@@ -61,3 +61,4 @@ support_files:
 - modules/payloads/singles/cmd/unix/reverse_bash.rb
 - documentation/modules/exploit/multi/http/log4shell_header_injection.md
 - spec/support/shared/contexts/wait_for_expect.rb
+- lib/msf/core/payload/java/payload_options.rb
