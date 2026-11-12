@@ -1,17 +1,16 @@
 # Container module acceptance tests
 
-Latest: the [Salt master checkpoint](VERIFICATION-20261112-saltstack.md) reaches
-**210 qualified modules, 192 profiles and 2,047 functional examples**. Three
-serial profiles pass nine cases on genuine affected, fixed and multi-user Salt
-masters. Native controls reproduce a large-response framing defect; the verified
-fix restores key collection and real credential/CVE reporting. All 24 independent
+Latest: the [Salt master/minion session checkpoint](VERIFICATION-20261112-saltstack-rce.md)
+reaches **211 qualified modules, 193 profiles and 2,056 functional examples**.
+All nine cases pass with eleven owning sessions across all four targets,
+actual SQL identity and passive job-completion checks. Native controls isolate
+and verify selector serialization, cold Meterpreter loading and missing returner
+metadata defects. Three capped containers run serially; all eight independent
 cleanup queries pass and Docker is empty after teardown.
 
-The [Salt master/minion session investigation](VERIFICATION-20261112-saltstack-rce.md)
-adds a genuine three-container lab and corrects a verified minion-selector
-serialization defect and cold Meterpreter extension-loading defect. All nine
-session cases pass, but the profile remains unqualified while minion return
-metadata and clean job completion are investigated.
+The [Salt master collection checkpoint](VERIFICATION-20261112-saltstack.md)
+also remains current: three profiles cover genuine affected, fixed and
+multi-user masters, with verified key, credential and CVE reporting.
 
 The [Next.js](VERIFICATION-20261112-nextjs.md),
 [Pi-hole](VERIFICATION-20261112-pihole.md),

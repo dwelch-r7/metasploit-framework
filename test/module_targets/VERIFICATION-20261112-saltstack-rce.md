@@ -1,9 +1,61 @@
-# Salt master/minion session investigation — 12 November 2026
+# Salt master/minion session verification — 12 November 2026
 
-The [session lab](saltstack_rce/README.md) is **registered, not qualified**.
-The existing checkpoint remains **210 qualified modules, 192 profiles and
-2,047 functional examples**. This investigation does not add passing examples
-to that checkpoint. No pull request is created.
+The [session lab](saltstack_rce/README.md) qualifies the defined Salt 3000.1
+Linux session and job-completion contract. The checkpoint is **211 qualified
+modules, 193 profiles and 2,056 functional examples**. Registration of 213
+sources is not qualification; 290 documented container hints and unhinted
+candidates remain. No pull request is created.
+
+## Final complete result
+
+Run `20261112T091804-f12cfc`, source
+`2b332cf445960f758bbeb302cbe44af08e76614c`, passes **nine examples/zero failures**
+in 455.43 RSpec seconds, with no pending examples or outside errors. The original
+manager and independent observer exit zero. The first cold prompt, BOOT record
+and both fresh metadata snapshots are independently observed. All eight exact
+cleanup queries pass; all three containers and their network are removed, and
+Docker is empty.
+
+Fourteen owning calls cover check repeats, all four targets twice, selective
+minion execution, wrong credentials, a missing selector and a refused port.
+There are **eleven owning session proofs**, independently linked to actual SQL
+IDs, plus one genuine native SDK SSL control. Minion Python is the first
+Meterpreter use: Stdapi is confirmed unloaded, then both minions complete real
+RPC/file/process proofs twice. Unix minions execute on both nodes, then only the
+selected node. No owning payload, vendor method or transport response is replaced.
+
+Five passive owning observations, including the no-match case, verify seven
+actual minion workers: real proc bytes, JIDs, configured cache paths and witnessed
+session ancestry. Cache envelopes report success with retcode zero, proc paths
+disappear, and role logs contain no job exceptions. All seven owning workers
+have been reaped by the final snapshot, so their exact exit statuses are
+explicitly unavailable. Native before/after calibration captures thirteen
+workers terminal with raw wait status zero; one native worker is already reaped,
+also with its exit status unavailable.
+The final target log contains **zero `KeyError: 'ret'` occurrences**.
+
+Native preflight and final audit each pass all five publication cases and verify
+the actual `jobs.py` JID/node envelopes. Thirteen vendor files, fifteen runtime
+packages, configuration, role/process identities and cgroup event counters remain
+consistent. All five owning observers stop, export and rehash their evidence,
+then prune only their own UUID directory. Session processes, transports,+listeners and Framework jobs close between repeats.
+
+The final read-only seal contains **1,074 entries / 72 input files**, manifest
+`706638202ab73510798c181c143b1054d7a6f95f807699626ae0cb6d2f292375`.
+The parent independently rehashes every entry. The helper pilot's separate seal
+contains 180 entries, manifest
+`15f9935b3b0eb90b14f2541916c246359db551752f697ca5073dfd58c1f3b4f5`.
+
+Reproduce with:
+
+```sh
+bundle exec ruby tools/dev/run_guarded_module_target_tests.rb saltstack_rce_3000_1
+```
+
+These results do not qualify other Salt releases, separate hosts, appliances or
+the remaining Salt modules. Actual proc removal is credited to Salt itself;
+the module's hardcoded default FileDropper path is not validated with the two
+custom cache directories. The earlier failures below remain historical evidence.
 
 ## Genuine target and controls
 
@@ -129,7 +181,7 @@ This run proves the session and loader corrections, but log review finds 42
 `KeyError: 'ret'` traceback lines from minion workers after native custom and
 owning publications. Their missing return metadata and clean job completion
 remain under investigation. Session success alone does not resolve this issue,
-so **the profile stays unqualified**. Its custom minion cache paths also do not
+so **the profile remained unqualified at that stage**. Its custom minion cache paths also do not
 validate the module's hardcoded default proc-file cleanup path. Tested cleanup
 covers proof files, session processes/transports, listeners, Framework jobs and
 native markers.
@@ -157,8 +209,8 @@ seed 52741 and ordered IDs give **23/three before, 23/zero after**. The primary
 checkout passes **29/zero**, including the six loader regressions. The existing
 four default-payload lint findings remain unchanged. The module SHA256 is
 `19d777dbd7b52933d976dd57f2408e49a9a484f2d86c7a104d2ed7f83190a082`.
-Genuine replay with explicit completion controls remains outstanding, so this
-does not increase the qualified count.
+At that stage, genuine replay with explicit completion controls remained
+outstanding; the final complete run above supplies that evidence.
 
 The independently copied return-metadata unit/native seal contains 146 entries,
 manifest `b93eebb5a26ab5df5ff593cd39969125685387e67456d7113d53bbf0d8ad5857`.
@@ -185,15 +237,13 @@ The separate unit seal has 60 entries plus its JSON manifest,
 Every seal is independently rehashed and copied without hard links. Human
 module Scenarios remain unchanged.
 
-**Summary:** the minion selector defect is verified and corrected; this complete
-session profile remains unqualified. **What looks good:** native prerequisites,
-three target paths, repeated cleanup and SQL identity are independently proved.
-**Concerns:** minion return metadata and clean job completion still need
-correction and validation. Default proc-file cleanup remains uncovered with the
-custom cache paths. **Suggestions:** retain the failed captures and add job
-completion controls alongside the nine session cases before increasing the
-checkpoint. Other Salt releases, separate hosts
-and the remaining Salt modules are individually pending.
+**Summary:** the selector, cold loader and publication-metadata defects are
+corrected; the complete nine-case contract passes. **What looks good:** genuine
+native controls, all four target paths, repeated sessions, actual job completion,
+SQL identity and exact teardown are independently proved. **Concerns:** owning
+worker exit statuses are unavailable after reaping; default FileDropper paths
+and other releases/hosts remain outside this profile. **Suggestions:** retain
+the failed captures and extend individually to other Salt modules and targets.
 
 CI on the earlier published `9c17653681edcf3e1163907cd1751693d92516d6`
 finishes with 62 successful checks, one skipped and one
@@ -201,3 +251,12 @@ finishes with 62 successful checks, one skipped and one
 Its network-interface assertions fail; the cause remains unverified. This is
 reported separately from the Linux Salt session results and is not attributed
 to the unpublished Salt RCE changes.
+
+The later published `880efa4bfb08d5b4c544228b6154630db76ec3bb` finishes with
+61 successful checks, one skipped and two Mettle failures:
+[macOS Intel](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43181405574/job/131058021501)
+has interface assertions and malformed process output;
+[Ubuntu](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43181405574/job/131058021415)
+times out during post-test directory setup with the minimal HTTP C2 profile.
+Their causes remain unverified and are separate from the successful local Salt
+matrix. The completion-control changes were not part of that CI head.
