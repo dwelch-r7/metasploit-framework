@@ -30,8 +30,9 @@ Binary proof data stays in private artifacts; nothing opaque is added to the rep
 
 The module suite covers repeated checks, a missing target URI, a deliberately
 unreachable callback, generic command execution with AutoCheck enabled/disabled,
-check-after-run state, Bash sessions with/without AutoCheck, and fetched Linux
-Meterpreter. Session RPC writes exact proof, native process/file/socket observations
+check-after-run state, Bash sessions with/without AutoCheck, and rejection of a
+Linux fetch adapter outside the module's declared Unix target. Session RPC writes
+exact proof, native process/file/socket observations
 verify it, and SQL checks bind sessions/vulnerabilities/references to the actual
 controller. Cleanup is inspected before fallback recovery; the shared console
 reset follows already-empty job/session lists. Native application identity and
@@ -54,7 +55,8 @@ and PID-limit events before an owning failure can be interpreted. The runner
 removes the owned containers, network and temporary state afterward. Tests are
 scoped to Linux Unix-target delivery on these exact image/configuration pairs;
 Windows, macOS, other image rebuilds, lower affected releases and other controller
-features remain separate work.
+features remain separate work. The Linux fetch adapter is incompatible with this
+module's current target metadata, so no fetched Meterpreter execution is claimed.
 
 Sources:
 
