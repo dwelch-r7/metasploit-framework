@@ -9,6 +9,7 @@ RSpec.shared_context 'pretalx reporting target' do
     expect(@native.fetch('debug')).to eq(debug?)
     expect(@native.fetch('exposed')).to eq(vulnerable?)
     expect(@native.fetch('source_hashes').length).to eq(12)
+    expect(@native.fetch('asset_build')&.fetch('workers')).to eq(debug? ? 1 : nil)
     expect(console_command('db_connect module_framework:module-target-framework-db-password@reporting_db:5432/module_targets', timeout: 120)).not_to match(/\[-\]|Error|Exception/)
     expect(console_command('db_status')).to include('Connected to module_targets. Connection type: postgresql.')
   end

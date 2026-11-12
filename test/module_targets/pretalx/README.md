@@ -22,6 +22,10 @@ their default AutoCheck decisions.
 Those profiles rebuild the native offline compression manifest for debug-mode
 static URLs before starting the workers. Twelve application, exporter and
 template files per image are checked against the official release tags.
+The bundled compression command hardcodes four asset workers and can race on
+shared cache output. `assets.py` bounds that build process to one worker and
+records its command hash. This affects asset generation only; the running
+application, exporter, responses and vulnerability logic stay genuine.
 
 The independent native control creates a separate conference and published talk
 through native models, attaches an HTML resource, then uses real authenticated

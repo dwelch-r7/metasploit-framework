@@ -25,4 +25,5 @@ support_files:
 - test/module_targets/pretalx/control.rb
 - modules/exploits/linux/http/pretalx_rce_cve_2023_28458.rb
 - test/module_targets/pretalx_production_guard/README.md
+- test/module_targets/pretalx/assets.py
 scope: companion_check_only

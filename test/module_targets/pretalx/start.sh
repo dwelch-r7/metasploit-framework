@@ -6,7 +6,7 @@ python /lab/bootstrap.py
 if [ "${PRETALX_DEBUG:-False}" = "True" ]; then
   # Debug renders unhashed static URLs; exports still require an offline
   # compression manifest generated for those genuine template inputs.
-  PRETALX_REDIS=False python -m pretalx compress --force
+  PRETALX_REDIS=False python /lab/assets.py
 fi
 celery -A pretalx.celery_app worker --concurrency=1 --pool=solo --loglevel=info --without-gossip --without-mingle --without-heartbeat &
 worker=$!

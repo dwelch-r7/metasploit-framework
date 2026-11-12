@@ -24,3 +24,4 @@ support_files:
 - test/module_targets/pretalx/start.sh
 - test/module_targets/pretalx/vendor.json
 - test/module_targets/pretalx/control.rb
+- test/module_targets/pretalx/assets.py

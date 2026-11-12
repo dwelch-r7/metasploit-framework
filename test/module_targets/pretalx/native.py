@@ -130,6 +130,7 @@ def native():
             'celery': settings.HAS_CELERY, 'zip_bytes': len(data), 'zip_sha256': hashlib.sha256(data).hexdigest(),
             'zip_names': names, 'exposed': exposed, 'source_hashes': source_hashes,
             'orga_event_html': orga_html.decode('utf-8'), 'organizer': organizer.history,
+            'asset_build': json.loads(Path('/data/assets-build.json').read_text()) if settings.DEBUG else None,
             'speaker': speaker.history, 'wrong': wrong.history}
 
 
