@@ -2,6 +2,7 @@ import datetime,hashlib,json,os
 from pathlib import Path
 import ssl
 import shlex
+import subprocess
 import time
 
 import salt
@@ -48,6 +49,13 @@ def publication(case,tgt,roles,kind,bg):
 
 try:
  assert record['salt']==configuration['version']
+ executable=Path('/tmp/native-executable-proof');assert not executable.exists()
+ executable.write_text('#!/bin/sh\nprintf native-executable-marker');executable.chmod(0o700)
+ try:
+  execution=subprocess.run([str(executable)],capture_output=True,text=True,timeout=5)
+  record['executable_tmpfs']={'mounts':[line for line in Path('/proc/mounts').read_text().splitlines() if line.split()[1]=='/tmp'],'exitstatus':execution.returncode,'stdout':execution.stdout,'stderr':execution.stderr}
+  assert execution.returncode==0 and execution.stdout=='native-executable-marker',record['executable_tmpfs']
+ finally:executable.unlink()
  installed=Path(salt.__file__).parent.parent
  record['vendor_files']={name:hashlib.sha256((installed/name).read_bytes()).hexdigest() for name in configuration['vendor_files']}
  assert record['vendor_files']==configuration['vendor_files']

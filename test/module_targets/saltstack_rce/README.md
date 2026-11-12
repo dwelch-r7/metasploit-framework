@@ -34,6 +34,11 @@ Three containers are capped at **1,408 MiB/1.7 CPUs**: the cluster uses
 Framework 768 MiB/1 CPU/256 tasks. Only a random loopback return port is
 published. Runtime state uses bounded tmpfs and configuration mounts are read
 only. Keep this profile in the same single serial queue as every other lab.
+This lab overrides `/tmp` with a bounded executable tmpfs because Salt's
+`cmd.script` executes its downloaded file directly. A native script probe verifies
+the mount before and after functional testing. Compose 2.24.4 or later is required
+for the [`!override` merge tag](https://docs.docker.com/reference/compose-file/merge/#replace-value);
+the collection lab remains unchanged.
 Positive calls use a 15-second WfsDelay to allow both minions to connect under
 the shared CPU cap. Negative calls use shorter waits after native-proven denial.
 

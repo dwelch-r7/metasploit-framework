@@ -6,6 +6,13 @@ services:
     mem_limit: 512m
     memswap_limit: 512m
     pids_limit: 160
+    # cmd.script executes its downloaded temporary file directly.
+    tmpfs: !override
+      - /etc/salt/pki:rw,size=16m,mode=0700
+      - /var/cache/salt:rw,size=64m,mode=0700
+      - /var/run/salt:rw,size=8m,mode=0700
+      - /var/log/salt:rw,size=8m,mode=0700
+      - /tmp:rw,exec,nosuid,nodev,size=32m,mode=1777
     command: [python, /opt/module-target/session-target.py]
     volumes:
       - ./session-target.py:/opt/module-target/session-target.py:ro
