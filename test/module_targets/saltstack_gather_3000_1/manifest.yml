@@ -1,6 +1,6 @@
 ---
 spec: spec/modules/post/saltstack_gather_target_spec.rb
-expected_examples: 4
+expected_examples: 6
 console: true
 modules:
 - post/multi/gather/saltstack_salt
@@ -71,3 +71,8 @@ support_files:
 - lib/msf/core/db_manager/cred.rb
 - lib/msf/core/db_manager/loot.rb
 - lib/msf/core/post.rb
+- documentation/modules/post/multi/gather/saltstack_salt.md
+- lib/msf/core/db_manager/host.rb
+- lib/msf/core/db_manager/note.rb
+test_env:
+  SALT_GATHER_PAYLOAD: python/meterpreter/reverse_https

@@ -15,6 +15,11 @@ Data gathered from masters:
 1. minion config files
 1. pillar data
 
+A maintained [container lab](../../../../../test/module_targets/saltstack_gather/README.md)
+provides a genuine Salt master and two minions, native data controls, and
+automated shell/Meterpreter collection checks. Consult the lab's verification
+report for tested scope and known failures.
+
 ## Verification Steps
 
 1. Install salt and configure it
@@ -38,6 +43,10 @@ Gather IP from the minions. Defaults to `true`
 ### GETOS
 
 Gather OS from the minions. Defaults to `true`
+
+OS collection stores `kernel`, `os`, `osrelease`, `kernelrelease`, and
+`osfullname` under `grains.item` in minion-data loot. Existing loot parsers
+should read this field instead of `status.version` or `system.get_system_info`.
 
 ### MINIONS
 

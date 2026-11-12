@@ -7,7 +7,10 @@ key-list entries. The default minion path resolves to the exact configuration of
 one running minion. Both real minions remain connected to the real master.
 
 ```sh
-bundle exec ruby tools/dev/run_guarded_module_target_tests.rb saltstack_gather_3000_1
+# Once on a fresh checkout, build the shared source-pinned Salt image.
+docker compose -f test/module_targets/saltstack_zeromq/compose.yaml build target
+bundle exec ruby tools/dev/run_guarded_module_target_tests.rb \
+  saltstack_gather_3000_1 saltstack_gather_3000_1_shell
 ```
 
 Build the prerequisite Salt image using the collection lab instructions first.
@@ -19,7 +22,8 @@ No Salt implementation is patched.
 Native CLI/API controls must pass before the post module is judged. The ordinary
 handler's exact generated payload is started through authenticated Salt RPC;
 this session setup does not test unauthenticated exploitation. Functional tests
-use both declared session types and retain actual console output, loot bytes,
+cover default collection, individual collection flags, a selected minion, and
+repeated default/inventory collection on both declared session types. They retain actual console output, loot bytes,
 reporting database records and session identity evidence.
 
 Roster addresses use TEST-NET-1. The roster is inventory input: this lab does not
@@ -31,6 +35,7 @@ SLS data is compiled with `state.show_sls`; it is never applied.
 The guarded serial launcher permits only one campaign project at a time. The
 three containers total 1,408 MiB/1.7 CPUs, with bounded task counts and temporary
 runtime state. It removes its containers and network when testing finishes.
-Registration is not qualification: consult the campaign verification report for
-actual results. Linux with co-installed master/minions is the current target;
+Registration is not qualification: consult the
+[campaign verification report](../VERIFICATION-20261112-saltstack-gather.md)
+for actual results. Linux with co-installed master/minions is the current target;
 Windows, macOS, FreeBSD, separate hosts and other Salt versions remain unqualified.

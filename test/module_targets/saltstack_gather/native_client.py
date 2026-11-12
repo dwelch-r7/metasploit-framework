@@ -3,6 +3,7 @@ import base64
 import hashlib
 import json
 from pathlib import Path
+import platform
 import re
 import socket
 import subprocess
@@ -110,6 +111,20 @@ try:
                              if entry['address'] != '127.0.0.1']
                 assert addresses and all(re.search(r'inet\s+' + re.escape(address) + r'\s', record['native_interfaces']) for address in addresses)
         record['collection_variants'][label] = parsed
+    record['os_grains'] = yaml.safe_load(cli(
+        ['salt', '*', '--output=yaml', 'grains.item',
+         'kernel', 'os', 'osrelease', 'kernelrelease', 'osfullname'], 0))
+    assert set(record['os_grains']) == expected
+    record['os_release_file'] = Path('/etc/os-release').read_text()
+    record['debian_version_file'] = Path('/etc/debian_version').read_text().strip()
+    os_release = dict(line.split('=', 1) for line in record['os_release_file'].splitlines()
+                      if '=' in line and not line.startswith('#'))
+    for value in record['os_grains'].values():
+        assert value['kernel'] == platform.system()
+        assert value['kernelrelease'] == platform.release()
+        assert value['os'] == 'Debian'
+        assert value['osfullname'] == os_release['NAME'].strip('"')
+        assert record['debian_version_file'] == value['osrelease'] or record['debian_version_file'].startswith(value['osrelease'] + '.')
     record['sls'] = cli(['salt', '*', 'state.show_sls', '*'], 0)
     assert 'module-target-state-marker' in record['sls']
     record['pillars'] = yaml.safe_load(cli(['salt', '*', '--output=yaml', 'pillar.items'], 0))

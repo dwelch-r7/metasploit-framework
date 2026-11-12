@@ -7,6 +7,8 @@
     "salt/modules/pillar.py": "9d11e355bd6a64f90511c12755a66ce32b86294caea62e494462ce651cb3d4fe",
     "salt/modules/state.py": "758109d236d413f7b8ead231172544ec8825d0afc9039e4849de2b088c7f7d1f",
     "salt/cli/salt.py": "a5dd16c48f64b5eff2a3acca506fe2c64390824ff758748ff800873b9eb6ef8d",
-    "salt/state.py": "3c9de799de534eb83de800671efe74b0ec00252efafe25c60339dfe91ad1ad2e"
+    "salt/state.py": "3c9de799de534eb83de800671efe74b0ec00252efafe25c60339dfe91ad1ad2e",
+    "salt/modules/grains.py": "f95bc28308ee8824cda6bbdaece4e4309271286a1c2b5324b09b4d2018010498",
+    "salt/grains/core.py": "dde28e43f118f881d82419c553db13577c63693c9835625cefe4ee905c94379c"
   }
 }

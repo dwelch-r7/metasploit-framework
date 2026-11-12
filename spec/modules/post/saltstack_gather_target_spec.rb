@@ -19,7 +19,7 @@ RSpec.describe 'Genuine Salt configuration and inventory collection', acceptance
   after(:all) do
     if @native && @native.fetch('status') == 'native_passed'
       current = sg_native('after')
-      %w[roles processes vendor_files packages inputs minion_config keys].each do |key|
+      %w[roles processes vendor_files packages inputs minion_config keys system_package].each do |key|
         expect(current.fetch('cluster').fetch(key)).to eq(@native.fetch('cluster').fetch(key))
       end
     end
@@ -27,21 +27,45 @@ RSpec.describe 'Genuine Salt configuration and inventory collection', acceptance
 
   before do |example|
     @workspace = "sr_#{example.metadata.fetch(:scoped_id).tr(':', '_')}"
+    @gather_session = nil
     expect(console_command("workspace -a #{@workspace}")).not_to include('[-]')
     expect(sx_sessions_sql).to eq([])
     sx_cleanup
   end
 
-  after { sx_cleanup }
+  after do |example|
+    if @gather_session && sx_json('framework.sessions.keys').include?(@gather_session)
+      proof = sx_proof(@gather_session, @gather_payload, owner: 'exploit/multi/handler')
+      expect(proof.fetch('role')).to eq('master')
+      sx_poll(20) do
+        rows = sx_sessions_sql
+        expect(rows.map { |row| row.fetch('id') }).to include(proof.fetch('db_id'))
+        expect(rows.map { |row| row.fetch('closed_at') }).not_to include(nil)
+      end
+    end
+  rescue StandardError, RSpec::Expectations::ExpectationNotMetError => e
+    sx_record('cleanup-proof-errors.jsonl', workspace: @workspace, error: e.class.name, message: e.message)
+    raise if example.exception.nil?
+  ensure
+    sx_cleanup
+  end
 
-  ['python/meterpreter/reverse_https', 'cmd/unix/reverse_python'].each do |payload|
-    { 'default' => {}, 'inventory_only' => { 'GETHOSTNAME' => false, 'GETIP' => false, 'GETOS' => false } }.each do |label, options|
-      it "collects #{label} through #{payload}" do
-        identifier = sg_session(payload)
-        snapshot = sg_call(identifier, options, label)
-        expect(snapshot.fetch(:loot)).not_to be_empty
-        proof = sx_proof(identifier, payload, owner: 'exploit/multi/handler')
-        expect(proof.fetch('role')).to eq('master')
+  {
+    'default' => {},
+    'inventory_only' => { 'GETHOSTNAME' => false, 'GETIP' => false, 'GETOS' => false },
+    'hostname_only' => { 'GETHOSTNAME' => true, 'GETIP' => false, 'GETOS' => false },
+    'interfaces_only' => { 'GETHOSTNAME' => false, 'GETIP' => true, 'GETOS' => false },
+    'os_only' => { 'GETHOSTNAME' => false, 'GETIP' => false, 'GETOS' => true },
+    'selected_minion' => { 'MINIONS' => 'module-target-minion-a' }
+  }.each do |label, options|
+    it "collects exact #{label} data through #{ENV.fetch('SALT_GATHER_PAYLOAD', 'python/meterpreter/reverse_https')}" do
+      identifier = sg_session(ENV.fetch('SALT_GATHER_PAYLOAD', 'python/meterpreter/reverse_https'))
+      first = sg_call(identifier, options, label)
+      sg_verify(first, options)
+      if %w[default inventory_only].include?(label)
+        second = sg_call(identifier, options, "#{label}_repeat")
+        sg_verify(second, options, previous_ids: first.fetch(:loot).map { |loot| loot.fetch('id') })
+        expect(second.fetch('credentials')).to eq(first.fetch('credentials'))
       end
     end
   end
