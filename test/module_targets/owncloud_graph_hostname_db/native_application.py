@@ -46,7 +46,7 @@ try:
     echo json_encode(["configuration"=>$values,"connection"=>$row,"effective_uid"=>posix_geteuid(),"sapi"=>php_sapi_name()]);
     ''')
     app = result['application']
-    assert app['configuration'] == {'dbtype': 'pgsql', 'dbhost': 'reporting_db',
+    assert app['configuration'] == {'dbtype': 'pgsql', 'dbhost': 'reporting_db:5432',
                                     'dbname': 'owncloud', 'dbuser': 'module_framework'}
     assert app['effective_uid'] == 33 and app['sapi'] == 'cli'
     assert all(not value for value in result['server_overrides'].values())

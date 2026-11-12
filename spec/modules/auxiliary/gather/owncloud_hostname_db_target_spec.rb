@@ -19,6 +19,7 @@ RSpec.describe 'ownCloud hostname-only database credential collection', acceptan
     @fixed = false
     @native = owncloud_native('before')
     @application = native_application('before')
+    expect(@native.fetch('environment').fetch('OWNCLOUD_DB_HOST')).to eq('reporting_db:5432')
     connection = @application.fetch('application').fetch('connection')
     expect(connection.fetch('port').to_i).to eq(5432)
     expect(connection.fetch('server_address')).to eq(@native.fetch('addresses').fetch('reporting_db'))
@@ -38,7 +39,7 @@ RSpec.describe 'ownCloud hostname-only database credential collection', acceptan
     end
   end
 
-  it 'stores the real PostgreSQL credential from a hostname-only configuration twice' do |example|
+  it 'stores credentials twice after the vendor normalizes a hostname-only database setting' do |example|
     @workspace = "owncloud_#{example.metadata.fetch(:scoped_id).tr(':', '_')}"
     expect(console_command("workspace -a #{@workspace}")).not_to include('[-]')
     expect(owncloud_reports.values).to all(eq([]))
