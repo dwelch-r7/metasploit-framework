@@ -1,5 +1,7 @@
 # -*- coding: binary -*-
 
+require 'monitor'
+
 module Rex
 module Post
 module Meterpreter
@@ -7,6 +9,9 @@ module Meterpreter
 class ExtensionMapper
 
   @@klasses = {}
+
+  EXTENSION_LOAD_MONITOR = ::Monitor.new
+  private_constant :EXTENSION_LOAD_MONITOR
 
   # Get the names of all of the extensions.
   #
@@ -61,14 +66,18 @@ class ExtensionMapper
   def self.get_extension_module(name)
     name.downcase!
 
-    begin
-      require("rex/post/meterpreter/extensions/#{name}/#{name}")
-    rescue LoadError
-      # the extension doesn't exist on disk
-      raise RuntimeError, "Unable to load extension '#{name}' - module does not exist."
+    # A circular require can populate Bootsnap's feature cache before the class
+    # is defined. Serialize the complete load, allowing same-thread reentry.
+    EXTENSION_LOAD_MONITOR.synchronize do
+      begin
+        require("rex/post/meterpreter/extensions/#{name}/#{name}")
+      rescue LoadError
+        # the extension doesn't exist on disk
+        raise RuntimeError, "Unable to load extension '#{name}' - module does not exist."
+      end
+      s = Rex::Post::Meterpreter::Extensions.constants.find { |c| name == c.to_s.downcase }
+      Rex::Post::Meterpreter::Extensions.const_get(s)
     end
-    s = Rex::Post::Meterpreter::Extensions.constants.find { |c| name == c.to_s.downcase }
-    Rex::Post::Meterpreter::Extensions.const_get(s)
   end
 
   # Get the class for the specified extension name.
