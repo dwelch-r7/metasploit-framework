@@ -114,7 +114,8 @@ class MetasploitModule < Msf::Auxiliary
         'headers' => { 'x-middleware-subrequest' => payload }
       )
       next unless res
-      next if res.code >= 500
+      # HTTP errors do not confirm bypass, except a missing downstream route.
+      next if res.code >= 400 && res.code != 404
 
       gate_gone = !GATE_CODES.include?(res.code) && res.code != baseline.code
       redirect_changed = GATE_CODES.include?(res.code) &&
