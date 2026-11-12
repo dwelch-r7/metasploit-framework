@@ -24,6 +24,10 @@ Session RPC or command APIs write proof files, expose actual execution identity
 and link to persisted SQL sessions. The SSL command payload executes a fresh
 shell for each command; its connected owning process is verified separately.
 Session processes, sockets, listeners and jobs must close before another run.
+An independent SSL command payload control uses the ordinary handler's generated
+bytes through legitimate authenticated Salt RPC. This calibrates the payload
+transport; it does not establish unauthenticated exploitation. Actual Salt job
+returns are retained alongside the owning module output for diagnosis.
 
 Three containers are capped at **1,408 MiB/1.7 CPUs**: the cluster uses
 512 MiB/0.5 CPU/160 tasks, reporting PostgreSQL 128 MiB/0.2 CPU/64 tasks and

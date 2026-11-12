@@ -4,6 +4,7 @@ require 'base64'
 require 'digest'
 require 'shellwords'
 require_relative '../druid_sessions/session_control'
+require_relative '../rocketmq_sessions/session_control'
 
 # Uses actual session RPC/command APIs; the observer changes no handler behavior.
 module SaltSessionControl

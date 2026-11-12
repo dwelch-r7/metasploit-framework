@@ -1,6 +1,6 @@
 ---
 spec: spec/modules/exploits/saltstack_rce_target_spec.rb
-expected_examples: 8
+expected_examples: 9
 console: true
 modules:
 - exploit/linux/misc/saltstack_salt_unauth_rce
@@ -16,6 +16,8 @@ support_files:
 - test/module_targets/saltstack_rce/native_probe.py
 - test/module_targets/saltstack_rce/session-target.py
 - test/module_targets/saltstack_rce/session_control.rb
+- test/module_targets/saltstack_rce/sdk_launch.py
+- test/module_targets/saltstack_rce/jobs.py
 - test/module_targets/saltstack_rce/vendor-files.json
 - test/module_targets/saltstack_zeromq/Dockerfile
 - test/module_targets/saltstack_zeromq/README.md
@@ -30,6 +32,8 @@ support_files:
 - test/module_targets/saltstack_zeromq/sources/3000.2.txt
 - test/module_targets/gopher/compose.yaml
 - test/module_targets/druid_sessions/session_control.rb
+- test/module_targets/rocketmq_sessions/session_control.rb
+- spec/support/shared/contexts/wait_for_expect.rb
 - test/module_targets/superset_rce_owner/connection_state.py
 - modules/auxiliary/gather/saltstack_salt_root_key.rb
 - lib/msf/core/exploit/remote/zeromq.rb
