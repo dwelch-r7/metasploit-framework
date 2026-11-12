@@ -15,6 +15,7 @@ support_files:
 - lib/msf/core/exploit/remote/http_client.rb
 - test/module_targets/springcloud_config/README.md
 - test/module_targets/springcloud_config/compose.yaml
+- test/module_targets/springcloud_config/fixture/proof/binary.bin
 - test/module_targets/springcloud_config/fixture/proof/empty.txt
 - test/module_targets/springcloud_config/fixture/proof/plain.txt
 - test/module_targets/springcloud_config/fixture/proof/secret.properties
