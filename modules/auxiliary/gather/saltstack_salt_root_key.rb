@@ -103,7 +103,7 @@ class MetasploitModule < Msf::Auxiliary
 
     zmq_send_message(serialize_clear_load('cmd' => '_prep_auth_info'))
 
-    unless (res = sock.get_once)
+    unless (res = zmq_recv_message&.last)
       fail_with(Failure::Unknown, 'Did not receive auth info')
     end
 
@@ -114,8 +114,7 @@ class MetasploitModule < Msf::Auxiliary
 
     vprint_good('Received serialized auth info')
 
-    # HACK: Strip assumed ZeroMQ header and leave assumed MessagePack "load"
-    res[4..]
+    res
   end
 
   def extract_root_key(auth_info)
