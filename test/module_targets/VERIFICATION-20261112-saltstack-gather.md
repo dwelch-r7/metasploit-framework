@@ -61,3 +61,47 @@ credentials are inventory fixtures, with no real SSH authentication claim.
 **Suggestions:** complete capture-derived fixes in a separate worktree, then
 require exact loot, credential/reporting, native state and session cleanup before
 qualifying this owner.
+
+## Fixed source and harness review
+
+The isolated fix `7aad3e71d84c40f7e89ce907c2caa64445428d16`, imported as
+`236da4190a0`, passed an identical 24-example/seed-58319 unit comparison:
+24/21 failures originally, 24/0 afterward. Nine original failures are absence of
+the new helper API; the remaining assertions share underlying causes. Parser,
+crypto and benign host-shell framing are real; session and reporting boundaries
+are doubles. New grains fixtures were explicitly synthetic in that unit suite.
+The native `102715-b8507f` control subsequently verified real grains from both
+nodes and twenty-two pinned Salt files, plus the locked runtime packages.
+The parent independently repeated the 24 passing unit cases. Strict lint has no
+new findings; six pre-existing library/module findings and five MSFtidy findings
+remain. Unit evidence seal: 153 entries, SHA-256
+`08ef8c83c0b1e5bad30290f7be79020abc847632e8b13418b715482084a29848`.
+
+Fixed-source run `20261112T104521-c1de8d` completed both full six-case profiles:
+Meterpreter 6/6 failures and shell 6/3 failures. Fourteen actual post calls
+produced no owning-module error. Independent native controls passed before and
+after both profiles. These results **do not qualify the module**: the harness's
+strict Psych reader interpreted the interface's `::1` scalar as a Ruby Symbol
+and rejected it, while the Meterpreter helper sent `core.shutdown` without
+performing Framework's passive-dispatcher/session cleanup. The ordinary cleanup
+that followed removed the processes. Three shell examples passed completely.
+
+The corrected oracle uses Salt's pinned native safe YAML parser to preserve the
+IPv6 scalar's semantics. Session cleanup now uses Framework's public `kill`
+method and must prove the actual identified processes and session are gone,
+with SQL closure recorded. The owning module/mixin bytes remain unchanged.
+A complete corrected replay remains required.
+
+All sixteen exact cleanup queries for the fixed-source run passed and Docker
+was empty. Its read-only 653-entry seal has manifest SHA-256
+`73fe117a4b6e3fbcc34ec0dd1889244417a2b6b414621e62703c16393261ec85`;
+the failed build-selection run has 475 entries and manifest SHA-256
+`98159b904e82bc1296270eb823685f6bf750b3184407c6c1271ebbe308bcbe28`.
+Every entry was independently rehashed.
+
+The replay uses process-scoped `DOCKER_CONTEXT=default BUILDX_BUILDER=default`.
+Both `default` and the laptop's unchanged global `desktop-linux` context were
+verified to reach engine `10febd11-6998-4e44-a0e9-00397e7a0624`. An isolated
+BuildKit container created by an earlier unsuccessful build was removed and
+its absence independently checked. No application test was run in that failed
+build attempt. The canonical Dockerfiles and shared launcher remain unchanged.

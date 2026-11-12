@@ -35,7 +35,7 @@ RSpec.describe 'Genuine Salt configuration and inventory collection', acceptance
 
   after do |example|
     if @gather_session && sx_json('framework.sessions.keys').include?(@gather_session)
-      proof = sx_proof(@gather_session, @gather_payload, owner: 'exploit/multi/handler')
+      proof = sg_finish_session(@gather_session, @gather_payload)
       expect(proof.fetch('role')).to eq('master')
       sx_poll(20) do
         rows = sx_sessions_sql

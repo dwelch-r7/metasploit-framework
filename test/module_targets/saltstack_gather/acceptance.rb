@@ -3,7 +3,6 @@
 require 'base64'
 require 'digest'
 require 'openssl'
-require 'yaml'
 require_relative '../saltstack_rce/acceptance'
 
 module Acceptance
@@ -96,7 +95,61 @@ module Acceptance
     end
 
     def sg_yaml(loot)
-      YAML.safe_load(Base64.strict_decode64(loot.fetch('bytes_base64')))
+      # Psych treats unquoted ::1 as a Ruby symbol. Salt's own safe YAML parser
+      # preserves the IPv6 string and supplies an independent data oracle.
+      code = 'import base64,json,sys,yaml;print(json.dumps(yaml.safe_load(base64.b64decode(sys.argv[1]))))'
+      JSON.parse(target_exec('target', 'python', '-c', code, loot.fetch('bytes_base64')))
+    end
+
+    def sg_finish_session(identifier, payload)
+      path = "/tmp/module-target-salt-proof-#{SecureRandom.hex(6)}"
+      value = "salt-gather-close-#{SecureRandom.hex(12)}"
+      begin
+        proof = sx_json("SaltSessionControl.proof(framework,#{identifier},#{path.inspect},#{value.inspect})")
+        expect(proof.fetch('role')).to eq('master')
+        expect(proof.fetch('token')).to eq(@native.fetch('cluster').fetch('roles').fetch('master').fetch('token'))
+        expect(proof.fetch('via_exploit')).to eq('exploit/multi/handler')
+        expect(proof.fetch('type')).to eq(payload.include?('meterpreter') ? 'meterpreter' : 'shell')
+        expect(target_exec('target', 'cat', path)).to eq(value)
+        pids = if proof.fetch('type') == 'meterpreter'
+                 [proof.fetch('pid')]
+               else
+                 connections = sx_connections.select { |row| row.fetch('state') == '01' }
+                 expect(connections).not_to be_empty
+                 proof['connections'] = connections
+                 connections.flat_map { |row| row.fetch('owners') }.map { |owner| owner.fetch('pid') } + [Integer(proof.fetch('command_pid'))]
+               end.uniq
+        code = <<~PYTHON
+          import json,pathlib,sys
+          result={}
+          for pid in sys.argv[1:]:
+              root=pathlib.Path('/proc')/pid
+              environment=dict(item.split(b'=',1) for item in (root/'environ').read_bytes().split(bytes([0])) if b'=' in item)
+              result[pid]={'uid':(root/'status').read_text().split('Uid:',1)[1].splitlines()[0].split(),
+                           'starttime':(root/'stat').read_text().split(') ',1)[1].split()[19],
+                           'token':environment.get(b'MSF_MODULE_TARGET_TOKEN',b'').decode()}
+          print(json.dumps(result))
+        PYTHON
+        processes = JSON.parse(target_exec('target', 'python', '-c', code, *pids.map(&:to_s)))
+        expect(processes).not_to be_empty
+        processes.each_value do |process|
+          expect(process.fetch('uid')).to eq(%w[0 0 0 0])
+          expect(process.fetch('token')).to eq(proof.fetch('token'))
+        end
+        # Public session termination performs passive HTTP dispatcher cleanup
+        # and database closure; sending core.shutdown alone leaves that work.
+        sx_json("framework.sessions.fetch(#{identifier}).kill; {id: #{identifier}, cleanup_requested: true}")
+        sx_poll(30) do
+          probe = 'import json,pathlib,sys;print(json.dumps([pid for pid in sys.argv[1:] if pathlib.Path("/proc",pid).exists()]))'
+          expect(JSON.parse(target_exec('target', 'python', '-c', probe, *pids.map(&:to_s)))).to eq([])
+          expect(sx_json('framework.sessions.keys')).not_to include(identifier)
+        end
+        proof.merge!('target_pids' => pids, 'target_processes' => processes, 'proof_sha256' => Digest::SHA256.hexdigest(value), 'cleanup' => 'public_session_kill')
+        sx_record('session-proofs.jsonl', workspace: @workspace, proof: proof)
+        proof
+      ensure
+        target_exec('target', 'rm', '-f', path)
+      end
     end
 
     def sg_verify(snapshot, options, previous_ids: [])
