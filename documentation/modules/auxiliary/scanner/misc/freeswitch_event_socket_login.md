@@ -32,6 +32,14 @@ docker run -d --rm --name FS1 --net=host \
 drachtio/drachtio-freeswitch-mrf freeswitch --sip-port 5038 --tls-port 5039 --rtp-range-start 20000 --rtp-range-end 21000 --password hunter
 ```
 
+## Automated lab
+
+The [serial event-socket lab](../../../../../test/module_targets/freeswitch/README.md)
+uses a pinned genuine FreeSWITCH image with conventional and Unicode passwords,
+a native ACL refusal and an unrelated OpenSSH control. It verifies checks,
+credential ordering, repeated password-only database reporting and actual wire
+traffic. The companion execution module requires separate session testing.
+
 ## Verification Steps
 1. Do: `use auxiliary/scanner/misc/freeswitch_event_socket_login`
 2. Do: `set RHOSTS [ips]`

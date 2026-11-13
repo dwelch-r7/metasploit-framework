@@ -1,0 +1,32 @@
+services:
+  target:
+    image: drachtio/drachtio-freeswitch-mrf@sha256:f68cd8de49d718af2b23ce16587fd491dd93abd8ff7129d959016101dee03f09
+    platform: linux/amd64
+    init: true
+    cpus: 0.8
+    mem_limit: 768m
+    memswap_limit: 768m
+    pids_limit: 256
+    entrypoint: [/bin/sh, /lab/start.sh]
+    environment:
+      FREESWITCH_PASSWORD: ClueCon
+      FREESWITCH_ACL: 0.0.0.0/0
+    volumes:
+      - '${MODULE_TARGET_ROOT}/test/module_targets/freeswitch:/lab:ro'
+    tmpfs:
+      - /usr/local/freeswitch/log:rw,size=32m
+      - /usr/local/freeswitch/recordings:rw,size=8m
+      - /usr/local/freeswitch/sounds:rw,size=8m
+    ports: ['127.0.0.1::8021']
+    healthcheck:
+      test: [CMD-SHELL, '/bin/sh /lab/start.sh health | grep -qx true']
+      interval: 3s
+      timeout: 5s
+      retries: 30
+  reporting_db:
+    extends: {file: ../gopher/compose.yaml, service: reporting_db}
+  framework:
+    cpus: 1.5
+    mem_limit: 768m
+    memswap_limit: 768m
+    pids_limit: 256

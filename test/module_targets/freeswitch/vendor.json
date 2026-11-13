@@ -1,0 +1,43 @@
+{
+  "commit": "4cb05e7f4a23645ec387f3b5391194128be7d193",
+  "version": "1.10.10-release",
+  "image_binary_version": "4cb05e7f4a",
+  "files": [
+    {
+      "path": "src/mod/event_handlers/mod_event_socket/mod_event_socket.c",
+      "url": "https://raw.githubusercontent.com/signalwire/freeswitch/4cb05e7f4a23645ec387f3b5391194128be7d193/src/mod/event_handlers/mod_event_socket/mod_event_socket.c",
+      "sha256": "19dab8f3a400e384603c2e339e698fb01375227d56c215a68590160b7671c652",
+      "bytes": 88281
+    },
+    {
+      "path": "src/mod/applications/mod_commands/mod_commands.c",
+      "url": "https://raw.githubusercontent.com/signalwire/freeswitch/4cb05e7f4a23645ec387f3b5391194128be7d193/src/mod/applications/mod_commands/mod_commands.c",
+      "sha256": "4416f3869e58089a6638d3ab23abb72eb0e6196cd7b7faf1ecc3e8ba58cad1d3",
+      "bytes": 230933
+    },
+    {
+      "path": "conf/vanilla/autoload_configs/event_socket.conf.xml",
+      "url": "https://raw.githubusercontent.com/signalwire/freeswitch/4cb05e7f4a23645ec387f3b5391194128be7d193/conf/vanilla/autoload_configs/event_socket.conf.xml",
+      "sha256": "8a3e246e4b2b364857034316055604ff2b8951f36c5d191d33352bd5f173beed",
+      "bytes": 412
+    },
+    {
+      "path": "conf/vanilla/autoload_configs/acl.conf.xml",
+      "url": "https://raw.githubusercontent.com/signalwire/freeswitch/4cb05e7f4a23645ec387f3b5391194128be7d193/conf/vanilla/autoload_configs/acl.conf.xml",
+      "sha256": "4677560de783c39de9fad8aa948fd55b2a1e0d1c2ee6d5445bd280d5cca41946",
+      "bytes": 1026
+    }
+  ],
+  "qualification": "Source describes compiled version; pinned image binary hashes and native behavior are independently recorded. No reproducible source-to-binary match asserted.",
+  "image": "drachtio/drachtio-freeswitch-mrf@sha256:f68cd8de49d718af2b23ce16587fd491dd93abd8ff7129d959016101dee03f09",
+  "binary_sha256": {
+    "/usr/local/freeswitch/bin/freeswitch": "3377f9de1ab39484542c5de1c07f63cc1febb330d95f854b573b8d5d8cd60ef9",
+    "/usr/local/freeswitch/mod/mod_event_socket.so": "07c73d91082a6cd564829096bb8a59d3b2f3ce57006c8b7ea926b0de32dfc118",
+    "/usr/local/freeswitch/mod/mod_commands.so": "10cd3e824612b7cf6f121d6b14f0074d7c571fb07d28aeda648870d2cb043512",
+    "/entrypoint.sh": "1aae780261d9329408d191b78c858cae1b4a0b2be7ab8d079e459c8a3ec9619a",
+    "/usr/local/freeswitch/lib/libfreeswitch.so.1.0.0": "957c0cb20c69fe296bdf6676cc50b5601d7c84a0667d3bd48a9af04183c38639",
+    "/usr/local/freeswitch/bin/fs_cli": "8cc6f52d2b724ffaf9afd21ad22eb833e5d91e2e1bc1b35794923b393bb03488"
+  },
+  "vendor_build_commit": "d4da5b40e2f9e00d47b389074e42b4d0d34b0d38",
+  "vendor_build_url": "https://github.com/drachtio/docker-drachtio-freeswitch-mrf/tree/d4da5b40e2f9e00d47b389074e42b4d0d34b0d38"
+}

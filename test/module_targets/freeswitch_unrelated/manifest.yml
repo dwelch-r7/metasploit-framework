@@ -1,0 +1,41 @@
+{
+  "spec": "spec/modules/auxiliary/scanner/misc/freeswitch_event_socket_target_spec.rb",
+  "expected_examples": 3,
+  "console": true,
+  "modules": [
+    "auxiliary/scanner/misc/freeswitch_event_socket_login"
+  ],
+  "test_env": {
+    "FREESWITCH_MODE": "unrelated",
+    "FREESWITCH_PASSWORD": "ClueCon"
+  },
+  "ports": {
+    "target": 22
+  },
+  "support_files": [
+    "documentation/modules/auxiliary/scanner/misc/freeswitch_event_socket_login.md",
+    "lib/metasploit/framework/credential_collection.rb",
+    "lib/metasploit/framework/login_scanner/base.rb",
+    "lib/metasploit/framework/login_scanner/freeswitch_event_socket.rb",
+    "lib/msf/core/auxiliary/auth_brute.rb",
+    "lib/msf/core/auxiliary/multiple_target_hosts.rb",
+    "lib/msf/core/auxiliary/report.rb",
+    "lib/msf/core/auxiliary/scanner.rb",
+    "lib/msf/core/exploit/remote/auto_check.rb",
+    "lib/msf/core/exploit/remote/tcp.rb",
+    "test/module_targets/freeswitch/README.md",
+    "test/module_targets/freeswitch/acceptance.rb",
+    "test/module_targets/freeswitch/binaries.sha256",
+    "test/module_targets/freeswitch/capture.rb",
+    "test/module_targets/freeswitch/compose.yaml",
+    "test/module_targets/freeswitch/native_probe.rb",
+    "test/module_targets/freeswitch/run.rb",
+    "test/module_targets/freeswitch/start.sh",
+    "test/module_targets/freeswitch/vendor.json",
+    "test/module_targets/gopher/compose.yaml",
+    "test/module_targets/ssh/compose.yaml",
+    "test/module_targets/ssh/askpass.sh",
+    "test/ssh/Dockerfile",
+    "tools/dev/run_guarded_module_target_tests.rb"
+  ]
+}

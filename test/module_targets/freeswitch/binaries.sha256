@@ -1,0 +1,6 @@
+1aae780261d9329408d191b78c858cae1b4a0b2be7ab8d079e459c8a3ec9619a  /entrypoint.sh
+3377f9de1ab39484542c5de1c07f63cc1febb330d95f854b573b8d5d8cd60ef9  /usr/local/freeswitch/bin/freeswitch
+8cc6f52d2b724ffaf9afd21ad22eb833e5d91e2e1bc1b35794923b393bb03488  /usr/local/freeswitch/bin/fs_cli
+957c0cb20c69fe296bdf6676cc50b5601d7c84a0667d3bd48a9af04183c38639  /usr/local/freeswitch/lib/libfreeswitch.so.1.0.0
+10cd3e824612b7cf6f121d6b14f0074d7c571fb07d28aeda648870d2cb043512  /usr/local/freeswitch/mod/mod_commands.so
+07c73d91082a6cd564829096bb8a59d3b2f3ce57006c8b7ea926b0de32dfc118  /usr/local/freeswitch/mod/mod_event_socket.so

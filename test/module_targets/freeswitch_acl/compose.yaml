@@ -1,0 +1,26 @@
+{
+  "services": {
+    "target": {
+      "extends": {
+        "file": "../freeswitch/compose.yaml",
+        "service": "target"
+      },
+      "environment": {
+        "FREESWITCH_PASSWORD": "ClueCon",
+        "FREESWITCH_ACL": "127.0.0.1/32"
+      }
+    },
+    "reporting_db": {
+      "extends": {
+        "file": "../freeswitch/compose.yaml",
+        "service": "reporting_db"
+      }
+    },
+    "framework": {
+      "extends": {
+        "file": "../freeswitch/compose.yaml",
+        "service": "framework"
+      }
+    }
+  }
+}

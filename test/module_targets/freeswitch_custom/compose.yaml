@@ -1,0 +1,26 @@
+{
+  "services": {
+    "target": {
+      "extends": {
+        "file": "../freeswitch/compose.yaml",
+        "service": "target"
+      },
+      "environment": {
+        "FREESWITCH_PASSWORD": "module-target-\u03a9 spaced",
+        "FREESWITCH_ACL": "0.0.0.0/0"
+      }
+    },
+    "reporting_db": {
+      "extends": {
+        "file": "../freeswitch/compose.yaml",
+        "service": "reporting_db"
+      }
+    },
+    "framework": {
+      "extends": {
+        "file": "../freeswitch/compose.yaml",
+        "service": "framework"
+      }
+    }
+  }
+}
