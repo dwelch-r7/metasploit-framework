@@ -16,6 +16,8 @@
     "documentation/modules/auxiliary/scanner/misc/freeswitch_event_socket_login.md",
     "lib/metasploit/framework/credential.rb",
     "lib/metasploit/framework/credential_collection.rb",
+    "lib/metasploit/framework/data_service/proxy/login_data_proxy.rb",
+    "lib/metasploit/framework/data_service/proxy/service_data_proxy.rb",
     "lib/metasploit/framework/login_scanner/base.rb",
     "lib/metasploit/framework/login_scanner/freeswitch_event_socket.rb",
     "lib/metasploit/framework/login_scanner/result.rb",

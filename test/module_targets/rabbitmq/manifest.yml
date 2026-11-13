@@ -6,6 +6,9 @@ modules:
   - auxiliary/scanner/amqp/amqp_login
 ports: {old: 5672, new: 5672}
 support_files:
+  - lib/metasploit/framework/data_service/proxy/login_data_proxy.rb
+  - lib/metasploit/framework/data_service/proxy/service_data_proxy.rb
+  - lib/msf/core/db_manager/service.rb
   - test/module_targets/mqtt/certificates.rb
   - lib/metasploit/framework/login_scanner/amqp.rb
   - lib/rex/proto/amqp/version_0_9_1/client.rb

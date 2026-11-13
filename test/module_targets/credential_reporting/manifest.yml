@@ -10,6 +10,9 @@ ports:
   ssh: 22
   apache: 80
 support_files:
+  - lib/metasploit/framework/data_service/proxy/login_data_proxy.rb
+  - lib/metasploit/framework/data_service/proxy/service_data_proxy.rb
+  - lib/msf/core/db_manager/service.rb
   - lib/msf/core/auxiliary/report.rb
   - lib/msf/core/auxiliary/auth_brute.rb
   - lib/msf/core/db_manager.rb
