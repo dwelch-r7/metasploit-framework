@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 3.13)
+project(module_target_opcua C)
+add_subdirectory("${OPEN62541_SOURCE}" upstream)
+add_executable(opcua-lab-server lab-server.c)
+target_link_libraries(opcua-lab-server open62541)
+add_executable(opcua-lab-client lab-client.c)
+target_link_libraries(opcua-lab-client open62541)

@@ -1,0 +1,23 @@
+services:
+  target:
+    build: .
+    platform: linux/amd64
+    init: true
+    cpus: 0.5
+    mem_limit: 192m
+    memswap_limit: 192m
+    pids_limit: 96
+    ports: ['127.0.0.1::4840', '127.0.0.1::4841', '127.0.0.1::4842', '127.0.0.1::5840', '127.0.0.1::5842', '127.0.0.1::5841', '127.0.0.1::2525']
+    tmpfs: ['/tmp/opcua-lab:rw,size=16m,mode=0755']
+    healthcheck:
+      test: [CMD, python3, /opt/opcua-lab/health.py]
+      interval: 3s
+      timeout: 18s
+      retries: 20
+  reporting_db:
+    extends: {file: ../gopher/compose.yaml, service: reporting_db}
+  framework:
+    cpus: 1.5
+    mem_limit: 768m
+    memswap_limit: 768m
+    pids_limit: 256

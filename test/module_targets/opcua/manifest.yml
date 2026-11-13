@@ -1,0 +1,17 @@
+spec: spec/modules/auxiliary/scanner/scada/opcua_target_spec.rb
+expected_examples: 9
+console: true
+modules: [auxiliary/scanner/scada/opcua_enum]
+ports: {target: 4840}
+support_files:
+  - documentation/modules/auxiliary/scanner/scada/opcua_enum.md
+  - lib/msf/core/auxiliary/report.rb
+  - lib/msf/core/auxiliary/scanner.rb
+  - lib/msf/core/exploit/remote/tcp.rb
+  - lib/msf/core/db_manager/service.rb
+  - lib/msf/ui/console/command_dispatcher/db.rb
+  - test/module_targets/freeswitch/acceptance.rb
+  - test/module_targets/freeswitch/capture.rb
+  - test/module_targets/freeswitch_execution/acceptance.rb
+  - test/module_targets/freeswitch_execution/package_verify.rb
+  - test/module_targets/gopher/compose.yaml

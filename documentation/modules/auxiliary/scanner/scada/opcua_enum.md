@@ -15,6 +15,14 @@ The module sends an OPC-UA **Hello (HEL)** message and inspects the response:
 Any response other than ACK or ERR is treated as a non-detection, keeping the
 fingerprint tight and avoiding false positives from unrelated services.
 
+### Automated container lab
+
+The [repository lab](../../../../../test/module_targets/opcua/README.md) builds
+the genuine open62541 stack and independently checks native endpoints, sessions
+and reads before module execution. It covers handshake metadata, transport
+fragmentation/truncation, unrelated services and reporting. Dated verification
+reports establish which paths are qualified.
+
 ### Port Notes
 
 The IANA-registered port for OPC-UA TCP is **4840**, which is the module's
