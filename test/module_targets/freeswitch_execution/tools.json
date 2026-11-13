@@ -1,0 +1,41 @@
+{
+  "snapshot": "20260101T000000Z",
+  "index_sha256": "3df8d07aeded5e65d9847edfa120fa5b216bbd8e0f7f048dfefe6905e4a12011",
+  "packages": {
+    "curl": {
+      "Version": "7.88.1-10+deb12u14",
+      "Architecture": "amd64",
+      "Filename": "pool/main/c/curl/curl_7.88.1-10+deb12u14_amd64.deb",
+      "SHA256": "e1b7edaa74085515f1837dbae792a9561de91c4b7ceab612807c72951a5af115",
+      "Depends": "libc6 (>= 2.34), libcurl4 (= 7.88.1-10+deb12u14), zlib1g (>= 1:1.1.4)"
+    },
+    "libcurl4": {
+      "Version": "7.88.1-10+deb12u14",
+      "Architecture": "amd64",
+      "Filename": "pool/main/c/curl/libcurl4_7.88.1-10+deb12u14_amd64.deb",
+      "SHA256": "7a203bc59523e510aa776f1b5b1798c8f65ea58be1c1f5e35f99b5e3c988f0df",
+      "Depends": "libbrotli1 (>= 0.6.0), libc6 (>= 2.34), libgssapi-krb5-2 (>= 1.17), libidn2-0 (>= 0.6), libldap-2.5-0 (>= 2.5.4), libnghttp2-14 (>= 1.50.0), libpsl5 (>= 0.16.0), librtmp1 (>= 2.3), libssh2-1 (>= 1.7.0), libssl3 (>= 3.0.0), libzstd1 (>= 1.5.2), zlib1g (>= 1:1.1.4)"
+    },
+    "inetutils-telnet": {
+      "Version": "2:2.4-2+deb12u1",
+      "Architecture": "amd64",
+      "Filename": "pool/main/i/inetutils/inetutils-telnet_2.4-2+deb12u1_amd64.deb",
+      "SHA256": "12f398eea3ffa91177eb87792a1534686fdd6e751afbe5e389983918254dbe59",
+      "Depends": "libc6 (>= 2.34), libcom-err2 (>= 1.43.9), libk5crypto3 (>= 1.6.dfsg.2), libkrb5-3 (>= 1.13~alpha1+dfsg), libtinfo6 (>= 6), netbase"
+    },
+    "wget": {
+      "Version": "1.21.3-1+deb12u1",
+      "Architecture": "amd64",
+      "Filename": "pool/main/w/wget/wget_1.21.3-1+deb12u1_amd64.deb",
+      "SHA256": "b389052d1d8a8cacec4f0380d9ee54e8082bfbebe374299be95b5286c9380f80",
+      "Depends": "libc6 (>= 2.34), libgnutls30 (>= 3.7.5), libidn2-0 (>= 0.6), libnettle8, libpcre2-8-0 (>= 10.22), libpsl5 (>= 0.16.0), libuuid1 (>= 2.16), zlib1g (>= 1:1.1.4)"
+    },
+    "perl": {
+      "Version": "5.36.0-7+deb12u3",
+      "Architecture": "amd64",
+      "Filename": "pool/main/p/perl/perl_5.36.0-7+deb12u3_amd64.deb",
+      "SHA256": "afa50ec7d9b1a407cd0187dae033644ef13578d4f3792435e0c41b962ffec0c4",
+      "Depends": "perl-base (= 5.36.0-7+deb12u3), perl-modules-5.36 (>= 5.36.0-7+deb12u3), libperl5.36 (= 5.36.0-7+deb12u3)"
+    }
+  }
+}

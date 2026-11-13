@@ -1,0 +1,13 @@
+services:
+  target:
+    extends: {file: ../freeswitch/compose.yaml, service: target}
+    image: !reset null
+    build:
+      context: ../freeswitch
+      dockerfile: ../freeswitch_execution/target.Dockerfile
+    volumes:
+      - ${MODULE_TARGET_ROOT}/test/module_targets/freeswitch_execution:/execution:ro
+  reporting_db:
+    extends: {file: ../gopher/compose.yaml, service: reporting_db}
+  framework:
+    extends: {file: ../freeswitch/compose.yaml, service: framework}
