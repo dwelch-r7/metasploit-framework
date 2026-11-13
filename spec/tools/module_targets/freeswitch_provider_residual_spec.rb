@@ -5,7 +5,11 @@ RSpec.describe Acceptance::FreeSwitchSessions do
   subject(:control) { Object.new.extend(described_class) }
 
   let(:defunct_provider) do
-    { 'state' => 'Z', 'name' => 'freeswitch', 'ppid' => 7, 'uid' => 0, 'cmdline' => '', 'exe' => nil, 'connection_inodes' => [] }
+    { 'pid' => 402, 'starttime' => '2270096', 'state' => 'Z', 'name' => 'freeswitch', 'ppid' => 7, 'uid' => 0, 'cmdline' => '', 'exe' => nil, 'connection_inodes' => [] }
+  end
+
+  let(:live_provider) do
+    defunct_provider.merge('state' => 'S', 'cmdline' => 'freeswitch -nf -nonat ', 'exe' => '/usr/local/freeswitch/bin/freeswitch')
   end
 
   before do
@@ -43,5 +47,18 @@ RSpec.describe Acceptance::FreeSwitchSessions do
 
   it 'does not excuse a process with an active command' do
     expect(control.ss_vendor_wrapper?(defunct_provider.merge('cmdline' => 'freeswitch -nf'))).to be(false)
+  end
+
+  it 'reclassifies the captured live launcher after it becomes the exact native zombie' do
+    expect(control.ss_live_payload_processes({ 'processes' => [defunct_provider] }, [live_provider])).to eq([])
+  end
+
+  it 'still requires a tracked live launcher to exit' do
+    expect(control.ss_live_payload_processes({ 'processes' => [live_provider] }, [live_provider])).to eq([live_provider])
+  end
+
+  it 'still requires a tracked defunct payload to disappear' do
+    payload = defunct_provider.merge('name' => 'bash')
+    expect(control.ss_live_payload_processes({ 'processes' => [payload] }, [payload.merge('state' => 'S')])).to eq([payload])
   end
 end

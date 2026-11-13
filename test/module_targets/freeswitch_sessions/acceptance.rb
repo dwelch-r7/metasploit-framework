@@ -91,6 +91,12 @@ module Acceptance
       end
     end
 
+    def ss_live_payload_processes(snapshot, tracked)
+      snapshot.fetch('processes').select do |process|
+        tracked.any? { |prior| prior.values_at('pid', 'starttime') == process.values_at('pid', 'starttime') } && !ss_vendor_wrapper?(process)
+      end
+    end
+
     def ss_use_close(identifier, payload, owner)
       marker = "fs-session-#{@case}-#{identifier}"
       path = '/tmp/module-target-log4shell-own-' + marker
@@ -131,13 +137,18 @@ module Acceptance
           end
         end
         ss_poll(20) do
-          live = ss_processes.fetch('processes')
-          expect(live.select { |process| payload_processes.any? { |prior| prior.values_at('pid', 'starttime') == process.values_at('pid', 'starttime') } }).to eq([])
+          # A live API launcher can become the exact native provider zombie only
+          # after the payload exits. Reclassify its current state at this boundary.
+          expect(ss_live_payload_processes(ss_processes, payload_processes)).to eq([])
         end
         ss_poll(15) { expect(fx_json('framework.sessions.keys')).to eq([]) }
         ss_poll(15) { expect(ss_rows.find { |row| row.fetch('id') == proof.fetch('db_id') }.fetch('closed_at')).not_to be_nil }
         record[:all_tracked_live_payload_processes_absent] = true
         record[:remaining_native_provider_defunct_children] = ss_processes.fetch('processes').select { |process| ss_vendor_wrapper?(process) }
+        new_vendor_children = record[:remaining_native_provider_defunct_children].reject do |process|
+          @before_processes.any? { |prior| prior.values_at('pid', 'starttime') == process.values_at('pid', 'starttime') }
+        end
+        expect(new_vendor_children.length).to be <= maximum
         ss_record('session-lifecycles.jsonl', record)
       ensure
         target_exec('target', 'rm', '-f', '--', path)
