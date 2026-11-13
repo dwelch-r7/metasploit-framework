@@ -42,6 +42,8 @@ The [serial automated lab](../../../../../test/module_targets/concretecms/README
 provides pinned original affected/fixed targets, a `/cms` installation and an
 unrelated Apache control. It verifies real private/draft page references, exact
 CSV exports, bounded/default ranges, repeated collection and database reporting.
+The module treats usage fragments as UTF-8, preserving non-ASCII handles and
+paths while leaving the received HTTP response unchanged.
 
 ## Verification Steps
 

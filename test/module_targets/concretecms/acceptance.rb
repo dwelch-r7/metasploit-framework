@@ -35,7 +35,7 @@ module Acceptance
         name, value = header.split(';', 2).first.split('=', 2)
         cookies[name] = value if cookies
       end
-      cms_journal('native-http.jsonl', phase: phase, method: request.method, path: path, cookies: !cookies.nil?, status: response.code.to_i, content_type: response['Content-Type'], body: response.body.to_s, sha256: Digest::SHA256.hexdigest(response.body.to_s))
+      cms_journal('native-http.jsonl', phase: phase, method: request.method, path: path, cookies: !cookies.nil?, status: response.code.to_i, content_type: response['Content-Type'], body: response.body.to_s.dup.force_encoding(Encoding::UTF_8), sha256: Digest::SHA256.hexdigest(response.body.to_s))
       if response.is_a?(Net::HTTPRedirection)
         raise 'Too many CMS redirects' if redirects >= 5
 
