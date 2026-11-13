@@ -232,6 +232,7 @@
     "test/module_targets/freeswitch_sessions/process_state.pl",
     "test/module_targets/freeswitch_sessions/run.rb",
     "test/module_targets/freeswitch_sessions/session_control.rb",
+    "test/module_targets/freeswitch_sessions/terminate_sleep.pl",
     "test/module_targets/freeswitch_unrelated/compose.yaml",
     "test/module_targets/gopher/compose.yaml",
     "test/module_targets/log4shell_execution/session_control.rb",

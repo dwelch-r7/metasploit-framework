@@ -20,7 +20,7 @@ payload encoding after handler startup.
 Controls use real session RPC/commands, exact marker bytes/UID, actual peer,
 socket-owning processes and process birth. Perl creates a disposable child per
 command, so its reported shell PID is not treated as the persistent interpreter.
-Transport shutdown, database closure, process/socket disappearance, file cleanup
+Transport shutdown, database closure, live payload process/socket disappearance, file cleanup
 and a second owning run establish repeatability. Only an observed new telnet
 sleep feeder can receive explicit operator cleanup, with its PID/birth/UID
 recorded. This cleanup is separately calibrated natively.
@@ -30,3 +30,11 @@ unchanged. Each profile uses three capped containers: target, Framework and
 reporting PostgreSQL, totaling 1,664 MiB, 2.5 CPUs and 576 tasks. Profiles run
 serially under the existing five-container hard limit. Windows requires another
 suitable environment and is not qualified by these Linux containers.
+
+The initial native run identifies one defunct FreeSWITCH launcher child per
+background API call. These exact parent/UID/name/state identities hold no
+sockets, cannot execute, and are recorded separately with a strict per-command
+bound; arbitrary payload zombies are not ignored. Container teardown removes
+these native provider leftovers. The [kernel process documentation](https://docs.kernel.org/filesystems/proc.html)
+defines the observed state `Z`. The telnet feeder is signalled only through
+Perl after its PID/starttime/UID/command identity is revalidated.

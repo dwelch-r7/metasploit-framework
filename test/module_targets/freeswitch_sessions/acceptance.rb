@@ -79,10 +79,15 @@ module Acceptance
       identifier
     end
 
+    def ss_vendor_wrapper?(process)
+      process.fetch('state') == 'Z' && process.fetch('name') == 'freeswitch' && process.fetch('ppid') == @engine_pid &&
+        process.fetch('uid') == Integer(@uid) && process.fetch('cmdline').empty? && process.fetch('exe').nil? && process.fetch('connection_inodes').empty?
+    end
+
     def ss_new_processes(snapshot)
       snapshot.fetch('processes').reject do |process|
         @before_processes.any? { |before| before.values_at('pid', 'starttime') == process.values_at('pid', 'starttime') } ||
-          process.fetch('cmdline').include?('/lab/start.sh health') || process.fetch('name') == 'fs_cli' || process.fetch('name') == 'grep'
+          process.fetch('cmdline').include?('/lab/start.sh health') || process.fetch('name') == 'fs_cli' || process.fetch('name') == 'grep' || ss_vendor_wrapper?(process)
       end
     end
 
@@ -105,6 +110,12 @@ module Acceptance
         expect(payload_processes).not_to be_empty
         record = { payload: payload, owner: owner, proof: proof, connections: snapshot.fetch('connections'), payload_processes: payload_processes }
         yield record if block_given?
+        vendor_children = snapshot.fetch('processes').select { |process| ss_vendor_wrapper?(process) && @before_processes.none? { |prior| prior.values_at('pid', 'starttime') == process.values_at('pid', 'starttime') } }
+        maximum = record[:executable] ? record.fetch(:executable).fetch('commands').length : 1
+        expect(vendor_children.length).to be <= maximum
+        record[:native_provider_defunct_children] = vendor_children
+        record[:native_provider_child_bound] = maximum
+        ss_record('session-proofs-before-close.jsonl', record)
         record[:close] = fx_json("FreeSwitchExecutionControl.close(framework,#{identifier})")
         # The stock double-telnet payload includes a long sleep feeder. Only its
         # observed, new, non-socket-owning sleep may receive explicit cleanup.
@@ -114,8 +125,9 @@ module Acceptance
             next unless prior && process.fetch('name') == 'sleep' && process.fetch('cmdline').match?(/\Asleep \d+\s*\z/) && process.fetch('connection_inodes').empty?
 
             expect(process.fetch('uid')).to eq(Integer(@uid))
-            target_exec('target', 'kill', '-TERM', process.fetch('pid').to_s)
-            ss_record('intentional-telnet-feeder-cleanup.jsonl', process: process, payload: payload, owner: owner)
+            cleanup = JSON.parse(target_exec('target', 'perl', '/session_lab/terminate_sleep.pl', process.fetch('pid').to_s, process.fetch('starttime'), @uid))
+            expect(cleanup.fetch('status')).to match(/\A(?:signalled|already_absent)\z/)
+            ss_record('intentional-telnet-feeder-cleanup.jsonl', process: process, payload: payload, owner: owner, cleanup: cleanup)
           end
         end
         ss_poll(20) do
@@ -124,7 +136,8 @@ module Acceptance
         end
         ss_poll(15) { expect(fx_json('framework.sessions.keys')).to eq([]) }
         ss_poll(15) { expect(ss_rows.find { |row| row.fetch('id') == proof.fetch('db_id') }.fetch('closed_at')).not_to be_nil }
-        record[:all_tracked_processes_absent] = true
+        record[:all_tracked_live_payload_processes_absent] = true
+        record[:remaining_native_provider_defunct_children] = ss_processes.fetch('processes').select { |process| ss_vendor_wrapper?(process) }
         ss_record('session-lifecycles.jsonl', record)
       ensure
         target_exec('target', 'rm', '-f', '--', path)
@@ -168,6 +181,7 @@ module Acceptance
         expect(jobs.length).to eq(1)
         generated = fx_json("FreeSwitchExecutionControl.generated(framework.jobs.fetch(#{jobs.first.inspect}),#{payload.inspect},framework)")
         record[:generated] = generated
+        ss_poll(15) { expect(ss_listeners(CALLBACK)).not_to be_empty }
         execute = lambda do |command|
           output = target_exec('target', 'fs_cli', '-p', @password, '-x', "bg_system #{command}")
           record[:native_api_reply] = output
