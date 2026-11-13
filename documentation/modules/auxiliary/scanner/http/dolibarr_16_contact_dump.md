@@ -77,9 +77,7 @@ Finally, you can create a member via "Third-parties - New Contact/Address".
 
 ## Options
 
-### TARGETURI
-
-The path to Dolibarr instance.  Defaults to `/`,  `http://dolibarrdomain/`
+No specific options
 
 ## Export and detection behavior
 
