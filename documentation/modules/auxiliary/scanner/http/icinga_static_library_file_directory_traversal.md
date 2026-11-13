@@ -1,11 +1,13 @@
 ## Vulnerable Application
 
-Icingaweb versions from 2.9.0 to 2.9.5 inclusive, and 2.8.0 to 2.8.5 inclusive suffer from an
+Icingaweb versions from 2.9.0 to 2.9.5 inclusive suffer from an
 unauthenticated directory traversal vulnerability. The vulnerability is triggered
 through the icinga-php-thirdparty library, which allows unauthenticated users
 to retrieve arbitrary files from the targets filesystem via a GET request to
 `/lib/icinga/icinga-php-thirdparty/<absolute path to target file on disk>` as the user
 running the Icingaweb server, which will typically be the `www-data` user.
+
+This vulnerability was fixed in Icingaweb 2.9.6 and 2.10.
 
 This can then be used to retrieve sensitive configuration information from the target
 such as the configuration of various services, which may reveal sensitive login or configuration information,
