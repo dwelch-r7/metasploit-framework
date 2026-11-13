@@ -1,6 +1,15 @@
 # Container module acceptance tests
 
-Latest: the [Icinga boundary checkpoint](VERIFICATION-20261113-icinga-boundaries.md)
+Latest: the [libssh checkpoint](VERIFICATION-20261113-libssh.md) reaches
+**229 modules qualified in covered paths, 265 profiles and 2,514 examples**.
+All 23 cases and 48 public calls pass, with 94 independent native controls,
+18 exact command proofs and ten complete Shell lifecycles. Delayed output,
+connection cleanup, versionless handling and proof/service reporting are fixed.
+Three capped containers run serially; all eight final cleanup queries pass.
+Earlier setup/oracle/source failures stay separately preserved. The broader
+campaign remains incomplete, and no PR is created.
+
+The earlier [Icinga boundary checkpoint](VERIFICATION-20261113-icinga-boundaries.md)
 reaches **228 modules qualified in covered paths, 264 profiles and 2,491 examples**.
 Sixty cases and 140 public calls verify 24 exact loot files across unaffected,
 first/last affected, fixed and subpath deployments. Complete source manifests
