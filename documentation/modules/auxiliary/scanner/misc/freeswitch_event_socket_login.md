@@ -39,6 +39,9 @@ uses a pinned genuine FreeSWITCH image with conventional and Unicode passwords,
 a native ACL refusal and an unrelated OpenSSH control. It verifies checks,
 credential ordering, repeated password-only database reporting and actual wire
 traffic. The companion execution module requires separate session testing.
+An unavailable or empty event-socket reply produces an `Unknown` check result;
+expected connection/read failures are reported concisely and the check closes
+its connection.
 
 ## Verification Steps
 1. Do: `use auxiliary/scanner/misc/freeswitch_event_socket_login`

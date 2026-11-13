@@ -28,7 +28,7 @@ class MetasploitModule < Msf::Auxiliary
         'References' => [
           ['URL', 'https://freeswitch.org/confluence/display/FREESWITCH/mod_event_socket']
         ],
-        'DefaultOptions' => { 'VERBOSE' => false },
+        'DefaultOptions' => { 'VERBOSE' => false, 'RPORT' => 8021 },
         'License' => MSF_LICENSE,
         'Notes' => {
           'Stability' => [CRASH_SERVICE_RESTARTS],
@@ -40,7 +40,6 @@ class MetasploitModule < Msf::Auxiliary
 
     register_options(
       [
-        Opt::RPORT(8021),
         OptString.new('PASSWORD', [false, 'FreeSWITCH event socket default password', 'ClueCon']),
         OptPath.new('PASS_FILE',
                     [
@@ -104,7 +103,7 @@ class MetasploitModule < Msf::Auxiliary
   def check_host(_ip)
     connect
     banner = sock.get
-    disconnect(sock)
+    return Exploit::CheckCode::Unknown('No event socket banner received') if banner.to_s.empty?
 
     if banner.include?('Access Denied, go away.') || banner.include?('text/rude-rejection')
       return Exploit::CheckCode::Safe('Access denied by network ACL')
@@ -114,6 +113,11 @@ class MetasploitModule < Msf::Auxiliary
       return Exploit::CheckCode::Unknown('Unable to determine the service fingerprint')
     end
 
-    return Exploit::CheckCode::Appears('FreeSWITCH event socket is accepting authentication requests')
+    Exploit::CheckCode::Appears('FreeSWITCH event socket is accepting authentication requests')
+  rescue Rex::TimeoutError, ::Timeout::Error, ::IOError, Errno::ECONNRESET => e
+    elog('Failed to read the FreeSWITCH event socket banner', error: e)
+    Exploit::CheckCode::Unknown("Unable to read the FreeSWITCH event socket banner: #{e.message}")
+  ensure
+    disconnect
   end
 end
