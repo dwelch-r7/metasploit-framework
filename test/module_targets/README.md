@@ -1,6 +1,16 @@
 # Container module acceptance tests
 
-Latest: the [FreeSWITCH command/check checkpoint](VERIFICATION-20261113-freeswitch-execution.md)
+Latest: the [FreeSWITCH session/dropper checkpoint](VERIFICATION-20261113-freeswitch-sessions.md)
+reaches **226 modules qualified in covered paths, 258 profiles and 2,422 examples**.
+All 30 cases pass across eight serial profiles: 42 complete native/owning session
+lifecycles, 16 matching HTTP executables and 32 command/check calls. A confirmed
+Linux x64 payload-generation defect is fixed separately and replayed against the
+genuine service. All 57 independent cleanup queries pass; only three containers
+run at a time. Native provider residue and memory-limit counters are retained in
+the report. The credential race and broader campaign remain incomplete. No PR
+is created.
+
+The earlier [FreeSWITCH command/check checkpoint](VERIFICATION-20261113-freeswitch-execution.md)
 reaches **226 modules qualified in covered paths, 254 profiles and 2,408 examples**.
 All 16 cases pass with 32 public calls, six actual foreground commands and a
 confirmed check-error repair. Native controls, exact bytes/UID, refusal paths,
