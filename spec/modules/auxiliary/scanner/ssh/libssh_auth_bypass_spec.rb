@@ -24,7 +24,12 @@ RSpec.describe 'libssh bypass command completion and cleanup' do
   let(:output_chunks) { ['libssh-1-', '5-0', "\n"] }
   let(:messages) { [] }
   let(:stream_error) { nil }
-  let(:legacy_stream) { instance_double(Net::SSH::CommandStream, error: stream_error, channel: { data: '' }, lsock: double) }
+  let(:stream_class) { owner_class.const_defined?(:ProofCommandStream, false) ? owner_class.const_get(:ProofCommandStream) : Net::SSH::CommandStream }
+  let(:shell_channel_opened) { true }
+  let(:legacy_stream) { instance_double(stream_class, error: stream_error, channel: { data: '' }, lsock: double) }
+  let(:vulnerabilities) { [] }
+  let(:services) { [] }
+  let(:service_objects) { {} }
 
   before do
     mod.datastore['RHOST'] = '192.0.2.18'
@@ -43,12 +48,21 @@ RSpec.describe 'libssh bypass command completion and cleanup' do
     allow(ssh).to receive(:close) { closed[:value] = true }
     allow(ssh).to receive(:shutdown!) { closed[:value] = true }
     allow(Net::SSH::CommandStream).to receive(:new).and_return(legacy_stream)
+    if stream_class != Net::SSH::CommandStream
+      allow(stream_class).to receive(:new).and_return(legacy_stream)
+      allow(legacy_stream).to receive_messages(channel_opened: shell_channel_opened, wait_ready: nil)
+    end
     allow(mod).to receive(:sleep)
-    allow(mod).to receive(:report_vuln)
+    allow(mod).to receive(:report_vuln) { |record| vulnerabilities << record }
+    allow(mod).to receive(:report_service) do |record|
+      services << record
+      service_objects[record.fetch(:port)] ||= double(port: record.fetch(:port))
+    end
     allow(mod).to receive(:print_status) { |message| messages << message }
     allow(mod).to receive(:print_error)
     allow(mod).to receive(:vprint_error)
     allow(mod).to receive(:vprint_good)
+    allow(mod).to receive(:vprint_warning)
     allow(mod).to receive(:elog)
   end
 
@@ -213,6 +227,137 @@ RSpec.describe 'libssh bypass command completion and cleanup' do
       mod.run_host('192.0.2.18')
 
       expect(ssh).to have_received(:close).once
+    end
+  end
+  # Newly confirmed reporting/banner cases use synthetic channel outcomes.
+  # Parent native/SQL replay verifies real socket and database associations.
+  %w[Execute Shell].each do |action|
+    %w[0.8.4 0.7.6].each do |fixed_version|
+      context "with #{action} refused by fixed libssh #{fixed_version}" do
+        let(:version) { "SSH-2.0-libssh_#{fixed_version}" }
+        let(:stream_error) { Net::SSH::ChannelOpenFailed.new(1, 'Session channel open failed') }
+        let(:shell_channel_opened) { false }
+
+        it 'does not report a vulnerability when CHECK_BANNER is disabled' do
+          mod.datastore['ACTION'] = action
+          mod.datastore['CHECK_BANNER'] = false
+          allow(ssh).to receive(:open_channel).and_raise(stream_error)
+          mod.run_host('192.0.2.18')
+
+          expect([vulnerabilities, services]).to eq([[], []])
+        end
+      end
+    end
+  end
+
+  context 'with the genuine versionless libssh banner' do
+    let(:version) { 'SSH-2.0-libssh' }
+
+    it 'returns Detected instead of treating the absent version as zero' do
+      expect(mod.check_banner('192.0.2.18', version)).to eq(Msf::Exploit::CheckCode::Detected)
+    end
+
+    %w[Execute Shell].each do |action|
+      it "allows #{action} to establish channel proof before reporting" do
+        mod.datastore['ACTION'] = action
+        mod.run_host('192.0.2.18')
+
+        expect(vulnerabilities.length).to eq(1)
+      end
+    end
+  end
+
+  it 'keeps unrelated banners Unknown' do
+    expect(mod.check_banner('192.0.2.18', 'SSH-2.0-OpenSSH_9.0')).to eq(Msf::Exploit::CheckCode::Unknown)
+  end
+
+  it 'associates successful reports with the exact SSH service identity' do
+    mod.run_host('192.0.2.18')
+
+    expect(vulnerabilities.first).to include(host: '192.0.2.18', port: 2222, proto: 'tcp', sname: 'ssh', service: service_objects[2222])
+    expect(services).to eq([{ host: '192.0.2.18', port: 2222, proto: 'tcp', name: 'ssh', info: version }])
+  end
+
+  it 'preserves distinct service identities for two target ports' do
+    mod.run_host('192.0.2.18')
+    mod.datastore['RPORT'] = 2224
+    mod.run_host('192.0.2.18')
+
+    expect(vulnerabilities.map { |record| [record[:port], record[:service]] }).to eq([[2222, service_objects[2222]], [2224, service_objects[2224]]])
+  end
+
+  it 'reports a proven channel when an application guard rejects Execute' do
+    allow(channel).to receive(:exec).and_yield(channel, false)
+    mod.run_host('192.0.2.18')
+
+    expect(vulnerabilities.length).to eq(1)
+  end
+
+  it 'reports a proven channel when an application guard rejects Shell' do
+    mod.datastore['ACTION'] = 'Shell'
+    allow(legacy_stream).to receive(:error).and_return(Net::SSH::ChannelRequestFailed.new('Shell request failed'))
+    mod.run_host('192.0.2.18')
+
+    expect(vulnerabilities.length).to eq(1)
+  end
+
+  [true, false].each do |success|
+    it "records proof and readiness through real shared request handling with success=#{success}" do
+      stream = stream_class.allocate
+      stream.instance_variable_set(:@ready, Queue.new)
+      stream.monitor = instance_double(Thread, kill: nil)
+      stream.thread = instance_double(Thread, kill: nil)
+      stream.lsock = double(close: nil)
+      stream.rsock = double(close: nil)
+      stream.ssh = ssh
+      allow(channel).to receive(:[]=)
+      allow(channel).to receive(:on_eof)
+      allow(channel).to receive(:on_close)
+      allow(channel).to receive(:on_extended_data)
+      stream.shell_requested(channel, success)
+      ready = stream.respond_to?(:wait_ready) ? stream.wait_ready : nil
+
+      expect([stream.instance_variable_get(:@channel_opened), success ? ready.nil? : ready.is_a?(Net::SSH::ChannelRequestFailed)]).to eq([true, true])
+    end
+  end
+
+  it 'bounds Shell readiness without creating a session or a vulnerability on timeout' do
+    mod.datastore['ACTION'] = 'Shell'
+    if stream_class != Net::SSH::CommandStream
+      allow(legacy_stream).to receive(:wait_ready).and_raise(Timeout::Error, 'Request timed out')
+      allow(legacy_stream).to receive(:channel_opened).and_return(false)
+    end
+    mod.run_host('192.0.2.18')
+
+    expect(vulnerabilities).to eq([])
+  end
+
+  it 'retains observed Shell channel proof even if readiness later times out' do
+    mod.datastore['ACTION'] = 'Shell'
+    if stream_class != Net::SSH::CommandStream
+      allow(legacy_stream).to receive(:wait_ready).and_raise(Timeout::Error, 'Request timed out')
+    end
+    mod.run_host('192.0.2.18')
+
+    expect(vulnerabilities.length).to eq(1)
+  end
+
+  %w[Execute Shell].each do |action|
+    it "preserves #{action} service-reporting IOErrors outside network rescue" do
+      mod.datastore['ACTION'] = action
+      allow(mod).to receive(:report_service).and_raise(IOError, 'Unexpected service reporting error')
+
+      expect { mod.run_host('192.0.2.18') }.to raise_error(IOError, 'Unexpected service reporting error')
+      expect(mod).not_to have_received(:elog).with('SSH command execution failed', error: anything)
+    end
+
+    it "preserves #{action} vulnerability-reporting SSH exceptions outside network rescue" do
+      mod.datastore['ACTION'] = action
+      error = Net::SSH::Exception.new('Unexpected vulnerability reporting error')
+      allow(mod).to receive(:report_vuln).and_raise(error)
+
+      expect { mod.run_host('192.0.2.18') }.to raise_error(Net::SSH::Exception, 'Unexpected vulnerability reporting error')
+      expect(mod).not_to have_received(:elog).with('SSH command execution failed', error: anything)
     end
   end
 end

