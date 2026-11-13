@@ -1,0 +1,33 @@
+{
+  "services": {
+    "target": {
+      "extends": {
+        "file": "../icinga/compose.yaml",
+        "service": "target"
+      },
+      "build": {
+        "args": {
+          "ICINGA_IMAGE": "icinga/icingaweb2@sha256:c4543a6ced27598f02f4866ba2b82f70bcf7d70b833efc61bd0874fd4e49edc4",
+          "ICINGA_SOURCE_VERSION": "2.8.5",
+          "ICINGA_SOURCE_SHA256": "7f6d3ac19ccd8ab760fd072a6ed5934af0fb8fbf46f8f8b54cd9b2fb0c2f78ae",
+          "ICINGA_PREFIX": "/"
+        }
+      },
+      "environment": {
+        "ICINGA_PREFIX": "/"
+      }
+    },
+    "reporting_db": {
+      "extends": {
+        "file": "../icinga/compose.yaml",
+        "service": "reporting_db"
+      }
+    },
+    "framework": {
+      "extends": {
+        "file": "../icinga/compose.yaml",
+        "service": "framework"
+      }
+    }
+  }
+}

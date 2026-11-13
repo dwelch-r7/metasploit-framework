@@ -28,7 +28,7 @@ RSpec.describe 'Genuine Icinga static-library file collection', acceptance: true
   after(:all) do
     if @native
       current = icinga_native('after')
-      %i[source version identity apache proofs].each { |key| expect(current.fetch(key)).to eq(@native.fetch(key)) }
+      %i[source source_manifest affected version identity apache proofs].each { |key| expect(current.fetch(key)).to eq(@native.fetch(key)) }
       fx_resources
     end
   end

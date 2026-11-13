@@ -3,12 +3,16 @@
 ```sh
 DOCKER_CONTEXT=default BUILDX_BUILDER=default bundle exec ruby \
   tools/dev/run_guarded_module_target_tests.rb \
-  icinga_2_9_5 icinga_2_9_6 icinga_subpath
+  icinga_2_8_5 icinga_2_9_0 icinga_2_9_5 icinga_2_9_6 icinga_subpath
 ```
 
-The three serial profiles use the digest-pinned official Icinga Web 2 2.9.5 and
-2.9.6 images listed in `vendor.json`, including an affected application mounted
-under `/icingaweb2/`. The application PHP source remains unchanged. The small
+The five serial profiles cover unaffected Icinga Web 2 2.8.5, first affected
+2.9.0, last affected 2.9.5, fixed 2.9.6, and an affected application mounted
+under `/icingaweb2/`. The 2.9.5 and 2.9.6 profiles use the digest-pinned official
+images listed in `vendor.json`. The two oldest profiles use SHA-256-pinned
+complete release sources on the same pinned 2.9.5 PHP/Apache base; all 2,466 or
+2,568 original regular source files, excluding only Apache URL configuration,
+are independently checked against their release manifests before and after. The application PHP source remains unchanged. The small
 Dockerfile adds public proof files outside the web root, an unreadable file,
 and a separate genuine PHP static server. Only the subpath profile changes the
 Apache Alias and RewriteBase configuration.

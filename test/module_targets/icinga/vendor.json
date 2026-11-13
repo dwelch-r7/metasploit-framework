@@ -2,11 +2,35 @@
   "2.9.5": {
     "image": "icinga/icingaweb2@sha256:c4543a6ced27598f02f4866ba2b82f70bcf7d70b833efc61bd0874fd4e49edc4",
     "source_commit": "053971c99dc1a4510beb64a888ea695cc14032dc",
-    "static_controller_sha256": "7dfa4e37082560ee6007868545c2919545c5016105d5469844250cb1fdc3bd08"
+    "static_controller_sha256": "7dfa4e37082560ee6007868545c2919545c5016105d5469844250cb1fdc3bd08",
+    "affected": true
   },
   "2.9.6": {
     "image": "icinga/icingaweb2@sha256:6630dbe7e0537c8eca3e200a5bfdd4d9f6f8dd7facaf69aadd5de10dac9298a3",
     "source_commit": "e702d933e15b0907628091a03741baff1b6074df",
-    "static_controller_sha256": "f0f7242d0b863990d6b2dc865ad50f776ef86bc11a9d4d5bd64da94407f755f2"
+    "static_controller_sha256": "f0f7242d0b863990d6b2dc865ad50f776ef86bc11a9d4d5bd64da94407f755f2",
+    "affected": false
+  },
+  "2.8.5": {
+    "image": "icinga/icingaweb2@sha256:c4543a6ced27598f02f4866ba2b82f70bcf7d70b833efc61bd0874fd4e49edc4",
+    "source_commit": "9a78fab17bf13552f57b115fac20a7e438c28669",
+    "affected": false,
+    "static_controller_path": "application/controllers/StaticController.php",
+    "static_controller_sha256": "6dbf3cd21045a5b3a3795d9b753d84aa6281387c90eb3768eaee2008abbded77",
+    "source_archive_url": "https://codeload.github.com/Icinga/icingaweb2/tar.gz/refs/tags/v2.8.5",
+    "source_archive_sha256": "7f6d3ac19ccd8ab760fd072a6ed5934af0fb8fbf46f8f8b54cd9b2fb0c2f78ae",
+    "source_manifest_sha256": "8d698846b9514d76a1430c6acc2985d42cd27534517dde294beaed06c6f2acd6",
+    "source_file_count": 2466
+  },
+  "2.9.0": {
+    "image": "icinga/icingaweb2@sha256:c4543a6ced27598f02f4866ba2b82f70bcf7d70b833efc61bd0874fd4e49edc4",
+    "source_commit": "3b0a0a78df9389c46d3a74611a8eaec2f2b3cc77",
+    "affected": true,
+    "static_controller_path": "library/Icinga/Web/Controller/StaticController.php",
+    "static_controller_sha256": "7dfa4e37082560ee6007868545c2919545c5016105d5469844250cb1fdc3bd08",
+    "source_archive_url": "https://codeload.github.com/Icinga/icingaweb2/tar.gz/refs/tags/v2.9.0",
+    "source_archive_sha256": "2ea595bb1f5cc20720ca6937f6c9926a4931cf327f0908a70bceea8be1cabd46",
+    "source_manifest_sha256": "93817e4278eb1d804c74706daeaeacd2dc83deca27745ae9fb63f9893e846679",
+    "source_file_count": 2568
   }
 }
