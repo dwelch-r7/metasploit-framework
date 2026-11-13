@@ -1,6 +1,14 @@
 # Container module acceptance tests
 
-Latest: the [FreeSWITCH login checkpoint](VERIFICATION-20261113-freeswitch.md)
+Latest: the [FreeSWITCH multi-host checkpoint](VERIFICATION-20261113-freeswitch-batch.md)
+records **222 currently qualified modules, 243 profiles and 2,335 examples**.
+Per-host AutoCheck and service-scoped credential updates are fixed. The fresh
+81-case replay passes 80 cases and records one concurrent credential-library
+race for investigation. That profile and stale oversized MySQL/NiFi results
+remain unqualified. Profiles resolve to at most five containers and run serially;
+all 94 cleanup queries pass. The broader campaign remains active.
+
+The [FreeSWITCH login checkpoint](VERIFICATION-20261113-freeswitch.md)
 reaches **225 qualified modules, 243 profiles and 2,357 functional examples**.
 Twenty-five cases and 50 public calls verify password-only credentials, Unicode,
 password-file ordering, ACL and unrelated-service refusals. Closed-port checks

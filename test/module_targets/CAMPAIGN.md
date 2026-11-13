@@ -1220,3 +1220,33 @@ companion execution module's Linux delivery/session families remain pending.
 The inventory has 277 pending documented container hints and no stale reviews;
 missing hints do not establish infeasibility. The broader campaign remains
 active. No PR is created.
+
+
+## FreeSWITCH multi-host checks and reporting
+
+The [multi-host checkpoint](VERIFICATION-20261113-freeswitch-batch.md) records
+222 currently qualified modules, 243 profiles and 2,335 examples. A separate
+worktree fixes global AutoCheck resolving a complete host list/file as one name,
+and failed attempts corrupting another service's successful login. The identical
+73-case focused suite changes from 46 failures to zero; the parent repeats it.
+All existing 43 AutoCheck examples pass. The complete human Scenarios tail and
+shared Scanner/AutoCheck/DBManager/service APIs remain byte-exact.
+
+The ten-profile native replay passes 80 of 81 examples. All 25 single-host cases
+and both five-case mixed password/ACL profiles pass. The same-password concurrent
+case proves a separate credential dependency insert/retry defect: both services
+accept the password but only one successful login is persisted. Its failing
+profile remains excluded, with real wire/SQL/source evidence retained for a
+future dependency fix. No workaround or dependency change masks it.
+
+The shared fix is also replayed through PostgreSQL/SSH/HTTP reporting, RabbitMQ
+and MSSQL capture. MySQL capture and NiFi discovery remain pending at the changed
+shared-file hash until their oversized topologies are split and rerun. No new
+hash exemption preserves their qualification. The lower current count is honest
+requalification, not a claim those untouched module paths now fail.
+
+Profiles resolve to at most five containers, run serially and finish all teardown.
+All 94 independent cleanup queries pass for 38 containers, 10 networks and six
+volumes, with an empty global inventory. The guard exits normally and advisory
+locks are free. The inventory retains 277 pending documented container hints and
+zero stale reviews. The broader goal remains active; no PR is created.
