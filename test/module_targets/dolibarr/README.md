@@ -19,12 +19,13 @@ container, capped at 384 MiB, 0.7 CPU and 96 tasks. Its compiled checksum is pin
 no binary is committed. The build needs an executable temporary filesystem.
 Source and extension caches live under `tmp/module-target-dolibarr-*`.
 
-Application profiles use three containers, capped at 1,280 MiB, two CPUs and
-448 tasks: Dolibarr 256 MiB, MariaDB 512 MiB and Framework 512 MiB. The original
+Application profiles use three containers, capped at 1,408 MiB, two CPUs and
+448 tasks: Dolibarr 256 MiB, MariaDB 512 MiB and Framework 640 MiB. The original
 CLI installer creates the schema and administrator; original model APIs create
 and restore the company/contacts. Configuration is generated in a temporary
 filesystem and locked after installation. Vendor code and extension mounts are
-read-only. Only application HTTP is published on loopback. Database/document
+read-only. Only application HTTP is published on loopback. The Framework cap includes extra headroom for cold module metadata generation.
+Database/document
 state is temporary, with no persistent Docker volume.
 
 Independent controls verify login refusal/success, real database records and

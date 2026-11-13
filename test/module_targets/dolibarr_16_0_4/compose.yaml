@@ -15,6 +15,6 @@ services:
       service: database
   framework:
     cpus: 1.0
-    mem_limit: 512m
-    memswap_limit: 512m
+    mem_limit: 640m
+    memswap_limit: 640m
     pids_limit: 256
