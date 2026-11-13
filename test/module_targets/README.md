@@ -1,6 +1,14 @@
 # Container module acceptance tests
 
-Latest: the [FreeSWITCH session/dropper checkpoint](VERIFICATION-20261113-freeswitch-sessions.md)
+Latest: the [OPC-UA checkpoint](VERIFICATION-20261113-opcua.md) reaches
+**227 modules qualified in covered paths, 259 profiles and 2,431 examples**.
+Nine cases and 20 owning calls pass against genuine source-built open62541.
+Independent native, packet/proxy, SQL and cleanup controls reproduce and verify
+the repair of three framing failures. Only three capped containers run, and all
+eight independent cleanup queries pass. The broader campaign remains incomplete;
+no PR is created.
+
+The earlier [FreeSWITCH session/dropper checkpoint](VERIFICATION-20261113-freeswitch-sessions.md)
 reaches **226 modules qualified in covered paths, 258 profiles and 2,422 examples**.
 All 30 cases pass across eight serial profiles: 42 complete native/owning session
 lifecycles, 16 matching HTTP executables and 32 command/check calls. A confirmed
