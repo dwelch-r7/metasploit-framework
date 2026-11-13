@@ -1,6 +1,15 @@
 # Container module acceptance tests
 
-Latest: the [Icinga checkpoint](VERIFICATION-20261113-icinga.md) reaches
+Latest: the [Icinga boundary checkpoint](VERIFICATION-20261113-icinga-boundaries.md)
+reaches **228 modules qualified in covered paths, 264 profiles and 2,491 examples**.
+Sixty cases and 140 public calls verify 24 exact loot files across unaffected,
+first/last affected, fixed and subpath deployments. Complete source manifests
+and native controls confirm and correct a false affected-version description;
+operational bytes and original Scenarios are preserved. Three capped containers
+run serially; all 36 final cleanup queries pass. The broader campaign remains
+incomplete, and no PR is created.
+
+The earlier [Icinga checkpoint](VERIFICATION-20261113-icinga.md) reaches
 **228 modules qualified in covered paths, 262 profiles and 2,467 examples**.
 Thirty-six cases and 84 public calls verify 16 exact loot files across genuine
 affected/fixed and subpath deployments. Independent native HTTP, raw SQL,
