@@ -1155,3 +1155,22 @@ relay policy, low/closed ports, lists/ranges and repeats pass. A native-log-fiel
 matcher failure remains sealed. Root verifies all 43 inputs, actual cold metadata
 and ten exact cleanup queries. Four containers remain capped at 960 MiB/1.3 CPUs.
 Other products/timings and the broader valuable-module queue remain incomplete.
+
+## Dolibarr contact collection
+
+The [Dolibarr checkpoint](VERIFICATION-20261113-dolibarr.md) reaches 223 modules,
+235 profiles and 2,306 examples. Five genuine affected/fixed, prefix and unrelated
+profiles pass 22 cases, 44 public module calls and 24 exact JSON/CSV exports.
+Native authentication/model/database controls distinguish source defects from
+setup failures. CSV note whitespace loss and unrelated-site product detection
+are fixed in a separate worktree and replayed. The guide links directly to the
+serial lab, with its complete human Scenarios tail unchanged.
+
+Three capped containers use at most 1,408 MiB/two CPUs. The cold Framework console
+has 640 MiB of memory; final memory-limit/OOM/PID-limit counters are zero. All 39
+independent final resource-absence queries pass and Docker is empty. Transient
+container refusals and a Docker restart are sealed separately. The optional
+16.0.5 lookup still accepts a domain pattern in native controls; this does not
+qualify a new module attack mode. The full valuable-module inventory remains
+open, with 279 pending documented container hints and no stale source reviews.
+No PR is created.

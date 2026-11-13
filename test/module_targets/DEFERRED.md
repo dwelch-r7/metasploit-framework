@@ -323,3 +323,28 @@ transport/lifecycle investigation rather than assuming another owner defect.
 See [the verification report](VERIFICATION-20261112-saltstack-deployer.md) for
 sealed runs, resource-invalidated results and scope. Other Salt versions,
 non-root masters and exceptional paths remain untested.
+
+## Dolibarr optional contact-lookup patterns
+
+Genuine 16.0.5 with Ticket and
+`TICKET_CREATE_THIRD_PARTY_WITH_CONTACT_IF_NOT_EXIST` enabled rejects the existing
+module bare `%` lookup but returns complete matching contact objects for
+`%@example.invalid`. Default-disabled Ticket returns an access-denied HTML body
+with HTTP 200. This is native target behavior; the module does not expose a new
+pattern option. Investigate the optional feature and affected/fixed boundaries
+separately before making a broader no-disclosure claim. The existing collection
+module is qualified for its tested request in
+[the verification report](VERIFICATION-20261113-dolibarr.md). Other PHP versions,
+database providers and release patches remain outside that qualification.
+
+## Linux Mettle intermediary-directory timeout
+
+Published head `d4c94af2a8163e20029a74e3544410a3c0bc9893` has 62 successful checks,
+one skipped check and one failing
+[Linux Mettle job](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43329514765/job/131570400642).
+The 51-example suite fails `post/test/file` with
+`linux/x64/meterpreter_reverse_http` and `base64_transforms.profile`: creating
+intermediary directories times out, followed by a console completion timeout
+while the process remains alive. Cause and relation to the campaign changes are
+unverified. Preserve the actual job log; no retry or timeout increase establishes
+a fix. This failure is separate from Dolibarr native acceptance.

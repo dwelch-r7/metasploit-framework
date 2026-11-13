@@ -1,6 +1,14 @@
 # Container module acceptance tests
 
-Latest: the [Spring Cloud Config checkpoint](VERIFICATION-20261112-springcloud.md)
+Latest: the [Dolibarr checkpoint](VERIFICATION-20261113-dolibarr.md) reaches
+**223 qualified modules, 235 profiles and 2,306 functional examples**. Twenty-two
+cases and 44 public calls verify 24 exact exports across affected/fixed releases,
+a context prefix and an unrelated site. CSV whitespace loss and false product
+detection are fixed. Three containers run serially at 1,408 MiB/two CPUs. All
+final cleanup audits pass and Docker is empty. A native optional-lookup residual,
+setup refusals and the user-requested Docker restart remain recorded separately.
+
+The [Spring Cloud Config checkpoint](VERIFICATION-20261112-springcloud.md)
 reaches **222 qualified modules, 230 profiles and 2,284 functional examples**.
 Forty-two cases and 84 public calls verify 24 exact loot files across affected,
 fixed and unexposed configurations. The module now requests the correct resource
