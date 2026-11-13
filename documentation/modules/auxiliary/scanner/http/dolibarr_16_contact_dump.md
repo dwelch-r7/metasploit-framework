@@ -79,6 +79,13 @@ Finally, you can create a member via "Third-parties - New Contact/Address".
 
 No specific options
 
+## Automated lab
+
+The [serial container lab](../../../../../test/module_targets/dolibarr/README.md)
+provides pinned original affected/fixed targets and quick functional tests for
+checks, complete JSON/CSV exports, repeated collection, empty datasets, context
+prefixes and unrelated-site rejection.
+
 ## Export and detection behavior
 
 The module saves JSON and CSV. JSON retains the complete returned contact
