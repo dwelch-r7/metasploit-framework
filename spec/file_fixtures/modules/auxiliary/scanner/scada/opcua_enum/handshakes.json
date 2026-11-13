@@ -1,0 +1,27 @@
+{
+  "provenance": {
+    "server": "Unchanged official open62541 v1.5.10",
+    "commit": "93c3bdf",
+    "parent_run": "20261113T181010-7019ec",
+    "native_phases_sha256": "71233ff785b4955bcb9f7a6ca5f9a07805a698eb2a0dd3444436341232501b9d",
+    "native_seal_manifest_sha256": "0f3585795ad192e5f5796bdc46ad41e86ac85f8e7307165d897c85e68079d276",
+    "source_seal_manifest_sha256": "96376aab49a392b7e99fdbe8c189bf6250320c5113afc5919775cfc43707bbac"
+  },
+  "frames": {
+    "ack_65535": {
+      "response_base64": "QUNLRhwAAAAAAAAA//8AAP//AAAAAAAgAEAAAA==",
+      "response_sha256": "8a270d242502492835a0b9b52e96e323abc0f24871cd8d2deaba25d0acecc9d7",
+      "port": 4840
+    },
+    "ack_16384": {
+      "response_base64": "QUNLRhwAAAAAAAAAAEAAAABAAAAAAAAgAEAAAA==",
+      "response_sha256": "5185b6c4385e487fd5b547b9190f4e72d2a8d4e1d69190ba6453366808fab369",
+      "port": 4841
+    },
+    "err_null_reason": {
+      "response_base64": "RVJSRhAAAAAAAAKA/////w==",
+      "response_sha256": "d06fc2d4b0caeb8be50e7f4f5c0f6969553a0cbd9cfd33fb08ca949595f7a6ec",
+      "port": 4842
+    }
+  }
+}

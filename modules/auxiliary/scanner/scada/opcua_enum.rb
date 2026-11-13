@@ -5,14 +5,19 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
+require 'rex/stopwatch'
+
 class MetasploitModule < Msf::Auxiliary
   include Msf::Exploit::Remote::Tcp
   include Msf::Auxiliary::Scanner
   include Msf::Auxiliary::Report
 
   # OPC-UA Connection Protocol message header is 8 bytes:
-  #   MessageType (3 bytes ASCII) + ChunkType (1 byte ASCII) + MessageSize (UInt32 LE)
+  #   MessageType (3 bytes ASCII) + Reserved (1 byte) + MessageSize (UInt32 LE)
   HEADER_LEN = 8
+  BUFFER_SIZE = 65_535
+  RECEIVE_TIMEOUT = 5
+  MAX_REASON_LEN = 4096
 
   # OPC-UA StatusCodes that may appear in an ERR response from the UA TCP
   # transport. Values per the OPC Foundation StatusCodes definitions
@@ -79,11 +84,11 @@ class MetasploitModule < Msf::Auxiliary
   #   MaxMessageSize + MaxChunkCount + EndpointUrlLength + EndpointUrl
   def build_hello(endpoint_url)
     body = [
-      0,      # ProtocolVersion
-      65535,  # ReceiveBufferSize
-      65535,  # SendBufferSize
-      0,      # MaxMessageSize (0 = no limit)
-      0       # MaxChunkCount  (0 = no limit)
+      0,           # ProtocolVersion
+      BUFFER_SIZE, # ReceiveBufferSize
+      BUFFER_SIZE, # SendBufferSize
+      0,           # MaxMessageSize (0 = no limit)
+      0            # MaxChunkCount  (0 = no limit)
     ].pack('V*')
     body << [endpoint_url.length].pack('V') << endpoint_url
 
@@ -94,17 +99,17 @@ class MetasploitModule < Msf::Auxiliary
   # Decode an ERR message body: UInt32 StatusCode + UA String reason.
   # Returns [status_string, reason_string].
   def decode_error(body)
-    return ['unknown', ''] if body.length < 4
+    return ['unknown', ''] if body.bytesize < 4
 
-    code = body[0, 4].unpack1('V')
+    code = body.byteslice(0, 4).unpack1('V')
     status = STATUS_CODES[code] || format('0x%08X', code)
 
     reason = ''
-    if body.length >= 8
-      reason_len = body[4, 4].unpack1('V')
-      # UA String length 0xFFFFFFFF denotes null; otherwise read the bytes.
-      if reason_len != 0xFFFFFFFF && reason_len.positive? && body.length >= 8 + reason_len
-        reason = body[8, reason_len]
+    if body.bytesize >= 8
+      reason_len = body.byteslice(4, 4).unpack1('l<')
+      # Null is -1; Part 6 requires clients to ignore reasons over 4096 bytes.
+      if reason_len.positive? && reason_len <= MAX_REASON_LEN && body.bytesize >= 8 + reason_len
+        reason = body.byteslice(8, reason_len)
       end
     end
 
@@ -112,29 +117,33 @@ class MetasploitModule < Msf::Auxiliary
   end
 
   def run_host(ip)
-    connect
-
-    endpoint_url = "opc.tcp://#{Rex::Socket.to_authority(ip, rport)}"
-    sock.put(build_hello(endpoint_url))
-
-    data = sock.get_once(-1, 5)
-
-    if data.nil? || data.length < 4
-      vprint_status('No OPC-UA response to HEL')
+    begin
+      connect
+      endpoint_url = "opc.tcp://#{Rex::Socket.to_authority(ip, rport)}"
+      sock.put(build_hello(endpoint_url))
+      data = read_response
+    rescue Rex::ConnectionError, Rex::TimeoutError, ::Timeout::Error, ::IOError, Errno::ECONNRESET => e
+      vprint_error("OPC-UA HEL exchange failed: #{e.message}")
+      elog('OPC-UA HEL exchange failed', error: e)
       return
     end
 
-    msg_type = data[0, 3]
-    chunk_type = data[3, 1]
-    body = data.length > HEADER_LEN ? data[HEADER_LEN..] : ''
+    unless data
+      vprint_status('No complete OPC-UA response to HEL within the receive limits')
+      return
+    end
 
+    msg_type = data.byteslice(0, 3)
+    body = data.byteslice(HEADER_LEN..)
     case msg_type
     when 'ACK'
-      info = 'accepted connection'
-      if body.length >= 12
-        proto_ver, rcv_buf, snd_buf = body.unpack('VVV')
-        info = "ProtocolVersion=#{proto_ver} RecvBuf=#{rcv_buf} SendBuf=#{snd_buf}"
+      unless valid_ack?(body)
+        vprint_status('Invalid OPC-UA ACK response')
+        return
       end
+
+      proto_ver, rcv_buf, snd_buf = body.unpack('V3')
+      info = "ProtocolVersion=#{proto_ver} RecvBuf=#{rcv_buf} SendBuf=#{snd_buf}"
       print_good("OPC-UA server detected (ACK) - #{info}")
       report_service(
         host: ip,
@@ -144,6 +153,11 @@ class MetasploitModule < Msf::Auxiliary
         info: "OPC-UA server (ACK): #{info}"
       )
     when 'ERR'
+      unless valid_error?(body)
+        vprint_status('Invalid OPC-UA ERR response')
+        return
+      end
+
       status, reason = decode_error(body)
       detail = reason.empty? ? status : "#{status} - #{reason}"
       print_good("OPC-UA server detected (ERR) - #{detail}")
@@ -154,12 +168,58 @@ class MetasploitModule < Msf::Auxiliary
         name: 'opc-ua',
         info: "OPC-UA server (ERR): #{detail}"
       )
-    else
-      vprint_status("Non-OPC-UA response (type=#{msg_type.inspect} chunk=#{chunk_type.inspect})")
     end
-  rescue ::Rex::ConnectionError, ::EOFError, ::Errno::ECONNRESET => e
-    vprint_error("#{e.class}: #{e.message}")
   ensure
     disconnect
+  end
+
+  private
+
+  def read_response
+    response = String.new.b
+    expected_size = HEADER_LEN
+    remaining = RECEIVE_TIMEOUT
+
+    # TCP reads are not messages. Part 6 includes the header in MessageSize;
+    # the Reserved byte is ignored by receivers, even though senders use 'F'.
+    # https://reference.opcfoundation.org/specs/OPC-10000-6/7.1.2.2
+    loop do
+      return nil if remaining <= 0
+
+      chunk, elapsed = Rex::Stopwatch.elapsed_time do
+        sock.get_once(expected_size - response.bytesize, remaining)
+      end
+      remaining -= elapsed
+      return nil if remaining.negative? || chunk.nil? || chunk.empty?
+
+      response << chunk
+      return nil if response.bytesize > expected_size
+
+      if response.bytesize == HEADER_LEN && expected_size == HEADER_LEN
+        return nil unless %w[ACK ERR].include?(response.byteslice(0, 3))
+
+        expected_size = response.byteslice(4, 4).unpack1('V')
+        return nil unless expected_size >= HEADER_LEN && expected_size < BUFFER_SIZE
+      end
+      return response if response.bytesize == expected_size
+    end
+  end
+
+  def valid_ack?(body)
+    # Five UInt32 fields; version and buffers must satisfy the sent HEL.
+    # https://reference.opcfoundation.org/specs/OPC-10000-6/7.1.2.4
+    return false unless body.bytesize == 20
+
+    protocol, receive_buffer, send_buffer = body.unpack('V3')
+    protocol.zero? && receive_buffer.between?(8192, BUFFER_SIZE) && send_buffer.between?(8192, BUFFER_SIZE)
+  end
+
+  def valid_error?(body)
+    return false if body.bytesize < 8
+
+    reason_length = body.byteslice(4, 4).unpack1('l<')
+    return false if reason_length < -1
+
+    body.bytesize == 8 + [reason_length, 0].max
   end
 end
