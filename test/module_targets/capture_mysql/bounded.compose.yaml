@@ -1,0 +1,39 @@
+x-client-limits: &client_limits
+  cpus: 0.3
+  mem_limit: 192m
+  memswap_limit: 192m
+  pids_limit: 128
+x-database-limits: &database_limits
+  cpus: 1.0
+  mem_limit: 1g
+  memswap_limit: 1g
+  pids_limit: 256
+
+services:
+  capture_client_base:
+    extends: {file: ../database_capture/compose.yaml, service: capture_client_base}
+  client:
+    extends: {file: ../database_capture/compose.yaml, service: client}
+    <<: *client_limits
+    cpus: 0.4
+  oracle_client:
+    extends: {file: ../database_capture/compose.yaml, service: oracle_client}
+    <<: *client_limits
+  mariadb_client:
+    extends: {file: ../database_capture/compose.yaml, service: mariadb_client}
+    <<: *client_limits
+  native_mysql:
+    extends: {file: ../mysql8/compose.yaml, service: mysql}
+    <<: *database_limits
+    ports: !reset []
+  native_mariadb:
+    extends: {file: ../mariadb/compose.yaml, service: mysql}
+    <<: *database_limits
+    ports: !reset []
+  reporting_db:
+    extends: {file: ../gopher/compose.yaml, service: reporting_db}
+  framework:
+    cpus: 1.5
+    mem_limit: 768m
+    memswap_limit: 768m
+    pids_limit: 256

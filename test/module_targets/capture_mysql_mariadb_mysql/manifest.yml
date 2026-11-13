@@ -1,0 +1,47 @@
+{
+  "spec": "spec/acceptance/module_targets/database_capture_spec.rb",
+  "expected_examples": 8,
+  "console": true,
+  "modules": [
+    "auxiliary/server/capture/mysql"
+  ],
+  "ports": {},
+  "support_files": [
+    "documentation/modules/auxiliary/server/capture/mysql.md",
+    "lib/metasploit/framework/data_service/proxy/login_data_proxy.rb",
+    "lib/metasploit/framework/data_service/proxy/service_data_proxy.rb",
+    "lib/msf/core/auxiliary/report.rb",
+    "lib/msf/core/db_manager/cred.rb",
+    "lib/msf/core/db_manager/service.rb",
+    "lib/msf/core/exploit/remote/socket_server.rb",
+    "lib/msf/core/exploit/remote/tcp_server.rb",
+    "spec/support/shared/contexts/wait_for_expect.rb",
+    "test/module_targets/capture_core/client.Dockerfile",
+    "test/module_targets/capture_core/client.py",
+    "test/module_targets/capture_core/compose.yaml",
+    "test/module_targets/capture_core/native_client.py",
+    "test/module_targets/capture_mysql/README.md",
+    "test/module_targets/capture_mysql/bounded.compose.yaml",
+    "test/module_targets/capture_mysql/native_probe.py",
+    "test/module_targets/capture_mysql/run.rb",
+    "test/module_targets/credential_reporting/compose.yaml",
+    "test/module_targets/database_capture/README.md",
+    "test/module_targets/database_capture/accounts.json",
+    "test/module_targets/database_capture/client.Dockerfile",
+    "test/module_targets/database_capture/client.py",
+    "test/module_targets/database_capture/compose.yaml",
+    "test/module_targets/database_capture/controls.py",
+    "test/module_targets/database_capture/ntlm.py",
+    "test/module_targets/database_capture/protocols.py",
+    "test/module_targets/database_capture/run_client.py",
+    "test/module_targets/gopher/compose.yaml",
+    "test/module_targets/mariadb/compose.yaml",
+    "test/module_targets/mysql8/compose.yaml",
+    "tools/dev/run_guarded_module_target_tests.rb"
+  ],
+  "test_env": {
+    "DATABASE_CAPTURE_PROFILE": "mysql",
+    "MYSQL_CAPTURE_CLIENT": "mariadb_client",
+    "MYSQL_CAPTURE_SERVER": "native_mysql"
+  }
+}

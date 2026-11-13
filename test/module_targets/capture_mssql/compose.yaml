@@ -3,8 +3,20 @@ services:
     extends: {file: ../database_capture/compose.yaml, service: capture_client_base}
   client:
     extends: {file: ../database_capture/compose.yaml, service: client}
+    cpus: 0.4
+    mem_limit: 192m
+    memswap_limit: 192m
+    pids_limit: 128
   native_mssql:
     extends: {file: ../mssql2019/compose.yaml, service: mssql}
     ports: !reset []
+    cpus: 2
+    memswap_limit: 3g
+    pids_limit: 512
   reporting_db:
-    extends: {file: ../credential_reporting/compose.yaml, service: reporting_db}
+    extends: {file: ../gopher/compose.yaml, service: reporting_db}
+  framework:
+    cpus: 1.5
+    mem_limit: 768m
+    memswap_limit: 768m
+    pids_limit: 256

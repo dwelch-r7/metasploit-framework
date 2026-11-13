@@ -1,7 +1,7 @@
 # Genuine database clients of Framework capture servers
 
 ```sh
-bundle exec ruby tools/dev/run_module_target_tests.rb capture_mysql capture_mssql
+DOCKER_CONTEXT=default BUILDX_BUILDER=default bundle exec ruby test/module_targets/capture_mysql/run.rb
 ```
 
 These profiles run the unchanged MySQL and MSSQL capture modules as real
@@ -11,7 +11,7 @@ against the corresponding digest-pinned native database fixture. No test server
 substitutes for a capture module, and no host port or Docker socket is exposed.
 Client dependencies are pinned only in the disposable test image.
 
-The MySQL profile has seventeen cases. Native controls authenticate both clients
+The four bounded MySQL pair profiles have 13/13/8/8 cases. Native controls authenticate both clients
 to both real server implementations with explicitly configured
 mysql_native_password accounts, exact spaced usernames/database names and
 space/colon/quote/backslash passwords. Empty passwords succeed natively;
@@ -19,8 +19,10 @@ rejected fixture passwords fail. Actual PCAPs distinguish the native server's
 initial plugin from its authentication switch. Independent hashlib calculations
 verify the actual twenty-byte native-password responses. Fixed passwords make
 the capture response end in NUL or space; both bytes must remain in SQL and the
-John output. A genuine native seed containing zero is also supplied as the
-custom CHALLENGE, with a custom advertised server version. Other cases cover
+John output. A genuine native seed is also supplied as the custom CHALLENGE, with a custom
+advertised server version. The earlier hex-digit predicate did not prove NUL
+byte coverage; separate configured-NUL cases now check the actual challenge
+bytes and genuine client response. Other cases cover
 default client TLS negotiation, no database, no credentials, empty responses, malformed challenge input and
 required TLS against the module's non-TLS greeting.
 

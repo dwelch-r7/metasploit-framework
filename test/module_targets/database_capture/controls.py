@@ -52,9 +52,14 @@ def sql_string(value):
     return "'" + value.replace("'", "''") + "'"
 
 
+def mysql_accounts():
+    """Account identities shared by seeding and non-mutating after-controls."""
+    return [('edge',ACCOUNTS['username'],ACCOUNTS['password']),('tail_0','capture_tail0',ACCOUNTS['tail_0_password']),('tail_32','capture_tail32',ACCOUNTS['tail_32_password']),('empty',ACCOUNTS['empty_username'],'')]
+
+
 def mysql_seed(clients, service):
     import hashlib
-    fixture = [('edge',ACCOUNTS['username'],ACCOUNTS['password']),('tail_0','capture_tail0',ACCOUNTS['tail_0_password']),('tail_32','capture_tail32',ACCOUNTS['tail_32_password']),('empty',ACCOUNTS['empty_username'],'')]
+    fixture = mysql_accounts()
     statements=['CREATE DATABASE IF NOT EXISTS `'+ACCOUNTS['database']+'`;']
     for _,user,password in fixture:
         first=hashlib.sha1(password.encode()).digest()

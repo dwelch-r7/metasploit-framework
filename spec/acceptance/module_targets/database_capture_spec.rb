@@ -6,9 +6,21 @@ require 'timeout'
 profile = ENV.fetch('DATABASE_CAPTURE_PROFILE', 'mysql')
 raise ArgumentError, 'Unknown database capture profile' unless %w[mysql mssql].include?(profile)
 
+mysql_client = ENV.fetch('MYSQL_CAPTURE_CLIENT', 'all')
+raise ArgumentError, 'Unknown MySQL capture client' unless %w[all oracle_client mariadb_client].include?(mysql_client)
+
 # Family-local controls retain native clients, direct SQL and actual packet evidence.
 module DatabaseCaptureControls
   PORTS = { 'mysql' => 13306, 'mssql' => 11433 }.freeze
+  MYSQL_NUL_CHALLENGE = '00112233445566778899aabbccddeeff00112233'.freeze
+
+  def capture_challenge(kind)
+    return accounts.fetch('ntlm_challenge') if @profile == 'mssql'
+    return MYSQL_NUL_CHALLENGE if kind[:nul_challenge]
+    return @native.fetch('native_challenge') if kind[:native_challenge]
+
+    accounts.fetch('challenge').downcase
+  end
 
   def report_sql(query)
     target_exec('reporting_db', 'env', 'PGPASSWORD=module-target-framework-db-password', 'psql', '-h', '127.0.0.1', '-U', 'module_framework', '-d', 'module_targets', '-v', 'ON_ERROR_STOP=1', '-Atc', query)
@@ -73,9 +85,8 @@ module DatabaseCaptureControls
   def with_listener(kind)
     @capture_job = nil
     options = { 'SRVHOST' => listener_host, 'SRVPORT' => PORTS.fetch(@profile), 'WORKSPACE' => @workspace, 'VERBOSE' => true, 'JOHNPWFILE' => @john_prefix }
-    challenge_key = @profile == 'mysql' ? 'challenge' : 'ntlm_challenge'
-    options['CHALLENGE'] = kind[:zero_challenge] ? @native.fetch('zero_challenge') : accounts.fetch(challenge_key)
-    options['SRVVERSION'] = '8.0.36' if @profile == 'mysql' && kind[:zero_challenge]
+    options['CHALLENGE'] = capture_challenge(kind)
+    options['SRVVERSION'] = @native.fetch('server_version') if @profile == 'mysql' && kind[:native_challenge]
     options['SMB_EXTENDED_SECURITY'] = kind.fetch(:extended, false) if @profile == 'mssql'
     options['DOMAIN_NAME'] = accounts.fetch('ntlm_domain') if @profile == 'mssql'
     console_command('back')
@@ -102,6 +113,7 @@ module DatabaseCaptureControls
   end
 
   def client(kind, label)
+    kind = { client: @mysql_client }.merge(kind) if @profile == 'mysql' && @mysql_client != 'all'
     request = { profile: @profile, kind: kind, label: label, host: listener_host, port: PORTS.fetch(@profile), client_ip: @native.fetch('client_ip'), prelogin_hex: @native['prelogin_hex'] }
     output, error, status = Open3.capture3('python3', '-B', 'test/module_targets/database_capture/run_client.py', JSON.generate(request))
     expect(status.success?).to be(true), error
@@ -116,9 +128,10 @@ module DatabaseCaptureControls
     password = kind.fetch(:password, accounts.fetch('password'))
     if @profile == 'mysql'
       expect(decoded.fetch('login')).to include('username' => username, 'database' => kind[:without_database] ? nil : accounts.fetch('database'))
-      challenge = kind[:zero_challenge] ? @native.fetch('zero_challenge') : accounts.fetch('challenge').downcase
+      challenge = capture_challenge(kind)
       expect(decoded.fetch('greeting')).to include('seed' => challenge, 'plugin' => 'mysql_native_password')
-      expect(decoded.fetch('greeting').fetch('version')).to eq(kind[:zero_challenge] ? '8.0.36' : '5.5.16')
+      expect([challenge].pack('H*')).to include("\x00") if kind[:nul_challenge]
+      expect(decoded.fetch('greeting').fetch('version')).to eq(kind[:native_challenge] ? @native.fetch('server_version') : '5.5.16')
       expect(decoded.fetch('greeting').fetch('capabilities') & 0x800).to eq(0)
       private_data = "#{username}:$mysql$#{challenge}$#{decoded.fetch('native_response')}"
       private_type = 'Metasploit::Credential::NonreplayableHash'
@@ -159,10 +172,13 @@ mysql_cases = [
   ['MariaDB binary response ending space', { client: 'mariadb_client', username: 'capture_tail32', password_key: 'tail_32_password' }],
   ['Oracle empty response creates no hash', { username: 'capture_empty', password: '', no_record: true }],
   ['MariaDB empty response creates no hash', { client: 'mariadb_client', username: 'capture_empty', password: '', no_record: true }],
-  ['Real native seed containing zero and custom version', { zero_challenge: true }],
+  ['Real native seed and custom version', { native_challenge: true }],
+  ['Oracle configured challenge containing literal NUL bytes', { nul_challenge: true }],
+  ['MariaDB configured challenge containing literal NUL bytes', { client: 'mariadb_client', nul_challenge: true }],
   ['Required TLS sends no password to the non-TLS listener', { tls: true, no_record: true }],
   ['Greeting-only client sends no credentials', { no_auth: true }]
 ]
+mysql_cases = mysql_cases.select { |_label, kind| kind.fetch(:client, 'oracle_client') == mysql_client } unless mysql_client == 'all'
 mssql_cases = [
   ['TDS7.1 SQL authentication with edge fields', { tds: '7.1' }],
   ['TDS7.4 SQL authentication with edge fields', { tds: '7.4' }],
@@ -185,18 +201,60 @@ RSpec.describe 'Genuine clients of Framework database capture servers' do
 
   before(:all) do
     @profile = profile
+    @mysql_client = mysql_client
     command = ['python3', '-B', "test/module_targets/capture_#{@profile}/native_probe.py"]
+    command << 'before' if @profile == 'mysql'
     output, error, status = Open3.capture3(*command)
     File.write(File.join(target_runtime.fetch('artifacts'), 'native-preflight-status.json'), JSON.pretty_generate(argv: command, status: status.exitstatus, stderr: error))
     expect(status.success?).to be(true), error
     @native = JSON.parse(output)
-    expect([@native.fetch('commands').length, @native.fetch('wire_captures').length]).to eq(@profile == 'mysql' ? [29, 23] : [14, 9])
+    if @profile == 'mysql'
+      clients = @native.fetch('clients').length
+      servers = @native.fetch('servers').length
+      expect([@native.fetch('commands').length, @native.fetch('wire_captures').length]).to eq([2 + clients + (3 * servers) + (6 * clients * servers), (6 * clients * servers) + servers])
+    else
+      expect([@native.fetch('commands').length, @native.fetch('wire_captures').length]).to eq([14, 9])
+    end
     expect(console_command('db_connect module_framework:module-target-framework-db-password@reporting_db:5432/module_targets', timeout: 120)).not_to match(/\[-\]|Exception|Error/)
     expect(console_command('db_status')).to include('Connected to module_targets. Connection type: postgresql.')
     schema = report_sql("SELECT table_name,column_name,data_type FROM information_schema.columns WHERE table_schema='public' ORDER BY table_name,ordinal_position")
     File.write(File.join(target_runtime.fetch('artifacts'), 'native-reporting-schema.txt'), schema)
     expect(schema).to include('metasploit_credential_logins|status|', 'metasploit_credential_privates|data|')
     expect(schema).not_to include('metasploit_credential_logins|proof|')
+  end
+
+  after(:all) do
+    if @native && @profile == 'mysql' && @mysql_client != 'all'
+      command = ['python3', '-B', 'test/module_targets/capture_mysql/native_probe.py', 'after']
+      output, error, status = Open3.capture3(*command)
+      File.write(File.join(target_runtime.fetch('artifacts'), 'native-postflight-status.json'), JSON.pretty_generate(argv: command, status: status.exitstatus, stderr: error, stdout: output))
+      expect(status.success?).to be(true), error
+      native_after = JSON.parse(output)
+      expect(native_after.fetch('state')).to eq(@native.fetch('state'))
+      expect(native_after.fetch('client_ip')).to eq(@native.fetch('client_ip'))
+      expect([native_after.fetch('commands').length, native_after.fetch('wire_captures').length]).to eq([11, 7])
+      expect(console_command('jobs -l')).to include('No active jobs')
+      expect(socket_rows).to eq([])
+      services = ['client', 'framework', 'reporting_db', @mysql_client, ENV.fetch('MYSQL_CAPTURE_SERVER')]
+      counters = services.to_h do |service|
+        observations = %w[memory.events pids.events].to_h do |counter|
+          output = target_exec(service, 'cat', "/sys/fs/cgroup/#{counter}")
+          values = output.each_line.to_h do |line|
+            name, value = line.split
+            [name, Integer(value, 10)]
+          end
+          [counter, values]
+        end
+        [service, observations]
+      end
+      File.write(File.join(target_runtime.fetch('artifacts'), 'native-resource-counters.json'), JSON.pretty_generate(counters))
+      counters.each do |service, observations|
+        %w[oom oom_kill oom_group_kill].each do |key|
+          expect(observations.fetch('memory.events').fetch(key, 0)).to eq(0), "#{service} memory #{key}"
+        end
+        expect(observations.fetch('pids.events').fetch('max')).to eq(0), "#{service} PID limit reached"
+      end
+    end
   end
 
   before do |example|

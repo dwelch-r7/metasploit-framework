@@ -30,5 +30,7 @@ support_files:
 - test/module_targets/mssql2022/seed.sql
 - lib/metasploit/framework/hashes.rb
 - test/module_targets/database_capture/README.md
+- test/module_targets/gopher/compose.yaml
+- tools/dev/run_guarded_module_target_tests.rb
 test_env:
   DATABASE_CAPTURE_PROFILE: mssql

@@ -1,0 +1,40 @@
+{
+  "services": {
+    "capture_client_base": {
+      "extends": {
+        "file": "../capture_mysql/bounded.compose.yaml",
+        "service": "capture_client_base"
+      }
+    },
+    "client": {
+      "extends": {
+        "file": "../capture_mysql/bounded.compose.yaml",
+        "service": "client"
+      }
+    },
+    "mariadb_client": {
+      "extends": {
+        "file": "../capture_mysql/bounded.compose.yaml",
+        "service": "mariadb_client"
+      }
+    },
+    "native_mysql": {
+      "extends": {
+        "file": "../capture_mysql/bounded.compose.yaml",
+        "service": "native_mysql"
+      }
+    },
+    "reporting_db": {
+      "extends": {
+        "file": "../capture_mysql/bounded.compose.yaml",
+        "service": "reporting_db"
+      }
+    },
+    "framework": {
+      "extends": {
+        "file": "../capture_mysql/bounded.compose.yaml",
+        "service": "framework"
+      }
+    }
+  }
+}
