@@ -88,11 +88,11 @@ module Acceptance
       end
     end
 
-    def fs_call(options = {}, action: 'run')
+    def fs_call(options = {}, action: 'run', capture_runtime: ENV.fetch('MODULE_TARGET_RUNTIME'))
       @call = (@call || 0) + 1
       stem = "#{@workspace}-#{@call}"
       port = options.fetch('RPORT', target_runtime.fetch('module_endpoints').fetch('target').fetch('port'))
-      argv = target_runtime.fetch('compose') + ['exec', '-T', 'framework', 'ruby', 'test/module_targets/freeswitch/capture.rb', ENV.fetch('MODULE_TARGET_RUNTIME'), port.to_s]
+      argv = target_runtime.fetch('compose') + ['exec', '-T', 'framework', 'ruby', 'test/module_targets/freeswitch/capture.rb', capture_runtime, port.to_s]
       output = nil
       raw = nil
       wait_status = nil

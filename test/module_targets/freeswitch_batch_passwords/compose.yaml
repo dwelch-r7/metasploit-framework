@@ -1,0 +1,31 @@
+{
+  "services": {
+    "target": {
+      "extends": {
+        "file": "../freeswitch_batch/compose.yaml",
+        "service": "target"
+      }
+    },
+    "second": {
+      "extends": {
+        "file": "../freeswitch_batch/compose.yaml",
+        "service": "second"
+      },
+      "environment": {
+        "FREESWITCH_PASSWORD": "module-target-\u03a9 spaced"
+      }
+    },
+    "framework": {
+      "extends": {
+        "file": "../freeswitch_batch/compose.yaml",
+        "service": "framework"
+      }
+    },
+    "reporting_db": {
+      "extends": {
+        "file": "../freeswitch_batch/compose.yaml",
+        "service": "reporting_db"
+      }
+    }
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "spec": "spec/modules/auxiliary/scanner/misc/freeswitch_batch_target_spec.rb",
+  "expected_examples": 5,
+  "console": true,
+  "modules": [
+    "auxiliary/scanner/misc/freeswitch_event_socket_login"
+  ],
+  "test_env": {
+    "FREESWITCH_BATCH_MODE": "acl"
+  },
+  "ports": {
+    "target": 8021,
+    "second": 8021
+  },
+  "support_files": [
+    "documentation/modules/auxiliary/scanner/misc/freeswitch_event_socket_login.md",
+    "lib/metasploit/framework/credential.rb",
+    "lib/metasploit/framework/credential_collection.rb",
+    "lib/metasploit/framework/login_scanner/base.rb",
+    "lib/metasploit/framework/login_scanner/freeswitch_event_socket.rb",
+    "lib/metasploit/framework/login_scanner/result.rb",
+    "lib/metasploit/framework/login_scanner/rex_socket.rb",
+    "lib/metasploit/framework/tcp/client.rb",
+    "lib/msf/base/simple/auxiliary.rb",
+    "lib/msf/core/auxiliary/auth_brute.rb",
+    "lib/msf/core/auxiliary/multiple_target_hosts.rb",
+    "lib/msf/core/auxiliary/report.rb",
+    "lib/msf/core/auxiliary/scanner.rb",
+    "lib/msf/core/db_manager/cred.rb",
+    "lib/msf/core/db_manager/login.rb",
+    "lib/msf/core/db_manager/service.rb",
+    "lib/msf/core/db_manager/vuln.rb",
+    "lib/msf/core/exploit.rb",
+    "lib/msf/core/exploit/remote/auto_check.rb",
+    "lib/msf/core/exploit/remote/tcp.rb",
+    "lib/msf/ui/console/command_dispatcher/auxiliary.rb",
+    "test/module_targets/freeswitch/README.md",
+    "test/module_targets/freeswitch/acceptance.rb",
+    "test/module_targets/freeswitch/binaries.sha256",
+    "test/module_targets/freeswitch/capture.rb",
+    "test/module_targets/freeswitch/compose.yaml",
+    "test/module_targets/freeswitch/native_probe.rb",
+    "test/module_targets/freeswitch/run.rb",
+    "test/module_targets/freeswitch/start.sh",
+    "test/module_targets/freeswitch/vendor.json",
+    "test/module_targets/freeswitch_batch/README.md",
+    "test/module_targets/freeswitch_batch/acceptance.rb",
+    "test/module_targets/freeswitch_batch/compose.yaml",
+    "test/module_targets/freeswitch_batch/run.rb",
+    "test/module_targets/gopher/compose.yaml",
+    "test/module_targets/ssh/askpass.sh",
+    "test/module_targets/ssh/compose.yaml",
+    "test/ssh/Dockerfile",
+    "tools/dev/run_guarded_module_target_tests.rb"
+  ]
+}

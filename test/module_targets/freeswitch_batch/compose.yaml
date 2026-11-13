@@ -1,0 +1,28 @@
+{
+  "services": {
+    "target": {
+      "extends": {
+        "file": "../freeswitch/compose.yaml",
+        "service": "target"
+      }
+    },
+    "second": {
+      "extends": {
+        "file": "../freeswitch/compose.yaml",
+        "service": "target"
+      }
+    },
+    "framework": {
+      "extends": {
+        "file": "../freeswitch/compose.yaml",
+        "service": "framework"
+      }
+    },
+    "reporting_db": {
+      "extends": {
+        "file": "../freeswitch/compose.yaml",
+        "service": "reporting_db"
+      }
+    }
+  }
+}
