@@ -1,0 +1,9 @@
+**
+!external/
+!external/source/
+!external/source/libssh/
+!external/source/libssh/ssh_server_fork.patch
+!test/
+!test/module_targets/
+!test/module_targets/libssh/
+!test/module_targets/libssh/**

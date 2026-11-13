@@ -1,0 +1,25 @@
+services:
+  target:
+    build:
+      context: ../../..
+      dockerfile: test/module_targets/libssh/Dockerfile
+    platform: linux/amd64
+    init: true
+    cpus: 0.5
+    mem_limit: 256m
+    memswap_limit: 256m
+    pids_limit: 128
+    tmpfs: ['/tmp:rw,size=48m,mode=1777']
+    ports: ['127.0.0.1::2222', '127.0.0.1::2223', '127.0.0.1::2224', '127.0.0.1::2225', '127.0.0.1::2226', '127.0.0.1::2227', '127.0.0.1::2228', '127.0.0.1::2525']
+    healthcheck:
+      test: [CMD, python3, /opt/libssh-lab/health.py]
+      interval: 5s
+      timeout: 18s
+      retries: 20
+  reporting_db:
+    extends: {file: ../gopher/compose.yaml, service: reporting_db}
+  framework:
+    cpus: 1.5
+    mem_limit: 768m
+    memswap_limit: 768m
+    pids_limit: 256

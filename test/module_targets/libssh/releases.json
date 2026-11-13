@@ -1,0 +1,46 @@
+{
+  "0.7.5": {
+    "url": "https://www.libssh.org/files/0.7/libssh-0.7.5.tar.xz",
+    "sha256": "54e86dd5dc20e5367e58f3caab337ce37675f863f80df85b6b1614966a337095",
+    "bytes": 351632,
+    "source_snippets": {
+      "examples/ssh_server_fork.c": "6f18b3f4b2b8295ae7eb603888109c5439b93ed83a9bc5224994ca70972a0b22",
+      "include/libssh/server.h": "aa84683241d39d100df95352c0452183c4a3641a85e4332d654ce35094cdbe15",
+      "include/libssh/libssh.h": "11ff84458d403688ae50c54e27c72810764090331e82704c28c138e90fe7d8d3",
+      "src/auth.c": "bb6af6dc5deeb07ee53968c67c2b77bb702f411f9d131e0fd61330163ca4e1df"
+    }
+  },
+  "0.7.6": {
+    "url": "https://www.libssh.org/files/0.7/libssh-0.7.6.tar.xz",
+    "sha256": "1d607d3859274f755942324afb0f887ee22edd157f9596a2e69e3a28ec6d1092",
+    "bytes": 366556,
+    "source_snippets": {
+      "examples/ssh_server_fork.c": "6f18b3f4b2b8295ae7eb603888109c5439b93ed83a9bc5224994ca70972a0b22",
+      "include/libssh/libssh.h": "097e7b788a7b064d267f820e9f8dd878737606ea75e75991b8fd13f322f52a8d",
+      "include/libssh/server.h": "aa84683241d39d100df95352c0452183c4a3641a85e4332d654ce35094cdbe15",
+      "src/auth.c": "48d4bdd6480e0bebad4cb92c10d780cd571407d576d85f0001d8422d3cb168c6"
+    }
+  },
+  "0.8.3": {
+    "url": "https://www.libssh.org/files/0.8/libssh-0.8.3.tar.xz",
+    "sha256": "302f31f606f2368cd3ce77d7a69f7464c18eae176e73e59102e0524401bd29d0",
+    "bytes": 422244,
+    "source_snippets": {
+      "examples/ssh_server_fork.c": "ebe2f426e8a3601f03352096b098eee1d2e5adc2ef122b1b72b1bcd866dd5bb0",
+      "include/libssh/server.h": "480a4dca089f15a9acf1910d0e062875c3185fbb364aecec9ec5d8f02a90c84b",
+      "include/libssh/libssh.h": "da6bc82ad77d57d3c84e11ec0e7963205df240a83cbe825317228dcc44bf6921",
+      "src/auth.c": "0bfeed8a2bb7d98f8f7c163b0b6842b34b2f573c151a56f02388d622ddbf2a97"
+    }
+  },
+  "0.8.4": {
+    "url": "https://www.libssh.org/files/0.8/libssh-0.8.4.tar.xz",
+    "sha256": "6bb07713021a8586ba2120b2c36c468dc9ac8096d043f9b1726639aa4275b81b",
+    "bytes": 425848,
+    "source_snippets": {
+      "examples/ssh_server_fork.c": "ebe2f426e8a3601f03352096b098eee1d2e5adc2ef122b1b72b1bcd866dd5bb0",
+      "include/libssh/server.h": "480a4dca089f15a9acf1910d0e062875c3185fbb364aecec9ec5d8f02a90c84b",
+      "include/libssh/libssh.h": "9c8d86ac41fabd2a45dab58310a17f3efe4a107a0a2055ea5e19456489ff41d6",
+      "src/auth.c": "e603df2a9aa8dad6dd18728e25085aec2839ac79070db2d17739de4502649eee"
+    }
+  }
+}

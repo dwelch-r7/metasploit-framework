@@ -1,0 +1,27 @@
+spec: spec/modules/auxiliary/scanner/ssh/libssh_auth_bypass_target_spec.rb
+expected_examples: 23
+console: true
+modules: [auxiliary/scanner/ssh/libssh_auth_bypass]
+ports: {target: 2222}
+support_files:
+  - external/source/libssh/ssh_server_fork.patch
+  - spec/modules/auxiliary/scanner/ssh/libssh_auth_bypass_spec.rb
+  - documentation/modules/auxiliary/scanner/ssh/libssh_auth_bypass.md
+  - lib/msf/core/exploit/remote/ssh.rb
+  - lib/msf/core/exploit/remote/ssh/options.rb
+  - lib/msf/core/exploit/remote/ssh/auth_methods/libssh_auth_bypass.rb
+  - lib/net/ssh/command_stream.rb
+  - lib/msf/core/auxiliary/scanner.rb
+  - lib/msf/core/auxiliary/command_shell.rb
+  - lib/msf/core/auxiliary/report.rb
+  - lib/msf/base/sessions/command_shell.rb
+  - lib/msf/base/sessions/command_shell_options.rb
+  - lib/msf/core/session.rb
+  - lib/msf/core/db_manager/session.rb
+  - lib/msf/core/db_manager/vuln.rb
+  - lib/msf/core/db_manager/service.rb
+  - lib/msf/ui/console/command_dispatcher/db.rb
+  - test/module_targets/druid_sessions/session_control.rb
+  - test/module_targets/gopher/compose.yaml
+  - tools/dev/run_guarded_module_target_tests.rb
+  - spec/support/shared/contexts/wait_for_expect.rb

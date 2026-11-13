@@ -1,0 +1,7 @@
+{
+  "origin": "Genuine fixed libssh 0.7.6/libgcrypt handshake, 2026-11-13; stock Paramiko 2.9.3 rejected the short RSA encoding. No private key retained.",
+  "port": 2225,
+  "host_key_base64": "AAAAB3NzaC1yc2EAAAADAQABAAABAQDMPEAsHHfNIDNFVRS2mevQPRdx5TfwzSEI8L7y+EW51syUx833JerAURYsTl1R+Z+p/mhKY/pNBlUG8oInySil/sikQr3AnnJvtSi9CPnQo+xcnLGTzQwkQqgkeyoBYP9avkjw2IME53HPyF+Ixg2tjZG8egvimWG6DMMaJgXfiHFKWtcDWbRAE8hrJ5F//uHq2V3PICfT2gl3AM94hDDwqhkPD1XlQ+/NTqSIWWsVFR+65yYZpRXGAVfV3d+rCQR3LZFPKrcBZ/cbKgZLvIBglqsFDNovpG6FFt2gS3EG6sGaRfUJ05VvJrlblPf7Yv1I1AndM+uJvpzL/7vYmK9b",
+  "signature_base64": "AAAAB3NzaC1yc2EAAAD/PEOoE3QH3K2ewkXlw+PsqKOb4jSeZ5LjbCwZxYdHYNBBc6X/pS+7ctSJv0mJj03/XWWawfJoS6EZgnNkhyrGIzrK0HpwxyrPKxFXjtc4BDRmPJ4gQNoThvPrhzQqScum9yDjuh1F6oMk0Ufgw/8u+5FhwCo5Da0bupNO8VFEQWGxfiO70OwsyCT0yoLS6Ur9oiSbLeQonbij80CqYrl15YnrmXkFx5rTo9pNNuVNlg1fkkOuYs4CmvScAWKAJ7PH+9l/8PG0PgDwNrlyxGd3xMUpld5fmuXFtHWM7KWNi7yaw/5DW7pc0EKxOOOuItjzbf47qDKEKTm28Rg9WJq4",
+  "exchange_hash_base64": "Usz0TnavcUa12i05At/NTRVKRO8="
+}

@@ -129,6 +129,23 @@ This is a banner check for libssh. It's not sophisticated, and the
 banner may be changed, but it may prevent false positives due to how the
 OOB authentication packet always returns `true`.
 
+## Automated container verification
+
+The repository contains a source-built lab for affected and fixed libssh
+branches, native authentication controls, and automated public-console Execute
+and Shell tests. See [the lab guide](../../../../../test/module_targets/libssh/README.md)
+for resource limits, covered paths and target implementation details.
+
+From the Framework root:
+
+```sh
+DOCKER_CONTEXT=default BUILDX_BUILDER=default bundle exec ruby tools/dev/run_guarded_module_target_tests.rb libssh
+```
+
+The guarded runner starts at most three capped containers for this profile,
+collects evidence, and removes its containers, network and disposable state.
+The existing Usage examples below are human-written historical output.
+
 ## Usage
 
 Positive testing against unpatched libssh 0.8.3:
