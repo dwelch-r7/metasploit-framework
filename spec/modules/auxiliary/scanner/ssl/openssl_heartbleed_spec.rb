@@ -193,4 +193,136 @@ RSpec.describe 'Heartbleed heartbeat payload framing' do
 
     expect([mod.send(:sock), mod.send(:sockets)]).to eq([nil, []])
   end
+
+  context 'with the KEYS action' do
+    let(:payload) { "\xfb".b }
+    let(:rsa_key) do
+      # Tiny deterministic RSA public constants keep reporting tests quick.
+      # Factors 251/241 produce n=60491; this is not a production key.
+      der = OpenSSL::ASN1::Sequence.new([OpenSSL::ASN1::Integer.new(60_491), OpenSSL::ASN1::Integer.new(17)]).to_der
+      OpenSSL::PKey::RSA.new(der)
+    end
+    let(:reports) { [] }
+    let(:loot) { [] }
+
+    before do
+      mod.datastore['ACTION'] = 'KEYS'
+      mod.datastore['RPORT'] = 11_100
+      mod.datastore['MAX_KEYTRIES'] = 1
+      mod.instance_variable_set(:@cert, instance_double(OpenSSL::X509::Certificate, public_key: rsa_key))
+      allow(mod).to receive(:print_status)
+      allow(mod).to receive(:print_good)
+      allow(mod).to receive(:print_error)
+      allow(mod).to receive(:vprint_good)
+      allow(mod).to receive(:report_vuln) { |record| reports << record }
+      allow(mod).to receive(:store_loot) do |*args|
+        loot << args
+        '/tmp/unit-heartbleed-key'
+      end
+      allow(mod).to receive(:key_from_pqe).and_return(double(export: 'UNIT TEST KEY EXPORT'))
+    end
+
+    # Certificate constants and transport are explicit synthetic boundaries.
+    # Actual bleed/get_data and factor search execute. Final key assembly/export
+    # is a double: parent native cases independently verify real RSA 2048 recovery
+    # and a challenge signature against the actual server certificate.
+
+    it 'reports real nonempty exposure when a factor is recovered' do
+      mod.get_keys
+
+      expect(reports).to contain_exactly(include(host: '192.0.2.19', port: 11_100, name: mod.name, refs: mod.references, info: "Module #{mod.fullname} successfully leaked info"))
+      expect(loot.map { |args| args[3] }).to eq(['UNIT TEST KEY EXPORT'])
+    end
+
+    it 'reports nonempty exposure when no key factor is found' do
+      socket.chunks.replace([record(heartbeat("\x01".b))])
+      mod.get_keys
+
+      expect([reports.length, loot]).to eq([1, []])
+    end
+
+    it 'reports once while repeated key attempts find no factor' do
+      mod.datastore['MAX_KEYTRIES'] = 2
+      socket.chunks.replace([record(heartbeat("\x01".b)), record(heartbeat("\x01".b))])
+      mod.get_keys
+
+      expect(reports.length).to eq(1)
+    end
+
+    [nil, [0x18, 0x0301, 3].pack('Cnn') + [2, 8].pack('Cn')].each do |wire|
+      it "does not report or store keys without payload proof: #{wire.inspect}" do
+        socket.chunks.replace([wire, nil])
+        mod.get_keys
+
+        expect([reports, loot]).to eq([[], []])
+      end
+    end
+
+    it 'declines EC certificates without a heartbeat probe or runtime exception' do
+      mod.instance_variable_set(:@cert, instance_double(OpenSSL::X509::Certificate, public_key: OpenSSL::PKey::EC.new('prime256v1')))
+
+      expect { mod.get_keys }.not_to raise_error
+      expect([socket.sent, reports, loot]).to eq([[], [], []])
+      expect(mod).to have_received(:print_error).with(/RSA/)
+    end
+
+    it 'stops cleanly when no certificate is available' do
+      mod.instance_variable_set(:@cert, nil)
+
+      expect { mod.get_keys }.not_to raise_error
+      expect([socket.sent, reports, loot]).to eq([[], [], []])
+    end
+
+    it 'stops cleanly when the certificate has no public key' do
+      mod.instance_variable_set(:@cert, instance_double(OpenSSL::X509::Certificate, public_key: nil))
+
+      expect { mod.get_keys }.not_to raise_error
+      expect([socket.sent, reports, loot]).to eq([[], [], []])
+    end
+
+    it 'stops cleanly when RSA public constants are missing' do
+      allow(rsa_key).to receive(:params).and_return({})
+
+      expect { mod.get_keys }.not_to raise_error
+      expect([socket.sent, reports, loot]).to eq([[], [], []])
+    end
+
+    [0, -1].each do |frequency|
+      it "rejects STATUS_EVERY=#{frequency} before probing memory" do
+        mod.datastore['STATUS_EVERY'] = frequency
+
+        expect { mod.get_keys }.not_to raise_error
+        expect([socket.sent, reports, loot]).to eq([[], [], []])
+        expect(mod).to have_received(:print_error).with(/STATUS_EVERY/)
+      end
+    end
+
+    it 'preserves the registered default status frequency' do
+      expect(mod.datastore['STATUS_EVERY']).to eq(5)
+    end
+
+    %w[SCAN DUMP].each do |action|
+      it "preserves #{action} with an unused zero STATUS_EVERY value" do
+        mod.datastore['ACTION'] = action
+        mod.datastore['STATUS_EVERY'] = 0
+        mod.run_host('192.0.2.19')
+
+        expect(reports.length).to eq(1)
+      end
+    end
+
+    it 'preserves DUMP exposure reporting on an EC certificate' do
+      mod.datastore['ACTION'] = 'DUMP'
+      mod.instance_variable_set(:@cert, instance_double(OpenSSL::X509::Certificate, public_key: OpenSSL::PKey::EC.new('prime256v1')))
+      mod.run_host('192.0.2.19')
+
+      expect([reports.length, loot.map { |args| args[3] }]).to eq([1, [payload]])
+    end
+
+    it 'preserves unexpected persistence errors after genuine payload proof' do
+      allow(mod).to receive(:report_vuln).and_raise(IOError, 'Unexpected reporting error')
+
+      expect { mod.get_keys }.to raise_error(IOError, 'Unexpected reporting error')
+    end
+  end
 end
