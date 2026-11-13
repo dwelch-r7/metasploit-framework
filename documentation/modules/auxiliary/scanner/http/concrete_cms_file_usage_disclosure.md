@@ -8,8 +8,9 @@ Page ID, the page Version, the file Handle, and the page Location (path). This l
 site's internal page tree, including internal, draft, and unpublished page paths, and the
 file handles, to anonymous users.
 
-Fixed in Concrete CMS 9.5.1 by adding an authentication/permission check to the usage
-controller.
+Concrete CMS 9.5.1 removes this usage controller and view. The pinned 9.5.1
+lab returns HTTP 404 for the old endpoint while ordinary pages and authenticated
+administration remain available.
 
 ### Setting up a test environment
 
@@ -35,6 +36,13 @@ A vulnerable install returns an HTML table (`class="table table-striped"`) with 
 ID, Version, Handle, and Location columns. Increase the file ID if the uploaded file was
 not assigned ID 1.
 
+### Automated container lab
+
+The [serial automated lab](../../../../../test/module_targets/concretecms/README.md)
+provides pinned original affected/fixed targets, a `/cms` installation and an
+unrelated Apache control. It verifies real private/draft page references, exact
+CSV exports, bounded/default ranges, repeated collection and database reporting.
+
 ## Verification Steps
 
 1. `msfconsole`
@@ -55,10 +63,6 @@ First numeric file ID to request (default: 1).
 ### COUNT
 
 Number of sequential file IDs to enumerate starting at `FID_START` (default: 50).
-
-### TARGETURI
-
-Base path to the Concrete CMS application (default: `/`).
 
 ## Scenarios
 

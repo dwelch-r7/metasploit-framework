@@ -1,0 +1,141 @@
+{
+  "9.5.0": {
+    "image": "ghcr.io/concrete5-community/docker5@sha256:9e1be7b60779ce0b3988f1e87cdafdb754f2877c1115393f69ec8345009149ad",
+    "php": "8.2.35",
+    "commit": "c747e425266ac50c12b5f2f74fa895ecec5cd777",
+    "files": {
+      "concrete/config/concrete.php": {
+        "sha256": "10f5d0c205e96d78e305bc4ca413749a65f2df41f09104a6b5e1c23b7228dfd9",
+        "url": "https://raw.githubusercontent.com/concretecms/concretecms/c747e425266ac50c12b5f2f74fa895ecec5cd777/concrete/config/concrete.php"
+      },
+      "concrete/routes/dialogs/files.php": {
+        "sha256": "9a346074631f78a92b7c53a4dcb799f7fae056a683f69daeb03e10b7e69987f8",
+        "url": "https://raw.githubusercontent.com/concretecms/concretecms/c747e425266ac50c12b5f2f74fa895ecec5cd777/concrete/routes/dialogs/files.php"
+      },
+      "concrete/bootstrap/configure.php": {
+        "sha256": "f5091c8614296e1ec3fb5b3546a3b99c9a35373ff8c038bf4f69ca6c371a0abd",
+        "url": "https://raw.githubusercontent.com/concretecms/concretecms/c747e425266ac50c12b5f2f74fa895ecec5cd777/concrete/bootstrap/configure.php"
+      },
+      "concrete/bootstrap/autoload.php": {
+        "sha256": "50d790588775f424a4895687c807a85ae538c1be9001db9f7a083c9ac9e9f8ed",
+        "url": "https://raw.githubusercontent.com/concretecms/concretecms/c747e425266ac50c12b5f2f74fa895ecec5cd777/concrete/bootstrap/autoload.php"
+      },
+      "concrete/bootstrap/start.php": {
+        "sha256": "e95a5bc969760ae315c283abb81da87c12adc15deb20a9f7ed6401e8720f09ef",
+        "url": "https://raw.githubusercontent.com/concretecms/concretecms/c747e425266ac50c12b5f2f74fa895ecec5cd777/concrete/bootstrap/start.php"
+      },
+      "concrete/src/Page/Page.php": {
+        "sha256": "23bf314659cfb6850d83a05cd9dc1d4b8373a6677e2714ab0be0cfaa509f3cd7",
+        "url": "https://raw.githubusercontent.com/concretecms/concretecms/c747e425266ac50c12b5f2f74fa895ecec5cd777/concrete/src/Page/Page.php"
+      },
+      "concrete/src/Page/Collection/Version/Version.php": {
+        "sha256": "8863262dda4e881357c47de23ad146ccdc98a81b9a4996552197c97072d34ba8",
+        "url": "https://raw.githubusercontent.com/concretecms/concretecms/c747e425266ac50c12b5f2f74fa895ecec5cd777/concrete/src/Page/Collection/Version/Version.php"
+      },
+      "concrete/src/File/Import/FileImporter.php": {
+        "sha256": "31bf80ce115c7a2137494467bcad73c7e049e8f2d8c3a02109b9b1968b13c8b9",
+        "url": "https://raw.githubusercontent.com/concretecms/concretecms/c747e425266ac50c12b5f2f74fa895ecec5cd777/concrete/src/File/Import/FileImporter.php"
+      },
+      "concrete/src/File/Tracker/UsageTracker.php": {
+        "sha256": "a1e51814e0156c909bd59046f1fea5dff4db3fb754d44ca8383e49bd2e2cc15c",
+        "url": "https://raw.githubusercontent.com/concretecms/concretecms/c747e425266ac50c12b5f2f74fa895ecec5cd777/concrete/src/File/Tracker/UsageTracker.php"
+      },
+      "concrete/src/Entity/Statistics/UsageTracker/FileUsageRecord.php": {
+        "sha256": "032decb61cdc6625a2a54615459e07b87ec46e81d4f9165c25bcf1dd77ea7cc6",
+        "url": "https://raw.githubusercontent.com/concretecms/concretecms/c747e425266ac50c12b5f2f74fa895ecec5cd777/concrete/src/Entity/Statistics/UsageTracker/FileUsageRecord.php"
+      },
+      "concrete/src/Entity/Statistics/UsageTracker/FileUsageRepository.php": {
+        "sha256": "e3b5466a2e33186ef8bf7b860a053b585a595fd08741fac150788e35c3d4c30d",
+        "url": "https://raw.githubusercontent.com/concretecms/concretecms/c747e425266ac50c12b5f2f74fa895ecec5cd777/concrete/src/Entity/Statistics/UsageTracker/FileUsageRepository.php"
+      },
+      "concrete/src/User/User.php": {
+        "sha256": "bf18c41776d2ef3bad72ffc03df80a0b33c15061958bb8ffdbb619a2b3770108",
+        "url": "https://raw.githubusercontent.com/concretecms/concretecms/c747e425266ac50c12b5f2f74fa895ecec5cd777/concrete/src/User/User.php"
+      },
+      "concrete/blocks/image/controller.php": {
+        "sha256": "4f9fa9926c84edd88f92f92ca75e46d4c5d0a33748f57266ddf98791f7376552",
+        "url": "https://raw.githubusercontent.com/concretecms/concretecms/c747e425266ac50c12b5f2f74fa895ecec5cd777/concrete/blocks/image/controller.php"
+      },
+      "concrete/authentication/concrete/controller.php": {
+        "sha256": "be38aa688bfa54f7ffe4764bbe0a64487b45e3229c618d4bbc98710ca45d82ea",
+        "url": "https://raw.githubusercontent.com/concretecms/concretecms/c747e425266ac50c12b5f2f74fa895ecec5cd777/concrete/authentication/concrete/controller.php"
+      },
+      "concrete/controllers/dialog/file/usage.php": {
+        "sha256": "a91b4765eefba04bbe4b8e1d4d0ae2a8232f5bab02d790620fbc064504ae96cf",
+        "url": "https://raw.githubusercontent.com/concretecms/concretecms/c747e425266ac50c12b5f2f74fa895ecec5cd777/concrete/controllers/dialog/file/usage.php"
+      },
+      "concrete/views/dialogs/file/usage.php": {
+        "sha256": "c06465a2b71b12bbd0afb40f10be29e211f32bcad190b2963c6c602157a39688",
+        "url": "https://raw.githubusercontent.com/concretecms/concretecms/c747e425266ac50c12b5f2f74fa895ecec5cd777/concrete/views/dialogs/file/usage.php"
+      }
+    },
+    "absent": []
+  },
+  "9.5.1": {
+    "image": "ghcr.io/concrete5-community/docker5@sha256:98429e75b6ae0c2db43004243a86a448469e3f9dfcd2e78c5be5f13eb3a444fb",
+    "php": "8.2.35",
+    "commit": "92bae566b9ec573cfb3017fcbb6db454a6586997",
+    "files": {
+      "concrete/config/concrete.php": {
+        "sha256": "bb44440704fe6aacec855f8e202712563df1082398482fce323392b31e575ed6",
+        "url": "https://raw.githubusercontent.com/concretecms/concretecms/92bae566b9ec573cfb3017fcbb6db454a6586997/concrete/config/concrete.php"
+      },
+      "concrete/routes/dialogs/files.php": {
+        "sha256": "c46da85328aacdcd61816e711eac4faa1418afd0c0052260e129f75ee2705be1",
+        "url": "https://raw.githubusercontent.com/concretecms/concretecms/92bae566b9ec573cfb3017fcbb6db454a6586997/concrete/routes/dialogs/files.php"
+      },
+      "concrete/bootstrap/configure.php": {
+        "sha256": "f5091c8614296e1ec3fb5b3546a3b99c9a35373ff8c038bf4f69ca6c371a0abd",
+        "url": "https://raw.githubusercontent.com/concretecms/concretecms/92bae566b9ec573cfb3017fcbb6db454a6586997/concrete/bootstrap/configure.php"
+      },
+      "concrete/bootstrap/autoload.php": {
+        "sha256": "50d790588775f424a4895687c807a85ae538c1be9001db9f7a083c9ac9e9f8ed",
+        "url": "https://raw.githubusercontent.com/concretecms/concretecms/92bae566b9ec573cfb3017fcbb6db454a6586997/concrete/bootstrap/autoload.php"
+      },
+      "concrete/bootstrap/start.php": {
+        "sha256": "e95a5bc969760ae315c283abb81da87c12adc15deb20a9f7ed6401e8720f09ef",
+        "url": "https://raw.githubusercontent.com/concretecms/concretecms/92bae566b9ec573cfb3017fcbb6db454a6586997/concrete/bootstrap/start.php"
+      },
+      "concrete/src/Page/Page.php": {
+        "sha256": "19d3a6db2122fd5c271b90c77f39a26babf305ac5bde113b941cad7581bae008",
+        "url": "https://raw.githubusercontent.com/concretecms/concretecms/92bae566b9ec573cfb3017fcbb6db454a6586997/concrete/src/Page/Page.php"
+      },
+      "concrete/src/Page/Collection/Version/Version.php": {
+        "sha256": "8863262dda4e881357c47de23ad146ccdc98a81b9a4996552197c97072d34ba8",
+        "url": "https://raw.githubusercontent.com/concretecms/concretecms/92bae566b9ec573cfb3017fcbb6db454a6586997/concrete/src/Page/Collection/Version/Version.php"
+      },
+      "concrete/src/File/Import/FileImporter.php": {
+        "sha256": "31bf80ce115c7a2137494467bcad73c7e049e8f2d8c3a02109b9b1968b13c8b9",
+        "url": "https://raw.githubusercontent.com/concretecms/concretecms/92bae566b9ec573cfb3017fcbb6db454a6586997/concrete/src/File/Import/FileImporter.php"
+      },
+      "concrete/src/File/Tracker/UsageTracker.php": {
+        "sha256": "a1e51814e0156c909bd59046f1fea5dff4db3fb754d44ca8383e49bd2e2cc15c",
+        "url": "https://raw.githubusercontent.com/concretecms/concretecms/92bae566b9ec573cfb3017fcbb6db454a6586997/concrete/src/File/Tracker/UsageTracker.php"
+      },
+      "concrete/src/Entity/Statistics/UsageTracker/FileUsageRecord.php": {
+        "sha256": "032decb61cdc6625a2a54615459e07b87ec46e81d4f9165c25bcf1dd77ea7cc6",
+        "url": "https://raw.githubusercontent.com/concretecms/concretecms/92bae566b9ec573cfb3017fcbb6db454a6586997/concrete/src/Entity/Statistics/UsageTracker/FileUsageRecord.php"
+      },
+      "concrete/src/Entity/Statistics/UsageTracker/FileUsageRepository.php": {
+        "sha256": "e3b5466a2e33186ef8bf7b860a053b585a595fd08741fac150788e35c3d4c30d",
+        "url": "https://raw.githubusercontent.com/concretecms/concretecms/92bae566b9ec573cfb3017fcbb6db454a6586997/concrete/src/Entity/Statistics/UsageTracker/FileUsageRepository.php"
+      },
+      "concrete/src/User/User.php": {
+        "sha256": "bf18c41776d2ef3bad72ffc03df80a0b33c15061958bb8ffdbb619a2b3770108",
+        "url": "https://raw.githubusercontent.com/concretecms/concretecms/92bae566b9ec573cfb3017fcbb6db454a6586997/concrete/src/User/User.php"
+      },
+      "concrete/blocks/image/controller.php": {
+        "sha256": "186dea02af7f79eb81fe55ae7534a0ba4fb4c647ef8ac2def4d9a1a793144f21",
+        "url": "https://raw.githubusercontent.com/concretecms/concretecms/92bae566b9ec573cfb3017fcbb6db454a6586997/concrete/blocks/image/controller.php"
+      },
+      "concrete/authentication/concrete/controller.php": {
+        "sha256": "be38aa688bfa54f7ffe4764bbe0a64487b45e3229c618d4bbc98710ca45d82ea",
+        "url": "https://raw.githubusercontent.com/concretecms/concretecms/92bae566b9ec573cfb3017fcbb6db454a6586997/concrete/authentication/concrete/controller.php"
+      }
+    },
+    "absent": [
+      "concrete/controllers/dialog/file/usage.php",
+      "concrete/views/dialogs/file/usage.php"
+    ]
+  }
+}

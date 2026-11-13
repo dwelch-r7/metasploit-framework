@@ -1,0 +1,26 @@
+services:
+  target:
+    platform: linux/amd64
+    init: true
+    cpus: 1.5
+    mem_limit: 1024m
+    memswap_limit: 1024m
+    pids_limit: 256
+    entrypoint: [/bin/sh, /lab/start.sh]
+    environment:
+      CONCRETE_PREFIX: ''
+    volumes:
+      - '${MODULE_TARGET_ROOT}/test/module_targets/concretecms:/lab:ro'
+    ports: ['127.0.0.1::80']
+    healthcheck:
+      test: [CMD, /bin/sh, /lab/start.sh, health]
+      interval: 3s
+      timeout: 5s
+      retries: 40
+  reporting_db:
+    extends: {file: ../gopher/compose.yaml, service: reporting_db}
+  framework:
+    cpus: 1
+    mem_limit: 768m
+    memswap_limit: 768m
+    pids_limit: 256

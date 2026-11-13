@@ -1,0 +1,11 @@
+services:
+  target:
+    extends: {file: ../concretecms/compose.yaml, service: target}
+    image: ghcr.io/concrete5-community/docker5@sha256:9e1be7b60779ce0b3988f1e87cdafdb754f2877c1115393f69ec8345009149ad
+    environment:
+      CONCRETE_VERSION: '9.5.0'
+      CONCRETE_PREFIX: '/cms'
+  reporting_db:
+    extends: {file: ../concretecms/compose.yaml, service: reporting_db}
+  framework:
+    extends: {file: ../concretecms/compose.yaml, service: framework}

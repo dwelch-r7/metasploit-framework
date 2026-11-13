@@ -1,0 +1,33 @@
+{
+  "spec": "spec/modules/auxiliary/scanner/http/concretecms_file_usage_target_spec.rb",
+  "expected_examples": 8,
+  "console": true,
+  "modules": [
+    "auxiliary/scanner/http/concrete_cms_file_usage_disclosure"
+  ],
+  "test_env": {
+    "CONCRETE_VERSION": "9.5.1",
+    "CONCRETE_PREFIX": ""
+  },
+  "ports": {
+    "target": 80
+  },
+  "support_files": [
+    "documentation/modules/auxiliary/scanner/http/concrete_cms_file_usage_disclosure.md",
+    "lib/msf/core/auxiliary/report.rb",
+    "lib/msf/core/auxiliary/scanner.rb",
+    "lib/msf/core/db_manager/vuln.rb",
+    "lib/msf/core/exploit/remote/http_client.rb",
+    "test/module_targets/concretecms/README.md",
+    "test/module_targets/concretecms/acceptance.rb",
+    "test/module_targets/concretecms/compose.yaml",
+    "test/module_targets/concretecms/run.rb",
+    "test/module_targets/concretecms/start.sh",
+    "test/module_targets/concretecms/state.php",
+    "test/module_targets/concretecms/vendor.json",
+    "test/module_targets/concretecms/verify.php",
+    "test/module_targets/gopher/compose.yaml",
+    "test/module_targets/onedev_unrelated/compose.yaml",
+    "tools/dev/run_guarded_module_target_tests.rb"
+  ]
+}
