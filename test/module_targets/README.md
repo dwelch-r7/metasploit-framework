@@ -1,6 +1,14 @@
 # Container module acceptance tests
 
-Latest: the [Concrete CMS checkpoint](VERIFICATION-20261113-concretecms.md) reaches
+Latest: the [FreeSWITCH login checkpoint](VERIFICATION-20261113-freeswitch.md)
+reaches **225 qualified modules, 243 profiles and 2,357 functional examples**.
+Twenty-five cases and 50 public calls verify password-only credentials, Unicode,
+password-file ordering, ACL and unrelated-service refusals. Closed-port checks
+now return an honest Unknown result with cleanup. Three capped containers run
+serially; all 32 final cleanup queries pass and Docker is empty. Multi-host scans
+and companion payload execution remain separate work.
+
+The [Concrete CMS checkpoint](VERIFICATION-20261113-concretecms.md) reaches
 **224 qualified modules, 239 profiles and 2,332 functional examples**. Twenty-six
 cases and 52 public calls verify 16 exact CSV exports across affected/fixed,
 subpath and unrelated targets. Unicode corruption is fixed, with real private

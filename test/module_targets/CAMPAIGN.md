@@ -1196,3 +1196,27 @@ OOM and PID-limit counters are zero. All 32 independent final cleanup queries
 pass, Docker is empty and the guard exits cleanly. The inventory has 278 pending
 documented container hints and no stale reviews; missing hints do not establish
 infeasibility. The broader campaign remains active. No PR is created.
+
+
+## FreeSWITCH event-socket login
+
+The [FreeSWITCH checkpoint](VERIFICATION-20261113-freeswitch.md) reaches 225
+modules, 243 profiles and 2,357 examples. Four genuine password, Unicode/space,
+ACL and OpenSSH profiles pass 25 cases and 50 public calls. Fifty passive wire
+captures and real PostgreSQL rows verify exact password-only credential identity,
+ordered attempts, successful stopping and repeat behavior in nine workspaces.
+
+A separate worktree repairs unhandled closed-port checks and ensures TCP cleanup.
+The corrected identical 21-case unit suite changes from 14 failures to zero;
+the parent repeats all 21 cases and verifies the full native matrix. Earlier
+console-encoding, protected-accessor and packet-projection fixture failures remain
+separate from the confirmed source defect and final replay. The complete human
+Scenarios tail remains byte-exact.
+
+Three containers run serially with a 1,664 MiB/2.5 CPU cap. All final memory-limit,
+OOM and PID-limit events are zero. All 32 independent cleanup queries pass,
+Docker is empty and the guard exits cleanly. Multi-host RHOSTS batches and the
+companion execution module's Linux delivery/session families remain pending.
+The inventory has 277 pending documented container hints and no stale reviews;
+missing hints do not establish infeasibility. The broader campaign remains
+active. No PR is created.
