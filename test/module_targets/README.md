@@ -1,6 +1,15 @@
 # Container module acceptance tests
 
-Latest: the [FreeSWITCH multi-host checkpoint](VERIFICATION-20261113-freeswitch-batch.md)
+Latest: the [bounded NiFi checkpoint](VERIFICATION-20261113-nifi-bounded.md)
+reaches **224 qualified modules, 246 profiles and 2,350 functional examples**.
+All 15 original discovery/login cases pass in three serial profiles with at most
+four containers. Thirty-one public calls, six native phases, unchanged flow and
+configuration state, complete resource counters and 46 cleanup queries pass.
+The incorrect memory-boundary gate is preserved separately and corrected without
+raising caps or dropping cases. MySQL capture revalidation and the recorded
+FreeSWITCH dependency race remain pending; the broader campaign stays active.
+
+The [FreeSWITCH multi-host checkpoint](VERIFICATION-20261113-freeswitch-batch.md)
 records **222 currently qualified modules, 243 profiles and 2,335 examples**.
 Per-host AutoCheck and service-scoped credential updates are fixed. The fresh
 81-case replay passes 80 cases and records one concurrent credential-library

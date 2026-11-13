@@ -1250,3 +1250,28 @@ All 94 independent cleanup queries pass for 38 containers, 10 networks and six
 volumes, with an empty global inventory. The guard exits normally and advisory
 locks are free. The inventory retains 277 pending documented container hints and
 zero stale reviews. The broader goal remains active; no PR is created.
+
+
+## Bounded NiFi discovery requalification
+
+The [bounded NiFi checkpoint](VERIFICATION-20261113-nifi-bounded.md) reaches
+224 qualified modules, 246 profiles and 2,350 examples. Three serial profiles
+retain the exact 15-case catalog across 1.13.2 HTTP and 1.21.0/1.22.0 single-user
+HTTPS. All 15 pass with 31 public module calls and 6 independent native phases.
+Legacy uses 4 containers and secure releases 3 each; source modules and the
+existing shared NiFi helpers/seven other profile manifests remain unchanged.
+
+An initial after-hook incorrectly treats memory-boundary counts as OOM failures.
+Its 15 functional cases and all native phases pass, but the run stays unqualified
+and is sealed before changes. The corrected gate captures every role's counters,
+reports memory-boundary events separately, and keeps zero OOM/PID events strict.
+The full matrix is replayed at identical caps with no pending/outside errors;
+flow IDs and properties hashes remain identical before/after.
+
+All 46 independent cleanup queries pass for 10 containers, 3 networks and 21 image
+volumes, with an empty global inventory. The guard exits normally and both locks
+are free. The first console is cold; warm cache reuse stays within this one
+invocation. MySQL capture needs bounded revalidation and a real-byte check of
+its old native-seed predicate. The earlier FreeSWITCH dependency concurrency
+failure remains separate. Inventory has 277 pending documented container hints
+and no stale reviews. The overall goal remains active; no PR is created.
