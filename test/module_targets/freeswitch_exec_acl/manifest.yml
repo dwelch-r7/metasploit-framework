@@ -56,6 +56,8 @@
     "test/module_targets/freeswitch_execution/README.md",
     "test/module_targets/freeswitch_execution/acceptance.rb",
     "test/module_targets/freeswitch_execution/compose.yaml",
+    "test/module_targets/freeswitch_execution/dpkg-exclusions.conf",
+    "test/module_targets/freeswitch_execution/package_verify.rb",
     "test/module_targets/freeswitch_execution/run.rb",
     "test/module_targets/freeswitch_execution/target.Dockerfile",
     "test/module_targets/freeswitch_execution/tools.json",

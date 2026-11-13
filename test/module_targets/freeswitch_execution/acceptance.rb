@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative '../freeswitch/acceptance'
+require_relative 'package_verify'
 
 module Acceptance
   # Owner-specific calls share the calibrated native client and passive capture.
@@ -27,7 +28,10 @@ module Acceptance
           expect(installed.fetch(name)).to eq([entry.fetch('Version'), 'amd64'])
         end
         result['packages_sha256'] = Digest::SHA256.hexdigest(manifest)
-        expect(target_exec('target', 'dpkg', '--verify', 'curl', 'wget', 'inetutils-telnet')).to eq('')
+        verification = target_exec('target', 'dpkg', '--verify', 'curl', 'wget', 'inetutils-telnet')
+        configuration = target_exec('target', 'cat', '/etc/dpkg/dpkg.cfg.d/docker')
+        excluded = FreeSwitchExecutionPackages.verify(verification, configuration)
+        fx_record('native-package-verification.jsonl', phase: phase, verification: verification, configuration_sha256: Digest::SHA256.hexdigest(configuration), intentionally_excluded_missing_paths: excluded)
       end
       fx_record('execution-native-phases.jsonl', phase: phase, native: result)
       result

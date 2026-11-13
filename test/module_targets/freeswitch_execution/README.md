@@ -25,7 +25,9 @@ opaque executable is checked in.
 
 All six original engine/module/client/entrypoint hashes must remain unchanged.
 The new tooling's hashes, complete installed-package manifest and package
-verification are checked independently. The genuine external native client
+verification are checked independently. Missing metadata must match the exact
+ordered exclusions of the native slim-image configuration; unexpected missing
+files and checksum differences remain failures. All differences are recorded. The genuine external native client
 proves authentication, version, loaded module and exact system output before
 and after owning calls. No server responses, owning methods or authentication
 checks are replaced. Passive packet capture records the real event-socket
