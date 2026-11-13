@@ -1174,3 +1174,25 @@ container refusals and a Docker restart are sealed separately. The optional
 qualify a new module attack mode. The full valuable-module inventory remains
 open, with 279 pending documented container hints and no stale source reviews.
 No PR is created.
+
+
+## Concrete CMS file-usage collection
+
+The [Concrete CMS checkpoint](VERIFICATION-20261113-concretecms.md) reaches 224
+modules, 239 profiles and 2,332 examples. Genuine 9.5.0 root and `/cms`, fixed
+9.5.1 and unrelated Apache targets pass 26 cases, 52 public calls and 16 exact
+CSV exports. Original APIs create uploads, private/draft pages, duplicate blocks
+and two persisted versions. Native permissions and HTTP/model controls establish
+the oracle independently; actual PostgreSQL rows prove report idempotence.
+
+A separate worktree fixes binary UTF-8 fragments being parsed as Latin-1; its
+identical 13-case suite changes from three failures to zero. The parent repeats
+all 13 cases and completes the full native replay. Earlier fixture-oracle,
+version-seed and proven module failures remain sealed separately. The guide's
+complete historical Scenarios/Notes tail stays byte-exact.
+
+Three containers run serially with a 1,920 MiB/2.7 CPU cap. All final memory-limit,
+OOM and PID-limit counters are zero. All 32 independent final cleanup queries
+pass, Docker is empty and the guard exits cleanly. The inventory has 278 pending
+documented container hints and no stale reviews; missing hints do not establish
+infeasibility. The broader campaign remains active. No PR is created.

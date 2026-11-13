@@ -1,6 +1,14 @@
 # Container module acceptance tests
 
-Latest: the [Dolibarr checkpoint](VERIFICATION-20261113-dolibarr.md) reaches
+Latest: the [Concrete CMS checkpoint](VERIFICATION-20261113-concretecms.md) reaches
+**224 qualified modules, 239 profiles and 2,332 functional examples**. Twenty-six
+cases and 52 public calls verify 16 exact CSV exports across affected/fixed,
+subpath and unrelated targets. Unicode corruption is fixed, with real private
+page, version, range and database controls. Three capped containers run serially;
+all 32 final cleanup queries pass and Docker is empty. Earlier fixture and source
+failures remain sealed separately.
+
+The [Dolibarr checkpoint](VERIFICATION-20261113-dolibarr.md) reaches
 **223 qualified modules, 235 profiles and 2,306 functional examples**. Twenty-two
 cases and 44 public calls verify 24 exact exports across affected/fixed releases,
 a context prefix and an unrelated site. CSV whitespace loss and false product
