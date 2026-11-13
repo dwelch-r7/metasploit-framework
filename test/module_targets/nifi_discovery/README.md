@@ -57,7 +57,11 @@ NiFi is capped at two CPUs, 1,536 MiB RAM/swap and 512 tasks. Framework uses
 1.5 CPUs/768 MiB/256 tasks; PostgreSQL uses 0.2 CPU/128 MiB/64 tasks and bounded
 tmpfs storage. Legacy Apache adds 0.2 CPU/128 MiB/128 tasks. Total caps are
 2,560 MiB/3.9 CPUs/960 tasks for legacy and 2,432 MiB/3.7 CPUs/832 tasks for
-HTTPS. All memory-limit, OOM and PID-limit event counters must remain zero.
+HTTPS. OOM and PID-limit event counters must remain zero. Every role's complete
+memory/PID counters are recorded before assertions. Memory-boundary crossings
+are reported separately: the kernel can reclaim memory at that boundary, so
+`memory.events:max` is distinct from an OOM event. See the
+[kernel's cgroup memory documentation](https://docs.kernel.org/admin-guide/cgroup-v2.html#memory-interface-files).
 The runner removes image-declared anonymous volumes as part of project cleanup.
 
 The original shared `nifi/discovery.py` remains unchanged for existing H2,

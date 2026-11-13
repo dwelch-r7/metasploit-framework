@@ -27,17 +27,32 @@ RSpec.describe 'Genuine NiFi version and login targets' do
 
   after(:all) do
     if @native && @discovery_profile != 'all'
-      expect(native_discovery('after')).to eq(@native)
+      native_after = native_discovery('after')
       services = [@discovery_profile, 'reporting_db', 'framework']
       services << 'unrelated' if @native['unrelated']
-      services.each do |service|
-        %w[memory.events pids.events].each do |counter|
+      counters = services.to_h do |service|
+        observations = %w[memory.events pids.events].to_h do |counter|
           output = target_exec(service, 'cat', "/sys/fs/cgroup/#{counter}")
-          output.each_line do |line|
+          values = output.each_line.to_h do |line|
             name, value = line.split
-            expect(value.to_i).to eq(0), "#{service} #{counter}: #{line}" if %w[max oom oom_kill oom_group_kill].include?(name)
+            [name, Integer(value, 10)]
           end
+          [counter, values]
         end
+        [service, observations]
+      end
+      File.write(File.join(target_runtime.fetch('artifacts'), 'native-resource-counters.json'), JSON.pretty_generate(counters))
+      expect(native_after).to eq(@native)
+      counters.each do |service, observations|
+        memory = observations.fetch('memory.events')
+        expect(memory.keys).to include('max', 'oom', 'oom_kill')
+        # memory.events:max counts boundary crossings, which can be reclaimed;
+        # it is not an OOM count. Retain it without relaxing OOM/PID checks.
+        # https://docs.kernel.org/admin-guide/cgroup-v2.html#memory-interface-files
+        %w[oom oom_kill oom_group_kill].each do |name|
+          expect(memory.fetch(name, 0)).to eq(0), "#{service} memory.events #{name}: #{memory[name]}"
+        end
+        expect(observations.fetch('pids.events').fetch('max')).to eq(0), "#{service} PID limit reached"
       end
     end
   end
