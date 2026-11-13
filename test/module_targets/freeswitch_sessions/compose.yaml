@@ -1,0 +1,9 @@
+services:
+  target:
+    extends: {file: ../freeswitch_execution/compose.yaml, service: target}
+    volumes:
+      - ${MODULE_TARGET_ROOT}/test/module_targets/freeswitch_sessions:/session_lab:ro
+  reporting_db:
+    extends: {file: ../freeswitch_execution/compose.yaml, service: reporting_db}
+  framework:
+    extends: {file: ../freeswitch_execution/compose.yaml, service: framework}
