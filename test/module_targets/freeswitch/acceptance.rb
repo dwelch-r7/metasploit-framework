@@ -127,7 +127,7 @@ module Acceptance
       packets = JSON.parse(raw).fetch('packets')
       streams = fs_streams(packets)
       fs_journal('verified-wire.jsonl', workspace: @workspace, action: action, options: options, streams: streams, packets: packets.length)
-      [output, streams]
+      [output.dup.force_encoding(Encoding::UTF_8), streams]
     end
 
     def fs_verify(options = {}, action: 'run', expected_password: nil, attempts: nil, check_reason: nil)
