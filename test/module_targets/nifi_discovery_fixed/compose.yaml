@@ -1,0 +1,22 @@
+{
+  "services": {
+    "fixed": {
+      "extends": {
+        "file": "../nifi_discovery/bounded.compose.yaml",
+        "service": "fixed"
+      }
+    },
+    "reporting_db": {
+      "extends": {
+        "file": "../nifi_discovery/bounded.compose.yaml",
+        "service": "reporting_db"
+      }
+    },
+    "framework": {
+      "extends": {
+        "file": "../nifi_discovery/bounded.compose.yaml",
+        "service": "framework"
+      }
+    }
+  }
+}

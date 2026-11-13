@@ -3,15 +3,19 @@ require 'json'
 require 'timeout'
 require 'yaml'
 
+discovery_profile = ENV.fetch('NIFI_DISCOVERY_PROFILE', 'all')
+discovery_services = %w[legacy vulnerable fixed]
+raise ArgumentError, 'Unknown NiFi discovery profile' unless ['all', *discovery_services].include?(discovery_profile)
+
+discovery_services = [discovery_profile] unless discovery_profile == 'all'
+
 RSpec.describe 'Genuine NiFi version and login targets' do
   include_context 'module target'
   include_context 'wait_for_expect'
 
   before(:all) do
-    output, error, status = Open3.capture3('python3', '-B', 'test/module_targets/nifi/discovery.py')
-    File.write(File.join(target_runtime.fetch('artifacts'), 'native-discovery-status.json'), JSON.pretty_generate(stderr: error, exitstatus: status.exitstatus, stdout: output))
-    expect(status.success?).to be(true), error
-    @native = JSON.parse(output)
+    @discovery_profile = discovery_profile
+    @native = native_discovery('before')
     @accounts = File.readlines('test/module_targets/nifi/accounts.env', chomp: true).to_h { |line| line.split('=', 2) }
     database = YAML.safe_load_file('test/module_targets/credential_reporting/compose.yaml').fetch('services').fetch('reporting_db').fetch('environment')
     @database = database
@@ -21,13 +25,30 @@ RSpec.describe 'Genuine NiFi version and login targets' do
     expect(report_sql('SELECT count(*) FROM metasploit_credential_cores').strip).to eq('0')
   end
 
+  after(:all) do
+    if @native && @discovery_profile != 'all'
+      expect(native_discovery('after')).to eq(@native)
+      services = [@discovery_profile, 'reporting_db', 'framework']
+      services << 'unrelated' if @native['unrelated']
+      services.each do |service|
+        %w[memory.events pids.events].each do |counter|
+          output = target_exec(service, 'cat', "/sys/fs/cgroup/#{counter}")
+          output.each_line do |line|
+            name, value = line.split
+            expect(value.to_i).to eq(0), "#{service} #{counter}: #{line}" if %w[max oom oom_kill oom_group_kill].include?(name)
+          end
+        end
+      end
+    end
+  end
+
   before do |example|
     @workspace = "nifi_module_#{example.metadata.fetch(:scoped_id).tr(':', '_')}"
     expect(console_command("workspace -a #{@workspace}")).not_to include('[-]')
     expect(rows).to eq([])
   end
 
-  %w[legacy vulnerable fixed].each do |service|
+  discovery_services.each do |service|
     it "identifies the real #{service} release twice" do
       version = @native.fetch('profiles').fetch(service).fetch('version')
       2.times do
@@ -46,15 +67,17 @@ RSpec.describe 'Genuine NiFi version and login targets' do
     end
   end
 
-  it 'does not identify unrelated genuine Apache HTTP as NiFi twice' do
-    2.times do
-      output = scanner('apache_nifi_version', 'unrelated', {}, allow_errors: true)
-      expect(output).to include('Apache NiFi not detected on ')
-      expect(output).not_to include(' found on ')
+  if discovery_services.include?('legacy')
+    it 'does not identify unrelated genuine Apache HTTP as NiFi twice' do
+      2.times do
+        output = scanner('apache_nifi_version', 'unrelated', {}, allow_errors: true)
+        expect(output).to include('Apache NiFi not detected on ')
+        expect(output).not_to include(' found on ')
+      end
     end
   end
 
-  %w[vulnerable fixed].each do |service|
+  (discovery_services & %w[vulnerable fixed]).each do |service|
     it "validates and persists exact #{service} credentials twice without duplicates" do
       2.times do
         output = login(service)
@@ -74,47 +97,63 @@ RSpec.describe 'Genuine NiFi version and login targets' do
     end
   end
 
-  it 'recognizes that the genuine legacy HTTP instance does not support logins twice' do
-    2.times do
-      output = login('legacy', {}, allow_errors: true)
-      expect(output).to include('User login not supported')
-      expect(output).not_to include('Login successful')
-      expect(rows).to eq([])
+  if discovery_services.include?('legacy')
+    it 'recognizes that the genuine legacy HTTP instance does not support logins twice' do
+      2.times do
+        output = login('legacy', {}, allow_errors: true)
+        expect(output).to include('User login not supported')
+        expect(output).not_to include('Login successful')
+        expect(rows).to eq([])
+      end
+    end
+
+    it 'rejects unrelated HTTP login content twice without credentials' do
+      2.times do
+        output = login('unrelated', {}, allow_errors: true)
+        expect(output).to include('Unexpected response code (404)')
+        expect(output).not_to include('Login successful')
+        expect(rows).to eq([])
+      end
     end
   end
 
-  it 'rejects unrelated HTTP login content twice without credentials' do
-    2.times do
-      output = login('unrelated', {}, allow_errors: true)
-      expect(output).to include('Unexpected response code (404)')
-      expect(output).not_to include('Login successful')
-      expect(rows).to eq([])
+  if discovery_services.include?('vulnerable')
+    it 'rejects a branded HTTP 200 error page as a login application twice' do
+      2.times do
+        output = login('vulnerable', { 'TARGETURI' => '/module-target-missing/' }, allow_errors: true)
+        expect(output).to include('Apache NiFi not detected on ')
+        expect(output).not_to include('Login successful')
+        expect(rows).to eq([])
+      end
+    end
+
+    it 'keeps the same validated account isolated between two workspaces on repeat' do
+      login('vulnerable')
+      wait_for_credential
+      first = joined_rows
+      other = "#{@workspace}_other"
+      expect(console_command("workspace -a #{other}")).not_to include('[-]')
+      expect(rows(other)).to eq([])
+      2.times { login('vulnerable') }
+      wait_for_credential(other)
+      second = joined_rows(other)
+      expect(joined_rows).to eq(first)
+      expect(second.fetch(0).fetch('core_id')).not_to eq(first.fetch(0).fetch('core_id'))
+      verify_credential(first.fetch(0), 'vulnerable')
+      verify_credential(second.fetch(0), 'vulnerable', workspace: other)
     end
   end
 
-  it 'rejects a branded HTTP 200 error page as a login application twice' do
-    2.times do
-      output = login('vulnerable', { 'TARGETURI' => '/module-target-missing/' }, allow_errors: true)
-      expect(output).to include('Apache NiFi not detected on ')
-      expect(output).not_to include('Login successful')
-      expect(rows).to eq([])
-    end
-  end
-
-  it 'keeps the same validated account isolated between two workspaces on repeat' do
-    login('vulnerable')
-    wait_for_credential
-    first = joined_rows
-    other = "#{@workspace}_other"
-    expect(console_command("workspace -a #{other}")).not_to include('[-]')
-    expect(rows(other)).to eq([])
-    2.times { login('vulnerable') }
-    wait_for_credential(other)
-    second = joined_rows(other)
-    expect(joined_rows).to eq(first)
-    expect(second.fetch(0).fetch('core_id')).not_to eq(first.fetch(0).fetch('core_id'))
-    verify_credential(first.fetch(0), 'vulnerable')
-    verify_credential(second.fetch(0), 'vulnerable', workspace: other)
+  def native_discovery(phase)
+    argv = if @discovery_profile == 'all'
+             ['python3', '-B', 'test/module_targets/nifi/discovery.py']
+           else
+             ['python3', '-B', 'test/module_targets/nifi_discovery/native_probe.py', @discovery_profile, phase]
+           end
+    output, error, status = Open3.capture3(*argv)
+    File.write(File.join(target_runtime.fetch('artifacts'), "native-discovery-#{phase}-status.json"), JSON.pretty_generate(argv: argv, stderr: error, exitstatus: status.exitstatus, stdout: output))
+    expect(status.success?).to be(true), error
+    JSON.parse(output)
   end
 
   def scanner(name, service, options = {}, allow_errors: false)

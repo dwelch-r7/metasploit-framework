@@ -1,11 +1,28 @@
-services:
-  legacy:
-    extends: {file: ../nifi/compose.yaml, service: legacy}
-  vulnerable:
-    extends: {file: ../nifi/compose.yaml, service: vulnerable}
-  fixed:
-    extends: {file: ../nifi/compose.yaml, service: fixed}
-  unrelated:
-    extends: {file: ../nifi/compose.yaml, service: unrelated}
-  reporting_db:
-    extends: {file: ../credential_reporting/compose.yaml, service: reporting_db}
+{
+  "services": {
+    "legacy": {
+      "extends": {
+        "file": "../nifi_discovery/bounded.compose.yaml",
+        "service": "legacy"
+      }
+    },
+    "reporting_db": {
+      "extends": {
+        "file": "../nifi_discovery/bounded.compose.yaml",
+        "service": "reporting_db"
+      }
+    },
+    "framework": {
+      "extends": {
+        "file": "../nifi_discovery/bounded.compose.yaml",
+        "service": "framework"
+      }
+    },
+    "unrelated": {
+      "extends": {
+        "file": "../nifi_discovery/bounded.compose.yaml",
+        "service": "unrelated"
+      }
+    }
+  }
+}

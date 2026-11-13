@@ -1,40 +1,54 @@
-spec: spec/acceptance/module_targets/nifi_discovery_spec.rb
-expected_examples: 15
-console: true
-modules:
-  - auxiliary/scanner/http/apache_nifi_version
-  - auxiliary/scanner/http/apache_nifi_login
-ports:
-  legacy: 8080
-  vulnerable: 8443
-  fixed: 8443
-  unrelated: 80
-support_files:
-  - test/module_targets/nifi/compose.yaml
-  - test/module_targets/nifi/accounts.env
-  - test/module_targets/nifi/client.py
-  - test/module_targets/nifi/discovery.py
-  - test/module_targets/credential_reporting/compose.yaml
-  - test/module_targets/http/compose.yaml
-  - test/module_targets/http/Dockerfile
-  - test/module_targets/http/module-target.conf
-  - test/module_targets/http/htdocs/index.html
-  - test/module_targets/http/htdocs/final.html
-  - test/module_targets/http/htdocs/plain.txt
-  - test/module_targets/http/htdocs/robots.txt
-  - test/module_targets/http/htdocs/protected/index.html
-  - test/module_targets/http/htdocs/listing/evidence.txt
-  - lib/msf/ui/console/module_option_validation.rb
-  - lib/msf/core/auxiliary/auth_brute.rb
-  - lib/msf/core/auxiliary/scanner.rb
-  - lib/msf/core/auxiliary/report.rb
-  - lib/msf/core/exploit/remote/http_client.rb
-  - lib/msf/core/exploit/remote/http/nifi.rb
-  - lib/msf/core/exploit/remote/http/nifi/auth.rb
-  - lib/msf/core/exploit/remote/http/nifi/processor.rb
-  - lib/msf/core/exploit/remote/http/nifi/dbconnectionpool.rb
-  - lib/msf/core/db_manager/cred.rb
-  - lib/metasploit/framework/data_service/proxy/login_data_proxy.rb
-  - spec/support/shared/contexts/wait_for_expect.rb
-  - documentation/modules/auxiliary/scanner/http/apache_nifi_version.md
-  - documentation/modules/auxiliary/scanner/http/apache_nifi_login.md
+{
+  "spec": "spec/acceptance/module_targets/nifi_discovery_spec.rb",
+  "expected_examples": 5,
+  "console": true,
+  "modules": [
+    "auxiliary/scanner/http/apache_nifi_version",
+    "auxiliary/scanner/http/apache_nifi_login"
+  ],
+  "ports": {
+    "legacy": 8080,
+    "unrelated": 80
+  },
+  "support_files": [
+    "documentation/modules/auxiliary/scanner/http/apache_nifi_login.md",
+    "documentation/modules/auxiliary/scanner/http/apache_nifi_version.md",
+    "lib/metasploit/framework/data_service/proxy/login_data_proxy.rb",
+    "lib/metasploit/framework/data_service/proxy/service_data_proxy.rb",
+    "lib/msf/core/auxiliary/auth_brute.rb",
+    "lib/msf/core/auxiliary/report.rb",
+    "lib/msf/core/auxiliary/scanner.rb",
+    "lib/msf/core/db_manager/cred.rb",
+    "lib/msf/core/db_manager/service.rb",
+    "lib/msf/core/exploit/remote/http/nifi.rb",
+    "lib/msf/core/exploit/remote/http/nifi/auth.rb",
+    "lib/msf/core/exploit/remote/http/nifi/dbconnectionpool.rb",
+    "lib/msf/core/exploit/remote/http/nifi/processor.rb",
+    "lib/msf/core/exploit/remote/http_client.rb",
+    "lib/msf/ui/console/module_option_validation.rb",
+    "spec/support/shared/contexts/wait_for_expect.rb",
+    "test/module_targets/credential_reporting/compose.yaml",
+    "test/module_targets/gopher/compose.yaml",
+    "test/module_targets/http/Dockerfile",
+    "test/module_targets/http/compose.yaml",
+    "test/module_targets/http/htdocs/final.html",
+    "test/module_targets/http/htdocs/index.html",
+    "test/module_targets/http/htdocs/listing/evidence.txt",
+    "test/module_targets/http/htdocs/plain.txt",
+    "test/module_targets/http/htdocs/protected/index.html",
+    "test/module_targets/http/htdocs/robots.txt",
+    "test/module_targets/http/module-target.conf",
+    "test/module_targets/nifi/accounts.env",
+    "test/module_targets/nifi/client.py",
+    "test/module_targets/nifi/compose.yaml",
+    "test/module_targets/nifi/discovery.py",
+    "test/module_targets/nifi_discovery/README.md",
+    "test/module_targets/nifi_discovery/bounded.compose.yaml",
+    "test/module_targets/nifi_discovery/native_probe.py",
+    "test/module_targets/nifi_discovery/run.rb",
+    "tools/dev/run_guarded_module_target_tests.rb"
+  ],
+  "test_env": {
+    "NIFI_DISCOVERY_PROFILE": "legacy"
+  }
+}

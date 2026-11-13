@@ -1,0 +1,22 @@
+{
+  "services": {
+    "vulnerable": {
+      "extends": {
+        "file": "../nifi_discovery/bounded.compose.yaml",
+        "service": "vulnerable"
+      }
+    },
+    "reporting_db": {
+      "extends": {
+        "file": "../nifi_discovery/bounded.compose.yaml",
+        "service": "reporting_db"
+      }
+    },
+    "framework": {
+      "extends": {
+        "file": "../nifi_discovery/bounded.compose.yaml",
+        "service": "framework"
+      }
+    }
+  }
+}
