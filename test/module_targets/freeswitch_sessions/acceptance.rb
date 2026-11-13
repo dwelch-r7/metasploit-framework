@@ -185,7 +185,7 @@ module Acceptance
         console_command('back')
         console_command('use exploit/multi/handler')
         constraints = fx_json("FreeSwitchExecutionControl.constraints(active_module,framework,#{payload.start_with?('linux/') ? 1 : 0})")
-        expect(constraints.fetch('badchars')).to eq([0, 10, 13, 39, 92])
+        expect(constraints.fetch('badchars')).to eq(payload.start_with?('linux/') ? [] : [0, 10, 13, 39, 92])
         { 'PAYLOAD' => payload, 'LHOST' => listener_host, 'LPORT' => CALLBACK, 'ExitOnSession' => false }.each { |name, value| console_command("set #{name} #{value}") }
         expect(console_command('run -j -z')).not_to include('[-]')
         jobs = fx_json('framework.jobs.keys')
@@ -242,7 +242,7 @@ module Acceptance
       ss_record('session-wire.jsonl', payload: payload, iteration: iteration, port: capture.fetch(:port), streams: streams)
       if capture.fetch(:port) == 8021
         requests = streams.select { |stream| stream.fetch(:direction) == 'request' }.map { |stream| Base64.strict_decode64(stream.fetch(:base64)) }.join
-        expect(requests).to include("auth #{@password}\n\n", 'api bg_system ')
+        expect(requests).to include("auth #{@password}\n\n".b, 'api bg_system '.b)
       elsif executable
         values = streams.map { |stream| Base64.strict_decode64(stream.fetch(:base64)) }
         expect(values.any? { |bytes| bytes.start_with?('GET ') }).to be(true)
@@ -267,7 +267,15 @@ module Acceptance
         begin
           ports = payload.start_with?('linux/') ? [8021, FETCH] : [8021]
           ports.each do |port|
-            argv = target_runtime.fetch('compose') + ['exec', '-T', 'framework', 'ruby', 'test/module_targets/freeswitch/capture.rb', ENV.fetch('MODULE_TARGET_RUNTIME'), port.to_s]
+            capture_runtime = ENV.fetch('MODULE_TARGET_RUNTIME')
+            if port == FETCH
+              # The shared observer filters the server's port. For downloads,
+              # the target initiates HTTP and Framework serves the executable.
+              view = { listener_host: target_runtime.fetch('module_endpoints').fetch('target').fetch('host'), module_endpoints: { framework: { host: listener_host } } }
+              capture_runtime = File.join(target_runtime.fetch('artifacts'), "http-capture-runtime-#{@case}-#{iteration}.json")
+              File.write(capture_runtime, JSON.generate(view))
+            end
+            argv = target_runtime.fetch('compose') + ['exec', '-T', 'framework', 'ruby', 'test/module_targets/freeswitch/capture.rb', capture_runtime, port.to_s]
             input, output, errors, wait = Open3.popen3(*argv)
             captures << { port: port, input: input, output: output, errors: errors, wait: wait }
             expect(IO.select([output], nil, nil, 8)).not_to be_nil

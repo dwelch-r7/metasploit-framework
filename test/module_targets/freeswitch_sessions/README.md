@@ -17,6 +17,11 @@ Native calibration uses the actual already-generated handler payload under the
 owner's bad-character constraints. It never replaces owning methods or rewrites
 payload encoding after handler startup.
 
+Passive HTTP capture reuses the unchanged TCP observer with a capture-only view
+of the actual target as HTTP initiator and Framework as server. The owning
+module still receives the original runtime endpoints. Authentication assertions
+compare wire bytes, including the Unicode password, without decoding them.
+
 Controls use real session RPC/commands, exact marker bytes/UID, actual peer,
 socket-owning processes and process birth. Perl creates a disposable child per
 command, so its reported shell PID is not treated as the persistent interpreter.
