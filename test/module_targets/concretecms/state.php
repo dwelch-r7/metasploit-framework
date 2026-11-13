@@ -38,6 +38,7 @@ if ($action === 'seed' && !is_file($marker)) {
     $tracker->track($public);$tracker->track($private);
     $newVersion = $public->getVersionObject()->createNew('Second fixture version');
     $public = \Concrete\Core\Page\Page::getByID($public->getCollectionID(),$newVersion->getVersionID());
+    $public->addBlock($blockType,'Main',['fID'=>$files['public'],'altText'=>'Second version fixture image']);
     $tracker->track($public);
     file_put_contents($marker,json_encode(['files'=>$files,'pages'=>['public'=>$public->getCollectionID(),'private'=>$private->getCollectionID()]]));
 }

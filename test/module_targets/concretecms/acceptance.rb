@@ -35,7 +35,7 @@ module Acceptance
         name, value = header.split(';', 2).first.split('=', 2)
         cookies[name] = value if cookies
       end
-      cms_journal('native-http.jsonl', phase: phase, method: request.method, path: path, cookies: !cookies.nil?, status: response.code.to_i, body: response.body.to_s, sha256: Digest::SHA256.hexdigest(response.body.to_s))
+      cms_journal('native-http.jsonl', phase: phase, method: request.method, path: path, cookies: !cookies.nil?, status: response.code.to_i, content_type: response['Content-Type'], body: response.body.to_s, sha256: Digest::SHA256.hexdigest(response.body.to_s))
       if response.is_a?(Net::HTTPRedirection)
         raise 'Too many CMS redirects' if redirects >= 5
 
@@ -62,7 +62,7 @@ module Acceptance
       expect(response.code.to_i).to eq(@exposed ? 200 : 404)
       expected = @exposed ? @state.fetch('expected_usage').fetch(fid.to_s, []) : []
       if @exposed
-        document = Nokogiri::HTML(response.body)
+        document = Nokogiri::HTML(response.body, nil, response.type_params.fetch('charset', 'UTF-8'))
         table = document.at_css('div.ccm-ui table.table-striped')
         expect(table).not_to be_nil
         # The oracle comes from original Page/Usage APIs, independently of the
