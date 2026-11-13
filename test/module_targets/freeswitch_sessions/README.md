@@ -5,9 +5,9 @@ DOCKER_CONTEXT=default BUILDX_BUILDER=default bundle exec ruby \
   test/module_targets/freeswitch_sessions/run.rb
 ```
 
-This matrix is under development. Dated verification reports establish actual
-qualification; a profile or passing native prerequisite alone is not a module
-verdict. The existing command/check fixtures remain unchanged.
+Dated verification reports establish actual qualification; a profile or passing
+native prerequisite alone is not a module verdict. The existing command/check
+fixtures remain unchanged.
 
 Two Unix profiles cover Bash, Perl and default double-telnet command shells with
 default and Unicode/space passwords. Two Linux profiles cover x86/x64 shell and
