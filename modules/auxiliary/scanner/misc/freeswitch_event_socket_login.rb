@@ -8,10 +8,12 @@ require 'metasploit/framework/login_scanner/freeswitch_event_socket'
 
 class MetasploitModule < Msf::Auxiliary
   include Msf::Exploit::Remote::Tcp
-  include Msf::Auxiliary::Scanner
   include Msf::Auxiliary::Report
   include Msf::Auxiliary::AuthBrute
   prepend Msf::Exploit::Remote::AutoCheck
+  # Scanner must dispatch before AutoCheck so each host receives its own gate.
+  # This deliberately follows AutoCheck rather than the usual mixin order.
+  prepend Msf::Auxiliary::Scanner
 
   def initialize(info = {})
     super(
@@ -59,43 +61,53 @@ class MetasploitModule < Msf::Auxiliary
   end
 
   def run_host(ip)
-    cred_collection = Metasploit::Framework::PrivateCredentialCollection.new(
-      password: datastore['PASSWORD'],
-      pass_file: datastore['PASS_FILE']
-    )
-    cred_collection = prepend_db_passwords(cred_collection)
-
-    scanner = Metasploit::Framework::LoginScanner::FreeswitchEventSocket.new(
-      configure_login_scanner(
-        host: ip,
-        port: rport,
-        cred_details: cred_collection,
-        stop_on_success: true, # this will have no effect due to the scanner behaviour when scanning without username
-        connection_timeout: 10
+    with_prepended_auto_check do
+      cred_collection = Metasploit::Framework::PrivateCredentialCollection.new(
+        password: datastore['PASSWORD'],
+        pass_file: datastore['PASS_FILE']
       )
-    )
+      cred_collection = prepend_db_passwords(cred_collection)
 
-    scanner.scan! do |result|
-      credential_data = result.to_h
-      credential_data.merge!(
-        module_fullname: fullname,
-        workspace_id: myworkspace_id
+      scanner = Metasploit::Framework::LoginScanner::FreeswitchEventSocket.new(
+        configure_login_scanner(
+          host: ip,
+          port: rport,
+          cred_details: cred_collection,
+          stop_on_success: true, # this will have no effect due to the scanner behaviour when scanning without username
+          connection_timeout: 10
+        )
       )
 
-      if result.success?
-        credential_data.delete(:username) # This service uses no username
-        credential_core = create_credential(credential_data)
-        credential_data[:core] = credential_core
-        create_credential_login(credential_data)
+      scanner.scan! do |result|
+        credential_data = result.to_h
+        credential_data.merge!(
+          module_fullname: fullname,
+          workspace_id: myworkspace_id
+        )
 
-        if datastore['VERBOSE']
-          vprint_good("Login Successful: #{result.credential.private} (#{result.status}: #{result.proof&.strip})")
+        if result.success?
+          credential_data.delete(:username) # This service uses no username
+          credential_core = create_credential(credential_data)
+          credential_data[:core] = credential_core
+          create_credential_login(credential_data)
+
+          if datastore['VERBOSE']
+            vprint_good("Login Successful: #{result.credential.private} (#{result.status}: #{result.proof&.strip})")
+          else
+            print_good("Login Successful: #{result.credential.private}")
+          end
         else
-          print_good("Login Successful: #{result.credential.private}")
+          # Result#to_h omits nil fields; retain this password-only identity.
+          invalidate_login(
+            credential_data.merge(
+              username: result.credential.public,
+              private_data: result.credential.private,
+              realm_key: result.credential.realm_key,
+              realm_value: result.credential.realm
+            )
+          )
+          vprint_error("LOGIN FAILED: #{result.credential.private} (#{result.status}: #{result.proof&.strip})")
         end
-      else
-        invalidate_login(credential_data)
-        vprint_error("LOGIN FAILED: #{result.credential.private} (#{result.status}: #{result.proof&.strip})")
       end
     end
   end

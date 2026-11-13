@@ -43,6 +43,12 @@ An unavailable or empty event-socket reply produces an `Unknown` check result;
 expected connection/read failures are reported concisely and the check closes
 its connection.
 
+Checks run separately for each host in `RHOSTS`, including host files and
+concurrent scans. An ACL rejection, unavailable service or rejected password on
+one host does not cancel another host. `AutoCheck false` skips these gates and
+`ForceExploit true` retains the standard override. Failed attempts update only
+existing logins for the attempted service and credential identity.
+
 ## Verification Steps
 1. Do: `use auxiliary/scanner/misc/freeswitch_event_socket_login`
 2. Do: `set RHOSTS [ips]`
