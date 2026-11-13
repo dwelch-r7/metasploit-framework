@@ -1,6 +1,14 @@
 # Container module acceptance tests
 
-Latest: the [bounded database capture checkpoint](VERIFICATION-20261113-mysql-bounded.md)
+Latest: the [FreeSWITCH command/check checkpoint](VERIFICATION-20261113-freeswitch-execution.md)
+reaches **226 modules qualified in covered paths, 254 profiles and 2,408 examples**.
+All 16 cases pass with 32 public calls, six actual foreground commands and a
+confirmed check-error repair. Native controls, exact bytes/UID, refusal paths,
+resource caps and all 29 cleanup queries pass. Three containers run serially.
+Unix sessions and Linux dropper delivery remain active work; the credential
+concurrency race stays deferred, and the broader campaign remains incomplete.
+
+The [bounded database capture checkpoint](VERIFICATION-20261113-mysql-bounded.md)
 reaches **225 qualified modules, 250 profiles and 2,392 functional examples**.
 All 54 cases pass across four genuine MySQL client/server pairings and the shared
 MSSQL regression, using at most five containers serially. Actual NUL challenge

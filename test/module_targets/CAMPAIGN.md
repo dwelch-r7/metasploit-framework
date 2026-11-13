@@ -1287,3 +1287,15 @@ actual packet bytes and exact SQL/John output pass; no production source changes
 Live limits remain at most five containers, and all 49 independent cleanup
 queries pass. The recorded FreeSWITCH dependency race remains deferred. The
 companion execution paths and broader feasible-module inventory remain active.
+
+## 13 November: FreeSWITCH foreground commands and checks
+
+The [command/check checkpoint](VERIFICATION-20261113-freeswitch-execution.md)
+reaches 226 modules qualified in covered paths, 254 profiles and 2,408 examples.
+Six actual foreground commands, password/default/Unicode handling, genuine
+ACL/SSH refusals and closed-port Unknown checks pass across 16 cases/32 calls.
+Expected check errors are repaired in a separate worktree with 31 focused
+regressions and fresh native replay. Setup/cleanup-guard failures are preserved
+and corrected separately. Three capped containers run serially; all 29 exact
+cleanup queries pass. Unix sessions and x86/x64 curl/wget dropper paths remain
+active, alongside the broader feasible-module goal and deferred credential race.
