@@ -23,6 +23,13 @@ sudo docker run -p 8080:8080 icinga/icingaweb2:2.9.5
 
 Browse to port 8080 to confirm the site loads. No need to configure.
 
+## Automated container tests
+
+The [Icinga target lab](../../../../../test/module_targets/icinga/README.md) keeps
+the pinned affected/fixed recipes and quick functional checks in this repository.
+It includes an affected subpath deployment, independent native file controls,
+repeat runs and exact loot verification. Dated campaign reports record results.
+
 ## Verification Steps
 
 1. Install the application

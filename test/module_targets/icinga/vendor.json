@@ -1,0 +1,12 @@
+{
+  "2.9.5": {
+    "image": "icinga/icingaweb2@sha256:c4543a6ced27598f02f4866ba2b82f70bcf7d70b833efc61bd0874fd4e49edc4",
+    "source_commit": "053971c99dc1a4510beb64a888ea695cc14032dc",
+    "static_controller_sha256": "7dfa4e37082560ee6007868545c2919545c5016105d5469844250cb1fdc3bd08"
+  },
+  "2.9.6": {
+    "image": "icinga/icingaweb2@sha256:6630dbe7e0537c8eca3e200a5bfdd4d9f6f8dd7facaf69aadd5de10dac9298a3",
+    "source_commit": "e702d933e15b0907628091a03741baff1b6074df",
+    "static_controller_sha256": "f0f7242d0b863990d6b2dc865ad50f776ef86bc11a9d4d5bd64da94407f755f2"
+  }
+}

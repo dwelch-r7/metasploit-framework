@@ -1,0 +1,22 @@
+services:
+  target:
+    build: .
+    platform: linux/amd64
+    init: true
+    cpus: 0.5
+    mem_limit: 256m
+    memswap_limit: 256m
+    pids_limit: 96
+    ports: ['127.0.0.1::8080', '127.0.0.1::8081']
+    healthcheck:
+      test: [CMD, php, -r, 'exit(strpos(file_get_contents("http://127.0.0.1:8080" . getenv("ICINGA_PREFIX")), "Icinga Web 2") === false || strpos(file_get_contents("http://127.0.0.1:8081/"), "Unrelated service") === false ? 1 : 0);']
+      interval: 3s
+      timeout: 8s
+      retries: 30
+  reporting_db:
+    extends: {file: ../gopher/compose.yaml, service: reporting_db}
+  framework:
+    cpus: 1.5
+    mem_limit: 768m
+    memswap_limit: 768m
+    pids_limit: 256

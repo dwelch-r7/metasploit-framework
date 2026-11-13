@@ -1,0 +1,43 @@
+{
+  "spec": "spec/modules/auxiliary/scanner/http/icinga_static_library_file_directory_traversal_target_spec.rb",
+  "expected_examples": 12,
+  "console": true,
+  "modules": [
+    "auxiliary/scanner/http/icinga_static_library_file_directory_traversal"
+  ],
+  "test_env": {
+    "ICINGA_VERSION": "2.9.5",
+    "ICINGA_PREFIX": "/"
+  },
+  "ports": {
+    "target": 8080
+  },
+  "support_files": [
+    "documentation/modules/auxiliary/scanner/http/icinga_static_library_file_directory_traversal.md",
+    "lib/msf/core/auxiliary/report.rb",
+    "lib/msf/core/auxiliary/scanner.rb",
+    "lib/msf/core/db_manager/loot.rb",
+    "lib/msf/core/exploit/remote/http_client.rb",
+    "lib/msf/ui/console/command_dispatcher/db.rb",
+    "test/module_targets/freeswitch/acceptance.rb",
+    "test/module_targets/freeswitch_execution/acceptance.rb",
+    "test/module_targets/freeswitch_execution/package_verify.rb",
+    "test/module_targets/gopher/compose.yaml",
+    "test/module_targets/icinga/Dockerfile",
+    "test/module_targets/icinga/README.md",
+    "test/module_targets/icinga/acceptance.rb",
+    "test/module_targets/icinga/compose.yaml",
+    "test/module_targets/icinga/files/proof/binary.bin",
+    "test/module_targets/icinga/files/proof/denied.txt",
+    "test/module_targets/icinga/files/proof/directory/.keep",
+    "test/module_targets/icinga/files/proof/empty.txt",
+    "test/module_targets/icinga/files/proof/proof.txt",
+    "test/module_targets/icinga/files/proof/space name.txt",
+    "test/module_targets/icinga/files/proof/unicode-\u03a9.txt",
+    "test/module_targets/icinga/files/proof/whitespace.txt",
+    "test/module_targets/icinga/files/unrelated/index.html",
+    "test/module_targets/icinga/native_http.py",
+    "test/module_targets/icinga/start.sh",
+    "test/module_targets/icinga/vendor.json"
+  ]
+}

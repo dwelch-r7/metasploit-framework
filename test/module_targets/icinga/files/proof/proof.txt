@@ -1,0 +1,3 @@
+Icinga independent filesystem proof
+<node>& "quoted"
+second line
