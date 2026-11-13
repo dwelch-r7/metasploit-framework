@@ -81,6 +81,27 @@ Finally, you can create a member via "Third-parties - New Contact/Address".
 
 The path to Dolibarr instance.  Defaults to `/`,  `http://dolibarrdomain/`
 
+## Export and detection behavior
+
+The module saves JSON and CSV. JSON retains the complete returned contact
+objects, including connection metadata. CSV omits the nested database object
+and preserves scalar text exactly, including outer whitespace, quotes, Unicode,
+literal backslashes and line breaks.
+
+The passive check uses the disclosed version when available. If the version is
+hidden, Dolibarr-specific page metadata is required for a `Detected` result.
+An unrelated HTTP 200 page, a missing response or a failed HTTP status returns
+`Unknown`; an HTTP 200 alone does not identify the product.
+
+Dolibarr 16.0.5 blocks this module's bare-percent lookup in both the default and
+optional-lookup configurations tested. This does not establish that every
+unauthenticated lookup is blocked when the optional feature is enabled; other
+lookup patterns remain a separate assessment and are not added by this module.
+
+The historical Scenarios and contact-dump examples below are retained unchanged
+and predate the exact CSV scalar regression checks. The module does not add
+AutoCheck; its public check and collection can be invoked separately.
+
 ## Scenarios
 
 ### Dolibarr 16.0.4 on Ubuntu 22.10
