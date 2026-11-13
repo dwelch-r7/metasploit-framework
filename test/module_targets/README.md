@@ -1,6 +1,15 @@
 # Container module acceptance tests
 
-Latest: the [bounded NiFi checkpoint](VERIFICATION-20261113-nifi-bounded.md)
+Latest: the [bounded database capture checkpoint](VERIFICATION-20261113-mysql-bounded.md)
+reaches **225 qualified modules, 250 profiles and 2,392 functional examples**.
+All 54 cases pass across four genuine MySQL client/server pairings and the shared
+MSSQL regression, using at most five containers serially. Actual NUL challenge
+coverage corrects an earlier fixture claim; no fresh module defect is found.
+Native state, packet/SQL/hash reporting, resource limits and all 49 cleanup
+queries pass. The FreeSWITCH dependency race remains deferred; the broader
+campaign stays active.
+
+The [bounded NiFi checkpoint](VERIFICATION-20261113-nifi-bounded.md)
 reaches **224 qualified modules, 246 profiles and 2,350 functional examples**.
 All 15 original discovery/login cases pass in three serial profiles with at most
 four containers. Thirty-one public calls, six native phases, unchanged flow and

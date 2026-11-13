@@ -1275,3 +1275,15 @@ invocation. MySQL capture needs bounded revalidation and a real-byte check of
 its old native-seed predicate. The earlier FreeSWITCH dependency concurrency
 failure remains separate. Inventory has 277 pending documented container hints
 and no stale reviews. The overall goal remains active; no PR is created.
+
+## 13 November: bounded database capture matrix
+
+The [database capture checkpoint](VERIFICATION-20261113-mysql-bounded.md) reaches
+225 qualified modules, 250 profiles and 2,392 functional examples. All 54 cases
+pass across four serial MySQL client/server pairings and the shared MSSQL
+regression. Every original case remains, with an honest native-seed label and
+two new genuine-client literal-NUL challenge cases. Native before/after state,
+actual packet bytes and exact SQL/John output pass; no production source changes.
+Live limits remain at most five containers, and all 49 independent cleanup
+queries pass. The recorded FreeSWITCH dependency race remains deferred. The
+companion execution paths and broader feasible-module inventory remain active.
