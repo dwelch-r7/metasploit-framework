@@ -1,0 +1,20 @@
+---
+services:
+  target:
+    extends:
+      file: "../dolibarr/compose.yaml"
+      service: target
+    environment:
+      DOLIBARR_PREFIX: "/crm"
+      DOLIBARR_LOOKUP_ENABLE: 'false'
+    volumes:
+    - "${MODULE_TARGET_ROOT}/tmp/module-target-dolibarr-sources/16.0.4/source:/opt/dolibarr:ro"
+  database:
+    extends:
+      file: "../dolibarr/compose.yaml"
+      service: database
+  framework:
+    cpus: 1.0
+    mem_limit: 512m
+    memswap_limit: 512m
+    pids_limit: 256

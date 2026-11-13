@@ -1,0 +1,193 @@
+{
+  "runtime": {
+    "version": "5.6.40",
+    "source_sha256": "1369a51eee3995d7fbd1c5342e5cc917760e276d561595b6052b21ace2656d1c",
+    "mysqli_sha256": "c7fe5cc8abbe9f9365183f2fea4b40b33d509bb6c59fafd0cf7f911a1554097f"
+  },
+  "versions": {
+    "16.0.4": {
+      "commit": "601ca8ad7a9b28d249f9ad50229ee2cdf8cf9dbc",
+      "url": "https://codeload.github.com/Dolibarr/dolibarr/tar.gz/601ca8ad7a9b28d249f9ad50229ee2cdf8cf9dbc",
+      "archive_sha256": "426c6641eb07bc1d9a86394a27711c9e932bc3c20be69d4beb8563c8e3f654be",
+      "archive_bytes": 65897948,
+      "source_files": {
+        "htdocs/public/ticket/ajax/ajax.php": {
+          "sha256": "9d9793ceb48086bd10621b961a51f58a21cf35d3b122e781a939c6a826d1cd3a",
+          "url": "https://raw.githubusercontent.com/Dolibarr/dolibarr/601ca8ad7a9b28d249f9ad50229ee2cdf8cf9dbc/htdocs/public/ticket/ajax/ajax.php"
+        },
+        "htdocs/ticket/class/ticket.class.php": {
+          "sha256": "30c3e05f8d3d37cbd12983de3f616ca5d6a872a46dd7ca56549aec8b6a76f390",
+          "url": "https://raw.githubusercontent.com/Dolibarr/dolibarr/601ca8ad7a9b28d249f9ad50229ee2cdf8cf9dbc/htdocs/ticket/class/ticket.class.php"
+        },
+        "htdocs/contact/class/contact.class.php": {
+          "sha256": "36d4b5a74eab59402a0538bbca10f9dc543d8d512a9c3da29328255dcace48d5",
+          "url": "https://raw.githubusercontent.com/Dolibarr/dolibarr/601ca8ad7a9b28d249f9ad50229ee2cdf8cf9dbc/htdocs/contact/class/contact.class.php"
+        },
+        "htdocs/core/db/mysqli.class.php": {
+          "sha256": "b30be8580cbb8f711b7a54833260827206f98be22ba44a345c5dd3dcfb417d66",
+          "url": "https://raw.githubusercontent.com/Dolibarr/dolibarr/601ca8ad7a9b28d249f9ad50229ee2cdf8cf9dbc/htdocs/core/db/mysqli.class.php"
+        },
+        "htdocs/core/db/DoliDB.class.php": {
+          "sha256": "8ab31ca63dcdcfc5042e369f6f260fc60230da93cc01b1b31ec3649010560be5",
+          "url": "https://raw.githubusercontent.com/Dolibarr/dolibarr/601ca8ad7a9b28d249f9ad50229ee2cdf8cf9dbc/htdocs/core/db/DoliDB.class.php"
+        },
+        "htdocs/core/class/commonobject.class.php": {
+          "sha256": "76a3310082b348abb03420ffb439bd98132977637b0a174743c6821f6705f8a2",
+          "url": "https://raw.githubusercontent.com/Dolibarr/dolibarr/601ca8ad7a9b28d249f9ad50229ee2cdf8cf9dbc/htdocs/core/class/commonobject.class.php"
+        },
+        "htdocs/main.inc.php": {
+          "sha256": "9dd0154d1ace4d219cb5fea60eb68aca89a64407fc49228a64208a8a897b0684",
+          "url": "https://raw.githubusercontent.com/Dolibarr/dolibarr/601ca8ad7a9b28d249f9ad50229ee2cdf8cf9dbc/htdocs/main.inc.php"
+        },
+        "htdocs/master.inc.php": {
+          "sha256": "fd0775dcc7be937f140ac832a7b15c39d3e8dfbf9fa0b7b10f3088b36ee796df",
+          "url": "https://raw.githubusercontent.com/Dolibarr/dolibarr/601ca8ad7a9b28d249f9ad50229ee2cdf8cf9dbc/htdocs/master.inc.php"
+        },
+        "htdocs/filefunc.inc.php": {
+          "sha256": "4813d65735268de301aca7479245255ea7add7d77460c6243bffde9ced9dd5e5",
+          "url": "https://raw.githubusercontent.com/Dolibarr/dolibarr/601ca8ad7a9b28d249f9ad50229ee2cdf8cf9dbc/htdocs/filefunc.inc.php"
+        },
+        "htdocs/core/lib/security2.lib.php": {
+          "sha256": "8cc9849741d8cc5b4f2836c4bb6f4fb70c64cc8b1744e2b9c11c9e44481a40e2",
+          "url": "https://raw.githubusercontent.com/Dolibarr/dolibarr/601ca8ad7a9b28d249f9ad50229ee2cdf8cf9dbc/htdocs/core/lib/security2.lib.php"
+        },
+        "htdocs/core/login/functions_dolibarr.php": {
+          "sha256": "be49f72a0546d1de9db1f483bdd05fc420f4f70ae1dcab0d36bf3dc6f06ecfd7",
+          "url": "https://raw.githubusercontent.com/Dolibarr/dolibarr/601ca8ad7a9b28d249f9ad50229ee2cdf8cf9dbc/htdocs/core/login/functions_dolibarr.php"
+        },
+        "htdocs/core/lib/security.lib.php": {
+          "sha256": "01d86e53075825b475d1c5acb4beae117054ecd21c49e212156f97b75b25f561",
+          "url": "https://raw.githubusercontent.com/Dolibarr/dolibarr/601ca8ad7a9b28d249f9ad50229ee2cdf8cf9dbc/htdocs/core/lib/security.lib.php"
+        },
+        "htdocs/core/lib/functions.lib.php": {
+          "sha256": "6128d88813b7708279311d46c617e27a9a1872c87be0a6982d5538628fcafad5",
+          "url": "https://raw.githubusercontent.com/Dolibarr/dolibarr/601ca8ad7a9b28d249f9ad50229ee2cdf8cf9dbc/htdocs/core/lib/functions.lib.php"
+        },
+        "htdocs/core/lib/functions2.lib.php": {
+          "sha256": "800137b3cc3ce40de8eec07f47f1c9f9ccae266b2f8700e9ed7e8f88628ab3f0",
+          "url": "https://raw.githubusercontent.com/Dolibarr/dolibarr/601ca8ad7a9b28d249f9ad50229ee2cdf8cf9dbc/htdocs/core/lib/functions2.lib.php"
+        },
+        "htdocs/core/lib/admin.lib.php": {
+          "sha256": "e7c94f5197da1a50c0868d059aa013ffe7bbd1c6c603f8af4fe49a3b8c8b2b88",
+          "url": "https://raw.githubusercontent.com/Dolibarr/dolibarr/601ca8ad7a9b28d249f9ad50229ee2cdf8cf9dbc/htdocs/core/lib/admin.lib.php"
+        },
+        "htdocs/user/class/user.class.php": {
+          "sha256": "040914a0db9886f24ae218b20e850232f81130c9df858f90a147a91a02801b35",
+          "url": "https://raw.githubusercontent.com/Dolibarr/dolibarr/601ca8ad7a9b28d249f9ad50229ee2cdf8cf9dbc/htdocs/user/class/user.class.php"
+        },
+        "htdocs/societe/class/societe.class.php": {
+          "sha256": "edc6eb104156b6c1335dd162e85bb3884156adcf6b52363aa745a81c5a689623",
+          "url": "https://raw.githubusercontent.com/Dolibarr/dolibarr/601ca8ad7a9b28d249f9ad50229ee2cdf8cf9dbc/htdocs/societe/class/societe.class.php"
+        },
+        "htdocs/core/tpl/login.tpl.php": {
+          "sha256": "5dba4bde4c936374210c835ef5345dc2d23af873becb76f8bb5d1f77dde1f3fd",
+          "url": "https://raw.githubusercontent.com/Dolibarr/dolibarr/601ca8ad7a9b28d249f9ad50229ee2cdf8cf9dbc/htdocs/core/tpl/login.tpl.php"
+        },
+        "htdocs/install/step2.php": {
+          "sha256": "d803cb5a0c80a1fbc37c004bc019087a8f32a48cf71bc7c94150b0fe4bc4c2d2",
+          "url": "https://raw.githubusercontent.com/Dolibarr/dolibarr/601ca8ad7a9b28d249f9ad50229ee2cdf8cf9dbc/htdocs/install/step2.php"
+        },
+        "htdocs/install/step5.php": {
+          "sha256": "d15a48acd4ccead37d65b492b0063f591f850c6d0e2957a329204d605c8fb36f",
+          "url": "https://raw.githubusercontent.com/Dolibarr/dolibarr/601ca8ad7a9b28d249f9ad50229ee2cdf8cf9dbc/htdocs/install/step5.php"
+        },
+        "htdocs/install/inc.php": {
+          "sha256": "43c7800549e52c32cbc73f0e550fcb0a14da18497657ed1bc80e42a29ba7cde1",
+          "url": "https://raw.githubusercontent.com/Dolibarr/dolibarr/601ca8ad7a9b28d249f9ad50229ee2cdf8cf9dbc/htdocs/install/inc.php"
+        }
+      }
+    },
+    "16.0.5": {
+      "commit": "3f45699695d733e602db61ccd6daaadb7dc40654",
+      "url": "https://codeload.github.com/Dolibarr/dolibarr/tar.gz/3f45699695d733e602db61ccd6daaadb7dc40654",
+      "archive_sha256": "7ef8e623bf2ca7549373b4e3c898a9ab33335e82e4e38fff27a94005f5a59713",
+      "archive_bytes": 62535416,
+      "source_files": {
+        "htdocs/public/ticket/ajax/ajax.php": {
+          "sha256": "1886237879c648c0728d493ff3aa6b4dfc4ad6fb316ad02526fc204245497017",
+          "url": "https://raw.githubusercontent.com/Dolibarr/dolibarr/3f45699695d733e602db61ccd6daaadb7dc40654/htdocs/public/ticket/ajax/ajax.php"
+        },
+        "htdocs/ticket/class/ticket.class.php": {
+          "sha256": "625f04791f2d67c75f3ab1159e6869c7430f7e65d1bf7bf441278a028326d4d6",
+          "url": "https://raw.githubusercontent.com/Dolibarr/dolibarr/3f45699695d733e602db61ccd6daaadb7dc40654/htdocs/ticket/class/ticket.class.php"
+        },
+        "htdocs/contact/class/contact.class.php": {
+          "sha256": "36d4b5a74eab59402a0538bbca10f9dc543d8d512a9c3da29328255dcace48d5",
+          "url": "https://raw.githubusercontent.com/Dolibarr/dolibarr/3f45699695d733e602db61ccd6daaadb7dc40654/htdocs/contact/class/contact.class.php"
+        },
+        "htdocs/core/db/mysqli.class.php": {
+          "sha256": "b30be8580cbb8f711b7a54833260827206f98be22ba44a345c5dd3dcfb417d66",
+          "url": "https://raw.githubusercontent.com/Dolibarr/dolibarr/3f45699695d733e602db61ccd6daaadb7dc40654/htdocs/core/db/mysqli.class.php"
+        },
+        "htdocs/core/db/DoliDB.class.php": {
+          "sha256": "8ab31ca63dcdcfc5042e369f6f260fc60230da93cc01b1b31ec3649010560be5",
+          "url": "https://raw.githubusercontent.com/Dolibarr/dolibarr/3f45699695d733e602db61ccd6daaadb7dc40654/htdocs/core/db/DoliDB.class.php"
+        },
+        "htdocs/core/class/commonobject.class.php": {
+          "sha256": "f92a007da5eadceefadc00d1f5486a06a9949eedb442b6161bb5131250f8a185",
+          "url": "https://raw.githubusercontent.com/Dolibarr/dolibarr/3f45699695d733e602db61ccd6daaadb7dc40654/htdocs/core/class/commonobject.class.php"
+        },
+        "htdocs/main.inc.php": {
+          "sha256": "c8d82417e96b1ccff8a10b7d4d57daa997b4b5fb26e162c2ca08bf0927ff1dab",
+          "url": "https://raw.githubusercontent.com/Dolibarr/dolibarr/3f45699695d733e602db61ccd6daaadb7dc40654/htdocs/main.inc.php"
+        },
+        "htdocs/master.inc.php": {
+          "sha256": "fd0775dcc7be937f140ac832a7b15c39d3e8dfbf9fa0b7b10f3088b36ee796df",
+          "url": "https://raw.githubusercontent.com/Dolibarr/dolibarr/3f45699695d733e602db61ccd6daaadb7dc40654/htdocs/master.inc.php"
+        },
+        "htdocs/filefunc.inc.php": {
+          "sha256": "13979f8235c13feeea24c9203e92e8fb17f7b34f2e9f3fbcbf726d7e14356d4d",
+          "url": "https://raw.githubusercontent.com/Dolibarr/dolibarr/3f45699695d733e602db61ccd6daaadb7dc40654/htdocs/filefunc.inc.php"
+        },
+        "htdocs/core/lib/security2.lib.php": {
+          "sha256": "8cc9849741d8cc5b4f2836c4bb6f4fb70c64cc8b1744e2b9c11c9e44481a40e2",
+          "url": "https://raw.githubusercontent.com/Dolibarr/dolibarr/3f45699695d733e602db61ccd6daaadb7dc40654/htdocs/core/lib/security2.lib.php"
+        },
+        "htdocs/core/login/functions_dolibarr.php": {
+          "sha256": "be49f72a0546d1de9db1f483bdd05fc420f4f70ae1dcab0d36bf3dc6f06ecfd7",
+          "url": "https://raw.githubusercontent.com/Dolibarr/dolibarr/3f45699695d733e602db61ccd6daaadb7dc40654/htdocs/core/login/functions_dolibarr.php"
+        },
+        "htdocs/core/lib/security.lib.php": {
+          "sha256": "d406b9159d6f462a4db1f714b5d30f27cca0be8070435efc9835669ba4426455",
+          "url": "https://raw.githubusercontent.com/Dolibarr/dolibarr/3f45699695d733e602db61ccd6daaadb7dc40654/htdocs/core/lib/security.lib.php"
+        },
+        "htdocs/core/lib/functions.lib.php": {
+          "sha256": "e7e5765b2e9cfcc87b713f181eb7f76dc68bf20cf067851cc6deca968bf3a3f7",
+          "url": "https://raw.githubusercontent.com/Dolibarr/dolibarr/3f45699695d733e602db61ccd6daaadb7dc40654/htdocs/core/lib/functions.lib.php"
+        },
+        "htdocs/core/lib/functions2.lib.php": {
+          "sha256": "800137b3cc3ce40de8eec07f47f1c9f9ccae266b2f8700e9ed7e8f88628ab3f0",
+          "url": "https://raw.githubusercontent.com/Dolibarr/dolibarr/3f45699695d733e602db61ccd6daaadb7dc40654/htdocs/core/lib/functions2.lib.php"
+        },
+        "htdocs/core/lib/admin.lib.php": {
+          "sha256": "e7c94f5197da1a50c0868d059aa013ffe7bbd1c6c603f8af4fe49a3b8c8b2b88",
+          "url": "https://raw.githubusercontent.com/Dolibarr/dolibarr/3f45699695d733e602db61ccd6daaadb7dc40654/htdocs/core/lib/admin.lib.php"
+        },
+        "htdocs/user/class/user.class.php": {
+          "sha256": "7412705f516e4c3e5734fa782b43cfaebeaf85d274ca69df63d1efc96e48e353",
+          "url": "https://raw.githubusercontent.com/Dolibarr/dolibarr/3f45699695d733e602db61ccd6daaadb7dc40654/htdocs/user/class/user.class.php"
+        },
+        "htdocs/societe/class/societe.class.php": {
+          "sha256": "edc6eb104156b6c1335dd162e85bb3884156adcf6b52363aa745a81c5a689623",
+          "url": "https://raw.githubusercontent.com/Dolibarr/dolibarr/3f45699695d733e602db61ccd6daaadb7dc40654/htdocs/societe/class/societe.class.php"
+        },
+        "htdocs/core/tpl/login.tpl.php": {
+          "sha256": "5dba4bde4c936374210c835ef5345dc2d23af873becb76f8bb5d1f77dde1f3fd",
+          "url": "https://raw.githubusercontent.com/Dolibarr/dolibarr/3f45699695d733e602db61ccd6daaadb7dc40654/htdocs/core/tpl/login.tpl.php"
+        },
+        "htdocs/install/step2.php": {
+          "sha256": "d803cb5a0c80a1fbc37c004bc019087a8f32a48cf71bc7c94150b0fe4bc4c2d2",
+          "url": "https://raw.githubusercontent.com/Dolibarr/dolibarr/3f45699695d733e602db61ccd6daaadb7dc40654/htdocs/install/step2.php"
+        },
+        "htdocs/install/step5.php": {
+          "sha256": "d15a48acd4ccead37d65b492b0063f591f850c6d0e2957a329204d605c8fb36f",
+          "url": "https://raw.githubusercontent.com/Dolibarr/dolibarr/3f45699695d733e602db61ccd6daaadb7dc40654/htdocs/install/step5.php"
+        },
+        "htdocs/install/inc.php": {
+          "sha256": "43c7800549e52c32cbc73f0e550fcb0a14da18497657ed1bc80e42a29ba7cde1",
+          "url": "https://raw.githubusercontent.com/Dolibarr/dolibarr/3f45699695d733e602db61ccd6daaadb7dc40654/htdocs/install/inc.php"
+        }
+      }
+    }
+  }
+}

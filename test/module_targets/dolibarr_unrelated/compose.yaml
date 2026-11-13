@@ -1,0 +1,38 @@
+---
+services:
+  target:
+    image: php:5.6.40-apache@sha256:0a40fd273961b99d8afe69a61a68c73c04bc0caa9de384d3b2dd9e7986eec86d
+    platform: linux/amd64
+    init: true
+    read_only: true
+    user: 1000:1000
+    cpus: 0.3
+    mem_limit: 64m
+    memswap_limit: 64m
+    pids_limit: 64
+    entrypoint:
+    - php
+    - "-S"
+    - 0.0.0.0:8080
+    - "-t"
+    - "/public"
+    volumes:
+    - "${MODULE_TARGET_ROOT}/test/module_targets/dolibarr/unrelated.html:/public/index.html:ro"
+    ports:
+    - 127.0.0.1::8080
+    tmpfs:
+    - "/tmp:rw,size=8m,mode=1777"
+    healthcheck:
+      test:
+      - CMD
+      - php
+      - "-r"
+      - exit(@file_get_contents("http://127.0.0.1:8080/")===false?1:0);
+      interval: 2s
+      timeout: 3s
+      retries: 30
+  framework:
+    cpus: 1.0
+    mem_limit: 512m
+    memswap_limit: 512m
+    pids_limit: 256

@@ -1,0 +1,26 @@
+---
+spec: spec/modules/auxiliary/scanner/http/dolibarr_contact_dump_target_spec.rb
+expected_examples: 2
+console: true
+modules:
+- auxiliary/scanner/http/dolibarr_16_contact_dump
+test_env:
+  DOLIBARR_UNRELATED: 'true'
+ports:
+  target: 8080
+support_files:
+- documentation/modules/auxiliary/scanner/http/dolibarr_16_contact_dump.md
+- lib/msf/core/auxiliary/report.rb
+- lib/msf/core/auxiliary/scanner.rb
+- lib/msf/core/exploit/remote/http_client.rb
+- test/module_targets/dolibarr/README.md
+- test/module_targets/dolibarr/compose.yaml
+- test/module_targets/dolibarr/conf.php
+- test/module_targets/dolibarr/prepare.rb
+- test/module_targets/dolibarr/run.rb
+- test/module_targets/dolibarr/runtime-build.sh
+- test/module_targets/dolibarr/start.sh
+- test/module_targets/dolibarr/state.php
+- test/module_targets/dolibarr/unrelated.html
+- test/module_targets/dolibarr/vendor.json
+- tools/dev/run_guarded_module_target_tests.rb
