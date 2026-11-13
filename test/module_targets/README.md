@@ -1,6 +1,15 @@
 # Container module acceptance tests
 
-Latest: the [OPC-UA checkpoint](VERIFICATION-20261113-opcua.md) reaches
+Latest: the [Icinga checkpoint](VERIFICATION-20261113-icinga.md) reaches
+**228 modules qualified in covered paths, 262 profiles and 2,467 examples**.
+Thirty-six cases and 84 public calls verify 16 exact loot files across genuine
+affected/fixed and subpath deployments. Independent native HTTP, raw SQL,
+process/source/configuration, resource and cleanup controls pass. Three capped
+containers run serially; all 22 final cleanup queries pass. No owning source
+defect was found; earlier fixture failures remain preserved. The broader campaign
+remains incomplete, and no PR is created.
+
+The earlier [OPC-UA checkpoint](VERIFICATION-20261113-opcua.md) reaches
 **227 modules qualified in covered paths, 259 profiles and 2,431 examples**.
 Nine cases and 20 owning calls pass against genuine source-built open62541.
 Independent native, packet/proxy, SQL and cleanup controls reproduce and verify
