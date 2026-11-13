@@ -50,6 +50,7 @@ module Acceptance
       port = options.fetch('RPORT', target_runtime.fetch('module_endpoints').fetch('target').fetch('port'))
       arguments = target_runtime.fetch('compose') + ['exec', '-T', 'framework', 'ruby', 'test/module_targets/freeswitch/capture.rb', ENV.fetch('MODULE_TARGET_RUNTIME'), port.to_s]
       values = { 'TARGET' => 0, 'PAYLOAD' => 'cmd/unix/generic', 'CMD' => 'printf module-target-unexpected-execution', 'DisablePayloadHandler' => true, 'ConnectTimeout' => 3, 'VERBOSE' => true, 'PASSWORD' => @password }.merge(options)
+      values['AllowNoCleanup'] = true if values['PAYLOAD'] == 'cmd/unix/generic' && !values.key?('AllowNoCleanup')
       values.delete('PASSWORD') if values.delete('OMIT_PASSWORD')
       output = nil
       raw = nil

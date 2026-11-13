@@ -9,7 +9,9 @@ This lab is under development. Dated verification reports establish actual
 qualification; a manifest or successful build alone is not proof of a module
 result. The first catalog exercises public checks, repeated foreground command
 execution, wrong/default/Unicode passwords, genuine ACL and unrelated-service
-refusals, and a native-proven closed port. Session and Linux dropper delivery
+refusals, and a native-proven closed port. Generic command tests explicitly accept the documented `AllowNoCleanup` option
+and remove their known proof files through independent native control. A separate
+case proves the original guard still refuses an unaccepted run. Session and Linux dropper delivery
 families still require their own native calibration and functional coverage.
 Windows targets require a suitable Windows environment.
 

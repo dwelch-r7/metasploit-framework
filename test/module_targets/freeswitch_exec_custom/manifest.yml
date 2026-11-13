@@ -1,6 +1,6 @@
 {
   "spec": "spec/modules/exploits/multi/misc/freeswitch_execution_target_spec.rb",
-  "expected_examples": 5,
+  "expected_examples": 6,
   "console": true,
   "modules": [
     "exploit/multi/misc/freeswitch_event_socket_cmd_exec"
