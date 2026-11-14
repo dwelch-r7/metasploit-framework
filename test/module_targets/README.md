@@ -1,6 +1,15 @@
 # Container module acceptance tests
 
-Latest: the [libssh checkpoint](VERIFICATION-20261113-libssh.md) reaches
+Latest: the [Heartbleed checkpoint](VERIFICATION-20261114-heartbleed.md) reaches
+**230 modules qualified in covered paths, 266 profiles and 2,554 examples**.
+All 40 cases and 82 public calls pass, with 120 native heartbeat cases,
+42 complete TLS handshakes, 34 independent wire/loot comparisons and two verified
+key signatures. Framing, key-exposure reporting, unsupported certificates and
+status validation are fixed. Three capped containers run serially; all eight
+cleanup queries pass. Earlier source/setup/oracle failures remain preserved.
+The broader campaign remains incomplete; no PR is created.
+
+The earlier [libssh checkpoint](VERIFICATION-20261113-libssh.md) reaches
 **229 modules qualified in covered paths, 265 profiles and 2,514 examples**.
 All 23 cases and 48 public calls pass, with 94 independent native controls,
 18 exact command proofs and ten complete Shell lifecycles. Delayed output,
