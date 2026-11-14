@@ -37,6 +37,7 @@
     "lib/msf/core/db_manager/session.rb",
     "lib/msf/core/event_dispatcher.rb",
     "lib/msf/core/general_event_subscriber.rb",
-    "spec/modules/exploits/multi/http/langflow_auth_rce_execution_spec.rb"
+    "spec/modules/exploits/multi/http/langflow_auth_rce_execution_spec.rb",
+    "test/module_targets/langflow_execution/acceptance.rb"
   ]
 }
