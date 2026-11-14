@@ -1,0 +1,27 @@
+{
+  "image": "langflowai/langflow@sha256:4bc8cb11d56eee70207eac6227db6b9add111438dcab0de6d592a66f61084020",
+  "platform": "linux/amd64",
+  "installed": {
+    "uid": 1000,
+    "gid": 0,
+    "python": "3.12.3",
+    "versions": {
+      "langflow": "1.4.2",
+      "langflow-base": "0.4.2",
+      "lfx": null,
+      "mcp": "1.8.1"
+    },
+    "sources": {
+      "langflow/api/v1/validate.py": "4ac256975a8f9ec98ff0e806665f154bdd41c1a0a8c5db2cf9d13b0d57fd3119",
+      "langflow/api/v1/login.py": "cf17c61176981de6c593ea583fdc5ca7f6946d5b7ca943a29375b83bfbbc2117",
+      "langflow/api/utils.py": "2f25b011dde9ec592e9a3f674a4fc01d082b760e61792d6d411943ade40a8c50",
+      "langflow/utils/validate.py": "949be0614324e84c042582e7096080f354d06456a7edb5485810c964bc281594",
+      "langflow/services/auth/utils.py": "5a54eacc296878f72a72371d84f2eecd722393a6592e0ee14fd7e12c7d213e36",
+      "langflow/services/settings/auth.py": "a5bf26419c4181b275cb8c5f14200cdb1c4f2ef8144cee1262f17d6ccfce178e",
+      "langflow/services/settings/base.py": "56705e6db0d6c89e6a307ecc56d739d19406e86407c49d6bcb7f2f01e2695df6",
+      "langflow/services/settings/constants.py": "51ff07ac63a9444fb9e4867b6a8a6c66c127cc16fdad13e2fbe3c5bc97d41aac",
+      "langflow/main.py": "02081196aeda123a8fde1526b4cfd339314bc4e5e9bb2757d8e1d6e4cf91703b",
+      "langflow/__main__.py": "4c5ad25275797c6e5389bd3dbe13f0a1a00b277183e9143a08555c574cab84a6"
+    }
+  }
+}

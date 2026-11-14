@@ -43,6 +43,10 @@ module Acceptance
         'AutoCheck' => true, 'TARGETURI' => '/', 'LHOST' => listener_host, 'LPORT' => 4492,
         'WfsDelay' => 3, 'HttpClientTimeout' => 3
       }.merge(options)
+      unless self.class.metadata.fetch(:credentials, true)
+        settings.delete('USERNAME')
+        settings.delete('PASSWORD')
+      end
       settings.delete('CMD') unless settings.fetch('PAYLOAD') == command_payload
       output = nil
       begin
