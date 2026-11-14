@@ -464,6 +464,11 @@ its source changes. A separate kernel, OS or device requirement does not mean
 the module is broken or universally untestable; it identifies work that cannot
 be qualified by a generic service container. Unreviewed modules stay pending.
 
+The [November 14 host requirement review](REVIEW-20261114-container-host-requirements.md)
+records four further modules needing a separate kernel, affected container
+runtime or Windows desktop. It adds target requirements and no functional
+passes; dedicated guest qualification remains follow-up work.
+
 ```sh
 ruby tools/dev/module_target_inventory.rb
 ruby tools/dev/module_target_inventory.rb --json > tmp/module-target-inventory.json

@@ -1,6 +1,60 @@
 # Individual source-reviewed target requirements; these are not blanket exclusions.
 ---
 modules:
+  exploit/linux/local/docker_privileged_container_kernel_escape:
+    source_sha256: 4887c5ec8feac2ef2684a86765594f2e67dc1492d28af41dbba2a666b6afd897
+    disposition: separate_kernel_target
+    reason: >-
+      The main path compiles a kernel module against the running kernel
+      headers, loads it with insmod using SYS_MODULE, invokes
+      call_usermodehelper in the host kernel and later attempts rmmod. An
+      ordinary service image does not provide a private kernel or prove a
+      host escape and kernel-module removal. Qualify shell and Meterpreter
+      entry sessions in a disposable VM with matching headers and its own
+      nested container runtime; verify host identity, session closure and
+      actual module removal. No host kernel module is loaded by this source
+      review.
+  exploit/linux/local/docker_runc_escape:
+    source_sha256: ccf06553caccbd9137bdd225945f4b33c12e165f26b49b7b423ca9204fcd7f14
+    disposition: separate_host_target
+    reason: >-
+      The exploit overwrites a container shell with #!/proc/self/exe, waits
+      for a real host docker exec and replaces the host runc executable
+      through its process descriptor. Successful cleanup must restore that
+      runtime binary and the original shell; a failed attempt can leave the
+      engine unavailable. Use a disposable guest with its own affected
+      runtime and verify the original runtime checksum, host-session
+      identity and restoration for each payload target. A service container
+      using the shared current engine cannot qualify that positive path. No
+      shared runtime binary is changed by this review.
+  exploit/linux/local/runc_cwd_priv_esc:
+    source_sha256: 473818a518df7805ac792e76931a443de7b78d66f386d7f8e261a2c411b66939
+    disposition: separate_host_target
+    reason: >-
+      The owning exploit invokes docker build against an affected runc, uses
+      WORKDIR /proc/self/fd/<descriptor> to reach the runtime host and
+      changes the host payload ownership and SUID bit before executing it.
+      Its check also distinguishes distribution-specific runtime packages.
+      Qualify against an isolated disposable guest with its own affected and
+      fixed Docker/runc combinations, real low-privilege sessions and host
+      filesystem permission controls. Copying a runc binary into an ordinary
+      service image does not exercise the daemon runtime or prove host-root
+      execution. No shared Docker socket or host filesystem is used by this
+      review.
+  exploit/windows/local/docker_credential_wincred:
+    source_sha256: b3acafb2a668fbe827bbb307661eee7baa66d7356c72cbb5cd0a2f184bdc60c3
+    disposition: separate_os_target
+    reason: >-
+      The main path requires a Windows Meterpreter session, Windows UAC
+      state and a vulnerable Docker Desktop installation. It writes
+      docker-credential-wincred.exe under
+      ProgramData/DockerDesktop/version-bin and relies on a real privileged
+      docker login trigger; the no-prompt UAC branch instead uses
+      ShellExecute runas. A Linux service image or invented docker version
+      output does not provide these desktop, credential-helper and elevation
+      paths. Qualify in a disposable Windows guest with real login/elevation
+      and artifact-restoration controls. No desktop settings, installed
+      client or credentials are changed by this review.
   auxiliary/gather/minio_bootstrap_verify_info_disc:
     source_sha256: e8e1de4e51df1948f9a6ae76a8286bd6dbbf498e0ddb18aceedeba809c531ad0
     disposition: container_lab
