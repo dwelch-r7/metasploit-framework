@@ -1,6 +1,17 @@
 # Container module acceptance tests
 
-Latest: the [Langflow command-validation checkpoint](VERIFICATION-20261114-langflow-command-validation.md)
+Latest: the [legacy Langflow validation checkpoint](VERIFICATION-20261114-langflow-legacy-validation.md)
+reaches **239 modules qualified in covered paths, 288 profiles and 2,745 examples**.
+All fifteen cases and thirty public calls pass: four exact commands and six
+complete session lifecycles, plus protected-endpoint denial checks. Native
+controls verify legacy authentication, eager loading and complete preservation
+of 33 starter flows. Source fixes isolate and reap payload interpreters and
+report authentication failures correctly. A separately reproduced Docker exec
+observation race is handled by waiting for exact restoration, with no retained
+process allowance. All sixteen independent teardown queries pass and Docker is
+empty. Broader work remains incomplete; no PR is created.
+
+The preceding [Langflow command-validation checkpoint](VERIFICATION-20261114-langflow-command-validation.md)
 reaches **238 modules qualified in covered paths, 286 profiles and 2,730 examples**.
 All 27 cases and 54 public calls pass across three genuine profiles, including
 18 exact commands and twelve complete session lifecycles. Source corrections
