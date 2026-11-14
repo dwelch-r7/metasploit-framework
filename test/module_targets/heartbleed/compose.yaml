@@ -1,0 +1,23 @@
+services:
+  target:
+    build: {context: ., dockerfile: Dockerfile}
+    platform: linux/amd64
+    init: true
+    cpus: 0.5
+    mem_limit: 256m
+    memswap_limit: 256m
+    pids_limit: 128
+    tmpfs: ['/tmp:rw,size=48m,mode=1777']
+    ports: ['127.0.0.1::10000', '127.0.0.1::10100', '127.0.0.1::10200', '127.0.0.1::10300']
+    healthcheck:
+      test: [CMD, python3, /opt/heartbleed-lab/health.py]
+      interval: 5s
+      timeout: 6s
+      retries: 20
+  reporting_db:
+    extends: {file: ../gopher/compose.yaml, service: reporting_db}
+  framework:
+    cpus: 1.5
+    mem_limit: 768m
+    memswap_limit: 768m
+    pids_limit: 256

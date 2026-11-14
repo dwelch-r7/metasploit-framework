@@ -54,6 +54,26 @@ $ curl https://localhost:8443 -k
 </html>
 ```
 
+### Automated container regression lab
+
+The Framework repository includes a source-built regression lab for this module.
+It builds OpenSSL 1.0.1d, 1.0.1f, fixed 1.0.1g, and the heartbeat-disabled
+compile-time workaround. It also includes explicitly conditioned disposable-key
+memory, an ECDSA certificate, and six STARTTLS transport adapters.
+
+Run the lab from the Framework repository root:
+
+```sh
+bundle exec ruby tools/dev/run_guarded_module_target_tests.rb heartbleed
+```
+
+See the [lab README](../../../../../test/module_targets/heartbleed/README.md) for
+source pins, resource limits, transport ports, captured-wire/loot and database
+assertions, cleanup, and coverage limits. The key fixture makes factor exposure
+deterministic; it does not predict production private key exposure. The ordinary
+upstream server controls remain separate. Generated lab evidence does not replace
+the historical human-written Scenarios below.
+
 ## Verification Steps
 
   1. Install a vulnerable OpenSSL, start the service
@@ -87,6 +107,7 @@ $ curl https://localhost:8443 -k
 ### STATUS_EVERY
 
   If Action is set to `KEYS`, how often the status should be printed.  Default is `5`.
+  For `KEYS`, use a value greater than zero; invalid intervals are rejected before connecting.
 
 ### DUMPFILTER
 

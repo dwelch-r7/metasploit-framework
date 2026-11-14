@@ -1,0 +1,15 @@
+spec: spec/modules/auxiliary/scanner/ssl/openssl_heartbleed_target_spec.rb
+expected_examples: 40
+console: true
+modules: [auxiliary/scanner/ssl/openssl_heartbleed]
+ports: {target: 10000}
+support_files:
+  - documentation/modules/auxiliary/scanner/ssl/openssl_heartbleed.md
+  - lib/msf/core/auxiliary/scanner.rb
+  - lib/msf/core/auxiliary/report.rb
+  - lib/msf/core/db_manager/vuln.rb
+  - lib/msf/core/db_manager/loot.rb
+  - test/module_targets/gopher/compose.yaml
+  - tools/dev/run_guarded_module_target_tests.rb
+  - spec/modules/auxiliary/scanner/ssl/openssl_heartbleed_spec.rb
+  - spec/support/shared/contexts/wait_for_expect.rb
