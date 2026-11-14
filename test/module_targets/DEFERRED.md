@@ -348,3 +348,14 @@ intermediary directories times out, followed by a console completion timeout
 while the process remains alive. Cause and relation to the campaign changes are
 unverified. Preserve the actual job log; no retry or timeout increase establishes
 a fix. This failure is separate from Dolibarr native acceptance.
+
+The later published head `d78bb1a6f188c63928d3075368d4427058a7d20a`
+finishes with 62 successful checks, one skipped check and a cancelled
+[Linux Mettle job](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43616165399/job/132511576236).
+Its real acceptance log records repeated `Rex::TimeoutError: Send timed out`
+failures during `post/test/file`, including the
+`linux/x64/meterpreter_reverse_https` / `minimal_uris_headers.profile` case,
+then cancellation at approximately the workflow's 60-minute job limit.
+This is incomplete acceptance, not a passing run. The underlying timeout cause
+and relation to campaign changes remain unverified; no retry or limit increase
+is used to claim a fix.

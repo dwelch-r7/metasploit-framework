@@ -1,0 +1,20 @@
+services:
+  target:
+    image: mcpjam/mcp-inspector@sha256:b80bee6d8b2be2d3b8dd631d14eecc3fd861dd10fb4bbc2a2f29e7578aabe98b
+    platform: linux/amd64
+    init: true
+    cpus: 0.75
+    mem_limit: 512m
+    memswap_limit: 512m
+    pids_limit: 192
+    healthcheck:
+      test: [CMD, node, -e, "require('http').get('http://127.0.0.1:6274/',r=>{r.resume();if(r.statusCode!==200)process.exitCode=1}).on('error',()=>process.exit(1))"]
+      interval: 2s
+      timeout: 3s
+      retries: 60
+  reporting_db:
+    extends: {file: ../gopher/compose.yaml, service: reporting_db}
+  framework:
+    extends: {file: ../gopher/compose.yaml, service: framework}
+networks:
+  default: {internal: true}

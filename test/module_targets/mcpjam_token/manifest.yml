@@ -1,0 +1,45 @@
+{
+  "spec": "spec/modules/exploits/multi/http/mcpjam_inspector_negative_target_spec.rb",
+  "expected_examples": 5,
+  "console": true,
+  "module_endpoint_network": "default",
+  "modules": [
+    "exploit/multi/http/mcpjam_inspector_rce"
+  ],
+  "ports": {},
+  "health_timeout": 150,
+  "support_files": [
+    "test/module_targets/mcpjam/acceptance.rb",
+    "test/module_targets/mcpjam/native_client.js",
+    "test/module_targets/mcpjam/native_server.js",
+    "test/module_targets/mcpjam/input_audit.rb",
+    "test/module_targets/mcpjam/vendor.json",
+    "test/module_targets/mcpjam/README.md",
+    "test/module_targets/gopher/compose.yaml",
+    "tools/dev/module_target_endpoint.rb",
+    "documentation/modules/exploit/multi/http/mcpjam_inspector_rce.md",
+    "test/module_targets/mcpjam/session_control.rb",
+    "test/module_targets/druid_sessions/session_control.rb",
+    "spec/support/shared/contexts/wait_for_expect.rb",
+    "modules/payloads/singles/cmd/unix/reverse_nodejs.rb",
+    "lib/msf/core/payload/nodejs.rb",
+    "lib/msf/core/exploit/remote/auto_check.rb",
+    "lib/msf/core/exploit/remote/http_client.rb",
+    "lib/rex/proto/http/client_request.rb",
+    "lib/rex/proto/http/packet.rb",
+    "spec/modules/exploits/multi/http/mcpjam_inspector_contracts_spec.rb",
+    "test/module_targets/mcpjam/compose.yaml",
+    "modules/payloads/adapters/cmd/linux/http/x64.rb",
+    "modules/payloads/singles/linux/x64/meterpreter_reverse_tcp.rb",
+    "lib/msf/core/payload/adapter/fetch.rb",
+    "lib/msf/core/payload/adapter/fetch/http.rb",
+    "lib/msf/core/payload/adapter/fetch/linux_options.rb",
+    "lib/msf/core/payload/adapter/fetch/server/http.rb",
+    "lib/msf/core/payload/linux/x64/elf_loader.rb",
+    "lib/msf/base/sessions/mettle_config.rb",
+    "lib/msf/core/handler/reverse_tcp.rb"
+  ],
+  "test_env": {
+    "MCPJAM_TARGET_VERSION": "1.5.0"
+  }
+}

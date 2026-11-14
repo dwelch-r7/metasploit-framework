@@ -1,6 +1,18 @@
 # Container module acceptance tests
 
-Latest: the [LiteLLM SQLi checkpoint](VERIFICATION-20261114-litellm.md)
+Latest: the [MCPJam execution checkpoint](VERIFICATION-20261114-mcpjam.md)
+advances the cumulative record to **246 modules qualified in covered paths,
+307 profiles and 2,912 examples**. All 26 cases and 52 public calls pass across
+four genuine default deployments, including eight real Node/Meterpreter sessions.
+Source fixes preserve Unicode wire bytes and prevent cleanup of rejected foreign
+connections. Native local controls distinguish loopback and authentication
+boundaries from working remote execution. Three capped services run serially;
+all 29 independent teardown queries pass and Docker is empty. Human Scenarios
+remain unchanged. Earlier qualifications retain their recorded scope and inputs;
+the broader campaign and the separately recorded Mettle CI timeout remain open.
+No PR is created.
+
+The preceding [LiteLLM SQLi checkpoint](VERIFICATION-20261114-litellm.md)
 reaches **245 modules qualified in covered paths, 303 profiles and 2,886 examples**.
 All 24 cases and 48 public calls pass against genuine affected, fixed and
 vendor-mitigated targets. Source fixes preserve UTF-8 request bytes and return

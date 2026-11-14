@@ -1,0 +1,10 @@
+services:
+  target:
+    extends: {file: ../mcpjam/compose.yaml, service: target}
+    image: mcpjam/mcp-inspector@sha256:d5a6a10899ce316bf3c5f7033dfdfe4efdeed1cf80150051a0a1d42c191289ea
+  reporting_db:
+    extends: {file: ../gopher/compose.yaml, service: reporting_db}
+  framework:
+    extends: {file: ../gopher/compose.yaml, service: framework}
+networks:
+  default: {internal: true}
