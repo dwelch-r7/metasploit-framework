@@ -1,0 +1,52 @@
+{
+  "spec": "spec/modules/exploits/multi/http/langflow_legacy_custom_target_spec.rb",
+  "expected_examples": 8,
+  "console": true,
+  "modules": [
+    "exploit/multi/http/langflow_unauth_rce_cve_2026_0769"
+  ],
+  "ports": {
+    "target": 7860
+  },
+  "support_files": [
+    "test/module_targets/langflow_execution/compose.yaml",
+    "test/module_targets/langflow_execution/native_probe.py",
+    "test/module_targets/langflow_execution/session_control.rb",
+    "test/module_targets/langflow_execution/vendor.json",
+    "test/module_targets/langflow_execution/README.md",
+    "test/module_targets/langflow/compose.yaml",
+    "test/module_targets/langflow_auth/compose.yaml",
+    "test/module_targets/langflow/native.py",
+    "test/module_targets/langflow/sdk_control.py",
+    "test/module_targets/langflow/vendor.json",
+    "test/module_targets/h2_console/process_state.py",
+    "test/module_targets/druid_sessions/session_control.rb",
+    "test/module_targets/gopher/compose.yaml",
+    "tools/dev/run_guarded_module_target_tests.rb",
+    "lib/msf/core/exploit/remote/auto_check.rb",
+    "lib/msf/core/exploit/remote/http_client.rb",
+    "modules/payloads/singles/python/exec.rb",
+    "modules/payloads/singles/python/shell_reverse_tcp.rb",
+    "modules/payloads/stagers/python/reverse_tcp.rb",
+    "modules/payloads/stages/python/meterpreter.rb",
+    "lib/msf/core/payload/python.rb",
+    "lib/msf/core/payload/python/reverse_tcp.rb",
+    "lib/msf/core/payload/python/meterpreter_loader.rb",
+    "spec/support/shared/contexts/wait_for_expect.rb",
+    "lib/msf/core/db_manager/session.rb",
+    "lib/msf/core/event_dispatcher.rb",
+    "lib/msf/core/general_event_subscriber.rb",
+    "test/module_targets/langflow_execution/acceptance.rb",
+    "documentation/modules/exploit/multi/http/langflow_unauth_rce_cve_2026_0769.md",
+    "test/module_targets/langflow_legacy_custom/compose.yaml",
+    "test/module_targets/langflow_legacy_custom/native_probe.py",
+    "test/module_targets/langflow_legacy_custom/source_probe.py",
+    "test/module_targets/langflow_legacy_custom/vendor.json",
+    "test/module_targets/langflow_legacy_custom/README.md",
+    "test/module_targets/langflow_legacy_custom/component_source.py",
+    "spec/modules/exploits/multi/http/langflow_legacy_custom_execution_spec.rb"
+  ],
+  "test_env": {
+    "LANGFLOW_LEGACY_CUSTOM_PROFILE": "default"
+  }
+}
