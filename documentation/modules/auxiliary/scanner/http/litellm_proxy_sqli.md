@@ -28,9 +28,9 @@ slow delays both requests and is not flagged. It never reads or exfiltrates data
 
 Detection requires the target to have provisioned at least one virtual key (see
 Setup). The injectable predicate is a `WHERE` clause that PostgreSQL evaluates
-only against matching rows, so the time-based signal cannot fire against an empty
-token table. Any LiteLLM proxy in real use has issued keys, but a freshly
-initialized proxy with no keys may not respond to the probe.
+when the token table contains rows. The time-based signal cannot fire against an
+empty token table. An affected proxy using only its master key can therefore
+produce no signal; that result does not establish that the proxy is patched.
 
 ### Setup with Docker
 
@@ -87,10 +87,9 @@ until curl -sf -o /dev/null http://localhost:4000/health/liveliness; do sleep 2;
 ```
 
 **Provision at least one virtual key.** The injectable predicate is a `WHERE`
-clause that PostgreSQL evaluates only against matching rows, so on a proxy whose
-`LiteLLM_VerificationToken` table is empty the `pg_sleep` never executes and the
-target appears (falsely) safe. Any proxy in real use has issued keys; for the lab,
-create one with the master key:
+clause that PostgreSQL evaluates when the token table contains rows, so on a proxy
+whose `LiteLLM_VerificationToken` table is empty the `pg_sleep` never executes and
+the target appears (falsely) safe. For the lab, create one with the master key:
 
 ```
 curl -s -X POST http://localhost:4000/key/generate \
@@ -114,6 +113,30 @@ curl -s -o /dev/null -w 'inject:  %{time_total}s\n' --max-time 30 -X POST http:/
 Vulnerable: `control` ~0.03s, `inject` ~5s. Re-run with the `main-v1.83.7-stable`
 image for the patched (true-negative) case — both return fast.
 
+### Automated regression targets
+
+The maintained [container recipes and native controls](../../../../../test/module_targets/litellm/README.md)
+use pinned official LiteLLM 1.83.3 and 1.83.7 images, genuine vendor migrations,
+and the vendor's `disable_error_logs: true` workaround as a third profile.
+The authentication-error path needs no external model or provider account.
+
+From a Framework checkout with its development bundle and Docker available:
+
+```sh
+DOCKER_CONTEXT=default BUILDX_BUILDER=default bundle exec ruby tools/dev/run_guarded_module_target_tests.rb litellm litellm_fixed litellm_mitigated
+```
+
+Each profile uses three capped containers, runs serially under the shared resource
+guard, and tears down its resources. The LiteLLM target uses a 2 GiB cap after
+a 1 GiB startup attempt exhausted its limit; the database and Framework console
+have separate 512 MiB and 1 GiB caps.
+Native controls validate source identity, migrations, database isolation and
+API-generated keys before comparing the module with real true/false SQL timing
+signals. Coverage includes empty, one-key and five-key tables, UTF-8 model names,
+repeated checks and scans, actual database reporting and negative connections.
+Unauthorized probes can append native audit/spend records and daily aggregates;
+the tests retain these records and verify other application state is preserved.
+
 ## Verification Steps
 
 1. Start a vulnerable LiteLLM proxy with a PostgreSQL backend (see Setup with Docker)
@@ -126,10 +149,8 @@ image for the patched (true-negative) case — both return fast.
 
 ## Options
 
-### TARGETURI
-
-The LiteLLM chat completions endpoint that triggers key verification. Defaults to
-`/v1/chat/completions`.
+`TARGETURI` selects the LiteLLM chat completions endpoint that triggers key
+verification. Its default is `/v1/chat/completions`.
 
 ### MODEL
 

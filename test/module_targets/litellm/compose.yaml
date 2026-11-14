@@ -1,0 +1,51 @@
+services:
+  reporting_db:
+    image: postgres:16@sha256:933463a6c8eba2b9f5cd414138738cd8d5519cd2c471214c222652f547a66a32
+    platform: linux/amd64
+    cpus: 0.5
+    mem_limit: 512m
+    memswap_limit: 512m
+    pids_limit: 96
+    command: [postgres, -c, shared_buffers=32MB, -c, max_connections=25, -c, work_mem=1MB, -c, maintenance_work_mem=16MB]
+    environment:
+      POSTGRES_USER: module_framework
+      POSTGRES_PASSWORD: module-target-framework-db-password
+      POSTGRES_DB: module_targets
+      POSTGRES_INITDB_ARGS: --auth-host=scram-sha-256 --auth-local=trust
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/010-litellm.sql:ro
+    tmpfs: ["/var/lib/postgresql/data:rw,size=384m,mode=0700"]
+    healthcheck:
+      test: [CMD-SHELL, "PGPASSWORD=module-target-framework-db-password psql -h 127.0.0.1 -U module_framework -d module_targets -Atc 'SELECT current_database()' | grep -qx module_targets"]
+      interval: 2s
+      timeout: 3s
+      retries: 40
+  target:
+    image: litellm/litellm@sha256:c2b7aba0e3ebac7618ed23d12c5c65e05c533fb6843a0c694ff5c77c53de3ddf
+    platform: linux/amd64
+    cpus: 1
+    mem_limit: 2048m
+    memswap_limit: 2048m
+    pids_limit: 192
+    command: [--config, /app/module-target.yaml, --port, '4000', --num_workers, '1', --enforce_prisma_migration_check]
+    volumes:
+      - ./affected.yaml:/app/module-target.yaml:ro
+    environment:
+      DATABASE_URL: postgresql://module_litellm:module-target-litellm-db-password@reporting_db:5432/module_litellm
+      LITELLM_MASTER_KEY: sk-module-target-master-key
+      FAKE_API_KEY: module-target-unused-provider-key
+      LITELLM_TELEMETRY: 'False'
+    depends_on:
+      reporting_db: {condition: service_healthy}
+    healthcheck:
+      test: [CMD, python, -B, -c, "import urllib.request; assert urllib.request.urlopen('http://127.0.0.1:4000/health/liveliness', timeout=2).status == 200"]
+      interval: 3s
+      timeout: 4s
+      retries: 70
+  framework:
+    extends: {file: ../gopher/compose.yaml, service: framework}
+    mem_limit: 1024m
+    memswap_limit: 1024m
+networks:
+  default:
+    internal: true

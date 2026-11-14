@@ -1,0 +1,34 @@
+{
+  "spec": "spec/modules/auxiliary/scanner/http/litellm_proxy_sqli_target_spec.rb",
+  "expected_examples": 8,
+  "console": true,
+  "module_endpoint_network": "default",
+  "modules": [
+    "auxiliary/scanner/http/litellm_proxy_sqli"
+  ],
+  "ports": {},
+  "health_timeout": 240,
+  "support_files": [
+    "test/module_targets/litellm/compose.yaml",
+    "test/module_targets/litellm/affected.yaml",
+    "test/module_targets/litellm/mitigated.yaml",
+    "test/module_targets/litellm/init.sql",
+    "test/module_targets/litellm/README.md",
+    "test/module_targets/litellm/vendor.json",
+    "test/module_targets/litellm/native_probe.py",
+    "test/module_targets/litellm/acceptance.rb",
+    "test/module_targets/litellm/input_audit.rb",
+    "test/module_targets/gopher/compose.yaml",
+    "documentation/modules/auxiliary/scanner/http/litellm_proxy_sqli.md",
+    "tools/dev/module_target_endpoint.rb",
+    "lib/msf/core/auxiliary/report.rb",
+    "lib/msf/core/auxiliary/scanner.rb",
+    "lib/msf/core/exploit/sqli/postgresqli/time_based_blind.rb",
+    "lib/msf/core/exploit/sqli/time_based_blind_mixin.rb",
+    "spec/modules/auxiliary/scanner/http/litellm_proxy_sqli_contracts_spec.rb"
+  ],
+  "test_env": {
+    "LITELLM_TARGET_VERSION": "1.83.3",
+    "LITELLM_TARGET_CONFIGURATION": "affected"
+  }
+}

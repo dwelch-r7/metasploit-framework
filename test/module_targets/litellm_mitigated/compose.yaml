@@ -1,0 +1,12 @@
+services:
+  target:
+    extends: {file: ../litellm/compose.yaml, service: target}
+    image: litellm/litellm@sha256:c2b7aba0e3ebac7618ed23d12c5c65e05c533fb6843a0c694ff5c77c53de3ddf
+    volumes:
+      - ../litellm/mitigated.yaml:/app/module-target.yaml:ro
+  reporting_db:
+    extends: {file: ../litellm/compose.yaml, service: reporting_db}
+  framework:
+    extends: {file: ../litellm/compose.yaml, service: framework}
+networks:
+  default: {internal: true}

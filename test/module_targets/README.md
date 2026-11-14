@@ -1,6 +1,16 @@
 # Container module acceptance tests
 
-Latest: the [n8n file and owner-ticket checkpoint](VERIFICATION-20261114-ni8mare.md)
+Latest: the [LiteLLM SQLi checkpoint](VERIFICATION-20261114-litellm.md)
+reaches **245 modules qualified in covered paths, 303 profiles and 2,886 examples**.
+All 24 cases and 48 public calls pass against genuine affected, fixed and
+vendor-mitigated targets. Source fixes preserve UTF-8 request bytes and return
+Unknown for absent probe responses. Real database reports, repeated calls and
+application records are verified; ordinary audit logs are retained. All 24
+independent cleanup queries pass and Docker is empty. Three services run under
+explicit caps, human Scenarios are preserved, and empty-key detection remains a
+documented limitation. The broader campaign is incomplete; no PR is created.
+
+The preceding [n8n file and owner-ticket checkpoint](VERIFICATION-20261114-ni8mare.md)
 reaches **244 modules qualified in covered paths, 300 profiles and 2,862 examples**.
 All twenty cases and forty-two public calls pass against genuine affected/fixed
 releases: twelve exact file loots and six independently verified owner tickets.

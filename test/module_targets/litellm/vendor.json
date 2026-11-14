@@ -1,0 +1,30 @@
+{
+  "1.83.3": {
+    "image": "litellm/litellm@sha256:c2b7aba0e3ebac7618ed23d12c5c65e05c533fb6843a0c694ff5c77c53de3ddf",
+    "source_commit": "cf045dc6d2b9b4383703628fb26feb9769190281",
+    "utils_sha256": "6ded1c68bea57f019edadbd30b2064baa053dd3b2a3dcfb3afa6718c28f49fdd",
+    "packages": {
+      "litellm": "1.83.3",
+      "litellm-proxy-extras": "0.4.65",
+      "prisma": "0.11.0",
+      "fastapi": "0.124.4",
+      "uvicorn": "0.33.0",
+      "pydantic": "2.12.5",
+      "openai": "2.30.0"
+    }
+  },
+  "1.83.7": {
+    "image": "litellm/litellm@sha256:f3cf1864daeea79ebdb00dafa036e3c66d182029d66b4b13befae7c5d8802554",
+    "source_commit": "e0d5c28db02b3219dbd944666a55f49732197922",
+    "utils_sha256": "561d315a5ee45c8ef80a87dbaca95e15e2631256168fd9b33ef07259479d378b",
+    "packages": {
+      "litellm": "1.83.7",
+      "litellm-proxy-extras": "0.4.65",
+      "prisma": "0.11.0",
+      "fastapi": "0.124.4",
+      "uvicorn": "0.33.0",
+      "pydantic": "2.12.5",
+      "openai": "2.30.0"
+    }
+  }
+}

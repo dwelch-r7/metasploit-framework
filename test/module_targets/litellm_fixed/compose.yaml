@@ -1,0 +1,10 @@
+services:
+  target:
+    extends: {file: ../litellm/compose.yaml, service: target}
+    image: litellm/litellm@sha256:f3cf1864daeea79ebdb00dafa036e3c66d182029d66b4b13befae7c5d8802554
+  reporting_db:
+    extends: {file: ../litellm/compose.yaml, service: reporting_db}
+  framework:
+    extends: {file: ../litellm/compose.yaml, service: framework}
+networks:
+  default: {internal: true}
