@@ -1,0 +1,22 @@
+services:
+  target:
+    build: {context: .}
+    image: msf-module-target-h2-console:fixture
+    platform: linux/amd64
+    init: true
+    cpus: 0.5
+    mem_limit: 320m
+    memswap_limit: 320m
+    pids_limit: 128
+    environment: {H2_VERSION: 2.1.214}
+    ports: ["127.0.0.1::8082", "127.0.0.1::8083"]
+    tmpfs: ["/tmp:rw,size=16m,mode=1777"]
+    healthcheck:
+      test: [CMD, /bin/sh, /opt/module-target/entrypoint.sh, health]
+      interval: 3s
+      timeout: 5s
+      retries: 30
+  reporting_db:
+    extends: {file: ../gopher/compose.yaml, service: reporting_db}
+  framework:
+    extends: {file: ../gopher/compose.yaml, service: framework}

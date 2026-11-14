@@ -1,0 +1,34 @@
+{
+  "artifacts": [
+    {
+      "version": "1.4.199",
+      "artifact": "h2",
+      "file": "h2-1.4.199.jar",
+      "url": "https://repo.maven.apache.org/maven2/com/h2database/h2/1.4.199/h2-1.4.199.jar",
+      "publisher_checksum_url": "https://repo.maven.apache.org/maven2/com/h2database/h2/1.4.199/h2-1.4.199.jar.sha1",
+      "sha256": "3125a16743bc6b4cfbb61abba783203f1fb68230aa0fdc97898f796f99a5d42e",
+      "bytes": 2178179,
+      "publisher_sha1": "7bf08152984ed8859740ae3f97fae6c72771ae45"
+    },
+    {
+      "version": "2.0.204",
+      "artifact": "h2",
+      "file": "h2-2.0.204.jar",
+      "url": "https://repo.maven.apache.org/maven2/com/h2database/h2/2.0.204/h2-2.0.204.jar",
+      "publisher_checksum_url": "https://repo.maven.apache.org/maven2/com/h2database/h2/2.0.204/h2-2.0.204.jar.sha1",
+      "sha256": "712a616409580bd4ac7c10e48f2599cc32ba3a433a1804da619c3f0a5ef66a04",
+      "bytes": 2510724,
+      "publisher_sha1": "25a3ddaf09f64d01ad1705bb2a31ad042ad79b2b"
+    },
+    {
+      "version": "2.1.214",
+      "artifact": "h2",
+      "file": "h2-2.1.214.jar",
+      "url": "https://repo.maven.apache.org/maven2/com/h2database/h2/2.1.214/h2-2.1.214.jar",
+      "publisher_checksum_url": "https://repo.maven.apache.org/maven2/com/h2database/h2/2.1.214/h2-2.1.214.jar.sha1",
+      "sha256": "d623cdc0f61d218cf549a8d09f1c391ff91096116b22e2475475fce4fbe72bd0",
+      "bytes": 2543012,
+      "publisher_sha1": "d5c2005c9e3279201e12d4776c948578b16bf8b2"
+    }
+  ]
+}

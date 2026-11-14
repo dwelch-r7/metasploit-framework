@@ -1,0 +1,8 @@
+services:
+  target:
+    extends: {file: ../h2_console/compose.yaml, service: target}
+    environment: {H2_VERSION: "2.0.204"}
+  reporting_db:
+    extends: {file: ../gopher/compose.yaml, service: reporting_db}
+  framework:
+    extends: {file: ../gopher/compose.yaml, service: framework}

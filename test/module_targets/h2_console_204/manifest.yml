@@ -1,0 +1,38 @@
+spec: spec/modules/exploits/linux/http/h2_webinterface_rce_target_spec.rb
+expected_examples: 14
+console: true
+test_env: {H2_VERSION: "2.0.204"}
+modules: [exploit/linux/http/h2_webinterface_rce]
+ports: {target: 8082}
+support_files:
+  - documentation/modules/exploit/linux/http/h2_webinterface_rce.md
+  - test/module_targets/h2_console/Dockerfile
+  - test/module_targets/h2_console/compose.yaml
+  - test/module_targets/h2_console/vendor.json
+  - test/module_targets/h2_console/fetch_vendor.rb
+  - test/module_targets/h2_console/Bootstrap.java
+  - test/module_targets/h2_console/NativeControl.java
+  - test/module_targets/h2_console/entrypoint.sh
+  - test/module_targets/h2_console/native_probe.py
+  - test/module_targets/h2_console/process_state.py
+  - test/module_targets/log4shell_execution/session_control.rb
+  - test/module_targets/druid_sessions/session_control.rb
+  - test/module_targets/gopher/compose.yaml
+  - tools/dev/run_guarded_module_target_tests.rb
+  - lib/msf/core/exploit/remote/auto_check.rb
+  - lib/msf/core/exploit/remote/http_client.rb
+  - lib/msf/core/exploit/remote/http_server.rb
+  - modules/payloads/singles/cmd/unix/generic.rb
+  - modules/payloads/singles/cmd/unix/reverse_bash.rb
+  - modules/payloads/adapters/cmd/unix/python.rb
+  - modules/payloads/stagers/python/reverse_tcp.rb
+  - modules/payloads/stages/python/meterpreter.rb
+  - lib/msf/core/payload/python.rb
+  - spec/support/shared/contexts/wait_for_expect.rb
+  - lib/msf/core/db_manager/session.rb
+  - lib/msf/core/event_dispatcher.rb
+  - lib/msf/core/general_event_subscriber.rb
+  - test/module_targets/h2_console/README.md
+  - spec/modules/exploits/linux/http/h2_webinterface_rce_spec.rb
+  - spec/file_fixtures/modules/exploits/linux/http/h2_webinterface_rce/responses.json
+  - lib/msf/core/exploit/file_dropper.rb
