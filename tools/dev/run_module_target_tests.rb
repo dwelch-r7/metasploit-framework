@@ -134,6 +134,11 @@ class ModuleTargetTests
     result = { family: family, status: 'setup_failed', started_at: Time.now.utc.iso8601 }
     begin
       manifest = YAML.safe_load_file(File.join(TARGETS, family, 'manifest.yml'))
+      health_timeout = manifest.fetch('health_timeout', 120)
+      unless health_timeout.is_a?(Integer) && health_timeout.between?(1, 600)
+        raise ArgumentError, 'Health timeout must be an integer from 1 to 600 seconds'
+      end
+
       ports = service_ports(manifest.fetch('ports'))
       endpoint_network = manifest['module_endpoint_network']
       if manifest.key?('module_endpoint_network')
@@ -161,7 +166,7 @@ class ModuleTargetTests
       # A cold canonical Framework image compiles gems and Go. This setup cost
       # is cached; the functional suite itself retains its separate short bound.
       setup_timeout = manifest['console'] ? 1800 : 600
-      if command(compose + ['up', '--detach', '--build', '--wait', '--wait-timeout', '120'], path: File.join(directory, 'setup.log'), timeout: setup_timeout)
+      if command(compose + ['up', '--detach', '--build', '--wait', '--wait-timeout', health_timeout.to_s], path: File.join(directory, 'setup.log'), timeout: setup_timeout)
         endpoints = ports.to_h do |service, definition|
           arguments = ['port']
           arguments += ['--protocol', definition.fetch('protocol')] unless definition.fetch('protocol') == 'tcp'

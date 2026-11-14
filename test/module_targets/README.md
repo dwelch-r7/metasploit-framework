@@ -381,6 +381,10 @@ snapshot remains a setup failure and cannot qualify a module.
   example count, module fullnames and service ports. Several modules may share
   one target family. `connection_env` maps services to an existing protocol
   suite's environment-variable prefix, avoiding duplicate suites.
+  Optional `health_timeout` sets the Compose health wait in seconds (integer
+  1 through 600, default 120). Use it for a measured startup requirement;
+  Compose proceeds immediately once services become healthy. It does not
+  extend the separate functional-test timeout.
   Integer port values retain ordinary TCP discovery. UDP-only targets use a
   mapping such as `open: {port: 69, protocol: udp}`; the runner asks Compose for
   the UDP mapping explicitly. Both host and internal module endpoints retain

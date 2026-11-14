@@ -99,6 +99,46 @@ RSpec.describe 'Manifest-driven module endpoint selection' do
       containers.fetch('gateway').fetch('NetworkSettings').fetch('Networks').delete('msf-target-capture_public')
     end
 
+    it 'retains the default 120 second health allowance' do
+      runner.send(:run_family, 'alpha')
+
+      expect(calls.find { |argv| argv.include?('up') }).to include('--wait-timeout', '120')
+    end
+
+    context 'with a custom health allowance' do
+      let(:manifest) { super().merge('health_timeout' => 240) }
+
+      it 'forwards the bounded allowance to the genuine Compose command' do
+        runner.send(:run_family, 'alpha')
+
+        expect(calls.find { |argv| argv.include?('up') }).to include('--wait-timeout', '240')
+      end
+    end
+
+    context 'with a zero health allowance' do
+      let(:manifest) { super().merge('health_timeout' => 0) }
+
+      it 'refuses setup with a configuration error' do
+        expect(runner.send(:run_family, 'alpha')).to include(status: 'setup_failed', error: 'ArgumentError: Health timeout must be an integer from 1 to 600 seconds')
+      end
+    end
+
+    context 'with an excessive health allowance' do
+      let(:manifest) { super().merge('health_timeout' => 601) }
+
+      it 'refuses setup with a configuration error' do
+        expect(runner.send(:run_family, 'alpha')).to include(status: 'setup_failed', error: 'ArgumentError: Health timeout must be an integer from 1 to 600 seconds')
+      end
+    end
+
+    context 'with a string health allowance' do
+      let(:manifest) { super().merge('health_timeout' => '240') }
+
+      it 'refuses setup with a configuration error' do
+        expect(runner.send(:run_family, 'alpha')).to include(status: 'setup_failed', error: 'ArgumentError: Health timeout must be an integer from 1 to 600 seconds')
+      end
+    end
+
     it 'keeps the existing two-argument address method and inspect commands' do
       expect(runner).not_to receive(:endpoint_selector)
       expect(runner).to receive(:container_ip).with(kind_of(Array), 'gateway').and_call_original
