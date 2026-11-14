@@ -41,8 +41,8 @@ class Native:
     def execute(self, *arguments):
         return self.command('exec', '-T', 'target', *arguments)
 
-    def http(self, path, token=None, data=None, method=None, form=None, timeout=10):
-        headers = {}
+    def http(self, path, token=None, data=None, method=None, form=None, timeout=10, headers=None):
+        headers = dict(headers or {})
         encoded = None
         if data is not None:
             encoded = json.dumps(data, ensure_ascii=False).encode()
@@ -64,6 +64,7 @@ class Native:
         decoded = gzip.decompress(raw) if raw.startswith(b'\x1f\x8b') or response.headers.get('Content-Encoding', '').lower() == 'gzip' else raw
         self.journal.append(dict(path=path, method=method or ('POST' if encoded is not None else 'GET'),
                                  data=data, form=form, authenticated=bool(token), status=response.status,
+                                 request_headers={key: value for key, value in headers.items() if key.lower() != 'authorization'},
                                  headers=dict(response.headers), body_base64=base64.b64encode(raw).decode(),
                                  decoded_base64=base64.b64encode(decoded).decode()))
         self.save()
