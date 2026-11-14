@@ -141,6 +141,59 @@ RSpec.describe 'Ni8mare JWT and extracted hash contracts' do
     include_examples 'a native user hash claim', '/PUplRmvUX', '00000000-0000-4000-8000-000000000003'
   end
 
+  context 'console ASCII-8BIT ordinary email', console_text: true do
+    let(:target_email) { 'module.native1@example.test'.b.freeze }
+
+    include_examples 'a native user hash claim', 'KC0EjZbZAH', '00000000-0000-4000-8000-000000000001'
+  end
+
+  context 'console ASCII-8BIT plus-claim email', console_text: true do
+    let(:target_email) { 'module.native3@example.test'.b.freeze }
+
+    include_examples 'a native user hash claim', 'eqdYW+IeRu', '00000000-0000-4000-8000-000000000002'
+  end
+
+  context 'console ASCII-8BIT slash-claim email', console_text: true do
+    let(:target_email) { 'module.native0@example.test'.b.freeze }
+
+    include_examples 'a native user hash claim', '/PUplRmvUX', '00000000-0000-4000-8000-000000000003'
+  end
+
+  context 'console text boundaries', console_text: true do
+    let(:target_email) { 'module.native1@example.test'.b.freeze }
+
+    it 'binds binary input as a local text value without changing the datastore string' do
+      original = mod.datastore['TARGET_EMAIL']
+      mod.run
+
+      expect(original.encoding).to eq(Encoding::BINARY)
+      expect(mod.datastore['TARGET_EMAIL']).to equal(original)
+      expect(original).to eq('module.native1@example.test'.b)
+      expect(extracted_database_handles).to all(be_closed)
+    end
+
+    it 'reproduces the actual SQLite BLOB versus TEXT binding distinction' do
+      expect(mod.options['TARGET_EMAIL'].normalize(target_email)).to equal(target_email)
+      SQLite3::Database.open(source_path) do |db|
+        expect(db.get_first_value('SELECT typeof(?)', [target_email])).to eq('blob')
+        expect(db.get_first_row('SELECT id FROM user WHERE email = ?', [target_email])).to be_nil
+        normalized = target_email.dup.force_encoding(Encoding::UTF_8)
+        expect(db.get_first_row('SELECT id FROM user WHERE email = ?', [normalized])).to eq(['00000000-0000-4000-8000-000000000001'])
+      end
+    end
+  end
+
+  context 'invalid console email bytes', console_text: true do
+    let(:target_email) { "module.\xff@example.test".b.freeze }
+
+    it 'reports invalid text before file extraction without mutating the input' do
+      expect { mod.run }.to raise_error(Msf::Auxiliary::Failed, 'bad-config: TARGET_EMAIL must contain valid UTF-8 text.')
+      expect(read_paths + loot + credentials + opened_databases).to be_empty
+      expect(mod.datastore['TARGET_EMAIL'].encoding).to eq(Encoding::BINARY)
+      expect(mod.datastore['TARGET_EMAIL'].bytes).to eq(target_email.bytes)
+    end
+  end
+
   it 'records the extracted bcrypt hash with its import origin and Framework hash format' do
     mod.run
 
