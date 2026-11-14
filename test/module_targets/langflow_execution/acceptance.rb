@@ -86,8 +86,11 @@ module Acceptance
       expect(session_rows).to all(include('closed_at' => be_a(String)))
       state = process_state
       expect(state.fetch('connections')).to eq([])
-      record('idle-process-state.jsonl', state)
+      @idle_observation = (@idle_observation || 0) + 1
+      observation = state.merge('workspace' => @workspace, 'observation' => @idle_observation)
+      record('idle-process-state.jsonl', observation)
       expect(state.fetch('processes').map { |row| row.except('state') }).to eq(@baseline.fetch('processes').map { |row| row.except('state') })
+      record('idle-restored-process-state.jsonl', observation)
     end
 
     def command_proof(options = {})
