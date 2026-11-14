@@ -30,10 +30,12 @@ RSpec.shared_context 'Ni8mare workflow HTTP setup' do
   let(:list_reply) { response(200, 'data' => { 'results' => [{ 'id' => '407' }] }) }
   let(:binary_content) { "\x00\xff\x80cleanup\n".b }
   let(:content_reply) do
-    # Native execution responses serialize the binary data as a JSON array string;
-    # extract_content consumes element29. Workflow lifecycle helpers remain real.
-    data = Array.new(30)
-    data[29] = Base64.strict_encode64(binary_content)
+    # Preserve the genuine 33-entry form result; replace only its data/size
+    # literals with this lifecycle example's expected bytes (see fixture README).
+    fixture = File.expand_path('../../../file_fixtures/modules/auxiliary/ni8mare_execution_data/native-1.120.0-json.flatted.json', __dir__)
+    data = JSON.parse(File.binread(fixture))
+    data[30] = Base64.strict_encode64(binary_content)
+    data[32] = "#{binary_content.bytesize} B"
     response(200, 'data' => { 'data' => JSON.generate(data) })
   end
   let(:foreign_records) do

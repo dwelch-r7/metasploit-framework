@@ -1,0 +1,33 @@
+{
+  "version": "1.120.0",
+  "source_archive": "ni8mare-console-text-diagnosis-20261114",
+  "archive_manifest_sha256": "0fc2558eb12e6c7cd07f2d75464ec54c3d8b66a308dd24f13902faf2bc6729dc",
+  "source_journal": "native/native-node.jsonl",
+  "source_journal_sha256": "7f2b550ad102e30e562ad29a81f797d9093d7730fe290dffc4fadb8b609c4f61",
+  "oracle": "Installed flatted.parse; actual native process exits0",
+  "form_node": "On form submission",
+  "binary_field": "Native_file",
+  "file_base64": "TW9kdWxlIHRhcmdldCBuOG4gZXhhY3QgbmF0aXZlIGJ5dGVzCgD/w6k=",
+  "file_bytes": 41,
+  "file_sha256": "2f74aab30c2f86cce0a502bfabcbb5e8d287ba3332c525f50d942a84d3abff9e",
+  "captures": [
+    {
+      "fixture": "native-1.120.0-multipart.flatted.json",
+      "table_entries": 32,
+      "source_line": 3,
+      "input_sha256": "01bf73be8d16accc9b97b226289735d33f86d6d94be0bb2d465d3e5d7dc98df7",
+      "native_flatted_parse_actual_exit": 0,
+      "native_parsed_stdout_sha256": "c2525d14813bcf43da5a3acd37d4838fd1ee550f902c7db93bb228e21df06b02",
+      "fixture_sha256": "02e530294f30bb30867e649bf8b6dbcf23e6851bef3057b493358c13d6e96919"
+    },
+    {
+      "fixture": "native-1.120.0-json.flatted.json",
+      "table_entries": 33,
+      "source_line": 5,
+      "input_sha256": "57caed5863b176e08e7f80a81d2fbf1844531a4b6a7454e6a00f6fafe7b75f55",
+      "native_flatted_parse_actual_exit": 0,
+      "native_parsed_stdout_sha256": "125e3bcfe5e3c5ab8b44f79ea0c6653df9a479f76c9167360ab58bf7c6102100",
+      "fixture_sha256": "d15a9fca246369d16edc5e1ba10dfee03bbc65d544808149ce7b9705723b84c5"
+    }
+  ]
+}

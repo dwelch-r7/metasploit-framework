@@ -1,0 +1,90 @@
+[
+  {
+    "startData": "1",
+    "resultData": "2",
+    "executionData": "3"
+  },
+  {
+    "destinationNode": "4"
+  },
+  {
+    "runData": "5",
+    "pinData": "6",
+    "lastNodeExecuted": "4"
+  },
+  {
+    "contextData": "7",
+    "nodeExecutionStack": "8",
+    "waitingExecution": "9"
+  },
+  "On form submission",
+  {
+    "On form submission": "10"
+  },
+  {},
+  {},
+  [],
+  {},
+  [
+    "11"
+  ],
+  {
+    "startTime": 1794666441878,
+    "executionIndex": 0,
+    "source": "12",
+    "hints": "13",
+    "executionTime": 1,
+    "executionStatus": "14",
+    "data": "15"
+  },
+  [],
+  [],
+  "success",
+  {
+    "main": "16"
+  },
+  [
+    "17"
+  ],
+  [
+    "18"
+  ],
+  {
+    "json": "19",
+    "binary": "20",
+    "pairedItem": "21"
+  },
+  {
+    "Native file": "22",
+    "submittedAt": "23",
+    "formMode": "24"
+  },
+  {
+    "Native_file": "25"
+  },
+  {
+    "item": 0
+  },
+  [
+    "26"
+  ],
+  "2026-11-14T09:27:21.843-05:00",
+  "test",
+  {
+    "mimeType": "27",
+    "fileType": "28",
+    "fileExtension": "29",
+    "data": "30",
+    "fileName": "31",
+    "fileSize": "32"
+  },
+  {
+    "filename": "31"
+  },
+  "text/plain",
+  "text",
+  "txt",
+  "TW9kdWxlIHRhcmdldCBuOG4gZXhhY3QgbmF0aXZlIGJ5dGVzCgD/w6k=",
+  "native.bin",
+  "41 B"
+]
