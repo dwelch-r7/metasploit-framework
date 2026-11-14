@@ -135,6 +135,30 @@ The final native authenticated calibration archive is
 `85dcf08fafef89310e29c332765ef6d22f1b636ef89dffa9f3cd0c0fff737147`.
 These setup/oracle failures were investigated before drawing module verdicts.
 
+## CI discovery follow-up
+
+The first published head's [Ruby 3.4 content job](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43545834622/job/132296804409)
+failed while discovering this acceptance spec: its top-level `HG_AUTH` lookup
+raised before tag filtering. Local reproduction exits 1 with the same KeyError.
+The case-definition lookup now defaults to `none` when the lab environment is
+absent; executing the lab still requires its normal runtime configuration.
+
+With no lab environment, the content-filtered load now exits 0 and passes seven
+shared DatastoreFormatting examples. Acceptance dry runs with `HG_AUTH=none`
+and `HG_AUTH=config` exit 0 and select the same nine and seven example
+definitions as the genuine completed matrix. Strict lint remains clean for
+the functional spec. These discovery checks create no containers.
+
+The full functional matrix was not replayed for this discovery-only fallback:
+all four runtime manifests explicitly set `HG_AUTH`, the configured branches
+and test bodies are unchanged, and the owner source and other 59 selected
+inputs match the original archive. The original archive remains the immutable
+as-tested snapshot. The updated spec SHA-256 is
+`e8f955f945b1115ce2ee601988128443da976df7497adb9868de41fdb9230d9f`.
+Follow-up evidence is sealed in
+`/Users/dwelch/.codex/reports/hugegraph-discovery-fix-20261114` (17 files), manifest
+`15b6248d46cdb782d428fc79bbf632f631a7b411e14628c31ce2441d7d0169c6`.
+
 ## Self-review and remaining scope
 
 **Summary:** The four genuine configurations qualify the covered owner paths;
