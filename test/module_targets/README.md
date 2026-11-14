@@ -1,6 +1,17 @@
 # Container module acceptance tests
 
-Latest: the [Langflow authenticated execution checkpoint](VERIFICATION-20261114-langflow-execution.md)
+Latest: the [Langflow custom-component checkpoint](VERIFICATION-20261114-langflow-custom-component.md)
+reaches **235 modules qualified in covered paths, 279 profiles and 2,666 examples**.
+All 17 cases and 34 public calls pass: four exact commands, six complete session
+lifecycles, both Meterpreter fork settings and complete backend builtin namespace
+restoration. Shared guards prevent duplicate execution; isolated workers and
+origin/worker-aware cleanup preserve state. The disabled custom-code policy
+rejects execution, so this result does not establish the broader advisory's
+policy-bypass path. The supported login allowance keeps the suite quick while
+throttling remains enabled. Three capped containers run serially; all 16 final
+teardown queries pass. The broader campaign remains incomplete; no PR is created.
+
+The earlier [Langflow authenticated execution checkpoint](VERIFICATION-20261114-langflow-execution.md)
 reaches **234 modules qualified in covered paths, 277 profiles and 2,649 examples**.
 All ten cases and twenty public calls pass, with four exact commands and six
 complete Python shell/Meterpreter lifecycles. Both Meterpreter fork settings,
