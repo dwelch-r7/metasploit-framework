@@ -1,0 +1,8 @@
+services:
+  target:
+    extends: {file: ../langflow_custom/compose.yaml, service: target}
+    environment: {LANGFLOW_ALLOW_CUSTOM_COMPONENTS: "false"}
+  reporting_db:
+    extends: {file: ../gopher/compose.yaml, service: reporting_db}
+  framework:
+    extends: {file: ../gopher/compose.yaml, service: framework}

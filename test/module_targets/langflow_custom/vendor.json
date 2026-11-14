@@ -1,0 +1,20 @@
+{
+  "image": "langflowai/langflow@sha256:0a496cd7f76f765e53611da90c565039e3413c93940f4d403039c5d8e7f80c6a",
+  "installed": {
+    "uid": 1000,
+    "gid": 0,
+    "python": "3.14.5",
+    "versions": {
+      "langflow": "1.10.0",
+      "langflow-base": "0.10.0",
+      "lfx": "1.10.0",
+      "mcp": "1.27.2"
+    }
+  },
+  "sources": {
+    "langflow/api/v1/endpoints.py": "417bb2ae494c3cf1add6cef29b03648714ac43ecb9fe89c1466efce4c822da21",
+    "lfx/services/settings/base.py": "709f8192a241e248ead5f7b106888957d2ca4aaaa80cc80e1b6205ea1993bb7a",
+    "lfx/custom/utils.py": "ef2017532431e8b56b6f463fdcdd407913c0de986036c6fdf4c0f1d31aee46b3",
+    "lfx/custom/validate.py": "efbe444ca3b0aa6b299dcb78bc3d370c710f30e449d2445c6ed1b58b9b3bb382"
+  }
+}
