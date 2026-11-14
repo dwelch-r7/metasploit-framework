@@ -1,6 +1,16 @@
 # Container module acceptance tests
 
-Latest: the [Langflow MCP stdio checkpoint](VERIFICATION-20261114-langflow-stdio.md)
+Latest: the [Langflow command-validation checkpoint](VERIFICATION-20261114-langflow-command-validation.md)
+reaches **238 modules qualified in covered paths, 286 profiles and 2,730 examples**.
+All 27 cases and 54 public calls pass across three genuine profiles, including
+18 exact commands and twelve complete session lifecycles. Source corrections
+prevent backend blocking and unsupported safe-version claims; authentication
+fallback, both Meterpreter fork settings and complete process restoration pass.
+All 24 independent teardown queries pass and Docker is empty. Earlier setup
+and module failures are preserved separately. The broader campaign remains
+incomplete; no PR is created.
+
+The preceding [Langflow MCP stdio checkpoint](VERIFICATION-20261114-langflow-stdio.md)
 reaches **237 modules qualified in covered paths, 283 profiles and 2,703 examples**.
 All 17 cases and 34 public calls pass: four exact commands and six complete
 session lifecycles, including nonforked Meterpreter proofs after 22 seconds.
