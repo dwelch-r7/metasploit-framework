@@ -1,0 +1,26 @@
+services:
+  target:
+    image: hugegraph/hugegraph@sha256:be1f6ebf14b56d68f280a7b6b14654c4fe180412a30cea7532acc651158925f1
+    platform: linux/amd64
+    init: true
+    cpus: 1
+    mem_limit: 1024m
+    memswap_limit: 1024m
+    pids_limit: 256
+    environment:
+      JAVA_OPTIONS: -Xms256m -Xmx384m -XX:+UseSerialGC -XX:ActiveProcessorCount=2 -Dio.netty.eventLoopThreads=2
+      HG_BACKEND: rocksdb
+      HG_PREFIX: ""
+      HG_AUTH: none
+    entrypoint: [/bin/bash, /opt/module-target-start.sh]
+    volumes: ["./entrypoint.sh:/opt/module-target-start.sh:ro"]
+    ports: ["127.0.0.1::8080"]
+    healthcheck:
+      test: [CMD, /bin/bash, /opt/module-target-start.sh, health]
+      interval: 3s
+      timeout: 5s
+      retries: 60
+  reporting_db:
+    extends: {file: ../gopher/compose.yaml, service: reporting_db}
+  framework:
+    extends: {file: ../gopher/compose.yaml, service: framework}

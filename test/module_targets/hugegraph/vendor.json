@@ -1,0 +1,38 @@
+{
+  "images": [
+    {
+      "version": "1.0.0",
+      "image": "hugegraph/hugegraph@sha256:be1f6ebf14b56d68f280a7b6b14654c4fe180412a30cea7532acc651158925f1",
+      "platform": "linux/amd64",
+      "tag": "hugegraph/hugegraph:1.0.0",
+      "created": "2023-09-15T02:39:43.539501678Z",
+      "source": "https://github.com/apache/hugegraph/tree/c8e0f0c3e12a47694501703e2cabfc9bd97d671c",
+      "implicit_application_volume": [
+        "/hugegraph"
+      ]
+    },
+    {
+      "version": "1.2.0",
+      "image": "hugegraph/hugegraph@sha256:19f147722a45d77e2cf23d86d35b3768d8571d7a6ba32c5ea1d9566fb1eff9a8",
+      "platform": "linux/amd64",
+      "tag": "hugegraph/hugegraph:1.2.0",
+      "created": "2024-01-30T02:26:54.012567924Z",
+      "source": "https://github.com/apache/hugegraph/tree/7635c67865e5bd66958592572ce0557b24aa0718",
+      "implicit_application_volume": [
+        "/hugegraph-server"
+      ]
+    },
+    {
+      "version": "1.3.0",
+      "image": "hugegraph/hugegraph@sha256:fa3ab86b161f9150f81bdd70ce51c8118ca45cf3e29906941d6ce8c2c461dc91",
+      "platform": "linux/amd64",
+      "tag": "hugegraph/hugegraph:1.3.0",
+      "created": "2024-04-03T02:38:45.394250251Z",
+      "source": "https://github.com/apache/hugegraph/tree/6a4041e21c437b6e22d8a78e81f825bc0ab48a3d",
+      "implicit_application_volume": [
+        "/hugegraph-server"
+      ]
+    }
+  ],
+  "note": "Image digests establish the tested binaries; release-tag source is context and is not asserted byte-identical to image startup scripts."
+}

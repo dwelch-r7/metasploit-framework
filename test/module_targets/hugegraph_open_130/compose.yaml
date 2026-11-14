@@ -1,0 +1,9 @@
+services:
+  target:
+    extends: {file: ../hugegraph/compose.yaml, service: target}
+    image: hugegraph/hugegraph@sha256:fa3ab86b161f9150f81bdd70ce51c8118ca45cf3e29906941d6ce8c2c461dc91
+    environment: {HG_BACKEND: memory}
+  reporting_db:
+    extends: {file: ../gopher/compose.yaml, service: reporting_db}
+  framework:
+    extends: {file: ../gopher/compose.yaml, service: framework}

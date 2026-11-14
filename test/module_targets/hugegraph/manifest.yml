@@ -1,0 +1,48 @@
+{
+  "spec": "spec/modules/exploits/linux/http/apache_hugegraph_gremlin_rce_target_spec.rb",
+  "expected_examples": 9,
+  "console": true,
+  "test_env": {
+    "HG_VERSION": "1.0.0",
+    "HG_PREFIX": "",
+    "HG_AUTH": "none"
+  },
+  "modules": [
+    "exploit/linux/http/apache_hugegraph_gremlin_rce"
+  ],
+  "ports": {
+    "target": 8080
+  },
+  "support_files": [
+    "documentation/modules/exploit/linux/http/apache_hugegraph_gremlin_rce.md",
+    "test/module_targets/hugegraph/compose.yaml",
+    "test/module_targets/hugegraph/entrypoint.sh",
+    "test/module_targets/hugegraph/native_probe.py",
+    "test/module_targets/hugegraph/README.md",
+    "test/module_targets/log4shell_execution/session_control.rb",
+    "test/module_targets/druid_sessions/session_control.rb",
+    "test/module_targets/gopher/compose.yaml",
+    "tools/dev/run_guarded_module_target_tests.rb",
+    "lib/msf/core/exploit/remote/auto_check.rb",
+    "lib/msf/core/exploit/remote/http_client.rb",
+    "lib/msf/core/exploit/remote/http_server.rb",
+    "modules/payloads/singles/cmd/unix/generic.rb",
+    "modules/payloads/singles/cmd/unix/reverse_bash.rb",
+    "modules/payloads/adapters/cmd/linux/http/x64.rb",
+    "modules/payloads/stagers/linux/x64/reverse_tcp.rb",
+    "modules/payloads/stages/linux/x64/meterpreter.rb",
+    "modules/payloads/stages/linux/x64/shell.rb",
+    "lib/msf/core/payload/adapter/fetch.rb",
+    "lib/msf/core/payload/adapter/fetch/http.rb",
+    "lib/msf/core/payload/adapter/fetch/server/http.rb",
+    "lib/msf/core/payload/adapter/fetch/linux_options.rb",
+    "lib/msf/core/payload/linux/x64/reverse_tcp.rb",
+    "spec/support/shared/contexts/wait_for_expect.rb",
+    "lib/msf/core/db_manager/session.rb",
+    "lib/msf/core/event_dispatcher.rb",
+    "lib/msf/core/general_event_subscriber.rb",
+    "lib/msf/core/exploit/file_dropper.rb",
+    "test/module_targets/hugegraph/vendor.json",
+    "spec/modules/exploits/linux/http/apache_hugegraph_gremlin_rce_spec.rb"
+  ]
+}
