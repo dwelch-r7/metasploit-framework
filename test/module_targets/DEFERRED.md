@@ -359,3 +359,30 @@ then cancellation at approximately the workflow's 60-minute job limit.
 This is incomplete acceptance, not a passing run. The underlying timeout cause
 and relation to campaign changes remain unverified; no retry or limit increase
 is used to claim a fix.
+
+## Published MCPJam checkpoint: macOS Mettle empty output
+
+The published head `85b4890d522b8e1252b61c2f3b8cbb52ee8abea5` completes with
+62 successful checks, one skipped check and one failed macOS Mettle job:
+[job 132533619202](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43623328548/job/132533619202).
+Its RSpec result is 46 examples / 1 failure. Ten printed network-interface
+assertions are explicitly allow-listed and are not additional unexpected failures.
+
+The failing `post/test/cmd_exec#test_cmd_exec_quotes` case uses
+`osx/x64/meterpreter_reverse_https` with `minimal_uris_headers.profile`.
+Artifact `14127058612` shows the intact `echo 'KKcC'` request reaching the native
+handler. Expected nonce bytes are `4b4b6343`; channel 17 returns zero data bytes
+and is closed by the server. Native debug reports child PID 17141 terminating
+with status 2 before the read. The meaning of that status and why the process
+produced no output remain unverified; no quoting, transport, race or flaky
+root cause is assigned.
+
+This workflow explicitly checks out Rapid7 Framework. With no supplied
+`metasploit_framework_commit`, both this failed job and the previous passing
+macOS job execute upstream `bea1fb069e79cb610fe3981f16b8697790369c63`, not their
+fork trigger heads. Both report macOS 15.7.9, Ruby 3.3.13 and locked Mettle
+1.0.48 with the same dependency-cache key. Native binary digest/source identity
+is not logged. The differing outcomes do not establish a source regression or
+prove that these jobs validate this branch. Genuine module-target runs separately
+hash and execute the branch's actual owner. No CI retry or local payload execution
+was performed during this bounded read-only investigation.

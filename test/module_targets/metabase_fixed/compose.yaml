@@ -1,0 +1,10 @@
+services:
+  target:
+    extends: {file: ../metabase/compose.yaml, service: target}
+    image: metabase/metabase@sha256:5fd48fa55f6492d7366d1fa3ac783216950af7b9659bc23099db5a8723c96361
+  reporting_db:
+    extends: {file: ../metabase/compose.yaml, service: reporting_db}
+  framework:
+    extends: {file: ../gopher/compose.yaml, service: framework}
+networks:
+  default: {internal: true}

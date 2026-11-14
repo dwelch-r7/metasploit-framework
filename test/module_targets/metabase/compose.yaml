@@ -1,0 +1,42 @@
+services:
+  target:
+    image: metabase/metabase@sha256:e35de273692f7d95c54225abbd837a7b594e44ad42a47d8ae750293825215273
+    platform: linux/amd64
+    init: true
+    cpus: 1.5
+    mem_limit: 1536m
+    memswap_limit: 1536m
+    pids_limit: 256
+    environment:
+      JAVA_OPTS: -Xms64m -Xmx768m -XX:ActiveProcessorCount=2
+      MB_DB_TYPE: postgres
+      MB_DB_HOST: reporting_db
+      MB_DB_PORT: 5432
+      MB_DB_DBNAME: metabase
+      MB_DB_USER: metabase_app
+      MB_DB_PASS: module-target-metabase-password
+      MB_APPLICATION_DB_MAX_CONNECTION_POOL_SIZE: 4
+      MB_ANON_TRACKING_ENABLED: 'false'
+      MB_CHECK_FOR_UPDATES: 'false'
+      MB_JETTY_MAXTHREADS: 32
+    depends_on:
+      reporting_db: {condition: service_healthy}
+    healthcheck:
+      test: [CMD, curl, --fail, --silent, --max-time, '4', http://127.0.0.1:3000/api/health]
+      interval: 3s
+      timeout: 5s
+      retries: 120
+  reporting_db:
+    extends:
+      file: ../gopher/compose.yaml
+      service: reporting_db
+    cpus: 0.5
+    mem_limit: 256m
+    memswap_limit: 256m
+    command: [postgres, -c, shared_buffers=16MB, -c, max_connections=30, -c, work_mem=1MB, -c, maintenance_work_mem=16MB]
+    tmpfs: ["/var/lib/postgresql/data:rw,size=250m,mode=0700"]
+    volumes: [./init.sql:/docker-entrypoint-initdb.d/20-metabase.sql:ro]
+  framework:
+    extends: {file: ../gopher/compose.yaml, service: framework}
+networks:
+  default: {internal: true}

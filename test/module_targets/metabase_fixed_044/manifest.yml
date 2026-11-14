@@ -1,0 +1,47 @@
+{
+  "spec": "spec/modules/exploits/linux/http/metabase_setup_token_target_spec.rb",
+  "expected_examples": 8,
+  "console": true,
+  "module_endpoint_network": "default",
+  "modules": [
+    "exploit/linux/http/metabase_setup_token_rce"
+  ],
+  "ports": {},
+  "health_timeout": 360,
+  "support_files": [
+    "test/module_targets/metabase/acceptance.rb",
+    "test/module_targets/metabase/input_audit.rb",
+    "test/module_targets/metabase/vendor.json",
+    "test/module_targets/metabase/init.sql",
+    "test/module_targets/metabase/compose.yaml",
+    "test/module_targets/metabase/README.md",
+    "test/module_targets/gopher/compose.yaml",
+    "tools/dev/module_target_endpoint.rb",
+    "spec/support/shared/contexts/wait_for_expect.rb",
+    "lib/msf/core/exploit/remote/auto_check.rb",
+    "lib/msf/core/exploit/remote/http_client.rb",
+    "lib/rex/proto/http/client_request.rb",
+    "lib/rex/proto/http/packet.rb",
+    "documentation/modules/exploit/linux/http/metabase_setup_token_rce.md",
+    "test/module_targets/metabase/session_control.rb",
+    "test/module_targets/druid_sessions/session_control.rb",
+    "modules/payloads/singles/cmd/unix/reverse_bash.rb",
+    "modules/payloads/singles/cmd/unix/reverse_netcat.rb",
+    "modules/payloads/adapters/cmd/linux/http/x64.rb",
+    "modules/payloads/singles/linux/x64/meterpreter_reverse_tcp.rb",
+    "lib/msf/core/payload/adapter/fetch.rb",
+    "lib/msf/core/payload/adapter/fetch/http.rb",
+    "lib/msf/core/payload/adapter/fetch/linux_options.rb",
+    "lib/msf/core/payload/adapter/fetch/server/http.rb",
+    "lib/msf/core/payload/linux/x64/elf_loader.rb",
+    "lib/msf/base/sessions/mettle_config.rb",
+    "lib/msf/core/handler/reverse_tcp.rb",
+    "spec/modules/exploits/linux/http/metabase_setup_token_contracts_spec.rb"
+  ],
+  "test_env": {
+    "METABASE_TARGET_VERSION": "0.44.7.1",
+    "METABASE_TARGET_VULNERABLE": "false",
+    "METABASE_SESSION_CASES": "none",
+    "METABASE_PADDING_CASES": "false"
+  }
+}

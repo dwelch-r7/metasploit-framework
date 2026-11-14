@@ -1,0 +1,68 @@
+{
+  "0.46.6": {
+    "version": "0.46.6",
+    "image": "metabase/metabase@sha256:e35de273692f7d95c54225abbd837a7b594e44ad42a47d8ae750293825215273",
+    "image_id": "sha256:13f6c2b2671ab9b2e39d52949efde3de1cdf67324383014f0432d076ba905b3c",
+    "jar_sha256": "8511069190e54d08cdd35dbf89333c2031eb5bbdb637ee20546b6c547e91e64a"
+  },
+  "0.46.6.1": {
+    "version": "0.46.6.1",
+    "image": "metabase/metabase@sha256:5fd48fa55f6492d7366d1fa3ac783216950af7b9659bc23099db5a8723c96361",
+    "image_id": "sha256:782aefc65c4c22822a498ec501670f66d8d68537b6250c5587a61c8069573d07",
+    "jar_sha256": "12d267bf515a238944bb65fceed1ef83f5ae63451c11ad5b7f7adbeaf612e5c6"
+  },
+  "0.44.4": {
+    "version": "0.44.4",
+    "image": "metabase/metabase@sha256:be34033f5de25abaa183f1970c855914d18dcbb9235b3466873bf320a53ad674",
+    "image_id": "sha256:5559a0882164c8c571f86825d24c57c4e2ac096bcaff93b1ad1b5be764eab951",
+    "jar_sha256": "72c3286a523138a4e36588b120230bfed16d19cfe25899ccc1ceacf5ca4729b6"
+  },
+  "0.44.7.1": {
+    "version": "0.44.7.1",
+    "image": "metabase/metabase@sha256:09359dc2213c4e59b85838d53869f44ea327419b323de1b1cac18ba3f1256e9c",
+    "image_id": "sha256:d4d18318bee865225db7604dbf9c844f3a7b0b0294125423485f5d749df10409",
+    "jar_sha256": "f5b9dba1803cf0bd2dc05c3133deeaff47d3f2e8f0c878356a735c1b9ff737bc"
+  },
+  "0.43.7.2": {
+    "version": "0.43.7.2",
+    "image": "metabase/metabase@sha256:c900b78b29cf9086f209d8e89007f3693e013445a512fa5069645ec33074acf0",
+    "image_id": "sha256:7f5a2e3ff3ecf5e4d9a37e1cc02656263818a8df44f62ef0cf2ada7615a73e12",
+    "jar_sha256": "f1a1c1e5c78ba13a27170cdd26b8bcc713033162ce70db550d1a9d460db6b722"
+  },
+  "0.45.4.1": {
+    "version": "0.45.4.1",
+    "image": "metabase/metabase@sha256:053016d19aad9063906955b61278a718e0611539db2d12f9e997bab70b10bd64",
+    "image_id": "sha256:902e13e806af8ee770e8c96456785e7275fa391a1e509601dfc5d2b83f42dd92",
+    "jar_sha256": "87cc5602d6c99f23372f36c5061be1d49e4b7e2a328b7643b574c1103183e68d"
+  },
+  "0.42.1": {
+    "version": "0.42.1",
+    "image": "metabase/metabase@sha256:9e19e6664f0cea9d34d6c33289bd12b6f44d2855020a710ecb31103da2aa531e",
+    "image_id": "sha256:f2138b34e0451567f45334efb3c2ec64bafab6833401b4dce097080cd72fe927",
+    "jar_sha256": "3e67155404bfe660e198e4a816f91979891bbc50ff28e720558b927300f83a58"
+  },
+  "0.43.7.1": {
+    "version": "0.43.7.1",
+    "image": "metabase/metabase@sha256:3b2c0c1f55f34a833fc02111424409a66444ff178f03e577dc4dc80c629be281",
+    "image_id": "sha256:6ccf8e1dad70d2e24670c36da1bc70768e47731d89d7788c0078aec1c7942ab6",
+    "jar_sha256": "03d4d854df93c7f1231bfd2436beb0be94f7a8ce28d35982773b6abadf8e14fd"
+  },
+  "1.46.6": {
+    "version": "1.46.6",
+    "image": "metabase/metabase-enterprise@sha256:43d55b0fa5ee32c31c1d6559a1ce2040481946bed082667460f4398e47642a4b",
+    "image_id": "sha256:e00a974b40e3151f6690fd57220b035225ed56b33fb15a705dde5ccadb99beb8",
+    "jar_sha256": "bf741d953c04bb9af9141f22b93d651bfa456e52641090c336d22cb4a71e6114"
+  },
+  "1.46.6.1": {
+    "version": "1.46.6.1",
+    "image": "metabase/metabase-enterprise@sha256:4de52b8aaa44e959f86da904d699cdf1d650359d19049dbaf344789b7337c03b",
+    "image_id": "sha256:9063d6ef7e00b4c85d9ce19b8e8a839760c1a9f1e95a385b90e195589eebb1eb",
+    "jar_sha256": "164771e39b3b1745fedcbe04c94e9b8a74bfe77f403304fdc62ec03d90aa29b3"
+  },
+  "0.45.4": {
+    "version": "0.45.4",
+    "image": "metabase/metabase@sha256:cc9be66b17eab111c4ab13e4f67bc222b040c16d37cb35bf0790dcb4664358ee",
+    "image_id": "sha256:b08c483abc4517e299a85d59d7a7d2e75afbec193eb882a633e2f57d0a18b47f",
+    "jar_sha256": "eed07c7cc83203d9022bd6be0e28f3fa617a837ec64d7f6266c7123dfd976bc8"
+  }
+}
