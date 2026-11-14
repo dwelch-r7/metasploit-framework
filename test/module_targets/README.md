@@ -1,6 +1,17 @@
 # Container module acceptance tests
 
-Latest: the [H2 console checkpoint](VERIFICATION-20261114-h2.md) reaches
+Latest: the [HugeGraph checkpoint](VERIFICATION-20261114-hugegraph.md) reaches
+**232 modules qualified in covered paths, 273 profiles and 2,630 examples**.
+All 34 cases and 90 public calls pass across four genuine configurations, with
+12 exact commands, six launch-failure cleanup cases and 18 complete session
+lifecycles. Context handling, HTTP authentication, explicit failures and worker
+restoration are fixed. Independent controls distinguish exploitable and protected
+1.3.0 configurations. Three capped containers run serially; all 36 final cleanup
+queries pass and Docker is empty. Earlier source/setup/oracle failures and an
+observation-helper race remain separately documented. The broader campaign
+remains incomplete; no PR is created.
+
+The earlier [H2 console checkpoint](VERIFICATION-20261114-h2.md) reaches
 **231 modules qualified in covered paths, 269 profiles and 2,596 examples**.
 All 42 cases and 96 public calls pass on three genuine H2 versions, with
 18 exact commands and 12 complete Bash/Python Meterpreter lifecycles. Honest
