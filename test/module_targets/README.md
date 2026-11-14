@@ -1,6 +1,18 @@
 # Container module acceptance tests
 
-Latest: the [Langflow custom-component checkpoint](VERIFICATION-20261114-langflow-custom-component.md)
+Latest: the [Langflow saved-flow checkpoint](VERIFICATION-20261114-langflow-flow.md)
+reaches **236 modules qualified in covered paths, 281 profiles and 2,686 examples**.
+All 20 cases and 40 public calls pass across enabled and disabled custom-code
+policies, with eight exact commands and twelve complete session lifecycles.
+The original zombie defect is fixed with isolated, reaped payload processes;
+finite build completion and per-attempt flow cleanup are verified. Native
+controls prove the empty-type bypass and preserve the backend namespace and
+flow registry. Malformed version checks now return `Unknown`. Three capped
+containers run serially; all 16 teardown queries pass and Docker is empty.
+The advisory's separate wrapper path and other versions remain unqualified.
+The broader campaign remains incomplete; no PR is created.
+
+The [Langflow custom-component checkpoint](VERIFICATION-20261114-langflow-custom-component.md)
 reaches **235 modules qualified in covered paths, 279 profiles and 2,666 examples**.
 All 17 cases and 34 public calls pass: four exact commands, six complete session
 lifecycles, both Meterpreter fork settings and complete backend builtin namespace
