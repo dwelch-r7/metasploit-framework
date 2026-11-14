@@ -1,6 +1,17 @@
 # Container module acceptance tests
 
-Latest: the [Langflow MCP checkpoint](VERIFICATION-20261114-langflow-mcp.md) reaches
+Latest: the [Langflow authenticated execution checkpoint](VERIFICATION-20261114-langflow-execution.md)
+reaches **234 modules qualified in covered paths, 277 profiles and 2,649 examples**.
+All ten cases and twenty public calls pass, with four exact commands and six
+complete Python shell/Meterpreter lifecycles. Both Meterpreter fork settings,
+live health, database closure, exact remote PID removal and the complete original
+process baseline are verified. Source fixes prevent validation blocking and
+keep payload resources in disposable, waited Python workers. Three capped
+containers run serially; all eight independent teardown queries pass. Earlier
+harness and source failures remain separately preserved. The broader campaign
+remains incomplete; no PR is created.
+
+The earlier [Langflow MCP checkpoint](VERIFICATION-20261114-langflow-mcp.md) reaches
 **233 modules qualified in covered paths, 276 profiles and 2,639 examples**.
 All nine cases and eighteen public calls pass, with four complete JSON loot
 comparisons and matching database rows. Genuine native controls verify empty,
