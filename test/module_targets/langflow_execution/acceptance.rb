@@ -128,6 +128,7 @@ module Acceptance
           expect(@baseline.fetch('processes').map { |row| row.fetch('pid') }).not_to include(proof.fetch('pid'))
           expect(native("live-#{@case}-#{iteration}", action: 'health')).to include('version' => self.class.metadata.fetch(:target_version), 'package' => 'Langflow')
           record('session-lifecycle.jsonl', phase: 'proof', payload: payload, proof: proof, process: process)
+          yield(identifier, path, marker, proof, process) if block_given?
           record('session-lifecycle.jsonl', phase: 'shutdown', result: rpc("LangflowSessionControl.shutdown(framework, #{identifier})"))
           rpc("begin; framework.sessions[#{identifier}]&.kill; true; end")
           poll(15) { expect(process_state.fetch('processes').any? { |row| row.values_at('pid', 'birth') == process.values_at('pid', 'birth') }).to be(false) }

@@ -41,7 +41,7 @@ class Native:
     def execute(self, *arguments):
         return self.command('exec', '-T', 'target', *arguments)
 
-    def http(self, path, token=None, data=None, method=None, form=None):
+    def http(self, path, token=None, data=None, method=None, form=None, timeout=10):
         headers = {}
         encoded = None
         if data is not None:
@@ -55,7 +55,7 @@ class Native:
         request = urllib.request.Request('http://127.0.0.1:' + self.port + path,
                                          headers=headers, data=encoded, method=method)
         try:
-            response = urllib.request.urlopen(request, timeout=10)
+            response = urllib.request.urlopen(request, timeout=timeout)
         except urllib.error.HTTPError as error:
             response = error
         # A successful SSE stream has no finite body; inspect only its headers.
