@@ -1,0 +1,75 @@
+{
+  "platform": "linux/amd64",
+  "images": {
+    "1.2.0": "langflowai/langflow@sha256:307fb62f510925eaf30c4ee1a24aaeb8201ea41ea1ac8c893f821a9c02246bac",
+    "1.3.2": "langflowai/langflow@sha256:a210e2499314e25efd5cb42ddef6725c610e552ab648db3322bea82b297bed46"
+  },
+  "installed": {
+    "1.2.0": {
+      "uid": 1000,
+      "gid": 0,
+      "python": "3.12.3",
+      "versions": {
+        "langflow": "1.2.0",
+        "langflow-base": "0.2.0",
+        "lfx": null,
+        "mcp": "1.1.3"
+      },
+      "sources": {
+        "langflow/api/__init__.py": "1c742e839a86e19ef18f2e623abbe88fc000c4d81bcdd8a45a9798f5ecf42f70",
+        "langflow/api/router.py": "c6908ba9fbfc20a779e8e308ce4096e551a0b85ff6cd2c8b5eb93fb15d06c98f",
+        "langflow/api/v1/base.py": "131df53e19101d41c26f9b566827eb4efb1450fc4157c24608db1f3a02f1c731",
+        "langflow/api/health_check_router.py": "2904aaba76b686e6d1fe4dda1bb2753eb6f0315643e9f88aa22914bf2d7def51",
+        "langflow/api/v1/validate.py": "e86f61ab969f54b5ea37c1b7624a5abaa1010f0502494a5cbc79822d7966b7bb",
+        "langflow/api/v1/login.py": "026127837f5d45776865e2767f48e282edaec95d553c00e15d421fbcdb5627a0",
+        "langflow/api/utils.py": "cec021302a002cebe15eb14f6686b045d46da984874af081ed1685f8be2e644b",
+        "langflow/utils/validate.py": "dc7645bd79fed75913a7ea7f64198a8c04be66030890416c8f824684d731121f",
+        "langflow/services/auth/utils.py": "5faef54f591c084da8bad8008e155073f7bc119997fa96952a3c63e84eda38a2",
+        "langflow/services/settings/auth.py": "a5bf26419c4181b275cb8c5f14200cdb1c4f2ef8144cee1262f17d6ccfce178e",
+        "langflow/services/settings/base.py": "ec8063c4cb6c0850058b9c6883750f1d6907141daf82c31642b501e043058af4",
+        "langflow/services/settings/constants.py": "8b8f65c80a067402d2015b482b890928524b1b99956e0ba3be301b3d2654a946",
+        "langflow/main.py": "66ed74feda3fcf073df1bd196344c1e6553bd3773519caeb3b024771150af24c",
+        "langflow/__main__.py": "2c82433add4ccd6d8bdfff83f41b1ce6f2abc8ab8d269718b15f8ce04f944b6b",
+        "langflow/api/v1/endpoints.py": "22226d87879dbd77929047c9a0eef02273505d622f5bd2c34cddce80ffe96574",
+        "langflow/custom/eval.py": "de4fb3f08a7958b0440960208c3c4cd1d5d46be278ce3b56b57309d0ac05a55d",
+        "langflow/custom/utils.py": "39d4d09ec1c6665657d44e843d1d54b82354d246e9004922baa58185759694b2",
+        "langflow/custom/custom_component/component.py": "c0ff57801bf0456ba8522bec7c2b64d272b26816a5f678647dcd98ca58f810f6",
+        "langflow/custom/custom_component/custom_component.py": "3d92fa837c661406366bb088d5e780e9511b837d6c6ce1a657ac23a8cf425b6f",
+        "langflow/template/frontend_node/base.py": "11a2709d68ffe666ac25e957b59673f6327fae89f4b4259bec77012b1242a2a2"
+      }
+    },
+    "1.3.2": {
+      "uid": 1000,
+      "gid": 0,
+      "python": "3.12.3",
+      "versions": {
+        "langflow": "1.3.2",
+        "langflow-base": "0.3.2",
+        "lfx": null,
+        "mcp": "1.1.3"
+      },
+      "sources": {
+        "langflow/api/__init__.py": "733fb6671e96320dfec6b72ad6b0c17c41d51e53f1ce828c9338c8d05a8b2d05",
+        "langflow/api/router.py": "7b7a21a832f2d5934c28c9881e0ab0739d975e6ef7b3ddd8a8082ace3ec4dcff",
+        "langflow/api/v1/base.py": "131df53e19101d41c26f9b566827eb4efb1450fc4157c24608db1f3a02f1c731",
+        "langflow/api/health_check_router.py": "2904aaba76b686e6d1fe4dda1bb2753eb6f0315643e9f88aa22914bf2d7def51",
+        "langflow/api/v1/validate.py": "4ac256975a8f9ec98ff0e806665f154bdd41c1a0a8c5db2cf9d13b0d57fd3119",
+        "langflow/api/v1/login.py": "026127837f5d45776865e2767f48e282edaec95d553c00e15d421fbcdb5627a0",
+        "langflow/api/utils.py": "468777d5c80da64617fa8b7108b6e297e84fe35d8cc652befc4adfed42fb86d8",
+        "langflow/utils/validate.py": "949be0614324e84c042582e7096080f354d06456a7edb5485810c964bc281594",
+        "langflow/services/auth/utils.py": "5faef54f591c084da8bad8008e155073f7bc119997fa96952a3c63e84eda38a2",
+        "langflow/services/settings/auth.py": "a5bf26419c4181b275cb8c5f14200cdb1c4f2ef8144cee1262f17d6ccfce178e",
+        "langflow/services/settings/base.py": "37d337ec34fe29a9c768aee3f1de3615a43d02ebe1208d12b906cd4dd6d75ea0",
+        "langflow/services/settings/constants.py": "51ff07ac63a9444fb9e4867b6a8a6c66c127cc16fdad13e2fbe3c5bc97d41aac",
+        "langflow/main.py": "789aebb69cb40c6661be416b15ef655f21fabe5b609f3529a53416106e716f5b",
+        "langflow/__main__.py": "bc06184c8a1017273dbb9d4630fe4e6efd58e67e98a88117e87d2057cc2709a3",
+        "langflow/api/v1/endpoints.py": "420abdcf61a8a33cf2a17bcca35f0014f220ea9405d66c32493f5a32e9a11657",
+        "langflow/custom/eval.py": "de4fb3f08a7958b0440960208c3c4cd1d5d46be278ce3b56b57309d0ac05a55d",
+        "langflow/custom/utils.py": "33aa8e5dc69d36a56f24110038e1d4cffaa16218efd513c1a7c8ec6516c4b464",
+        "langflow/custom/custom_component/component.py": "b0cbffd71da742bb69f3e155c2b5996a0ff64fd16632fe4c221bfebe94e61f74",
+        "langflow/custom/custom_component/custom_component.py": "f761cd38d49b8d8c12c8605ab311ba4f2f33ddfc14f391c60e08bcc71bfeae16",
+        "langflow/template/frontend_node/base.py": "302caa937e3cf1e27281f195f8989f3f04bc0dd8e3606ee172c9729c52c126de"
+      }
+    }
+  }
+}

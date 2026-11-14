@@ -1,0 +1,11 @@
+services:
+  target:
+    extends: {file: ../langflow_validation_autologin/compose.yaml, service: target}
+    environment:
+      LANGFLOW_AUTO_LOGIN: "false"
+      LANGFLOW_SUPERUSER: module-target-admin
+      LANGFLOW_SUPERUSER_PASSWORD: module-target-native-password
+  reporting_db:
+    extends: {file: ../gopher/compose.yaml, service: reporting_db}
+  framework:
+    extends: {file: ../gopher/compose.yaml, service: framework}

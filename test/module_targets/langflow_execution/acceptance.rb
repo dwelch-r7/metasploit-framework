@@ -47,6 +47,7 @@ module Acceptance
         settings.delete('USERNAME')
         settings.delete('PASSWORD')
       end
+      settings.delete('TARGETURI') unless self.class.metadata.fetch(:target_uri_option, true)
       settings.delete('CMD') unless settings.fetch('PAYLOAD') == command_payload
       output = nil
       begin

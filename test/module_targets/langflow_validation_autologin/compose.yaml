@@ -1,0 +1,31 @@
+services:
+  target:
+    image: langflowai/langflow@sha256:a210e2499314e25efd5cb42ddef6725c610e552ab648db3322bea82b297bed46
+    platform: linux/amd64
+    init: true
+    cpus: 1
+    mem_limit: 3072m
+    memswap_limit: 3072m
+    pids_limit: 256
+    command: [langflow, run, --backend-only, --workers, "1", --host, 0.0.0.0, --port, "7860", --log-level, warning]
+    environment:
+      LANGFLOW_AUTO_LOGIN: "true"
+      LANGFLOW_LAZY_LOAD_COMPONENTS: "false"
+      LANGFLOW_CONFIG_DIR: /tmp/module-target-langflow
+      LANGFLOW_DATABASE_URL: sqlite:////tmp/module-target-langflow/langflow.db
+      LANGFLOW_DO_NOT_TRACK: "true"
+      DO_NOT_TRACK: "1"
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+    volumes: ["../h2_console/process_state.py:/opt/module-target-process-state.py:ro"]
+    ports: ["127.0.0.1::7860"]
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request,json; r=urllib.request.urlopen('http://127.0.0.1:7860/api/v1/version',timeout=3); assert json.load(r)['version']=='1.3.2'"]
+      interval: 3s
+      timeout: 5s
+      retries: 100
+  reporting_db:
+    extends: {file: ../gopher/compose.yaml, service: reporting_db}
+  framework:
+    extends: {file: ../gopher/compose.yaml, service: framework}
