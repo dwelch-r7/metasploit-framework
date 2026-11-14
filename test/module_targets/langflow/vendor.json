@@ -1,0 +1,21 @@
+{
+  "image": "langflowai/langflow@sha256:836a3996d52cfc6be24e1e01a56171c1a00f603e05cebc65b6d10acf3fbf016d",
+  "platform": "linux/amd64",
+  "installed": {
+    "uid": 1000,
+    "gid": 0,
+    "python": "3.12.12",
+    "versions": {
+      "langflow": "1.8.4",
+      "langflow-base": "0.8.4",
+      "lfx": "0.3.4",
+      "mcp": "1.26.0"
+    },
+    "sources": {
+      "langflow/api/v1/mcp.py": "d5cb47c7e01f8c54a7f6b721275c335246fbfb4076ea477ae9d652c5b9db11c0",
+      "langflow/services/auth/service.py": "1e4f84d7c601e2b04db5fc128e1f9d08b73f84e4909c1f93b841222e51510ab2",
+      "lfx/services/settings/auth.py": "816b43d998cd986a4ecc3413532867bb28487bc2fd337e8689bf852dc23a35ac"
+    }
+  },
+  "source": "https://github.com/langflow-ai/langflow/tree/v1.8.4"
+}

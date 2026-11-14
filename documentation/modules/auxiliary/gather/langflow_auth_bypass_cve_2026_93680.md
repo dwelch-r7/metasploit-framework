@@ -55,6 +55,28 @@ sudo docker run -d \
 
 The maximum number of seconds to wait for the MCP SSE response. Default: `15`.
 
+### Automated container coverage
+
+The [Langflow target lab](../../../../test/module_targets/langflow/README.md)
+keeps a digest-pinned real application and native MCP controls alongside the
+functional tests. From the Framework root:
+
+```sh
+DOCKER_CONTEXT=default BUILDX_BUILDER=default bundle exec ruby tools/dev/run_guarded_module_target_tests.rb langflow langflow_empty langflow_auth
+```
+
+The profiles cover empty and populated MCP metadata on Langflow 1.8.4 with
+`LANGFLOW_AUTO_LOGIN=true` and `LANGFLOW_SKIP_AUTH_AUTO_LOGIN=false`, plus an
+authentication-required deployment with auto-login disabled. Native controls
+must show that ordinary REST requests require credentials, that the exposed
+SSE endpoint yields the expected metadata, and that the protected SSE service
+works with valid credentials. The populated case includes Unicode and a long
+description. The tests compare saved JSON and database loot, repeat `run` on
+the same selected owner, and verify target-state restoration and teardown.
+
+Three capped containers run at a time. No external AI provider is required.
+These configurations do not establish behavior on other versions or deployments.
+
 ## Scenarios
 ```
 msf > use auxiliary/gather/langflow_auth_bypass_cve_2026_93680

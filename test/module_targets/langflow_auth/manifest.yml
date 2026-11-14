@@ -1,0 +1,30 @@
+{
+  "spec": "spec/modules/auxiliary/gather/langflow_auth_bypass_target_spec.rb",
+  "expected_examples": 3,
+  "console": true,
+  "test_env": {
+    "LANGFLOW_PROFILE": "auth"
+  },
+  "modules": [
+    "auxiliary/gather/langflow_auth_bypass_cve_2026_93680"
+  ],
+  "ports": {
+    "target": 7860
+  },
+  "support_files": [
+    "documentation/modules/auxiliary/gather/langflow_auth_bypass_cve_2026_93680.md",
+    "test/module_targets/langflow/acceptance.rb",
+    "test/module_targets/langflow/native.py",
+    "test/module_targets/langflow/sdk_control.py",
+    "test/module_targets/langflow/vendor.json",
+    "test/module_targets/langflow/compose.yaml",
+    "test/module_targets/langflow/README.md",
+    "test/module_targets/gopher/compose.yaml",
+    "tools/dev/run_guarded_module_target_tests.rb",
+    "lib/msf/core/exploit/remote/http_client.rb",
+    "lib/msf/core/auxiliary/report.rb",
+    "lib/rex/proto/http/client.rb",
+    "lib/msf/core/db_manager/loot.rb",
+    "lib/msf/core/db_manager/workspace.rb"
+  ]
+}
