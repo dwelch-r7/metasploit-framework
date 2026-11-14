@@ -1,6 +1,18 @@
 # Container module acceptance tests
 
-Latest: the [Langflow saved-flow checkpoint](VERIFICATION-20261114-langflow-flow.md)
+Latest: the [Langflow MCP stdio checkpoint](VERIFICATION-20261114-langflow-stdio.md)
+reaches **237 modules qualified in covered paths, 283 profiles and 2,703 examples**.
+All 17 cases and 34 public calls pass: four exact commands and six complete
+session lifecycles, including nonforked Meterpreter proofs after 22 seconds.
+Native controls establish active non-admin access, valid MCP discovery,
+1.9.0 inline-code rejection and preservation of both users' registry entries.
+Guarded cleanup removes persisted payload definitions and retains uncertain
+saves for retry. The version check excludes the protected REST boundary.
+Three capped containers run serially; all 16 teardown queries pass and Docker
+is empty. Broader MCP/CVE coverage remains separate; the campaign is incomplete.
+No PR is created.
+
+The [Langflow saved-flow checkpoint](VERIFICATION-20261114-langflow-flow.md)
 reaches **236 modules qualified in covered paths, 281 profiles and 2,686 examples**.
 All 20 cases and 40 public calls pass across enabled and disabled custom-code
 policies, with eight exact commands and twelve complete session lifecycles.
