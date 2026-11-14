@@ -1,6 +1,16 @@
 # Container module acceptance tests
 
-Latest: the [Langflow public-flow build checkpoint](VERIFICATION-20261114-langflow-public-build.md)
+Latest: the [Langflow stored-tool checkpoint](VERIFICATION-20261114-langflow-stored-tool.md)
+reaches **243 modules qualified in covered paths, 298 profiles and 2,842 examples**.
+All 44 cases and 94 public calls pass: twelve exact credential-created commands,
+24 complete session lifecycles and explicit fixed-version public-guard failures.
+Existing-UUID mode is trigger-only; its session cases use separately preloaded
+matching code. Source fixes isolate/reap payloads, follow finite genuine jobs
+and scope flow cleanup. All 24 final teardown queries pass and Docker is empty.
+The stronger fixed-only replay also passes, without increasing unique totals.
+The broader campaign is incomplete; no PR is created.
+
+The preceding [Langflow public-flow build checkpoint](VERIFICATION-20261114-langflow-public-build.md)
 reaches **242 modules qualified in covered paths, 295 profiles and 2,798 examples**.
 All seventeen cases and thirty-four public calls pass: four exact commands and
 six complete session lifecycles. Genuine controls distinguish supplied-definition
