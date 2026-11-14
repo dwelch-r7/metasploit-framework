@@ -1,0 +1,10 @@
+services:
+  target:
+    extends: {file: ../langflow_execution/compose.yaml, service: target}
+    environment: {LANGFLOW_ADD_PROJECTS_TO_MCP_SERVERS: "false"}
+    volumes:
+      - ./native_sdk_server.py:/opt/module-target-native-stdio-server.py:ro
+  reporting_db:
+    extends: {file: ../gopher/compose.yaml, service: reporting_db}
+  framework:
+    extends: {file: ../gopher/compose.yaml, service: framework}

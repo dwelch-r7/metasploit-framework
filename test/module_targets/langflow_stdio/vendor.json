@@ -1,0 +1,67 @@
+{
+  "images": {
+    "1.8.4": "langflowai/langflow@sha256:836a3996d52cfc6be24e1e01a56171c1a00f603e05cebc65b6d10acf3fbf016d",
+    "1.9.0": "langflowai/langflow@sha256:edfde94f14ec531ab30d6300eb5147b95e8237c5dc78417db77f2214a4fba973"
+  },
+  "installed": {
+    "1.8.4": {
+      "installed": {
+        "uid": 1000,
+        "gid": 0,
+        "python": "3.12.12",
+        "versions": {
+          "langflow": "1.8.4",
+          "langflow-base": "0.8.4",
+          "lfx": "0.3.4",
+          "mcp": "1.26.0"
+        }
+      },
+      "settings": {
+        "mcp_server_timeout": 20,
+        "rate_limit_enabled": null,
+        "rate_limit_per_minute": null,
+        "add_projects_to_mcp_servers": false
+      },
+      "sources": {
+        "langflow/api/v2/mcp.py": "55c4df050fa8dd329e4d2990c6c34a0801af942acd2843c4717b42554f193441",
+        "langflow/api/v2/schemas.py": "bb00f41666ae3e742c04017ac497a288d818a9cb12f748b7a0a672a0a8de5579",
+        "lfx/base/mcp/constants.py": "fb55e72717a396a9bdcecd51f75a86b4e797fbf175669747573088a940af8601",
+        "lfx/base/mcp/util.py": "404fff05ea3adf27c808db121169d894d8ed996d2726a4470e088880f49c4c0a",
+        "lfx/base/mcp/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "lfx/services/settings/base.py": "a77605edc9ccd1d95c18fb3fde1cc5e0634dde4e5592fd1c0afce2b5d0780aee",
+        "langflow/main.py": "6dfbf2eb6cfe8f8e0446d3d1a9755bdea251ef4d288bbf6fbee64dd3638e3d81",
+        "langflow/api/utils/mcp/config_utils.py": "04c10e3a79e469469e7ba5dd93bc257c8c4956e65ba85716d17a2198a70a81a7"
+      }
+    },
+    "1.9.0": {
+      "installed": {
+        "uid": 1000,
+        "gid": 0,
+        "python": "3.12.13",
+        "versions": {
+          "langflow": "1.9.0",
+          "langflow-base": "0.9.0",
+          "lfx": "0.4.0",
+          "mcp": "1.27.0"
+        }
+      },
+      "settings": {
+        "mcp_server_timeout": 20,
+        "rate_limit_enabled": null,
+        "rate_limit_per_minute": null,
+        "add_projects_to_mcp_servers": false
+      },
+      "sources": {
+        "langflow/api/v2/mcp.py": "55c4df050fa8dd329e4d2990c6c34a0801af942acd2843c4717b42554f193441",
+        "langflow/api/v2/schemas.py": "5c28fa7c0826c590cf2d624f037e3eb99ecca54fe7d2f8b28f92e272b9b46239",
+        "lfx/base/mcp/constants.py": "fb55e72717a396a9bdcecd51f75a86b4e797fbf175669747573088a940af8601",
+        "lfx/base/mcp/util.py": "8085f8d9f11c67a21982eef76ebd55ea4dfddddf1c81252000a513d4475b0d94",
+        "lfx/base/mcp/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "lfx/services/settings/base.py": "5a6693b0855f5ab7462a750238e630ce03210d5b9cc3907efcfd7ae4d0a6d627",
+        "langflow/main.py": "7ee56974765d56e85704cd3293c1f1836795a1310b9ce16bcfb937e621da13e2",
+        "langflow/api/utils/mcp/config_utils.py": "4d30255f99f56a8ad626bafffb318dfd5df719b66889c212b07ffd1472ad25f4"
+      }
+    }
+  },
+  "sdk_source_sha256": "0102bfa527843d9f1e8b958746ea744b2b8026a2972573d37934b2c7d1f8ec4a"
+}
