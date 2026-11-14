@@ -1,6 +1,16 @@
 # Container module acceptance tests
 
-Latest: the [legacy Langflow custom-component checkpoint](VERIFICATION-20261114-langflow-legacy-custom.md)
+Latest: the [Langflow validation authentication checkpoint](VERIFICATION-20261114-langflow-validation-bypass.md)
+reaches **241 modules qualified in covered paths, 293 profiles and 2,781 examples**.
+All 21 cases and 42 public calls pass: eight exact commands and twelve complete
+session lifecycles across protected 1.2.0 and default/protected 1.3.2. Independent
+controls distinguish the CVE authentication bypass from later automatic-login
+access. Source fixes isolate and reap payloads and reject silent-success denials.
+All 24 teardown queries pass and Docker is empty. Earlier module, fixture and
+audit failures remain separately documented. The broader campaign is incomplete;
+no PR is created.
+
+The preceding [legacy Langflow custom-component checkpoint](VERIFICATION-20261114-langflow-legacy-custom.md)
 reaches **240 modules qualified in covered paths, 290 profiles and 2,760 examples**.
 All fifteen cases and thirty public calls pass: four exact commands and six
 complete session lifecycles, plus protected-target denials. Independent controls
