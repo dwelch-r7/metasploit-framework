@@ -1,0 +1,10 @@
+{
+  "image": "langflowai/langflow@sha256:836a3996d52cfc6be24e1e01a56171c1a00f603e05cebc65b6d10acf3fbf016d",
+  "version": "1.8.4",
+  "platform": "linux/amd64",
+  "advisory": "https://www.ibm.com/support/pages/node/7278441",
+  "validation_sources": {
+    "langflow/api/v1/validate.py": "f6a2100eaf52b4d1e5292cce266f4155fea2191298fe32c8ce42f04553189efe",
+    "lfx/custom/validate.py": "5e9e5a0b61c9c88e173fce00034e09d855b0471f9d829d1c351200cbae92f9e3"
+  }
+}
