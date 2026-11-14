@@ -1,6 +1,16 @@
 # Container module acceptance tests
 
-Latest: the [Heartbleed checkpoint](VERIFICATION-20261114-heartbleed.md) reaches
+Latest: the [H2 console checkpoint](VERIFICATION-20261114-h2.md) reaches
+**231 modules qualified in covered paths, 269 profiles and 2,596 examples**.
+All 42 cases and 96 public calls pass on three genuine H2 versions, with
+18 exact commands and 12 complete Bash/Python Meterpreter lifecycles. Honest
+checks, permission errors, asynchronous cleanup, URL quoting, legacy version
+parsing and concise errors are verified. Three capped containers run serially;
+all 24 final independent cleanup queries pass. Earlier source/setup/oracle
+failures remain preserved. The broader campaign remains incomplete; no PR is
+created.
+
+The earlier [Heartbleed checkpoint](VERIFICATION-20261114-heartbleed.md) reaches
 **230 modules qualified in covered paths, 266 profiles and 2,554 examples**.
 All 40 cases and 82 public calls pass, with 120 native heartbeat cases,
 42 complete TLS handshakes, 34 independent wire/loot comparisons and two verified
