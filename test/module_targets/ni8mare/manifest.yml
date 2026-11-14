@@ -1,0 +1,36 @@
+{
+  "spec": "spec/modules/auxiliary/gather/ni8mare_target_spec.rb",
+  "expected_examples": 14,
+  "console": true,
+  "modules": [
+    "auxiliary/gather/ni8mare_cve_2026_21858"
+  ],
+  "ports": {
+    "target": 5678
+  },
+  "support_files": [
+    "test/module_targets/ni8mare/vendor.json",
+    "test/module_targets/ni8mare/native_controls.py",
+    "test/module_targets/ni8mare/README.md",
+    "test/module_targets/ni8mare/jwt-fixtures.json",
+    "test/module_targets/ni8mare/native_probe.py",
+    "test/module_targets/ni8mare/acceptance.rb",
+    "test/module_targets/gopher/compose.yaml",
+    "lib/msf/core/auxiliary/report.rb",
+    "lib/msf/core/exploit/remote/http/jwt.rb",
+    "documentation/modules/auxiliary/gather/ni8mare_cve_2026_21858.md",
+    "test/module_targets/ni8mare/target_context.rb",
+    "test/module_targets/ni8mare/member_fixture.js",
+    "spec/modules/auxiliary/gather/ni8mare_jwt_contracts_spec.rb",
+    "spec/modules/auxiliary/gather/ni8mare_workflow_cleanup_spec.rb",
+    "spec/modules/auxiliary/gather/ni8mare_console_text_spec.rb",
+    "spec/modules/auxiliary/gather/ni8mare_flatted_file_data_spec.rb",
+    "spec/file_fixtures/modules/auxiliary/ni8mare_execution_data/README.md",
+    "spec/file_fixtures/modules/auxiliary/ni8mare_execution_data/native-1.120.0-json.flatted.json",
+    "spec/file_fixtures/modules/auxiliary/ni8mare_execution_data/native-1.120.0-multipart.flatted.json",
+    "spec/file_fixtures/modules/auxiliary/ni8mare_execution_data/native-oracle.json"
+  ],
+  "test_env": {
+    "N8N_TARGET_VERSION": "1.120.0"
+  }
+}

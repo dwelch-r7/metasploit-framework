@@ -1,0 +1,17 @@
+{
+  "slash": {
+    "email": "module.native0@example.test",
+    "password_hash": "$2b$10$012345678901234567890uFjb.PbJYfwIgHMpshhET0VQlt8t.SD6",
+    "expected_claim": "/PUplRmvUX"
+  },
+  "ordinary": {
+    "email": "module.native1@example.test",
+    "password_hash": "$2b$10$012345678901234567890uFjb.PbJYfwIgHMpshhET0VQlt8t.SD6",
+    "expected_claim": "KC0EjZbZAH"
+  },
+  "plus": {
+    "email": "module.native3@example.test",
+    "password_hash": "$2b$10$012345678901234567890uFjb.PbJYfwIgHMpshhET0VQlt8t.SD6",
+    "expected_claim": "eqdYW+IeRu"
+  }
+}

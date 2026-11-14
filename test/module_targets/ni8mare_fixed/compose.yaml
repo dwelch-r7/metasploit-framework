@@ -1,0 +1,10 @@
+services:
+  target:
+    extends: {file: ../ni8mare/compose.yaml, service: target}
+    image: n8nio/n8n@sha256:435353df610295746ea922d4b933bfbf63449543df9d62dcc552dd664ea09dc9
+    healthcheck:
+      test: [CMD, node, -e, "fetch('http://127.0.0.1:5678/rest/settings').then(r=>r.json()).then(v=>{if(v.data.versionCli!=='1.121.0')process.exit(1)}).catch(()=>process.exit(1))"]
+  reporting_db:
+    extends: {file: ../ni8mare/compose.yaml, service: reporting_db}
+  framework:
+    extends: {file: ../ni8mare/compose.yaml, service: framework}

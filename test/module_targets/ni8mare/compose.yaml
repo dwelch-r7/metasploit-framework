@@ -1,0 +1,28 @@
+services:
+  target:
+    image: n8nio/n8n@sha256:e5733e0dee8de5f7a96d950fdca2a8729bb56b8b5304d62e3a06feb703985136
+    platform: linux/amd64
+    init: true
+    cpus: 1
+    mem_limit: 1536m
+    memswap_limit: 1536m
+    pids_limit: 192
+    environment:
+      N8N_DIAGNOSTICS_ENABLED: "false"
+      N8N_VERSION_NOTIFICATIONS_ENABLED: "false"
+      N8N_TEMPLATES_ENABLED: "false"
+      N8N_SECURE_COOKIE: "false"
+    ports: ["127.0.0.1::5678"]
+    healthcheck:
+      test: [CMD, node, -e, "fetch('http://127.0.0.1:5678/rest/settings').then(r=>r.json()).then(v=>{if(v.data.versionCli!=='1.120.0')process.exit(1)}).catch(()=>process.exit(1))"]
+      interval: 2s
+      timeout: 4s
+      retries: 60
+  reporting_db:
+    extends: {file: ../gopher/compose.yaml, service: reporting_db}
+    mem_limit: 256m
+    memswap_limit: 256m
+  framework:
+    extends: {file: ../gopher/compose.yaml, service: framework}
+    mem_limit: 1024m
+    memswap_limit: 1024m

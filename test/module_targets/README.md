@@ -1,6 +1,16 @@
 # Container module acceptance tests
 
-Latest: the [Langflow stored-tool checkpoint](VERIFICATION-20261114-langflow-stored-tool.md)
+Latest: the [n8n file and owner-ticket checkpoint](VERIFICATION-20261114-ni8mare.md)
+reaches **244 modules qualified in covered paths, 300 profiles and 2,862 examples**.
+All twenty cases and forty-two public calls pass against genuine affected/fixed
+releases: twelve exact file loots and six independently verified owner tickets.
+Source fixes address claim encoding, hash reporting, cleanup, console text and
+execution-data parsing. Complete foreign/global workflow records are restored;
+all sixteen teardown queries pass and Docker is empty. Three containers remain
+capped, and human Scenarios are preserved. Broader versions and the campaign
+remain incomplete; no PR is created.
+
+The preceding [Langflow stored-tool checkpoint](VERIFICATION-20261114-langflow-stored-tool.md)
 reaches **243 modules qualified in covered paths, 298 profiles and 2,842 examples**.
 All 44 cases and 94 public calls pass: twelve exact credential-created commands,
 24 complete session lifecycles and explicit fixed-version public-guard failures.
