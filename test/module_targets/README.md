@@ -1,6 +1,17 @@
 # Container module acceptance tests
 
-Latest: the [Langflow validation authentication checkpoint](VERIFICATION-20261114-langflow-validation-bypass.md)
+Latest: the [Langflow public-flow build checkpoint](VERIFICATION-20261114-langflow-public-build.md)
+reaches **242 modules qualified in covered paths, 295 profiles and 2,798 examples**.
+All seventeen cases and thirty-four public calls pass: four exact commands and
+six complete session lifecycles. Genuine controls distinguish supplied-definition
+execution on 1.8.4 from stored-definition execution on 1.9.0. The source fix
+isolates/reaps payloads and confirms finite matching component delivery. Complete
+fixture records are preserved, then removed back to the original registry.
+All sixteen teardown queries pass and Docker is empty. Earlier failures and
+observation limits remain documented. The broader campaign is incomplete;
+no PR is created.
+
+The preceding [Langflow validation authentication checkpoint](VERIFICATION-20261114-langflow-validation-bypass.md)
 reaches **241 modules qualified in covered paths, 293 profiles and 2,781 examples**.
 All 21 cases and 42 public calls pass: eight exact commands and twelve complete
 session lifecycles across protected 1.2.0 and default/protected 1.3.2. Independent
