@@ -1,6 +1,16 @@
 # Container module acceptance tests
 
-Latest: the [legacy Langflow validation checkpoint](VERIFICATION-20261114-langflow-legacy-validation.md)
+Latest: the [legacy Langflow custom-component checkpoint](VERIFICATION-20261114-langflow-legacy-custom.md)
+reaches **240 modules qualified in covered paths, 290 profiles and 2,760 examples**.
+All fifteen cases and thirty public calls pass: four exact commands and six
+complete session lifecycles, plus protected-target denials. Independent controls
+reproduce three decorator executions per request and validate the actual backend
+PID response. The fix isolates and reaps payloads, prevents duplicate execution
+and confirms guard cleanup. Process identities, builtin names and all 32 starter
+flows are restored. All sixteen teardown queries pass and Docker is empty.
+The broader campaign remains incomplete; no PR is created.
+
+The preceding [legacy Langflow validation checkpoint](VERIFICATION-20261114-langflow-legacy-validation.md)
 reaches **239 modules qualified in covered paths, 288 profiles and 2,745 examples**.
 All fifteen cases and thirty public calls pass: four exact commands and six
 complete session lifecycles, plus protected-endpoint denial checks. Native
