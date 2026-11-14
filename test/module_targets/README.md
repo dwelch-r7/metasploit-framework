@@ -1,6 +1,16 @@
 # Container module acceptance tests
 
-Latest: the [HugeGraph checkpoint](VERIFICATION-20261114-hugegraph.md) reaches
+Latest: the [Langflow MCP checkpoint](VERIFICATION-20261114-langflow-mcp.md) reaches
+**233 modules qualified in covered paths, 276 profiles and 2,639 examples**.
+All nine cases and eighteen public calls pass, with four complete JSON loot
+comparisons and matching database rows. Genuine native controls verify empty,
+populated and protected services, Unicode, long descriptions and repeat calls on
+the same selected owner. No source defect is found in the covered paths. Three
+capped containers run serially; all 24 final cleanup queries pass and Docker is
+empty. The related RCE modules and broader campaign remain incomplete; no PR is
+created.
+
+The earlier [HugeGraph checkpoint](VERIFICATION-20261114-hugegraph.md) reaches
 **232 modules qualified in covered paths, 273 profiles and 2,630 examples**.
 All 34 cases and 90 public calls pass across four genuine configurations, with
 12 exact commands, six launch-failure cleanup cases and 18 complete session
