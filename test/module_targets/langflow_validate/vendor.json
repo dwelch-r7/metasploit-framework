@@ -1,0 +1,50 @@
+{
+  "platform": "linux/amd64",
+  "advisory": "https://www.zerodayinitiative.com/advisories/ZDI-26-036/",
+  "installed": {
+    "1.7.3": {
+      "uid": 1000,
+      "gid": 0,
+      "python": "3.12.12",
+      "versions": {
+        "langflow": "1.7.3",
+        "langflow-base": "0.7.3",
+        "lfx": "0.2.2",
+        "mcp": "1.25.0"
+      },
+      "sources": {
+        "langflow/api/v1/validate.py": "231b1d9fc6dd699bbd3af121083ca33de8b189b97967233512150e58b091eafe",
+        "lfx/custom/validate.py": "0c74b77374c99b300828266dc5ff69dd6d0d3020fc7bb1833ce7a87a4bff5ec3",
+        "langflow/services/auth/utils.py": "7600d80543dae8db3d7950a1e2144010f9b58c855d3ad25c329eccfac8556184",
+        "langflow/api/v1/login.py": "01634f168407488c2d48eacbe21c550f4a4c7170e812becb8f367144b9a2947a",
+        "lfx/services/settings/auth.py": "b24992d5b8d92d191340592b27577fb6c4c9f623b7d9a128b21f8a1bd65239f6",
+        "lfx/services/settings/constants.py": "cfc1630409a1d6f951d02fea954343a4297617835addac7a2258b0f1ca08c1ff",
+        "lfx/services/settings/base.py": "c6cc9e97da06931165d99d3eb95ff810b804f1b7c359c5d2b7511d3b818cb482"
+      }
+    },
+    "1.8.4": {
+      "uid": 1000,
+      "gid": 0,
+      "python": "3.12.12",
+      "versions": {
+        "langflow": "1.8.4",
+        "langflow-base": "0.8.4",
+        "lfx": "0.3.4",
+        "mcp": "1.26.0"
+      },
+      "sources": {
+        "langflow/api/v1/validate.py": "f6a2100eaf52b4d1e5292cce266f4155fea2191298fe32c8ce42f04553189efe",
+        "lfx/custom/validate.py": "5e9e5a0b61c9c88e173fce00034e09d855b0471f9d829d1c351200cbae92f9e3",
+        "langflow/services/auth/utils.py": "9443c4651f9badd52d94eef63aaaf549b5f09c59020975a72114c965ca39d5c4",
+        "langflow/api/v1/login.py": "5bc25bdd992b18624f122b336f2a0e5d25dd292ef16067b1bce4776aec76ed4a",
+        "lfx/services/settings/auth.py": "816b43d998cd986a4ecc3413532867bb28487bc2fd337e8689bf852dc23a35ac",
+        "lfx/services/settings/constants.py": "01a7d53bb3092147ae9672675d8eae6ba5927429083b184516836876f1f05d44",
+        "lfx/services/settings/base.py": "a77605edc9ccd1d95c18fb3fde1cc5e0634dde4e5592fd1c0afce2b5d0780aee"
+      }
+    }
+  },
+  "images": {
+    "1.7.3": "langflowai/langflow@sha256:a262fa7779186a8469f276b5d7106d2b16cda518ec0efabcceaaa547f96b3cc2",
+    "1.8.4": "langflowai/langflow@sha256:836a3996d52cfc6be24e1e01a56171c1a00f603e05cebc65b6d10acf3fbf016d"
+  }
+}

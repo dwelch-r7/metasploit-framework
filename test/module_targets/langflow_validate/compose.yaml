@@ -1,0 +1,11 @@
+services:
+  target:
+    extends: {file: ../langflow_execution/compose.yaml, service: target}
+    image: langflowai/langflow@sha256:a262fa7779186a8469f276b5d7106d2b16cda518ec0efabcceaaa547f96b3cc2
+    environment: {LANGFLOW_AUTO_LOGIN: "true", LANGFLOW_LAZY_LOAD_COMPONENTS: "true"}
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request,json; r=urllib.request.urlopen('http://127.0.0.1:7860/api/v1/version',timeout=3); assert json.load(r)['version']=='1.7.3'"]
+  reporting_db:
+    extends: {file: ../gopher/compose.yaml, service: reporting_db}
+  framework:
+    extends: {file: ../gopher/compose.yaml, service: framework}

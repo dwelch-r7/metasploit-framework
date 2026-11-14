@@ -36,13 +36,14 @@ module Acceptance
 
     def call_owner(options = {}, action: 'run -z', reuse: false)
       @call = (@call || 0) + 1
+      command_payload = self.class.metadata.fetch(:command_payload, 'python/exec')
       settings = {
-        'TARGET' => 0, 'PAYLOAD' => 'python/exec', 'CMD' => 'true', 'DisablePayloadHandler' => true,
+        'TARGET' => 0, 'PAYLOAD' => command_payload, 'CMD' => 'true', 'DisablePayloadHandler' => true,
         'USERNAME' => 'module-target-admin', 'PASSWORD' => 'module-target-native-password',
         'AutoCheck' => true, 'TARGETURI' => '/', 'LHOST' => listener_host, 'LPORT' => 4492,
         'WfsDelay' => 3, 'HttpClientTimeout' => 3
       }.merge(options)
-      settings.delete('CMD') unless settings.fetch('PAYLOAD') == 'python/exec'
+      settings.delete('CMD') unless settings.fetch('PAYLOAD') == command_payload
       output = nil
       begin
         if reuse
