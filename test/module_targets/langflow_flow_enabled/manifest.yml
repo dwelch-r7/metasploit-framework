@@ -1,0 +1,51 @@
+{
+  "spec": "spec/modules/exploits/multi/http/langflow_flow_target_spec.rb",
+  "expected_examples": 10,
+  "console": true,
+  "modules": [
+    "exploit/multi/http/langflow_auth_rce_cve_2026_19295"
+  ],
+  "ports": {
+    "target": 7860
+  },
+  "support_files": [
+    "test/module_targets/langflow_execution/compose.yaml",
+    "test/module_targets/langflow_execution/session_control.rb",
+    "test/module_targets/langflow_execution/README.md",
+    "test/module_targets/langflow/compose.yaml",
+    "test/module_targets/langflow_auth/compose.yaml",
+    "test/module_targets/langflow/native.py",
+    "test/module_targets/langflow/sdk_control.py",
+    "test/module_targets/langflow/vendor.json",
+    "test/module_targets/h2_console/process_state.py",
+    "test/module_targets/druid_sessions/session_control.rb",
+    "test/module_targets/gopher/compose.yaml",
+    "tools/dev/run_guarded_module_target_tests.rb",
+    "lib/msf/core/exploit/remote/auto_check.rb",
+    "lib/msf/core/exploit/remote/http_client.rb",
+    "modules/payloads/singles/python/exec.rb",
+    "modules/payloads/singles/python/shell_reverse_tcp.rb",
+    "modules/payloads/stagers/python/reverse_tcp.rb",
+    "modules/payloads/stages/python/meterpreter.rb",
+    "lib/msf/core/payload/python.rb",
+    "lib/msf/core/payload/python/reverse_tcp.rb",
+    "lib/msf/core/payload/python/meterpreter_loader.rb",
+    "spec/support/shared/contexts/wait_for_expect.rb",
+    "lib/msf/core/db_manager/session.rb",
+    "lib/msf/core/event_dispatcher.rb",
+    "lib/msf/core/general_event_subscriber.rb",
+    "test/module_targets/langflow_execution/acceptance.rb",
+    "documentation/modules/exploit/multi/http/langflow_auth_rce_cve_2026_19295.md",
+    "test/module_targets/langflow_custom/vendor.json",
+    "test/module_targets/langflow_custom/compose.yaml",
+    "test/module_targets/langflow_flow/native_probe.py",
+    "test/module_targets/langflow_flow/vendor.json",
+    "test/module_targets/langflow_flow/benign_component.json",
+    "test/module_targets/langflow_flow/README.md",
+    "test/module_targets/langflow_flow/compose.yaml",
+    "spec/modules/exploits/multi/http/langflow_saved_flow_execution_spec.rb"
+  ],
+  "test_env": {
+    "LANGFLOW_FLOW_POLICY": "true"
+  }
+}

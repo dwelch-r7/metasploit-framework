@@ -1,0 +1,75 @@
+{
+  "data": {
+    "template": {
+      "_type": "Component",
+      "code": {
+        "type": "code",
+        "required": true,
+        "placeholder": "",
+        "list": false,
+        "show": true,
+        "multiline": true,
+        "value": "from langflow.custom import Component\nfrom langflow.io import Output\nfrom langflow.schema import Data\n_fired = [False]\nclass NativeFlowCanary(Component):\n    display_name = 'Native flow canary'\n    name = 'NativeFlowCanary'\n    outputs = [Output(display_name='Native output', name='out', method='native_output')]\n    def native_output(self) -> Data:\n        return Data(data={'output': 'module-target-native-flow-output'})",
+        "fileTypes": [],
+        "file_path": "",
+        "password": false,
+        "name": "code",
+        "advanced": true,
+        "dynamic": true,
+        "info": "",
+        "load_from_db": false,
+        "title_case": false
+      }
+    },
+    "base_classes": [
+      "JSON"
+    ],
+    "display_name": "Native flow canary",
+    "documentation": "",
+    "minimized": false,
+    "custom_fields": {},
+    "output_types": [],
+    "pinned": false,
+    "conditional_paths": [],
+    "frozen": false,
+    "outputs": [
+      {
+        "types": [
+          "JSON"
+        ],
+        "selected": "JSON",
+        "name": "out",
+        "hidden": null,
+        "display_name": "Native output",
+        "method": "native_output",
+        "value": "__UNDEFINED__",
+        "cache": true,
+        "required_inputs": null,
+        "allows_loop": false,
+        "loop_types": null,
+        "group_outputs": false,
+        "options": null,
+        "tool_mode": true
+      }
+    ],
+    "field_order": [],
+    "beta": false,
+    "legacy": false,
+    "edited": false,
+    "metadata": {
+      "module": "custom_components.native_flow_canary",
+      "code_hash": "06cb3d3a6223",
+      "dependencies": {
+        "total_dependencies": 1,
+        "dependencies": [
+          {
+            "name": "langflow",
+            "version": "1.10.0"
+          }
+        ]
+      }
+    },
+    "tool_mode": false
+  },
+  "type": "NativeFlowCanary"
+}

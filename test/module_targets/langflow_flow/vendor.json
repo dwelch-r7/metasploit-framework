@@ -1,0 +1,8 @@
+{
+  "source": "Installed source in the digest-pinned official langflowai/langflow 1.10.0 image; collected by native Compose exec, not the Git tag.",
+  "sources": {
+    "langflow/api/v1/chat.py": "8c748742b9f2fe20565bc49900654139eea7e1151bb58ddc235da51362f3f972",
+    "lfx/utils/flow_validation.py": "3cc6a50b3e1776614f40858a1ede25536203733f5f40ca0d8b8678313fbd64fe"
+  },
+  "blueprint_sha256": "90c90400b2c7b63437df06f0c46d6171b2539f21bf187cd5bac9697beff3decf"
+}
