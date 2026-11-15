@@ -569,3 +569,9 @@ and exact-source unit logs. Its manifest SHA-256 is
 `b3572aaf93c0802f71c91899bf9c41b0686b90cfc5a1a1e7af2c2db25f65d7cd`.
 This evidence adds no functional qualification and does not replace earlier
 separate native CI failures or later passing runs.
+
+The subsequent [terminal publication record](VERIFICATION-20261115-post-smtp-publication.md)
+records 62 successful checks, one skip and the native Linux cancellation. All ten
+workflows finish: nine successful and Meterpreter cancelled. The earlier sealed
+queued-report snapshot remains unchanged. Native transport diagnosis is still
+open; newer publication heads have their own follow-up.
