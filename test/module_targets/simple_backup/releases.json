@@ -1,0 +1,14 @@
+{
+  "2.7.10": {
+    "url": "https://downloads.wordpress.org/plugin/simple-backup.2.7.10.zip",
+    "sha256": "714fc6c5994d329cc7ea805c211f527c74e6237acca5aa8290e24025817732c7",
+    "bytes": 1917087,
+    "endpoint_sha256": "7be8061dadd6dcbf2ebcf460acac13d566838359090fb8870dbcb49a183bb28f"
+  },
+  "2.7.11": {
+    "url": "https://downloads.wordpress.org/plugin/simple-backup.2.7.11.zip",
+    "sha256": "2b606a1dd3841e060d75e5f4c612f7760e269d7560fbc2c2cf8435c334604bc5",
+    "bytes": 37762,
+    "endpoint_sha256": "39cfb0dff8ae866e8b90482ca6369a22297d5c55706b4e8651e1de57976502db"
+  }
+}

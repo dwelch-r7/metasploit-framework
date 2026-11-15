@@ -1,0 +1,4 @@
+---
+services:
+  app:
+    extends: {file: ../simple_backup/services.yaml, service: unrelated}

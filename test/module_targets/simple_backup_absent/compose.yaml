@@ -1,0 +1,11 @@
+---
+services:
+  db:
+    extends: {file: ../simple_backup/services.yaml, service: db}
+  app:
+    extends: {file: ../simple_backup/services.yaml, service: root}
+    environment:
+      SIMPLE_BACKUP_RELEASE: "absent"
+networks:
+  default: {internal: true}
+  public: {}

@@ -1,0 +1,32 @@
+{
+  "simple_backup": {
+    "release": "2.7.10",
+    "mode": "affected",
+    "prefix": "",
+    "depth": 6
+  },
+  "simple_backup_prefix": {
+    "release": "2.7.10",
+    "mode": "affected",
+    "prefix": "/wordpress",
+    "depth": 6
+  },
+  "simple_backup_fixed": {
+    "release": "2.7.11",
+    "mode": "fixed",
+    "prefix": "",
+    "depth": 6
+  },
+  "simple_backup_absent": {
+    "release": null,
+    "mode": "absent",
+    "prefix": "",
+    "depth": 6
+  },
+  "simple_backup_unrelated": {
+    "release": null,
+    "mode": "unrelated",
+    "prefix": "",
+    "depth": 6
+  }
+}

@@ -1,0 +1,63 @@
+---
+spec: spec/modules/auxiliary/scanner/http/simple_backup_target_spec.rb
+expected_examples: 2
+console: false
+test_env:
+  SIMPLE_BACKUP_PROFILE: simple_backup_absent
+modules:
+- auxiliary/scanner/http/wp_simple_backup_file_read
+ports:
+  app: 80
+support_files:
+- lib/msf/core/auxiliary/multiple_target_hosts.rb
+- lib/msf/core/auxiliary/scanner.rb
+- lib/msf/base/simple/auxiliary.rb
+- lib/msf/ui/console/command_dispatcher/auxiliary.rb
+- .ruby-version
+- Gemfile
+- Gemfile.lock
+- lib/msf/core/exploit/remote/http/wordpress.rb
+- lib/msf/core/exploit/remote/http/wordpress/admin.rb
+- lib/msf/core/exploit/remote/http/wordpress/base.rb
+- lib/msf/core/exploit/remote/http/wordpress/helpers.rb
+- lib/msf/core/exploit/remote/http/wordpress/login.rb
+- lib/msf/core/exploit/remote/http/wordpress/posts.rb
+- lib/msf/core/exploit/remote/http/wordpress/register.rb
+- lib/msf/core/exploit/remote/http/wordpress/sqli.rb
+- lib/msf/core/exploit/remote/http/wordpress/uris.rb
+- lib/msf/core/exploit/remote/http/wordpress/users.rb
+- lib/msf/core/exploit/remote/http/wordpress/version.rb
+- lib/msf/core/exploit/remote/http/wordpress/xml_rpc.rb
+- lib/msf/core/exploit/remote/http_client.rb
+- lib/msfenv.rb
+- metasploit-framework.gemspec
+- msfconsole
+- spec/acceptance_spec_helper.rb
+- spec/spec_helper.rb
+- spec/support/acceptance/child_process.rb
+- spec/support/acceptance/datastore_formatting.rb
+- spec/support/acceptance/module_target.rb
+- test/module_targets/simple_backup/README.md
+- test/module_targets/simple_backup/acceptance.rb
+- test/module_targets/simple_backup/files.json
+- test/module_targets/simple_backup/inspect.php
+- test/module_targets/simple_backup/prepare.rb
+- test/module_targets/simple_backup/profiles.json
+- test/module_targets/simple_backup/profiles.rb
+- test/module_targets/simple_backup/releases.json
+- test/module_targets/simple_backup/runtime.json
+- test/module_targets/simple_backup/seed.php
+- test/module_targets/simple_backup/services.yaml
+- test/module_targets/http/Dockerfile
+- test/module_targets/http/compose.yaml
+- test/module_targets/http/htdocs/index.html
+- test/module_targets/http/module-target.conf
+- test/module_targets/wordpress/Dockerfile
+- test/module_targets/wordpress/apache2-foreground
+- test/module_targets/wordpress/compose.yaml
+- test/module_targets/wordpress/db.Dockerfile
+- test/module_targets/wordpress/init.sql
+- test/module_targets/wordpress/inspect.php
+- test/module_targets/wordpress/plugin_sources.rb
+- test/module_targets/wordpress/seed.php
+- tools/dev/run_guarded_module_target_tests.rb

@@ -1,0 +1,13 @@
+---
+services:
+  db:
+    extends: {file: ../simple_backup/services.yaml, service: db}
+  app:
+    extends: {file: ../simple_backup/services.yaml, service: root}
+    environment:
+      SIMPLE_BACKUP_RELEASE: "2.7.10"
+    volumes:
+    - ../../../tmp/module-target-simple-backup-sources/2.7.10.zip:/opt/module-target/plugin.zip:ro
+networks:
+  default: {internal: true}
+  public: {}
