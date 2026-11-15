@@ -154,3 +154,19 @@ All four stacks are gone; 24 independent cleanup queries and the released global
 lock pass. The 305-entry attempt seal, including the account prerequisite probe,
 has manifest SHA256
 `c9c4ff316c5f738ba7e5afa87cfd43bd6b3985ef5f138eaa8e53c1a6c7bd711e`.
+
+## Corrected account and session-option replay
+
+All four profiles reach eight cases; each has one refused-port assertion
+failure. All 20 real native/owner session proofs and remote closures complete,
+including repeated owner Meterpreter and Bash sessions on root, named non-root
+and versionless targets. Patched default and forced attempts create no owner
+sessions. Unicode, quoted/backslash and configured-ident commands pass.
+
+The module correctly returns reason-bearing Unknown, whose valid console text
+is `Cannot reliably check exploitability.` The fixture had expected the separate
+missing/invalid-CheckCode diagnostic. Correcting both negative-case assertions
+checks the valid contract more precisely. The PostgreSQL case remains unrun in
+this attempt. All 24 cleanup queries and the global lock release pass.
+The 327-entry frozen attempt has manifest SHA256
+`13cefb2705703bf4d0fa0aed6371f4d83d1589c725f1fbed80104e91f3e9e8f1`. Full final replay follows.
