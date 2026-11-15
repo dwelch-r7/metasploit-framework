@@ -215,6 +215,16 @@ produces the expected TCP tuple, but proc FD permission errors prevent worker
 correlation. The labeled staged trial remains unexecuted. Fixture failures and
 successful teardown are retained separately; no additional coverage is counted.
 
+The first bounded root profile then runs all eleven selected examples with one
+failure. Finite PHP execution and two used/closed stageless Meterpreter sessions
+pass. The plain `php/reverse_php` session becomes invalid during bootstrap while
+PHP 8.3.28 logs an empty-command `shell_exec` ValueError in the uploaded payload.
+Native controls pass and all before/after memory/PID event counters remain zero.
+The failing run is retained before independent payload investigation; it is
+separate from the earlier staged-session cause. Its archive is
+`wordpress-admin-php-shell-failure-20261115`, 128 files/70 inputs, manifest
+`6a9cd24db0e8361ad1cff51ad8bd645ab0045c165f3616baf2dcb05a4b2eeda6`.
+
 ## Ansible node deployment
 
 `exploit/linux/local/ansible_node_deployer` remains unqualified. The native-passing
