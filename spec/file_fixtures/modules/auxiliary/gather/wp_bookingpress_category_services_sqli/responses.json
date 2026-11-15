@@ -1,0 +1,94 @@
+{
+  "responses": {
+    "root_page": {
+      "code": 200,
+      "body": "<html><script>var appoint_ajax_obj = {\"ajax_url\":\"http:\\/\\/192.0.2.10\\/wp-admin\\/admin-ajax.php\"};</script><script>var postData = { action:'bookingpress_generate_spam_captcha', _wpnonce:'UNITNONCE' };</script></html>"
+    },
+    "prefix_page": {
+      "code": 200,
+      "body": "<html><script>var appoint_ajax_obj = {\"ajax_url\":\"http:\\/\\/192.0.2.10\\/wordpress\\/wp-admin\\/admin-ajax.php\"};</script><script>var postData = { action:'bookingpress_generate_spam_captcha', _wpnonce:'UNITNONCE' };</script></html>"
+    },
+    "nonce_error": {
+      "code": 200,
+      "body": "{\"variant\":\"error\",\"title\":\"Error\",\"msg\":\"Sorry, Your request can not process due to security reason.\"}"
+    },
+    "scalar": {
+      "code": 200,
+      "body": "[{\"bookingpress_service_id\":\"UNIT_SCALAR\"}]"
+    },
+    "fixed_page": {
+      "code": 200,
+      "body": "<html><script>var appoint_ajax_obj = {\"ajax_url\":\"http:\\/\\/192.0.2.10\\/wp-admin\\/admin-ajax.php\"};</script><script>var postData = { action:'bookingpress_generate_spam_captcha', _wpnonce:'UNITNONCE' };</script></html>"
+    },
+    "empty": {
+      "code": 200,
+      "body": "[]"
+    }
+  },
+  "provenance": [
+    {
+      "fixture": "root_page",
+      "archive": "/Users/dwelch/.codex/reports/bookingpress-native-1.0.10-20261115T231740-seal",
+      "receipt_sha256": "8e02b5971ad367fff97cc5e280862d51a7d258aa63f89d048817eb3ab1407f54",
+      "request_index": 1,
+      "request_name": "native-booking-page-before",
+      "raw_body_sha256": "964ca04e311c5901b402f966610bea0bd4468783bb3f68b744abbf616e30ae41",
+      "transformation": "Retain actual AJAX variable and captcha nonce statement inside script elements; replace ephemeral authority with TEST-NET1 and nonce with UNITNONCE; omit unrelated HTML/cookies."
+    },
+    {
+      "fixture": "prefix_page",
+      "archive": "/Users/dwelch/.codex/reports/bookingpress-native-1.0.10-20261115T231930-seal",
+      "receipt_sha256": "bc60e27955ffcb4b16135ed2e12b24dffd7b88d5a29e311dbaf4539d980fc139",
+      "request_index": 1,
+      "request_name": "native-booking-page-before",
+      "raw_body_sha256": "07e6c9563ae236012153c105e4d8850b863d2fb080b80fec0186a7d83d40b87f",
+      "transformation": "Retain actual AJAX variable and captcha nonce statement inside script elements; replace ephemeral authority with TEST-NET1 and nonce with UNITNONCE; omit unrelated HTML/cookies."
+    },
+    {
+      "fixture": "nonce_error",
+      "archive": "/Users/dwelch/.codex/reports/bookingpress-native-1.0.10-20261115T231930-seal",
+      "receipt_sha256": "bc60e27955ffcb4b16135ed2e12b24dffd7b88d5a29e311dbaf4539d980fc139",
+      "request_index": 3,
+      "request_name": "native-invalid-nonce-before",
+      "raw_body_sha256": "f9c74f66d4b26b6f9dde0d8828bafb1e90ad3c393f01cf03525fe6f4885e4e89",
+      "transformation": "Retain actual JSON shape; scalar keeps only service ID field with inert UNIT_SCALAR. Error and empty-array values preserved."
+    },
+    {
+      "fixture": "scalar",
+      "archive": "/Users/dwelch/.codex/reports/bookingpress-native-1.0.10-20261115T231930-seal",
+      "receipt_sha256": "bc60e27955ffcb4b16135ed2e12b24dffd7b88d5a29e311dbaf4539d980fc139",
+      "request_index": 4,
+      "request_name": "native-union-marker-before",
+      "raw_body_sha256": "25b29e4aa159d94ff7c9289fee963694d28b42760384412457136056425448b6",
+      "transformation": "Retain actual JSON shape; scalar keeps only service ID field with inert UNIT_SCALAR. Error and empty-array values preserved."
+    },
+    {
+      "fixture": "fixed_page",
+      "archive": "/Users/dwelch/.codex/reports/bookingpress-native-1.0.11-20261115T231832-seal",
+      "receipt_sha256": "67d5bc2df793e4dbf8bf4bb118d09f4bc3a3c148b00e15394c98fc230c73b59f",
+      "request_index": 1,
+      "request_name": "native-booking-page-before",
+      "raw_body_sha256": "ed7b92741e0a34374e304b3b50fab26defd1d39c7020182cd3c6a34474a67762",
+      "transformation": "Retain actual AJAX variable and captcha nonce statement inside script elements; replace ephemeral authority with TEST-NET1 and nonce with UNITNONCE; omit unrelated HTML/cookies."
+    },
+    {
+      "fixture": "nonce_error",
+      "archive": "/Users/dwelch/.codex/reports/bookingpress-native-1.0.11-20261115T231832-seal",
+      "receipt_sha256": "67d5bc2df793e4dbf8bf4bb118d09f4bc3a3c148b00e15394c98fc230c73b59f",
+      "request_index": 3,
+      "request_name": "native-invalid-nonce-before",
+      "raw_body_sha256": "f9c74f66d4b26b6f9dde0d8828bafb1e90ad3c393f01cf03525fe6f4885e4e89",
+      "transformation": "Retain actual JSON shape; scalar keeps only service ID field with inert UNIT_SCALAR. Error and empty-array values preserved."
+    },
+    {
+      "fixture": "empty",
+      "archive": "/Users/dwelch/.codex/reports/bookingpress-native-1.0.11-20261115T231832-seal",
+      "receipt_sha256": "67d5bc2df793e4dbf8bf4bb118d09f4bc3a3c148b00e15394c98fc230c73b59f",
+      "request_index": 4,
+      "request_name": "native-union-marker-before",
+      "raw_body_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "transformation": "Retain actual JSON shape; scalar keeps only service ID field with inert UNIT_SCALAR. Error and empty-array values preserved."
+    }
+  ],
+  "scope": "Reduced genuine WordPress5.2.4/PHP7.3.11 BookingPress1.0.10/1.0.11 responses. Unit row data, query evaluation, malformed variants and URI mutations are synthetic; no token, cookie or real password hash retained."
+}

