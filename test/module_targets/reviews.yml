@@ -236,3 +236,26 @@ modules:
     sources:
       - https://github.com/fs0c131y/ESFileExplorerOpenPortVuln
       - https://developer.android.com/studio/run/emulator-acceleration#restrictions
+
+  exploit/linux/http/docker_daemon_tcp:
+    source_sha256: 9c7457976af6256c9891bf45845d2c097d923feef8bb9658f27636a99e0b5f21
+    disposition: container_lab
+    lab_profiles:
+      docker_daemon: [engine26, detection, linux_x64_meterpreter, python_meterpreter]
+      docker_daemon_shells: [linux_x64_shell, python_shell]
+      docker_daemon_auth: [http_tls_denied, forced_and_disabled_autocheck]
+      docker_daemon_gateways: [nginx, http_basic, tls_basic]
+      docker_daemon_registry: [real_pull, cached_image, missing_tag, exact_tag_prefix]
+      docker_daemon_names: [explicit_reuse, stopped_collision, blank_name]
+      docker_daemon_finite: [default_guard, explicit_manual_cleanup, linux, python]
+      docker_daemon_28: [engine28, detection, linux_x64_meterpreter, python_meterpreter]
+    reason: >-
+      The genuine nested Engine26/28 Debian cron target qualifies both declared
+      execution targets and covered authentication, registry and naming paths
+      across43 cases and28 real session lifecycles. Native root-bind/cron/pull
+      controls precede owner classification; source cleanup is checked before
+      harness cleanup. Four finite UTF-8 command proofs explicitly opt into
+      manual cleanup and retain that limit. Each serial project has three
+      bounded outer services and at most one short-lived inner workload, with
+      independently verified teardown. Older daemon releases, rootless and
+      user-namespace variants, mTLS and kernel/runtime escapes remain separate.

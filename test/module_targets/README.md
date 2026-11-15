@@ -1,8 +1,22 @@
 # Container module acceptance tests
 
-Latest: the [Metabase release and setup-state checkpoint](VERIFICATION-20261114-metabase.md) advances the cumulative record to **247 modules qualified in covered paths, 319 profiles and 3,025 examples**. All 113 cases and 226 public calls pass across 12 profiles, including 14 real shell lifecycles. Official JAR checksums, native affected/fixed controls, all four OSS fix branches and fresh/configured 0.42.1 distinguish execution from passive detection. Three bounded containers run serially; all 85 independent teardown queries pass. Whole-owner lint retains two explicitly documented baseline metadata offenses. The broader campaign remains incomplete.
+Latest: the [Docker daemon qualification](VERIFICATION-20261115-docker-daemon.md)
+advances recorded coverage to **248 modules qualified in covered paths, 327
+profiles and 3,068 functional cases**. Eight profiles pass all 43 distinct cases
+and 83 public module calls: 28 real used/closed root sessions plus four exact
+UTF-8 finite-command proofs across genuine Engines 26.1.4 and 28.0.4. Separate
+source fixes address passive detection, image-tag prefix cache matches and blank
+optional container names. Native controls establish root bind writes, ordinary
+cron, real registry pulls and authenticated/TLS gateways. Finite artifacts are
+recorded before explicit operator cleanup; they are not automatic-cleanup
+successes. Three capped outer services run serially with one short-lived inner
+workload, and every selected stack is independently confirmed removed. Human
+Scenarios remain unchanged. Older families retain their recorded inputs; the
+broader campaign and standing investigations remain active. No PR is created.
 
-Previous: the [MCPJam execution checkpoint](VERIFICATION-20261114-mcpjam.md)
+Previous: the [Metabase release and setup-state checkpoint](VERIFICATION-20261114-metabase.md) advances the cumulative record to **247 modules qualified in covered paths, 319 profiles and 3,025 examples**. All 113 cases and 226 public calls pass across 12 profiles, including 14 real shell lifecycles. Official JAR checksums, native affected/fixed controls, all four OSS fix branches and fresh/configured 0.42.1 distinguish execution from passive detection. Three bounded containers run serially; all 85 independent teardown queries pass. Whole-owner lint retains two explicitly documented baseline metadata offenses. The broader campaign remains incomplete.
+
+The preceding [MCPJam execution checkpoint](VERIFICATION-20261114-mcpjam.md)
 advances the cumulative record to **246 modules qualified in covered paths,
 307 profiles and 2,912 examples**. All 26 cases and 52 public calls pass across
 four genuine default deployments, including eight real Node/Meterpreter sessions.

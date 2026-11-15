@@ -1,0 +1,22 @@
+services:
+  target:
+    image: msf-module-target-docker-daemon:26.1.4
+    build: {context: .}
+    platform: linux/amd64
+    privileged: true
+    cpus: 1
+    mem_limit: 1024m
+    memswap_limit: 1024m
+    pids_limit: 256
+    tmpfs: ["/var/lib/docker:rw,exec,size=512m,mode=0711"]
+    healthcheck:
+      test: [CMD, docker, --host, unix:///var/run/docker.sock, version, --format, '{{.Server.Version}}']
+      interval: 2s
+      timeout: 4s
+      retries: 60
+  reporting_db:
+    extends: {file: ../gopher/compose.yaml, service: reporting_db}
+  framework:
+    extends: {file: ../gopher/compose.yaml, service: framework}
+networks:
+  default: {internal: true}

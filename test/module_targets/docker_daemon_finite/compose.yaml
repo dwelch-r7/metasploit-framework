@@ -1,0 +1,9 @@
+services:
+  target:
+    extends: {file: ../docker_daemon/compose.yaml, service: target}
+  reporting_db:
+    extends: {file: ../docker_daemon/compose.yaml, service: reporting_db}
+  framework:
+    extends: {file: ../docker_daemon/compose.yaml, service: framework}
+networks:
+  default: {internal: true}

@@ -1299,3 +1299,35 @@ regressions and fresh native replay. Setup/cleanup-guard failures are preserved
 and corrected separately. Three capped containers run serially; all 29 exact
 cleanup queries pass. Unix sessions and x86/x64 curl/wget dropper paths remain
 active, alongside the broader feasible-module goal and deferred credential race.
+
+
+## 15 November: Docker daemon execution and cache boundaries
+
+The [Docker daemon checkpoint](VERIFICATION-20261115-docker-daemon.md) reaches
+248 modules qualified in covered paths, 327 profiles and 3,068 functional cases.
+All eight profiles pass 43 distinct cases and 83 public calls, including 28 real
+root session lifecycles and four exact UTF-8 finite command proofs. Both declared
+targets use genuine Engine 26.1.4/28.0.4, Debian cron, Distribution registry and
+nginx gateways. The final default-26 replay verifies the shared build argument
+and version-helper defaults without increasing distinct totals.
+
+Three isolated source repairs correct passive check classification, exact image
+cache resolution and use of Docker's returned container identity. Original
+native failures are preserved before fixes. Independent native pulls distinguish
+the 3.2/3.20 owner defect from target setup; unnamed native container execution
+distinguishes the blank-name owner defect. A noexec tmpfs and two authentication
+harness errors remain separately classified as setup failures. Focused unit
+boundaries are explicit doubles and their support examples are counted honestly.
+
+Source artifacts are checked before test cleanup. The finite profile requires
+explicit AllowNoCleanup and records residual files before operator removal;
+it is not automatic-cleanup qualification. The eight selected profile teardowns
+pass 40 parent Docker queries plus eight released-lock checks. Three bounded
+outer services and at most one short-lived inner workload run at once; Docker
+is empty after qualification. Native/failed/superseded archives remain separate,
+human Scenarios are preserved, and no whole-campaign replay or PR is claimed.
+
+The broader inventory and deferred Superset/Druid/FreeSWITCH/WordPress work remain
+open. WordPress staged PHP bootstrap now has a source-verified diagnostic plan;
+its cause remains unknown pending labeled connection/session/socket evidence and
+a bounded cold reproducer. No new runtime or production repair is claimed there.

@@ -1,0 +1,14 @@
+services:
+  target:
+    extends: {file: ../docker_daemon/compose.yaml, service: target}
+    image: msf-module-target-docker-daemon:28.0.4
+    build:
+      context: ../docker_daemon
+      args:
+        DOCKER_ENGINE_IMAGE: docker:28.0.4-dind@sha256:9fb175225e8d3ff95ec41225424d3dcacf78af96544fb2aa2613a78a6d044cb8
+  reporting_db:
+    extends: {file: ../docker_daemon/compose.yaml, service: reporting_db}
+  framework:
+    extends: {file: ../docker_daemon/compose.yaml, service: framework}
+networks:
+  default: {internal: true}

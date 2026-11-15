@@ -1,0 +1,43 @@
+{
+  "spec": "spec/modules/exploits/linux/http/docker_daemon_tcp_finite_target_spec.rb",
+  "expected_examples": 3,
+  "console": true,
+  "module_endpoint_network": "default",
+  "modules": [
+    "exploit/linux/http/docker_daemon_tcp"
+  ],
+  "ports": {},
+  "health_timeout": 150,
+  "support_files": [
+    "test/module_targets/docker_daemon/acceptance.rb",
+    "test/module_targets/docker_daemon/input_audit.rb",
+    "test/module_targets/gopher/compose.yaml",
+    "tools/dev/module_target_endpoint.rb",
+    "documentation/modules/exploit/linux/http/docker_daemon_tcp.md",
+    "lib/msf/core/exploit/remote/http_client.rb",
+    "lib/msf/core/exploit/file_dropper.rb",
+    "spec/modules/exploits/linux/http/docker_daemon_tcp_contracts_spec.rb",
+    "test/module_targets/docker_daemon/session_control.rb",
+    "test/module_targets/druid_sessions/session_control.rb",
+    "spec/support/shared/contexts/wait_for_expect.rb",
+    "lib/msf/core/exploit/remote/auto_check.rb",
+    "test/module_targets/docker_daemon/Dockerfile",
+    "test/module_targets/docker_daemon/README.md",
+    "test/module_targets/docker_daemon/compose.yaml",
+    "test/module_targets/docker_daemon/entrypoint.py",
+    "test/module_targets/docker_daemon/manifest.yml",
+    "test/module_targets/docker_daemon/nginx.conf",
+    "test/module_targets/docker_daemon/registry.yml",
+    "modules/payloads/singles/linux/x64/shell_reverse_tcp.rb",
+    "modules/payloads/singles/python/shell_reverse_tcp.rb",
+    "lib/msf/core/payload/python.rb",
+    "lib/msf/base/sessions/command_shell.rb",
+    "lib/msf/base/sessions/command_shell_unix.rb",
+    "lib/msf/core/session/provider/single_command_shell.rb",
+    "test/module_targets/docker_daemon_finite/acceptance.rb",
+    "modules/payloads/singles/linux/x64/exec.rb",
+    "modules/payloads/singles/python/exec.rb",
+    "lib/msf/core/exploit_driver.rb"
+  ],
+  "test_env": {}
+}

@@ -360,6 +360,28 @@ This is incomplete acceptance, not a passing run. The underlying timeout cause
 and relation to campaign changes remain unverified; no retry or limit increase
 is used to claim a fix.
 
+## Published Metabase checkpoint: Linux Mettle cancellation
+
+Head `0b115916de63159889ca58fd5bfa0d1858aa9967` finishes with 62 successful
+checks, one skipped check and one cancelled
+[Linux Mettle job](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43635023493/job/132569839772).
+The job checks out upstream Framework
+`bea1fb069e79cb610fe3981f16b8697790369c63`; its trigger head does not establish
+that these payload acceptance cases executed this fork's module changes.
+
+The `linux/x64/meterpreter_reverse_https` case using
+`base64_transforms.profile` reaches `post/test/file`. Directory creation,
+intermediary creation, listing and recursive removal succeed. The symbolic-link
+target test then reports `Rex::TimeoutError: Send timed out`, followed by repeated
+send timeouts in later file cases. The job logs cancellation after approximately
+60 minutes. The initiating transport failure and cancellation cause remain
+unverified; no retry was dispatched and cancellation is not a passing result.
+
+The successful lint job compares the final fixture commit with its parent and
+reports no changed Metasploit modules. It does not lint the preceding Metabase
+source-fix commit. Local source-lint evidence and its baseline findings remain
+the applicable record in [the Metabase verification](VERIFICATION-20261114-metabase.md).
+
 ## Published MCPJam checkpoint: macOS Mettle empty output
 
 The published head `85b4890d522b8e1252b61c2f3b8cbb52ee8abea5` completes with
