@@ -75,3 +75,24 @@ The manifests and raw logs are preserved under the corresponding `docker-daemon-
 The focused 103-example comparison starts from source `2af5c089…` with the earlier detection fix already applied. Its cache-only predecessor is `d643b959…`; final source is `9c745797…`. The original pre-detection source `597c8930…` has a separate 56-example comparison (44 failures to zero). Neither unit series is a native execution count.
 
 No production library, payload, external dependency or unrelated module is changed. The human Scenarios suffix is preserved; new verification instructions and the reusable lab link are placed before it. Fork publication and hosted CI results are reported separately from local qualification; hosted acceptance checkouts must be inspected before claiming they exercised the trigger branch. No PR is created.
+
+## Fork publication checks
+
+The fork branch resolves to `6c96926a3c0646a91ed7715a4748fa10a7fe852e` after
+publication. Its workflows finish with 64 checks: 62 successful, one skipped and
+one failed. The [Linux Mettle job](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43711536864/job/132803954323)
+records 51 examples and one failure, seed 41311. The `reverse_http` /
+`post/test/file` / `base64_transforms.profile` case times out waiting for module
+completion; the retained console tail reaches initial directory creation and
+interruption. The initiating transport/process cause remains unverified.
+
+That job explicitly checks out `rapid7/metasploit-framework` master at
+`bea1fb069e79cb610fe3981f16b8697790369c63`. It supplies no execution evidence for
+the fork's changes. This failure differs from the older checkpoint's canceled
+`reverse_https` case. No retry is performed.
+
+The Lint job does check out the fork head, but its msftidy command compares only
+`HEAD^ HEAD`, finds no module files in the final fixture commit and does not
+recheck the three preceding source repairs. The local strict-lint baseline,
+focused before/after contracts and genuine Docker-owner runs above remain the
+applicable source evidence. Green check names do not replace those receipts.
