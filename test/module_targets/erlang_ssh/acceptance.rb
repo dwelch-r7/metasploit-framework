@@ -12,6 +12,7 @@ module Acceptance
   module ErlangSsh
     OWNER = ErlangSshSettings::OWNER
     PAYLOADS = ErlangSshSettings::PAYLOADS
+    PROCESS_STATUS_READER = %q{if status_content=$(cat "$1" 2>/dev/null); then printf "%s\n" "$status_content"; elif test ! -e "$1"; then printf ABSENT; else exit 1; fi}
 
     def erlang_wait(seconds, &)
       wait_for_expect(seconds * 10, 0.1, &)
@@ -155,10 +156,16 @@ module Acceptance
       process = target_exec('target', 'cat', "/proc/#{proof.fetch('pid')}/status")
       expect(process[/^Uid:\s+(\d+)/, 1]).to eq(@profile.fetch('uid').to_s)
       expect(before_pids).not_to include(proof.fetch('pid'))
-      ancestry = []
-      pid = proof.fetch('pid')
+      ancestry = [{ pid: proof.fetch('pid'), status: process }]
+      pid = Integer(process[/^PPid:\s+(\d+)/, 1], 10)
       until pid <= 1 || before_pids.include?(pid)
-        status = target_exec('target', 'cat', "/proc/#{pid}/status")
+        # Fetch wrappers can exit and reparent the live payload between reads.
+        # Preserve confirmed disappearance; other read errors must still fail.
+        status = target_exec('target', 'sh', '-c', PROCESS_STATUS_READER, 'sh', "/proc/#{pid}/status")
+        if status == 'ABSENT'
+          ancestry << { pid: pid, status: nil, already_absent: true }
+          break
+        end
         ancestry << { pid: pid, status: status }
         pid = Integer(status[/^PPid:\s+(\d+)/, 1], 10)
       end

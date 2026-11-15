@@ -170,3 +170,28 @@ checks the valid contract more precisely. The PostgreSQL case remains unrun in
 this attempt. All 24 cleanup queries and the global lock release pass.
 The 327-entry frozen attempt has manifest SHA256
 `13cefb2705703bf4d0fa0aed6371f4d83d1589c725f1fbed80104e91f3e9e8f1`. Full final replay follows.
+
+## Transient-parent observer refinement
+
+At fixture revision `919ba0fa8ae`, root, named non-root and patched profiles each
+pass all nine cases. Their independent artifact audit verifies the actual bytes,
+all 14 native/owner session closures, the real PostgreSQL protocol rejection,
+zero OOM/PID-limit events and unchanged production inputs. The versionless
+profile stops before any owner call: native Meterpreter PID 446 is alive and
+successfully used, while its short-lived parent PID 443 exits between ancestry
+reads. The resulting nine reported failures inherit one before-all observer
+error. All four stacks and all 24 cleanup queries complete cleanly. The complete
+319-entry snapshot has manifest SHA256
+`1fe1b8d9f7b4847e1a2fbb602cfa95fd43c5f66050ece8243ef69086ae957564`.
+
+The refined observer retains the already-verified live payload status and
+recognizes a parent confirmed absent during sampling. Existing unreadable paths
+still fail, and every observed PID must be absent after remote shutdown.
+Nine capped, read-only native controls verify live, absent and read-error
+behavior across the exact root/non-root/fixed images and UIDs; no Framework
+owner runs in those controls. This changes only observation. Production source,
+network commands, session use and module options remain unchanged.
+
+The three passing profiles retain their original frozen input records. A fresh
+versionless replay uses the refined observer; the final report must identify
+these per-profile fixture revisions rather than claim one all-current-tree run.
