@@ -1,6 +1,19 @@
 # Container module acceptance tests
 
-Latest: [Piwigo credential disclosure](VERIFICATION-20261115-piwigo.md) adds one
+Latest: [Erlang OTP SSH execution](VERIFICATION-20261115-erlang-ssh.md) adds one
+owner, four profiles and 36 cases, reaching **256 runtime owners in covered
+paths, 379 profiles and 3,291 functional cases**. All 64 public calls pass in
+recorded root, named non-root, patched and versionless paths. Twelve owning
+sessions and eight native calibration sessions are independently used and
+closed. Source repairs address command quoting, Unicode interpretation and
+passive-check confidence. Three profiles retain their frozen passing fixture
+revision; the final versionless profile uses a verified ancestry-observer fix.
+This is recorded profile coverage, not an all-current-harness replay. Each stack
+has at most three capped containers and is removed before the next starts.
+Earlier failures remain sealed; the broader campaign remains open. No PR is
+created.
+
+Previous: [Piwigo credential disclosure](VERIFICATION-20261115-piwigo.md) adds one
 owner, seven profiles and 37 cases, reaching **255 runtime owners in covered
 paths, 375 profiles and 3,255 functional cases**. All 65 public calls pass against
 genuine affected, patched, subdirectory, empty-gallery and unrelated targets.

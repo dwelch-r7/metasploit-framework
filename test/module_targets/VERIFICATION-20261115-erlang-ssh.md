@@ -1,8 +1,25 @@
 # Erlang OTP SSH execution validation, 2026-11-15
 
-Validation is in progress. No new runtime qualification is claimed by this
-draft record. The previous published Piwigo checkpoint remains 255 owners,
-375 profiles and 3,255 functional cases in its recorded paths and inputs.
+Four genuine Erlang SSH profiles pass **36 functional cases and 64 public
+owning-module calls**. This adds one runtime owner and four profiles, advancing
+recorded campaign coverage to **256 owners, 379 profiles and 3,291 functional
+cases**. Earlier modules retain their recorded paths and inputs; this is not a
+whole-campaign replay.
+
+| Profile | Actual OTP / SSH | Target identity | Cases | Owner calls | Fixture revision |
+| --- | --- | --- | --- | --- | --- |
+| `erlang_ssh` | 27.3.2 / 5.2.9 | Root, UID 0 | 9 / 0 failures | 16 | `919ba0fa8ae` |
+| `erlang_ssh_nonroot` | 27.3.2 / 5.2.9 | Named `module_target`, UID/GID 1000 | 9 / 0 failures | 16 | `919ba0fa8ae` |
+| `erlang_ssh_fixed` | 27.3.3 / 5.2.10 | Root, UID 0 | 9 / 0 failures | 16 | `919ba0fa8ae` |
+| `erlang_ssh_versionless` | 27.3.2 / 5.2.9 | Root, genuine vendor `id_string = Erlang` | 9 / 0 failures | 16 | `2fd47f3a6ed` |
+
+All four use identical repaired production source, SHA256
+`c8ae9f5d067c1e0e74f25c2f778be2be3d3fc7addc6791ef214889a010c953eb`.
+The last fixture revision changes only process-ancestry observation, as detailed
+below. The earlier three profiles retain their exact frozen passing inputs;
+they were not replayed with that final observer. The final versionless profile
+uses the corrected observer. This is qualification of these recorded profile
+paths, not a claim that every profile ran the current harness revision.
 
 ## Genuine target and prerequisites
 
@@ -129,7 +146,7 @@ The primary worktree's strict six-file lint finds only the same three baseline
 module offenses; the focused spec and four fixture/spec Ruby sources introduce
 none. Native controls now include the broader Unicode marker before and after
 each profile and shorten reply-free positive reads while retaining bounded,
-independent target-file proof. Final runtime replay remains in progress.
+independent target-file proof. The final recorded results appear below.
 
 ## First complete serial-profile attempt
 
@@ -169,7 +186,7 @@ missing/invalid-CheckCode diagnostic. Correcting both negative-case assertions
 checks the valid contract more precisely. The PostgreSQL case remains unrun in
 this attempt. All 24 cleanup queries and the global lock release pass.
 The 327-entry frozen attempt has manifest SHA256
-`13cefb2705703bf4d0fa0aed6371f4d83d1589c725f1fbed80104e91f3e9e8f1`. Full final replay follows.
+`13cefb2705703bf4d0fa0aed6371f4d83d1589c725f1fbed80104e91f3e9e8f1`.
 
 ## Transient-parent observer refinement
 
@@ -193,5 +210,71 @@ owner runs in those controls. This changes only observation. Production source,
 network commands, session use and module options remain unchanged.
 
 The three passing profiles retain their original frozen input records. A fresh
-versionless replay uses the refined observer; the final report must identify
-these per-profile fixture revisions rather than claim one all-current-tree run.
+versionless replay with the refined observer passes all nine cases. Its
+135-entry archive has manifest SHA256
+`05fddf73510d4457f4f7bbb538c18cb88b99cd32d848d45e131a227856e5d221`.
+The original serial controller exits 1 because of the preserved versionless
+observer failure; the replacement versionless controller exits 0. Neither
+controller's aggregate exit is substituted for the individual profile evidence.
+
+## Final verification and limits
+
+The recorded profiles create **12 owning-module sessions**: two Linux HTTPS-fetch
+x64 staged Meterpreter and two Unix reverse-Bash sessions on each affected
+profile. Eight additional native calibration sessions establish both delivery
+families independently, including on the patched target. All **20 real sessions**
+are used through their actual APIs, write exact nonce bytes, pass independent
+target PID/UID/file checks, shut down remotely and have SQL closure records.
+Repeated executions verify cleanup permits a second session. Native calibrations
+do not inflate owning-module or functional-case counts.
+
+Twenty-four positive owning generic-command files match exact bytes, covering
+quotes, literal backslashes, Unicode and configured SSH_IDENT. Eight patched
+negative command records verify file absence. Twenty-four independent native
+preauthentication requests straddle every profile's owner calls, covering plain,
+quoted and Unicode commands. Correct and wrong passwords and ordinary
+authenticated execution verify daemon health before and after those requests.
+The versionless profile returns Detected and uses explicit ForceExploit for
+execution. The fixed profile opens no owning session, creates no owning command
+file and records no vulnerability. Refused ports and a genuine PostgreSQL
+endpoint return reason-bearing Unknown; the PostgreSQL server remains usable
+and logs an invalid startup packet, proving that the negative request reached it.
+
+Ten unique workspace vulnerability rows are checked across the affected profiles
+(four root, four non-root, two versionless). Some arise from passive Appears or
+AutoCheck reporting and do not independently prove execution. The separate nonce
+and session proofs establish actual execution. Fixed, refused and unrelated
+controls have no vulnerability records.
+
+The qualification audit independently rehashes all 454 entries in the two final
+runtime archives, checks every selected profile's frozen inputs and verifies
+that the only shared-input difference is the ancestry observer. A separate
+29-entry checkpoint seal references 18 preserved archives whose 2,526 entries
+were independently rehashed. Its manifest SHA256 is
+`d2a9bfef2db1256056ea81208037612675952f56a3b6afa43842c7760ffe3f8a`;
+the local archive identifier is `erlang-ssh-qualified-checkpoint-20261115`.
+It includes the qualification facts, source/spec snapshots, audit scripts,
+focused-unit and lint results, native reader controls, inventory summary and
+protected guide hashes. The human module guide and Scenarios remain unchanged.
+
+Each stack has at most three containers: target (0.5 CPU, 384 MiB, 128 PIDs),
+Framework (1 CPU, 768 MiB, 256 PIDs) and PostgreSQL (0.5 CPU, 256 MiB, 128 PIDs).
+Memory-plus-swap limits equal memory limits. Stacks run serially; no OOM or
+PID-limit events occur. All 24 independent cleanup queries for the selected
+profiles pass, the global lock is released, and the final global container
+inventory is empty. The preserved failed serial attempt adds six more cleanup
+queries for its replaced versionless profile, all passing.
+
+Recorded RSpec wall times are approximately 266, 243, 155 and 272 seconds in
+table order, including native/session setup and excluding image preparation and
+Compose cleanup. The primary focused unit suite passes 52 examples, seed 7721.
+Strict lint and module tidy retain only the three baseline metadata offenses
+listed above; changed fixture Ruby files have no new offenses. No full local
+RSpec suite is run.
+
+Runtime qualification covers linux/amd64 and the exact releases, account modes,
+payload families and paths above. Older OTP branches, native ARM64, macOS,
+Windows, arbitrary unmapped numeric UIDs and broader deployments remain untested.
+Official image digests and application versions are pinned; installed OS package
+versions are retained in build logs but are not snapshot-locked. The broader
+feasible-module campaign remains open. No PR is created.
