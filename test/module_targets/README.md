@@ -1,6 +1,15 @@
 # Container module acceptance tests
 
-Latest: the [native PHP regression target](VERIFICATION-20261115-php-reverse-native.md)
+Latest: [WPS Hide Login discovery](VERIFICATION-20261115-wps-hide-login.md) adds
+one owner, six profiles and eight cases, reaching **250 runtime owners in covered
+paths, 346 profiles and 3,137 functional cases**. The actual scanner now verifies
+a working login form before reporting a redirect destination. Genuine affected,
+fixed, absent-plugin and unrelated controls pass; the original false success is
+preserved separately. Every capped stack is removed before the next starts.
+The broader campaign and staged PHP session investigation remain open. No PR is
+created.
+
+Previous: the [native PHP regression target](VERIFICATION-20261115-php-reverse-native.md)
 adds 38 real interpreter/socket contracts in one isolated container. The original
 source reproduces eight blank-command failures; the repaired primary checkout
 passes all 38. Recorded coverage is **249 runtime owners in covered paths, 340

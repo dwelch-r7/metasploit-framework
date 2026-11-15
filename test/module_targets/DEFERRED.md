@@ -450,6 +450,11 @@ session fix is established by these results.
 
 ## WPS Hide Login discovery: non-login redirect reported as success
 
+Resolved in the six covered profiles by the separate-worktree source repair and
+[actual scanner replay](VERIFICATION-20261115-wps-hide-login.md). The original
+failure and its evidence remain below. Other versions/configurations are not
+qualified by that resolution.
+
 On 15 November, the real `wp_wps_hide_login_revealer` scanner reported
 `Login page: http://<target>/wordpress/404/` against WPS Hide Login 1.9 under a
 WordPress subdirectory. Independent controls established the configured hidden
@@ -472,5 +477,6 @@ Native comparisons separately show genuine disclosure for 1.9 at the site root
 and `/404/` redirects for 1.9.1 at both root and prefix. The 1.9 source has a
 literal root-path exception, explaining why a vulnerable version alone does not
 establish disclosure in the prefix configuration. A separate-worktree repair and
-public-interface replay are pending. None of these new profiles is counted as
-qualified at this checkpoint, and human module Scenarios remain unchanged.
+public-interface replay were pending at that initial checkpoint. None of the
+new profiles was counted then. The later replay passes eight cases/fourteen
+calls across all six profiles, and human module Scenarios remain unchanged.

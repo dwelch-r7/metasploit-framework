@@ -1371,3 +1371,28 @@ Strict Ruby checks, default-CI exclusion and exact cleanup pass. Setup failures
 remain preserved before fixture corrections. No project dependency, shared
 generator or existing module guide is changed by the new component. The separate
 staged-session investigation and broader feasible-module inventory remain open.
+
+## 15 November: WPS Hide Login verified discovery
+
+The [WPS Hide Login checkpoint](VERIFICATION-20261115-wps-hide-login.md) reaches
+**250 runtime owners in covered paths, 346 profiles and 3,137 functional cases**.
+Six genuine application/control profiles pass eight cases and fourteen public
+scanner calls. Native controls establish that 1.9 discloses its configured login
+at the root but returns a concealment redirect in a subdirectory. The original
+module falsely reports that 404 destination as a login; its failed public run
+is preserved before the separate-worktree repair.
+
+The repair verifies same-origin redirect destinations and a real authentication
+form, preserving queries, relative paths and operator settings. Thirty-nine
+focused regressions distinguish the original behavior from the repair; their
+HTTP/discovery doubles are explicit. Genuine root success, prefix refusal,
+fixing-release layouts, absent plugin, unrelated HTTP, missing path and closed
+port all pass. Thirty-six independent cleanup queries and six lock checks verify
+removal of every stack. No containers remain. Human Scenarios are unchanged.
+
+The [previous publication's terminal CI](VERIFICATION-20261115-php-publication.md)
+has 61 successful checks, one skip and two native jobs cancelled at their
+one-hour limits. Those two jobs check out upstream source; the ordinary Ruby
+unit job checks out the exact published fork commit. These results do not add
+functional cases. The broader campaign and staged PHP session investigation
+remain open; no whole-campaign replay or PR is claimed.
