@@ -1396,3 +1396,30 @@ one-hour limits. Those two jobs check out upstream source; the ordinary Ruby
 unit job checks out the exact published fork commit. These results do not add
 functional cases. The broader campaign and staged PHP session investigation
 remain open; no whole-campaign replay or PR is claimed.
+
+## 15 November: POST SMTP reset disclosure and refusal contracts
+
+The [POST SMTP checkpoint](VERIFICATION-20261115-post-smtp.md) advances recorded
+coverage to **251 runtime owners in covered paths, 353 profiles and 3,157 cases**.
+Seven genuine profiles pass twenty cases and 37 calls, with twelve core-valid
+fresh reset URLs and exact email-page loots. Native SMTP delivery, plugin API
+behavior and database state distinguish real affected/fixed results from setup.
+The separate-worktree repair handles reset302, includes affected2.8.7 and rejects
+unsuccessful registration before requesting a reset. Disabled logging reports a
+clear failure while real email delivery still works.
+
+Original source failures, five native fixture stops and two functional harness
+stops are preserved separately; failed or native-only runs add no coverage. The
+52 focused regressions explicitly disclose their doubles; primary default-CI
+verification passes59 examples including seven existing support examples. The
+helper's29 baseline lint offenses are unchanged, with zero new offenses. Human
+Scenarios remain unchanged. Existing mobile settings and reset keys are restored
+by an explicit fixture operator action, not claimed as module cleanup.
+
+One serial stack uses at most three capped target containers and a real isolated
+host console. Forty-two independent cleanup queries and seven lock checks verify
+all eighteen containers, thirteen networks and twelve volumes absent. Older
+families retain frozen inputs. The [prior publication's CI](VERIFICATION-20261115-wps-publication.md)
+finishes all ten workflows successfully, with63 successful checks and one skip;
+actual fork unit checkout and upstream native checkouts remain distinguished.
+The broader campaign and staged PHP investigation remain open; no PR is created.

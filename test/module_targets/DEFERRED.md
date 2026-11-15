@@ -480,3 +480,24 @@ establish disclosure in the prefix configuration. A separate-worktree repair and
 public-interface replay were pending at that initial checkpoint. None of the
 new profiles was counted then. The later replay passes eight cases/fourteen
 calls across all six profiles, and human module Scenarios remain unchanged.
+
+## POST SMTP reset response, version boundary and registration refusal
+
+Resolved for the seven [covered genuine profiles](VERIFICATION-20261115-post-smtp.md)
+by separate-worktree commit `31029079565`, integrated as `92d86171e2b`. Healthy
+original recordings establish three defects: legitimate reset302 falsely fails,
+affected2.8.7 falsely returnsSafe, and patched2.8.8 with AutoCheck disabled reports
+successful registration despite JSONsuccessfalse before needlessly issuing a
+reset. The latter changes the real activation key and mail/log count. Recording
+controller exit0 establishes successful capture/cleanup, not successful module
+behavior. Original module/helper hashes and all three recordings remain sealed.
+
+The corrected public replay passes twenty cases and37 calls, including twelve
+core-valid fresh URLs with exact real email loots, repeats, subdirectories,
+patched refusal, disabled logging, plugin absence and unrelated HTTP. Native SMTP,
+API, account and configuration controls precede qualification. Native setup and
+functional harness failures remain separately recorded. Registration overwrites
+mobile settings and reset requests replace the outstanding key: the fixture
+explicitly restores its owned baseline, and no automatic foreign-state recovery
+is claimed. Other releases, TLS, multisite and an existing authorization nonce
+remain unqualified. No human Scenarios are changed.

@@ -1,6 +1,16 @@
 # Container module acceptance tests
 
-Latest: [WPS Hide Login discovery](VERIFICATION-20261115-wps-hide-login.md) adds
+Latest: [POST SMTP account reset disclosure](VERIFICATION-20261115-post-smtp.md)
+adds one owner, seven profiles and twenty cases, reaching **251 runtime owners in
+covered paths, 353 profiles and 3,157 functional cases**. Genuine affected/fixed,
+subdirectory, disabled-logging and negative targets pass all 37 public calls.
+The fix accepts real reset redirects, corrects the affected boundary and refuses
+rejected registration before reset. Exact SMTP/key/loot controls and explicit
+operator restoration distinguish success from setup and module failures. Each
+capped stack is removed before the next; no containers remain. The broader
+campaign and staged PHP session investigation remain open. No PR is created.
+
+Previous: [WPS Hide Login discovery](VERIFICATION-20261115-wps-hide-login.md) adds
 one owner, six profiles and eight cases, reaching **250 runtime owners in covered
 paths, 346 profiles and 3,137 functional cases**. The actual scanner now verifies
 a working login form before reporting a redirect destination. Genuine affected,
