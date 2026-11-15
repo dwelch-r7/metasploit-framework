@@ -1,0 +1,22 @@
+spec: spec/modules/payloads/singles/php/reverse_php_target_spec.rb
+expected_examples: 38
+console: false
+# Payload singles use a different filesystem path from their public fullname.
+# Hash the actual owner explicitly instead of inventing a module alias.
+modules: []
+ports: {}
+support_files:
+  - modules/payloads/singles/php/reverse_php.rb
+  - lib/msf/core/payload/php.rb
+  - lib/msf/core/payload.rb
+  - lib/msf/core/payload/single.rb
+  - lib/msf/base/sessions/command_shell_options.rb
+  - lib/msf/base/sessions/command_shell.rb
+  - lib/msf/core/session/provider/single_command_shell.rb
+  - Gemfile
+  - Gemfile.lock
+  - .ruby-version
+  - metasploit-framework.gemspec
+  - spec/spec_helper.rb
+  - spec/acceptance_spec_helper.rb
+  - tools/dev/run_guarded_module_target_tests.rb

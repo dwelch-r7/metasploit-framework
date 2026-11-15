@@ -1,0 +1,23 @@
+services:
+  target:
+    build: .
+    network_mode: none
+    entrypoint: [sleep, infinity]
+    command: []
+    user: "33:33"
+    cpus: 0.5
+    mem_limit: 192m
+    pids_limit: 64
+    init: true
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    tmpfs:
+      - /tmp:rw,nosuid,nodev,size=33554432
+      # Override the inherited WordPress VOLUME without allocating a volume.
+      - /var/www/html:rw,nosuid,nodev,size=1048576
+    healthcheck:
+      test: [CMD, php, -r, "exit(PHP_VERSION === '8.3.28' && extension_loaded('sockets') ? 0 : 1);"]
+      interval: 1s
+      timeout: 3s
+      retries: 30

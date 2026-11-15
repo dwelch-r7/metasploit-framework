@@ -1,0 +1,232 @@
+{
+  "callback": {
+    "host": "127.0.0.1",
+    "port": 47123
+  },
+  "generation_seed": 7721,
+  "default_execution_method": "exec",
+  "execution_methods": [
+    "passthru",
+    "shell_exec",
+    "system",
+    "exec",
+    "proc_open",
+    "popen"
+  ],
+  "cases": [
+    {
+      "name": "fsockopen-baseline-exit",
+      "transport": "fsockopen",
+      "ending": "exit"
+    },
+    {
+      "name": "fsockopen-baseline-quit",
+      "transport": "fsockopen",
+      "ending": "quit"
+    },
+    {
+      "name": "fsockopen-baseline-passthru",
+      "transport": "fsockopen",
+      "ending": "exit",
+      "method": "passthru"
+    },
+    {
+      "name": "fsockopen-baseline-shell_exec",
+      "transport": "fsockopen",
+      "ending": "exit",
+      "method": "shell_exec"
+    },
+    {
+      "name": "fsockopen-baseline-system",
+      "transport": "fsockopen",
+      "ending": "exit",
+      "method": "system"
+    },
+    {
+      "name": "fsockopen-baseline-exec",
+      "transport": "fsockopen",
+      "ending": "exit",
+      "method": "exec"
+    },
+    {
+      "name": "fsockopen-baseline-proc_open",
+      "transport": "fsockopen",
+      "ending": "exit",
+      "method": "proc_open"
+    },
+    {
+      "name": "fsockopen-baseline-popen",
+      "transport": "fsockopen",
+      "ending": "exit",
+      "method": "popen"
+    },
+    {
+      "name": "fsockopen-newline-passthru",
+      "transport": "fsockopen",
+      "method": "passthru",
+      "probe": "\n"
+    },
+    {
+      "name": "fsockopen-newline-shell_exec",
+      "transport": "fsockopen",
+      "method": "shell_exec",
+      "probe": "\n"
+    },
+    {
+      "name": "fsockopen-newline-system",
+      "transport": "fsockopen",
+      "method": "system",
+      "probe": "\n"
+    },
+    {
+      "name": "fsockopen-newline-exec",
+      "transport": "fsockopen",
+      "method": "exec",
+      "probe": "\n"
+    },
+    {
+      "name": "fsockopen-newline-proc_open",
+      "transport": "fsockopen",
+      "method": "proc_open",
+      "probe": "\n"
+    },
+    {
+      "name": "fsockopen-newline-popen",
+      "transport": "fsockopen",
+      "method": "popen",
+      "probe": "\n"
+    },
+    {
+      "name": "fsockopen-whitespace-0",
+      "transport": "fsockopen",
+      "probe": " \t\n"
+    },
+    {
+      "name": "fsockopen-whitespace-1",
+      "transport": "fsockopen",
+      "probe": "\r\n"
+    },
+    {
+      "name": "fsockopen-whitespace-2",
+      "transport": "fsockopen",
+      "probe": "\n\n"
+    },
+    {
+      "name": "fsockopen-whitespace-3",
+      "transport": "fsockopen",
+      "probe": ""
+    },
+    {
+      "name": "fsockopen-eof",
+      "transport": "fsockopen",
+      "ending": "eof"
+    },
+    {
+      "name": "socket-baseline-exit",
+      "transport": "socket",
+      "ending": "exit"
+    },
+    {
+      "name": "socket-baseline-quit",
+      "transport": "socket",
+      "ending": "quit"
+    },
+    {
+      "name": "socket-baseline-passthru",
+      "transport": "socket",
+      "ending": "exit",
+      "method": "passthru"
+    },
+    {
+      "name": "socket-baseline-shell_exec",
+      "transport": "socket",
+      "ending": "exit",
+      "method": "shell_exec"
+    },
+    {
+      "name": "socket-baseline-system",
+      "transport": "socket",
+      "ending": "exit",
+      "method": "system"
+    },
+    {
+      "name": "socket-baseline-exec",
+      "transport": "socket",
+      "ending": "exit",
+      "method": "exec"
+    },
+    {
+      "name": "socket-baseline-proc_open",
+      "transport": "socket",
+      "ending": "exit",
+      "method": "proc_open"
+    },
+    {
+      "name": "socket-baseline-popen",
+      "transport": "socket",
+      "ending": "exit",
+      "method": "popen"
+    },
+    {
+      "name": "socket-newline-passthru",
+      "transport": "socket",
+      "method": "passthru",
+      "probe": "\n"
+    },
+    {
+      "name": "socket-newline-shell_exec",
+      "transport": "socket",
+      "method": "shell_exec",
+      "probe": "\n"
+    },
+    {
+      "name": "socket-newline-system",
+      "transport": "socket",
+      "method": "system",
+      "probe": "\n"
+    },
+    {
+      "name": "socket-newline-exec",
+      "transport": "socket",
+      "method": "exec",
+      "probe": "\n"
+    },
+    {
+      "name": "socket-newline-proc_open",
+      "transport": "socket",
+      "method": "proc_open",
+      "probe": "\n"
+    },
+    {
+      "name": "socket-newline-popen",
+      "transport": "socket",
+      "method": "popen",
+      "probe": "\n"
+    },
+    {
+      "name": "socket-whitespace-0",
+      "transport": "socket",
+      "probe": " \t\n"
+    },
+    {
+      "name": "socket-whitespace-1",
+      "transport": "socket",
+      "probe": "\r\n"
+    },
+    {
+      "name": "socket-whitespace-2",
+      "transport": "socket",
+      "probe": "\n\n"
+    },
+    {
+      "name": "socket-whitespace-3",
+      "transport": "socket",
+      "probe": ""
+    },
+    {
+      "name": "socket-eof",
+      "transport": "socket",
+      "ending": "eof"
+    }
+  ]
+}
