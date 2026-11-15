@@ -21,6 +21,7 @@ support_files:
 - lib/msf/core/exploit/remote/http/wordpress/users.rb
 - lib/msf/core/exploit/remote/http/wordpress/version.rb
 - lib/msf/core/exploit/remote/http/wordpress/xml_rpc.rb
+- lib/msf/core/exploit/remote/http_client.rb
 - spec/acceptance_spec_helper.rb
 - spec/spec_helper.rb
 - spec/support/acceptance/datastore_formatting.rb
