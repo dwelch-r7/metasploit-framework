@@ -1,0 +1,32 @@
+{
+  "gimedia": {
+    "release": "2.2.2",
+    "mode": "affected",
+    "prefix": "",
+    "depth": 6
+  },
+  "gimedia_prefix": {
+    "release": "2.2.2",
+    "mode": "affected",
+    "prefix": "/wordpress",
+    "depth": 7
+  },
+  "gimedia_fixed": {
+    "release": "3.0",
+    "mode": "fixed",
+    "prefix": "",
+    "depth": 6
+  },
+  "gimedia_absent": {
+    "release": null,
+    "mode": "absent",
+    "prefix": "",
+    "depth": 6
+  },
+  "gimedia_unrelated": {
+    "release": null,
+    "mode": "unrelated",
+    "prefix": "",
+    "depth": 6
+  }
+}

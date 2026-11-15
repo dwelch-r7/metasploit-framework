@@ -1,0 +1,11 @@
+---
+services:
+  db:
+    extends: {file: ../gimedia/services.yaml, service: db}
+  app:
+    extends: {file: ../gimedia/services.yaml, service: root}
+    environment:
+      GIMEDIA_RELEASE: "absent"
+networks:
+  default: {internal: true}
+  public: {}

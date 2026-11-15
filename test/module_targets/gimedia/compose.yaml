@@ -1,0 +1,13 @@
+---
+services:
+  db:
+    extends: {file: ../gimedia/services.yaml, service: db}
+  app:
+    extends: {file: ../gimedia/services.yaml, service: root}
+    environment:
+      GIMEDIA_RELEASE: "2.2.2"
+    volumes:
+    - ../../../tmp/module-target-gimedia-sources/2.2.2.zip:/opt/module-target/plugin.zip:ro
+networks:
+  default: {internal: true}
+  public: {}

@@ -1,0 +1,14 @@
+{
+  "2.2.2": {
+    "url": "https://downloads.wordpress.org/plugin/gi-media-library.2.2.2.zip",
+    "sha256": "a321906b415aef972792f7b50b4df022a00c40d2ddc386dba8fd1b4fe8cea785",
+    "bytes": 888806,
+    "endpoint_sha256": "fbc6b1dc427797b0cba444a4ce09269bacd8ee09ddca8f9d90072f93b4973ec2"
+  },
+  "3.0": {
+    "url": "https://downloads.wordpress.org/plugin/gi-media-library.3.0.zip",
+    "sha256": "e4b843d9c497a1b05ca271698b2bb763464c071c6ae271a474b41b06cd9d3064",
+    "bytes": 1245860,
+    "endpoint_sha256": null
+  }
+}
