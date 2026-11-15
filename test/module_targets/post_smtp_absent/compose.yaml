@@ -1,0 +1,12 @@
+---
+services:
+  db:
+    extends: {file: ../post_smtp/services.yaml, service: db}
+  app:
+    extends: {file: ../post_smtp/services.yaml, service: root}
+    environment:
+      POST_SMTP_RELEASE: "absent"
+      POST_SMTP_MODE: absent
+networks:
+  default: {internal: true}
+  public: {}

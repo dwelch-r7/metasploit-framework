@@ -64,6 +64,10 @@ volumes:
   1. Settings -> Permalinks -> Permalink structure -> Select "Post name" -> Save Changes.
 
 
+The reusable [Docker target profiles](../../../../../test/module_targets/post_smtp/README.md)
+automate local mail delivery, affected/fixed version checks and repeated module
+execution, including subdirectory installations and disabled email logging.
+
 ## Verification Steps
 
 1. Install the vulnerable plugin

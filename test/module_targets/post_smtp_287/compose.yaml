@@ -1,0 +1,18 @@
+---
+services:
+  db:
+    extends: {file: ../post_smtp/services.yaml, service: db}
+  app:
+    extends: {file: ../post_smtp/services.yaml, service: root}
+    environment:
+      POST_SMTP_RELEASE: "2.8.7"
+      POST_SMTP_MODE: vulnerable
+    depends_on:
+      smtp: {condition: service_healthy}
+    volumes:
+    - ../../../tmp/module-target-post-smtp-sources/2.8.7.zip:/opt/module-target/plugin.zip:ro
+  smtp:
+    extends: {file: ../post_smtp/services.yaml, service: smtp}
+networks:
+  default: {internal: true}
+  public: {}

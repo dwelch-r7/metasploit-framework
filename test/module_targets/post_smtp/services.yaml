@@ -1,0 +1,50 @@
+---
+services:
+  db:
+    extends: {file: ../wordpress/compose.yaml, service: db}
+    cpus: 0.5
+    mem_limit: 512m
+    pids_limit: 128
+    init: true
+  root:
+    extends: {file: ../wordpress/compose.yaml, service: root}
+    cpus: 0.5
+    mem_limit: 384m
+    pids_limit: 128
+    init: true
+    networks: [default, public]
+    environment:
+      POST_SMTP_RELEASE: '2.8.6'
+      POST_SMTP_MODE: vulnerable
+    volumes:
+    - ../wordpress/seed.php:/opt/module-target/seed-base.php:ro
+    - ./seed.php:/opt/module-target/seed.php:ro
+    - ./control.php:/opt/module-target/post-smtp-control.php:ro
+    - ./releases.json:/opt/module-target/post-smtp-releases.json:ro
+    healthcheck:
+      test: [CMD-SHELL, 'test -f /tmp/module-target-post-smtp-ready && curl --fail --silent http://127.0.0.1$${LAB_PREFIX}/wp-login.php >/dev/null']
+      interval: 3s
+      timeout: 5s
+      retries: 40
+  prefix:
+    extends: {service: root}
+    working_dir: /var/www/html/wordpress
+    environment:
+      WORDPRESS_DB_NAME: wp_prefix
+      LAB_PREFIX: /wordpress
+  smtp:
+    extends: {file: ../smtp/compose.yaml, service: rcpt}
+    cpus: 0.25
+    mem_limit: 128m
+    pids_limit: 64
+    init: true
+    ports: !reset []
+    volumes:
+    - ./exim.conf:/etc/exim4/module-target.conf:ro
+    - ./mailbox.py:/opt/post-smtp-mailbox.py:ro
+  unrelated:
+    extends: {file: ../http/compose.yaml, service: apache}
+    cpus: 0.25
+    mem_limit: 128m
+    pids_limit: 128
+    init: true

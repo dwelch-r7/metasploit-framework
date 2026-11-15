@@ -1,0 +1,20 @@
+{
+  "2.8.6": {
+    "url": "https://downloads.wordpress.org/plugin/post-smtp.2.8.6.zip",
+    "sha256": "bdab7b3be26cdd419e13fa083ef77fa4f9cd680165f38abed76431ddf2af6337",
+    "bytes": 8626523,
+    "rest_source_sha256": "d1c59f4230d1c4a1cc11c3a07e521c03da9462e2cb7ebd0700eb0bbdc5b8404d"
+  },
+  "2.8.7": {
+    "url": "https://downloads.wordpress.org/plugin/post-smtp.2.8.7.zip",
+    "sha256": "09f7f92bddc72170cc42e99eb4d22505873b6e26b3ecc54f0712f5de3a71afae",
+    "bytes": 8626655,
+    "rest_source_sha256": "d1c59f4230d1c4a1cc11c3a07e521c03da9462e2cb7ebd0700eb0bbdc5b8404d"
+  },
+  "2.8.8": {
+    "url": "https://downloads.wordpress.org/plugin/post-smtp.2.8.8.zip",
+    "sha256": "d55134abb17aaa06a73b724c67034b49cc310868cd271130133b466822157ba0",
+    "bytes": 8625358,
+    "rest_source_sha256": "8e449379ea1cac0d67438d4c7643b2eaeb2533b180f3de8289ea30b4d4b372ab"
+  }
+}

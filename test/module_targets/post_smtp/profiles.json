@@ -1,0 +1,51 @@
+{
+  "post_smtp": {
+    "key": "286",
+    "release": "2.8.6",
+    "prefix": "",
+    "mode": "vulnerable",
+    "examples": 4
+  },
+  "post_smtp_287": {
+    "key": "287",
+    "release": "2.8.7",
+    "prefix": "",
+    "mode": "vulnerable",
+    "examples": 4
+  },
+  "post_smtp_prefix": {
+    "key": "prefix",
+    "release": "2.8.7",
+    "prefix": "/wordpress",
+    "mode": "vulnerable",
+    "examples": 4
+  },
+  "post_smtp_fixed": {
+    "key": "fixed",
+    "release": "2.8.8",
+    "prefix": "",
+    "mode": "fixed",
+    "examples": 3
+  },
+  "post_smtp_no_logs": {
+    "key": "no_logs",
+    "release": "2.8.7",
+    "prefix": "",
+    "mode": "no_logs",
+    "examples": 1
+  },
+  "post_smtp_absent": {
+    "key": "absent",
+    "release": null,
+    "prefix": "",
+    "mode": "absent",
+    "examples": 2
+  },
+  "post_smtp_unrelated": {
+    "key": "unrelated",
+    "release": null,
+    "prefix": "",
+    "mode": "unrelated",
+    "examples": 2
+  }
+}

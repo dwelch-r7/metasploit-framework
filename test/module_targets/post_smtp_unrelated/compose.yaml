@@ -1,0 +1,4 @@
+---
+services:
+  app:
+    extends: {file: ../post_smtp/services.yaml, service: unrelated}
