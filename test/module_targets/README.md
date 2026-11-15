@@ -1,6 +1,16 @@
 # Container module acceptance tests
 
-Latest: [Simple Backup file disclosure](VERIFICATION-20261115-simple-backup.md)
+Latest: [Piwigo credential disclosure](VERIFICATION-20261115-piwigo.md) adds one
+owner, seven profiles and 37 cases, reaching **255 runtime owners in covered
+paths, 375 profiles and 3,255 functional cases**. All 65 public calls pass against
+genuine affected, patched, subdirectory, empty-gallery and unrelated targets.
+Real PostgreSQL comparisons verify complete username/hash persistence under a
+native aggregation limit. Original reporting, truncation and login prerequisite
+failures and harness corrections stay sealed. Each stack has at most three
+capped containers and is removed before the next starts. Earlier snapshots are
+retained; the broader campaign remains open. No PR is created.
+
+Previous: [Simple Backup file disclosure](VERIFICATION-20261115-simple-backup.md)
 adds one owner, five profiles and 23 cases, reaching **254 runtime owners in
 covered paths, 368 profiles and 3,218 functional cases**. All 48 public calls pass
 with 26 exact file loots, including six ordinary confined backup reads. Genuine
