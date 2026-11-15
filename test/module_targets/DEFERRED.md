@@ -209,6 +209,12 @@ permission-export checksums. Keep those failures separate from the verified
 permission repair. Further work needs labeled session/socket transport evidence
 through the second staged bootstrap before selecting a module or session fix.
 
+The [15 November diagnostic gates](VERIFICATION-20261115-wordpress-diagnostic-gates.md)
+verify PHP syntax and actual installed payload/Rex source identity. Ordinary HTTP
+produces the expected TCP tuple, but proc FD permission errors prevent worker
+correlation. The labeled staged trial remains unexecuted. Fixture failures and
+successful teardown are retained separately; no additional coverage is counted.
+
 ## Ansible node deployment
 
 `exploit/linux/local/ansible_node_deployer` remains unqualified. The native-passing
