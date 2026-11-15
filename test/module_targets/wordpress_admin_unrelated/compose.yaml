@@ -1,5 +1,7 @@
 services:
   unrelated:
     extends: {file: ../wordpress_admin/services.yaml, service: unrelated}
+    # Apache event MPM starts more than 64 worker threads before any test.
+    pids_limit: 128
   framework:
     extends: {file: ../wordpress_admin/services.yaml, service: framework}

@@ -52,7 +52,7 @@ separate database names and publish only random loopback HTTP ports; reverse
 listeners remain on the internal Framework network. All services use `init` and
 CPU, memory and PID limits. A WordPress project is capped at 0.5 CPU/512 MiB/128
 PIDs for MariaDB, 0.5 CPU/384 MiB/128 PIDs for WordPress, and 1 CPU/1536 MiB/256
-PIDs for Framework. Unrelated Apache uses 0.25 CPU/128 MiB/64 PIDs and the same
+PIDs for Framework. Unrelated Apache uses 0.25 CPU/128 MiB/128 PIDs and the same
 Framework cap. No additional capabilities are granted.
 
 The component resource hook captures `memory.events` and `pids.events` for every

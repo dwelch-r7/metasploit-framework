@@ -59,7 +59,7 @@ Drupal is present. CPU, memory and PID limits apply to every service, with
 `init: true`; the largest profile starts three containers. Application services
 use 0.5 CPU, 384 MiB and 128 PIDs; MariaDB uses 0.5 CPU, 512 MiB and 128 PIDs;
 Framework uses one CPU, 1536 MiB and 256 PIDs. Unrelated Apache uses 0.25 CPU,
-128 MiB and 64 PIDs. Each run uses fresh application/database state and repeats
+128 MiB and 128 PIDs. Each run uses fresh application/database state and repeats
 independent native controls for its actual role.
 
 | Profile | Original cases | Selected target |
