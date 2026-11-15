@@ -408,3 +408,11 @@ is not logged. The differing outcomes do not establish a source regression or
 prove that these jobs validate this branch. Genuine module-target runs separately
 hash and execute the branch's actual owner. No CI retry or local payload execution
 was performed during this bounded read-only investigation.
+
+## Additional kernel-specific owners
+
+The [15 November source review](VERIFICATION-20261115-kernel-feasibility.md)
+records three further owners requiring disposable kernel guests for positive
+qualification. The io_uring CPU guard and BPF sign-extension check also have
+specific source-level concerns awaiting reproduction. These are unexecuted
+observations and add no passing coverage.

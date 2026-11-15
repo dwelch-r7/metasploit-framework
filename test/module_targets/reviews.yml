@@ -145,6 +145,44 @@ modules:
       A service container with invented host paths would not verify that escape.
       Use a disposable VM with its own privileged nested container and compatible
       cgroup v1 host setup; the shared Docker engine is not an isolated target.
+  exploit/linux/local/cve_2022_1043_io_uring_priv_esc:
+    source_sha256: 2d77815354c78e070cc9d77a92479d9efe1428314b86ea19016e9cc58864bf72
+    disposition: separate_kernel_target
+    reason: >-
+      The owning exploit uploads or compiles native io_uring code that hijacks
+      kernel credentials and creates a SUID executable. Its bundled source
+      deliberately keeps processes alive because releasing the damaged
+      credentials can panic the kernel. A service image cannot supply a
+      separate vulnerable kernel or verify safe guest shutdown. Use a
+      disposable VM with its own affected kernel, more than one CPU, both
+      declared shell and Meterpreter entry sessions, root execution and
+      complete guest disposal. No io_uring exploit code is run by this source
+      review.
+  exploit/linux/local/cve_2021_3490_ebpf_alu32_bounds_check_lpe:
+    source_sha256: 45448289d6123b39b038a6901ed5e7fe3b390cb5b181a8395836848748148f36
+    disposition: separate_kernel_target
+    reason: >-
+      The owning check depends on the running kernel, distribution-specific
+      build, CONFIG_BPF_SYSCALL and unprivileged BPF policy. Execution selects
+      a kernel-specific native exploit; its bundled source loads BPF programs
+      and overwrites process credentials in kernel memory. An ordinary image
+      with an old userspace cannot supply that kernel. Qualify in a disposable
+      affected/fixed guest matrix with genuine low-privilege shell and
+      Meterpreter entry sessions, root execution and cleanup. No BPF program
+      is loaded or host sysctl changed by this review.
+  exploit/linux/local/bpf_sign_extension_priv_esc:
+    source_sha256: 06cd4cab0969fb7091e43afb5b6c991b02843a318a9e37460ab8bc9ed4bdee88
+    disposition: separate_kernel_target
+    reason: >-
+      The owning exploit compiles or drops native BPF code that obtains kernel
+      read/write and overwrites process credentials before opening a shell.
+      Its check also depends on the real kernel, CONFIG_BPF_SYSCALL, BPF
+      policy and hardening state. A service image cannot isolate or replace
+      the shared kernel for that positive path. Use disposable affected/fixed
+      kernel guests, both declared shell and Meterpreter entry sessions,
+      actual privilege proof and artifact/process cleanup. The separate
+      source-level check return-type concern is unqualified; no BPF code is
+      run by this review.
   exploit/linux/local/cve_2022_0847_dirtypipe:
     source_sha256: fcd75cb71f8873db2231b89880caeeed83668e2fa9c558982987b5a75f8332e9
     disposition: separate_kernel_target
