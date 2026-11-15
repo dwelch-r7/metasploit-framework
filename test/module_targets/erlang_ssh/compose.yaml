@@ -1,0 +1,31 @@
+services:
+  target:
+    build:
+      context: ../../..
+      dockerfile: test/module_targets/erlang_ssh/Dockerfile
+    platform: linux/amd64
+    init: true
+    cpus: 0.5
+    mem_limit: 384m
+    memswap_limit: 384m
+    pids_limit: 128
+    tmpfs: ['/tmp:rw,exec,size=64m,mode=1777']
+    ports: ['127.0.0.1::2222']
+    healthcheck:
+      test: [CMD, test, -f, /tmp/module-target-erlang/ready]
+      interval: 2s
+      timeout: 3s
+      retries: 40
+  reporting_db:
+    extends: {file: ../gopher/compose.yaml, service: reporting_db}
+    cpus: 0.5
+    mem_limit: 256m
+    memswap_limit: 256m
+    pids_limit: 128
+    init: true
+    ports: ['127.0.0.1::5432']
+  framework:
+    cpus: 1
+    mem_limit: 768m
+    memswap_limit: 768m
+    pids_limit: 256

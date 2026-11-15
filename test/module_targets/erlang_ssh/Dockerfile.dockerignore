@@ -1,0 +1,6 @@
+**
+!test/
+!test/module_targets/
+!test/module_targets/erlang_ssh/
+!test/module_targets/erlang_ssh/server.escript
+!test/module_targets/erlang_ssh/native.escript

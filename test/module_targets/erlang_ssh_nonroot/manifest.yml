@@ -1,0 +1,46 @@
+spec: spec/modules/exploits/linux/ssh/ssh_erlangotp_rce_target_spec.rb
+expected_examples: 9
+console: true
+modules: [exploit/linux/ssh/ssh_erlangotp_rce]
+ports: {target: 2222, reporting_db: 5432}
+test_env: {ERLANG_SSH_PROFILE: erlang_ssh_nonroot}
+support_files:
+  - .ruby-version
+  - Gemfile
+  - Gemfile.lock
+  - documentation/modules/exploit/linux/ssh/ssh_erlangotp_rce.md
+  - lib/msf/base/sessions/command_shell.rb
+  - lib/msf/base/simple/exploit.rb
+  - lib/msf/core/auxiliary/report.rb
+  - lib/msf/core/db_manager/session.rb
+  - lib/msf/core/exploit/remote/auto_check.rb
+  - lib/msf/core/exploit/remote/tcp.rb
+  - lib/msf/core/exploit_driver.rb
+  - lib/msf/ui/console/command_dispatcher/modules.rb
+  - lib/msfenv.rb
+  - metasploit-framework.gemspec
+  - msfconsole
+  - spec/acceptance_spec_helper.rb
+  - spec/spec_helper.rb
+  - spec/support/acceptance/datastore_formatting.rb
+  - spec/support/shared/contexts/wait_for_expect.rb
+  - test/module_targets/druid_sessions/session_control.rb
+  - test/module_targets/erlang_ssh/Dockerfile
+  - test/module_targets/erlang_ssh/Dockerfile.dockerignore
+  - test/module_targets/erlang_ssh/acceptance.rb
+  - test/module_targets/erlang_ssh/compose.yaml
+  - test/module_targets/erlang_ssh/native.escript
+  - test/module_targets/erlang_ssh/native_probe.py
+  - test/module_targets/erlang_ssh/profiles.json
+  - test/module_targets/erlang_ssh/releases.json
+  - test/module_targets/erlang_ssh/server.escript
+  - test/module_targets/erlang_ssh/session_control.rb
+  - test/module_targets/erlang_ssh/settings.rb
+  - test/module_targets/erlang_ssh/ssh_wire.py
+  - test/module_targets/gopher/compose.yaml
+  - tools/dev/run_guarded_module_target_tests.rb
+  - test/module_targets/erlang_ssh/README.md
+  - spec/modules/exploits/linux/ssh/ssh_erlangotp_rce_spec.rb
+  - spec/file_fixtures/modules/exploits/linux/ssh/ssh_erlangotp_rce/responses.json
+  - lib/msf/core/general_event_subscriber.rb
+  - lib/msf/core/event_dispatcher.rb

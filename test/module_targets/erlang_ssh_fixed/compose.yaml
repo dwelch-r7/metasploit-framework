@@ -1,0 +1,10 @@
+services:
+  target:
+    extends: {file: ../erlang_ssh/compose.yaml, service: target}
+    build:
+      args:
+        ERLANG_IMAGE: erlang:27.3.3-slim@sha256:7a02150f8261b65e392930cc375552a7603b5de6fec66701e7e80d79b875fe56
+  reporting_db:
+    extends: {file: ../erlang_ssh/compose.yaml, service: reporting_db}
+  framework:
+    extends: {file: ../erlang_ssh/compose.yaml, service: framework}

@@ -1,0 +1,6 @@
+{
+  "erlang_ssh": {"version": "27.3.2", "uid": 0, "affected": true, "check": "Appears"},
+  "erlang_ssh_nonroot": {"version": "27.3.2", "uid": 1000, "affected": true, "check": "Appears"},
+  "erlang_ssh_fixed": {"version": "27.3.3", "uid": 0, "affected": false, "check": "Safe"},
+  "erlang_ssh_versionless": {"version": "27.3.2", "uid": 0, "affected": true, "check": "Detected", "banner": "Erlang"}
+}

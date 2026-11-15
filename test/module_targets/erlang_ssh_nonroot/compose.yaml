@@ -1,0 +1,8 @@
+services:
+  target:
+    extends: {file: ../erlang_ssh/compose.yaml, service: target}
+    user: "1000:1000"
+  reporting_db:
+    extends: {file: ../erlang_ssh/compose.yaml, service: reporting_db}
+  framework:
+    extends: {file: ../erlang_ssh/compose.yaml, service: framework}

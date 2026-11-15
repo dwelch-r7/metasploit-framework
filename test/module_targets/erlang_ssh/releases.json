@@ -1,0 +1,34 @@
+{
+  "27.3.2": {
+    "image": "erlang:27.3.2-slim@sha256:eb71f4d1c00ef759d72b2160655c02bd74888713e9e47bed49532da2fe3edd8d",
+    "index_digest": "sha256:eb71f4d1c00ef759d72b2160655c02bd74888713e9e47bed49532da2fe3edd8d",
+    "architectures": {
+      "amd64": {
+        "digest": "sha256:3932eba23b3edb5c07820cb94fec94b53ce247690f0189c13a064e69e268ea14",
+        "size": 124448924
+      },
+      "arm64": {
+        "digest": "sha256:c599070a7372cd42dd093d3a9ff66e018f24e1d2610149b55deed6fd0af0e94e",
+        "size": 122034301
+      }
+    },
+    "ssh_version": "5.2.9",
+    "beam_sha256": "f2438f913948dc0d357dfef6bfd71f34bf469b6858a9a7321d10dcb577a37780"
+  },
+  "27.3.3": {
+    "image": "erlang:27.3.3-slim@sha256:7a02150f8261b65e392930cc375552a7603b5de6fec66701e7e80d79b875fe56",
+    "index_digest": "sha256:7a02150f8261b65e392930cc375552a7603b5de6fec66701e7e80d79b875fe56",
+    "architectures": {
+      "amd64": {
+        "digest": "sha256:84f299ad4f545b224cdfe896e555bf3d5605ae1b3c8b3949c32a5aa80ec4d2a0",
+        "size": 124448725
+      },
+      "arm64": {
+        "digest": "sha256:0e0cbd1904f8405073e0c653060b18a2443a60a7958e7ee5c75b82d91b180662",
+        "size": 122034934
+      }
+    },
+    "ssh_version": "5.2.10",
+    "beam_sha256": "0b6c27d4b675783be68198055c1594256d5b54422b7f3b90f715f3e76e5aa690"
+  }
+}
