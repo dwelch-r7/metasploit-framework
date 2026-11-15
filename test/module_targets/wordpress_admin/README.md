@@ -16,6 +16,10 @@ container inventory and resolved service count before starting a project.
 | `wordpress_admin_staged` | Repeated root staged PHP Meterpreter | 1 | Root WordPress |
 | `wordpress_admin_prefix_staged` | Repeated prefix staged PHP Meterpreter | 1 | `/wordpress/` WordPress |
 
+The [15 November actual checkpoint](../VERIFICATION-20261115-wordpress-admin.md)
+passes the four main profiles (23 cases). The two staged profiles reproduce a
+second-execution reconnect burst and remain unqualified with incomplete counts.
+
 **Registration and host collection checks do not qualify these new profiles.**
 The staged profiles remain real, unqualified reproductions. Historical cold-state
 seed 7721 runs encountered an invalid-session reconnect burst during the second

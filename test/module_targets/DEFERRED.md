@@ -432,3 +432,18 @@ records three further owners requiring disposable kernel guests for positive
 qualification. The io_uring CPU guard and BPF sign-extension check also have
 specific source-level concerns awaiting reproduction. These are unexecuted
 observations and add no passing coverage.
+
+
+## WordPress staged PHP Meterpreter repeat execution
+
+The [WordPress administrator checkpoint](VERIFICATION-20261115-wordpress-admin.md)
+passes 23 main cases after a separately reproduced plain-PHP payload repair. Both
+root and prefixed staged Meterpreter profiles still enter an invalid-session
+reconnect burst on the second execution after a successful first session. They
+were stopped deliberately, retain null completed counts and are excluded from
+passing profile totals. Native controls passed and OOM/PID counters remained
+zero; the initiating bootstrap/transport cause is unverified. One extra pre-use
+stageless connection also died before a later usable session in the passing root
+profile. Keep that observation separate from the repaired empty-command defect
+and the corrected Apache fixture PID limit. No upload-owner defect or staged
+session fix is established by these results.
