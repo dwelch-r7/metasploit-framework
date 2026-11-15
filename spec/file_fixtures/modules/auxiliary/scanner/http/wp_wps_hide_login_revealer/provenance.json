@@ -1,0 +1,50 @@
+{
+  "captures": [
+    {
+      "archive": "wps_hide_login-20261115T155819-6ca255-sealed",
+      "native_file_sha256": "ccb3c09debe997bc3d6a22d7c02039a6c763e08521bd7b987f9a87735de180f2",
+      "request_index": 2,
+      "request_path": "/module-login-alpha/",
+      "raw_body_sha256": "8c9a1f76fd8717d3fb7ef0437aff22cab6253e664cb3cfb0f1a566f31e6cb470",
+      "fixture": "root-login-form.html",
+      "fixture_sha256": "ae27f848489b239f4241daf381eb3e348c380e867a591f16181422c92e8d5bbc",
+      "transformations": [
+        "Extract complete first form without cookies/headers",
+        "Replace native origin with TEST-NET-1 http://192.0.2.10",
+        "Append final newline"
+      ]
+    },
+    {
+      "archive": "wps_hide_login_prefix-20261115T155619-dc4d97-sealed",
+      "native_file_sha256": "841268535a65a5ba469db11894d04bf6ac4aa10cea5754fdf870838f117b2556",
+      "request_index": 2,
+      "request_path": "/wordpress/module-login-beta/",
+      "raw_body_sha256": "58ae62558178907cac71d5e282362164a6c83eb1518e742fa034caa9eb496a53",
+      "fixture": "prefix-login-form.html",
+      "fixture_sha256": "12f38babcd382187b774f2cf3ed3f511ee6bd188089d797a2fc01ad2a8acab9f",
+      "transformations": [
+        "Extract complete first form without cookies/headers",
+        "Replace native origin with TEST-NET-1 http://192.0.2.10",
+        "Append final newline"
+      ]
+    },
+    {
+      "archive": "wps_hide_login_prefix-20261115T155619-dc4d97-sealed",
+      "native_file_sha256": "841268535a65a5ba469db11894d04bf6ac4aa10cea5754fdf870838f117b2556",
+      "request_index": 6,
+      "request_path": "/wordpress/404/",
+      "response_code": 404,
+      "raw_body_sha256": "8c7125d647dd9a693d1837bff8cc6cb05a037712f250c27046935a345d9105d6",
+      "fixture": "prefix-not-found.html",
+      "fixture_sha256": "d7047ff2a414a372e73f12932869e1e959202ca789aad3c7425f96124295779e",
+      "transformations": [
+        "Retain title, h1 headings and all form elements; omit unrelated theme/style content",
+        "Replace native origin with TEST-NET-1 origin",
+        "No headers or cookies retained"
+      ]
+    }
+  ],
+  "root_location": "http://192.0.2.10/module-login-alpha/?redirect_to=%2Fwp-admin%2Fprobe1&reauth=1",
+  "prefix_location": "http://192.0.2.10/wordpress/404/",
+  "scope": "Real anonymous native responses; transport/version boundaries are controlled in unit specs. Relative/off-origin/status variants are synthetic."
+}
