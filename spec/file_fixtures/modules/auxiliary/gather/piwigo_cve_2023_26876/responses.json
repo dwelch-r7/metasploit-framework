@@ -1,0 +1,99 @@
+{
+  "responses": {
+    "populated_home": {
+      "code": 200,
+      "headers": {},
+      "body": "<html><head>\n<meta name=\"generator\" content=\"Piwigo (aka PWG), see piwigo.org\">\n<script type=\"text/javascript\" src=\"themes/default/js/jquery.min.js?v13.5.0\"></script>\n</head></html>"
+    },
+    "identification": {
+      "code": 200,
+      "headers": {},
+      "body": "<html><head>\n<meta name=\"generator\" content=\"Piwigo (aka PWG), see piwigo.org\">\n<script type=\"text/javascript\" src=\"themes/default/js/jquery.min.js?v13.5.0\"></script>\n</head></html>"
+    },
+    "empty_home": {
+      "code": 200,
+      "headers": {},
+      "body": "<html><head><title>Piwigo, Welcome</title></head><body></body></html>"
+    },
+    "login_success": {
+      "code": 302,
+      "headers": {
+        "Location": "/"
+      },
+      "body": ""
+    },
+    "login_failure": {
+      "code": 200,
+      "headers": {},
+      "body": ""
+    },
+    "scalar": {
+      "code": 200,
+      "headers": {},
+      "body": "<script>\nvar filter_user_name = \"UNIT_SCALAR\";\n</script>"
+    }
+  },
+  "provenance": [
+    {
+      "fixture": "populated_home",
+      "archive": "piwigo-owner-13.5.0-20261115T201003-seal",
+      "receipt_sha256": "ce83c4588f65626164efa3ae8488a874164d76a59b7039c38e53af480fa94487",
+      "request_index": 10,
+      "request_name": "native-populated-home",
+      "raw_body_sha256": "50d8127a14ef3aa9536fd09dd2b8f07b5600cc6c9476f1ace5a459ee9f94a4d4",
+      "fixture_body_sha256": "c87edd8d2e5c5edfa4fef1bd74f267046ecff03bb42f818132b27e44ab8a1cea",
+      "transformation": "Retain relevant generator/script tags or scalar assignment/title; omit headers/cookies and unrelated page content; scalar value replaced with inert UNIT_SCALAR. Login fixtures retain status/Location only."
+    },
+    {
+      "fixture": "identification",
+      "archive": "piwigo-owner-13.5.0-20261115T201003-seal",
+      "receipt_sha256": "ce83c4588f65626164efa3ae8488a874164d76a59b7039c38e53af480fa94487",
+      "request_index": 5,
+      "request_name": "native-valid-login-form",
+      "raw_body_sha256": "b5d7d1798ee09ffe4804eb14934890099787a7dd02e1a952dc0208bb9ccff105",
+      "fixture_body_sha256": "c87edd8d2e5c5edfa4fef1bd74f267046ecff03bb42f818132b27e44ab8a1cea",
+      "transformation": "Retain relevant generator/script tags or scalar assignment/title; omit headers/cookies and unrelated page content; scalar value replaced with inert UNIT_SCALAR. Login fixtures retain status/Location only."
+    },
+    {
+      "fixture": "empty_home",
+      "archive": "piwigo-owner-13.5.0-20261115T201003-seal",
+      "receipt_sha256": "ce83c4588f65626164efa3ae8488a874164d76a59b7039c38e53af480fa94487",
+      "request_index": 2,
+      "request_name": "native-product-home",
+      "raw_body_sha256": "8a132129afba6260675b4755af27490d481e6ef43c8ba24dc30d089b65bca3ae",
+      "fixture_body_sha256": "2eab8e59bdb62c883f619e08910f9a17e4f2ea1128c72b9181205bab34787ca3",
+      "transformation": "Retain relevant generator/script tags or scalar assignment/title; omit headers/cookies and unrelated page content; scalar value replaced with inert UNIT_SCALAR. Login fixtures retain status/Location only."
+    },
+    {
+      "fixture": "login_success",
+      "archive": "piwigo-owner-13.5.0-20261115T201003-seal",
+      "receipt_sha256": "ce83c4588f65626164efa3ae8488a874164d76a59b7039c38e53af480fa94487",
+      "request_index": 6,
+      "request_name": "native-valid-login",
+      "raw_body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "fixture_body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "transformation": "Retain relevant generator/script tags or scalar assignment/title; omit headers/cookies and unrelated page content; scalar value replaced with inert UNIT_SCALAR. Login fixtures retain status/Location only."
+    },
+    {
+      "fixture": "login_failure",
+      "archive": "piwigo-owner-13.5.0-20261115T201003-seal",
+      "receipt_sha256": "ce83c4588f65626164efa3ae8488a874164d76a59b7039c38e53af480fa94487",
+      "request_index": 4,
+      "request_name": "native-invalid-login",
+      "raw_body_sha256": "90e4183537d4fc19ed9b1eb1562447405c99495db022c7fa1ee3ffc08e00e2e7",
+      "fixture_body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "transformation": "Retain relevant generator/script tags or scalar assignment/title; omit headers/cookies and unrelated page content; scalar value replaced with inert UNIT_SCALAR. Login fixtures retain status/Location only."
+    },
+    {
+      "fixture": "scalar",
+      "archive": "piwigo-owner-13.5.0-20261115T201003-seal",
+      "receipt_sha256": "ce83c4588f65626164efa3ae8488a874164d76a59b7039c38e53af480fa94487",
+      "request_index": 12,
+      "request_name": "native-literal-sql",
+      "raw_body_sha256": "d2b1fa37a42a875092abb55c11dd310c255a50cd567a7c934263a56567d83d89",
+      "fixture_body_sha256": "b6d1af916bcbf7d90ebf2bd5e5aaccbd75ad84dc4cc8f3548092d9b00da55c4c",
+      "transformation": "Retain relevant generator/script tags or scalar assignment/title; omit headers/cookies and unrelated page content; scalar value replaced with inert UNIT_SCALAR. Login fixtures retain status/Location only."
+    }
+  ],
+  "scope": "Reduced genuine13.5 HTTP responses; version mutations, row data and SQL evaluation in specs are synthetic. No tokens/password hashes retained."
+}
