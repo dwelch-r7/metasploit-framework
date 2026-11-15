@@ -79,3 +79,5 @@ support_files:
 - documentation/modules/auxiliary/gather/wp_bookingpress_category_services_sqli.md
 - lib/msf/core/exploit/remote/http/wordpress.rb
 - lib/msf/core/db_manager/service.rb
+- spec/modules/auxiliary/gather/wp_bookingpress_category_services_sqli_spec.rb
+- spec/file_fixtures/modules/auxiliary/gather/wp_bookingpress_category_services_sqli/responses.json
