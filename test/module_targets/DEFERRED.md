@@ -537,3 +537,35 @@ owner lint offenses remain. The private default-selection counter expected77
 executions but actual results have84/0: seven existing support examples loaded
 twice, giving77 distinct examples. Its assertion failure is retained as a
 reporting error; all test/lint/inventory/diff commands themselves pass.
+
+## POST SMTP publication: Linux native timeout
+
+For published head `c31abf19719cbb96e09078b6a38455bb9fc65803`, the
+[Linux native job](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43743237435/job/132900793414)
+ends cancelled. GitHub explicitly annotates its one-hour execution limit. The
+actual checkout is upstream `rapid7/metasploit-framework` at
+`bea1fb069e79cb610fe3981f16b8697790369c63`; binary provenance and attribution to
+campaign changes remain unverified. The overall Meterpreter workflow report is
+still queued in the retained snapshot, so it has no aggregate terminal verdict.
+
+The real `linux/x64/meterpreter_reverse_http` session with
+`base64_transforms.profile` passes binary/file and ordinary directory controls.
+The second directory creation in `should not recurse into symbolic link
+directories` then reports `Rex::TimeoutError: Send timed out` after five minutes.
+Later file operations time out. Two Railgun-labelled outer examples fail to
+receive console prompts while retaining that file-suite buffer; they do not
+independently establish Railgun implementation defects. The partial artifact
+contains 45 passed and three broken records. No final RSpec summary is available.
+
+The corresponding macOS native job passes 46 examples at the same upstream
+checkout. Exact-fork Ruby 3.3 unit jobs separately pass 19,439 examples (33 pending)
+and 19,252 examples with `REMOTE_DB=1` (664 pending). Those distinct configurations
+are not combined. The initiating native transport failure remains unresolved;
+no retry, cancellation or timeout increase was dispatched by this agent.
+
+Read-only export `post-smtp-native-ci-timeout-20261115` retains 405 independently
+rehashed entries, including the official logs, job annotations, partial artifact
+and exact-source unit logs. Its manifest SHA-256 is
+`b3572aaf93c0802f71c91899bf9c41b0686b90cfc5a1a1e7af2c2db25f65d7cd`.
+This evidence adds no functional qualification and does not replace earlier
+separate native CI failures or later passing runs.
