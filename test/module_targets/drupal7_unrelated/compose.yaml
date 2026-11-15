@@ -1,0 +1,10 @@
+---
+services:
+  unrelated:
+    extends:
+      file: "../drupal7/services.yaml"
+      service: unrelated
+  framework:
+    extends:
+      file: "../drupal7/services.yaml"
+      service: framework

@@ -1,16 +1,11 @@
 ---
-spec: spec/acceptance/module_targets/drupal7_spec.rb
-expected_examples: 7
+spec: spec/modules/exploits/unix/webapp/drupal_drupalgeddon2_target_spec.rb
+expected_examples: 2
 console: true
 modules:
 - exploit/unix/webapp/drupal_drupalgeddon2
 ports:
   root: 80
-  prefix: 80
-  fixed: 80
-  assert_off: 80
-  no_changelog: 80
-  unrelated: 80
 support_files:
 - lib/msf/core/exploit.rb
 - lib/msf/core/exploit/remote/http/drupal.rb
@@ -41,9 +36,17 @@ support_files:
 - test/module_targets/drupal7/fixture.ini
 - test/module_targets/drupal7/init.sql
 - test/module_targets/drupal7/inspect.php
-- test/module_targets/drupal7/manifest.yml
 - test/module_targets/drupal7/native_probe.rb
 - test/module_targets/drupal7/seed.php
 - test/module_targets/drupal7/start.sh
+- test/module_targets/drupal7/profiles.rb
+- test/module_targets/drupal7/services.yaml
+- spec/acceptance/module_targets/drupal7_spec.rb
+- spec/acceptance_spec_helper.rb
+- spec/spec_helper.rb
+- spec/support/acceptance/datastore_formatting.rb
+- spec/support/shared/contexts/wait_for_expect.rb
+- tools/dev/run_guarded_module_target_tests.rb
 test_env:
   DRUPAL7_PROFILE: php
+  DRUPAL7_TARGET_PROFILE: drupal7_php

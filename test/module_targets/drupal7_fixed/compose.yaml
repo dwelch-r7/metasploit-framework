@@ -1,0 +1,14 @@
+---
+services:
+  db:
+    extends:
+      file: "../drupal7/services.yaml"
+      service: db
+  fixed:
+    extends:
+      file: "../drupal7/services.yaml"
+      service: fixed
+  framework:
+    extends:
+      file: "../drupal7/services.yaml"
+      service: framework

@@ -2,29 +2,13 @@
 services:
   db:
     extends:
-      file: "../drupal7/compose.yaml"
+      file: "../drupal7/services.yaml"
       service: db
   root:
     extends:
-      file: "../drupal7/compose.yaml"
+      file: "../drupal7/services.yaml"
       service: root
-  prefix:
+  framework:
     extends:
-      file: "../drupal7/compose.yaml"
-      service: prefix
-  fixed:
-    extends:
-      file: "../drupal7/compose.yaml"
-      service: fixed
-  assert_off:
-    extends:
-      file: "../drupal7/compose.yaml"
-      service: assert_off
-  no_changelog:
-    extends:
-      file: "../drupal7/compose.yaml"
-      service: no_changelog
-  unrelated:
-    extends:
-      file: "../drupal7/compose.yaml"
-      service: unrelated
+      file: "../drupal7/services.yaml"
+      service: framework

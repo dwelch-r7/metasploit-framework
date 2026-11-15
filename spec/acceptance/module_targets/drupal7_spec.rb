@@ -1,5 +1,6 @@
 require 'acceptance_spec_helper'
 require 'rbconfig'
+require_relative '../../../test/module_targets/drupal7/profiles'
 
 profile = ENV.fetch('DRUPAL7_PROFILE', 'command')
 raise ArgumentError, "Unknown Drupal 7 profile: #{profile}" unless %w[command php].include?(profile)
@@ -17,7 +18,8 @@ RSpec.describe 'Native Drupal 7 Drupalgeddon 2 targets' do
     File.write(File.join(target_runtime.fetch('artifacts'), 'native-drupal-status.json'), JSON.pretty_generate(argv: argv, stderr: stderr, exitstatus: status.exitstatus))
     expect(status.success?).to be(true), stderr
     @native = JSON.parse(stdout)
-    expect(@native.fetch('callbacks').length).to eq(3)
+    scope = Drupal7Profiles.fetch(ENV.fetch('DRUPAL7_TARGET_PROFILE', 'drupal7'))
+    expect(@native.fetch('callbacks').length).to eq(Drupal7Profiles.callback_services(scope).length)
   end
 
   unless php_sessions

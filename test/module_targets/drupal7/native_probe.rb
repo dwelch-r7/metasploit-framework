@@ -8,17 +8,14 @@ require 'open3'
 require 'shellwords'
 require 'timeout'
 require 'uri'
+require_relative 'profiles'
 
 runtime = ENV['MODULE_TARGET_RUNTIME'] && JSON.parse(File.read(ENV.fetch('MODULE_TARGET_RUNTIME')))
-compose = runtime ? runtime.fetch('compose') : ['docker', 'compose', '--project-name', ARGV.fetch(0), '--file', File.join(__dir__, 'compose.yaml')]
-evidence = { profiles: {}, commands: [], requests: [], executions: [], callbacks: [] }
-profiles = {
-  'root' => ['', '7.57', true, true],
-  'prefix' => ['/drupal', '7.57', true, true],
-  'fixed' => ['', '7.58', false, false],
-  'assert_off' => ['', '7.57', true, true],
-  'no_changelog' => ['', '7.57', true, true]
-}
+profile_name = ENV.fetch('DRUPAL7_TARGET_PROFILE', 'drupal7')
+scope = Drupal7Profiles.fetch(profile_name)
+compose = runtime ? runtime.fetch('compose') : ['docker', 'compose', '--project-name', ARGV.fetch(0), '--file', File.expand_path("../#{profile_name}/compose.yaml", __dir__)]
+profiles = scope.fetch(:drupal).to_h { |service| [service, Drupal7Profiles::INSTALLATIONS.fetch(service)] }
+evidence = { scope: { profile: profile_name, drupal: profiles, unrelated: scope.fetch(:unrelated) }, profiles: {}, commands: [], requests: [], executions: [], callbacks: [] }
 native = lambda do |service, *arguments|
   argv = compose + ['exec', '-T', '--user', 'www-data', service, 'timeout', '20', *arguments]
   stdout, stderr, status = Open3.capture3(*argv)
@@ -129,15 +126,19 @@ begin
       end
     end
   end
-  missing = request.call('root', Net::HTTP::Get.new('/module-target-missing/?q=user/password'))
-  raise 'Native missing installation path was accepted' unless missing.code.to_i == 404
+  if profiles.key?('root')
+    missing = request.call('root', Net::HTTP::Get.new('/module-target-missing/?q=user/password'))
+    raise 'Native missing installation path was accepted' unless missing.code.to_i == 404
+  end
 
-  unrelated = request.call('unrelated', Net::HTTP::Get.new('/'))
-  raise 'Unrelated Apache identity differs' unless unrelated.code.to_i == 200 && unrelated.body.include?('module-target-http-marker')
+  if scope.fetch(:unrelated)
+    unrelated = request.call('unrelated', Net::HTTP::Get.new('/'))
+    raise 'Unrelated Apache identity differs' unless unrelated.code.to_i == 200 && unrelated.body.include?('module-target-http-marker')
+  end
 
-  if runtime
-    services = %w[root prefix assert_off]
-    script = 'require "socket"; server=TCPServer.new("0.0.0.0",4143); puts "READY"; STDOUT.flush; 3.times { raise "Callback timed out" unless IO.select([server],nil,nil,10); client=server.accept; puts client.gets; STDOUT.flush; client.close }; server.close'
+  services = Drupal7Profiles.callback_services(scope)
+  if runtime && services.any?
+    script = %(require "socket"; server=TCPServer.new("0.0.0.0",4143); puts "READY"; STDOUT.flush; #{services.length}.times { raise "Callback timed out" unless IO.select([server],nil,nil,10); client=server.accept; puts client.gets; STDOUT.flush; client.close }; server.close)
     Open3.popen3(*compose, 'exec', '-T', 'framework', 'ruby', '-e', script) do |stdin, stdout, stderr, waiter|
       stdin.close
       raise 'Native callback listener did not start' unless Timeout.timeout(15) { stdout.gets }&.strip == 'READY'

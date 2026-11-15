@@ -1,0 +1,14 @@
+---
+services:
+  db:
+    extends:
+      file: "../drupal7/services.yaml"
+      service: db
+  assert_off:
+    extends:
+      file: "../drupal7/services.yaml"
+      service: assert_off
+  framework:
+    extends:
+      file: "../drupal7/services.yaml"
+      service: framework
