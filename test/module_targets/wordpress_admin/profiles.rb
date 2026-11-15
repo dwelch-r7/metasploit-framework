@@ -4,6 +4,7 @@
 module WordPressAdminProfiles
   GROUP = 'Native WordPress administrator upload targets'
   STAGED_PAYLOAD = 'php/meterpreter/reverse_tcp'
+  STAGED_SEED = 7721
 
   def self.installation_examples(service)
     [
@@ -45,14 +46,21 @@ module WordPressAdminProfiles
       examples: ['does not identify unrelated HTTP as an administrator upload target', denied_example('unrelated', 'module_admin')]
     },
     'root_staged' => {
-      wordpress: { 'root' => '' }, unrelated: false,
+      wordpress: { 'root' => '' }, unrelated: false, seed: STAGED_SEED,
       examples: [staged_example('root')]
     },
     'prefix_staged' => {
-      wordpress: { 'prefix' => '/wordpress' }, unrelated: false,
+      wordpress: { 'prefix' => '/wordpress' }, unrelated: false, seed: STAGED_SEED,
       examples: [staged_example('prefix')]
     }
   }.freeze
+
+  def self.roles(profile)
+    services = profile.fetch(:wordpress).keys
+    services = ['db', *services] unless services.empty?
+    services << 'unrelated' if profile.fetch(:unrelated)
+    [*services, 'framework']
+  end
 
   def self.fetch(name)
     PROFILES.fetch(name) { raise ArgumentError, "Unknown WordPress administrator profile: #{name}" }

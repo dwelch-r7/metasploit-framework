@@ -33,10 +33,9 @@ bundle exec ruby tools/dev/run_guarded_module_target_tests.rb wordpress_admin_un
 ```
 
 The two known staged-session reproductions require a bounded external controller
-and retained teardown evidence. To use the historical order, temporarily add
-`--seed 7721` to `.rspec-local`, preserving its existing contents, then run one
-staged family through the same guarded runner. Remove only that temporary option
-afterward. Each selected example still performs both original executions; a
+and retained teardown evidence. Both staged profiles configure historical seed
+7721 from the shared component profile metadata; no personal RSpec option-file
+edit is needed. Each selected example still performs both original executions; a
 single staged example therefore attempts the same payload twice. Do not run the
 two staged profiles together or interpret an interrupted run as a passing result.
 
@@ -55,6 +54,15 @@ CPU, memory and PID limits. A WordPress project is capped at 0.5 CPU/512 MiB/128
 PIDs for MariaDB, 0.5 CPU/384 MiB/128 PIDs for WordPress, and 1 CPU/1536 MiB/256
 PIDs for Framework. Unrelated Apache uses 0.25 CPU/128 MiB/64 PIDs and the same
 Framework cap. No additional capabilities are granted.
+
+The component resource hook captures `memory.events` and `pids.events` for every
+actual role before native preflight/examples and after examples, before teardown.
+WordPress scopes observe database, selected WordPress and Framework; the unrelated
+scope observes Apache and Framework. Each phase retains raw counters, parsed
+values and role/file errors before reporting failure, even if one collection or
+validation fails. Required OOM counters (`oom`, `oom_kill`, `oom_group_kill`) and
+`pids.events:max` must be zero. `memory.events:max` is retained as informational
+because reaching a reclaimable memory boundary is not itself an OOM kill.
 
 `profiles.rb` is the component-owned table used by both the native probe and
 functional bridge. The bridge requires the original acceptance source and

@@ -1,9 +1,11 @@
 require 'acceptance_spec_helper'
 require 'rbconfig'
+require_relative '../../../test/module_targets/wordpress_admin/resource_counters'
 
 RSpec.describe 'Native WordPress administrator upload targets' do
   include_context 'module target'
   include_context 'wait_for_expect'
+  include_context 'WordPress administrator resource counters'
 
   before(:all) do
     argv = [RbConfig.ruby, 'test/module_targets/wordpress_admin/native_probe.rb']

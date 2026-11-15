@@ -51,3 +51,4 @@ support_files:
   - spec/support/acceptance/datastore_formatting.rb
   - spec/support/shared/contexts/wait_for_expect.rb
   - tools/dev/run_guarded_module_target_tests.rb
+  - test/module_targets/wordpress_admin/resource_counters.rb
