@@ -4,9 +4,9 @@
 ##
 
 class MetasploitModule < Msf::Auxiliary
-  include Msf::Auxiliary::Report
   include Msf::Exploit::Remote::HTTP::Wordpress
   include Msf::Auxiliary::Scanner
+  include Msf::Auxiliary::Report
 
   def initialize(info = {})
     super(
@@ -44,7 +44,7 @@ class MetasploitModule < Msf::Auxiliary
     )
   end
 
-  def check
+  def check_host(_ip)
     check_plugin_version_from_readme('simple-backup', '2.7.11')
   end
 
