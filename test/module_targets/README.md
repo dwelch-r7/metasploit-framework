@@ -1,6 +1,15 @@
 # Container module acceptance tests
 
-Latest: [DukaPress file disclosure](VERIFICATION-20261115-dukapress.md) adds one
+Latest: [GI-Media Library file disclosure](VERIFICATION-20261115-gimedia.md)
+adds one owner, five profiles and twenty cases, reaching **253 runtime owners in
+covered paths, 363 profiles and 3,195 functional cases**. All 42 public calls pass,
+including eighteen exact file loots and working scanner checks. Genuine fixed,
+absent-plugin and unrelated controls refuse downloads. A separate check-hook
+repair preserves the download method. Every capped stack is removed before the
+next, and Docker is empty. Earlier inputs stay frozen; the broader campaign and
+staged PHP session investigation remain open. No PR is created.
+
+Previous: [DukaPress file disclosure](VERIFICATION-20261115-dukapress.md) adds one
 owner, five profiles and eighteen cases, reaching **252 runtime owners in covered
 paths, 358 profiles and 3,175 functional cases**. All 38 public calls pass, with
 twelve exact file loots, working scanner checks and genuine fixed/negative

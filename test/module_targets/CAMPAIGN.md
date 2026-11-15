@@ -1449,3 +1449,16 @@ all nine DukaPress containers, nine networks and eight volumes absent. Each stac
 uses at most two bounded containers and a real isolated host console. Older
 families retain frozen inputs; the wider campaign remains active and no PR is
 created.
+
+
+GI-Media Library qualification then adds one owner, five profiles and twenty
+cases: **253 runtime owners in covered paths, 363 profiles and 3,195 cases**.
+All 42 public calls pass with eighteen exact file loots. Native controls establish
+original 2.2.2 disclosure, real 3.0 endpoint removal and absent/unrelated refusals.
+The separate check-hook fix preserves the full download method; original public
+check failure and unit before/after evidence remain sealed. Thirty independent
+queries and five free locks establish all selected objects removed and Docker
+empty. See [the qualification](VERIFICATION-20261115-gimedia.md) for exact inputs,
+versions, measured scope and the primary reporting-count correction. Earlier
+families retain frozen inputs; broader feasibility review and staged PHP session
+work remain open. No PR is created.

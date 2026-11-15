@@ -523,3 +523,17 @@ and raw UTF-8/NUL/0xff contents work and have exact loots. Empty-file responses
 are also not positive disclosure proofs. Original recordings remain sealed;
 other releases, runtimes, TLS and multisite remain separate coverage. No human
 Scenarios are changed.
+
+
+## GI-Media Library remaining deployment coverage
+
+The [GI-Media Library checkpoint](VERIFICATION-20261115-gimedia.md) qualifies
+2.2.2 and 3.0 on the selected WordPress/PHP runtime, including a subdirectory,
+absent plugin and unrelated server. The original unsupported public check is
+repaired separately; all twenty final cases pass. Other plugin releases,
+core/PHP versions, content-directory names, HTTPS and deployment layouts remain
+unqualified. Synthetic unit inputs do not prove those environments. Six existing
+owner lint offenses remain. The private default-selection counter expected77
+executions but actual results have84/0: seven existing support examples loaded
+twice, giving77 distinct examples. Its assertion failure is retained as a
+reporting error; all test/lint/inventory/diff commands themselves pass.
