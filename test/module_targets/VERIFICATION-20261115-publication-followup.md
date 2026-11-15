@@ -63,7 +63,9 @@ The terminal supplement contains 4 entries; manifest SHA256
 
 ## Latest Simple Backup checkpoint
 
-Commit `548d8368a71bd608204a4baa28403cd2fdd4dcba` still has running jobs.
+Commit `548d8368a71bd608204a4baa28403cd2fdd4dcba` is now terminal:
+**9 workflows succeeded, 1 failed; 64 checks comprise 61 success, 1 expected skip
+and 2 failures**.
 The exact fork checkout's Ruby 3.3 unit jobs pass independently:
 19,466 examples / 0 failures / 33 pending, seed 35683; and REMOTE_DB=1 with
 19,279 examples / 0 failures / 664 pending, seed 54716. Both logs show the nine
@@ -78,6 +80,36 @@ checks out upstream `bea1fb069e79cb610fe3981f16b8697790369c63`. No module execut
 in that failed setup. Its four-entry raw/API/assessment archive has manifest
 SHA256 `53d86cf0735a3998d4987db15c78c59b600f254a41942123c73e319044914530`.
 
-No terminal aggregate verdict or native exact-candidate provenance is claimed
-here. Local module-target qualification remains documented in the
+[Linux native](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43753505228/job/132932451467)
+finishes **51 examples, 1 failure**, seed 40008. The failing combination is
+`linux/x64/meterpreter_reverse_https`, `minimal_uris_headers.profile`,
+`post/test/meterpreter`. Process, system, network and earlier filesystem tests
+pass. The copy-files check prints `Rex::TimeoutError: Send timed out`; the next
+MD5/SHA1 upload starts before the outer receive timeout. The console remains
+alive. The final exception is `ChildProcessRecvError`, caused by
+`ChildProcessTimeoutError`. This differs from the GI-Media search setup stall;
+the underlying cause remains unresolved. The actual checkout is the same
+upstream revision above, and installed native binary provenance is unaudited.
+Its six-entry raw/API/assessment/terminal archive has manifest SHA256
+`572e275e6fb16b65fcf6231c7777535cce3e19fd8f8b7aa846a15ab27fd5eea4`.
+
+Local module-target qualification remains documented in the
 [Simple Backup verification record](VERIFICATION-20261115-simple-backup.md).
+
+## Piwigo checkpoint
+
+The exact fork checkout `ed79d0e1024542021817c9a1d5f3ce4daae116da` passes both
+Ruby 3.3 non-content unit modes independently: **19,495 examples / 0 failures /
+33 pending**, seed 57685; and REMOTE_DB=1 **19,308 examples / 0 failures /
+664 pending**, seed 53981. Both logs execute all 29 new Piwigo credential
+contract examples. These modes are not combined into one count. Their
+three-entry log/assessment archive has manifest SHA256
+`b3ddbb14326b0d364bd0eccf4bff5c8ea7196ea7ec404c3a71830af54b951606`.
+The final aggregate is **10 workflows succeeded; 64 checks comprise 63 success
+and 1 expected skip**. [Linux native](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43760382170/job/132953630184)
+passes **51 / 0**, seed 58770; [macOS native](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43760382170/job/132953630106)
+passes **46 / 0**, seed 29215. Both actual checkout commands resolve to upstream
+`bea1fb069e79cb610fe3981f16b8697790369c63`; installed native binary provenance is
+unaudited. These are separate runs, with no retry/cancellation performed here.
+The seven-entry terminal log/API/assessment archive has manifest SHA256
+`de5cea7b7d68772d7623d6cb536498ca911bf088c4df243d8b3ecdbad1e708d1`.
