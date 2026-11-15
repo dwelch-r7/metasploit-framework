@@ -59,6 +59,7 @@ support_files:
 - test/module_targets/wordpress/db.Dockerfile
 - test/module_targets/wordpress/init.sql
 - test/module_targets/wordpress/inspect.php
+- test/module_targets/wordpress/plugin_sources.rb
 - test/module_targets/wordpress/seed.php
 - tmp/module-target-post-smtp-sources/2.8.8.zip
 - tools/dev/run_guarded_module_target_tests.rb

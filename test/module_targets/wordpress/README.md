@@ -55,3 +55,15 @@ Inspect exact counts, native preflight, source hashes and teardown in each run's
 artifacts using the [shared guide](../README.md). Different WordPress/PHP
 releases, multisite, localized login messages, TLS, reverse proxies, plugin
 authentication and database persistence require separate qualification.
+
+Plugin-family fixtures can override the shared Dockerfile's `WORDPRESS_IMAGE`
+build argument with a pinned compatible official image. The default image pin
+and bootstrap remain the modern core family's defaults. The
+[DukaPress profiles](../dukapress/README.md) exercise a legacy runtime, while a
+modern [POST SMTP replay](../VERIFICATION-20261115-dukapress.md) verifies the default.
+
+The shared `plugin_sources.rb` helper prepares component-owned `releases.json`
+catalogs containing version keys with `url` and `sha256` fields. Small component
+wrappers choose their existing ignored cache name. Preparation verifies cached
+or newly downloaded bytes under the global resource lock with no containers
+running. Components mount only their selected verified archive read-only.
