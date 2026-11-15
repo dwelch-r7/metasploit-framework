@@ -1462,3 +1462,14 @@ empty. See [the qualification](VERIFICATION-20261115-gimedia.md) for exact input
 versions, measured scope and the primary reporting-count correction. Earlier
 families retain frozen inputs; broader feasibility review and staged PHP session
 work remain open. No PR is created.
+
+
+Simple Backup then adds one owner, five profiles and 23 cases: **254 runtime
+owners in covered paths, 368 profiles and 3,218 cases**. All 48 public calls pass,
+with twenty exact traversal loots and six ordinary confined backup reads. Native
+controls distinguish real fixed refusal, legitimate backup functionality and
+rewritten URL behavior. Two incorrect expectations and the original public-check
+failure remain sealed separately from the focused source repair. Every selected
+stack and volume is removed; Docker is empty. See [the qualification](VERIFICATION-20261115-simple-backup.md)
+for exact inputs, limits and original/final evidence. Older families retain frozen
+inputs; broader feasibility review and standing investigations remain open.

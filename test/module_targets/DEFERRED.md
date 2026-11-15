@@ -575,3 +575,14 @@ records 62 successful checks, one skip and the native Linux cancellation. All te
 workflows finish: nine successful and Meterpreter cancelled. The earlier sealed
 queued-report snapshot remains unchanged. Native transport diagnosis is still
 open; newer publication heads have their own follow-up.
+
+
+## Simple Backup remaining deployment coverage
+
+The [Simple Backup checkpoint](VERIFICATION-20261115-simple-backup.md) qualifies
+the selected 2.7.10/2.7.11 runtime and file requests, including a subdirectory,
+fixed confined downloads, absent plugin and unrelated server. Native quoted-path
+and rewritten-prefix expectation errors are preserved separately from the
+repaired public scanner check. Other releases, runtimes, content directories,
+transports, filesystem layouts and a broader vendor-patch audit remain pending.
+Eight baseline owner lint offenses remain; no new offense is introduced.

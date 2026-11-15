@@ -1,6 +1,15 @@
 # Container module acceptance tests
 
-Latest: [GI-Media Library file disclosure](VERIFICATION-20261115-gimedia.md)
+Latest: [Simple Backup file disclosure](VERIFICATION-20261115-simple-backup.md)
+adds one owner, five profiles and 23 cases, reaching **254 runtime owners in
+covered paths, 368 profiles and 3,218 functional cases**. All 48 public calls pass
+with 26 exact file loots, including six ordinary confined backup reads. Genuine
+fixed traversal refusals and absent/unrelated controls pass. The separate check
+hook repair preserves the download method; native expectation errors stay sealed.
+All capped stacks are removed, and Docker is empty. Earlier inputs stay frozen;
+the broader campaign and standing investigations remain open. No PR is created.
+
+Previous: [GI-Media Library file disclosure](VERIFICATION-20261115-gimedia.md)
 adds one owner, five profiles and twenty cases, reaching **253 runtime owners in
 covered paths, 363 profiles and 3,195 functional cases**. All 42 public calls pass,
 including eighteen exact file loots and working scanner checks. Genuine fixed,
