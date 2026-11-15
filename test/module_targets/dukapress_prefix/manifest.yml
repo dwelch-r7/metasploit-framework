@@ -1,0 +1,60 @@
+---
+spec: spec/modules/auxiliary/scanner/http/dukapress_target_spec.rb
+expected_examples: 6
+console: false
+test_env:
+  DUKAPRESS_PROFILE: dukapress_prefix
+modules:
+- auxiliary/scanner/http/wp_dukapress_file_read
+ports:
+  app: 80
+support_files:
+- .ruby-version
+- Gemfile
+- Gemfile.lock
+- lib/msf/core/exploit/remote/http/wordpress.rb
+- lib/msf/core/exploit/remote/http/wordpress/admin.rb
+- lib/msf/core/exploit/remote/http/wordpress/base.rb
+- lib/msf/core/exploit/remote/http/wordpress/helpers.rb
+- lib/msf/core/exploit/remote/http/wordpress/login.rb
+- lib/msf/core/exploit/remote/http/wordpress/posts.rb
+- lib/msf/core/exploit/remote/http/wordpress/register.rb
+- lib/msf/core/exploit/remote/http/wordpress/sqli.rb
+- lib/msf/core/exploit/remote/http/wordpress/uris.rb
+- lib/msf/core/exploit/remote/http/wordpress/users.rb
+- lib/msf/core/exploit/remote/http/wordpress/version.rb
+- lib/msf/core/exploit/remote/http/wordpress/xml_rpc.rb
+- lib/msf/core/exploit/remote/http_client.rb
+- lib/msfenv.rb
+- metasploit-framework.gemspec
+- msfconsole
+- spec/acceptance_spec_helper.rb
+- spec/spec_helper.rb
+- spec/support/acceptance/child_process.rb
+- spec/support/acceptance/datastore_formatting.rb
+- spec/support/acceptance/module_target.rb
+- test/module_targets/dukapress/README.md
+- test/module_targets/dukapress/acceptance.rb
+- test/module_targets/dukapress/files.json
+- test/module_targets/dukapress/inspect.php
+- test/module_targets/dukapress/prepare.rb
+- test/module_targets/dukapress/profiles.json
+- test/module_targets/dukapress/profiles.rb
+- test/module_targets/dukapress/releases.json
+- test/module_targets/dukapress/runtime.json
+- test/module_targets/dukapress/seed.php
+- test/module_targets/dukapress/services.yaml
+- test/module_targets/http/Dockerfile
+- test/module_targets/http/compose.yaml
+- test/module_targets/http/htdocs/index.html
+- test/module_targets/http/module-target.conf
+- test/module_targets/wordpress/Dockerfile
+- test/module_targets/wordpress/apache2-foreground
+- test/module_targets/wordpress/compose.yaml
+- test/module_targets/wordpress/db.Dockerfile
+- test/module_targets/wordpress/init.sql
+- test/module_targets/wordpress/inspect.php
+- test/module_targets/wordpress/plugin_sources.rb
+- test/module_targets/wordpress/seed.php
+- tmp/module-target-dukapress-sources/2.5.3.zip
+- tools/dev/run_guarded_module_target_tests.rb

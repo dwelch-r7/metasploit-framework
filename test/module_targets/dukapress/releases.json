@@ -1,0 +1,16 @@
+{
+  "2.5.3": {
+    "url": "https://downloads.wordpress.org/plugin/dukapress.2.5.3.zip",
+    "sha256": "bd36f80175bd22d54e5472cfbe438023b32a63f1ad4018979307b1e87d4c0e22",
+    "bytes": 421677,
+    "endpoint_sha256": "cf1d0656a2815a10710020920f923cc79dea95c936218db74101ce9526337c38",
+    "resize_source_sha256": "6de7f2f8b70e94f291a90d7779ecc0671ae48422957323dffa086ad8d83f38b2"
+  },
+  "2.5.4": {
+    "url": "https://downloads.wordpress.org/plugin/dukapress.2.5.4.zip",
+    "sha256": "1b7a277b4212c915cf76a1ea046c7add419e8290d196bfaaa4855d8fce876d18",
+    "bytes": 421686,
+    "endpoint_sha256": "cf1d0656a2815a10710020920f923cc79dea95c936218db74101ce9526337c38",
+    "resize_source_sha256": "4f6474c307955f8c131f65104783dd1c823218bd2618ea43322c83aa2de33830"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "dukapress": {
+    "release": "2.5.3",
+    "mode": "affected",
+    "prefix": "",
+    "depth": 7
+  },
+  "dukapress_prefix": {
+    "release": "2.5.3",
+    "mode": "affected",
+    "prefix": "/wordpress",
+    "depth": 8
+  },
+  "dukapress_fixed": {
+    "release": "2.5.4",
+    "mode": "fixed",
+    "prefix": "",
+    "depth": 7
+  },
+  "dukapress_absent": {
+    "release": null,
+    "mode": "absent",
+    "prefix": "",
+    "depth": 7
+  },
+  "dukapress_unrelated": {
+    "release": null,
+    "mode": "unrelated",
+    "prefix": "",
+    "depth": 7
+  }
+}

@@ -1,10 +1,8 @@
-## Description
+## Vulnerable Application
 
 This module exploits a directory traversal vulnerability in WordPress Plugin
 "DukaPress" version 2.5.3, allowing to read arbitrary files with the
 web server privileges.
-
-## Vulnerable Application
 
 ### Wordpress with installed DukaPress <= 2.5.3
 * [https://wordpress.org/plugins/dukapress](https://wordpress.org/plugins/dukapress)
@@ -95,12 +93,16 @@ user: admin
 pass: admin
 ```
 
+The reusable [Docker target profiles](../../../../../test/module_targets/dukapress/README.md)
+provide pinned affected/fixed releases on a compatible WordPress/PHP runtime,
+including subdirectory, binary-file and negative controls.
+
 ## Verification Steps
 
-1. Do: ```use auxiliary/scanner/http/wp_dukapress_file_read```
-2. Do: ```set RHOSTS [IP]```
-3. Do: ```set VHOST [HOSTNAME]```
-4. Do: ```run```
+1. Do: `use auxiliary/scanner/http/wp_dukapress_file_read`
+2. Do: `set RHOSTS [IP]`
+3. Do: `set VHOST [HOSTNAME]`
+4. Do: `run`
 
 ## Options
 

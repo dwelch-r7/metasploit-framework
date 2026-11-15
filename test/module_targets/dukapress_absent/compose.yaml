@@ -1,0 +1,11 @@
+---
+services:
+  db:
+    extends: {file: ../dukapress/services.yaml, service: db}
+  app:
+    extends: {file: ../dukapress/services.yaml, service: root}
+    environment:
+      DUKAPRESS_RELEASE: "absent"
+networks:
+  default: {internal: true}
+  public: {}

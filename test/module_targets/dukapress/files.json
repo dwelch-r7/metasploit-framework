@@ -1,0 +1,26 @@
+{
+  "owned": {
+    "path": "/tmp/module-target-dukapress-disclosure",
+    "content_base64": "T3duZWQgRHVrYVByZXNzIGZpbGU6IGNhZsOpCnNlY29uZCBsaW5lAGJpbmFyef9lbmQK"
+  },
+  "unicode": {
+    "path": "/tmp/module-target-dukapress-caf\u00e9 space file",
+    "content_base64": "T3duZWQgVVRGLTggcGF0aG5hbWU6IGNhZsOpCg=="
+  },
+  "empty": {
+    "path": "/tmp/module-target-dukapress-empty",
+    "content_base64": ""
+  },
+  "system": {
+    "path": "/etc/passwd",
+    "create": false
+  },
+  "missing": {
+    "path": "/tmp/module-target-dukapress-missing",
+    "create": false
+  },
+  "quoted": {
+    "path": "/tmp/module-target-dukapress-caf\u00e9 space'file",
+    "content_base64": "T3duZWQgVVRGLTggcGF0aG5hbWU6IGNhZsOpCg=="
+  }
+}

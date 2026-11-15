@@ -1,0 +1,13 @@
+---
+services:
+  db:
+    extends: {file: ../dukapress/services.yaml, service: db}
+  app:
+    extends: {file: ../dukapress/services.yaml, service: root}
+    environment:
+      DUKAPRESS_RELEASE: "2.5.3"
+    volumes:
+    - ../../../tmp/module-target-dukapress-sources/2.5.3.zip:/opt/module-target/plugin.zip:ro
+networks:
+  default: {internal: true}
+  public: {}
