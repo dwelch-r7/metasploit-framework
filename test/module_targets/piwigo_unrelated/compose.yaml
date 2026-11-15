@@ -1,0 +1,10 @@
+---
+services:
+  app:
+    extends: {file: ../piwigo/services.yaml, service: unrelated}
+    networks: [default, public]
+  reporting_db:
+    extends: {file: ../piwigo/services.yaml, service: reporting_db}
+networks:
+  default: {internal: true}
+  public: {}

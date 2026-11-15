@@ -1,0 +1,51 @@
+---
+spec: spec/modules/auxiliary/gather/piwigo_target_spec.rb
+expected_examples: 3
+console: false
+health_timeout: 150
+test_env:
+  PIWIGO_PROFILE: piwigo_fixed
+modules:
+- auxiliary/gather/piwigo_cve_2023_26876
+ports:
+  app: 80
+  reporting_db: 5432
+support_files:
+- .ruby-version
+- Gemfile
+- Gemfile.lock
+- lib/metasploit/framework/hashes.rb
+- lib/msf/core/auxiliary/report.rb
+- lib/msf/core/exploit/remote/http_client.rb
+- lib/msf/core/exploit/sqli.rb
+- lib/msf/core/exploit/sqli/common.rb
+- lib/msf/core/exploit/sqli/mysqli/common.rb
+- lib/msfenv.rb
+- metasploit-framework.gemspec
+- msfconsole
+- spec/acceptance_spec_helper.rb
+- spec/spec_helper.rb
+- spec/support/acceptance/child_process.rb
+- spec/support/acceptance/datastore_formatting.rb
+- spec/support/acceptance/module_target.rb
+- test/module_targets/http/Dockerfile
+- test/module_targets/http/compose.yaml
+- test/module_targets/http/htdocs/index.html
+- test/module_targets/http/module-target.conf
+- test/module_targets/piwigo/Dockerfile
+- test/module_targets/piwigo/README.md
+- test/module_targets/piwigo/acceptance.rb
+- test/module_targets/piwigo/control.php
+- test/module_targets/piwigo/init.sql
+- test/module_targets/piwigo/prepare.rb
+- test/module_targets/piwigo/profiles.json
+- test/module_targets/piwigo/profiles.rb
+- test/module_targets/piwigo/releases.json
+- test/module_targets/piwigo/services.yaml
+- test/module_targets/piwigo/start.sh
+- test/module_targets/wordpress/compose.yaml
+- test/module_targets/wordpress/db.Dockerfile
+- test/module_targets/wordpress/init.sql
+- tmp/module-target-piwigo-sources/13.7.0-files.json
+- tmp/module-target-piwigo-sources/13.7.0.zip
+- tools/dev/run_guarded_module_target_tests.rb

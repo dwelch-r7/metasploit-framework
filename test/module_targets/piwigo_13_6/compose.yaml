@@ -1,0 +1,17 @@
+---
+services:
+  db:
+    extends: {file: ../piwigo/services.yaml, service: db}
+    command: [mariadbd, --group-concat-max-len=96]
+  app:
+    extends: {file: ../piwigo/services.yaml, service: app}
+    working_dir: /var/www/html
+    environment:
+      LAB_PREFIX: ""
+    volumes:
+    - ../../../tmp/module-target-piwigo-sources/13.6.0/piwigo:/opt/module-target/source:ro
+  reporting_db:
+    extends: {file: ../piwigo/services.yaml, service: reporting_db}
+networks:
+  default: {internal: true}
+  public: {}

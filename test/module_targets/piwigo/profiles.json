@@ -1,0 +1,37 @@
+{
+  "piwigo": {
+    "release": "13.5.0",
+    "prefix": "",
+    "mode": "affected"
+  },
+  "piwigo_prefix": {
+    "release": "13.5.0",
+    "prefix": "/gallery",
+    "mode": "affected"
+  },
+  "piwigo_13_4": {
+    "release": "13.4.0",
+    "prefix": "",
+    "mode": "affected"
+  },
+  "piwigo_13_6": {
+    "release": "13.6.0",
+    "prefix": "",
+    "mode": "affected"
+  },
+  "piwigo_fixed": {
+    "release": "13.7.0",
+    "prefix": "",
+    "mode": "fixed"
+  },
+  "piwigo_empty": {
+    "release": "13.5.0",
+    "prefix": "",
+    "mode": "empty"
+  },
+  "piwigo_unrelated": {
+    "release": null,
+    "prefix": "",
+    "mode": "unrelated"
+  }
+}

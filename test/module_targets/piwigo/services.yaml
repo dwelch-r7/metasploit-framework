@@ -1,0 +1,55 @@
+---
+services:
+  db:
+    extends: {file: ../wordpress/compose.yaml, service: db}
+    cpus: 0.5
+    mem_limit: 512m
+    pids_limit: 128
+    init: true
+    volumes:
+    - ./init.sql:/docker-entrypoint-initdb.d/piwigo.sql:ro
+  app:
+    platform: linux/amd64
+    build: {context: .}
+    cpus: 0.5
+    mem_limit: 384m
+    pids_limit: 128
+    init: true
+    networks: [default, public]
+    depends_on:
+      db: {condition: service_healthy}
+    ports: ["127.0.0.1::80"]
+    environment:
+      LAB_PREFIX: ''
+    volumes:
+    - ./control.php:/opt/module-target/control.php:ro
+    healthcheck:
+      test: [CMD-SHELL, 'test -f /tmp/module-target-piwigo-copied && curl --fail --silent http://127.0.0.1$${LAB_PREFIX}/install.php >/dev/null']
+      interval: 3s
+      timeout: 5s
+      retries: 50
+  reporting_db:
+    image: postgres:16@sha256:933463a6c8eba2b9f5cd414138738cd8d5519cd2c471214c222652f547a66a32
+    environment:
+      POSTGRES_USER: module_framework
+      POSTGRES_PASSWORD: module-target-framework-db-password
+      POSTGRES_DB: module_targets
+      POSTGRES_INITDB_ARGS: --auth-host=scram-sha-256 --auth-local=trust
+    cpus: 0.5
+    mem_limit: 256m
+    pids_limit: 128
+    init: true
+    networks: [default, public]
+    command: [postgres, -c, shared_buffers=32MB, -c, max_connections=20]
+    ports: ["127.0.0.1::5432"]
+    healthcheck:
+      test: [CMD-SHELL, "PGPASSWORD=module-target-framework-db-password psql -h 127.0.0.1 -U module_framework -d module_targets -Atc 'SELECT current_database()' | grep -qx module_targets"]
+      interval: 2s
+      timeout: 3s
+      retries: 40
+  unrelated:
+    extends: {file: ../http/compose.yaml, service: apache}
+    cpus: 0.25
+    mem_limit: 128m
+    pids_limit: 128
+    init: true

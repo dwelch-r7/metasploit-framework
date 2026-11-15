@@ -1,0 +1,38 @@
+{
+  "13.5.0": {
+    "sha256": "cfb58972efa8300b3e8a220266c624290dabcfe95e6205d91a69f3819431d364",
+    "bytes": 18298794,
+    "files": 4086,
+    "admin/history.php": "a4fe8636356f1a9d8d89d37b846399db86e24159b11669277e803c4ffb3db16a",
+    "include/constants.php": "47a34f96d30755af474fa0ec0a008671ead989ebb9a48cab36d33f1859423c1b",
+    "admin/themes/default/template/history.tpl": "5ed8f1b04b14b20ca1802973ac0604918fb2d684069ec5cb44468414c249bb54",
+    "url": "https://piwigo.org/download/dlcounter.php?code=13.5.0"
+  },
+  "13.6.0": {
+    "sha256": "b0060f52199afcf19e8fdc0d99b4f0be26df60dcd316f30f9094315635c6a2df",
+    "bytes": 18292976,
+    "files": 4080,
+    "admin/history.php": "a4fe8636356f1a9d8d89d37b846399db86e24159b11669277e803c4ffb3db16a",
+    "include/constants.php": "93638e3dcb9c4190638310b2c413c967aec387bf1537687d7c122d73ec2ee49a",
+    "admin/themes/default/template/history.tpl": "5ed8f1b04b14b20ca1802973ac0604918fb2d684069ec5cb44468414c249bb54",
+    "url": "https://piwigo.org/download/dlcounter.php?code=13.6.0"
+  },
+  "13.4.0": {
+    "sha256": "13c195f3e4fbc02555ce138fd4453164bbf369876b26b78d9bc7f3c5373e2a59",
+    "bytes": 18291826,
+    "files": 4086,
+    "admin/history.php": "a4fe8636356f1a9d8d89d37b846399db86e24159b11669277e803c4ffb3db16a",
+    "include/constants.php": "d53e42875b9b7d169cbdabefb7e10bd3584c2b70f3cbde66da67b83525d4e32c",
+    "admin/themes/default/template/history.tpl": "5ed8f1b04b14b20ca1802973ac0604918fb2d684069ec5cb44468414c249bb54",
+    "url": "https://piwigo.org/download/dlcounter.php?code=13.4.0"
+  },
+  "13.7.0": {
+    "sha256": "7c6f17b8fddd71559839d0984c24b5f7f24fc1f926665696f7dd81b4379557e8",
+    "bytes": 18306599,
+    "files": 4087,
+    "admin/history.php": "2bdcc30ee6a6484d686dbc18e294aa07a32365f28d2687d90c687a6feee4593b",
+    "include/constants.php": "15948394a39ae05d6487c5cbcd2b55635378a5c54854189ea1b09825c211881e",
+    "admin/themes/default/template/history.tpl": "c4bc3864c157bc55831925ff3a82f713b6262121bbca634e47635dba6b06a57e",
+    "url": "https://piwigo.org/download/dlcounter.php?code=13.7.0"
+  }
+}
