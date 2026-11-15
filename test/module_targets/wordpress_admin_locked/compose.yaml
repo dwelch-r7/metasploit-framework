@@ -1,0 +1,7 @@
+services:
+  db:
+    extends: {file: ../wordpress_admin/services.yaml, service: db}
+  locked:
+    extends: {file: ../wordpress_admin/services.yaml, service: locked}
+  framework:
+    extends: {file: ../wordpress_admin/services.yaml, service: framework}

@@ -1,13 +1,12 @@
-spec: spec/acceptance/module_targets/wordpress_admin_spec.rb
-expected_examples: 25
+spec: spec/modules/exploits/unix/webapp/wp_admin_shell_upload_target_spec.rb
+expected_examples: 11
 console: true
+test_env:
+  WORDPRESS_ADMIN_PROFILE: root
 modules:
   - exploit/unix/webapp/wp_admin_shell_upload
 ports:
   root: 80
-  prefix: 80
-  locked: 80
-  unrelated: 80
 support_files:
   - lib/msf/core/exploit/file_dropper.rb
   - lib/msf/core/exploit/remote/http/wordpress.rb
@@ -39,3 +38,16 @@ support_files:
   - test/module_targets/http/Dockerfile
   - test/module_targets/http/module-target.conf
   - test/module_targets/http/htdocs/index.html
+  - spec/acceptance/module_targets/wordpress_admin_spec.rb
+  - test/module_targets/wordpress_admin/profiles.rb
+  - test/module_targets/wordpress_admin/native_probe.rb
+  - test/module_targets/wordpress_admin/services.yaml
+  - test/module_targets/wordpress_admin/inspect.php
+  - test/module_targets/wordpress_admin/cleanup.php
+  - test/module_targets/wordpress_admin/locked.ini
+  - test/module_targets/wordpress_admin/locked.php
+  - spec/acceptance_spec_helper.rb
+  - spec/spec_helper.rb
+  - spec/support/acceptance/datastore_formatting.rb
+  - spec/support/shared/contexts/wait_for_expect.rb
+  - tools/dev/run_guarded_module_target_tests.rb

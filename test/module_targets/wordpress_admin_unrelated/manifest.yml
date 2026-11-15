@@ -1,0 +1,53 @@
+spec: spec/modules/exploits/unix/webapp/wp_admin_shell_upload_target_spec.rb
+expected_examples: 2
+console: true
+test_env:
+  WORDPRESS_ADMIN_PROFILE: unrelated
+modules:
+  - exploit/unix/webapp/wp_admin_shell_upload
+ports:
+  unrelated: 80
+support_files:
+  - lib/msf/core/exploit/file_dropper.rb
+  - lib/msf/core/exploit/remote/http/wordpress.rb
+  - lib/msf/core/exploit/remote/http/wordpress/admin.rb
+  - lib/msf/core/exploit/remote/http/wordpress/base.rb
+  - lib/msf/core/exploit/remote/http/wordpress/helpers.rb
+  - lib/msf/core/exploit/remote/http/wordpress/login.rb
+  - lib/msf/core/exploit/remote/http/wordpress/posts.rb
+  - lib/msf/core/exploit/remote/http/wordpress/register.rb
+  - lib/msf/core/exploit/remote/http/wordpress/sqli.rb
+  - lib/msf/core/exploit/remote/http/wordpress/uris.rb
+  - lib/msf/core/exploit/remote/http/wordpress/users.rb
+  - lib/msf/core/exploit/remote/http/wordpress/version.rb
+  - lib/msf/core/exploit/remote/http/wordpress/xml_rpc.rb
+  - modules/payloads/singles/php/exec.rb
+  - modules/payloads/singles/php/reverse_php.rb
+  - modules/payloads/singles/php/meterpreter_reverse_tcp.rb
+  - modules/payloads/stagers/php/reverse_tcp.rb
+  - modules/payloads/stages/php/meterpreter.rb
+  - lib/msf/core/payload/php.rb
+  - test/module_targets/wordpress/compose.yaml
+  - test/module_targets/wordpress/Dockerfile
+  - test/module_targets/wordpress/db.Dockerfile
+  - test/module_targets/wordpress/init.sql
+  - test/module_targets/wordpress/seed.php
+  - test/module_targets/wordpress/inspect.php
+  - test/module_targets/wordpress/apache2-foreground
+  - test/module_targets/http/compose.yaml
+  - test/module_targets/http/Dockerfile
+  - test/module_targets/http/module-target.conf
+  - test/module_targets/http/htdocs/index.html
+  - spec/acceptance/module_targets/wordpress_admin_spec.rb
+  - test/module_targets/wordpress_admin/profiles.rb
+  - test/module_targets/wordpress_admin/native_probe.rb
+  - test/module_targets/wordpress_admin/services.yaml
+  - test/module_targets/wordpress_admin/inspect.php
+  - test/module_targets/wordpress_admin/cleanup.php
+  - test/module_targets/wordpress_admin/locked.ini
+  - test/module_targets/wordpress_admin/locked.php
+  - spec/acceptance_spec_helper.rb
+  - spec/spec_helper.rb
+  - spec/support/acceptance/datastore_formatting.rb
+  - spec/support/shared/contexts/wait_for_expect.rb
+  - tools/dev/run_guarded_module_target_tests.rb

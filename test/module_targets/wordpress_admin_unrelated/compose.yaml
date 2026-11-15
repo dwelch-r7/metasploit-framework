@@ -1,0 +1,5 @@
+services:
+  unrelated:
+    extends: {file: ../wordpress_admin/services.yaml, service: unrelated}
+  framework:
+    extends: {file: ../wordpress_admin/services.yaml, service: framework}

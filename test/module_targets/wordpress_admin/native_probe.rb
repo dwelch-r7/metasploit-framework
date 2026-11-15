@@ -8,11 +8,14 @@ require 'open3'
 require 'stringio'
 require 'timeout'
 require 'zip'
+require_relative 'profiles'
 
 runtime = ENV['MODULE_TARGET_RUNTIME'] && JSON.parse(File.read(ENV.fetch('MODULE_TARGET_RUNTIME')))
 compose = runtime ? runtime.fetch('compose') : ['docker', 'compose', '-p', ARGV.fetch(0), '-f', File.join(__dir__, 'compose.yaml')]
-evidence = { profiles: {}, commands: [], requests: [], callbacks: [] }
-profiles = { 'root' => '', 'prefix' => '/wordpress', 'locked' => '' }
+profile_name = ENV.fetch('WORDPRESS_ADMIN_PROFILE', 'root')
+scope = WordPressAdminProfiles.fetch(profile_name)
+profiles = scope.fetch(:wordpress)
+evidence = { scope: { profile: profile_name, wordpress: profiles, unrelated: scope.fetch(:unrelated) }, profiles: {}, commands: [], requests: [], callbacks: [] }
 native = lambda do |service, *arguments|
   argv = compose + ['exec', '-T', '--user', 'www-data', service, 'timeout', '20', *arguments]
   stdout, stderr, status = Open3.capture3(*argv)
@@ -139,11 +142,13 @@ begin
       raise 'Native control cleanup changed installed plugins' unless final.fetch('plugins') == profile.fetch('plugins')
     end
   end
-  response = request.call('unrelated', Net::HTTP::Get.new('/'), 200)
-  raise 'Unrelated HTTP identity differs' unless response.body.include?('module-target-http-marker')
+  if scope.fetch(:unrelated)
+    response = request.call('unrelated', Net::HTTP::Get.new('/'), 200)
+    raise 'Unrelated HTTP identity differs' unless response.body.include?('module-target-http-marker')
+  end
 
-  if runtime
-    script = 'require "socket"; server=TCPServer.new("0.0.0.0",4141); puts "READY"; STDOUT.flush; 3.times { raise "Callback timed out" unless IO.select([server],nil,nil,10); client=server.accept; puts client.gets; STDOUT.flush; client.close }; server.close'
+  if runtime && profiles.any?
+    script = %(require "socket"; server=TCPServer.new("0.0.0.0",4141); puts "READY"; STDOUT.flush; #{profiles.size}.times { raise "Callback timed out" unless IO.select([server],nil,nil,10); client=server.accept; puts client.gets; STDOUT.flush; client.close }; server.close)
     Open3.popen3(*compose, 'exec', '-T', 'framework', 'ruby', '-e', script) do |stdin, stdout, stderr, waiter|
       stdin.close
       raise 'Native callback listener did not start' unless Timeout.timeout(15) { stdout.gets }&.strip == 'READY'

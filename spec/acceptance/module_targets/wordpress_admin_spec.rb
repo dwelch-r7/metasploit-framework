@@ -12,7 +12,7 @@ RSpec.describe 'Native WordPress administrator upload targets' do
     File.write(File.join(target_runtime.fetch('artifacts'), 'native-wordpress-admin-status.json'), JSON.pretty_generate(argv: argv, stderr: stderr, exitstatus: status.exitstatus))
     expect(status.success?).to be(true), stderr
     @native = JSON.parse(stdout)
-    expect(@native.fetch('callbacks').size).to eq(3)
+    expect(@native.fetch('callbacks').size).to eq(@native.fetch('profiles').size)
   end
 
   %w[root prefix].each do |service|

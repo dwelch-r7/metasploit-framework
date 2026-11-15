@@ -1,0 +1,50 @@
+x-admin: &admin
+  volumes:
+    - ./inspect.php:/opt/module-target/inspect-admin.php:ro
+    - ./cleanup.php:/opt/module-target/cleanup-admin-native.php:ro
+
+services:
+  db:
+    extends: {file: ../wordpress/compose.yaml, service: db}
+    cpus: 0.5
+    mem_limit: 512m
+    pids_limit: 128
+    init: true
+  root:
+    <<: *admin
+    cpus: 0.5
+    mem_limit: 384m
+    pids_limit: 128
+    init: true
+    extends: {file: ../wordpress/compose.yaml, service: root}
+  prefix:
+    <<: *admin
+    cpus: 0.5
+    mem_limit: 384m
+    pids_limit: 128
+    init: true
+    extends: {file: ../wordpress/compose.yaml, service: prefix}
+  locked:
+    cpus: 0.5
+    mem_limit: 384m
+    pids_limit: 128
+    init: true
+    extends: {file: ../wordpress/compose.yaml, service: root}
+    environment:
+      WORDPRESS_DB_NAME: wp_blocked
+    volumes:
+      - ./inspect.php:/opt/module-target/inspect-admin.php:ro
+      - ./cleanup.php:/opt/module-target/cleanup-admin-native.php:ro
+      - ./locked.ini:/usr/local/etc/php/conf.d/module-target-locked.ini:ro
+      - ./locked.php:/opt/module-target/locked.php:ro
+  unrelated:
+    cpus: 0.25
+    mem_limit: 128m
+    pids_limit: 64
+    init: true
+    extends: {file: ../http/compose.yaml, service: apache}
+  framework:
+    cpus: 1.0
+    mem_limit: 1536m
+    pids_limit: 256
+    init: true

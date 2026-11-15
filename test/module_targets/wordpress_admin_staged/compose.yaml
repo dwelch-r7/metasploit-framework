@@ -1,0 +1,7 @@
+services:
+  db:
+    extends: {file: ../wordpress_admin/services.yaml, service: db}
+  root:
+    extends: {file: ../wordpress_admin/services.yaml, service: root}
+  framework:
+    extends: {file: ../wordpress_admin/services.yaml, service: framework}
