@@ -1,0 +1,12 @@
+{
+  "affected": {
+    "version": "1.9",
+    "url": "https://downloads.wordpress.org/plugin/wps-hide-login.1.9.zip",
+    "sha256": "1abf00797a8c1e4fdf474891e8a984ae58fca4c5367ad2022d7f74ee579a6aba"
+  },
+  "fixed": {
+    "version": "1.9.1",
+    "url": "https://downloads.wordpress.org/plugin/wps-hide-login.1.9.1.zip",
+    "sha256": "6cb59c915aa7a86fd02dff1b548d429df204e56305b99f73436b545609b47fcb"
+  }
+}

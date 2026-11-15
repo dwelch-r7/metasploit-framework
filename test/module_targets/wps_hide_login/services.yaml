@@ -1,0 +1,143 @@
+---
+services:
+  db:
+    extends:
+      file: "../wordpress/compose.yaml"
+      service: db
+    cpus: 0.5
+    mem_limit: 512m
+    pids_limit: 128
+    init: true
+  root:
+    extends:
+      file: "../wordpress/compose.yaml"
+      service: root
+    cpus: 0.5
+    mem_limit: 384m
+    pids_limit: 128
+    init: true
+    environment:
+      WPS_HIDE_RELEASE: affected
+      WPS_HIDE_SLUG: module-login-alpha
+    volumes:
+    - "../wordpress/seed.php:/opt/module-target/seed-base.php:ro"
+    - "./seed.php:/opt/module-target/seed.php:ro"
+    - "./inspect.php:/opt/module-target/wps-inspect.php:ro"
+    - "./releases.json:/opt/module-target/wps-releases.json:ro"
+    healthcheck:
+      test:
+      - CMD-SHELL
+      - test -f /tmp/module-target-wps-ready && curl --fail --silent "http://127.0.0.1$${LAB_PREFIX}/"
+        >/dev/null
+      interval: 3s
+      timeout: 5s
+      retries: 40
+  prefix:
+    extends:
+      file: "../wordpress/compose.yaml"
+      service: prefix
+    cpus: 0.5
+    mem_limit: 384m
+    pids_limit: 128
+    init: true
+    environment:
+      WPS_HIDE_RELEASE: affected
+      WPS_HIDE_SLUG: module-login-beta
+    volumes:
+    - "../wordpress/seed.php:/opt/module-target/seed-base.php:ro"
+    - "./seed.php:/opt/module-target/seed.php:ro"
+    - "./inspect.php:/opt/module-target/wps-inspect.php:ro"
+    - "./releases.json:/opt/module-target/wps-releases.json:ro"
+    healthcheck:
+      test:
+      - CMD-SHELL
+      - test -f /tmp/module-target-wps-ready && curl --fail --silent "http://127.0.0.1$${LAB_PREFIX}/"
+        >/dev/null
+      interval: 3s
+      timeout: 5s
+      retries: 40
+  fixed:
+    extends:
+      file: "../wordpress/compose.yaml"
+      service: root
+    cpus: 0.5
+    mem_limit: 384m
+    pids_limit: 128
+    init: true
+    environment:
+      WPS_HIDE_RELEASE: fixed
+      WPS_HIDE_SLUG: module-login-fixed
+    volumes:
+    - "../wordpress/seed.php:/opt/module-target/seed-base.php:ro"
+    - "./seed.php:/opt/module-target/seed.php:ro"
+    - "./inspect.php:/opt/module-target/wps-inspect.php:ro"
+    - "./releases.json:/opt/module-target/wps-releases.json:ro"
+    healthcheck:
+      test:
+      - CMD-SHELL
+      - test -f /tmp/module-target-wps-ready && curl --fail --silent "http://127.0.0.1$${LAB_PREFIX}/"
+        >/dev/null
+      interval: 3s
+      timeout: 5s
+      retries: 40
+  fixed_prefix:
+    extends:
+      file: "../wordpress/compose.yaml"
+      service: prefix
+    cpus: 0.5
+    mem_limit: 384m
+    pids_limit: 128
+    init: true
+    environment:
+      WPS_HIDE_RELEASE: fixed
+      WPS_HIDE_SLUG: module-login-fixed-prefix
+    volumes:
+    - "../wordpress/seed.php:/opt/module-target/seed-base.php:ro"
+    - "./seed.php:/opt/module-target/seed.php:ro"
+    - "./inspect.php:/opt/module-target/wps-inspect.php:ro"
+    - "./releases.json:/opt/module-target/wps-releases.json:ro"
+    healthcheck:
+      test:
+      - CMD-SHELL
+      - test -f /tmp/module-target-wps-ready && curl --fail --silent "http://127.0.0.1$${LAB_PREFIX}/"
+        >/dev/null
+      interval: 3s
+      timeout: 5s
+      retries: 40
+  absent:
+    extends:
+      file: "../wordpress/compose.yaml"
+      service: root
+    cpus: 0.5
+    mem_limit: 384m
+    pids_limit: 128
+    init: true
+    environment:
+      WPS_HIDE_RELEASE: absent
+      WPS_HIDE_SLUG: module-login-absent
+    volumes:
+    - "../wordpress/seed.php:/opt/module-target/seed-base.php:ro"
+    - "./seed.php:/opt/module-target/seed.php:ro"
+    - "./inspect.php:/opt/module-target/wps-inspect.php:ro"
+    - "./releases.json:/opt/module-target/wps-releases.json:ro"
+    healthcheck:
+      test:
+      - CMD-SHELL
+      - test -f /tmp/module-target-wps-ready && curl --fail --silent "http://127.0.0.1$${LAB_PREFIX}/"
+        >/dev/null
+      interval: 3s
+      timeout: 5s
+      retries: 40
+  unrelated:
+    extends:
+      file: "../http/compose.yaml"
+      service: apache
+    cpus: 0.25
+    mem_limit: 128m
+    pids_limit: 128
+    init: true
+  framework:
+    cpus: 1.0
+    mem_limit: 1536m
+    pids_limit: 256
+    init: true

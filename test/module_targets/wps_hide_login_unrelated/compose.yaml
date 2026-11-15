@@ -1,0 +1,10 @@
+---
+services:
+  app:
+    extends:
+      file: "../wps_hide_login/services.yaml"
+      service: unrelated
+  framework:
+    extends:
+      file: "../wps_hide_login/services.yaml"
+      service: framework

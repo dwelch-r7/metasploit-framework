@@ -1,0 +1,14 @@
+---
+services:
+  db:
+    extends:
+      file: "../wps_hide_login/services.yaml"
+      service: db
+  app:
+    extends:
+      file: "../wps_hide_login/services.yaml"
+      service: fixed_prefix
+  framework:
+    extends:
+      file: "../wps_hide_login/services.yaml"
+      service: framework

@@ -447,3 +447,30 @@ stageless connection also died before a later usable session in the passing root
 profile. Keep that observation separate from the repaired empty-command defect
 and the corrected Apache fixture PID limit. No upload-owner defect or staged
 session fix is established by these results.
+
+## WPS Hide Login discovery: non-login redirect reported as success
+
+On 15 November, the real `wp_wps_hide_login_revealer` scanner reported
+`Login page: http://<target>/wordpress/404/` against WPS Hide Login 1.9 under a
+WordPress subdirectory. Independent controls established the configured hidden
+login form at `/wordpress/module-login-beta/`, the native Referer-triggered 302
+to `/wordpress/404/`, and that the latter returns 404 without a login form.
+Installed source/readme checksums, activation and stored configuration matched;
+before/after state and OOM/PID checks passed. This establishes a module false
+success rather than a target-setup failure: the owner accepts any 302 Location.
+
+Original run `20261115T155619-dc4d97` has one failing case, one public owner call,
+zero pending/outside errors and normal teardown. Six independent queries and a
+released-lock check confirmed all three containers, one network and two volumes
+were gone, with an empty global container inventory. Its 109-entry/59-input local
+export is `wps_hide_login_prefix-20261115T155619-dc4d97-sealed`, manifest SHA-256
+`3f0f475fbb2e06476fb28be0a0313a21de081247aaa0d5138a0f572a03722775`.
+The original owner SHA-256 is
+`cf0e23084f88d35da4dd2286627bbd0801ca437e1cdded439cd94d23e28d6ab9`.
+
+Native comparisons separately show genuine disclosure for 1.9 at the site root
+and `/404/` redirects for 1.9.1 at both root and prefix. The 1.9 source has a
+literal root-path exception, explaining why a vulnerable version alone does not
+establish disclosure in the prefix configuration. A separate-worktree repair and
+public-interface replay are pending. None of these new profiles is counted as
+qualified at this checkpoint, and human module Scenarios remain unchanged.
