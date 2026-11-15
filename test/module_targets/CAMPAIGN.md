@@ -1356,3 +1356,18 @@ Recorded qualification is now **249 modules in covered paths, 339 profiles and
 replaces two historical profiles with ten without recounting its 26 cases. The
 standalone PHP native regression target remains separate pending work. Older
 families retain frozen inputs; this is not a whole-campaign replay or completion.
+
+## 15 November: reusable native PHP payload regression
+
+The [native PHP checkpoint](VERIFICATION-20261115-php-reverse-native.md) adds one
+profile and 38 functional contracts, reaching **249 runtime owners in covered
+paths, 340 profiles and 3,129 cases**. It adds no runtime owner. The actual
+generated payload runs through both real socket transports in one isolated,
+capped PHP container. The original-source override reproduces eight blank-command
+failures while 30 controls pass; the repaired source passes all 38, including a
+fresh primary-checkout replay. Application consumers remain separately verified.
+
+Strict Ruby checks, default-CI exclusion and exact cleanup pass. Setup failures
+remain preserved before fixture corrections. No project dependency, shared
+generator or existing module guide is changed by the new component. The separate
+staged-session investigation and broader feasible-module inventory remain open.

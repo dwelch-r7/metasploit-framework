@@ -1,6 +1,17 @@
 # Container module acceptance tests
 
-Latest: the [Docker daemon qualification](VERIFICATION-20261115-docker-daemon.md)
+Latest: the [native PHP regression target](VERIFICATION-20261115-php-reverse-native.md)
+adds 38 real interpreter/socket contracts in one isolated container. The original
+source reproduces eight blank-command failures; the repaired primary checkout
+passes all 38. Recorded coverage is **249 runtime owners in covered paths, 340
+profiles and 3,129 functional cases**. The payload component adds no runtime
+owner. The [WordPress](VERIFICATION-20261115-wordpress-admin.md) and
+[bounded Drupal](VERIFICATION-20261115-drupal-bounded.md) checkpoints separately
+verify application/session integration. WordPress staged-session reconnects and
+the broader feasible-module campaign remain open; this is not a whole-campaign
+replay. Each stack is capped and removed before the next starts. No PR is created.
+
+Previous: the [Docker daemon qualification](VERIFICATION-20261115-docker-daemon.md)
 advances recorded coverage to **248 modules qualified in covered paths, 327
 profiles and 3,068 functional cases**. Eight profiles pass all 43 distinct cases
 and 83 public module calls: 28 real used/closed root sessions plus four exact
