@@ -1331,3 +1331,28 @@ The broader inventory and deferred Superset/Druid/FreeSWITCH/WordPress work rema
 open. WordPress staged PHP bootstrap now has a source-verified diagnostic plan;
 its cause remains unknown pending labeled connection/session/socket evidence and
 a bounded cold reproducer. No new runtime or production repair is claimed there.
+
+
+## 15 November: WordPress PHP shells and bounded Drupal replay
+
+The [WordPress checkpoint](VERIFICATION-20261115-wordpress-admin.md) passes four
+main profiles, 23 cases and 29 public calls after a separately reproduced
+empty-command PHP payload repair. Both staged Meterpreter profiles still enter
+a reconnect burst on the second execution and remain unqualified with incomplete
+counts. Their native controls and resource checks passed; no upload-owner cause
+or staged-session repair is established. A 64-PID Apache fixture failure is
+retained separately and its 128-PID replay passes.
+
+The [bounded Drupal replay](VERIFICATION-20261115-drupal-bounded.md) passes all
+26 original cases and 41 calls in ten profiles capped at three containers each.
+Its 20 sessions include plain PHP, native Linux and staged PHP; both runs of each
+stateful path are used and closed. The original case multiset is unchanged, and
+the older eight-container topology is replaced. Native checks, fixing-release
+and unrelated controls, resource limits and exact cleanup are verified. The
+passing CLI staged case does not isolate the WordPress bootstrap cause.
+
+Recorded qualification is now **249 modules in covered paths, 339 profiles and
+3,091 functional cases**. WordPress adds one owner/four profiles/23 cases; Drupal
+replaces two historical profiles with ten without recounting its 26 cases. The
+standalone PHP native regression target remains separate pending work. Older
+families retain frozen inputs; this is not a whole-campaign replay or completion.
