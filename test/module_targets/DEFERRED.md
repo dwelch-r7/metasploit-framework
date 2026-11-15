@@ -501,3 +501,25 @@ mobile settings and reset requests replace the outstanding key: the fixture
 explicitly restores its owned baseline, and no automatic foreign-state recovery
 is claimed. Other releases, TLS, multisite and an existing authorization nonce
 remain unqualified. No human Scenarios are changed.
+
+## DukaPress scanner check capability and quoted paths
+
+The public-check defect is resolved in the five [covered genuine profiles](VERIFICATION-20261115-dukapress.md)
+by worker commit `89c22b04355`, integrated as `d8a1300532b`. After healthy native
+controls, original run `20261115T181127-7b4e8f` passes all five download cases but
+fails checking: the console reports unsupported because capability discovery
+requires check_host while the source defines check. The repaired inherited
+public API and real replicant dispatch pass eighteen functional cases/38 calls;
+the download method remains byte-identical. Nine focused checks and genuine
+module replay distinguish source failure from setup. The source's seven
+remaining lint offenses are pre-existing, with zero new offenses.
+
+A preceding six-example native stop makes zero owner calls: an apostrophe path
+exists and is readable locally but the original endpoint returns no content.
+The installed WordPress helper adds request escaping that the plugin does not
+undo. This is a tested native limitation for the selected request form, rather
+than a Metasploit failure or a promised file-read capability. Unicode/space paths
+and raw UTF-8/NUL/0xff contents work and have exact loots. Empty-file responses
+are also not positive disclosure proofs. Original recordings remain sealed;
+other releases, runtimes, TLS and multisite remain separate coverage. No human
+Scenarios are changed.

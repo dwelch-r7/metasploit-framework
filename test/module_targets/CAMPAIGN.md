@@ -1423,3 +1423,29 @@ families retain frozen inputs. The [prior publication's CI](VERIFICATION-2026111
 finishes all ten workflows successfully, with63 successful checks and one skip;
 actual fork unit checkout and upstream native checkouts remain distinguished.
 The broader campaign and staged PHP investigation remain open; no PR is created.
+
+## 15 November: DukaPress file disclosure and scanner checking
+
+The [DukaPress checkpoint](VERIFICATION-20261115-dukapress.md) reaches **252 runtime
+owners in covered paths, 358 profiles and 3,175 functional cases**. Five genuine
+profiles pass eighteen cases and 38 public calls, including twelve exact system,
+binary, Unicode/space and relative-path file loots. Pinned affected/fixed plugins
+run unmodified on compatible WordPress 5.2.4/PHP 7.3.11. Native quote escaping
+explains a refused pathname; it remains a negative target limitation.
+
+The original download cases pass but public checking is unavailable because a
+scanner needs check_host. The separate-worktree hook repair exposes the existing
+version helper through real replicants and preserves the download-method bytes.
+Nine focused cases distinguish original/fixed dispatch; their doubles and an
+early harness correction are disclosed. Seven baseline lint offenses remain,
+with zero new offenses; human Scenarios remain unchanged. Primary focused/default
+verification passes 68 examples and excludes the functional bridge.
+
+The common WordPress recipe now selects a pinned legacy image through a build
+argument, retaining its exact modern default. Archive preparation is shared.
+A genuine modern POST SMTP replay passes four original cases/seven calls without
+adding unique coverage. Thirty independent cleanup queries and five locks verify
+all nine DukaPress containers, nine networks and eight volumes absent. Each stack
+uses at most two bounded containers and a real isolated host console. Older
+families retain frozen inputs; the wider campaign remains active and no PR is
+created.

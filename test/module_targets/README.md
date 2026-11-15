@@ -1,6 +1,16 @@
 # Container module acceptance tests
 
-Latest: [POST SMTP account reset disclosure](VERIFICATION-20261115-post-smtp.md)
+Latest: [DukaPress file disclosure](VERIFICATION-20261115-dukapress.md) adds one
+owner, five profiles and eighteen cases, reaching **252 runtime owners in covered
+paths, 358 profiles and 3,175 functional cases**. All 38 public calls pass, with
+twelve exact file loots, working scanner checks and genuine fixed/negative
+controls. The separate check-hook repair preserves the download method. A shared
+legacy-runtime argument and archive helper retain modern behavior, verified by
+a real POST SMTP replay. Each capped stack is removed before the next; Docker is
+empty. Earlier inputs stay frozen and the broader campaign remains open. No PR
+is created.
+
+Previous: [POST SMTP account reset disclosure](VERIFICATION-20261115-post-smtp.md)
 adds one owner, seven profiles and twenty cases, reaching **251 runtime owners in
 covered paths, 353 profiles and 3,157 functional cases**. Genuine affected/fixed,
 subdirectory, disabled-logging and negative targets pass all 37 public calls.
