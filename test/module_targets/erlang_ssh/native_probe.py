@@ -34,6 +34,9 @@ def main():
         assert identity['otp'] == profile['version'] and identity['ssh'] == release['ssh_version']
         assert identity['uid'] == profile['uid'] and identity['architecture'].startswith('x86_64-')
         assert identity['beam_sha256'] == release['beam_sha256']
+        account = execute('getent', 'passwd', str(profile['uid'])).strip().split(':')
+        assert len(account) == 7 and int(account[2]) == int(account[3]) == profile['uid']
+        report['os_account'] = {'name': account[0], 'uid': int(account[2]), 'gid': int(account[3]), 'home': account[5], 'shell': account[6]}
         for password, accepted in [('module-target-wrong-password', False), ('module-target-erlang-password', True)]:
             output = execute('escript', '/opt/module-target/native.escript', 'auth', password)
             assert ('AUTHENTICATED=true' in output) == accepted

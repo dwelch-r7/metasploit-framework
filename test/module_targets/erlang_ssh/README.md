@@ -6,7 +6,9 @@ These profiles use genuine digest-pinned Erlang OTP slim images and the vendor
 [vendor fix](https://github.com/erlang/otp/security/advisories/GHSA-37cp-fgq5-7wc2).
 The target uses one strict disposable password account, rather than a callback
 that accepts every password. Host keys, proof files and reporting data are
-ephemeral. The non-root profile runs the same daemon as UID/GID 1000.
+ephemeral. The non-root profile runs the same daemon as the named
+`module_target` OS account with UID/GID 1000. Arbitrary unmapped numeric UIDs
+remain outside this session-API qualification.
 
 Run one profile at a time from the Framework root:
 

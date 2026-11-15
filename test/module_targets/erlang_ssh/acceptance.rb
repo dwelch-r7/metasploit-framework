@@ -2,6 +2,7 @@
 
 require 'base64'
 require 'digest'
+require 'English'
 require 'json'
 require 'open3'
 require_relative 'settings'
@@ -122,7 +123,7 @@ module Acceptance
     end
 
     def erlang_payload_options(index)
-      options = { 'PAYLOAD' => PAYLOADS.fetch(index), 'LHOST' => listener_host, 'LPORT' => 4460 + index, 'WfsDelay' => 12, 'ExitOnSession' => true }
+      options = { 'PAYLOAD' => PAYLOADS.fetch(index), 'LHOST' => listener_host, 'LPORT' => 4460 + index, 'WfsDelay' => 12 }
       if index.zero?
         options.merge!('FETCH_COMMAND' => 'CURL', 'FETCH_SRVHOST' => listener_host, 'FETCH_SRVPORT' => 8097, 'FETCH_WRITABLE_DIR' => '/tmp', 'FETCH_FILENAME' => 'erlang-lab-fetch', 'FETCH_URIPATH' => 'erlang-lab-fetch', 'FETCH_DELETE' => true)
       end
@@ -201,11 +202,22 @@ module Acceptance
       erlang_use_session(identifier, 'exploit/multi/handler', payload, "native-#{index}", before_pids)
       erlang_record('native-payload-calibration.jsonl', payload: payload, phase: 'used_and_remote_closed', command_sha256: Digest::SHA256.hexdigest(command), launch_output: launched, module_calls: 0)
     ensure
-      erlang_json("framework.jobs.stop_job(#{job.inspect}); true") if job
-      target_exec('target', 'rm', '-f', '--', command_path, command_path + '.log') if command_path
-      erlang_wait(15) { expect(erlang_listener_rows(options.fetch('LPORT'))).to eq([]) } if options
-      erlang_fetch_removed if index.zero?
-      erlang_idle
+      failure = $ERROR_INFO
+      begin
+        if failure && identifier
+          erlang_record('native-calibration-failure.jsonl', error: failure.class.name, message: failure.message, session: identifier)
+          erlang_json("DruidSessionControl.exit_remote(framework,#{identifier})")
+          erlang_json("framework.sessions[#{identifier}]&.kill; true")
+        end
+        erlang_json("framework.jobs.stop_job(#{job.inspect}); true") if job
+        target_exec('target', 'rm', '-f', '--', command_path, command_path + '.log') if command_path
+        erlang_wait(15) { expect(erlang_listener_rows(options.fetch('LPORT'))).to eq([]) } if options
+        erlang_fetch_removed if index.zero?
+        erlang_idle
+      rescue RSpec::Expectations::ExpectationNotMetError, StandardError => e
+        erlang_record('native-calibration-cleanup-failure.jsonl', error: e.class.name, message: e.message)
+        raise unless failure
+      end
     end
 
     def erlang_listener_rows(port)

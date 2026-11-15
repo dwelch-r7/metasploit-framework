@@ -130,3 +130,27 @@ module offenses; the focused spec and four fixture/spec Ruby sources introduce
 none. Native controls now include the broader Unicode marker before and after
 each profile and shorten reply-free positive reads while retaining bounded,
 independent target-file proof. Final runtime replay remains in progress.
+
+## First complete serial-profile attempt
+
+The frozen four-profile attempt ends with 24 reported cases / 12 failures, with
+no outside errors. Those counts include nine inherited before-all failures in
+the non-root profile, not nine module defects. Root, fixed and versionless
+profiles each reach five cases and stop on an unregistered fixture option:
+ExitOnSession belongs to multi/handler, while the fixture also passed it to the
+owning exploit. The real affected root/versionless Linux payload opens a
+Meterpreter session before the assertion stops proof. Exact Unicode command
+bytes pass in both affected banner modes. No profile is qualified by this run.
+
+The non-root native Meterpreter calibration fails in getuid before any owner
+call. Independent capped, read-only probes against its exact old image verify
+that UID 1000 has no passwd entry while root does. The corrected image creates
+a real named UID/GID 1000 account, which native preflight now checks explicitly.
+Unmapped numeric UID behavior remains a separate session-API limitation. Failed
+calibration cleanup also preserves the original exception instead of masking it
+with a leftover-session assertion.
+
+All four stacks are gone; 24 independent cleanup queries and the released global
+lock pass. The 305-entry attempt seal, including the account prerequisite probe,
+has manifest SHA256
+`c9c4ff316c5f738ba7e5afa87cfd43bd6b3985ef5f138eaa8e53c1a6c7bd711e`.

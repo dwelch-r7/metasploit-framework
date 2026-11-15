@@ -2,6 +2,7 @@ services:
   target:
     extends: {file: ../erlang_ssh/compose.yaml, service: target}
     user: "1000:1000"
+    environment: {HOME: /tmp/module-target-erlang}
   reporting_db:
     extends: {file: ../erlang_ssh/compose.yaml, service: reporting_db}
   framework:
