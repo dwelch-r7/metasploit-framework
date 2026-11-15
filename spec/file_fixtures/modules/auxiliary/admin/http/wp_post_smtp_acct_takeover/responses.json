@@ -1,0 +1,203 @@
+{
+  "scope": "Sanitized genuine native response bodies and reduced official tagged readme lines. HTTP boundaries are doubles; mutated schema/status/URL cases in specs are synthetic.",
+  "responses": {
+    "2.8.6-password-reset": {
+      "status": 302,
+      "headers": {
+        "Location": "/wp-login.php?checkemail=confirm"
+      },
+      "body": ""
+    },
+    "2.8.6-register-device-without-auth": {
+      "status": 200,
+      "headers": {},
+      "body": "{\"success\":true,\"data\":{\"fcm_token\":\"unit-token\"}}"
+    },
+    "2.8.6-disclosed-logs": {
+      "status": 200,
+      "headers": {},
+      "body": "{\"success\":true,\"data\":[{\"id\":\"1\",\"original_subject\":\"[Module target WordPress] Password Reset\",\"to_header\":\"module_target@example.com\",\"success\":\"1\",\"time\":\"1794761933\"}]}"
+    },
+    "2.8.6-disclosed-log-content": {
+      "status": 200,
+      "headers": {},
+      "body": "\t\t\t\t\t<html>\n\t\t\t\t\t\t<head>\n\t\t\t\t\t\t\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n\t\t\t\t\t\t\t<style>\n\t\t\t\t\t\t\t\t* {\n\t\t\t\t\t\t\t\t\tbox-sizing: border-box;\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\ttable {\n\t\t\t\t\t\t\t\t\tmargin-top: 15px;\n\t\t\t\t\t\t\t\t\tfont-size: 12px;\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\t.container {\n\t\t\t\t\t\t\t\t\tmargin: 0 auto;\n\t\t\t\t\t\t\t\t\twidth: 95%;\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\ttable tbody td {\n\t\t\t\t\t\t\t\t\tpadding: 3px;\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\t.message-body {\n\t\t\t\t\t\t\t\t\tmargin-top: 15px;\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t</style>\n\t\t\t\t\t\t</head>\n\t\t\t\t\t\t<body>\n\t\t\t\t\t\t\t<div class=\"container\">\n\t\t\t\t\t\t\t\t<table width=\"100%\">\n\t\t\t\t\t\t\t\t\t<tbody>\n\t\t\t\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t\t\t\t<td><strong>From:</strong></td>\n\t\t\t\t\t\t\t\t\t\t\t<td>Owned module target &lt;native@example.com&gt;</td>\n\t\t\t\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t\t\t\t<td><strong>To:</strong></td>\n\t\t\t\t\t\t\t\t\t\t\t<td>module_target@example.com</td>\n\t\t\t\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t\t\t\t<td><strong>Date:</strong></td>\n\t\t\t\t\t\t\t\t\t\t\t<td>November 15, 2026 4:58 pm</td>\n\t\t\t\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t\t\t\t<td><strong>Subject:</strong></td>\n\t\t\t\t\t\t\t\t\t\t\t<td>[Module target WordPress] Password Reset</td>\n\t\t\t\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t\t\t\t<td><strong>Delivery-URI:</strong></td>\n\t\t\t\t\t\t\t\t\t\t\t<td>smtp:none:none://smtp:25</td>\n\t\t\t\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t\t\t</tbody>\n\t\t\t\t\t\t\t\t</table>\n\t\t\t\t\t\t\t\t<div class=\"message-body\">\n\t\t\t\t\t\t\t\t\tSomeone has requested a password reset for the following account:\r\n\r\nSite Name: Module target WordPress\r\n\r\nUsername: module_admin\r\n\r\nIf this was a mistake, ignore this email and nothing will happen.\r\n\r\nTo reset your password, visit the following address:\r\n\r\nhttp://192.0.2.10/wp-login.php?login=module_admin&key=unit-reset-key&action=rp&wp_lang=en_US\r\n\r\nThis password reset request originated from the IP address 192.0.2.20.\r\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</body>\n\t\t\t\t\t</html>\n\t\t\t\t\t"
+    },
+    "2.8.7-register-device-without-auth": {
+      "status": 200,
+      "headers": {},
+      "body": "{\"success\":true,\"data\":{\"fcm_token\":\"unit-token\"}}"
+    },
+    "2.8.8-logs-without-token": {
+      "status": 400,
+      "headers": {},
+      "body": "{\"success\":false,\"data\":{\"error\":\"Auth token missing.\"}}"
+    },
+    "2.8.8-register-device-without-auth": {
+      "status": 200,
+      "headers": {},
+      "body": "{\"success\":false,\"data\":{\"error\":\"Regenerate QR Code, and scan again.\"}}"
+    },
+    "2.8.8-logs-with-rejected-token": {
+      "status": 401,
+      "headers": {},
+      "body": "{\"success\":false,\"data\":{\"error\":\"Invalid Auth Token.\"}}"
+    },
+    "2.8.6-readme": {
+      "status": 200,
+      "headers": {},
+      "body": "Stable tag: 2.8.6\n"
+    },
+    "2.8.7-readme": {
+      "status": 200,
+      "headers": {},
+      "body": "Stable tag: 2.8.7\n"
+    },
+    "2.8.8-readme": {
+      "status": 200,
+      "headers": {},
+      "body": "Stable tag: 2.8.8\n"
+    }
+  },
+  "provenance": [
+    {
+      "response": "2.8.6-password-reset",
+      "archive": "post-smtp-native-2.8.6-20261115T165823-seal",
+      "receipt_sha256": "b0cccd08342384147baf2bcf8f8fbf86ac86b57c58324b7e9d5097a19f80b6ab",
+      "request_index": 1,
+      "request_path": "/wp-login.php?action=lostpassword",
+      "raw_body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "fixture_body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "transformations": [
+        "Retain status and only Location response header; omit cookies and all other headers",
+        "Replace native callback origin with TEST-NET-1 http://192.0.2.10; replace native token/reset key with explicit inert unit values",
+        "Replace requesting bridge address with TEST-NET-1 192.0.2.20"
+      ]
+    },
+    {
+      "response": "2.8.6-register-device-without-auth",
+      "archive": "post-smtp-native-2.8.6-20261115T165823-seal",
+      "receipt_sha256": "b0cccd08342384147baf2bcf8f8fbf86ac86b57c58324b7e9d5097a19f80b6ab",
+      "request_index": 3,
+      "request_path": "/wp-json/post-smtp/v1/connect-app",
+      "raw_body_sha256": "6c4af3f044f8876d7a6dc3fee0e55854d594c44b3c3548543afa6c5538fc6c70",
+      "fixture_body_sha256": "6a93e961bc4e5900b620b3821d0c0fe4eb6997546c024a53498d410bd51cd432",
+      "transformations": [
+        "Retain status and only Location response header; omit cookies and all other headers",
+        "Replace native callback origin with TEST-NET-1 http://192.0.2.10; replace native token/reset key with explicit inert unit values",
+        "Replace requesting bridge address with TEST-NET-1 192.0.2.20"
+      ]
+    },
+    {
+      "response": "2.8.6-disclosed-logs",
+      "archive": "post-smtp-native-2.8.6-20261115T165823-seal",
+      "receipt_sha256": "b0cccd08342384147baf2bcf8f8fbf86ac86b57c58324b7e9d5097a19f80b6ab",
+      "request_index": 4,
+      "request_path": "/wp-json/post-smtp/v1/get-logs",
+      "raw_body_sha256": "136f17e6d4933c8824df117f914f9ea1bc475e87d8fb609e46be209edd14d234",
+      "fixture_body_sha256": "136f17e6d4933c8824df117f914f9ea1bc475e87d8fb609e46be209edd14d234",
+      "transformations": [
+        "Retain status and only Location response header; omit cookies and all other headers",
+        "Replace native callback origin with TEST-NET-1 http://192.0.2.10; replace native token/reset key with explicit inert unit values",
+        "Replace requesting bridge address with TEST-NET-1 192.0.2.20"
+      ]
+    },
+    {
+      "response": "2.8.6-disclosed-log-content",
+      "archive": "post-smtp-native-2.8.6-20261115T165823-seal",
+      "receipt_sha256": "b0cccd08342384147baf2bcf8f8fbf86ac86b57c58324b7e9d5097a19f80b6ab",
+      "request_index": 5,
+      "request_path": "/wp-admin/admin.php?access_token=unit-token&type=log&log_id=1",
+      "raw_body_sha256": "9ae872d1e92c1e681b8e2aff27b894b142864f498e167a6b027027f0d87dcfdd",
+      "fixture_body_sha256": "834ac640e7bbed8a938638be6ab8abdf2d1b19d8b9ca57505a91cf76508956b6",
+      "transformations": [
+        "Retain status and only Location response header; omit cookies and all other headers",
+        "Replace native callback origin with TEST-NET-1 http://192.0.2.10; replace native token/reset key with explicit inert unit values",
+        "Replace requesting bridge address with TEST-NET-1 192.0.2.20"
+      ]
+    },
+    {
+      "response": "2.8.7-register-device-without-auth",
+      "archive": "post-smtp-native-2.8.7-20261115T165944-seal",
+      "receipt_sha256": "819cbc07d674b332e9f8418e6a61407bf6347ae906cb3abc8370801e741699a6",
+      "request_index": 3,
+      "request_path": "/wp-json/post-smtp/v1/connect-app",
+      "raw_body_sha256": "6c4af3f044f8876d7a6dc3fee0e55854d594c44b3c3548543afa6c5538fc6c70",
+      "fixture_body_sha256": "6a93e961bc4e5900b620b3821d0c0fe4eb6997546c024a53498d410bd51cd432",
+      "transformations": [
+        "Retain status and only Location response header; omit cookies and all other headers",
+        "Replace native callback origin with TEST-NET-1 http://192.0.2.10; replace native token/reset key with explicit inert unit values",
+        "Replace requesting bridge address with TEST-NET-1 192.0.2.20"
+      ]
+    },
+    {
+      "response": "2.8.8-logs-without-token",
+      "archive": "post-smtp-native-2.8.8-20261115T170121-seal",
+      "receipt_sha256": "8360691d9831756b883682fb6f6ebdec01e71b9524f20d96850684a908d6ac84",
+      "request_index": 2,
+      "request_path": "/wp-json/post-smtp/v1/get-logs",
+      "raw_body_sha256": "3b1702e41743a3164185c30367164bf324fbcef4595bcf2c9e4ff83eba6fed56",
+      "fixture_body_sha256": "3b1702e41743a3164185c30367164bf324fbcef4595bcf2c9e4ff83eba6fed56",
+      "transformations": [
+        "Retain status and only Location response header; omit cookies and all other headers",
+        "Replace native callback origin with TEST-NET-1 http://192.0.2.10; replace native token/reset key with explicit inert unit values",
+        "Replace requesting bridge address with TEST-NET-1 192.0.2.20"
+      ]
+    },
+    {
+      "response": "2.8.8-register-device-without-auth",
+      "archive": "post-smtp-native-2.8.8-20261115T170121-seal",
+      "receipt_sha256": "8360691d9831756b883682fb6f6ebdec01e71b9524f20d96850684a908d6ac84",
+      "request_index": 3,
+      "request_path": "/wp-json/post-smtp/v1/connect-app",
+      "raw_body_sha256": "300d98da064b9cede6a3643e368e60b6ca552746a9690994b380f398b7b474d5",
+      "fixture_body_sha256": "300d98da064b9cede6a3643e368e60b6ca552746a9690994b380f398b7b474d5",
+      "transformations": [
+        "Retain status and only Location response header; omit cookies and all other headers",
+        "Replace native callback origin with TEST-NET-1 http://192.0.2.10; replace native token/reset key with explicit inert unit values",
+        "Replace requesting bridge address with TEST-NET-1 192.0.2.20"
+      ]
+    },
+    {
+      "response": "2.8.8-logs-with-rejected-token",
+      "archive": "post-smtp-native-2.8.8-20261115T170121-seal",
+      "receipt_sha256": "8360691d9831756b883682fb6f6ebdec01e71b9524f20d96850684a908d6ac84",
+      "request_index": 4,
+      "request_path": "/wp-json/post-smtp/v1/get-logs",
+      "raw_body_sha256": "bac9ec8f365b4d008af9a617042a8a3ad8a166e0cc3a9bb0e61d14a9a2671230",
+      "fixture_body_sha256": "bac9ec8f365b4d008af9a617042a8a3ad8a166e0cc3a9bb0e61d14a9a2671230",
+      "transformations": [
+        "Retain status and only Location response header; omit cookies and all other headers",
+        "Replace native callback origin with TEST-NET-1 http://192.0.2.10; replace native token/reset key with explicit inert unit values",
+        "Replace requesting bridge address with TEST-NET-1 192.0.2.20"
+      ]
+    },
+    {
+      "response": "2.8.6-readme",
+      "official_zip_url": "https://downloads.wordpress.org/plugin/post-smtp.2.8.6.zip",
+      "zip_sha256": "bdab7b3be26cdd419e13fa083ef77fa4f9cd680165f38abed76431ddf2af6337",
+      "readme_sha256": "c63ac7897c835289c91805ac1cf86d4c73d7a595386c028576756aea4428c1f0",
+      "transformations": [
+        "Retain exact Stable tag line and append newline; reduced tagged source, not native HTTP capture"
+      ]
+    },
+    {
+      "response": "2.8.7-readme",
+      "official_zip_url": "https://downloads.wordpress.org/plugin/post-smtp.2.8.7.zip",
+      "zip_sha256": "09f7f92bddc72170cc42e99eb4d22505873b6e26b3ecc54f0712f5de3a71afae",
+      "readme_sha256": "3f8954a55e288a0ab6707dabe10f22287de40b6aeb09e473280db327fddce2a2",
+      "transformations": [
+        "Retain exact Stable tag line and append newline; reduced tagged source, not native HTTP capture"
+      ]
+    },
+    {
+      "response": "2.8.8-readme",
+      "official_zip_url": "https://downloads.wordpress.org/plugin/post-smtp.2.8.8.zip",
+      "zip_sha256": "d55134abb17aaa06a73b724c67034b49cc310868cd271130133b466822157ba0",
+      "readme_sha256": "921e959d1bbddf11fa89b5b53788273621d5a7bc7bb4d884aca5be5e1d828cd8",
+      "transformations": [
+        "Retain exact Stable tag line and append newline; reduced tagged source, not native HTTP capture"
+      ]
+    }
+  ]
+}
