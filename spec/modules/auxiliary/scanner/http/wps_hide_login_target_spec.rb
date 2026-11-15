@@ -25,8 +25,9 @@ RSpec.describe 'Native WPS Hide Login discovery', acceptance: true, order: :defi
     end
 
     it 'does not report a login URL on a native closed TCP port' do
-      expect(target_exec('app', 'php', '-r', '$s=stream_socket_server("tcp://0.0.0.0:9",$e,$m);if(!$s){exit(1);}fclose($s);')).to eq('')
-      output = wps_owner('RPORT' => 9)
+      port = 9
+      expect(target_exec('app', 'php', '-r', '$s=stream_socket_server("tcp://0.0.0.0:".$argv[1],$e,$m);if(!$s){exit(1);}fclose($s);', port.to_s)).to eq('')
+      output = wps_owner('RPORT' => port)
       expect(output).not_to include('Login page:')
       expect(output).to include('Server not online or not detected as wordpress')
     end
