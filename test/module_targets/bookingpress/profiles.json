@@ -1,0 +1,52 @@
+{
+  "bookingpress": {
+    "release": "1.0.10",
+    "mode": "affected",
+    "prefix": "",
+    "table_prefix": "wp_"
+  },
+  "bookingpress_prefix": {
+    "release": "1.0.10",
+    "mode": "affected",
+    "prefix": "/wordpress",
+    "table_prefix": "wp_"
+  },
+  "bookingpress_table_prefix": {
+    "release": "1.0.10",
+    "mode": "affected",
+    "prefix": "",
+    "table_prefix": "bp_"
+  },
+  "bookingpress_plain": {
+    "release": "1.0.10",
+    "mode": "affected",
+    "prefix": "",
+    "table_prefix": "wp_",
+    "plain": true
+  },
+  "bookingpress_fixed": {
+    "release": "1.0.11",
+    "mode": "fixed",
+    "prefix": "",
+    "table_prefix": "wp_"
+  },
+  "bookingpress_absent": {
+    "release": "1.0.10",
+    "mode": "absent",
+    "prefix": "",
+    "table_prefix": "wp_"
+  },
+  "bookingpress_unrelated": {
+    "release": null,
+    "mode": "unrelated",
+    "prefix": "",
+    "table_prefix": "wp_"
+  },
+  "bookingpress_low_limit": {
+    "release": "1.0.10",
+    "mode": "affected",
+    "prefix": "",
+    "table_prefix": "wp_",
+    "sql_limit": 96
+  }
+}

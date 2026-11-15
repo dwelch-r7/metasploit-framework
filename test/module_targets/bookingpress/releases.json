@@ -1,0 +1,18 @@
+{
+  "1.0.10": {
+    "url": "https://downloads.wordpress.org/plugin/bookingpress-appointment-booking.1.0.10.zip",
+    "sha256": "81fa8ee3a1b9f1df8bfbcc78799f33eb1ad673be8811d8610e7856daa73716fb",
+    "bytes": 3174211,
+    "source_php_readme_files": 64,
+    "frontend_sha256": "bdb2653d36b00f332ccff1a71913277b9a5048b1740caee17d25b7ca3c713103",
+    "main_sha256": "4c20904273f122df31661737927e7bfc29c6e1b51df194c2a3f98b7f95ecb2ab"
+  },
+  "1.0.11": {
+    "url": "https://downloads.wordpress.org/plugin/bookingpress-appointment-booking.1.0.11.zip",
+    "sha256": "5fa4be8671510ab5bf59ee845f1db40ca8f615e7cc357944759991f7dfbd0988",
+    "bytes": 3141110,
+    "source_php_readme_files": 64,
+    "frontend_sha256": "a4d74aa809c2a7cd4cb30f401e2022ccad86de836934cfa93c260cfcfbf1b2a1",
+    "main_sha256": "9115979fb5783c6efd8d49a68b56733fde2a710f2f1f09b1778d572cc23446f6"
+  }
+}

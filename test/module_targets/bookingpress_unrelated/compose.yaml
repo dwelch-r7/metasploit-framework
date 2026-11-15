@@ -1,0 +1,9 @@
+---
+services:
+  app:
+    extends: {file: ../bookingpress/services.yaml, service: unrelated}
+  reporting_db:
+    extends: {file: ../bookingpress/services.yaml, service: reporting_db}
+networks:
+  default: {internal: true}
+  public: {}

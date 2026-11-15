@@ -1,0 +1,82 @@
+---
+spec: spec/modules/auxiliary/gather/bookingpress_target_spec.rb
+expected_examples: 6
+console: false
+health_timeout: 150
+test_env:
+  BOOKINGPRESS_PROFILE: bookingpress_low_limit
+modules:
+- auxiliary/gather/wp_bookingpress_category_services_sqli
+ports:
+  app: 80
+  reporting_db: 5432
+support_files:
+- .ruby-version
+- Gemfile
+- Gemfile.lock
+- lib/metasploit/framework/hashes.rb
+- lib/msf/core/auxiliary/report.rb
+- lib/msf/core/exploit/remote/http_client.rb
+- lib/msf/core/exploit/remote/auto_check.rb
+- lib/msf/core/exploit/sqli.rb
+- lib/msf/core/exploit/sqli/common.rb
+- lib/msf/core/exploit/sqli/mysqli/common.rb
+- lib/msfenv.rb
+- metasploit-framework.gemspec
+- msfconsole
+- spec/acceptance_spec_helper.rb
+- spec/spec_helper.rb
+- spec/support/acceptance/child_process.rb
+- spec/support/acceptance/datastore_formatting.rb
+- spec/support/acceptance/module_target.rb
+- test/module_targets/piwigo/services.yaml
+- tools/dev/run_guarded_module_target_tests.rb
+- test/module_targets/wordpress/Dockerfile
+- test/module_targets/wordpress/README.md
+- test/module_targets/wordpress/apache2-foreground
+- test/module_targets/wordpress/compose.yaml
+- test/module_targets/wordpress/db.Dockerfile
+- test/module_targets/wordpress/empty.txt
+- test/module_targets/wordpress/init.sql
+- test/module_targets/wordpress/inspect.php
+- test/module_targets/wordpress/manifest.yml
+- test/module_targets/wordpress/native_probe.rb
+- test/module_targets/wordpress/plugin_sources.rb
+- test/module_targets/wordpress/plugins.txt
+- test/module_targets/wordpress/seed.php
+- test/module_targets/wordpress/themes.txt
+- test/module_targets/http/Dockerfile
+- test/module_targets/http/README.md
+- test/module_targets/http/compose.yaml
+- test/module_targets/http/htdocs/final.html
+- test/module_targets/http/htdocs/index.html
+- test/module_targets/http/htdocs/listing/evidence.txt
+- test/module_targets/http/htdocs/plain.txt
+- test/module_targets/http/htdocs/protected/index.html
+- test/module_targets/http/htdocs/robots.txt
+- test/module_targets/http/manifest.yml
+- test/module_targets/http/module-target.conf
+- test/module_targets/bookingpress/README.md
+- test/module_targets/bookingpress/acceptance.rb
+- test/module_targets/bookingpress/control.php
+- test/module_targets/bookingpress/prepare.rb
+- test/module_targets/bookingpress/profiles.json
+- test/module_targets/bookingpress/profiles.rb
+- test/module_targets/bookingpress/releases.json
+- test/module_targets/bookingpress/seed.php
+- test/module_targets/bookingpress/services.yaml
+- lib/msf/core/exploit/remote/http/wordpress/admin.rb
+- lib/msf/core/exploit/remote/http/wordpress/base.rb
+- lib/msf/core/exploit/remote/http/wordpress/helpers.rb
+- lib/msf/core/exploit/remote/http/wordpress/login.rb
+- lib/msf/core/exploit/remote/http/wordpress/posts.rb
+- lib/msf/core/exploit/remote/http/wordpress/register.rb
+- lib/msf/core/exploit/remote/http/wordpress/sqli.rb
+- lib/msf/core/exploit/remote/http/wordpress/uris.rb
+- lib/msf/core/exploit/remote/http/wordpress/users.rb
+- lib/msf/core/exploit/remote/http/wordpress/version.rb
+- lib/msf/core/exploit/remote/http/wordpress/xml_rpc.rb
+- tmp/module-target-bookingpress-sources/1.0.10.zip
+- documentation/modules/auxiliary/gather/wp_bookingpress_category_services_sqli.md
+- lib/msf/core/exploit/remote/http/wordpress.rb
+- lib/msf/core/db_manager/service.rb
