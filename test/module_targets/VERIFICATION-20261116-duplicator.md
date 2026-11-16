@@ -85,6 +85,10 @@ qualification. An initial 19-failure test-helper attempt is retained: the
 helper initially expected Auxiliary's failure state instead of Scanner's real
 AttemptFailed contract. No production fix was attributed to that helper error.
 
+The primary checkout also passes the default focused invocation: 48 examples,
+zero failures, consisting of the same 41 owner contracts and seven existing
+DatastoreFormatting examples. Those seven are not new module coverage.
+
 Final strict RuboCop on all six changed Ruby files has zero offenses. Module
 msftidy, syntax, diff and exact generator-discovery checks pass. Original module
 lint exits zero at the convention threshold but retains one informational
