@@ -1,6 +1,17 @@
 # Container module acceptance tests
 
-Latest: [LearnPress field SQL injection](VERIFICATION-20261116-learnpress-fields.md)
+Latest: [CP Multi-View Calendar detection](VERIFICATION-20261116-cp-calendar.md)
+adds one owner, eight profiles and seventeen cases, reaching **268 runtime owners
+in covered paths, 467 profiles and 3,624 functional cases**. All seventeen public
+calls pass with five deduplicated findings and ten module-attempt records. Genuine
+empty/used calendars, paths, prefixes, archived affected/fixed releases and absent
+prerequisites expose and verify two payload defects. The same five original
+public cases go from four failures to zero after an owner-only repair. Every
+final profile has exact current inputs; all three-container stacks are removed.
+The human guide is preserved. Earlier coverage remains historical; the broader
+campaign stays active. No PR is created.
+
+Previous: [LearnPress field SQL injection](VERIFICATION-20261116-learnpress-fields.md)
 adds one owner, nine profiles and fifteen cases, reaching **267 runtime owners
 in covered paths, 459 profiles and 3,607 functional cases**. Both public actions,
 repeat extraction, primed cache, subdirectory, current-site prefix, COUNT=2 and

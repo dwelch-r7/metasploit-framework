@@ -440,3 +440,38 @@ not established. No agent retry or cancellation was performed.
 The parent independently rehashes all nine entries and the exact file set of
 `/Users/dwelch/.codex/reports/wp-fastest-cache-publication-terminal-20261116`;
 manifest SHA256 `04b900f97e253201bba1f3152fea14e4b4ccdc9e806fe74b9f9c383ad1c539b8`.
+
+
+## LearnPress selected unit and terminal results
+
+Publication `fed23707802aa69bc57deea21f8db2455f45e28a` finishes all ten workflows
+successfully on GitHub attempt one. Verify passes all fourteen jobs. The selected
+Ruby 3.3 logs each show that exact fork checkout, one visible RSpec summary and
+zero failures. Both non-content jobs visibly execute all sixteen new LearnPress
+nonce examples and the manifest-driven runner group.
+
+| Ruby 3.3 job | Result | Seed |
+| --- | --- | ---: |
+| [Normal](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43931218116/job/133523822528) | 19,956 examples, zero failures, 33 pending | 5841 |
+| [REMOTE_DB](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43931218116/job/133523822803) | 19,769 examples, zero failures, 664 pending | 51292 |
+| [Content](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43931218116/job/133523822629) | 6,781 examples, zero failures | 20770 |
+| [Content REMOTE_DB](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43931218116/job/133523822656) | 6,781 examples, zero failures | 706 |
+
+[Meterpreter acceptance](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43931218544)
+finishes with twenty-three successful jobs and one skip. The selected
+[macOS Mettle job](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43931218544/job/133523823774)
+passes 46 examples, zero failures, seed 55872; the selected
+[Linux Mettle job](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43931218544/job/133523823823)
+passes 51 examples, zero failures, seed 51235. Both actually check out
+`rapid7/metasploit-framework` at `aa9ce416588a2d6fb97423d23591089aff2c8c3e`.
+They remain separate from the exact-fork unit jobs and local Docker qualification.
+Package source bytes were not audited. These later passes do not establish a
+fix or branch cause for the prior publication's native failure/timeout. No manual
+retry or cancellation was performed, and no functional case count is added.
+
+The parent rehashes the exact six-entry unit seal
+`/Users/dwelch/.codex/reports/learnpress-fields-publication-unit33-20261116`,
+manifest SHA256 `157953c4078a08ddd6ca81e36aea8e09a07b69e02626a7aaa722ce42bf482aed`,
+and exact five-entry terminal seal
+`/Users/dwelch/.codex/reports/learnpress-fields-publication-terminal-20261116`,
+manifest SHA256 `9c32bba8621610318546ce28fed8cb6632538f8c53aa3f3b663594cf00eda483`.
