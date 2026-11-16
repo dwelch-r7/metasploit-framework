@@ -1,0 +1,20 @@
+{
+  "responses": {
+    "scalar": {
+      "code": 200,
+      "body": "{\"hasMore\":false,\"page\":1,\"perpage\":10,\"totalPages\":0,\"totalHits\":null,\"hits\":[{\"id\":\"9172\",\"createdAt\":\"9175\",\"identifier\":\"\",\"source\":{\"id\":null,\"name\":null,\"type\":null},\"content\":{\"id\":\"module_target_native_before\",\"name\":\"9174\"},\"fields\":[]}],\"commonFields\":[]}"
+    },
+    "prefix_scalar": {
+      "code": 200,
+      "body": "{\"hasMore\":false,\"page\":1,\"perpage\":10,\"totalPages\":0,\"totalHits\":null,\"hits\":[{\"id\":\"9172\",\"createdAt\":\"9175\",\"identifier\":\"\",\"source\":{\"id\":null,\"name\":null,\"type\":null},\"content\":{\"id\":\"module_target_native_before\",\"name\":\"9174\"},\"fields\":[]}],\"commonFields\":[]}"
+    },
+    "empty": {
+      "code": 200,
+      "body": "{\"hasMore\":false,\"page\":1,\"perpage\":10,\"totalPages\":1,\"totalHits\":null,\"hits\":[],\"commonFields\":[]}"
+    },
+    "denied": {
+      "code": 401,
+      "body": "{\"errors\":\"Not an authorized user.\"}"
+    }
+  }
+}

