@@ -166,14 +166,16 @@ class WpDiscuzNative
     %w[GIF8 GIF89a].each do |magic|
       bytes = magic + "<?php file_put_contents('/tmp/module-target-wpdiscuz-native-proof','wpdiscuz_native');echo 'wpdiscuz-native-executed';?>"
       result = upload('php-' + magic, 'module-target-native-' + magic + '.php', bytes, metadata: form)
-      if @profile.fetch('mode') == 'affected'
+      accepted = @profile.fetch('mode') == 'affected' && (@profile.fetch('release') != '7.0.0' || magic == 'GIF89a')
+      @record.call('native-php-boundaries.jsonl', release: @profile.fetch('release'), magic: magic, expected_accepted: accepted, images: result.fetch('images'), code: result.fetch('code'))
+      if accepted
         image = accepted_image(result, bytes, 'native-php-file')
         response = request('native-php-execution', upload_path(image))
         raise 'Native PHP did not execute' unless response.code == '200' && response.body == magic + 'wpdiscuz-native-executed' && snapshot('native-php-proof').fetch('native_proof') == 'wpdiscuz_native'
 
         recover([image.fetch('id')], 'native-php-' + magic)
       else
-        raise 'Negative target accepted anonymous PHP' unless result.fetch('images').empty?
+        raise 'Native MIME boundary accepted unexpected PHP' unless result.fetch('images').empty?
       end
       raise 'Native PHP cleanup/state differs' unless snapshot('after-native-php-' + magic) == @baseline
     end

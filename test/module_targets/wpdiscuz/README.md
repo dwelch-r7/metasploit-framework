@@ -2,6 +2,8 @@
 
 These profiles install official checksum-pinned wpDiscuz 7.0.0, 7.0.4 and 7.0.5
 on WordPress 5.2.4/PHP 7.3.11 with MariaDB 11.2.2. Vendor code is unchanged.
+The minimum release requires the full GIF89a signature; 7.0.4 also accepts the
+short GIF8 marker. Both native boundaries are asserted from genuine captures.
 Native probes verify ordinary image upload, nonce/post checks, actual PHP marker
 execution or refusal, and WordPress attachment cleanup before owner calls.
 
