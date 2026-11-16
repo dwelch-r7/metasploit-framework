@@ -1,0 +1,76 @@
+---
+spec: spec/modules/auxiliary/scanner/http/wp_fastest_cache_target_spec.rb
+expected_examples: 2
+console: false
+health_timeout: 180
+test_env:
+  FASTEST_CACHE_RELEASE: "1.2.1"
+  FASTEST_CACHE_MODE: "absent"
+  FASTEST_CACHE_REPEATS: "2"
+modules:
+- auxiliary/scanner/http/wp_fastest_cache_sqli
+ports:
+  app: 80
+  reporting_db: 5432
+support_files:
+- .ruby-version
+- Gemfile
+- Gemfile.lock
+- documentation/modules/auxiliary/scanner/http/wp_fastest_cache_sqli.md
+- lib/msf/core/auxiliary/report.rb
+- lib/msf/core/auxiliary/scanner.rb
+- lib/msf/core/exploit/remote/http/wordpress/sqli.rb
+- lib/msf/core/exploit/remote/http_client.rb
+- lib/msf/core/exploit/sqli.rb
+- lib/msf/core/exploit/sqli/boolean_based_blind_mixin.rb
+- lib/msf/core/exploit/sqli/common.rb
+- lib/msf/core/exploit/sqli/mssqli.rb
+- lib/msf/core/exploit/sqli/mssqli/boolean_based_blind.rb
+- lib/msf/core/exploit/sqli/mssqli/common.rb
+- lib/msf/core/exploit/sqli/mssqli/time_based_blind.rb
+- lib/msf/core/exploit/sqli/mysqli.rb
+- lib/msf/core/exploit/sqli/mysqli/benchmark_based_blind.rb
+- lib/msf/core/exploit/sqli/mysqli/boolean_based_blind.rb
+- lib/msf/core/exploit/sqli/mysqli/common.rb
+- lib/msf/core/exploit/sqli/mysqli/time_based_blind.rb
+- lib/msf/core/exploit/sqli/postgresqli.rb
+- lib/msf/core/exploit/sqli/postgresqli/boolean_based_blind.rb
+- lib/msf/core/exploit/sqli/postgresqli/common.rb
+- lib/msf/core/exploit/sqli/postgresqli/time_based_blind.rb
+- lib/msf/core/exploit/sqli/sqlitei.rb
+- lib/msf/core/exploit/sqli/sqlitei/boolean_based_blind.rb
+- lib/msf/core/exploit/sqli/sqlitei/common.rb
+- lib/msf/core/exploit/sqli/sqlitei/time_based_blind.rb
+- lib/msf/core/exploit/sqli/time_based_blind_mixin.rb
+- lib/msf/core/exploit/sqli/utils/common.rb
+- metasploit-framework.gemspec
+- msfconsole
+- spec/acceptance_spec_helper.rb
+- spec/spec_helper.rb
+- spec/support/acceptance/datastore_formatting.rb
+- test/module_targets/elasticsearch_memory/init.sql
+- test/module_targets/elasticsearch_memory/services.yaml
+- test/module_targets/wordpress/Dockerfile
+- test/module_targets/wordpress/README.md
+- test/module_targets/wordpress/apache2-foreground
+- test/module_targets/wordpress/compose.yaml
+- test/module_targets/wordpress/db.Dockerfile
+- test/module_targets/wordpress/empty.txt
+- test/module_targets/wordpress/init.sql
+- test/module_targets/wordpress/inspect.php
+- test/module_targets/wordpress/manifest.yml
+- test/module_targets/wordpress/native_probe.rb
+- test/module_targets/wordpress/plugin_sources.rb
+- test/module_targets/wordpress/plugins.txt
+- test/module_targets/wordpress/seed.php
+- test/module_targets/wordpress/themes.txt
+- test/module_targets/wp_fastest_cache/README.md
+- test/module_targets/wp_fastest_cache/compose.yaml
+- test/module_targets/wp_fastest_cache/control.php
+- test/module_targets/wp_fastest_cache/prepare.rb
+- test/module_targets/wp_fastest_cache/releases.json
+- test/module_targets/wp_fastest_cache/seed.php
+- test/module_targets/wp_fastest_cache/services.yaml
+- test/module_targets/wpdiscuz/no-mail.ini
+- tmp/module-target-wp-fastest-cache-sources/1.2.1.zip
+- tmp/module-target-wp-fastest-cache-sources/1.2.2.zip

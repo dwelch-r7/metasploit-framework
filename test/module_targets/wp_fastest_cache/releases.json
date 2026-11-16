@@ -1,0 +1,20 @@
+{
+  "1.2.1": {
+    "url": "https://downloads.wordpress.org/plugin/wp-fastest-cache.1.2.1.zip",
+    "sha256": "ca70d67e56f0b2ee3184f07cf2f1690c9ff68f15b928468ba3951a7e2a09a8b0",
+    "installed_sha256": {
+      "wpFastestCache.php": "cff1eb1d2c252aa23f4733afd72e5547195215b652d5439468c2dea2ef6c713e",
+      "inc/cache.php": "ba2cfda3366ebaa1418940e03bae85630e95ad4336fbd2aac04cec75994dd123",
+      "readme.txt": "53fcb0f80739e5be4790bf6d70b8e4407e0031937b8c006effb2541bec541201"
+    }
+  },
+  "1.2.2": {
+    "url": "https://downloads.wordpress.org/plugin/wp-fastest-cache.1.2.2.zip",
+    "sha256": "806ba0ea7f9eb088df749398dd4e041c5a30254337eaddca5f61849a3efa460c",
+    "installed_sha256": {
+      "wpFastestCache.php": "2ff8d3077ebaf5a73810ca4c21d95d8ce83db0f75d21f84949819f757b0c06e0",
+      "inc/cache.php": "b5134d9de63243f626e1b72e4d0cf8160cbb08978aad28c0de8e4a233e285eb2",
+      "readme.txt": "a8e70c7e5f5bc617fbea4b8e07b6540b228fe3a82df8fa59e7a97b429111db77"
+    }
+  }
+}

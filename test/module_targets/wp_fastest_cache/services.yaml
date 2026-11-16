@@ -1,0 +1,37 @@
+services:
+  db:
+    extends: {file: ../wordpress/compose.yaml, service: db}
+    cpus: 0.5
+    mem_limit: 512m
+    memswap_limit: 512m
+    pids_limit: 128
+    init: true
+    networks: [default]
+  app:
+    extends: {file: ../wordpress/compose.yaml, service: root}
+    build:
+      context: ../wordpress
+      args:
+        WORDPRESS_IMAGE: wordpress:6.8.3-php8.3-apache@sha256:30bff39330d1693b0ce13d32fc9b7bb67193064f040b7d60d3494e136fa599d4
+    environment:
+      FASTEST_CACHE_RELEASE: "1.2.1"
+      FASTEST_CACHE_MODE: "enabled"
+    volumes:
+    - ../wordpress/seed.php:/opt/module-target/seed-base.php:ro
+    - ./seed.php:/opt/module-target/seed.php:ro
+    - ./control.php:/opt/module-target/control.php:ro
+    - ./releases.json:/opt/module-target/releases.json:ro
+    - ../wpdiscuz/no-mail.ini:/usr/local/etc/php/conf.d/module-target-cache.ini:ro
+    cpus: 1.0
+    mem_limit: 384m
+    memswap_limit: 384m
+    pids_limit: 128
+    init: true
+    networks: [default, public]
+    healthcheck:
+      test: [CMD-SHELL, 'test -f /tmp/module-target-fastest-cache-ready && curl --fail --silent http://127.0.0.1$${LAB_PREFIX}/wp-login.php >/dev/null']
+      interval: 3s
+      timeout: 5s
+      retries: 50
+  reporting_db:
+    extends: {file: ../elasticsearch_memory/services.yaml, service: db}

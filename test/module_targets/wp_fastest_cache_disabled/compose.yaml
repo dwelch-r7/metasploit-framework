@@ -1,0 +1,15 @@
+services:
+  db:
+    extends: {file: ../wp_fastest_cache/services.yaml, service: db}
+  app:
+    extends: {file: ../wp_fastest_cache/services.yaml, service: app}
+    environment:
+      FASTEST_CACHE_RELEASE: "1.2.1"
+      FASTEST_CACHE_MODE: "disabled"
+    volumes:
+    - ../../../tmp/module-target-wp-fastest-cache-sources/1.2.1.zip:/opt/module-target/plugin.zip:ro
+  reporting_db:
+    extends: {file: ../wp_fastest_cache/services.yaml, service: reporting_db}
+networks:
+  default: {internal: true}
+  public: {}
