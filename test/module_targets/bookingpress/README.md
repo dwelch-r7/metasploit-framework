@@ -40,7 +40,7 @@ existing bundle, avoiding a fourth container. Ports bind random loopback ports;
 accounts and databases are disposable. The guarded launcher removes project
 containers, networks and volumes after success or failure.
 
-Runtime qualification is pending. The preserved human module guide and Scenarios
-are unchanged. Other plugin/core/PHP releases remain outside this fixture's scope.
-Original module defects and fixture corrections are recorded in the
-[investigation record](../VERIFICATION-20261115-bookingpress.md).
+Recorded results, original module defects, fixture corrections and limits are
+maintained in the [verification record](../VERIFICATION-20261115-bookingpress.md).
+The human module guide and Scenarios are unchanged. Other plugin/core/PHP
+releases remain outside this fixture's recorded scope.

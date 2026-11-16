@@ -1,6 +1,19 @@
 # Container module acceptance tests
 
-Latest: [Erlang OTP SSH execution](VERIFICATION-20261115-erlang-ssh.md) adds one
+Latest: [BookingPress credential gathering](VERIFICATION-20261115-bookingpress.md)
+adds one owner, eight profiles and 37 cases, reaching **257 runtime owners in
+covered paths, 387 profiles and 3,328 functional cases**. All 64 public calls
+pass, with twenty complete dumps and forty exact workspace credential rows.
+Genuine affected, fixed, subdirectory, custom-prefix, page-ID and low-aggregation
+targets distinguish real source defects from fixture errors. Typed callback
+failures and per-row HEX extraction prevent lost or false blank-password
+credentials. Seven profiles retain frozen passing inputs; the final unrelated
+profile uses a profile-only network correction. Production and shared executable
+inputs agree. Every capped stack is removed before the next; Docker is empty.
+Earlier evidence stays sealed; the broader campaign remains open. No PR is
+created.
+
+Previous: [Erlang OTP SSH execution](VERIFICATION-20261115-erlang-ssh.md) adds one
 owner, four profiles and 36 cases, reaching **256 runtime owners in covered
 paths, 379 profiles and 3,291 functional cases**. All 64 public calls pass in
 recorded root, named non-root, patched and versionless paths. Twelve owning
