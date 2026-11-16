@@ -19,7 +19,10 @@ Framework at 1 CPU/1024 MiB, with swap equal to memory and PID limits.
 Unrelated HTTP uses 0.25 CPU/128 MiB. Every service uses an init process.
 
 The root profile covers command-only PHP, a PHP command shell, single-stage PHP
-Meterpreter and the module's unchanged default staged PHP Meterpreter. Minimum
+Meterpreter and the module's unchanged default staged PHP Meterpreter. Default
+cases use `unset PAYLOAD` to remove earlier remembered console selections,
+assert the owner's default datastore value, and omit a PAYLOAD override from
+the run command. Minimum
 version, WordPress subdirectory and custom non-dated uploads exercise the
 selected payloads in profiles.json. Each selected delivery runs twice. Native
 handlers calibrate the same payloads before the owning module; completed session

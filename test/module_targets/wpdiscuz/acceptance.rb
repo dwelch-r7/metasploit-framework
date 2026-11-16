@@ -53,13 +53,21 @@ module Acceptance
     def wp_call(options = {}, action: 'run', reuse: false)
       defaults = { 'SSL' => false, 'TARGETURI' => @profile.fetch('prefix') + '/', 'BLOGPATH' => @blogpath, 'HttpClientTimeout' => 5, 'HttpTrace' => true, 'HttpTraceHeadersOnly' => true, 'WfsDelay' => 0 }
       values = defaults.merge(options)
-      output = if reuse
-                 endpoint = target_runtime.fetch('module_endpoints', target_runtime.fetch('endpoints')).fetch('app')
-                 endpoint_values = { 'RHOSTS' => endpoint.fetch('host'), 'RPORT' => endpoint.fetch('port'), 'VERBOSE' => true }
-                 console_command(action + ' ' + format_datastore_options(endpoint_values.merge(values)), timeout: 70)
-               else
-                 run_target_module(OWNER, 'app', values, action: action, allow_errors: true, command_timeout: 70)
-               end
+      unless reuse
+        console_command('back')
+        expect(console_command("use #{OWNER}")).not_to match(/Failed to load|Unknown command|No results/)
+        if options.key?('PAYLOAD')
+          expect(console_command("set PAYLOAD #{options.fetch('PAYLOAD')}")).not_to match(/Failed|Invalid|not found/)
+        else
+          # The console remembers per-module selections across back/use.
+          # Remove the explicit choice and let the owner's default apply.
+          expect(console_command('unset PAYLOAD')).not_to include('[-]')
+          expect(wp_json('active_module.datastore["PAYLOAD"]')).to eq(WpDiscuzProfiles::DEFAULT_PAYLOAD)
+        end
+      end
+      endpoint = target_runtime.fetch('module_endpoints', target_runtime.fetch('endpoints')).fetch('app')
+      endpoint_values = { 'RHOSTS' => endpoint.fetch('host'), 'RPORT' => endpoint.fetch('port'), 'VERBOSE' => true }
+      output = console_command(action + ' ' + format_datastore_options(endpoint_values.merge(values)), timeout: 70)
       expect(output).not_to match(/Exception|undefined method|Unknown command|Msf::OptionValidateError|Call stack:|Unknown datastore option/)
       source = wp_json('{location: active_module.method(:upload_metadata).source_location, sha256: Digest::SHA256.file("modules/exploits/unix/webapp/wp_wpdiscuz_unauthenticated_file_upload.rb").hexdigest, selected_payload: active_module.datastore["PAYLOAD"]}')
       expect(source.fetch('location').first).to end_with('/modules/exploits/unix/webapp/wp_wpdiscuz_unauthenticated_file_upload.rb')
