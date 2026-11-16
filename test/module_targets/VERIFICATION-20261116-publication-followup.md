@@ -497,3 +497,45 @@ manifest SHA256 `a3aeb89aa2952011188e98fce4e9d210869e95ee272c4815b7ca828696f88ba
 This establishes selected unit execution; overall Verify and native acceptance
 remain active at the captured snapshot. No local functional case is added and
 no agent retry or cancellation is performed.
+
+## Brother selected unit results
+
+The selected Ruby 3.3 jobs check out the exact fork publication
+`db7f3ab52b9a780a8efa20879e60808e186581b3`. Both non-content logs visibly execute
+all eight new Brother generated-credential reporting examples. Each selected
+log has one RSpec summary with zero failures and no visible built-in retry.
+
+| Ruby 3.3 job | Result | Seed |
+| --- | --- | ---: |
+| [Normal](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43951388312/job/133594480431) | 19,981 examples, zero failures, 33 pending | 42905 |
+| [REMOTE_DB](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43951388312/job/133594480349) | 19,794 examples, zero failures, 664 pending | 46818 |
+| [Content](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43951388312/job/133594480254) | 6,781 examples, zero failures | 38432 |
+| [Content REMOTE_DB](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43951388312/job/133594480273) | 6,781 examples, zero failures | 39794 |
+
+These are unit reporting-payload doubles, separate from the nineteen genuine
+local PostgreSQL/public-console cases and unqualified printer authentication.
+The later read-only snapshot has nine successful workflows, including Verify;
+Meterpreter Acceptance remains active. No functional case count is added, and
+no manual retry or cancellation is performed.
+The six-entry exact-checkout seal is
+`/Users/dwelch/.codex/reports/brother-password-publication-unit33-20261116`,
+manifest SHA256 `9e21b2b9679b65701e2a1126d07356c2d949fc3c62ea3a338725b4d116ef1a32`.
+
+## CP Multi-View Calendar terminal native results
+
+The publication `79cd604f5231bfcb9b31c166428b63f666396467` finishes all ten
+workflows successfully. Meterpreter Acceptance finishes on GitHub attempt one
+with twenty-three successful jobs and one skip. Its selected
+[Linux Mettle job](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43945805974/job/133575023847)
+passes 51 examples, zero failures, seed 25881; its selected
+[macOS Mettle job](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43945805974/job/133575024355)
+passes 46 examples, zero failures, seed 64760. Both actually check out upstream
+`rapid7/metasploit-framework` at `aa9ce416588a2d6fb97423d23591089aff2c8c3e`.
+The exact-fork unit execution above and genuine local CP target runs remain
+separate. Payload/package source bytes were not audited; these passes do not
+establish a fix or branch cause for earlier native failures. No manual retry,
+cancellation or added functional case is involved.
+
+The six-entry terminal seal is
+`/Users/dwelch/.codex/reports/cp-calendar-publication-terminal-20261116`,
+manifest SHA256 `79c9e021154a04f15addb32b6c3b7c3d2438a3f3a9e0848e3d7385c30a89bc53`.

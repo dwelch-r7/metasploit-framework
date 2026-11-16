@@ -1,6 +1,17 @@
 # Container module acceptance tests
 
-Latest: [Brother supplied-serial generation](VERIFICATION-20261116-brother-password.md)
+Latest: [Secure Copy Content Protection SQLi](VERIFICATION-20261116-secure-copy.md)
+adds one owner, eight profiles and twenty cases, reaching **270 runtime owners
+in covered paths, 476 profiles and 3,663 historical functional cases**. All
+public checks/runs pass, including six complete extractions, repeat reporting,
+paths, prefixes, empty/populated reports, two users and negative prerequisites.
+A hardcoded users table causes the original custom-prefix failure; a shared
+prefix identifier repairs it. All three-container stacks and attached objects
+are removed. Complete modern hashes persist with blank cracking-format metadata,
+recorded for separate investigation. The human guide is preserved and the broader
+campaign remains active. No PR is created.
+
+Previous: [Brother supplied-serial generation](VERIFICATION-20261116-brother-password.md)
 adds one owner, one profile and nineteen cases, reaching **269 runtime owners
 in covered paths, 468 profiles and 3,643 historical functional cases**. All
 nineteen public calls pass with thirteen deduplicated credentials and Untried
