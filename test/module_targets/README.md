@@ -1,6 +1,18 @@
 # Container module acceptance tests
 
-Latest: [Photo Gallery credential gathering](VERIFICATION-20261116-photo-gallery.md)
+Latest: [Planyo file collection](VERIFICATION-20261116-planyo.md) adds one owner,
+seven profiles and 34 cases, reaching **263 runtime owners in covered paths,
+428 profiles and 3,525 functional cases**. All 68 public calls pass; 42 exact
+loot files include eight empty files. Genuine active/inactive, older release,
+subdirectory and fixed/negative controls verify nested URI encoding and
+preservation of literal percent, Unicode, query and quote filename bytes.
+Original module and probe-input failures remain separate. All seven profiles
+retain current declared inputs, use at most two capped containers and clean
+up before the next starts. Docker is empty and the advisory lock is free.
+Four baseline metadata/option findings and the broader campaign remain open;
+earlier coverage stays historical. No PR is created.
+
+Previous: [Photo Gallery credential gathering](VERIFICATION-20261116-photo-gallery.md)
 adds one owner, seven profiles and 33 cases, reaching **262 runtime owners in
 covered paths, 421 profiles and 3,491 functional cases**. All 66 public calls
 pass; 36 exact loot files and 64 workspace credential rows match native users
