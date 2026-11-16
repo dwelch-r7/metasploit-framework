@@ -1,0 +1,129 @@
+{
+  "provenance": {
+    "source_run": "20261116T221156-45f470",
+    "source_receipt_sha256": "5194b3194f77f99b9dd61ad90d0a048c9ee5cc0d7f45d81b33b6a1ac9ec162a5",
+    "plugin": "Ultimate Member2.8.2",
+    "WordPress": "6.8.3",
+    "PHP": "8.3.28",
+    "MariaDB": "11.2.2",
+    "host": "Owned synthetic lab module-target.test",
+    "registration_label": "before-registration",
+    "registration_full_body_sha256": "d68dbcfe54922befa9dc2073529ebcb10ac785fa377fda81abc4c87dde78d295",
+    "script_span_bytes": [
+      58734,
+      58846
+    ],
+    "script_selection": "Exact complete script element containing var um_scripts; surrounding HTML omitted, no script bytes changed",
+    "redirect_label": "before-registration-query",
+    "negative_json_label": "before-wrong-nonce",
+    "sanitization": "No selected response/header/script bytes changed. Synthetic variants in unit cases are explicitly constructed from these captures."
+  },
+  "nonce": "5dba34a1fc",
+  "registration": {
+    "status": 200,
+    "headers": {
+      "date": [
+        "Mon, 16 Nov 2026 22:12:59 GMT"
+      ],
+      "server": [
+        "Apache/2.4.65 (Debian)"
+      ],
+      "x-powered-by": [
+        "PHP/8.3.28"
+      ],
+      "link": [
+        "<http://module-target.test/wp-json/>; rel=\"https://api.w.org/\"",
+        "<http://module-target.test/wp-json/wp/v2/pages/11>; rel=\"alternate\"; title=\"JSON\"; type=\"application/json\"",
+        "<http://module-target.test/?p=11>; rel=shortlink"
+      ],
+      "x-frame-options": [
+        "SAMEORIGIN"
+      ],
+      "vary": [
+        "Accept-Encoding"
+      ],
+      "content-length": [
+        "59436"
+      ],
+      "connection": [
+        "close"
+      ],
+      "content-type": [
+        "text/html; charset=UTF-8"
+      ]
+    },
+    "script": "<script id=\"um_scripts-js-extra\">\nvar um_scripts = {\"max_upload_size\":\"2097152\",\"nonce\":\"5dba34a1fc\"};\n</script>"
+  },
+  "redirect": {
+    "status": 301,
+    "headers": {
+      "date": [
+        "Mon, 16 Nov 2026 22:12:59 GMT"
+      ],
+      "server": [
+        "Apache/2.4.65 (Debian)"
+      ],
+      "x-powered-by": [
+        "PHP/8.3.28"
+      ],
+      "x-redirect-by": [
+        "WordPress"
+      ],
+      "location": [
+        "http://module-target.test/register/"
+      ],
+      "content-length": [
+        "0"
+      ],
+      "connection": [
+        "close"
+      ],
+      "content-type": [
+        "text/html; charset=UTF-8"
+      ]
+    },
+    "body": ""
+  },
+  "negative_json": {
+    "status": 200,
+    "headers": {
+      "date": [
+        "Mon, 16 Nov 2026 22:12:59 GMT"
+      ],
+      "server": [
+        "Apache/2.4.65 (Debian)"
+      ],
+      "x-powered-by": [
+        "PHP/8.3.28"
+      ],
+      "x-robots-tag": [
+        "noindex"
+      ],
+      "x-content-type-options": [
+        "nosniff"
+      ],
+      "expires": [
+        "Wed, 11 Jan 1984 05:00:00 GMT"
+      ],
+      "cache-control": [
+        "no-cache, must-revalidate, max-age=0, no-store, private"
+      ],
+      "referrer-policy": [
+        "strict-origin-when-cross-origin"
+      ],
+      "x-frame-options": [
+        "SAMEORIGIN"
+      ],
+      "content-length": [
+        "38"
+      ],
+      "connection": [
+        "close"
+      ],
+      "content-type": [
+        "application/json; charset=UTF-8"
+      ]
+    },
+    "body": "{\"success\":false,\"data\":\"Wrong Nonce\"}"
+  }
+}
