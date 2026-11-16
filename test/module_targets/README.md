@@ -1,6 +1,18 @@
 # Container module acceptance tests
 
-Latest: [Drupal PostgreSQL EntityQuery detection](VERIFICATION-20261116-drupal-pgsql.md)
+Latest: [Elasticsearch memory disclosure](VERIFICATION-20261116-elasticsearch-memory.md)
+adds one owner, five profiles and 28 cases, reaching **265 runtime owners in
+covered paths, 441 profiles and 3,577 functional cases**. All 76 public calls
+pass, with 18 exact same-response loot files and sixteen deduplicated vulnerability
+and service rows. Genuine affected/fixed, authenticated, low-heap and unrelated
+states distinguish three source defects from fixture failures. Twenty-five unit
+cases pass after reproducing twelve original failures. All final profiles retain
+current committed inputs; each stack has two capped containers and is removed
+before the next. Docker is empty and the lock is free. One unchanged module lint
+warning and the broader campaign remain open. Earlier coverage remains historical.
+No PR is created.
+
+Previous: [Drupal PostgreSQL EntityQuery detection](VERIFICATION-20261116-drupal-pgsql.md)
 adds one owner, eight profiles and 24 cases, reaching **264 runtime owners in
 covered paths, 436 profiles and 3,549 functional cases**. All 94 public check/run
 calls pass with 78 independent native HTTP controls, six deduplicated

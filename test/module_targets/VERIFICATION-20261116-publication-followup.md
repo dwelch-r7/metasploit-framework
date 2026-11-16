@@ -288,3 +288,25 @@ Verify and Command Shell Acceptance. All ten Command Shell jobs succeed.
 Meterpreter Acceptance remains in progress: seventeen jobs succeed, five
 remain active and one is skipped. There is no overall terminal verdict yet;
 no agent retry or cancellation was initiated.
+
+## Drupal PostgreSQL publication result
+
+Checkpoint `82729b27ecb47c509e65da8e28e527d6b6052ad4` passes both selected Ruby 3.3
+unit jobs on their first attempt. Both actual checkout logs name that exact
+published fork commit; no built-in retry is needed.
+
+| Ruby 3.3 job | First attempt | Seed |
+| --- | --- | --- |
+| [Normal](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43864689481/job/133290115221) | 19,889 examples, zero failures, 33 pending | 20139 |
+| [REMOTE_DB](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43864689481/job/133290115343) | 19,702 examples, zero failures, 664 pending | 39152 |
+
+The five-entry read-only unit CI seal is
+`/Users/dwelch/.codex/reports/drupal-pgsql-publication-unit33-20261116`,
+manifest SHA256 `4d23f5d9ddd81ad8e0fbe23b1042a3d3150fee0550db9f9c8dbc75ccf7f47aaf`.
+These are unit results; they do not claim execution of the local Docker
+functional profiles in those jobs.
+
+The 2026-11-16 13:42 UTC workflow snapshot still has nine successful workflows
+and Meterpreter Acceptance in progress. Its latest job snapshot has 22 completed
+successful/skipped jobs and the macOS Mettle job still running. This is not an
+overall terminal verdict. There is no agent-initiated retry or cancellation.
