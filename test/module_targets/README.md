@@ -1,6 +1,17 @@
 # Container module acceptance tests
 
-Latest: [wpDiscuz uploads](VERIFICATION-20261116-wpdiscuz.md) adds one owner,
+Latest: [WordPress File Manager](VERIFICATION-20261116-file-manager.md) adds one
+owner, six profiles and 36 cases, reaching **260 runtime owners in covered
+paths, 407 profiles and 3,427 functional cases**. All 72 public calls pass.
+Eight native and sixteen owning sessions are used and closed remotely, with
+sixteen module payload-file cleanups and twelve command-only proofs. Genuine
+write, permission, fixed-backend, subdirectory and absent/unrelated controls
+distinguish response/lifecycle defects and put-byte corruption from fixture
+errors. All six final profiles retain current declared inputs. Each serial
+stack has at most three capped containers; Docker is empty and the lock is
+free. Earlier scope stays sealed; the campaign remains open. No PR is created.
+
+Previous: [wpDiscuz uploads](VERIFICATION-20261116-wpdiscuz.md) adds one owner,
 eight profiles and 33 cases, reaching **259 runtime owners in covered paths,
 401 profiles and 3,391 functional cases**. All 66 public calls meet their
 success/refusal contracts. Sixteen native and sixteen owning sessions are used
