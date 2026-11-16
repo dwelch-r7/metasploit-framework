@@ -1,6 +1,46 @@
 # Individual source-reviewed target requirements; these are not blanket exclusions.
 ---
 modules:
+  auxiliary/admin/2wire/xslt_password_reset:
+    source_sha256: e4edd8e78fe93330273f7dc1345132b764fda1fde819e8f9d64733171b96c7e5
+    disposition: device_or_firmware_target
+    reason: >-
+      The main path identifies a 2Wire version5 gateway, reads its XSLT
+      system/password pages and posts H04_POST to change the administrator
+      password. Qualification needs the genuine firmware authentication and
+      persistent configuration state: independently verify old-password denial,
+      new-password login, repeat execution and restoration of the original
+      setting. A matching HTTP header, page or returned cookie supplies parsing
+      evidence without establishing that device state. Keep an owned router or
+      runnable matching firmware image as the target requirement; availability
+      of such an image remains uninvestigated. No password is changed here.
+  auxiliary/scanner/misc/cisco_smart_install:
+    source_sha256: d15f0b6ac31a27ee7c90b2fefe1c5a9d0b03277efd4609a38c4c269b86da9fed
+    disposition: device_or_firmware_target
+    reason: >-
+      Cover both SCAN and DOWNLOAD against a genuine Smart Install endpoint.
+      DOWNLOAD sends an IOS copy system:running-config command inside the SMI
+      packet and requires the target to initiate a real TFTP transfer whose
+      configuration is then parsed and reported. Qualification needs owned
+      firmware or a compatible vendor guest, known native configuration bytes,
+      actual callback routing, reporting and listener cleanup/reuse. Generic
+      TFTP alone supplies no Smart Install command executor. An appropriate
+      guest/image remains future setup work; no switch command or transfer is
+      performed by this source/document review.
+  exploit/linux/misc/hp_jetdirect_path_traversal:
+    source_sha256: 1d68da685529034427c12f43b600f7c63ac8687ff3565536fd7cd0135894541e
+    disposition: device_or_firmware_target
+    reason: >-
+      The positive path traverses the printer's PJL filesystem into its
+      profile.d startup directory, verifies the written command script and
+      triggers an SNMP power-cycle reset. Qualification needs affected native
+      printer firmware, its actual startup lifecycle, a used remote shell and
+      verified script/session/telnetd cleanup. The human guide explicitly
+      records intermittent telnetd cleanup and requires checking the port.
+      A service image accepting PJL writes and an SNMP reset value cannot by
+      itself establish that firmware execution path. An owned printer or
+      runnable matching firmware guest remains required; no reboot, file write
+      or exploit is performed by this review.
   exploit/linux/local/docker_privileged_container_kernel_escape:
     source_sha256: 4887c5ec8feac2ef2684a86765594f2e67dc1492d28af41dbba2a666b6afd897
     disposition: separate_kernel_target
