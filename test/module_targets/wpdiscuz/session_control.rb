@@ -18,7 +18,8 @@ class WpDiscuzRunObserver
     return unless instance.fullname == WpDiscuzProfiles::OWNER
 
     @current = instance
-    row = { owner: instance.fullname, object_id: instance.object_id, options: instance.datastore.to_h.slice(*%w[PAYLOAD CMD BLOGPATH TARGETURI RHOST RHOSTS RPORT LHOST LPORT AutoCheck]), exploit_source: instance.method(:exploit).source_location, metadata_source: instance.method(:upload_metadata).source_location, owner_sha256: Digest::SHA256.file('modules/exploits/unix/webapp/wp_wpdiscuz_unauthenticated_file_upload.rb').hexdigest }
+    options = %w[PAYLOAD CMD BLOGPATH TARGETURI RHOST RHOSTS RPORT LHOST LPORT AutoCheck].to_h { |name| [name, instance.datastore[name]] }
+    row = { owner: instance.fullname, object_id: instance.object_id, options: options, exploit_source: instance.method(:exploit).source_location, metadata_source: instance.method(:upload_metadata).source_location, owner_sha256: Digest::SHA256.file('modules/exploits/unix/webapp/wp_wpdiscuz_unauthenticated_file_upload.rb').hexdigest }
     File.open(@path, 'a') { |file| file.puts(JSON.generate(row)) }
   end
 end
