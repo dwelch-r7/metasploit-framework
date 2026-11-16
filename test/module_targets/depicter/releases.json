@@ -1,0 +1,26 @@
+{
+  "3.6.1": {
+    "url": "https://downloads.wordpress.org/plugin/depicter.3.6.1.zip",
+    "bytes": 6310417,
+    "sha256": "273803d649486194e0a0e3c6c09daa4191228dc357fbaabe7d0d70c5db96d208",
+    "installed_sha256": {
+      "depicter.php": "f2a53f87ab8c4af5d7b3f76b53ecda54487f2ac55b27a6d5ed86c4ad65068d9e",
+      "app/src/Controllers/Ajax/LeadsAjaxController.php": "40943494880dc760d66247d9f7a2effb962737bbfe11ff91a756da828020fda7",
+      "app/src/Database/Repository/LeadRepository.php": "dbc859ae969127f324268db0f07e7304339b8e8d3f6d07237068d7b8e8fe4db1",
+      "app/routes/ajax.php": "40b490bfe1d6303bac7e0ada49c1e05035b677c8887c5ce9a56ec2f5d25f8736",
+      "app/src/Utility/Sanitize.php": "c82236843f1d78d0574335b2c06d1f23f46980eaf9cbea0651afd9562856f323"
+    }
+  },
+  "3.6.2": {
+    "url": "https://downloads.wordpress.org/plugin/depicter.3.6.2.zip",
+    "bytes": 6136605,
+    "sha256": "e3a474aaa26911a596e2c8dbd01d48408d9641edaf90b26901e33f36feb9e944",
+    "installed_sha256": {
+      "depicter.php": "d8e207d211c034f28538465cd194329cc56909c7ce543331167ad3488d626b12",
+      "app/src/Controllers/Ajax/LeadsAjaxController.php": "1c01e7fc1f6d0cc28fd74e3dc26f0a777b29274d01ea2ce6b80cea8280dbe33f",
+      "app/src/Database/Repository/LeadRepository.php": "dbc859ae969127f324268db0f07e7304339b8e8d3f6d07237068d7b8e8fe4db1",
+      "app/routes/ajax.php": "761589a0858b5d1471c2873642da1a7f4c8c25d4f8d7268d169dcc3e37a34083",
+      "app/src/Utility/Sanitize.php": "c82236843f1d78d0574335b2c06d1f23f46980eaf9cbea0651afd9562856f323"
+    }
+  }
+}

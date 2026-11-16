@@ -1,0 +1,52 @@
+{
+  "depicter": {
+    "release": "3.6.1",
+    "mode": "affected",
+    "prefix": "",
+    "table_prefix": "wp_",
+    "examples": 7
+  },
+  "depicter_prefix": {
+    "release": "3.6.1",
+    "mode": "affected",
+    "prefix": "/wordpress",
+    "table_prefix": "wp_",
+    "examples": 5
+  },
+  "depicter_table_prefix": {
+    "release": "3.6.1",
+    "mode": "affected",
+    "prefix": "",
+    "table_prefix": "dp_",
+    "examples": 5
+  },
+  "depicter_low_limit": {
+    "release": "3.6.1",
+    "mode": "affected",
+    "prefix": "",
+    "table_prefix": "wp_",
+    "sql_limit": 96,
+    "examples": 5
+  },
+  "depicter_fixed": {
+    "release": "3.6.2",
+    "mode": "fixed",
+    "prefix": "",
+    "table_prefix": "wp_",
+    "examples": 3
+  },
+  "depicter_absent": {
+    "release": "3.6.1",
+    "mode": "absent",
+    "prefix": "",
+    "table_prefix": "wp_",
+    "examples": 3
+  },
+  "depicter_unrelated": {
+    "release": null,
+    "mode": "unrelated",
+    "prefix": "",
+    "table_prefix": "wp_",
+    "examples": 3
+  }
+}

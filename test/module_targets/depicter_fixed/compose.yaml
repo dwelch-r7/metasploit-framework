@@ -1,0 +1,17 @@
+---
+services:
+  db:
+    extends: {file: ../depicter/services.yaml, service: db}
+  app:
+    extends: {file: ../depicter/services.yaml, service: root}
+    environment:
+      DEPICTER_RELEASE: "3.6.2"
+      DEPICTER_MODE: fixed
+      WORDPRESS_TABLE_PREFIX: wp_
+    volumes:
+    - ../../../tmp/module-target-depicter-sources/3.6.2.zip:/opt/module-target/plugin.zip:ro
+  reporting_db:
+    extends: {file: ../depicter/services.yaml, service: reporting_db}
+networks:
+  default: {internal: true}
+  public: {}

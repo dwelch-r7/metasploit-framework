@@ -1,0 +1,18 @@
+---
+services:
+  db:
+    extends: {file: ../depicter/services.yaml, service: db}
+    command: ["--group-concat-max-len=96"]
+  app:
+    extends: {file: ../depicter/services.yaml, service: root}
+    environment:
+      DEPICTER_RELEASE: "3.6.1"
+      DEPICTER_MODE: affected
+      WORDPRESS_TABLE_PREFIX: wp_
+    volumes:
+    - ../../../tmp/module-target-depicter-sources/3.6.1.zip:/opt/module-target/plugin.zip:ro
+  reporting_db:
+    extends: {file: ../depicter/services.yaml, service: reporting_db}
+networks:
+  default: {internal: true}
+  public: {}
