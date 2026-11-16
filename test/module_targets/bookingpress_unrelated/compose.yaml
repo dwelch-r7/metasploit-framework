@@ -2,6 +2,7 @@
 services:
   app:
     extends: {file: ../bookingpress/services.yaml, service: unrelated}
+    networks: [default, public]
   reporting_db:
     extends: {file: ../bookingpress/services.yaml, service: reporting_db}
 networks:
