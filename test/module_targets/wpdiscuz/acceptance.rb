@@ -144,6 +144,7 @@ module Acceptance
     end
 
     def wp_native_sessions(payload, index)
+      trigger = nil
       2.times do |iteration|
         port = 4470 + index
         console_command('back')
