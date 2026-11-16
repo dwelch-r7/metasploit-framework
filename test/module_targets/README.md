@@ -1,6 +1,17 @@
 # Container module acceptance tests
 
-Latest: [WordPress File Manager](VERIFICATION-20261116-file-manager.md) adds one
+Latest: [Depicter credential gathering](VERIFICATION-20261116-depicter.md) adds
+one owner, seven profiles and 31 cases, reaching **261 runtime owners in covered
+paths, 414 profiles and 3,458 functional cases**. All 62 public calls pass.
+Thirty-two exact loot files and 44 workspace credential rows match native user
+hashes, including with a real 96-byte SQL aggregation limit. Genuine root,
+subdirectory, custom-prefix, patched and absent/unrelated controls distinguish
+routing, error-contract and hash-truncation defects from fixture corrections.
+All seven final profiles retain current declared inputs. Each serial stack has
+at most three capped containers; all are removed and the advisory lock is free.
+Earlier scope stays sealed; the campaign remains open. No PR is created.
+
+Previous: [WordPress File Manager](VERIFICATION-20261116-file-manager.md) adds one
 owner, six profiles and 36 cases, reaching **260 runtime owners in covered
 paths, 407 profiles and 3,427 functional cases**. All 72 public calls pass.
 Eight native and sixteen owning sessions are used and closed remotely, with

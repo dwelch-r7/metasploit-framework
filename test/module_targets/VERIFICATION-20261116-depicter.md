@@ -1,7 +1,9 @@
 # Depicter native calibration, 16 November 2026
 
-Status: native target calibration passed; owning-module functional qualification
-is pending. These results add no owner, profile or functional-case counts yet.
+Status: all seven current-input profiles pass. This checkpoint adds one owner,
+seven profiles and 31 cases, reaching **261 runtime owners in covered paths,
+414 profiles and 3,458 functional cases**. Earlier campaign scope remains
+historical; this is not a whole-campaign replay against the current harness.
 
 ## Genuine application prerequisite
 
@@ -111,8 +113,8 @@ On an ordinary root database, all five positive cases now pass: repeated checks,
 default COUNT=1, complete extraction, COUNT=2 with AutoCheck disabled and complete
 extraction with AutoCheck disabled. Every extraction is repeated and compared
 against complete native hashes, persisted credentials and exact loot contents.
-The shared WordPress SQLi helper and module guide remain untouched. A module-local
-repair is in progress in an isolated worktree; final qualification is pending.
+The shared WordPress SQLi helper and module guide remain untouched. The
+module-local repair and final qualification are documented below.
 
 The immutable root/prefix/low-limit/fixed evidence archives contain respectively
 221/224/224/224 entries. Their manifest SHA-256 values are respectively
@@ -122,3 +124,99 @@ The immutable root/prefix/low-limit/fixed evidence archives contain respectively
 `6304f02aeb67350d78ff8cd48a642bf83b48abfae1f77a806e073691830ee389`.
 Each archive includes the raw run, exact consumed input copies and independent
 cleanup queries; source/input hashes were rechecked before any repair.
+
+## Qualified repair and final replay
+
+The tested source/fixture revision is
+`026366f1dc126f7a06d21ae46c756fe1db9b36f7`. Final owner SHA-256 is
+`346b2f9bb4fc6033acd330111c9f5a3da97f9597e638a76827f9c8d443ee492e`.
+Worker commit `e4b15411124544d819014c978d27832414c3ddf1` was imported as
+`8b3433f6d2d`; fixture bindings and the unrelated HTTP publication topology were
+committed before the final runtime. The whole human guide and shared WordPress
+SQLi helper retain their original bytes.
+
+The module now honors the installation URI, registers COUNT with its existing
+default one and zero-for-all behavior, resets query state per execution, and
+probes before collecting with AutoCheck disabled. Expected transport, access,
+HTTP and JSON failures become operation-specific check/run results. SQL NULL
+remains valid for the shared helper's custom-prefix fallback, including indicator
+zero. Per-row HEX extraction avoids aggregation truncation. Complete rows and
+encoded byte pairs are validated before the unchanged credential/loot/reporting
+helper receives data; malformed counts cannot become an empty successful dump.
+
+The identical 49-case focused suite runs **42 failures original -> zero fixed**,
+with zero pending or outside errors. The bounded HTTP, SQL evaluator and
+persistence boundaries are doubles; real Common query generation, decoding,
+WordPress prefix discovery and reporting arguments execute. Four benign fixture
+bodies were independently rechecked byte-for-byte against native captures.
+Additional malformed data, delimiter/UTF-8 and state-reset cases are explicitly
+synthetic, adding no target-version coverage. The pre-decoder-guard draft fails
+three expanded cases: odd HEX, nonhex fields and a nonnumeric row count. All
+three now abort before credential or loot persistence. Strict original/final
+RuboCop, msftidy, syntax and whitespace checks pass with no offenses or warnings.
+
+The genuine final serial run is `20261116T074654-b71787`:
+
+| Profile | Cases | Public calls | Native HTTP requests | Result |
+|---|---:|---:|---:|---|
+| Root | 7 | 14 | 17 | Pass |
+| Subdirectory | 5 | 10 | 17 | Pass |
+| Custom database prefix | 5 | 10 | 17 | Pass |
+| Aggregation limit 96 | 5 | 10 | 17 | Pass |
+| Patched 3.6.2 | 3 | 6 | 17 | Pass |
+| Absent plugin | 3 | 6 | 4 | Pass |
+| Unrelated HTTP service | 3 | 6 | 2 | Pass |
+
+All 31 cases, 62 public calls and 91 independent native HTTP requests meet their
+contracts, with zero pending examples or outside errors. Thirty-two complete
+credential dumps produce 32 exact loot files and 44 exact credential rows across
+16 positive workspaces. Repeated executions preserve full hashes and datastore
+options. Negative paths create no credential or loot. Native before/after
+controls preserve account hashes, lead data, schema and plugin source bytes.
+
+An independent final assessor rehashes all **100 union declared inputs** against
+the current tree and validates each actual inspected container's limits, init,
+PID cap, restart count and OOM state. At most three containers run concurrently;
+all memory/swap limits are equal. Before/after counters show no OOM or PID-limit
+event. All seven exact projects and the global container inventory are empty,
+and the shared advisory lock is free after sealing. No unrelated image or
+volume pruning is performed.
+
+| Immutable final profile seal suffix | Entries | Manifest SHA-256 |
+|---|---:|---|
+| `depicter-20261116T074654-b71787` | 138 | `ae6af621f1837e4944eeda83d93b8ba55026842c541940d332e3e090b3ef4cdd` |
+| `depicter_prefix-20261116T074654-b71787` | 141 | `86bac69a419e56ce02916e33bcc2c437fb7c62c74845b266c01fa2a8f3d821dc` |
+| `depicter_table_prefix-20261116T074654-b71787` | 141 | `34ae523eb4a6141b027d5f67caa815f098c7ee1963cdd118f5989c0a9257b3e0` |
+| `depicter_low_limit-20261116T074654-b71787` | 141 | `c86574eaa6fd6097214fe6ae8792446860bf4165ccc80bec8b6f50ee623d0f54` |
+| `depicter_fixed-20261116T074654-b71787` | 131 | `f3a05cbab8ccf32ab0c1ad4d49ca781e5157b1d54ebf85208b6b4205f7917098` |
+| `depicter_absent-20261116T074654-b71787` | 131 | `0a490026d8232c43fee3513e5a975edf017d8c83845e6c7da600d641a508825b` |
+| `depicter_unrelated-20261116T074654-b71787` | 130 | `ce0893ccdb27f335db8bf4de55b31d6aefd457f200537d93e05bd1cc49164c95` |
+
+Final archives use prefix `depicter-` and suffix `-seal` around the listed
+profile/run suffix. Each contains its raw profile, aggregate runner evidence,
+consumed inputs and fresh cleanup audit. Sibling profile data is sealed once in
+its own archive. The 296-entry source repair archive's manifest SHA-256 is
+`a20eb9e7b45171a971d5dec9377ef9b740e6ff7a928a16d38e7703f6758ac5f8`;
+parent verification rehashes all entries and confirms the exact file set. Final
+preflight's 153-entry manifest SHA-256 is
+`b2a6963162789a88cea871b85bc8eef1d90a8255f0c2f14121f3cd9939f98841`.
+
+A fresh static inventory reports 5,179 source files, 4,622 selectable module
+candidates, 262 registered sources, 4,337 pending candidates and 243 pending
+container hints. There are 26 target reviews and zero stale reviews. The 4,894
+pending source entries include 557 payload/support components. Registration and
+qualification remain separate; the historical one-source registration/runtime
+count difference is not attributed to this module.
+
+## Review
+
+**Summary:** The scoped repair and genuine seven-profile replay are complete.
+**What looks good:** Native controls distinguish fixture corrections from source
+failures, exact credential/loot comparisons catch truncation, and repeat runs
+preserve target state. The shared helper and human guide are unchanged.
+**Concerns:** Other release/runtime combinations and multi-schema or unusual
+WordPress prefix layouts are untested. Synthetic malformed responses establish
+error contracts, not additional product-version exploitability.
+**Suggestions:** Keep those broader shared-prefix questions for a separate
+native investigation. No blocker remains for the qualified profiles. The
+broader module campaign remains open; no PR is created.
