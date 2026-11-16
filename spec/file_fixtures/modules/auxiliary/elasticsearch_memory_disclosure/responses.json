@@ -1,0 +1,140 @@
+{
+  "provenance": "Genuine official Elasticsearch responses, unmodified application; native controls independently validated before module calls. Cold/unpooled and pooled backing buffers differ.",
+  "captures": {
+    "affected-readiness": {
+      "origin": "tmp/elasticsearch-memory-feasibility/native-7.13.2-20261116T124117/receipt.json",
+      "version": "7.13.2",
+      "status": 200,
+      "headers": [
+        [
+          "content-type",
+          "application/json; charset=UTF-8"
+        ],
+        [
+          "content-length",
+          "573"
+        ]
+      ],
+      "body": "{\n  \"name\" : \"module-target-memory-native\",\n  \"cluster_name\" : \"module-target-memory-native\",\n  \"cluster_uuid\" : \"O_HTqhVdT2Wk4pzCWcDUwg\",\n  \"version\" : {\n    \"number\" : \"7.13.2\",\n    \"build_flavor\" : \"default\",\n    \"build_type\" : \"docker\",\n    \"build_hash\" : \"4d960a0733be83dd2543ca018aa4ddc42e956800\",\n    \"build_date\" : \"2021-06-10T21:01:55.251515791Z\",\n    \"build_snapshot\" : false,\n    \"lucene_version\" : \"8.8.2\",\n    \"minimum_wire_compatibility_version\" : \"6.8.0\",\n    \"minimum_index_compatibility_version\" : \"6.0.0-beta1\"\n  },\n  \"tagline\" : \"You Know, for Search\"\n}\n"
+    },
+    "affected-malformed-0": {
+      "origin": "tmp/elasticsearch-memory-feasibility/native-7.13.2-20261116T124117/receipt.json",
+      "version": "7.13.2",
+      "status": 400,
+      "headers": [
+        [
+          "content-type",
+          "application/json; charset=UTF-8"
+        ],
+        [
+          "content-length",
+          "4919"
+        ]
+      ],
+      "body": "{\"error\":{\"root_cause\":[{\"type\":\"json_parse_exception\",\"reason\":\"Unexpected character ('@' (code 64)): expected a valid value (JSON String, Number, Array, Object or token 'null', 'true' or 'false')\\n at [Source: (byte[])\\\"HTTP/1.1 200 OK\\r\\ncontent-type: application/json; charset=UTF-8\\r\\ncontent-length: 233\\r\\n\\r\\nication/json; charset=UTF-8\\r\\ncontent-length: 197\\r\\n\\r\\nx\\\":\\\"module_target_memory\\\"}\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\\"[truncated 1048076 bytes]; line: 1, column: 2]\"}],\"type\":\"json_parse_exception\",\"reason\":\"Unexpected character ('@' (code 64)): expected a valid value (JSON String, Number, Array, Object or token 'null', 'true' or 'false')\\n at [Source: (byte[])\\\"HTTP/1.1 200 OK\\r\\ncontent-type: application/json; charset=UTF-8\\r\\ncontent-length: 233\\r\\n\\r\\nication/json; charset=UTF-8\\r\\ncontent-length: 197\\r\\n\\r\\nx\\\":\\\"module_target_memory\\\"}\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\\"[truncated 1048076 bytes]; line: 1, column: 2]\"},\"status\":400}"
+    },
+    "fixed-readiness": {
+      "origin": "tmp/elasticsearch-memory-feasibility/native-7.13.4-20261116T125507/receipt.json",
+      "version": "7.13.4",
+      "status": 200,
+      "headers": [
+        [
+          "content-type",
+          "application/json; charset=UTF-8"
+        ],
+        [
+          "content-length",
+          "573"
+        ]
+      ],
+      "body": "{\n  \"name\" : \"module-target-memory-native\",\n  \"cluster_name\" : \"module-target-memory-native\",\n  \"cluster_uuid\" : \"OR02GCBVTySzK3UKOHXkwQ\",\n  \"version\" : {\n    \"number\" : \"7.13.4\",\n    \"build_flavor\" : \"default\",\n    \"build_type\" : \"docker\",\n    \"build_hash\" : \"c5f60e894ca0c61cdbae4f5a686d9f08bcefc942\",\n    \"build_date\" : \"2021-07-14T18:33:36.673943207Z\",\n    \"build_snapshot\" : false,\n    \"lucene_version\" : \"8.8.2\",\n    \"minimum_wire_compatibility_version\" : \"6.8.0\",\n    \"minimum_index_compatibility_version\" : \"6.0.0-beta1\"\n  },\n  \"tagline\" : \"You Know, for Search\"\n}\n"
+    },
+    "fixed-malformed-0": {
+      "origin": "tmp/elasticsearch-memory-feasibility/native-7.13.4-20261116T125507/receipt.json",
+      "version": "7.13.4",
+      "status": 400,
+      "headers": [
+        [
+          "content-type",
+          "application/json; charset=UTF-8"
+        ],
+        [
+          "content-length",
+          "505"
+        ]
+      ],
+      "body": "{\"error\":{\"root_cause\":[{\"type\":\"json_parse_exception\",\"reason\":\"Unexpected character ('@' (code 64)): expected a valid value (JSON String, Number, Array, Object or token 'null', 'true' or 'false')\\n at [Source: (ByteArrayInputStream); line: 1, column: 2]\"}],\"type\":\"json_parse_exception\",\"reason\":\"Unexpected character ('@' (code 64)): expected a valid value (JSON String, Number, Array, Object or token 'null', 'true' or 'false')\\n at [Source: (ByteArrayInputStream); line: 1, column: 2]\"},\"status\":400}"
+    },
+    "unpooled-readiness": {
+      "origin": "tmp/elasticsearch-memory-feasibility/native-7.13.2-20261116T123424/receipt.json",
+      "version": "7.13.2",
+      "status": 200,
+      "headers": [
+        [
+          "content-type",
+          "application/json; charset=UTF-8"
+        ],
+        [
+          "content-length",
+          "573"
+        ]
+      ],
+      "body": "{\n  \"name\" : \"module-target-memory-native\",\n  \"cluster_name\" : \"module-target-memory-native\",\n  \"cluster_uuid\" : \"N0FIEULyTkS_gM7US3ZNJg\",\n  \"version\" : {\n    \"number\" : \"7.13.2\",\n    \"build_flavor\" : \"default\",\n    \"build_type\" : \"docker\",\n    \"build_hash\" : \"4d960a0733be83dd2543ca018aa4ddc42e956800\",\n    \"build_date\" : \"2021-06-10T21:01:55.251515791Z\",\n    \"build_snapshot\" : false,\n    \"lucene_version\" : \"8.8.2\",\n    \"minimum_wire_compatibility_version\" : \"6.8.0\",\n    \"minimum_index_compatibility_version\" : \"6.0.0-beta1\"\n  },\n  \"tagline\" : \"You Know, for Search\"\n}\n"
+    },
+    "unpooled-malformed-0": {
+      "origin": "tmp/elasticsearch-memory-feasibility/native-7.13.2-20261116T123424/receipt.json",
+      "version": "7.13.2",
+      "status": 400,
+      "headers": [
+        [
+          "content-type",
+          "application/json; charset=UTF-8"
+        ],
+        [
+          "content-length",
+          "765"
+        ]
+      ],
+      "body": "{\"error\":{\"root_cause\":[{\"type\":\"json_parse_exception\",\"reason\":\"Unexpected character ('@' (code 64)): expected a valid value (JSON String, Number, Array, Object or token 'null', 'true' or 'false')\\n at [Source: (byte[])\\\"POST /_bulk HTTP/1.1\\r\\nHost: 127.0.0.1:55616\\r\\nAccept-Encoding: identity\\r\\nContent-Length: 2\\r\\nContent-Type: application/json\\r\\n\\r\\n@\\n\\\"; line: 1, column: 2]\"}],\"type\":\"json_parse_exception\",\"reason\":\"Unexpected character ('@' (code 64)): expected a valid value (JSON String, Number, Array, Object or token 'null', 'true' or 'false')\\n at [Source: (byte[])\\\"POST /_bulk HTTP/1.1\\r\\nHost: 127.0.0.1:55616\\r\\nAccept-Encoding: identity\\r\\nContent-Length: 2\\r\\nContent-Type: application/json\\r\\n\\r\\n@\\n\\\"; line: 1, column: 2]\"},\"status\":400}"
+    },
+    "wrong-path": {
+      "origin": "tmp/elasticsearch-memory-feasibility/native-public-404.json",
+      "actual_console_origin": "tmp/module-target-tests/20261116T125936-ac14a3/elasticsearch_memory/native-elasticsearch-memory.json",
+      "status": 404,
+      "body": "{\"error\":{\"root_cause\":[{\"type\":\"index_not_found_exception\",\"reason\":\"no such index [module-target-missing]\",\"resource.type\":\"index_or_alias\",\"resource.id\":\"module-target-missing\",\"index_uuid\":\"_na_\",\"index\":\"module-target-missing\"}],\"type\":\"index_not_found_exception\",\"reason\":\"no such index [module-target-missing]\",\"resource.type\":\"index_or_alias\",\"resource.id\":\"module-target-missing\",\"index_uuid\":\"_na_\",\"index\":\"module-target-missing\"},\"status\":404}"
+    },
+    "unauthenticated-root": {
+      "origin": "/Users/dwelch/.codex/worktrees/module-container-validation/metasploit-framework/tmp/module-target-tests/20261116T130912-fe2c5a/elasticsearch_memory_secured/native-elasticsearch-memory.json",
+      "label": "before-anonymous",
+      "version": "7.13.2",
+      "status": 401,
+      "headers": {
+        "www-authenticate": [
+          "Basic realm=\"security\" charset=\"UTF-8\""
+        ],
+        "content-type": [
+          "application/json; charset=UTF-8"
+        ],
+        "content-length": [
+          "381"
+        ]
+      },
+      "body": "{\"error\":{\"root_cause\":[{\"type\":\"security_exception\",\"reason\":\"missing authentication credentials for REST request [/]\",\"header\":{\"WWW-Authenticate\":\"Basic realm=\\\"security\\\" charset=\\\"UTF-8\\\"\"}}],\"type\":\"security_exception\",\"reason\":\"missing authentication credentials for REST request [/]\",\"header\":{\"WWW-Authenticate\":\"Basic realm=\\\"security\\\" charset=\\\"UTF-8\\\"\"}},\"status\":401}"
+    },
+    "limited-root-forbidden": {
+      "origin": "/Users/dwelch/.codex/worktrees/module-container-validation/metasploit-framework/tmp/module-target-tests/20261116T130912-fe2c5a/elasticsearch_memory_secured/native-elasticsearch-memory.json",
+      "label": "before-limited-root",
+      "version": "7.13.2",
+      "status": 403,
+      "headers": {
+        "content-type": [
+          "application/json; charset=UTF-8"
+        ],
+        "content-length": [
+          "461"
+        ]
+      },
+      "body": "{\"error\":{\"root_cause\":[{\"type\":\"security_exception\",\"reason\":\"action [cluster:monitor/main] is unauthorized for user [module_limited] with roles [module_limited], this action is granted by the cluster privileges [monitor,manage,all]\"}],\"type\":\"security_exception\",\"reason\":\"action [cluster:monitor/main] is unauthorized for user [module_limited] with roles [module_limited], this action is granted by the cluster privileges [monitor,manage,all]\"},\"status\":403}"
+    }
+  }
+}
