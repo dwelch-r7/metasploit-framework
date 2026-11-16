@@ -1,0 +1,105 @@
+{
+  "1.1.4": {
+    "url": "https://codeload.github.com/wp-plugins/cp-multi-view-calendar/zip/7da95b6ba3fe3003b08ba72841617f84332891f2",
+    "sha256": "e1e97d7d494bacb7b9316a98d53e731e4a77cfa27978e0de9dd87fc2cbf2b971",
+    "archive_root": "cp-multi-view-calendar-7da95b6ba3fe3003b08ba72841617f84332891f2",
+    "installed_sha256": {
+      "cp-multi-view-calendar.php": "cf3f806f03575b2735611b7a68972812b090b77ce2bdc0752edbaf31302d6afe",
+      "cp-main-class.inc.php": "63f26a987a8a1d52b1b0591520ac82b3ee45809ae25b801edb61c6491440625b",
+      "classes/cp-base-class.inc.php": "b076f91538d3cae97af599c968b400f68468da7e229eeb5fbd62b8ec5900f4eb",
+      "cp-public-int.inc.php": "cd29743995d3d2b512b76c0af4c23cd9b6362c203cf80e53146b1158e6e26b11",
+      "php/edit.php": "057173b707cce9544a37faaa009a8b3f0ef32ed19bc5a79eebe5c138bfef88ed",
+      "php/functions.php": "fdf3d3760f9c4dd5a00b69c474e6ca01f7f585b01d327a9c422ad83942a02e60",
+      "php/datafeed.php": "fb8a9a38c4c4f9472f936ba353bd50435da126940322c831a5993b0add3f44b6",
+      "README.txt": "aef95befdd5964932acd46126b5b77bd398f3a06fdd78914f22c024b2249f91c"
+    },
+    "provenance": {
+      "mirror_commit": "7da95b6ba3fe3003b08ba72841617f84332891f2",
+      "official_svn_revision": 1076621,
+      "critical_files_matched_official_svn": 8
+    },
+    "event_columns": [
+      "id",
+      "calid",
+      "starttime",
+      "endtime",
+      "title",
+      "location",
+      "rrule",
+      "exdate",
+      "uid",
+      "description",
+      "isalldayevent",
+      "color",
+      "owner",
+      "published"
+    ]
+  },
+  "1.1.5": {
+    "url": "https://codeload.github.com/wp-plugins/cp-multi-view-calendar/zip/dfe7fb5f2490f266dd32288ff17c1ef6a6c2ba08",
+    "sha256": "e50b7c4b82e7570d13fd1841bcc9f77bbe0739818c9c3c52d96b60585b8cd30b",
+    "archive_root": "cp-multi-view-calendar-dfe7fb5f2490f266dd32288ff17c1ef6a6c2ba08",
+    "installed_sha256": {
+      "cp-multi-view-calendar.php": "17a9bf33f51e5e7695379c25654688ca5d3ffa6559d703e5521a4524142dcfed",
+      "cp-main-class.inc.php": "38e0fca252c5419ee6d729a15a35e719052472311881b6985e7c751ba588e96b",
+      "classes/cp-base-class.inc.php": "4ba43881fb718ad5093ccaec1788389f55d809312878d39a414388ed5f85034f",
+      "cp-public-int.inc.php": "cd29743995d3d2b512b76c0af4c23cd9b6362c203cf80e53146b1158e6e26b11",
+      "php/edit.php": "4eadfc74b7e9926aa64625704b9baf46de02fc4b81621d1433295f901cd62898",
+      "php/functions.php": "fdf3d3760f9c4dd5a00b69c474e6ca01f7f585b01d327a9c422ad83942a02e60",
+      "php/datafeed.php": "e5d1832d6eba0721221b3a995d72902b0889a33e38b437a4c8a6e240f024d903",
+      "README.txt": "42ab62ca4f9cce2af62e82049898f89a7cf3b6ba942dbf7356beb593d2c2989f"
+    },
+    "provenance": {
+      "mirror_commit": "dfe7fb5f2490f266dd32288ff17c1ef6a6c2ba08",
+      "official_svn_revision": 1101803,
+      "critical_files_matched_official_svn": 8
+    },
+    "event_columns": [
+      "id",
+      "calid",
+      "starttime",
+      "endtime",
+      "title",
+      "location",
+      "rrule",
+      "exdate",
+      "uid",
+      "description",
+      "isalldayevent",
+      "color",
+      "owner",
+      "published"
+    ]
+  },
+  "1.3.70": {
+    "url": "https://downloads.wordpress.org/plugin/cp-multi-view-calendar.1.3.70.zip",
+    "sha256": "8393323a4efae7c48c348b3bb91316e0ea002ba0e1d6355d171e51c94d8dc8f6",
+    "archive_root": "cp-multi-view-calendar",
+    "installed_sha256": {
+      "cp-multi-view-calendar.php": "9f864eb1fee5f34d3eb8577caf58667ba0aaa57d9ce31cdba70da71f81f8aa7c",
+      "cp-main-class.inc.php": "dd07a4de6cc543404915f7cc992a10c5a1d2f2f2dc3214a9fff79979b7ac9f1b",
+      "classes/cp-base-class.inc.php": "dc92bf9054890d2d0f418f55d2b274e4ca859d91909db1139af7ce957e94e6ff",
+      "cp-public-int.inc.php": "1bee157c4dba8e1b36e58b8ac1995b579ecb6d95bfdf18452cb927652935f9a5",
+      "php/edit.php": "13765d020e682b395f892193b87a9d5f0a8cabbb1e9b138f4fc61f92dd51a977",
+      "php/functions.php": "62817721695802b0e25e25b7870326fb5d3bf9f95f4610d20d7e8f840b5d3fa9",
+      "php/datafeed.php": "ee458c225ebdfc01fb04d32bd99c7f4724e044514e53fcd570c7ad7ced23cda6",
+      "README.txt": "fe21e454619104a56abf9c58e33fd4a1643c638723fe01c13bfb4cdc1839f976"
+    },
+    "event_columns": [
+      "id",
+      "calid",
+      "starttime",
+      "endtime",
+      "title",
+      "location",
+      "rrule",
+      "exdate",
+      "uid",
+      "description",
+      "isalldayevent",
+      "color",
+      "owner",
+      "published"
+    ]
+  }
+}

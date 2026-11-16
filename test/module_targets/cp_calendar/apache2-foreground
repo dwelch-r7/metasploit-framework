@@ -1,0 +1,4 @@
+#!/bin/sh
+set -eu
+php /opt/module-target/seed.php
+exec /usr/local/bin/module-target-apache "$@"

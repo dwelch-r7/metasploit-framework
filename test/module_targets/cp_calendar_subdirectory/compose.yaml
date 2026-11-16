@@ -1,0 +1,18 @@
+services:
+  db:
+    extends: {file: ../cp_calendar/services.yaml, service: db}
+  app:
+    extends: {file: ../cp_calendar/services.yaml, service: app}
+    working_dir: /var/www/html/wordpress
+    environment:
+      CP_CALENDAR_RELEASE: "1.1.4"
+      CP_CALENDAR_MODE: "enabled"
+      LAB_PREFIX: "/wordpress"
+      WORDPRESS_TABLE_PREFIX: "wp_"
+    volumes:
+    - ../../../tmp/module-target-cp-calendar-sources/1.1.4.zip:/opt/module-target/plugin.zip:ro
+  reporting_db:
+    extends: {file: ../cp_calendar/services.yaml, service: reporting_db}
+networks:
+  default: {internal: true}
+  public: {}
