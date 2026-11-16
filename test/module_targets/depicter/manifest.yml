@@ -82,3 +82,6 @@ support_files:
 - test/module_targets/wpdiscuz/no-mail.ini
 - tmp/module-target-depicter-sources/3.6.1.zip
 - tools/dev/run_guarded_module_target_tests.rb
+- spec/modules/auxiliary/gather/wp_depicter_sqli_cve_2025_2011_spec.rb
+- spec/file_fixtures/modules/auxiliary/gather/wp_depicter_sqli_cve_2025_2011/responses.json
+- spec/file_fixtures/modules/auxiliary/gather/wp_depicter_sqli_cve_2025_2011/provenance.json

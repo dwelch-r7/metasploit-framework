@@ -40,6 +40,7 @@ services:
     memswap_limit: 256m
   unrelated:
     extends: {file: ../http/compose.yaml, service: apache}
+    networks: [default, public]
     cpus: 0.25
     mem_limit: 128m
     memswap_limit: 128m
