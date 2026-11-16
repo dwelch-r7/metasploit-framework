@@ -99,6 +99,91 @@ RSpec.describe 'Manifest-driven module endpoint selection' do
       containers.fetch('gateway').fetch('NetworkSettings').fetch('Networks').delete('msf-target-capture_public')
     end
 
+    it 'retains the default 600 second RSpec command deadline' do
+      runner.send(:run_family, 'alpha')
+
+      expect(command_records.find { |record| record.fetch(:argv)[0, 3] == ['bundle', 'exec', 'rspec'] }.fetch(:options)).to include(timeout: 600)
+    end
+
+    context 'with a custom RSpec command deadline' do
+      let(:manifest) { super().merge('test_timeout' => 1200) }
+
+      it 'passes the manifest allowance to the RSpec command' do
+        runner.send(:run_family, 'alpha')
+
+        expect(command_records.find { |record| record.fetch(:argv)[0, 3] == ['bundle', 'exec', 'rspec'] }.fetch(:options)).to include(timeout: 1200)
+      end
+    end
+
+    context 'with the minimum RSpec command deadline' do
+      let(:manifest) { super().merge('test_timeout' => 1) }
+
+      it 'accepts the lower boundary' do
+        runner.send(:run_family, 'alpha')
+
+        expect(command_records.find { |record| record.fetch(:argv)[0, 3] == ['bundle', 'exec', 'rspec'] }.fetch(:options)).to include(timeout: 1)
+      end
+    end
+
+    context 'with the maximum RSpec command deadline' do
+      let(:manifest) { super().merge('test_timeout' => 1800) }
+
+      it 'accepts the upper boundary' do
+        runner.send(:run_family, 'alpha')
+
+        expect(command_records.find { |record| record.fetch(:argv)[0, 3] == ['bundle', 'exec', 'rspec'] }.fetch(:options)).to include(timeout: 1800)
+      end
+    end
+
+    shared_examples 'an invalid RSpec command deadline' do
+      it 'rejects the manifest before containers or RSpec start' do
+        expect(runner.send(:run_family, 'alpha')).to include(status: 'setup_failed', error: 'ArgumentError: Test timeout must be an integer from 1 to 1800 seconds')
+        expect(calls.none? { |argv| (argv & %w[up rspec]).any? }).to be(true)
+      end
+    end
+
+    context 'with a zero RSpec command deadline' do
+      let(:manifest) { super().merge('test_timeout' => 0) }
+
+      include_examples 'an invalid RSpec command deadline'
+    end
+
+    context 'with a negative RSpec command deadline' do
+      let(:manifest) { super().merge('test_timeout' => -1) }
+
+      include_examples 'an invalid RSpec command deadline'
+    end
+
+    context 'with an excessive RSpec command deadline' do
+      let(:manifest) { super().merge('test_timeout' => 1801) }
+
+      include_examples 'an invalid RSpec command deadline'
+    end
+
+    context 'with a string RSpec command deadline' do
+      let(:manifest) { super().merge('test_timeout' => '1200') }
+
+      include_examples 'an invalid RSpec command deadline'
+    end
+
+    context 'with a fractional RSpec command deadline' do
+      let(:manifest) { super().merge('test_timeout' => 1200.5) }
+
+      include_examples 'an invalid RSpec command deadline'
+    end
+
+    context 'with a boolean RSpec command deadline' do
+      let(:manifest) { super().merge('test_timeout' => true) }
+
+      include_examples 'an invalid RSpec command deadline'
+    end
+
+    context 'with a null RSpec command deadline' do
+      let(:manifest) { super().merge('test_timeout' => nil) }
+
+      include_examples 'an invalid RSpec command deadline'
+    end
+
     it 'retains the default 120 second health allowance' do
       runner.send(:run_family, 'alpha')
 

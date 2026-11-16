@@ -695,6 +695,10 @@ snapshot remains a setup failure and cannot qualify a module.
   1 through 600, default 120). Use it for a measured startup requirement;
   Compose proceeds immediately once services become healthy. It does not
   extend the separate functional-test timeout.
+  Optional `test_timeout` bounds the host RSpec command in seconds (integer
+  1 through 1800, default 600). For measured slow paths such as time-blind
+  extraction, set an explicit allowance such as `test_timeout: 1200` rather than
+  removing cases. This does not change setup, health or console-command bounds.
   Integer port values retain ordinary TCP discovery. UDP-only targets use a
   mapping such as `open: {port: 69, protocol: udp}`; the runner asks Compose for
   the UDP mapping explicitly. Both host and internal module endpoints retain

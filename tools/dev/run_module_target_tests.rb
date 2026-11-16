@@ -139,6 +139,11 @@ class ModuleTargetTests
         raise ArgumentError, 'Health timeout must be an integer from 1 to 600 seconds'
       end
 
+      test_timeout = manifest.fetch('test_timeout', 600)
+      unless test_timeout.is_a?(Integer) && test_timeout.between?(1, 1800)
+        raise ArgumentError, 'Test timeout must be an integer from 1 to 1800 seconds'
+      end
+
       ports = service_ports(manifest.fetch('ports'))
       endpoint_network = manifest['module_endpoint_network']
       if manifest.key?('module_endpoint_network')
@@ -215,7 +220,7 @@ class ModuleTargetTests
         result[:status] = 'test_failed_unclassified'
         passed = command(
           ['bundle', 'exec', 'rspec', manifest.fetch('spec'), '--format', 'documentation', '--format', 'json', '--out', File.join(directory, 'rspec.json')],
-          path: File.join(directory, 'rspec.log'), env: env, timeout: 600
+          path: File.join(directory, 'rspec.log'), env: env, timeout: test_timeout
         )
         report_path = File.join(directory, 'rspec.json')
         if File.file?(report_path)
