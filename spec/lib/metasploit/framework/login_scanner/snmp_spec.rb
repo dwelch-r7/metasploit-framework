@@ -42,7 +42,19 @@ RSpec.describe Metasploit::Framework::LoginScanner::SNMP do
       snmp_scanner.protocol = 'tcp'
       snmp_scanner.host = '192.0.2.1'
       snmp_scanner.port = 161
-      allow(IO).to receive(:select).and_return([[socket]])
+      allow(IO).to receive(:select).and_call_original
+      allow(IO).to receive(:select).with([socket], nil, nil, kind_of(Numeric)).and_return([[socket]])
+    end
+
+    it 'leaves unrelated IO readiness checks on the original implementation' do
+      reader, writer = IO.pipe
+      expect(IO.select([reader], nil, nil, 0)).to be_nil
+      writer.write('ready')
+
+      expect(IO.select([reader], nil, nil, 0)).to eq([[reader], [], []])
+    ensure
+      reader&.close
+      writer&.close
     end
 
     it 'returns a complete native response' do
@@ -92,7 +104,7 @@ RSpec.describe Metasploit::Framework::LoginScanner::SNMP do
     end
 
     it 'preserves an incomplete reply across a receive timeout' do
-      allow(IO).to receive(:select).and_return([[socket]], nil, [[socket]])
+      allow(IO).to receive(:select).with([socket], nil, nil, kind_of(Numeric)).and_return([[socket]], nil, [[socket]])
       allow(socket).to receive(:recv_nonblock).and_return(first_response.byteslice(0, 20), first_response.byteslice(20..))
 
       responses = [snmp_scanner.recv_wrapper(socket, 65535, 1), snmp_scanner.recv_wrapper(socket, 65535, 1)]
@@ -101,7 +113,7 @@ RSpec.describe Metasploit::Framework::LoginScanner::SNMP do
     end
 
     it 'returns nil for a receive timeout without data' do
-      allow(IO).to receive(:select).and_return(nil)
+      allow(IO).to receive(:select).with([socket], nil, nil, kind_of(Numeric)).and_return(nil)
 
       expect(snmp_scanner.recv_wrapper(socket, 65535, 1)).to be_nil
     end
@@ -154,7 +166,7 @@ RSpec.describe Metasploit::Framework::LoginScanner::SNMP do
     it 'starts a new connection without incomplete data from the old one' do
       old_socket = instance_double(TCPSocket, close: nil)
       snmp_scanner.sock = old_socket
-      allow(IO).to receive(:select).and_return([[old_socket]], nil, [[socket]])
+      allow(IO).to receive(:select).with([old_socket], nil, nil, kind_of(Numeric)).and_return([[old_socket]], nil)
       allow(old_socket).to receive(:recv_nonblock).and_return(first_response.byteslice(0, 20))
       allow(socket).to receive(:recv_nonblock).and_return(second_response)
       allow(Rex::Socket).to receive(:create).and_return(socket)
@@ -175,7 +187,7 @@ RSpec.describe Metasploit::Framework::LoginScanner::SNMP do
     it 'queues both valid versions from an actual coalesced response' do
       snmp_scanner.sock = socket
       snmp_scanner.queued_results = []
-      allow(IO).to receive(:select).and_return([[socket]], nil)
+      allow(IO).to receive(:select).with([socket], nil, nil, kind_of(Numeric)).and_return([[socket]], nil)
       allow(socket).to receive(:recv_nonblock).and_return(first_response + second_response)
       snmp_scanner.process_responses
 
