@@ -25,6 +25,10 @@ selected payloads in profiles.json. Each selected delivery runs twice. Native
 handlers calibrate the same payloads before the owning module; completed session
 bootstrap, remote proof, transport closure and physical uploaded-file cleanup
 are verified. Apache worker PIDs can persist normally after a PHP request ends.
+The PHP shell executes commands in transient child processes; their status is
+captured through the real shell before exit. Meterpreter exposes its live PHP
+PID. Neither shell command completion nor an idle Apache worker is a session
+transport closure assertion.
 
 Command-only payloads have no session for FileDropper; their remaining files and
 WordPress attachment records are removed by explicit native operator recovery

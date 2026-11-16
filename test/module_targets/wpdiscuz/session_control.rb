@@ -63,7 +63,7 @@ module WpDiscuzSessionControl
       end
       raise IOError, 'Remote proof write was incomplete' unless written == marker.bytesize
     elsif session.type == 'shell'
-      identity = session.shell_command_token("printf %s #{marker} > #{path};printf '\\nWPDISCUZ_PID=%s UID=%s\\n' $$ $(id -u)")
+      identity = session.shell_command_token("printf %s #{marker} > #{path};printf '\\nWPDISCUZ_PID=%s UID=%s\\n' $$ $(id -u);cat /proc/$$/status")
       pid = identity.to_s[/^WPDISCUZ_PID=(\d+) UID=33\r?$/, 1]
       raise IOError, 'Remote shell did not return its PID and account' unless pid
     else

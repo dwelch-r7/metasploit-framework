@@ -129,8 +129,16 @@ module Acceptance
       expect(proof).to include('owner' => owner, 'payload' => 'payload/' + payload, 'pid' => be_a(Integer), 'type' => payload == 'php/reverse_php' ? 'shell' : 'meterpreter')
       expect(target_exec('app', 'cat', path)).to eq(marker)
       expect(target_exec('app', 'stat', '-c', '%u', path).strip).to eq('33')
-      process = target_exec('app', 'cat', "/proc/#{proof.fetch('pid')}/status")
+      # reverse_php executes each command in a fresh child shell. Its PID can
+      # already be gone when the reply arrives, so capture that status inside
+      # the real session command. Meterpreter exposes its persistent PHP PID.
+      process = if proof.fetch('type') == 'shell'
+                  proof.fetch('identity')
+                else
+                  target_exec('app', 'cat', "/proc/#{proof.fetch('pid')}/status")
+                end
       expect(process[/^Uid:\s+(\d+)/, 1]).to eq('33')
+      expect(process[/^Pid:\s+(\d+)/, 1].to_i).to eq(proof.fetch('pid'))
       expect(wp_connections(port)).not_to be_empty
       wp_record('session-proofs.jsonl', proof.merge('label' => label, 'file_bytes_base64' => Base64.strict_encode64(marker), 'process_status' => process, 'connections' => wp_connections(port)))
       expect(wp_json("DruidSessionControl.exit_remote(framework,#{identifier})")).to include('graceful_remote_exit_requested' => true)
