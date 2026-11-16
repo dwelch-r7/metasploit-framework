@@ -1,6 +1,17 @@
 # Container module acceptance tests
 
-Latest: [CP Multi-View Calendar detection](VERIFICATION-20261116-cp-calendar.md)
+Latest: [Brother supplied-serial generation](VERIFICATION-20261116-brother-password.md)
+adds one owner, one profile and nineteen cases, reaching **269 runtime owners
+in covered paths, 468 profiles and 3,643 historical functional cases**. All
+nineteen public calls pass with thirteen deduplicated credentials and Untried
+logins, null attempt timestamps and stable repeat IDs. An invalid reporting timestamp
+causes fourteen original public exceptions; a separate harness-state assertion
+is corrected before final qualification. The one capped database container and
+its attached objects are removed. Actual device discovery/authentication remain
+unqualified; the human guide is preserved. The broader campaign stays active.
+No PR is created.
+
+Previous: [CP Multi-View Calendar detection](VERIFICATION-20261116-cp-calendar.md)
 adds one owner, eight profiles and seventeen cases, reaching **268 runtime owners
 in covered paths, 467 profiles and 3,624 functional cases**. All seventeen public
 calls pass with five deduplicated findings and ten module-attempt records. Genuine

@@ -475,3 +475,25 @@ manifest SHA256 `157953c4078a08ddd6ca81e36aea8e09a07b69e02626a7aaa722ce42bf482ae
 and exact five-entry terminal seal
 `/Users/dwelch/.codex/reports/learnpress-fields-publication-terminal-20261116`,
 manifest SHA256 `9c32bba8621610318546ce28fed8cb6632538f8c53aa3f3b663594cf00eda483`.
+
+
+## CP Multi-View Calendar selected unit results
+
+The selected Ruby 3.3 jobs check out the fork at the exact publication commit
+`79cd604f5231bfcb9b31c166428b63f666396467`. Both non-content jobs visibly execute
+all seventeen CP Multi-View Calendar request-projection examples. Each selected
+log has one RSpec summary, with zero failures and no built-in retry visible.
+
+| Ruby 3.3 job | Result | Seed |
+| --- | --- | ---: |
+| [Normal](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43945805512/job/133575018981) | 19,973 examples, zero failures, 33 pending | 49082 |
+| [REMOTE_DB](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43945805512/job/133575019344) | 19,786 examples, zero failures, 664 pending | 29957 |
+| [Content](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43945805512/job/133575018922) | 6,781 examples, zero failures | 59699 |
+| [Content REMOTE_DB](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43945805512/job/133575019378) | 6,781 examples, zero failures | 50347 |
+
+The six-entry read-only seal is
+`/Users/dwelch/.codex/reports/cp-calendar-publication-unit33-20261116`,
+manifest SHA256 `a3aeb89aa2952011188e98fce4e9d210869e95ee272c4815b7ca828696f88ba1`.
+This establishes selected unit execution; overall Verify and native acceptance
+remain active at the captured snapshot. No local functional case is added and
+no agent retry or cancellation is performed.
