@@ -411,9 +411,10 @@ class MetasploitModule < Msf::Auxiliary
 
     login_data = {
       core: credential_core,
-      last_attempted_at: DateTime.now,
       status: login_status
     }.merge(service_data)
+
+    login_data[:last_attempted_at] = DateTime.now unless login_status == Metasploit::Model::Login::Status::UNTRIED
 
     create_credential_login(login_data)
   end
