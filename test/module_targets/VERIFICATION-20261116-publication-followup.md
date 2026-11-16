@@ -1,5 +1,64 @@
 # Publication CI follow-up, 2026-11-16
 
+## Planyo Ruby 3.3 follow-up
+
+Both selected jobs check out the published Planyo commit
+`6fa3bb29ed08df4e2577fca26645e6bf4f797122` and execute all 25 new file URL
+contract examples successfully on their first attempt. The normal job reports
+19,889 examples, zero failures and 33 pending; REMOTE_DB reports 19,702 examples,
+zero failures and 664 pending. No retry is needed. These are the exact-checkout
+[normal](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43850315404/job/133240843232)
+and [REMOTE_DB](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43850315404/job/133240843279)
+jobs. This establishes selected unit execution, not an overall native acceptance
+verdict. At 11:07 UTC eight workflows succeed, Command Shell is active and
+Meterpreter is queued. There is no agent retry or cancellation.
+
+The five-entry read-only CI seal is
+`/Users/dwelch/.codex/reports/planyo-publication-unit33-20261116`;
+manifest SHA256 `b382571fe8259ecd375ae663c19038deb6c77bbeefe6ee49d3c009564164db84`.
+
+The terminal 11:47 UTC snapshot has nine successful workflows and one failure:
+Meterpreter Acceptance. Its matrix has 22 successful jobs, one failure and one
+skip. The [PHP 5.3 macOS job](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43850315508/job/133240844563)
+reports 91 examples and one failed example, seed 33470. That example opens a
+stageless PHP reverse TCP session and runs `post/test/socket_channels`; its
+aggregated failures are the UDP peer-information assertion and
+`IO::EAGAINWaitReadable: recvfrom(2) would block`.
+
+The actual Framework checkout is upstream
+`bea1fb069e79cb610fe3981f16b8697790369c63`. The underlying UDP cause and
+base-versus-fork causality remain unverified; payload/package source bytes were
+not audited. The fork's Planyo changes were executed by the selected passing
+unit jobs above. There is no agent retry or cancellation. The seven-entry
+read-only terminal seal is
+`/Users/dwelch/.codex/reports/planyo-publication-terminal-ci-20261116`;
+manifest SHA256 `b91b784f054c4ff5027ca8c6fde044127dcb462942b74992aa8400a14ffc276d`.
+
+## Photo Gallery terminal native follow-up
+
+The Photo Gallery checkpoint `c45301644211c52741e342a42d1c39fc28a2312a`
+finishes with nine successful workflows and Meterpreter Acceptance cancelled.
+Its final matrix has 21 successful jobs, two cancelled and one skipped.
+Check-run annotations establish that both cancelled jobs exceeded the configured
+one-hour execution limit. They are
+[Python 3.8 on macOS](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43842501043/job/133214394117)
+and [Linux Mettle](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43842501043/job/133214394227).
+The time limit explains cancellation; the underlying slow or stalled execution
+remains unverified. No completed RSpec total is available for either job.
+
+The Linux Mettle log checks out upstream Framework
+`bea1fb069e79cb610fe3981f16b8697790369c63`. Its last observed activity opens
+session 23 for reverse HTTP with `minimal_uris_headers.profile` and selects
+`post/test/cmd_exec`; no further output precedes cancellation. The macOS log
+retrieval returns HTTP 404 for the stored blob, which is retained alongside
+the job metadata and timeout annotation. Its actual checkout cannot be
+established from the missing log. No candidate module regression or intermittent
+failure classification is inferred. There is no agent retry or cancellation.
+
+The nine-entry read-only terminal seal is
+`/Users/dwelch/.codex/reports/photo-gallery-publication-terminal-ci-20261116`;
+manifest SHA256 `bf700dbb930d641b989b620bf7180ebee0c29a9bae8236bf689e87b01fccad8b`.
+
 The published checkpoint is `25f037151179faa0f3f5a730ea9da7a749b967ca`.
 Both selected Ruby 3.3 jobs check out that exact fork commit and execute all
 40 new BookingPress contract examples successfully. This is distinct from the

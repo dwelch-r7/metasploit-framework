@@ -1,6 +1,18 @@
 # Container module acceptance tests
 
-Latest: [Planyo file collection](VERIFICATION-20261116-planyo.md) adds one owner,
+Latest: [Drupal PostgreSQL EntityQuery detection](VERIFICATION-20261116-drupal-pgsql.md)
+adds one owner, eight profiles and 24 cases, reaching **264 runtime owners in
+covered paths, 436 profiles and 3,549 functional cases**. All 94 public check/run
+calls pass with 78 independent native HTTP controls, six deduplicated
+vulnerability rows and fourteen service rows. Genuine affected/fixed,
+subdirectory, MariaDB, field-sensitivity and missing-prerequisite states separate
+one option-declaration fix from fixture/control assumptions. All final profiles
+retain current declared inputs. Each stack uses at most three capped containers;
+all projects, attached volumes and networks are removed. Two unchanged module
+lint findings and the broader campaign remain open. Earlier coverage stays
+historical. No PR is created.
+
+Previous: [Planyo file collection](VERIFICATION-20261116-planyo.md) adds one owner,
 seven profiles and 34 cases, reaching **263 runtime owners in covered paths,
 428 profiles and 3,525 functional cases**. All 68 public calls pass; 42 exact
 loot files include eight empty files. Genuine active/inactive, older release,
