@@ -1,0 +1,9 @@
+---
+services:
+  app:
+    extends: {file: ../photo_gallery/services.yaml, service: unrelated}
+  reporting_db:
+    extends: {file: ../photo_gallery/services.yaml, service: reporting_db}
+networks:
+  default: {internal: true}
+  public: {}

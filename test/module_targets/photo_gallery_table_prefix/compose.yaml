@@ -1,0 +1,17 @@
+---
+services:
+  db:
+    extends: {file: ../photo_gallery/services.yaml, service: db}
+  app:
+    extends: {file: ../photo_gallery/services.yaml, service: root}
+    environment:
+      PHOTO_GALLERY_RELEASE: "1.5.82"
+      PHOTO_GALLERY_MODE: affected
+      WORDPRESS_TABLE_PREFIX: pg_
+    volumes:
+    - ../../../tmp/module-target-photo-gallery-sources/1.5.82.zip:/opt/module-target/plugin.zip:ro
+  reporting_db:
+    extends: {file: ../photo_gallery/services.yaml, service: reporting_db}
+networks:
+  default: {internal: true}
+  public: {}

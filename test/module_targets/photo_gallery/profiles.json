@@ -1,0 +1,52 @@
+{
+  "photo_gallery": {
+    "release": "1.5.82",
+    "mode": "affected",
+    "prefix": "",
+    "table_prefix": "wp_",
+    "examples": 9
+  },
+  "photo_gallery_prefix": {
+    "release": "1.5.82",
+    "mode": "affected",
+    "prefix": "/wordpress",
+    "table_prefix": "wp_",
+    "examples": 5
+  },
+  "photo_gallery_table_prefix": {
+    "release": "1.5.82",
+    "mode": "affected",
+    "prefix": "",
+    "table_prefix": "pg_",
+    "examples": 5
+  },
+  "photo_gallery_low_limit": {
+    "release": "1.5.82",
+    "mode": "affected",
+    "prefix": "",
+    "table_prefix": "wp_",
+    "sql_limit": 96,
+    "examples": 5
+  },
+  "photo_gallery_fixed": {
+    "release": "1.6.0",
+    "mode": "fixed",
+    "prefix": "",
+    "table_prefix": "wp_",
+    "examples": 3
+  },
+  "photo_gallery_absent": {
+    "release": "1.5.82",
+    "mode": "absent",
+    "prefix": "",
+    "table_prefix": "wp_",
+    "examples": 3
+  },
+  "photo_gallery_unrelated": {
+    "release": null,
+    "mode": "unrelated",
+    "prefix": "",
+    "table_prefix": "wp_",
+    "examples": 3
+  }
+}

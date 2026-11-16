@@ -1,0 +1,90 @@
+---
+spec: spec/modules/auxiliary/gather/photo_gallery_target_spec.rb
+expected_examples: 3
+console: false
+health_timeout: 150
+test_env:
+  PHOTO_GALLERY_PROFILE: photo_gallery_unrelated
+modules:
+- auxiliary/gather/wp_photo_gallery_sqli
+ports:
+  app: 80
+  reporting_db: 5432
+support_files:
+- .ruby-version
+- Gemfile
+- Gemfile.lock
+- documentation/modules/auxiliary/gather/wp_photo_gallery_sqli.md
+- lib/metasploit/framework/hashes.rb
+- lib/msf/core/auxiliary/report.rb
+- lib/msf/core/db_manager/service.rb
+- lib/msf/core/exploit/remote/auto_check.rb
+- lib/msf/core/exploit/remote/http/wordpress.rb
+- lib/msf/core/exploit/remote/http/wordpress/admin.rb
+- lib/msf/core/exploit/remote/http/wordpress/base.rb
+- lib/msf/core/exploit/remote/http/wordpress/helpers.rb
+- lib/msf/core/exploit/remote/http/wordpress/login.rb
+- lib/msf/core/exploit/remote/http/wordpress/posts.rb
+- lib/msf/core/exploit/remote/http/wordpress/register.rb
+- lib/msf/core/exploit/remote/http/wordpress/sqli.rb
+- lib/msf/core/exploit/remote/http/wordpress/uris.rb
+- lib/msf/core/exploit/remote/http/wordpress/users.rb
+- lib/msf/core/exploit/remote/http/wordpress/version.rb
+- lib/msf/core/exploit/remote/http/wordpress/xml_rpc.rb
+- lib/msf/core/exploit/remote/http_client.rb
+- lib/msf/core/exploit/sqli.rb
+- lib/msf/core/exploit/sqli/common.rb
+- lib/msf/core/exploit/sqli/mysqli/common.rb
+- lib/msfenv.rb
+- metasploit-framework.gemspec
+- msfconsole
+- spec/acceptance_spec_helper.rb
+- spec/file_fixtures/modules/auxiliary/gather/wp_photo_gallery_sqli/provenance.json
+- spec/file_fixtures/modules/auxiliary/gather/wp_photo_gallery_sqli/responses.json
+- spec/lib/msf/core/exploit/sqli/mysqli/mysqli_common_spec.rb
+- spec/lib/msf/core/exploit/sqli/mysqli/mysqli_common_strict_results_spec.rb
+- spec/modules/auxiliary/gather/photo_gallery_target_spec.rb
+- spec/modules/auxiliary/gather/wp_photo_gallery_sqli_spec.rb
+- spec/spec_helper.rb
+- spec/support/acceptance/child_process.rb
+- spec/support/acceptance/datastore_formatting.rb
+- spec/support/acceptance/module_target.rb
+- test/module_targets/http/Dockerfile
+- test/module_targets/http/README.md
+- test/module_targets/http/compose.yaml
+- test/module_targets/http/htdocs/final.html
+- test/module_targets/http/htdocs/index.html
+- test/module_targets/http/htdocs/listing/evidence.txt
+- test/module_targets/http/htdocs/plain.txt
+- test/module_targets/http/htdocs/protected/index.html
+- test/module_targets/http/htdocs/robots.txt
+- test/module_targets/http/manifest.yml
+- test/module_targets/http/module-target.conf
+- test/module_targets/photo_gallery/README.md
+- test/module_targets/photo_gallery/acceptance.rb
+- test/module_targets/photo_gallery/compose.yaml
+- test/module_targets/photo_gallery/control.php
+- test/module_targets/photo_gallery/manifest.yml
+- test/module_targets/photo_gallery/prepare.rb
+- test/module_targets/photo_gallery/profiles.json
+- test/module_targets/photo_gallery/profiles.rb
+- test/module_targets/photo_gallery/releases.json
+- test/module_targets/photo_gallery/seed.php
+- test/module_targets/photo_gallery/services.yaml
+- test/module_targets/piwigo/services.yaml
+- test/module_targets/wordpress/Dockerfile
+- test/module_targets/wordpress/README.md
+- test/module_targets/wordpress/apache2-foreground
+- test/module_targets/wordpress/compose.yaml
+- test/module_targets/wordpress/db.Dockerfile
+- test/module_targets/wordpress/empty.txt
+- test/module_targets/wordpress/init.sql
+- test/module_targets/wordpress/inspect.php
+- test/module_targets/wordpress/manifest.yml
+- test/module_targets/wordpress/native_probe.rb
+- test/module_targets/wordpress/plugin_sources.rb
+- test/module_targets/wordpress/plugins.txt
+- test/module_targets/wordpress/seed.php
+- test/module_targets/wordpress/themes.txt
+- test/module_targets/wpdiscuz/no-mail.ini
+- tools/dev/run_guarded_module_target_tests.rb

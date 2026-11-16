@@ -1,0 +1,30 @@
+{
+  "1.5.82": {
+    "url": "https://downloads.wordpress.org/plugin/photo-gallery.1.5.82.zip",
+    "sha256": "68255d8ae6857a6529c7e3525d3cd51a84a603621df4843f7cd2d33039297ef3",
+    "bytes": 11799355,
+    "installed_sha256": {
+      "photo-gallery.php": "3ccbfc54090c14c2e143be22cd465d2da187794d2a6cec90f013c26af46fcc17",
+      "framework/WDWLibrary.php": "3abe0b61a15cb84044bf802ab523aebfd6e793ebc2d84ec24abf4712935312d3",
+      "insert.php": "35a7ed725ee530bca4705656ccd55cef2ca6cd871c26b3d1a5493e79ba07d7ae",
+      "admin/models/Galleries.php": "9b3737adc57bb69ebc50c5592b58c3872ef51a467782605770a9d9d02e7ef84f",
+      "admin/controllers/Shortcode.php": "3912d4f6556a3a172f7cc71cd99f20ab33351e0e650dec41c5106d23661e6aa8",
+      "frontend/controllers/controller.php": "73612d154c045bab125837fef15d73d2c2e80acf18ef7d079ed8529a19709f00",
+      "frontend/views/BWGViewThumbnails.php": "c2b9444e40677e0692374db0876a91c9d16656608b90ad2768f210c9e308169e"
+    }
+  },
+  "1.6.0": {
+    "url": "https://downloads.wordpress.org/plugin/photo-gallery.1.6.0.zip",
+    "sha256": "5fe74aa22b7936df0b15004a6f5e7e36b306c6ad4514ceb6e9ba3cba680d1be7",
+    "bytes": 11867993,
+    "installed_sha256": {
+      "photo-gallery.php": "e0b734c2f78847786e6c4eb5c83d54bd0220e684fc1679dbc1803f0ac793d2d9",
+      "framework/WDWLibrary.php": "d29b3b1000e31ce522f62bd39fcbe33cd85afa1f4f3f77737b9ab14c459582ab",
+      "insert.php": "35a7ed725ee530bca4705656ccd55cef2ca6cd871c26b3d1a5493e79ba07d7ae",
+      "admin/models/Galleries.php": "0b3b5a955c98f9c39475e80c5d2203df31e5c25456cdbe58dbb5dcffeffa030b",
+      "admin/controllers/Shortcode.php": "ac97fea42abddb5f0ae2985629c312bf17b320b0e92917a93fce1a9fc6fd5e72",
+      "frontend/controllers/controller.php": "262e54e196e84dd1f6fb38c3ee6de636c2e1f4cbd98b5582e3c477f6d58120fe",
+      "frontend/views/BWGViewThumbnails.php": "b9a3903edf3b1b419e86c1326234ac0af96371ba50976871c77abc1b80e2bf5a"
+    }
+  }
+}

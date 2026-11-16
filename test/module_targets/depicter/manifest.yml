@@ -85,3 +85,5 @@ support_files:
 - spec/modules/auxiliary/gather/wp_depicter_sqli_cve_2025_2011_spec.rb
 - spec/file_fixtures/modules/auxiliary/gather/wp_depicter_sqli_cve_2025_2011/responses.json
 - spec/file_fixtures/modules/auxiliary/gather/wp_depicter_sqli_cve_2025_2011/provenance.json
+- spec/lib/msf/core/exploit/sqli/mysqli/mysqli_common_spec.rb
+- spec/lib/msf/core/exploit/sqli/mysqli/mysqli_common_strict_results_spec.rb
