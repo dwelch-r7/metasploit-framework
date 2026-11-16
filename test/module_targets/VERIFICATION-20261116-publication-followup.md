@@ -1,4 +1,4 @@
-# BookingPress publication CI follow-up, 2026-11-16
+# Publication CI follow-up, 2026-11-16
 
 The published checkpoint is `25f037151179faa0f3f5a730ea9da7a749b967ca`.
 Both selected Ruby 3.3 jobs check out that exact fork commit and execute all
@@ -97,3 +97,43 @@ The 17-entry read-only CI seal is
 `/Users/dwelch/.codex/reports/duplicator-publication-ci-20261116`;
 manifest SHA256 `2436e2a0b176368788a017c697cf28c99dde4137c96b1346d4b2e26f1fb1dce3`.
 No PR is created. The module-container campaign remains open.
+
+## wpDiscuz publication result
+
+Checkpoint `93405d997925dd37cc50c39e9a180d946cfb38df` finishes with nine
+successful workflows and one failed workflow: Meterpreter Acceptance.
+All 64 checks are terminal: 62 succeed, one fails and one is skipped.
+Both selected Ruby 3.3 jobs check out the exact fork commit and execute all
+65 wpDiscuz contract examples successfully on their first attempt.
+
+| Ruby 3.3 job | First attempt | Built-in retry |
+| --- | --- | --- |
+| [Normal](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43802744733/job/133086539690) | 19,694 examples, zero failures, 33 pending; seed 29446 | None needed |
+| [REMOTE_DB](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43802744733/job/133086539595) | 19,507 examples, zero failures, 664 pending; seed 17093 | None needed |
+
+The eight-entry read-only unit seal is
+`/Users/dwelch/.codex/reports/wpdiscuz-publication-unit33-20261116`;
+manifest SHA256 `d7a671aef0cd66d813e7778008d4399723c04ed10d6607a9a81720d9ae293a17`.
+Actual checkout is verified from each job's `git log -1` result, separately
+from its workflow metadata. Content-tagged jobs also pass, but do not contain
+the wpDiscuz contract group and are not its execution evidence.
+
+The [macOS Mettle failure](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43802744970/job/133086541373)
+has 46 examples and one failure, seed 29745. The failing path is
+`osx/x64/meterpreter_reverse_https`, `post/test/cmd_exec`, with
+`base64_transforms.profile`; its stderr-output assertion fails. The log does
+not print the actual stderr value. Its actual Framework checkout is upstream
+`bea1fb069e79cb610fe3981f16b8697790369c63`, also used by the earlier passing
+macOS Mettle jobs recorded above. Cause and branch causality remain unverified;
+no claim of a flaky test or wpDiscuz regression follows from these observations.
+No agent retry or cancellation was initiated.
+
+Selected successful native context jobs have Linux Mettle 51 examples and PHP
+7.4 Linux 91 examples at that upstream checkout, and Linux command shell four
+examples at the fork checkpoint. These general acceptance jobs do not execute
+the wpDiscuz target profiles. Native binary/package-byte provenance was not
+audited. The eleven-entry terminal CI seal is
+`/Users/dwelch/.codex/reports/wpdiscuz-publication-terminal-20261116`;
+manifest SHA256 `605089db8b14dd48b347852b78fa14d7f75a139ab6d45908e9bdd40e37f0b357`.
+This follow-up changes no runtime qualification counts. The macOS stderr path
+remains an investigation item. No PR is created.
