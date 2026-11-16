@@ -1,0 +1,111 @@
+{
+  "provenance": "Captured from genuine unmodified CP Multi-View Calendar targets. HTML excerpts are byte-exact; full response hashes identify the retained original bodies. Tests replace only the generated positive marker, and explicitly double HTTP/reporting without evaluating SQL or PHP.",
+  "affected_version": "1.1.4",
+  "affected_archive_sha256": "e1e97d7d494bacb7b9316a98d53e731e4a77cfa27978e0de9dd87fc2cbf2b971",
+  "fixed_version": "1.3.70",
+  "fixed_archive_sha256": "8393323a4efae7c48c348b3bb91316e0ea002ba0e1d6355d171e51c94d8dc8f6",
+  "wordpress": "6.8.3",
+  "php": "8.3.28",
+  "database": "11.2.2-MariaDB-1:11.2.2+maria~ubu2204",
+  "native_event_schema": [
+    {
+      "name": "id",
+      "type": "int(10) unsigned"
+    },
+    {
+      "name": "calid",
+      "type": "int(10) unsigned"
+    },
+    {
+      "name": "starttime",
+      "type": "datetime"
+    },
+    {
+      "name": "endtime",
+      "type": "datetime"
+    },
+    {
+      "name": "title",
+      "type": "varchar(250)"
+    },
+    {
+      "name": "location",
+      "type": "varchar(250)"
+    },
+    {
+      "name": "rrule",
+      "type": "varchar(255)"
+    },
+    {
+      "name": "exdate",
+      "type": "text"
+    },
+    {
+      "name": "uid",
+      "type": "int(11)"
+    },
+    {
+      "name": "description",
+      "type": "text"
+    },
+    {
+      "name": "isalldayevent",
+      "type": "tinyint(3) unsigned"
+    },
+    {
+      "name": "color",
+      "type": "varchar(10)"
+    },
+    {
+      "name": "owner",
+      "type": "int(11)"
+    },
+    {
+      "name": "published",
+      "type": "tinyint(1)"
+    }
+  ],
+  "responses": {
+    "native_positive": {
+      "source_receipt": "tmp/cp-calendar-feasibility/native-1.1.4-20261116T184856/receipt.json",
+      "request_label": "before-independent-true",
+      "status": 200,
+      "full_body_bytes": 30985,
+      "full_body_sha256": "40cf29e4eb8e9e56e5cb01e38ab601141b128d1439e2c3e6a8eede054405e258",
+      "excerpt_offset": 24518,
+      "excerpt_bytes": 128,
+      "excerpt": "<input MaxLength=\"200\" id=\"Location\" name=\"Location\" class=\"inputtext\"  type=\"text\" value=\"NativebeforeindependenttrueMarker\" />",
+      "original_marker": "NativebeforeindependenttrueMarker"
+    },
+    "native_ordinary": {
+      "source_receipt": "tmp/cp-calendar-feasibility/native-1.1.4-20261116T184856/receipt.json",
+      "request_label": "before-ordinary",
+      "status": 200,
+      "full_body_bytes": 31018,
+      "full_body_sha256": "56003d11f8229fcd8b9cf01b80c5ccadeae8af82f72c2b5245969d039f60233e",
+      "excerpt_offset": 24594,
+      "excerpt_bytes": 95,
+      "excerpt": "<input MaxLength=\"200\" id=\"Location\" name=\"Location\" class=\"inputtext\"  type=\"text\" value=\"\" />"
+    },
+    "native_null_date_failure": {
+      "source_receipt": "tmp/cp-calendar-feasibility/native-1.1.4-20261116T184856/receipt.json",
+      "request_label": "before-module-shaped",
+      "status": 200,
+      "full_body_bytes": 22835,
+      "full_body_sha256": "d362e3b586898acb51fbf9c0d4486968464e1d1fd78939aebc6b9e674ef3380b",
+      "excerpt_offset": 22067,
+      "excerpt_bytes": 768,
+      "excerpt": "/script>\r\n        <form action=\"/?cpmvc_id=1&cpmvc_do_action=mvparse&f=datafeed&calid=&month_index=&method=adddetails&id=\" class=\"fform\" id=\"fmEdit\" method=\"post\">\r\n          <label>\r\n            <span id=\"s_subject\">*Subject:</span>\r\n            <div id=\"calendarcolor\">\r\n            </div>\r\n            <input MaxLength=\"200\" class=\"required safe inputtext\" id=\"Subject\" name=\"Subject\" type=\"text\" value=\"\" />            <input id=\"colorvalue\" name=\"colorvalue\" type=\"hidden\" value=\"\" />\r\n          </label>\r\n          <input type=\"hidden\" id=\"rrule\" name=\"rrule\" value=\"\" size=55 />\r\n          <input type=\"hidden\" id=\"rruleType\" name=\"rruleType\" value=\"\" size=55 />\r\n          <label>\r\n            <span id=\"s_time\">*Time:</span>\r\n            <div>\r\n              "
+    },
+    "native_patched": {
+      "source_receipt": "tmp/cp-calendar-feasibility/native-1.3.70-20261116T185020/receipt.json",
+      "request_label": "before-independent-true",
+      "status": 200,
+      "full_body_bytes": 31087,
+      "full_body_sha256": "d06903806db79357ded0d5825948b955904e7b5516d451241f48bc7a73fba7ff",
+      "excerpt_offset": 24691,
+      "excerpt_bytes": 95,
+      "excerpt": "<input MaxLength=\"200\" id=\"Location\" name=\"Location\" class=\"inputtext\"  type=\"text\" value=\"\" />"
+    }
+  }
+}

