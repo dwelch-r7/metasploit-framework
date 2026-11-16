@@ -1,0 +1,9 @@
+services:
+  db:
+    extends: {file: ../elasticsearch_memory/services.yaml, service: db}
+  app:
+    extends: {file: ../elasticsearch_memory/services.yaml, service: app}
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.13.4@sha256:70e5f2454148f16385ffbc1b1fb71f3a171a8ef8665c8b482235656678b7df93
+networks:
+  default: {internal: true}
+  public: {}

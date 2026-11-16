@@ -1,0 +1,12 @@
+services:
+  db:
+    extends: {file: ../elasticsearch_memory/services.yaml, service: db}
+  app:
+    extends: {file: ../elasticsearch_memory/services.yaml, service: app}
+    environment:
+      ES_JAVA_OPTS: -Xms256m -Xmx256m -XX:ActiveProcessorCount=1
+    mem_limit: 768m
+    memswap_limit: 768m
+networks:
+  default: {internal: true}
+  public: {}

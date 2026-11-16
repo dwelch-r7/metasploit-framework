@@ -1,0 +1,32 @@
+{
+  "elasticsearch_memory": {
+    "version": "7.13.2",
+    "mode": "affected",
+    "security": false,
+    "heap_mb": 1280
+  },
+  "elasticsearch_memory_fixed": {
+    "version": "7.13.4",
+    "mode": "fixed",
+    "security": false,
+    "heap_mb": 1280
+  },
+  "elasticsearch_memory_secured": {
+    "version": "7.13.2",
+    "mode": "affected",
+    "security": true,
+    "heap_mb": 1280
+  },
+  "elasticsearch_memory_unpooled": {
+    "version": "7.13.2",
+    "mode": "affected",
+    "security": false,
+    "heap_mb": 256
+  },
+  "elasticsearch_memory_unrelated": {
+    "version": null,
+    "mode": "unrelated",
+    "security": false,
+    "heap_mb": null
+  }
+}

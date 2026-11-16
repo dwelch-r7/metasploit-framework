@@ -1,0 +1,10 @@
+services:
+  db:
+    extends: {file: ../elasticsearch_memory/services.yaml, service: db}
+  app:
+    extends: {file: ../elasticsearch_memory/services.yaml, service: app}
+    environment:
+      xpack.security.enabled: 'true'
+networks:
+  default: {internal: true}
+  public: {}

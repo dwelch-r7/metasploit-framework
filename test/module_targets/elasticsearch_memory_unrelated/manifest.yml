@@ -1,0 +1,53 @@
+---
+spec: spec/modules/auxiliary/scanner/http/elasticsearch_memory_target_spec.rb
+expected_examples: 3
+console: false
+health_timeout: 420
+test_env:
+  ELASTICSEARCH_MEMORY_PROFILE: elasticsearch_memory_unrelated
+modules:
+- auxiliary/scanner/http/elasticsearch_memory_disclosure
+ports:
+  app: 80
+  db: 5432
+support_files:
+- .ruby-version
+- Gemfile
+- Gemfile.lock
+- documentation/modules/auxiliary/scanner/http/elasticsearch_memory_disclosure.md
+- lib/msf/base/simple/auxiliary.rb
+- lib/msf/core/auxiliary/multiple_target_hosts.rb
+- lib/msf/core/auxiliary/report.rb
+- lib/msf/core/auxiliary/scanner.rb
+- lib/msf/core/db_manager/loot.rb
+- lib/msf/core/db_manager/service.rb
+- lib/msf/core/db_manager/vuln.rb
+- lib/msf/core/exploit/remote/http_client.rb
+- lib/msf/core/module/failure.rb
+- lib/msf/ui/console/module_command_dispatcher.rb
+- lib/rex/proto/http/http_logger_subscriber.rb
+- lib/rex/proto/http/packet.rb
+- metasploit-framework.gemspec
+- msfconsole
+- spec/acceptance_spec_helper.rb
+- spec/spec_helper.rb
+- spec/support/acceptance/datastore_formatting.rb
+- test/module_targets/elasticsearch_memory/README.md
+- test/module_targets/elasticsearch_memory/acceptance.rb
+- test/module_targets/elasticsearch_memory/compose.yaml
+- test/module_targets/elasticsearch_memory/images.json
+- test/module_targets/elasticsearch_memory/init.sql
+- test/module_targets/elasticsearch_memory/profiles.json
+- test/module_targets/elasticsearch_memory/profiles.rb
+- test/module_targets/elasticsearch_memory/services.yaml
+- test/module_targets/http/Dockerfile
+- test/module_targets/http/README.md
+- test/module_targets/http/compose.yaml
+- test/module_targets/http/htdocs/final.html
+- test/module_targets/http/htdocs/index.html
+- test/module_targets/http/htdocs/listing/evidence.txt
+- test/module_targets/http/htdocs/plain.txt
+- test/module_targets/http/htdocs/protected/index.html
+- test/module_targets/http/htdocs/robots.txt
+- test/module_targets/http/manifest.yml
+- test/module_targets/http/module-target.conf

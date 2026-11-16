@@ -1,0 +1,48 @@
+services:
+  db:
+    image: postgres:16@sha256:933463a6c8eba2b9f5cd414138738cd8d5519cd2c471214c222652f547a66a32
+    environment:
+      POSTGRES_PASSWORD: module-target-root-password
+    command: ["-c", "shared_buffers=32MB", "-c", "max_connections=25"]
+    volumes:
+    - ./init.sql:/docker-entrypoint-initdb.d/module-target.sql:ro
+    networks: [default, public]
+    ports: ["127.0.0.1::5432"]
+    cpus: 0.25
+    mem_limit: 384m
+    memswap_limit: 384m
+    pids_limit: 128
+    init: true
+    healthcheck:
+      test: [CMD-SHELL, 'PGPASSWORD=module-target-framework-db-password psql -h 127.0.0.1 -U module_framework -d module_targets -Atc "select 1" | grep -q 1']
+      interval: 3s
+      timeout: 5s
+      retries: 40
+  app:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.13.2@sha256:1cecc2c7419a4f917a88c83180335bd491d623f28ac43ca7e0e69b4eca25fbd5
+    environment:
+      discovery.type: single-node
+      node.store.allow_mmap: 'false'
+      node.processors: '1'
+      node.name: module-target-memory
+      cluster.name: module-target-memory
+      xpack.security.enabled: 'false'
+      xpack.ml.enabled: 'false'
+      xpack.license.self_generated.type: basic
+      ELASTIC_PASSWORD: module-target-password
+      ES_JAVA_OPTS: -Xms1280m -Xmx1280m -XX:ActiveProcessorCount=1
+    networks: [default, public]
+    ports: ["127.0.0.1::9200"]
+    cpus: 1.0
+    mem_limit: 2048m
+    memswap_limit: 2048m
+    pids_limit: 128
+    init: true
+    healthcheck:
+      test: [CMD-SHELL, 'curl --fail --silent -u elastic:module-target-password http://127.0.0.1:9200/ >/dev/null']
+      interval: 3s
+      timeout: 5s
+      retries: 120
+networks:
+  default: {internal: true}
+  public: {}
