@@ -1,0 +1,13 @@
+---
+services:
+  db:
+    extends: {file: ../duplicator/services.yaml, service: db}
+  app:
+    extends: {file: ../duplicator/services.yaml, service: root}
+    environment:
+      DUPLICATOR_RELEASE: "1.3.26"
+    volumes:
+    - ../../../tmp/module-target-duplicator-sources/1.3.26.zip:/opt/module-target/plugin.zip:ro
+networks:
+  default: {internal: true}
+  public: {}

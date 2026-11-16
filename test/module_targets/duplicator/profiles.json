@@ -1,0 +1,38 @@
+{
+  "duplicator": {
+    "release": "1.3.26",
+    "mode": "affected",
+    "prefix": "",
+    "depth": 5
+  },
+  "duplicator_minimum": {
+    "release": "1.3.24",
+    "mode": "affected",
+    "prefix": "",
+    "depth": 5
+  },
+  "duplicator_prefix": {
+    "release": "1.3.26",
+    "mode": "affected",
+    "prefix": "/wordpress",
+    "depth": 6
+  },
+  "duplicator_fixed": {
+    "release": "1.3.28",
+    "mode": "fixed",
+    "prefix": "",
+    "depth": 5
+  },
+  "duplicator_absent": {
+    "release": null,
+    "mode": "absent",
+    "prefix": "",
+    "depth": 5
+  },
+  "duplicator_unrelated": {
+    "release": null,
+    "mode": "unrelated",
+    "prefix": "",
+    "depth": 5
+  }
+}

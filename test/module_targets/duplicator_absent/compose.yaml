@@ -1,0 +1,11 @@
+---
+services:
+  db:
+    extends: {file: ../duplicator/services.yaml, service: db}
+  app:
+    extends: {file: ../duplicator/services.yaml, service: root}
+    environment:
+      DUPLICATOR_RELEASE: "absent"
+networks:
+  default: {internal: true}
+  public: {}

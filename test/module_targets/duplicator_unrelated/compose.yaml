@@ -1,0 +1,7 @@
+---
+services:
+  app:
+    extends: {file: ../duplicator/services.yaml, service: unrelated}
+networks:
+  default: {internal: true}
+  public: {}

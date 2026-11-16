@@ -1,0 +1,35 @@
+{
+  "1.3.24": {
+    "url": "https://downloads.wordpress.org/plugin/duplicator.1.3.24.zip",
+    "sha256": "c96fac736e1c0e477537808efa508447c289004f253d3513382e979426cc33ab",
+    "bytes": 2705479,
+    "installed_sha256": {
+      "duplicator.php": "c24871125742d386a4acd810be4b410d965eeb28cda02391a49ec167fed55b74",
+      "ctrls/class.web.services.php": "a031d8240b225632954755e8fa856fb0d3de920f70efe01b2db80e8aaaadf2a5",
+      "define.php": "7f39e37f1693cad946167303d5a31ec022f65a54c89dda81a51a7da634412b02",
+      "readme.txt": "299c8779cbc29420bd50d3e79a772ed7b862187d414fe7231e1290142255f778"
+    }
+  },
+  "1.3.26": {
+    "url": "https://downloads.wordpress.org/plugin/duplicator.1.3.26.zip",
+    "sha256": "29e1f68a54025a5ebd93aa6da96739f24c4b4e2af3f05c15eb2e3f239dea2e8d",
+    "bytes": 2712096,
+    "installed_sha256": {
+      "duplicator.php": "07992c1eb20e85dd5e482622b8d0276b2839cf676df831416cec1c827145284d",
+      "ctrls/class.web.services.php": "174c5dc8e779829435050b0e8d56e49e5c5643ae6dfab62c765f69b44235e215",
+      "define.php": "58ded1819452ebda8ed05e306f46802cd46cadd909783b74d23c4a86e630b0cb",
+      "readme.txt": "c807e3ea69e99ddce1a09afcc6b3ad47d2a485e103541304674a2e632039f37a"
+    }
+  },
+  "1.3.28": {
+    "url": "https://downloads.wordpress.org/plugin/duplicator.1.3.28.zip",
+    "sha256": "e1aa7fa09704ba586b10ee775534b0cd00d48527edcce9867454c6dc12b02ec8",
+    "bytes": 2712065,
+    "installed_sha256": {
+      "duplicator.php": "36117c6f28a66758c46a5de018bf513531db18186b8b6ba8c036d5fa8fbd5f5d",
+      "ctrls/class.web.services.php": "c0b05553dcb30582ad84943f1a9ddd952c1a7f2eafc28edd253be94f8bdcb268",
+      "define.php": "1a19a68281060bff9f4f3d71fa9832c426d50c7cd3a1c2941cfe174c6eaf36e1",
+      "readme.txt": "3b1844a0963a0a057f271caaee5e19efef1a2d2bdef39b87ad7a77dbe534812f"
+    }
+  }
+}
