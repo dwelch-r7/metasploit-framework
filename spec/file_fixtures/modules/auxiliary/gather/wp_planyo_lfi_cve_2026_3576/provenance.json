@@ -1,0 +1,77 @@
+{
+  "responses": [
+    {
+      "label": "readme",
+      "source": "tmp/wordpress-planyo-feasibility/owner-corrected-input-2.9-20261116T095254/receipt.json",
+      "source_sha256": "1fdbd0dca799fc43df7a3dceef08c40e7a7999676107d205fedae14bbe6558e4",
+      "request_index_zero_based": 2,
+      "name": "readme",
+      "path": "/wp-content/plugins/planyo-online-reservation-system/readme.txt",
+      "transformation": "Exact response code and Base64 body; headers/cookies omitted. File bytes are native lab controls, not credentials."
+    },
+    {
+      "label": "text",
+      "source": "tmp/wordpress-planyo-feasibility/owner-corrected-input-2.9-20261116T095254/receipt.json",
+      "source_sha256": "1fdbd0dca799fc43df7a3dceef08c40e7a7999676107d205fedae14bbe6558e4",
+      "request_index_zero_based": 3,
+      "name": "native-file-text.txt",
+      "path": "/wp-content/plugins/planyo-online-reservation-system/ulap.php?ulap_url=file%3A%2F%2Flocalhost%2Ftmp%2Fmodule-target-planyo%2Ftext.txt",
+      "transformation": "Exact response code and Base64 body; headers/cookies omitted. File bytes are native lab controls, not credentials."
+    },
+    {
+      "label": "binary",
+      "source": "tmp/wordpress-planyo-feasibility/owner-corrected-input-2.9-20261116T095254/receipt.json",
+      "source_sha256": "1fdbd0dca799fc43df7a3dceef08c40e7a7999676107d205fedae14bbe6558e4",
+      "request_index_zero_based": 4,
+      "name": "native-file-binary.bin",
+      "path": "/wp-content/plugins/planyo-online-reservation-system/ulap.php?ulap_url=file%3A%2F%2Flocalhost%2Ftmp%2Fmodule-target-planyo%2Fbinary.bin",
+      "transformation": "Exact response code and Base64 body; headers/cookies omitted. File bytes are native lab controls, not credentials."
+    },
+    {
+      "label": "empty",
+      "source": "tmp/wordpress-planyo-feasibility/owner-corrected-input-2.9-20261116T095254/receipt.json",
+      "source_sha256": "1fdbd0dca799fc43df7a3dceef08c40e7a7999676107d205fedae14bbe6558e4",
+      "request_index_zero_based": 5,
+      "name": "native-file-empty.bin",
+      "path": "/wp-content/plugins/planyo-online-reservation-system/ulap.php?ulap_url=file%3A%2F%2Flocalhost%2Ftmp%2Fmodule-target-planyo%2Fempty.bin",
+      "transformation": "Exact response code and Base64 body; headers/cookies omitted. File bytes are native lab controls, not credentials."
+    },
+    {
+      "label": "special",
+      "source": "tmp/wordpress-planyo-feasibility/owner-corrected-input-2.9-20261116T095254/receipt.json",
+      "source_sha256": "1fdbd0dca799fc43df7a3dceef08c40e7a7999676107d205fedae14bbe6558e4",
+      "request_index_zero_based": 6,
+      "name": "native-file-space & caf\u00e9 #.txt",
+      "path": "/wp-content/plugins/planyo-online-reservation-system/ulap.php?ulap_url=file%3A%2F%2Flocalhost%2Ftmp%2Fmodule-target-planyo%2Fspace%2520%2526%2520caf%25C3%25A9%2520%2523.txt",
+      "transformation": "Exact response code and Base64 body; headers/cookies omitted. File bytes are native lab controls, not credentials."
+    },
+    {
+      "label": "denied",
+      "source": "tmp/wordpress-planyo-feasibility/owner-corrected-input-2.9-20261116T095254/receipt.json",
+      "source_sha256": "1fdbd0dca799fc43df7a3dceef08c40e7a7999676107d205fedae14bbe6558e4",
+      "request_index_zero_based": 7,
+      "name": "native-file-denied.bin",
+      "path": "/wp-content/plugins/planyo-online-reservation-system/ulap.php?ulap_url=file%3A%2F%2Flocalhost%2Ftmp%2Fmodule-target-planyo%2Fdenied.bin",
+      "transformation": "Exact response code and Base64 body; headers/cookies omitted. File bytes are native lab controls, not credentials."
+    },
+    {
+      "label": "missing",
+      "source": "tmp/wordpress-planyo-feasibility/owner-corrected-input-2.9-20261116T095254/receipt.json",
+      "source_sha256": "1fdbd0dca799fc43df7a3dceef08c40e7a7999676107d205fedae14bbe6558e4",
+      "request_index_zero_based": 8,
+      "name": "native-file-missing.bin",
+      "path": "/wp-content/plugins/planyo-online-reservation-system/ulap.php?ulap_url=file%3A%2F%2Flocalhost%2Ftmp%2Fmodule-target-planyo%2Fmissing.bin",
+      "transformation": "Exact response code and Base64 body; headers/cookies omitted. File bytes are native lab controls, not credentials."
+    },
+    {
+      "label": "fixed_readme",
+      "source": "tmp/wordpress-planyo-feasibility/native-3.1-20261116T094730/receipt.json",
+      "source_sha256": "3a9629a5bb9566bdfb8f4d7b66334ea28160a704b2eb8e887610b31e7d4e8756",
+      "request_index_zero_based": 2,
+      "name": "readme",
+      "path": "/wp-content/plugins/planyo-online-reservation-system/readme.txt",
+      "transformation": "Exact response code and Base64 body; headers/cookies omitted. File bytes are native lab controls, not credentials."
+    }
+  ],
+  "limits": "Only the recorded text/binary/empty/special/denied/missing controls are real target observations. Other filename cases in the spec are synthetic URI roundtrips, not target filesystem support claims."
+}
