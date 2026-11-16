@@ -11,6 +11,7 @@ require_relative 'profiles'
 # Independent HTTP and physical-file observations against genuine plugin code.
 class FileManagerNative
   GIF = Base64.strict_decode64('R0lGODlhAQABAPAAAP///wAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==').freeze
+  TEXT = JSON.parse(File.read(File.join(__dir__, 'native_cases.json'))).fetch('text').freeze
   attr_reader :baseline
 
   def initialize(endpoint, profile, execute, record)
@@ -76,7 +77,10 @@ class FileManagerNative
     raise 'Native mkfile was refused' unless created.fetch('added').map { |item| item.fetch('name') } == [name]
 
     verify_file(label + '-empty', name, '')
-    written = api(label + '-put', { 'cmd' => 'put', 'target' => created.fetch('added').first.fetch('hash'), 'content' => bytes })
+    # The genuine 6.0 connector strips NUL and then POST backslashes.
+    # Escape both for transport, then require the intended physical/HTTP bytes.
+    content = bytes.gsub('\\') { '\\\\' }.gsub("\0") { '\\0' }
+    written = api(label + '-put', { 'cmd' => 'put', 'target' => created.fetch('added').first.fetch('hash'), 'content' => content })
     raise 'Native put was refused' unless written.fetch('changed').map { |item| item.fetch('name') } == [name]
 
     verify_file(label + '-physical', name, bytes)
@@ -152,7 +156,7 @@ class FileManagerNative
     raise 'Module root selector differs' unless api('native-module-root-alias', { 'cmd' => 'open', 'target' => 'l1_' }).fetch('cwd').fetch('hash') == @root_hash
 
     original = snapshot('native-before').fetch('files')
-    { 'image.gif' => GIF, 'text.txt' => 'file-manager-native-café' }.each do |suffix, bytes|
+    { 'image.gif' => GIF, 'text.txt' => TEXT }.each do |suffix, bytes|
       name = 'module-target-file-manager-' + suffix
       suffix == 'image.gif' ? upload('native-ordinary-image', name, bytes) : write('native-ordinary-text', name, bytes)
       response = request('native-ordinary-bytes', path(name))

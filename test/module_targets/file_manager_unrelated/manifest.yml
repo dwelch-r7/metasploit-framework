@@ -67,3 +67,4 @@ support_files:
 - tools/dev/module_target_endpoint.rb
 - tools/dev/run_guarded_module_target_tests.rb
 - test/module_targets/file_manager/README.md
+- test/module_targets/file_manager/native_cases.json

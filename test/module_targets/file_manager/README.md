@@ -1,5 +1,9 @@
 # WordPress File Manager targets
 
+Owner: [File Manager RCE](../../../modules/exploits/multi/http/wp_file_manager_rce.rb).
+The existing [module guide](../../../documentation/modules/exploit/multi/http/wp_file_manager_rce.md)
+retains its human-written Scenarios.
+
 These profiles install genuine File Manager 6.0 or 8.0.7 on checksum-pinned
 WordPress 5.2.4/PHP 7.3.11 with MariaDB 11.2.2. Vendor source is unchanged.
 The official 6.0 download contains another ZIP named `wp-file-manager-6.O.zip`
@@ -25,7 +29,7 @@ equal to memory, init processes and PID caps. Unrelated HTTP uses 0.25 CPU/128 M
 Negative profiles use a host console and at most two containers.
 
 Independent native controls run before any owning module calls. On 6.0 they
-exercise ordinary GIF upload, UTF-8 `mkfile`/`put`, exact HTTP and physical bytes,
+exercise ordinary GIF upload, UTF-8/backslash/NUL `mkfile`/`put`, exact HTTP and physical bytes,
 and PHP command execution as the web account through both write paths.
 The read-only profile first passes those controls, then changes only the owned
 upload directory's permissions and verifies real HTTP 200 application refusals.
@@ -38,7 +42,9 @@ The affected profiles exercise both `COMMAND` values. Root cases include
 command-only PHP, a PHP shell, single-stage Meterpreter and the unchanged staged
 Meterpreter target default, with repeat executions and AutoCheck-disabled
 command cases. Subdirectory cases cover both commands and the default payload.
-Native handlers calibrate selected session payloads first. Tests verify remote
+Native handlers calibrate each selected session payload through both write
+commands first. The genuine 6.0 connector strips NUL and POST backslashes, so native
+`put` requests preserve them explicitly and require exact on-disk/HTTP bytes. Tests verify remote
 proof and transport closure, and require session-driven physical payload-file
 cleanup before explicit operator recovery. Command-only payloads require
 explicit operator file recovery because they create no cleanup session.
