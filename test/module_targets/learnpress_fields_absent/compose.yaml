@@ -1,0 +1,15 @@
+services:
+  db:
+    extends: {file: ../learnpress_fields/services.yaml, service: db}
+  app:
+    extends: {file: ../learnpress_fields/services.yaml, service: app}
+    environment:
+      LEARNPRESS_RELEASE: "4.2.7"
+      LEARNPRESS_MODE: "absent"
+    volumes:
+    - ../../../tmp/module-target-learnpress-fields-sources/4.2.7.zip:/opt/module-target/plugin.zip:ro
+  reporting_db:
+    extends: {file: ../learnpress_fields/services.yaml, service: reporting_db}
+networks:
+  default: {internal: true}
+  public: {}

@@ -1,0 +1,38 @@
+{
+  "4.2.7": {
+    "url": "https://downloads.wordpress.org/plugin/learnpress.4.2.7.zip",
+    "sha256": "fa68156a74b3bf9c68a4157c32fc6da21e121321426756d639c6b7c9f41a7040",
+    "installed_sha256": {
+      "learnpress.php": "d9e982609c2ef65e6874a607784e4d6c3c7dee36a26485677b3fe2225fe2d567",
+      "inc/Models/Courses.php": "2528eb54b8d2c6370290d6f9ab542b5330fabe13f94cfaa33239469ac7097b79",
+      "inc/Databases/class-lp-db.php": "5a1e22fa525b56771676e6dd7562c796146e52b96e4e0c11471bf2f0d1d329ce",
+      "inc/Databases/class-lp-course-db.php": "2594854e037619f2cb117f167f0d72cf8116726f0c938161f19da91df60c0c2d",
+      "inc/jwt/rest-api/version1/class-lp-rest-courses-v1-controller.php": "ea3f0b90f1dcb753b4e2808f85da4fc5ead8fe90949c84c07b3951f1d5133db3",
+      "inc/rest-api/v1/frontend/class-lp-rest-courses-controller.php": "74df98b368b98849bb45dafad6c79a04033e9a2adaabf9bbdb03f432a8735654",
+      "inc/lp-core-functions.php": "976046fd1d7da51bdfac88af73964f35825d82536d212668690577b25a9811f5",
+      "inc/class-lp-helper.php": "643d17cd17e389bc707880cd6030d4b7cfb9862c9c1550a0bc4f0cfe1fb61ddc",
+      "readme.txt": "6a9217099ea6f869c7b530a1e44bf969e59c932a9b63cbc12a820c192eb3e065",
+      "inc/class-lp-install.php": "41e8562bdf17ede944a281d112c6fc6a3288fbff5db65d5cbd2bb888f101785b",
+      "inc/custom-post-types/course.php": "1fb913d2a585ae3a816de9c7d23c614a91e01793ea76a770766dcde92a80fa83",
+      "inc/jwt/rest-api/class-rest-api.php": "aee65c101f72ab33c494612d03e169eafe3f6e67d278d4129b1a788306ab4d7b"
+    }
+  },
+  "4.2.7.1": {
+    "url": "https://downloads.wordpress.org/plugin/learnpress.4.2.7.1.zip",
+    "sha256": "cc74cb541b8d41d5605d3dff4a83336a0af5a5a6d912a37d3002e888cbc3a420",
+    "installed_sha256": {
+      "learnpress.php": "e0fde9355cebbddab1c3e71815d8f977b928d946538a1fc8e9ed697f19672d30",
+      "inc/Models/Courses.php": "71af9aed3a39be3fc85eb6b0677a6c6c7717ea06260215d98c7f6b781f4c996c",
+      "inc/Databases/class-lp-db.php": "5a1e22fa525b56771676e6dd7562c796146e52b96e4e0c11471bf2f0d1d329ce",
+      "inc/Databases/class-lp-course-db.php": "2594854e037619f2cb117f167f0d72cf8116726f0c938161f19da91df60c0c2d",
+      "inc/jwt/rest-api/version1/class-lp-rest-courses-v1-controller.php": "c59b100e981d295557d60240ef2d904c52192ad9841aaf4f52b69658818b4728",
+      "inc/rest-api/v1/frontend/class-lp-rest-courses-controller.php": "74df98b368b98849bb45dafad6c79a04033e9a2adaabf9bbdb03f432a8735654",
+      "inc/lp-core-functions.php": "e17d38c40c4200e3ce2db2985f5d75726004a86e88c50d86ed4c8780468f824d",
+      "inc/class-lp-helper.php": "643d17cd17e389bc707880cd6030d4b7cfb9862c9c1550a0bc4f0cfe1fb61ddc",
+      "readme.txt": "8d2d17a3df912ef6d3f6914129db14ee23456da8c8de37e3a39c696618360ed9",
+      "inc/class-lp-install.php": "41e8562bdf17ede944a281d112c6fc6a3288fbff5db65d5cbd2bb888f101785b",
+      "inc/custom-post-types/course.php": "c9fa7a9b366c2dda0143e33feba9a4a9bba567cfb9b61c39c358041618c9ec2d",
+      "inc/jwt/rest-api/class-rest-api.php": "aee65c101f72ab33c494612d03e169eafe3f6e67d278d4129b1a788306ab4d7b"
+    }
+  }
+}
