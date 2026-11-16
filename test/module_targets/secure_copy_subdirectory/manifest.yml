@@ -1,0 +1,65 @@
+---
+spec: spec/modules/auxiliary/scanner/http/secure_copy_target_spec.rb
+expected_examples: 2
+console: false
+health_timeout: 180
+test_timeout: 1200
+test_env:
+  SECURE_COPY_RELEASE: "2.8.1"
+  SECURE_COPY_MODE: "enabled"
+  SECURE_COPY_PREFIX: "/wordpress"
+  SECURE_COPY_TABLE_PREFIX: "wp_"
+  SECURE_COPY_REPORTS: "0"
+  SECURE_COPY_USER_COUNT: "1"
+  SECURE_COPY_REPEATS: "1"
+  SECURE_COPY_CLOSED_PORT: "0"
+  SECURE_COPY_FORCE_FIXED: "0"
+modules:
+- auxiliary/scanner/http/wp_secure_copy_content_protection_sqli
+ports:
+  app: 80
+  reporting_db: 5432
+support_files:
+- .ruby-gemset
+- .ruby-version
+- Gemfile
+- Gemfile.lock
+- documentation/modules/auxiliary/scanner/http/wp_secure_copy_content_protection_sqli.md
+- lib/msf/core/auxiliary/report.rb
+- lib/msf/core/auxiliary/scanner.rb
+- lib/msf/core/exploit/remote/auto_check.rb
+- lib/msf/core/exploit/remote/http/wordpress.rb
+- lib/msf/core/exploit/remote/http/wordpress/sqli.rb
+- lib/msf/core/exploit/remote/http_client.rb
+- lib/msf/core/exploit/sqli.rb
+- lib/msf/core/exploit/sqli/mysqli/common.rb
+- lib/msf/core/exploit/sqli/mysqli/time_based_blind.rb
+- metasploit-framework.gemspec
+- msfconsole
+- spec/acceptance_spec_helper.rb
+- spec/spec_helper.rb
+- spec/support/acceptance/datastore_formatting.rb
+- test/module_targets/elasticsearch_memory/init.sql
+- test/module_targets/elasticsearch_memory/services.yaml
+- test/module_targets/learnpress_fields/timing.conf
+- test/module_targets/secure_copy/README.md
+- test/module_targets/secure_copy/apache2-foreground
+- test/module_targets/secure_copy/control.php
+- test/module_targets/secure_copy/finish.php
+- test/module_targets/secure_copy/php.ini
+- test/module_targets/secure_copy/prepare.rb
+- test/module_targets/secure_copy/releases.json
+- test/module_targets/secure_copy/seed.php
+- test/module_targets/secure_copy/services.yaml
+- test/module_targets/wordpress/Dockerfile
+- test/module_targets/wordpress/README.md
+- test/module_targets/wordpress/apache2-foreground
+- test/module_targets/wordpress/compose.yaml
+- test/module_targets/wordpress/db.Dockerfile
+- test/module_targets/wordpress/init.sql
+- test/module_targets/wordpress/plugin_sources.rb
+- test/module_targets/wordpress/seed.php
+- tmp/module-target-secure-copy-sources/2.8.1.zip
+- tmp/module-target-secure-copy-sources/2.8.2.zip
+- lib/msf/core/auxiliary/multiple_target_hosts.rb
+- lib/msf/core/exploit.rb

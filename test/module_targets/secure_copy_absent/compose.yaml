@@ -1,0 +1,17 @@
+services:
+  db:
+    extends: {file: ../secure_copy/services.yaml, service: db}
+  app:
+    extends: {file: ../secure_copy/services.yaml, service: app}
+    environment:
+      SECURE_COPY_RELEASE: "2.8.1"
+      SECURE_COPY_MODE: "absent"
+      LAB_PREFIX: ""
+      WORDPRESS_TABLE_PREFIX: "wp_"
+    volumes:
+    - ../../../tmp/module-target-secure-copy-sources/2.8.1.zip:/opt/module-target/plugin.zip:ro
+  reporting_db:
+    extends: {file: ../secure_copy/services.yaml, service: reporting_db}
+networks:
+  default: {internal: true}
+  public: {}
