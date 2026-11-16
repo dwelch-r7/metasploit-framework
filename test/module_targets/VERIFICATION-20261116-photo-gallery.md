@@ -1,8 +1,10 @@
 # Photo Gallery SQL injection validation
 
-Status: native calibration complete; functional qualification pending. This
-record adds no runtime coverage counts. Seven genuine profiles and 33 cases are
-drafted under [photo_gallery](photo_gallery/README.md).
+Status: qualified in seven current profiles. Photo Gallery adds one owner,
+seven profiles and 33 cases, advancing historical campaign coverage to **262
+runtime owners in covered paths, 421 profiles and 3,491 functional cases**.
+The [lab](photo_gallery/README.md) retains reproducible genuine targets. A
+separate seven-profile Depicter replay adds no counts.
 
 ## Native setup and release boundary
 
@@ -68,7 +70,94 @@ The extended native seals are:
 | 1.5.82 | 71 | `550bc74a97dbe007e5f226c4fd59150ec2a2c95a36d99f06d371e170b3d04012` |
 | 1.6.0 | 71 | `624b45d38fb575b17d0d8a6f8e07d344264c335d386d65c19803bb9bd59895fe` |
 
-The separate repair worktree is implementing framed extraction and an optional
-shared strict SQL-result contract. Focused source validation, genuine profile
-runs and a Depicter replay remain pending. No new coverage is qualified here,
-and no PR is created.
+## Source repair and focused contracts
+
+Worker commits `639799a2801ef5374bc641885a22c4ec0844de4e` and
+`a3111ac01ad32a99fbe9211d9afc25b1b365bc2b` were imported as `b6fd5c5c587`
+and `73e82687c26`. Photo Gallery now suppresses ordinary image rows, frames
+each scalar with query-specific hexadecimal literals, and reads exact matching
+title and image-alt frames. Identical renderings are deduplicated; malformed,
+missing or conflicting frames fail without reporting credentials. SQL NULL
+and empty strings remain distinct. COUNT and SHORTCODE_ID are registered with
+the original effective defaults of five and one, and each run prepares fresh
+query state and probes even when AutoCheck is disabled.
+
+The existing MySQLi Common implementation has an optional `strict_results`
+setting, disabled by default. It validates counts where consumed, built-in HEX
+byte pairs and complete decoded rows while preserving trailing empty fields.
+Caller options are copied for strict wrapping so reuse cannot affect a later
+call with strict mode disabled. Depicter reuses that guard instead of local
+decoder, SQL-text count detection and row-validation wrappers. The shared
+WordPress SQL helper and both whole human guides are unchanged.
+
+| Matched focused suite | Cases | Original failures | Repaired failures |
+| --- | --- | --- | --- |
+| Strict MySQLi results | 37 | 22 | 0 |
+| Existing MySQLi Common | 31 | 0 | 0 |
+| Retained Depicter contracts | 49 | 0 | 0 |
+| Photo Gallery contracts | 45 | 45 | 0 |
+
+Every side has zero pending or outside-example errors. Existing Common and
+Depicter suites retain their exact source; all 162 final examples pass. Strict
+lint retains one unchanged `Style/OptionalBooleanParameter` finding in Common's
+existing `read_from_file` method, with original/final exit one. Both modules
+and new specs have zero offenses; module msftidy, syntax and diff checks pass.
+Initial lean-loader, synthetic HTML encoding and test-construction errors are
+retained separately. An intermediate options-copy regression is also preserved.
+
+The immutable worker archive contains 802 independently rehashed entries under
+`/Users/dwelch/.codex/reports/photo-gallery-sqli-contracts-20261116`;
+manifest SHA-256 is
+`65416b06dfe5ec937d5b53d815f2b5dbab0bce127d2c2183f02a307db6c84ce8`.
+The parent confirmed the exact file set and separately reverified nine benign
+captured native bodies against source receipts and checksums. Query evaluation,
+HTTP, persistence and UI in focused tests use explicit doubles; malformed
+results are synthetic. These tests establish no additional native versions.
+
+## Genuine profile results
+
+All seven profiles pass all 33 cases and 66 public calls. Independent controls
+make 246 native HTTP requests. Thirty-six exact loot files and 64 distinct
+workspace credential rows match complete native users and hashes. Default,
+limited and all-row extraction work twice with AutoCheck enabled or disabled;
+nondefault shortcodes and hidden titles also collect complete credentials.
+The fixed release, absent plugin, unrelated service, wrong path and real
+PostgreSQL endpoint save no credentials or loot.
+
+All 96 union declared inputs match current bytes across the seven passing
+profiles. Actual container inspection verifies at most three services, CPU
+limits no greater than 0.5, equal memory/swap limits, PID limits of 128, init
+processes and loopback-only published ports. No service restarts, OOM events
+or PID-limit events occur. Each exact project is removed before the next;
+independent container/network/volume queries and global inventories are empty
+at every completed teardown. No sessions or jobs remain.
+
+All seven Compose configurations and exact case collections pass preflight.
+Its 149-entry seal is
+`/Users/dwelch/.codex/reports/photo-gallery-preflight-20261116T091725-seal`;
+manifest SHA-256 is
+`82b4de9fa12f961ae2a2b380b87795d81fc8682243a6c39e62c191a22ba2c56c`.
+The runtime fixture revision is `1394c0b8fe7`; source/fixture inputs are frozen.
+All seven Depicter revalidation profiles pass 31 cases and 62 public calls,
+with 32 exact loot files, 44 workspace credential rows and 91 native HTTP
+requests. Their 102 union inputs match current bytes. The shared-library
+change therefore retains its previously qualified behavior in the recorded
+paths; this replay adds no owner, profile or case. Broader library users retain
+the default behavior and were not all replayed.
+
+The qualification increment is applied once: 261/414/3,458 becomes
+262/421/3,491 owners/profiles/cases. All fourteen current stacks are capped and
+removed, Docker is empty and the advisory lock is free. Earlier campaign scope
+remains historical. The broader campaign and recorded investigations remain
+open. No PR is created.
+
+
+| Profile | Cases | Calls | Loot files | Workspace rows |
+| --- | ---: | ---: | ---: | ---: |
+| `photo_gallery` | 9 | 18 | 12 | 22 |
+| `photo_gallery_prefix` | 5 | 10 | 8 | 14 |
+| `photo_gallery_table_prefix` | 5 | 10 | 8 | 14 |
+| `photo_gallery_low_limit` | 5 | 10 | 8 | 14 |
+| `photo_gallery_fixed` | 3 | 6 | 0 | 0 |
+| `photo_gallery_absent` | 3 | 6 | 0 | 0 |
+| `photo_gallery_unrelated` | 3 | 6 | 0 | 0 |

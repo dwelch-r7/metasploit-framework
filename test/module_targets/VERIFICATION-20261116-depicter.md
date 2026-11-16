@@ -220,3 +220,32 @@ error contracts, not additional product-version exploitability.
 **Suggestions:** Keep those broader shared-prefix questions for a separate
 native investigation. No blocker remains for the qualified profiles. The
 broader module campaign remains open; no PR is created.
+
+
+## Shared strict-result revalidation
+
+The [Photo Gallery checkpoint](VERIFICATION-20261116-photo-gallery.md) replays
+all seven Depicter profiles against the optional shared MySQLi result validator.
+Depicter owner SHA-256 is
+`d7f43ba35c49d23d580a9c622753f1a3cb923b161d60e1642762eac684146fd9`;
+Common SHA-256 is
+`9217006659e6392d5829d437dc04a035b2106c448f40cdfd3c517b04f23a3e48`.
+The original local decoder, SQL-text count guard and row wrapper are replaced
+by `strict_results: true`; default library behavior stays unchanged.
+
+All seven profiles pass all 31 cases and 62 public calls at fixture revision
+`1394c0b8fe7`. Thirty-two exact loot files and 44 workspace credential rows
+match native values. All 91 independent native HTTP controls pass, including
+the fixed release's authenticated normal lead listing and injection refusal.
+Every one of the 102 union declared inputs matches current bytes. Actual caps,
+zero restart/OOM/PID-limit events and exact project/global cleanup pass.
+No additional owner, profile or case is counted.
+
+The retained 49-case source suite is byte-identical and passes before/after
+shared-library adoption. The new 37-case library contract suite and existing
+31-case Common suite also pass on the final source. Their source selection,
+comparative failures, unchanged baseline lint finding and complete immutable
+receipts are documented in the Photo Gallery record. The original seven
+qualification seals above retain their historical inputs; these fresh replay
+seals are referenced by the Photo Gallery checkpoint. The whole human guide
+and shared WordPress SQL helper remain unchanged.

@@ -1,6 +1,19 @@
 # Container module acceptance tests
 
-Latest: [Depicter credential gathering](VERIFICATION-20261116-depicter.md) adds
+Latest: [Photo Gallery credential gathering](VERIFICATION-20261116-photo-gallery.md)
+adds one owner, seven profiles and 33 cases, reaching **262 runtime owners in
+covered paths, 421 profiles and 3,491 functional cases**. All 66 public calls
+pass; 36 exact loot files and 64 workspace credential rows match native users
+and complete hashes. Genuine captions, hidden titles, alternate shortcodes,
+paths, prefixes, low SQL limits and fixed/negative controls distinguish the
+original false Safe result from setup corrections. Seven Depicter profiles
+also pass 31 replayed cases and 62 calls against the shared opt-in validator,
+without increasing counts. All fourteen profiles retain current declared
+inputs, use at most three capped containers and clean up before the next.
+Docker is empty and the advisory lock is free. Earlier coverage remains
+historical; the campaign and investigations remain open. No PR is created.
+
+Previous: [Depicter credential gathering](VERIFICATION-20261116-depicter.md) adds
 one owner, seven profiles and 31 cases, reaching **261 runtime owners in covered
 paths, 414 profiles and 3,458 functional cases**. All 62 public calls pass.
 Thirty-two exact loot files and 44 workspace credential rows match native user

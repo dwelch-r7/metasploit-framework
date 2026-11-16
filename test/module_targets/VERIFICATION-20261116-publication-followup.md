@@ -150,3 +150,48 @@ The Fetch failures are reproduced by loading the suite's WebMock RSpec bridge wi
 Worker commit `124ee17efee64ddb01e311134c046c228bce939c` was imported as `25d2b39763b`. The local immutable `fetch-lifecycle-webmock-policy-20261116` evidence archive has 4,710 entries; SHA-256 of `SHA256SUMS` is `d2a74baa2c19a22947fc77373de97c91f725e67b4397522a4567e48fdec8ac5e`. Parent verification rehashed every entry and confirmed the exact file set. This local repair remains unpublished at this observation. Full-suite CI for it has not yet run.
 
 Nine workflows on the File Manager publication have completed successfully. Meterpreter Acceptance remains active at this observation, so overall publication CI is still pending. No manual retry, cancellation or PR was created.
+
+### File Manager terminal observation
+
+Observed 2026-11-16T08:13:15.810729+00:00: all ten workflows completed successfully; 63 checks succeeded and one was skipped. The initial normal-suite Fetch failures and built-in retry remain as recorded above. The scoped repair is now published in `28eb1a807b727e20a6690f78d5ab417811f7795b`; that publication's new CI is in progress.
+
+[macOS Mettle](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43819702157/job/133139710490) passed 46 examples with zero failures; [macOS Java 21](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43819702157/job/133139710337) passed 51 with zero failures. Both logs show actual Framework checkout `bea1fb069e79cb610fe3981f16b8697790369c63`, the upstream revision selected by those general acceptance workflows. These results do not establish candidate payload-package byte provenance. The preceding publication's Mettle stderr failure remains unexplained; this passing run does not establish its cause. No manual retry or cancellation was performed.
+
+
+## Depicter publication 28eb1a807b7
+
+All ten workflows are terminal: nine succeed and Meterpreter Acceptance fails.
+The 64 checks comprise 61 successes, two failures and one skip. Both selected
+Ruby 3.3 non-content jobs check out the exact published fork commit
+`28eb1a807b727e20a6690f78d5ab417811f7795b`. Each executes all 49 Depicter,
+ten Fetch lifecycle and 39 File Manager contracts successfully on the first
+attempt. These jobs do not replay the Docker profiles.
+
+| Ruby 3.3 job | First attempt | Built-in retry |
+| --- | --- | --- |
+| [Normal](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43828175724/job/133166846856) | 19,782 examples, zero failures, 33 pending | None |
+| [REMOTE_DB](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43828175724/job/133166846775) | 19,595 examples, zero failures, 664 pending | None |
+
+The two failed macOS jobs both show actual Framework checkout
+`bea1fb069e79cb610fe3981f16b8697790369c63`, the upstream revision selected by
+the general acceptance workflow. [PHP 5.3](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43828176646/job/133166852284)
+reports 91 examples and 91 failures, seed 59407. All fail in shared console
+startup before sessions: the process remains alive but its prompt never matches,
+and the captured buffer contains only the OPENSSL_CONF legacy-functions notice.
+That notice does not establish the startup cause.
+
+[macOS Mettle](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43828176646/job/133166852328)
+reports 46 examples and one failure, seed 14431. The reverse-TCP
+`post/test/cmd_exec` path fails the double-quoted echo output assertion; the
+actual mismatched value is not printed. Its stderr assertion passes. This
+observation differs from the earlier reverse-HTTPS stderr failure and does not
+resolve that investigation. Both current causes and branch causality remain
+unverified. No agent retry or cancellation was initiated; candidate native
+binary/package bytes were not audited.
+
+The twelve-entry immutable CI seal is
+`/Users/dwelch/.codex/reports/depicter-publication-terminal-20261116`;
+SHA-256 of `SHA256SUMS` is
+`8bd3cce615063cd215be2550486632e860ac124ec77ac47d7abcea27b6112ac0`.
+The parent independently rehashed all twelve entries and confirmed the exact
+file set. This follow-up changes no qualification counts. No PR is created.
