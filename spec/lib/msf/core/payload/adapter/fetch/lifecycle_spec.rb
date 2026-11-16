@@ -1,6 +1,7 @@
 require 'spec_helper'
 require 'net/http'
 require 'socket'
+require 'webmock'
 
 RSpec.describe 'Fetch HTTP service ownership' do
   # The public adapter/server methods are real. These bindings supply options,
@@ -41,6 +42,16 @@ RSpec.describe 'Fetch HTTP service ownership' do
   before do
     @owners = []
     @servers = []
+
+    # Permit this example's real listener without changing the suite's policy.
+    owned_port = port
+    allow(WebMock).to receive(:net_connect_allowed?).and_wrap_original do |original, uri = nil|
+      if uri.is_a?(Addressable::URI) && %w[http https].include?(uri.scheme) && uri.host == '127.0.0.1' && uri.port == owned_port
+        true
+      else
+        original.call(uri)
+      end
+    end
   end
 
   after do
