@@ -1,0 +1,12 @@
+services:
+  db:
+    extends: {file: ../file_manager/services.yaml, service: db}
+  app:
+    extends: {file: ../file_manager/services.yaml, service: root}
+    environment:
+      FILE_MANAGER_RELEASE: "6.0"
+    volumes:
+    - ../../../tmp/module-target-file-manager-sources/6.0.zip:/opt/module-target/plugin.zip:ro
+networks:
+  default: {internal: true}
+  public: {}

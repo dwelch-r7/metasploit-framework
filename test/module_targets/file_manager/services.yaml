@@ -1,0 +1,51 @@
+x-runtime: &runtime
+  platform: linux/amd64
+  build:
+    context: ../wordpress
+    args:
+      WORDPRESS_IMAGE: wordpress:5.2.4-php7.3-apache@sha256:83a8d86d5266cf2ff24715e248226b60b3a3f8e8d4a27fcc7ed4f33a4d09e468
+  cpus: 0.5
+  mem_limit: 384m
+  memswap_limit: 384m
+  pids_limit: 128
+  init: true
+  networks: [default, public]
+  volumes:
+  - ../wordpress/seed.php:/opt/module-target/seed-base.php:ro
+  - ./seed.php:/opt/module-target/seed.php:ro
+  - ./inspect.php:/opt/module-target/control.php:ro
+  - ./releases.json:/opt/module-target/releases.json:ro
+  - ../wpdiscuz/no-mail.ini:/usr/local/etc/php/conf.d/module-target-file-manager.ini:ro
+  healthcheck:
+    test: [CMD-SHELL, 'test -f /tmp/module-target-file-manager-ready && curl --fail --silent http://127.0.0.1$${LAB_PREFIX}/wp-login.php >/dev/null']
+    interval: 3s
+    timeout: 5s
+    retries: 40
+services:
+  db:
+    extends: {file: ../wordpress/compose.yaml, service: db}
+    cpus: 0.5
+    mem_limit: 512m
+    memswap_limit: 512m
+    pids_limit: 128
+    init: true
+  root:
+    extends: {file: ../wordpress/compose.yaml, service: root}
+    <<: *runtime
+  prefix:
+    extends: {file: ../wordpress/compose.yaml, service: prefix}
+    <<: *runtime
+  unrelated:
+    extends: {file: ../http/compose.yaml, service: apache}
+    networks: [default, public]
+    cpus: 0.25
+    mem_limit: 128m
+    memswap_limit: 128m
+    pids_limit: 128
+    init: true
+  framework:
+    cpus: 1
+    mem_limit: 1024m
+    memswap_limit: 1024m
+    pids_limit: 256
+    init: true

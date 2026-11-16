@@ -1,0 +1,45 @@
+{
+  "file_manager": {
+    "release": "6.0",
+    "mode": "affected",
+    "prefix": "",
+    "payloads": [
+      "php/reverse_php",
+      "php/meterpreter_reverse_tcp",
+      "php/meterpreter/reverse_tcp"
+    ],
+    "auto_check_disabled_case": true
+  },
+  "file_manager_prefix": {
+    "release": "6.0",
+    "mode": "affected",
+    "prefix": "/wordpress",
+    "payloads": [
+      "php/meterpreter/reverse_tcp"
+    ]
+  },
+  "file_manager_readonly": {
+    "release": "6.0",
+    "mode": "readonly",
+    "prefix": "",
+    "payloads": []
+  },
+  "file_manager_fixed": {
+    "release": "8.0.7",
+    "mode": "fixed",
+    "prefix": "",
+    "payloads": []
+  },
+  "file_manager_absent": {
+    "release": null,
+    "mode": "absent",
+    "prefix": "",
+    "payloads": []
+  },
+  "file_manager_unrelated": {
+    "release": null,
+    "mode": "unrelated",
+    "prefix": "",
+    "payloads": []
+  }
+}

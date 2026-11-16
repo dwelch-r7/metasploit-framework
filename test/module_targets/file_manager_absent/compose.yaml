@@ -1,0 +1,10 @@
+services:
+  db:
+    extends: {file: ../file_manager/services.yaml, service: db}
+  app:
+    extends: {file: ../file_manager/services.yaml, service: root}
+    environment:
+      FILE_MANAGER_RELEASE: "absent"
+networks:
+  default: {internal: true}
+  public: {}

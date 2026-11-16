@@ -1,0 +1,35 @@
+{
+  "6.0": {
+    "url": "https://downloads.wordpress.org/plugin/wp-file-manager.6.0.zip",
+    "sha256": "f70dd0e72d030795639e3c59e4a0c73005cabf07e1c91efaa34d0808a5995c9d",
+    "bytes": 3675292,
+    "nested": {
+      "member": "wp-file-manager/wp-file-manager-6.O.zip",
+      "sha256": "e4c62af00a8f287ef1826a75fe6f9fc711667ca6ae2e1a9df1124bd7fb70eb6b",
+      "bytes": 3675008
+    },
+    "installed_sha256": {
+      "readme.txt": "3bd0cff737d0edbc371717bbda0c10866cf308641cd3cd4bf3ee9ebfc144feb0",
+      "file_folder_manager.php": "7921933e6034615a136278cf0670c01364556b202efa5e4d4f124b2b60cddaf0",
+      "lib/php/connector.minimal.php": "af9a0176e1e243c430fa061f5a6f03f461ac8fab2800b6ee7a45d0ff5e3a8aed",
+      "lib/php/elFinder.class.php": "5749ba2ef6938e0938b66cc4c42fc0b9403f9e6bc7a7c5464c7b38572551001a",
+      "lib/php/elFinderConnector.class.php": "b22b523455afa00d38594aaefe977b1b4a866f4521192304a710e56104e9cb0f"
+    }
+  },
+  "8.0.7": {
+    "installed_sha256": {
+      "readme.txt": "2ae7b00efcc2a662db62f15cbf71b90779de3884842d72d02903a7d812da62ea",
+      "file_folder_manager.php": "e131744dd85c0e8688a1fce24a1331c1fb48db5d0766615ee32b78f5d145b872",
+      "lib/php/elFinder.class.php": "c8b232b58b39a1cb005988cc9b0d39a3931c48bff340343a3b62711919870f0b",
+      "lib/php/elFinderConnector.class.php": "52f10407ddd5bf22c3d872df2cbe522b1544f28ec043435c6da7224fed896ae0"
+    },
+    "official_archive_sha256": "57b8de527b28837f6e7e3f45d11476f9ba05aeb3e239a706acbe93234273044e",
+    "official_archive_bytes": 6643834,
+    "sha256": "f654f8c8693123d267eac0cdca1b88d2e0006e09cc680fdfc0f82c42a7405b1f",
+    "bytes": 17695708,
+    "source_files": 916,
+    "packaging": "Deterministic ZIP_STORED of immutable SVN revision3804192; all916 files match official8.0.7 ZIP",
+    "official_url": "https://downloads.wordpress.org/plugin/wp-file-manager.zip",
+    "immutable_source_base": "https://plugins.svn.wordpress.org/!svn/bc/3804192/wp-file-manager/trunk/"
+  }
+}
