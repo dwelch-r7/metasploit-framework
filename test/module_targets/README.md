@@ -1,6 +1,17 @@
 # Container module acceptance tests
 
-Latest: [BookingPress credential gathering](VERIFICATION-20261115-bookingpress.md)
+Latest: [Duplicator file reads](VERIFICATION-20261116-duplicator.md) adds one
+owner, six profiles and 30 cases, reaching **258 runtime owners in covered paths,
+393 profiles and 3,358 functional cases**. All 63 public calls pass; 36 loot
+files match native bytes, including six empty files. Repaired scanner dispatch
+and attachment validation prevent refusal pages becoming loot. Genuine affected,
+subdirectory, fixed, absent and unrelated targets distinguish source defects
+from setup errors. All six passing profiles retain current declared inputs.
+Each serial stack has at most two capped containers; all are removed and the
+advisory lock is free. Earlier recorded scope stays sealed; the broader campaign
+remains open. No PR is created.
+
+Previous: [BookingPress credential gathering](VERIFICATION-20261115-bookingpress.md)
 adds one owner, eight profiles and 37 cases, reaching **257 runtime owners in
 covered paths, 387 profiles and 3,328 functional cases**. All 64 public calls
 pass, with twenty complete dumps and forty exact workspace credential rows.
