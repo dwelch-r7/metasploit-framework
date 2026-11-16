@@ -310,3 +310,67 @@ The 2026-11-16 13:42 UTC workflow snapshot still has nine successful workflows
 and Meterpreter Acceptance in progress. Its latest job snapshot has 22 completed
 successful/skipped jobs and the macOS Mettle job still running. This is not an
 overall terminal verdict. There is no agent-initiated retry or cancellation.
+
+
+## Elasticsearch memory selected unit result
+
+Published checkpoint `73255f3f2c9f9749ba84b14d10b934afad5a8745` passes all
+fourteen Verify jobs on attempt two. Attempt one failed before RSpec while
+Bundler copied a cached LicenseFinder Git repository: its commit-graph lockfile
+was absent. The underlying missing-lock cause remains unverified. Matrix
+fail-fast cancelled the other unit jobs. One complete Verify retry was requested
+after that workflow became terminal; that retry budget is now used.
+
+Both selected Ruby 3.3 logs independently show the exact published checkout,
+all 25 Elasticsearch memory contract examples and one RSpec process with zero
+failures. No example-level rerun was needed in either selected retry job.
+
+| Ruby 3.3 job | Attempt-two result | Seed |
+| --- | --- | ---: |
+| [Normal](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43879140149/job/133346875945) | 19,914 examples, zero failures, 33 pending | 10442 |
+| [REMOTE_DB](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43879140149/job/133346876081) | 19,727 examples, zero failures, 664 pending | 13540 |
+
+The independently rehashed eight-entry unit CI seal is
+`/Users/dwelch/.codex/reports/elasticsearch-memory-publication-unit33-20261116`;
+manifest SHA256 `0691048757411c2ee9b3b6849e59f141dc76b6421a9b2451302f3066f9a48e67`.
+The native acceptance workflow has separate execution provenance and results;
+these unit results do not establish a native acceptance pass.
+
+## Drupal PostgreSQL terminal native follow-up
+
+The [Meterpreter workflow](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43864689557)
+is terminal with failure; Generate report completes successfully. The
+[macOS Mettle job](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43864689557/job/133290117516)
+reports 46 examples and two failures, seed 2225. An `osx/x64/meterpreter_reverse_http`
+session opens using `base64_transforms.profile`; network-interface assertions
+fail in `post/test/meterpreter`, followed by a completion timeout while the
+console remains alive. The following `post/test/file` example cannot obtain
+the prompt and retains the preceding test's buffer. An independent file-module
+defect is not established.
+
+That job's actual Framework checkout is upstream
+`bea1fb069e79cb610fe3981f16b8697790369c63`, rather than the fork's Drupal
+checkpoint. The underlying interface/stall cause, package source bytes and
+base-versus-fork causality remain unverified. There is no agent retry or
+cancellation. The six-entry terminal follow-up seal is
+`/Users/dwelch/.codex/reports/drupal-pgsql-publication-meterpreter-20261116`;
+manifest SHA256 `bdd28a6cda0aae201b31ed41b5f189fb25745cb26a0849fc4379674cd118e491`.
+
+
+## Elasticsearch memory terminal native result
+
+All ten workflows are terminal: nine succeed and Meterpreter Acceptance fails.
+The Meterpreter matrix has 22 successful jobs, one failure and one skip;
+Generate report succeeds. The [Java 21 macOS job](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43879140453/job/133340018988)
+passes all 51 examples with zero failures, seed 32835. Its `Archive results`
+step then fails because ArtifactService/CreateArtifact times out after five
+action-internal attempts. The underlying artifact-service cause remains
+unverified. These internal upload attempts are distinct from the one complete
+Verify retry recorded above; no native job retry or cancellation is requested.
+
+The Java job actually checks out `rapid7/metasploit-framework` at
+`aa9ce416588a2d6fb97423d23591089aff2c8c3e`. That is separate from the fork
+checkout exercised by the selected Ruby unit jobs. Package source bytes were
+not audited. The eight-entry terminal seal is
+`/Users/dwelch/.codex/reports/elasticsearch-memory-publication-terminal-20261116`;
+manifest SHA256 `386993b19aa49328297b8c28c5477d7ad3d4711c7e17b0b70e4e0910432daea8`.

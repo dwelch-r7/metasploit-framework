@@ -1,6 +1,18 @@
 # Container module acceptance tests
 
-Latest: [Elasticsearch memory disclosure](VERIFICATION-20261116-elasticsearch-memory.md)
+Latest: [WP Fastest Cache credential gathering](VERIFICATION-20261116-wp-fastest-cache.md)
+adds one owner, nine profiles and fifteen cases, reaching **266 runtime owners
+in covered paths, 450 profiles and 3,592 functional cases**. All fifteen public
+runs pass with five exact loot files and five deduplicated credential rows.
+Genuine affected/fixed, custom-prefix, subdirectory, COUNT=2 and missing-prerequisite
+states expose and verify a shared prefix-discovery fix. Fifteen focused unit
+cases pass after six original failures; 134 existing consumer unit cases and
+fourteen native consumer regression cases also pass. Every capped three-container
+stack is removed; Docker is empty and the lock is free. The human module guide
+is preserved. Earlier coverage stays historical; the broader campaign remains
+open. No PR is created.
+
+Previous: [Elasticsearch memory disclosure](VERIFICATION-20261116-elasticsearch-memory.md)
 adds one owner, five profiles and 28 cases, reaching **265 runtime owners in
 covered paths, 441 profiles and 3,577 functional cases**. All 76 public calls
 pass, with 18 exact same-response loot files and sixteen deduplicated vulnerability
