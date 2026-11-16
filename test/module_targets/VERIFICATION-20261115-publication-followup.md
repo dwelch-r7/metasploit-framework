@@ -113,3 +113,44 @@ passes **46 / 0**, seed 29215. Both actual checkout commands resolve to upstream
 unaudited. These are separate runs, with no retry/cancellation performed here.
 The seven-entry terminal log/API/assessment archive has manifest SHA256
 `de5cea7b7d68772d7623d6cb536498ca911bf088c4df243d8b3ecdbad1e708d1`.
+
+## Erlang SSH checkpoint
+
+The exact fork checkout `614994d24526337b0896603202b61972a25693b4` passes both
+Ruby 3.3 non-content unit modes independently:
+[ordinary database mode](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43773721397/job/132995116238)
+has **19,547 examples / 0 failures / 33 pending**, seed 3632; and
+[REMOTE_DB=1](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43773721397/job/132995116406)
+has **19,360 examples / 0 failures / 664 pending**, seed 28939. Actual checkout
+log output identifies that fork revision, and both logs execute all 52 new
+Erlang SSH command/check contract examples. The modes are not combined.
+The five-entry raw log/API/assessment archive has manifest SHA256
+`85482b6452cb8646ec8cc3e00c43da795b9b67ea422f1a46eef8b6cbcb984c24`.
+
+The terminal aggregate is **9 workflows succeeded, 1 failed; 64 checks comprise
+62 success, 1 expected skip and 1 failure**. The failure is the post-test artifact
+upload described below. No retry or cancellation is performed here.
+
+The subsequent [Linux native result](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43773721551/job/132995118229)
+passes **51 examples / 0 failures**, seed 56206. Its actual Framework checkout is
+upstream `bea1fb069e79cb610fe3981f16b8697790369c63`, despite fork-head job metadata;
+it does not establish native execution of the new fork source. Installed native
+binary provenance is unaudited. Its three-entry raw/API/assessment archive has
+manifest SHA256
+`e42503d77b7172ebf1956e503eaefdf854a531e55cfab15f5e21a76160a8670c`.
+
+[Python 3.11 on macOS](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43773721551/job/132995118124)
+passes **91 examples / 0 failures**, seed 4002, then fails the `Archive results`
+step. `actions/upload-artifact` times out creating the artifact after five
+built-in attempts. This is a post-test artifact upload failure. The actual
+Framework checkout is upstream `bea1fb069e79cb610fe3981f16b8697790369c63`; installed
+payload provenance is unaudited. No agent retry or cancellation occurs. The
+three-entry raw/API/assessment archive has manifest SHA256
+`c10181f3ee93cf2bf93e8a2258f4e40dd7e98a243dba686795827cd1bbeac982`.
+
+[macOS native](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43773721551/job/132995118236)
+passes **46 examples / 0 failures**, seed 38643. Its actual Framework checkout is
+also upstream `bea1fb069e79cb610fe3981f16b8697790369c63`; installed
+native binary provenance remains unaudited. The six-entry terminal log/API/assessment
+archive has manifest SHA256
+`eea49518b9a78b834870c26d6f7e5b39068ebbe786872eb1ab7dafaf40733a48`.
