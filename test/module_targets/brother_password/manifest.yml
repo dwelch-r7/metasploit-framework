@@ -1,0 +1,29 @@
+---
+spec: spec/modules/auxiliary/admin/misc/brother_password_target_spec.rb
+expected_examples: 19
+console: false
+health_timeout: 120
+modules:
+- auxiliary/admin/misc/brother_default_admin_auth_bypass_cve_2024_51978
+ports:
+  reporting_db: 5432
+support_files:
+- .ruby-gemset
+- .ruby-version
+- Gemfile
+- Gemfile.lock
+- documentation/modules/auxiliary/admin/misc/brother_default_admin_auth_bypass_cve_2024_51978.md
+- lib/msf/core/auxiliary/report.rb
+- lib/msf/core/exploit/remote/http_client.rb
+- lib/msf/core/exploit/remote/snmp_client.rb
+- metasploit-framework.gemspec
+- msfconsole
+- spec/acceptance_spec_helper.rb
+- spec/spec_helper.rb
+- spec/support/acceptance/datastore_formatting.rb
+- test/module_targets/brother_password/README.md
+- test/module_targets/brother_password/cases.json
+- test/module_targets/brother_password/compose.yaml
+- test/module_targets/brother_password/reference-vectors.json
+- test/module_targets/elasticsearch_memory/init.sql
+- test/module_targets/elasticsearch_memory/services.yaml

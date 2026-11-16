@@ -1,0 +1,6 @@
+services:
+  reporting_db:
+    extends: {file: ../elasticsearch_memory/services.yaml, service: db}
+networks:
+  default: {internal: true}
+  public: {}

@@ -1,0 +1,155 @@
+{
+  "scope": "Supplied synthetic serial with ValidatePassword=false only; no printer discovery or authentication qualification",
+  "cases": [
+    {
+      "name": "short serial",
+      "serial": "MODULETEST01",
+      "expected_password": "%@9jegU5",
+      "case": "short-serial",
+      "workspace": "repeat"
+    },
+    {
+      "name": "short serial",
+      "serial": "MODULETEST01",
+      "expected_password": "%@9jegU5",
+      "case": "repeat-same-serial",
+      "workspace": "repeat"
+    },
+    {
+      "name": "sixteen characters",
+      "serial": "MODULETARGET0001",
+      "expected_password": "Y%M*6cjd",
+      "case": "vector-1",
+      "workspace": "vector1"
+    },
+    {
+      "name": "suffix beyond sixteen characters",
+      "serial": "MODULETARGET0001EXTRA",
+      "expected_password": "Y%M*6cjd",
+      "case": "vector-2",
+      "workspace": "vector2"
+    },
+    {
+      "name": "first lookup index",
+      "serial": "MODULETARGET0001",
+      "SaltLookupIndex": 0,
+      "expected_password": "neGQ0XJ:",
+      "case": "vector-3",
+      "workspace": "vector3"
+    },
+    {
+      "name": "alternate lookup index",
+      "serial": "MODULETARGET0001",
+      "SaltLookupIndex": 1,
+      "expected_password": "i7FceU6?",
+      "case": "vector-4",
+      "workspace": "vector4"
+    },
+    {
+      "name": "explicit ASCII salt",
+      "serial": "MODULETARGET0001",
+      "SaltData": "TESTSALT",
+      "expected_password": "wDgAQk0f",
+      "case": "vector-5",
+      "workspace": "vector5"
+    },
+    {
+      "name": "explicit salt at final lookup",
+      "serial": "MODULETARGET0001",
+      "SaltLookupIndex": 255,
+      "SaltData": "TESTSALT",
+      "expected_password": "wDgAQk0f",
+      "case": "vector-6",
+      "workspace": "vector6"
+    },
+    {
+      "name": "explicit salt at first lookup",
+      "serial": "MODULETARGET0001",
+      "SaltLookupIndex": 0,
+      "SaltData": "TESTSALT",
+      "expected_password": "wDgAQk0f",
+      "case": "vector-7",
+      "workspace": "vector7"
+    },
+    {
+      "name": "eight UTF-8 salt bytes",
+      "serial": "MODULETARGET0001",
+      "SaltData": "éééé",
+      "expected_password": "$1/BJ5tY",
+      "case": "vector-8",
+      "workspace": "vector8"
+    },
+    {
+      "name": "sixteen characters",
+      "serial": "MODULETARGET0001",
+      "expected_password": "Y%M*6cjd",
+      "case": "http-service-origin",
+      "workspace": "http",
+      "SSL": false
+    },
+    {
+      "name": "sixteen characters",
+      "serial": "MODULETARGET0001",
+      "expected_password": "Y%M*6cjd",
+      "case": "provided-serial-overrides-http",
+      "workspace": "selectorhttp",
+      "DiscoverSerialVia": "HTTP"
+    },
+    {
+      "name": "sixteen characters",
+      "serial": "MODULETARGET0001",
+      "expected_password": "Y%M*6cjd",
+      "case": "provided-serial-overrides-snmp",
+      "workspace": "selectorsnmp",
+      "DiscoverSerialVia": "SNMP"
+    },
+    {
+      "name": "sixteen characters",
+      "serial": "MODULETARGET0001",
+      "expected_password": "Y%M*6cjd",
+      "case": "provided-serial-overrides-pjl",
+      "workspace": "selectorpjl",
+      "DiscoverSerialVia": "PJL"
+    },
+    {
+      "name": "invalid configuration 0",
+      "case": "invalid-0",
+      "workspace": "invalid0",
+      "serial": "MODULETARGET0001",
+      "SaltLookupIndex": -1,
+      "error": "SaltLookupIndex must be between 0 and 255"
+    },
+    {
+      "name": "invalid configuration 1",
+      "case": "invalid-1",
+      "workspace": "invalid1",
+      "serial": "MODULETARGET0001",
+      "SaltLookupIndex": 256,
+      "error": "SaltLookupIndex must be between 0 and 255"
+    },
+    {
+      "name": "invalid configuration 2",
+      "case": "invalid-2",
+      "workspace": "invalid2",
+      "serial": "MODULETARGET0001",
+      "SaltLookupIndex": 255,
+      "error": "unknown salt table data at salt table index 256"
+    },
+    {
+      "name": "invalid configuration 3",
+      "case": "invalid-3",
+      "workspace": "invalid3",
+      "serial": "MODULETARGET0001",
+      "SaltData": "SHORT",
+      "error": "SaltData must be 8 bytes, and not 5"
+    },
+    {
+      "name": "invalid configuration 4",
+      "case": "invalid-4",
+      "workspace": "invalid4",
+      "serial": "MODULETARGET0001",
+      "SaltData": "TOOLONGSALT",
+      "error": "SaltData must be 8 bytes, and not 11"
+    }
+  ]
+}
