@@ -1,0 +1,55 @@
+services:
+  db:
+    image: postgres:16@sha256:933463a6c8eba2b9f5cd414138738cd8d5519cd2c471214c222652f547a66a32
+    environment:
+      POSTGRES_PASSWORD: module-target-root-password
+    command: ["-c", "shared_buffers=64MB", "-c", "max_connections=40", "-c", "log_min_duration_statement=300"]
+    volumes:
+    - ./init.sql:/docker-entrypoint-initdb.d/module-target.sql:ro
+    networks: [default, public]
+    ports: ["127.0.0.1::5432"]
+    cpus: 0.5
+    mem_limit: 512m
+    memswap_limit: 512m
+    pids_limit: 128
+    init: true
+    healthcheck:
+      test: [CMD-SHELL, 'PGPASSWORD=module-target-db-password psql -h 127.0.0.1 -U module_target -d drupal_root -Atc "select 1" | grep -q 1']
+      interval: 3s
+      timeout: 5s
+      retries: 40
+  app:
+    image: docker.io/library/drupal:11.2.0-apache@sha256:c893bf8e809350a3a2a98aeca83bbd4ab99848ca161aa15848daa94c0e15035a
+    entrypoint: [sh, /opt/module-target/start.sh]
+    working_dir: /var/www/module-target-drupal
+    depends_on:
+      db: {condition: service_healthy}
+    environment:
+      DRUPAL_RELEASE: "11.2.0"
+      LAB_PREFIX: ""
+      DRUPAL_MODE: affected
+    volumes:
+    - ./releases.json:/opt/module-target/releases.json:ro
+    - ./start.sh:/opt/module-target/start.sh:ro
+    - ./drupal.conf:/opt/module-target/drupal.conf:ro
+    - ./install.php:/opt/module-target/install.php:ro
+    - ./bootstrap.php:/opt/module-target/bootstrap.php:ro
+    - ./configure.php:/opt/module-target/configure.php:ro
+    - ./control.php:/opt/module-target/control.php:ro
+    - ../../../tmp/module-target-drupal-pgsql-sources/11.2.0.tar.gz:/opt/module-target/drupal.tar.gz:ro
+    - ../wpdiscuz/no-mail.ini:/usr/local/etc/php/conf.d/module-target-no-mail.ini:ro
+    ports: ["127.0.0.1::80"]
+    networks: [default, public]
+    cpus: 0.5
+    mem_limit: 768m
+    memswap_limit: 768m
+    pids_limit: 128
+    init: true
+    healthcheck:
+      test: [CMD-SHELL, 'test -f /tmp/module-target-drupal-pgsql-ready && curl --fail --silent http://127.0.0.1$${LAB_PREFIX}/user/login >/dev/null']
+      interval: 3s
+      timeout: 5s
+      retries: 60
+networks:
+  default: {internal: true}
+  public: {}

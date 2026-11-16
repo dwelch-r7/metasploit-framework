@@ -1,0 +1,87 @@
+---
+spec: spec/modules/auxiliary/scanner/http/drupal_pgsql_target_spec.rb
+expected_examples: 3
+console: false
+health_timeout: 240
+test_env:
+  DRUPAL_PGSQL_PROFILE: drupal_pgsql_mariadb
+modules:
+- auxiliary/scanner/http/drupal_pgsql_entityquery_sqli
+ports:
+  app: 80
+  db: 5432
+support_files:
+- .ruby-version
+- Gemfile
+- Gemfile.lock
+- documentation/modules/auxiliary/scanner/http/drupal_pgsql_entityquery_sqli.md
+- lib/msf/base/simple/auxiliary.rb
+- lib/msf/core/auxiliary.rb
+- lib/msf/core/auxiliary/multiple_target_hosts.rb
+- lib/msf/core/auxiliary/report.rb
+- lib/msf/core/auxiliary/scanner.rb
+- lib/msf/core/db_manager/service.rb
+- lib/msf/core/db_manager/vuln.rb
+- lib/msf/core/exploit.rb
+- lib/msf/core/exploit/remote/http_client.rb
+- lib/msf/core/exploit/sqli.rb
+- lib/msf/core/exploit/sqli/boolean_based_blind_mixin.rb
+- lib/msf/core/exploit/sqli/common.rb
+- lib/msf/core/exploit/sqli/mssqli.rb
+- lib/msf/core/exploit/sqli/mssqli/boolean_based_blind.rb
+- lib/msf/core/exploit/sqli/mssqli/common.rb
+- lib/msf/core/exploit/sqli/mssqli/time_based_blind.rb
+- lib/msf/core/exploit/sqli/mysqli.rb
+- lib/msf/core/exploit/sqli/mysqli/benchmark_based_blind.rb
+- lib/msf/core/exploit/sqli/mysqli/boolean_based_blind.rb
+- lib/msf/core/exploit/sqli/mysqli/common.rb
+- lib/msf/core/exploit/sqli/mysqli/time_based_blind.rb
+- lib/msf/core/exploit/sqli/postgresqli.rb
+- lib/msf/core/exploit/sqli/postgresqli/boolean_based_blind.rb
+- lib/msf/core/exploit/sqli/postgresqli/common.rb
+- lib/msf/core/exploit/sqli/postgresqli/time_based_blind.rb
+- lib/msf/core/exploit/sqli/sqlitei.rb
+- lib/msf/core/exploit/sqli/sqlitei/boolean_based_blind.rb
+- lib/msf/core/exploit/sqli/sqlitei/common.rb
+- lib/msf/core/exploit/sqli/sqlitei/time_based_blind.rb
+- lib/msf/core/exploit/sqli/time_based_blind_mixin.rb
+- lib/msf/core/exploit/sqli/utils/common.rb
+- lib/msf/core/module/failure.rb
+- lib/msf/ui/console/module_command_dispatcher.rb
+- lib/msfenv.rb
+- metasploit-framework.gemspec
+- msfconsole
+- spec/acceptance_spec_helper.rb
+- spec/spec_helper.rb
+- spec/support/acceptance/child_process.rb
+- spec/support/acceptance/datastore_formatting.rb
+- spec/support/acceptance/module_target.rb
+- test/module_targets/drupal_pgsql/README.md
+- test/module_targets/drupal_pgsql/acceptance.rb
+- test/module_targets/drupal_pgsql/bootstrap.php
+- test/module_targets/drupal_pgsql/compose.yaml
+- test/module_targets/drupal_pgsql/configure.php
+- test/module_targets/drupal_pgsql/control.php
+- test/module_targets/drupal_pgsql/drupal.conf
+- test/module_targets/drupal_pgsql/init.sql
+- test/module_targets/drupal_pgsql/install.php
+- test/module_targets/drupal_pgsql/prepare.rb
+- test/module_targets/drupal_pgsql/profiles.json
+- test/module_targets/drupal_pgsql/profiles.rb
+- test/module_targets/drupal_pgsql/releases.json
+- test/module_targets/drupal_pgsql/services.yaml
+- test/module_targets/drupal_pgsql/start.sh
+- test/module_targets/http/Dockerfile
+- test/module_targets/http/README.md
+- test/module_targets/http/compose.yaml
+- test/module_targets/http/htdocs/final.html
+- test/module_targets/http/htdocs/index.html
+- test/module_targets/http/htdocs/listing/evidence.txt
+- test/module_targets/http/htdocs/plain.txt
+- test/module_targets/http/htdocs/protected/index.html
+- test/module_targets/http/htdocs/robots.txt
+- test/module_targets/http/manifest.yml
+- test/module_targets/http/module-target.conf
+- test/module_targets/wpdiscuz/no-mail.ini
+- tmp/module-target-drupal-pgsql-sources/11.2.0.tar.gz
+- tools/dev/run_guarded_module_target_tests.rb

@@ -1,0 +1,32 @@
+{
+  "11.2.0": {
+    "url": "https://ftp.drupal.org/files/projects/drupal-11.2.0.tar.gz",
+    "bytes": 20201093,
+    "sha256": "68844e781b1f34e4689639088cdf531d091c4369cbd7ab909ebc619de6ad07f0",
+    "critical_sha256": {
+      "core/modules/pgsql/src/EntityQuery/Condition.php": "a7f9a41ed7c67053be0ae8b2a6f27e814ce5c7c8eef3aae95476c6edf06f44a7",
+      "core/lib/Drupal.php": "0a49fe3bd301a137354de9d6f45034e76f95b44896de6db1c29565809e2119e0",
+      "core/includes/install.core.inc": "637ad059e0092001fd0b32ff90e07b3e13d2f4189b48927940cacb06b52a6814",
+      "composer.lock": "2180c8880662c0a939dc14de06f4e0c296e25cfe87b549c6aff10607dfc2b968",
+      "core/lib/Drupal/Core/Installer/Form/SelectLanguageForm.php": "1486a367cc56d2158dddc6bf9c6977f278ae22a96ac9f65ee169d15c6a3ec5b9",
+      "core/lib/Drupal/Core/Installer/Form/SelectProfileForm.php": "4ef10d8e2fb2152b2f1a47ec06db7967940983ace0f6dd630c5ee4967f23babc",
+      "core/lib/Drupal/Core/Installer/Form/SiteConfigureForm.php": "4a176f1b47d0b7948663b52bcc63b494534de8e9872a86dea3701db823777d61",
+      "core/lib/Drupal/Core/Installer/Form/SiteSettingsForm.php": "75da76c5a3922883b2de5c798015c749e4e491d3c59c14d529873d2964f1e59e"
+    }
+  },
+  "11.2.12": {
+    "url": "https://ftp.drupal.org/files/projects/drupal-11.2.12.tar.gz",
+    "bytes": 20309461,
+    "sha256": "26811078ccf204dcb6091414e69a318c301cf14bf2ab886a02c3547ca23ddd2b",
+    "critical_sha256": {
+      "core/modules/pgsql/src/EntityQuery/Condition.php": "0400238723649426c3bfa81ac28f5e973d764c035acf1a0cf7c141af11319e2e",
+      "core/lib/Drupal.php": "c27171dba809f5534c9e534995870160554a8a13338ae2d0fc632b2016411caf",
+      "core/includes/install.core.inc": "637ad059e0092001fd0b32ff90e07b3e13d2f4189b48927940cacb06b52a6814",
+      "composer.lock": "15d18a9c7e4fb471614cc7dd05e920f6eba75449848cae3d3d19337ce6268f5d",
+      "core/lib/Drupal/Core/Installer/Form/SelectLanguageForm.php": "1486a367cc56d2158dddc6bf9c6977f278ae22a96ac9f65ee169d15c6a3ec5b9",
+      "core/lib/Drupal/Core/Installer/Form/SelectProfileForm.php": "4ef10d8e2fb2152b2f1a47ec06db7967940983ace0f6dd630c5ee4967f23babc",
+      "core/lib/Drupal/Core/Installer/Form/SiteConfigureForm.php": "4a176f1b47d0b7948663b52bcc63b494534de8e9872a86dea3701db823777d61",
+      "core/lib/Drupal/Core/Installer/Form/SiteSettingsForm.php": "75da76c5a3922883b2de5c798015c749e4e491d3c59c14d529873d2964f1e59e"
+    }
+  }
+}

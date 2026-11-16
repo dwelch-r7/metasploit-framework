@@ -1,0 +1,9 @@
+---
+services:
+  db:
+    extends: {file: ../drupal_pgsql/services.yaml, service: db}
+  app:
+    extends: {file: ../drupal_pgsql/services.yaml, service: app}
+networks:
+  default: {internal: true}
+  public: {}

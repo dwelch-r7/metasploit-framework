@@ -1,0 +1,15 @@
+---
+services:
+  db:
+    extends: {file: ../drupal_pgsql/services.yaml, service: db}
+  app:
+    extends: {file: ../drupal_pgsql/services.yaml, service: app}
+    environment:
+      DRUPAL_RELEASE: "11.2.0"
+      LAB_PREFIX: ""
+      DRUPAL_MODE: private
+    volumes:
+    - ../../../tmp/module-target-drupal-pgsql-sources/11.2.0.tar.gz:/opt/module-target/drupal.tar.gz:ro
+networks:
+  default: {internal: true}
+  public: {}

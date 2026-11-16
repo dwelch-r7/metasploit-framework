@@ -1,0 +1,30 @@
+---
+services:
+  db:
+    extends: {file: ../drupal_pgsql/services.yaml, service: db}
+  mysql:
+    image: mariadb:11.2.2@sha256:c5077bb44d13a3f34dadb5a15861149e29b3251d1e24036d2dad9611dc9d940b
+    environment:
+      MARIADB_ROOT_PASSWORD: module-target-root-password
+    volumes:
+    - ./init.sql:/docker-entrypoint-initdb.d/module-target.sql:ro
+    cpus: 0.5
+    mem_limit: 512m
+    memswap_limit: 512m
+    pids_limit: 128
+    init: true
+    healthcheck:
+      test: [CMD-SHELL, 'mariadb -h 127.0.0.1 -u module_target -pmodule-target-db-password -D drupal_root --batch --skip-column-names -e "SELECT current_user()" | grep -qx module_target@%']
+      interval: 3s
+      timeout: 5s
+      retries: 40
+  app:
+    extends: {file: ../drupal_pgsql/services.yaml, service: app}
+    depends_on:
+      mysql: {condition: service_healthy}
+    environment:
+      DRUPAL_DB_DRIVER: mysql
+      DRUPAL_MODE: unaffected
+networks:
+  default: {internal: true}
+  public: {}

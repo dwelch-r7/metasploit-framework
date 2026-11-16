@@ -1,0 +1,15 @@
+---
+services:
+  db:
+    extends: {file: ../drupal_pgsql/services.yaml, service: db}
+  app:
+    extends: {file: ../http/compose.yaml, service: apache}
+    cpus: 0.25
+    mem_limit: 128m
+    memswap_limit: 128m
+    pids_limit: 128
+    init: true
+    networks: [default, public]
+networks:
+  default: {internal: true}
+  public: {}

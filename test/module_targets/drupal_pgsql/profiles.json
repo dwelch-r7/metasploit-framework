@@ -1,0 +1,48 @@
+{
+  "drupal_pgsql": {
+    "release": "11.2.0",
+    "prefix": "",
+    "mode": "affected",
+    "database": "pgsql"
+  },
+  "drupal_pgsql_fixed": {
+    "release": "11.2.12",
+    "prefix": "",
+    "mode": "fixed",
+    "database": "pgsql"
+  },
+  "drupal_pgsql_prefix": {
+    "release": "11.2.0",
+    "prefix": "/lab",
+    "mode": "affected",
+    "database": "pgsql"
+  },
+  "drupal_pgsql_empty": {
+    "release": "11.2.0",
+    "prefix": "",
+    "mode": "empty",
+    "database": "pgsql"
+  },
+  "drupal_pgsql_disabled": {
+    "release": "11.2.0",
+    "prefix": "",
+    "mode": "disabled",
+    "database": "pgsql"
+  },
+  "drupal_pgsql_private": {
+    "release": "11.2.0",
+    "prefix": "",
+    "mode": "private",
+    "database": "pgsql"
+  },
+  "drupal_pgsql_unrelated": {
+    "mode": "unrelated",
+    "prefix": ""
+  },
+  "drupal_pgsql_mariadb": {
+    "release": "11.2.0",
+    "prefix": "",
+    "mode": "unaffected",
+    "database": "mysql"
+  }
+}
