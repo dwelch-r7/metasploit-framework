@@ -43,6 +43,7 @@ class MetasploitModule < Msf::Auxiliary
 
     register_options(
       [
+        OptString.new('TARGETURI', [true, 'Base path to the Drupal installation', '/']),
         OptString.new('JSONAPI_RESOURCE', [true, 'An anonymously readable JSON:API resource as entity_type/bundle', 'node/article']),
         OptString.new('JSONAPI_FIELD', [true, 'A case-insensitive string field to filter on', 'title'])
       ]
