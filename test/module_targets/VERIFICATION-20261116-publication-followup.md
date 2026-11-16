@@ -137,3 +137,16 @@ audited. The eleven-entry terminal CI seal is
 manifest SHA256 `605089db8b14dd48b347852b78fa14d7f75a139ab6d45908e9bdd40e37f0b357`.
 This follow-up changes no runtime qualification counts. The macOS stderr path
 remains an investigation item. No PR is created.
+
+## File Manager publication e96bc7ac175
+
+Observed 2026-11-16T07:26:02.153641+00:00. Both selected Ruby 3.3 non-content jobs checked out the exact published fork commit `e96bc7ac175e21df2f1c8a98048e7d2e9132f10d` and ran all 39 `WordPress File Manager elFinder replies` examples on the first attempt, with zero failures. This proves execution of the focused spec; it does not replay the Docker lab in hosted CI.
+
+- [Normal job](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43819702152/job/133139709528): first attempt 19,733 examples, 10 failures, 33 pending, seed 25461. The built-in retry ran 17 examples with zero failures, seed 23040. All ten original failures belong to the real HTTP Fetch lifecycle spec; none belongs to File Manager.
+- [REMOTE_DB job](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43819702152/job/133139709523): 19,546 examples, zero failures, 664 pending, seed 33272; no retry needed.
+
+The Fetch failures are reproduced by loading the suite's WebMock RSpec bridge with unstubbed connections denied: 17 focused examples produce ten failures. The retry omits that bridge-loading path. A scoped spec repair permits only the current example's real HTTP/HTTPS `127.0.0.1` listener port and delegates all other policy decisions to the original method. It changes no library behavior or original lifecycle assertion. The identical denied-policy suite passes 17/0 after repair; selective existing policy and plain loading also pass 17/0 each. Intercepted runs observe 20 actual responses (12 HTTP, eight HTTPS; 16 status 200, four 404), zero response stubs and restoration of the original method/configuration after every example. Other ports, TEST-NET addresses and similar hostnames retain their original policy. Syntax, strict RuboCop and whitespace checks pass.
+
+Worker commit `124ee17efee64ddb01e311134c046c228bce939c` was imported as `25d2b39763b`. The local immutable `fetch-lifecycle-webmock-policy-20261116` evidence archive has 4,710 entries; SHA-256 of `SHA256SUMS` is `d2a74baa2c19a22947fc77373de97c91f725e67b4397522a4567e48fdec8ac5e`. Parent verification rehashed every entry and confirmed the exact file set. This local repair remains unpublished at this observation. Full-suite CI for it has not yet run.
+
+Nine workflows on the File Manager publication have completed successfully. Meterpreter Acceptance remains active at this observation, so overall publication CI is still pending. No manual retry, cancellation or PR was created.
