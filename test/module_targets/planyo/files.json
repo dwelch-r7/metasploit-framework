@@ -1,0 +1,56 @@
+{
+  "default": {
+    "path": "/etc/passwd",
+    "create": false,
+    "exists": true,
+    "readable": true
+  },
+  "text": {
+    "path": "/tmp/module-target-planyo/text.txt",
+    "text": "module-target-planyo-caf\u00e9\n",
+    "mode": "0644",
+    "exists": true,
+    "readable": true
+  },
+  "binary": {
+    "path": "/tmp/module-target-planyo/binary.bin",
+    "hex": "0001fffe80436166c3a9e99baa0a",
+    "mode": "0644",
+    "exists": true,
+    "readable": true
+  },
+  "empty": {
+    "path": "/tmp/module-target-planyo/empty.bin",
+    "text": "",
+    "mode": "0644",
+    "exists": true,
+    "readable": true
+  },
+  "special": {
+    "path": "/tmp/module-target-planyo/space & caf\u00e9 #.txt",
+    "text": "module-target-reserved-path\n",
+    "mode": "0644",
+    "exists": true,
+    "readable": true
+  },
+  "denied": {
+    "path": "/tmp/module-target-planyo/denied.bin",
+    "text": "module-target-denied\n",
+    "mode": "0600",
+    "exists": true,
+    "readable": false
+  },
+  "missing": {
+    "path": "/tmp/module-target-planyo/missing.bin",
+    "create": false,
+    "exists": false,
+    "readable": false
+  },
+  "encoded_literal": {
+    "path": "/tmp/module-target-planyo/literal%20+query?'quote\".txt",
+    "text": "module-target-literal-percent-path\n",
+    "mode": "0644",
+    "exists": true,
+    "readable": true
+  }
+}

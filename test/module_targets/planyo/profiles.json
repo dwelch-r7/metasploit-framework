@@ -1,0 +1,44 @@
+{
+  "planyo": {
+    "release": "2.9",
+    "mode": "affected",
+    "prefix": "",
+    "examples": 10
+  },
+  "planyo_prefix": {
+    "release": "2.9",
+    "mode": "affected",
+    "prefix": "/wordpress",
+    "examples": 7
+  },
+  "planyo_older": {
+    "release": "2.7",
+    "mode": "affected",
+    "prefix": "",
+    "examples": 7
+  },
+  "planyo_inactive": {
+    "release": "2.9",
+    "mode": "inactive",
+    "prefix": "",
+    "examples": 7
+  },
+  "planyo_fixed": {
+    "release": "3.1",
+    "mode": "fixed",
+    "prefix": "",
+    "examples": 1
+  },
+  "planyo_absent": {
+    "release": "2.9",
+    "mode": "absent",
+    "prefix": "",
+    "examples": 1
+  },
+  "planyo_unrelated": {
+    "release": null,
+    "mode": "unrelated",
+    "prefix": "",
+    "examples": 1
+  }
+}

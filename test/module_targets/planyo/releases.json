@@ -1,0 +1,32 @@
+{
+  "2.7": {
+    "url": "https://downloads.wordpress.org/plugin/planyo-online-reservation-system.2.7.zip",
+    "sha256": "baeda35aff30f961828fad8539de220ba3364ed4c7820971b41784a9bb54c5fb",
+    "bytes": 2019269,
+    "installed_sha256": {
+      "planyo.php": "32d38c5fb7b52993d0b57dd51437cac1e78c8648c666c423707dcd5841424dca",
+      "readme.txt": "84ae2a8bef88657ad906643d5a4820a1a73815b9abbaa9008d9d82c55e33a53b",
+      "ulap.php": "36acb6a2ae15d5cb983e05332e251a2ecf7846b8df2b74041d46482f85ed1450"
+    }
+  },
+  "2.9": {
+    "url": "https://downloads.wordpress.org/plugin/planyo-online-reservation-system.2.9.zip",
+    "sha256": "cf733063ad5725352a225626d71de7bde0f6e7ca0fedf6d724e9543d9280301e",
+    "bytes": 2019495,
+    "installed_sha256": {
+      "planyo.php": "c201045e119bea335a2f9383c49b74345e84e47dfe0165f93dd8cda254bd35a7",
+      "readme.txt": "eecd74f96e347a0512b66ab965d9a5ba9903c3613a95a1fbafbe950038b68500",
+      "ulap.php": "094641a0ad0252828b2a4aa44a790bd412d103d7918d622f7edf11d794eeea6c"
+    }
+  },
+  "3.1": {
+    "url": "https://downloads.wordpress.org/plugin/planyo-online-reservation-system.3.1.zip",
+    "sha256": "37a1b66c158b06d0b6a1ecf9da2d2e8cc50bf99b4a5c3f08663bc882b2f76d74",
+    "bytes": 2019715,
+    "installed_sha256": {
+      "planyo.php": "ba37dc5e0a0fe09978eeeae5cd113332e4e414ef4f0df542b5ced11c768adc5a",
+      "readme.txt": "b113cf5d7c7ae955002880ace02005a609b8da54968df69565025e35cfb1b1a8",
+      "ulap.php": "af123e498a68d0207d8d4111de225e4cba199039102956d14133b7260b20338a"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+---
+services:
+  db:
+    extends: {file: ../planyo/services.yaml, service: db}
+  app:
+    extends: {file: ../planyo/services.yaml, service: root}
+    environment:
+      PLANYO_RELEASE: "3.1"
+      PLANYO_MODE: fixed
+    volumes:
+    - ../../../tmp/module-target-planyo-sources/3.1.zip:/opt/module-target/plugin.zip:ro
+networks:
+  default: {internal: true}
+  public: {}

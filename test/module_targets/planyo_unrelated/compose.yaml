@@ -1,0 +1,7 @@
+---
+services:
+  app:
+    extends: {file: ../planyo/services.yaml, service: unrelated}
+networks:
+  default: {internal: true}
+  public: {}

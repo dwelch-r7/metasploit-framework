@@ -1,0 +1,83 @@
+---
+spec: spec/modules/auxiliary/gather/planyo_target_spec.rb
+expected_examples: 1
+console: false
+health_timeout: 150
+test_env:
+  PLANYO_PROFILE: planyo_unrelated
+modules:
+- auxiliary/gather/wp_planyo_lfi_cve_2026_3576
+ports:
+  app: 80
+support_files:
+- .ruby-version
+- Gemfile
+- Gemfile.lock
+- documentation/modules/auxiliary/gather/wp_planyo_lfi_cve_2026_3576.md
+- lib/metasploit/framework/hashes.rb
+- lib/msf/core/auxiliary/report.rb
+- lib/msf/core/db_manager/service.rb
+- lib/msf/core/exploit/remote/auto_check.rb
+- lib/msf/core/exploit/remote/http/wordpress.rb
+- lib/msf/core/exploit/remote/http/wordpress/admin.rb
+- lib/msf/core/exploit/remote/http/wordpress/base.rb
+- lib/msf/core/exploit/remote/http/wordpress/helpers.rb
+- lib/msf/core/exploit/remote/http/wordpress/login.rb
+- lib/msf/core/exploit/remote/http/wordpress/posts.rb
+- lib/msf/core/exploit/remote/http/wordpress/register.rb
+- lib/msf/core/exploit/remote/http/wordpress/uris.rb
+- lib/msf/core/exploit/remote/http/wordpress/users.rb
+- lib/msf/core/exploit/remote/http/wordpress/version.rb
+- lib/msf/core/exploit/remote/http/wordpress/xml_rpc.rb
+- lib/msf/core/exploit/remote/http_client.rb
+- lib/msfenv.rb
+- metasploit-framework.gemspec
+- msfconsole
+- spec/acceptance_spec_helper.rb
+- spec/modules/auxiliary/gather/planyo_target_spec.rb
+- spec/spec_helper.rb
+- spec/support/acceptance/child_process.rb
+- spec/support/acceptance/datastore_formatting.rb
+- spec/support/acceptance/module_target.rb
+- test/module_targets/http/Dockerfile
+- test/module_targets/http/README.md
+- test/module_targets/http/compose.yaml
+- test/module_targets/http/htdocs/final.html
+- test/module_targets/http/htdocs/index.html
+- test/module_targets/http/htdocs/listing/evidence.txt
+- test/module_targets/http/htdocs/plain.txt
+- test/module_targets/http/htdocs/protected/index.html
+- test/module_targets/http/htdocs/robots.txt
+- test/module_targets/http/manifest.yml
+- test/module_targets/http/module-target.conf
+- test/module_targets/planyo/README.md
+- test/module_targets/planyo/acceptance.rb
+- test/module_targets/planyo/compose.yaml
+- test/module_targets/planyo/control.php
+- test/module_targets/planyo/files.json
+- test/module_targets/planyo/manifest.yml
+- test/module_targets/planyo/prepare.rb
+- test/module_targets/planyo/profiles.json
+- test/module_targets/planyo/profiles.rb
+- test/module_targets/planyo/releases.json
+- test/module_targets/planyo/seed.php
+- test/module_targets/planyo/services.yaml
+- test/module_targets/wordpress/Dockerfile
+- test/module_targets/wordpress/README.md
+- test/module_targets/wordpress/apache2-foreground
+- test/module_targets/wordpress/compose.yaml
+- test/module_targets/wordpress/db.Dockerfile
+- test/module_targets/wordpress/empty.txt
+- test/module_targets/wordpress/init.sql
+- test/module_targets/wordpress/inspect.php
+- test/module_targets/wordpress/manifest.yml
+- test/module_targets/wordpress/native_probe.rb
+- test/module_targets/wordpress/plugin_sources.rb
+- test/module_targets/wordpress/plugins.txt
+- test/module_targets/wordpress/seed.php
+- test/module_targets/wordpress/themes.txt
+- test/module_targets/wpdiscuz/no-mail.ini
+- tools/dev/run_guarded_module_target_tests.rb
+- spec/modules/auxiliary/gather/wp_planyo_lfi_cve_2026_3576_spec.rb
+- spec/file_fixtures/modules/auxiliary/gather/wp_planyo_lfi_cve_2026_3576/responses.json
+- spec/file_fixtures/modules/auxiliary/gather/wp_planyo_lfi_cve_2026_3576/provenance.json
