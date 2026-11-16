@@ -1,6 +1,18 @@
 # Container module acceptance tests
 
-Latest: [Duplicator file reads](VERIFICATION-20261116-duplicator.md) adds one
+Latest: [wpDiscuz uploads](VERIFICATION-20261116-wpdiscuz.md) adds one owner,
+eight profiles and 33 cases, reaching **259 runtime owners in covered paths,
+401 profiles and 3,391 functional cases**. All 66 public calls meet their
+success/refusal contracts. Sixteen native and sixteen owning sessions are used
+and closed remotely; the module removes all sixteen session payload files
+before operator metadata recovery. Genuine version, prefix, custom-directory,
+guest-policy and absent/unrelated controls distinguish four source defects
+from harness errors. All eight passing profiles retain current declared inputs.
+Each serial stack has at most three capped containers; Docker is empty and the
+lock is free. Earlier scope stays sealed; the campaign remains open. No PR is
+created.
+
+Previous: [Duplicator file reads](VERIFICATION-20261116-duplicator.md) adds one
 owner, six profiles and 30 cases, reaching **258 runtime owners in covered paths,
 393 profiles and 3,358 functional cases**. All 63 public calls pass; 36 loot
 files match native bytes, including six empty files. Repaired scanner dispatch
