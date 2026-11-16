@@ -1,6 +1,18 @@
 # Container module acceptance tests
 
-Latest: [WP Fastest Cache credential gathering](VERIFICATION-20261116-wp-fastest-cache.md)
+Latest: [LearnPress field SQL injection](VERIFICATION-20261116-learnpress-fields.md)
+adds one owner, nine profiles and fifteen cases, reaching **267 runtime owners
+in covered paths, 459 profiles and 3,607 functional cases**. Both public actions,
+repeat extraction, primed cache, subdirectory, current-site prefix, COUNT=2 and
+genuine fixed/inactive/absent states pass. Full native hashes, nine exact loots
+and seven deduplicated credential rows expose and verify a narrow nonce-cache
+fix. A prior timing-corrupted hash remains a sealed failure. Four profiles use
+exact current inputs; five retain explicitly reviewed default-600 runner and
+documentation predecessors. All capped three-container stacks are removed and
+Docker is empty. The human module guide is preserved. Earlier coverage stays
+historical; the broader campaign remains open. No PR is created.
+
+Previous: [WP Fastest Cache credential gathering](VERIFICATION-20261116-wp-fastest-cache.md)
 adds one owner, nine profiles and fifteen cases, reaching **266 runtime owners
 in covered paths, 450 profiles and 3,592 functional cases**. All fifteen public
 runs pass with five exact loot files and five deduplicated credential rows.

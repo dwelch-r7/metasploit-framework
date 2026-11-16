@@ -374,3 +374,69 @@ checkout exercised by the selected Ruby unit jobs. Package source bytes were
 not audited. The eight-entry terminal seal is
 `/Users/dwelch/.codex/reports/elasticsearch-memory-publication-terminal-20261116`;
 manifest SHA256 `386993b19aa49328297b8c28c5477d7ad3d4711c7e17b0b70e4e0910432daea8`.
+
+
+## WP Fastest Cache selected unit result
+
+Published checkpoint `f3547c0fac76212087b2f7be498bdac9fb36e6fe` passes both
+selected Ruby 3.3 jobs on their first attempt. Each log shows that exact fork
+checkout and all fifteen new WordPress prefix-contract examples. Each has one
+RSpec process and zero failures; no built-in or agent retry is required.
+
+| Ruby 3.3 job | Result | Seed |
+| --- | --- | ---: |
+| [Normal](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43899108002/job/133410578903) | 19,929 examples, zero failures, 33 pending | 39440 |
+| [REMOTE_DB](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43899108002/job/133410578801) | 19,742 examples, zero failures, 664 pending | 48538 |
+
+The five-entry unit CI seal is
+`/Users/dwelch/.codex/reports/wp-fastest-cache-publication-unit33-20261116`;
+manifest SHA256 `97e57f0a67ec0107988a19e2eb36c74c35756cd7c549e350b4f7dc0358ebe7c3`.
+The parent independently rehashes its exact file set. These are unit results;
+the nine Docker functional profiles are qualified separately in the module
+verification journal. Overall native acceptance has its own execution provenance
+and conclusion; no agent native retry or cancellation is requested.
+
+
+## WP Fastest Cache macOS Mettle context
+
+The [macOS Mettle job](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43899108350/job/133410613397)
+fails during Acceptance: 46 examples, one failure, seed 45262. A stageless
+`osx/x64/meterpreter_reverse_tcp` session fails the `post/test/cmd_exec`
+environment-variable/create_process-output assertion. The captured diagnostic
+is `Malformed output: no process binary returned`. Other job outcomes and the
+overall workflow remain separate; the context snapshot still has two native
+jobs active.
+
+The actual Framework repository is `rapid7/metasploit-framework`, checkout
+`aa9ce416588a2d6fb97423d23591089aff2c8c3e`. The underlying cause and package source
+provenance remain unverified; branch-regression attribution is not established.
+No agent retry or cancellation is requested. `gh run view --job --log` refuses
+the log while the workflow is active; the completed-job REST log endpoint
+returns the full log successfully. The seven-entry context seal is
+`/Users/dwelch/.codex/reports/wp-fastest-cache-publication-macos-mettle-context-20261116`;
+manifest SHA256 `7d3084afa23e7347a8ff7c52a3a41b2eb74ef52aed5bbb3cee2ab3a766cf0bb7`.
+
+## WP Fastest Cache terminal native result
+
+All ten publication workflows are terminal on their first attempt: nine succeed
+and [Meterpreter Acceptance](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43899108350)
+fails. Its 24 jobs include the macOS Mettle assertion failure above and a
+[Linux Mettle job](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43899108350/job/133410612765)
+cancelled by GitHub's one-hour execution limit. The check annotation explicitly
+confirms the limit. Its partial acceptance log shows `Rex::TimeoutError: Send
+timed out` during `linux/x64/meterpreter_reverse_http`, `post/test/file`, and
+subsequent console/reset paths with `minimal_uris_headers.profile`. There is no
+complete RSpec summary for that job; cancellation does not establish a passing
+or fully counted suite.
+
+The last [macOS Python 3.11 job](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43899108350/job/133410612384)
+passes 91 examples with zero failures, seed 6767. All three inspected native
+jobs check out `rapid7/metasploit-framework` at
+`aa9ce416588a2d6fb97423d23591089aff2c8c3e`, rather than the fork publication head.
+The exact-head unit results above remain separate. Native failure causes and
+package-source provenance remain unverified; branch-regression attribution is
+not established. No agent retry or cancellation was performed.
+
+The parent independently rehashes all nine entries and the exact file set of
+`/Users/dwelch/.codex/reports/wp-fastest-cache-publication-terminal-20261116`;
+manifest SHA256 `04b900f97e253201bba1f3152fea14e4b4ccdc9e806fe74b9f9c383ad1c539b8`.
