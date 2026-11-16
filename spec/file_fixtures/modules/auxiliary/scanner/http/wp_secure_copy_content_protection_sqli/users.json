@@ -1,0 +1,31 @@
+{
+  "provenance": {
+    "kind": "Actual synthetic lab users read through WordPress database connection",
+    "native_receipt": "tmp/secure-copy-feasibility/native-2.8.1-20261116T204448/receipt.json",
+    "native_receipt_sha256": "a6569268cfede3f0e2775438a3d3be47e855c019619e76f57381d129e003fc5f",
+    "native_source_release": "2.8.1",
+    "scope": "Captured row data only; SQL/HTTP/reporting in unit tests are doubles; genuine acceptance is separate"
+  },
+  "users": [
+    {
+      "ID": "1",
+      "user_login": "module_admin",
+      "user_pass": "$wp$2y$10$.wRrRFjThgRXsu3heCd5hOszLph6oy8P1jUCgZ0r3Hc6qy.zapL32"
+    },
+    {
+      "ID": "2",
+      "user_login": "module_author",
+      "user_pass": "$wp$2y$10$23OWJLaPyMDCG65naQ/lBOdBcF2nzUdUEd0KizZbwQfry2TTB1K9q"
+    },
+    {
+      "ID": "3",
+      "user_login": "module_subscriber",
+      "user_pass": "$wp$2y$10$SpCyBV0jNSIAVazPMx7xMuplOJ7MAzZxofEfpn36xfmfZPwnulxj2"
+    },
+    {
+      "ID": "4",
+      "user_login": "module_editor",
+      "user_pass": "$wp$2y$10$IgZRgYzuijSiJq3r4N7ZKeo0DD.oZ95CyFHT/CK4vWa2niYhMplGm"
+    }
+  ]
+}
