@@ -1,0 +1,32 @@
+{
+  "7.0.0": {
+    "url": "https://downloads.wordpress.org/plugin/wpdiscuz.7.0.0.zip",
+    "sha256": "58e9e36f54361571ec3b57d304efaabf3e7ed997f53395f4fed982e153dc88de",
+    "bytes": 5395631,
+    "installed_sha256": {
+      "readme.txt": "385705c95824f5995f38895f9fbf45ed5dc22ecaf1398a75a929c3f4a3edb35b",
+      "class.WpdiscuzCore.php": "262e047046214ff3a0eecf78d7caa204facba6e0b6e4b8ec44ddce1e62c39a85",
+      "utils/class.WpdiscuzHelperUpload.php": "787e2504160f7bb2c39a10c9aa3146956e0d5a130ac534fe871f3865c69e49e5"
+    }
+  },
+  "7.0.4": {
+    "url": "https://downloads.wordpress.org/plugin/wpdiscuz.7.0.4.zip",
+    "sha256": "03cddab9d27d608c2ba9a211c6645b92c55eea4e2b5fe4668928c74abdd34898",
+    "bytes": 5438796,
+    "installed_sha256": {
+      "readme.txt": "59cc750f6138943519d991699c7cd66451340455309febe56cfd6f29acfcb5a0",
+      "class.WpdiscuzCore.php": "425f267387816e1d79dcb2fd42bc03ab8533608f383922d199fb1bdc6ecd9400",
+      "utils/class.WpdiscuzHelperUpload.php": "cc5c5bab2ab10103bf73d66ac2fe5bab23ed8e4c081c4416309b102a8550643a"
+    }
+  },
+  "7.0.5": {
+    "url": "https://downloads.wordpress.org/plugin/wpdiscuz.7.0.5.zip",
+    "sha256": "2fa649f4baa3821f215080945d7badb547af917868a109f671f1a5a0f2095942",
+    "bytes": 5439005,
+    "installed_sha256": {
+      "readme.txt": "d9d3d6bc87ea2e7bbbc0459a1a1c80c701eb3e9f00753a65398c327fd2305e1c",
+      "class.WpdiscuzCore.php": "dec70e4f4f4a4df9205b9e64e0ee08a01972db6cdf856eb939a5859d6aced222",
+      "utils/class.WpdiscuzHelperUpload.php": "7910f27c25d58954551fcce96554ea32244f805f8f968237eda1214b1b4146cc"
+    }
+  }
+}

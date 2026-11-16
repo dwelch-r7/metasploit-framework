@@ -1,0 +1,6 @@
+services:
+  app:
+    extends: {file: ../wpdiscuz/services.yaml, service: unrelated}
+networks:
+  default: {internal: true}
+  public: {}

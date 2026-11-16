@@ -1,0 +1,71 @@
+{
+  "wpdiscuz": {
+    "release": "7.0.4",
+    "mode": "affected",
+    "prefix": "",
+    "style": "dated",
+    "payloads": [
+      "php/reverse_php",
+      "php/meterpreter_reverse_tcp",
+      "php/meterpreter/reverse_tcp"
+    ],
+    "auto_check_disabled_case": true
+  },
+  "wpdiscuz_minimum": {
+    "release": "7.0.0",
+    "mode": "affected",
+    "prefix": "",
+    "style": "dated",
+    "payloads": [
+      "php/meterpreter/reverse_tcp"
+    ]
+  },
+  "wpdiscuz_prefix": {
+    "release": "7.0.4",
+    "mode": "affected",
+    "prefix": "/wordpress",
+    "style": "dated",
+    "payloads": [
+      "php/reverse_php",
+      "php/meterpreter/reverse_tcp"
+    ]
+  },
+  "wpdiscuz_custom": {
+    "release": "7.0.4",
+    "mode": "affected",
+    "prefix": "",
+    "style": "custom",
+    "payloads": [
+      "php/reverse_php",
+      "php/meterpreter/reverse_tcp"
+    ]
+  },
+  "wpdiscuz_guest_disabled": {
+    "release": "7.0.4",
+    "mode": "guest_disabled",
+    "prefix": "",
+    "style": "dated",
+    "payloads": []
+  },
+  "wpdiscuz_fixed": {
+    "release": "7.0.5",
+    "mode": "fixed",
+    "prefix": "",
+    "style": "dated",
+    "payloads": []
+  },
+  "wpdiscuz_absent": {
+    "release": null,
+    "mode": "absent",
+    "prefix": "",
+    "style": "dated",
+    "payloads": []
+  },
+  "wpdiscuz_unrelated": {
+    "release": null,
+    "mode": "unrelated",
+    "prefix": "",
+    "style": "dated",
+    "payloads": []
+  }
+}

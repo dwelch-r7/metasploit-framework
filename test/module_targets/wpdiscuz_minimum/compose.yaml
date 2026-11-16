@@ -1,0 +1,16 @@
+services:
+  db:
+    extends: {file: ../wpdiscuz/services.yaml, service: db}
+  app:
+    extends: {file: ../wpdiscuz/services.yaml, service: root}
+    environment:
+      WPDISCUZ_RELEASE: "7.0.0"
+      LAB_UPLOAD_STYLE: "dated"
+      LAB_GUEST_DISABLED: "0"
+    volumes:
+    - ../../../tmp/module-target-wpdiscuz-sources/7.0.0.zip:/opt/module-target/plugin.zip:ro
+  framework:
+    extends: {file: ../wpdiscuz/services.yaml, service: framework}
+networks:
+  default: {internal: true}
+  public: {}

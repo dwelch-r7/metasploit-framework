@@ -1,0 +1,12 @@
+services:
+  db:
+    extends: {file: ../wpdiscuz/services.yaml, service: db}
+  app:
+    extends: {file: ../wpdiscuz/services.yaml, service: root}
+    environment:
+      WPDISCUZ_RELEASE: "absent"
+      LAB_UPLOAD_STYLE: "dated"
+      LAB_GUEST_DISABLED: "0"
+networks:
+  default: {internal: true}
+  public: {}
