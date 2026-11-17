@@ -81,28 +81,26 @@ class MetasploitModule < Msf::Post
       # skip comments
       next if entry.lstrip[0, 1] == '#'
 
-      ip, port, db, user, pass = entry.chomp.split(/:/, 5)
-
-      # Fix for some weirdness that happens with backslashes
-      p = ''
-      bs = false
-      pass.split(//).each do |c|
-        if c == '\\'
-          if bs == false
-            bs = true
-            p << c
-          else
-            # second backslash ignore
-            bs = false
-          end
-        elsif c == ':' && bs == true
-          p = "#{p[0, p.length - 1]}:"
+      # Decode escapes while finding field boundaries.
+      # https://www.postgresql.org/docs/18/libpq-pgpass.html
+      fields = [String.new]
+      escaped = false
+      entry.chomp.each_char do |character|
+        if escaped
+          fields.last << character
+          escaped = false
+        elsif character == '\\'
+          escaped = true
+        elsif character == ':' && fields.length < 5
+          fields << String.new
         else
-          p << c
+          fields.last << character
         end
       end
+      fields.last << '\\' if escaped
+      next unless fields.length == 5
 
-      pass = p
+      ip, port, db, user, pass = fields
 
       # Display the original before we try to report it, so the user
       # sees whatever was actually in the file in case it's weird
