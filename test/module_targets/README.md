@@ -1,6 +1,17 @@
 # Container module acceptance tests
 
-Latest: [Pie Register authentication bypass RCE](VERIFICATION-20261117-pie-register.md)
+Latest: [King Addons registration and RCE](VERIFICATION-20261117-king-addons.md)
+adds one owner, ten qualified profiles and 36 selected cases, reaching **278 runtime
+owners in covered paths, 542 qualified profiles and 3,852 historical functional
+cases**. Seventeen real sessions, thirteen scoped credential/login pairs, 459
+native HTTP controls, repeats and negative prerequisites pass. A confirmed
+credential-reporting defect is repaired. A separate AutoCheck finding expectation
+is corrected after preserving the original aggregate; nine older passing traces
+and a targeted root replay form the selected evidence. All three-container stacks
+and attached objects are removed. Human Scenarios remain unchanged; the broader
+campaign remains active. No PR is created.
+
+Previous: [Pie Register authentication bypass RCE](VERIFICATION-20261117-pie-register.md)
 adds one owner, five qualified profiles and 25 cases, reaching **277 runtime
 owners in covered paths, 532 qualified profiles and 3,816 historical functional
 cases**. Thirteen typed sessions, routing, repeats, permission negatives and

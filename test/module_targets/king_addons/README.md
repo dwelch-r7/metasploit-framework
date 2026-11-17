@@ -1,7 +1,7 @@
 # King Addons functional target
 
 This lab runs the public module against genuine pinned WordPress, King Addons
-and Elementor distributions. The dated campaign verification report records
+and Elementor distributions. The [dated verification report](../VERIFICATION-20261117-king-addons.md) records
 which profiles passed; a declaration alone does not establish qualification.
 
 ```sh

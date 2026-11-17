@@ -670,3 +670,33 @@ bypass. Installed staged/dynamic-extension PHP transport, other runtime releases
 Windows PHP, TLS, multisite and alternate content layouts remain unqualified.
 No default or dependency changes conceal those limits. Complete database
 restoration is not claimed.
+
+
+## King Addons deployment, passive checks and PHP transport
+
+The [King Addons checkpoint](VERIFICATION-20261117-king-addons.md) qualifies ten
+profiles and 36 selected cases. A genuine owner defect omitted all created
+credentials; the focused fix records a service core and only authenticated
+Successful logins, including existing users. Fixed and existing Subscribers retain
+a valid credential when upload is denied, without inferred administrator access.
+
+An original root fixture failure wrongly expects no finding with AutoCheckfalse;
+Framework session persistence independently records proven exploitation. The
+sealed original aggregate remains exit1. Nine individual passes plus the corrected
+six-case root replay form the selected evidence; no all-green 36-case aggregate is claimed.
+Disabled registration still yields a passive version/nonce Appears finding while
+execution refuses creation. Missing nonce and invalid-password paths save no
+credential. These check limits are not runtime exploitation proof.
+
+Windows, alternate plugin/core/PHP/Elementor releases, TLS, multisite, paid features,
+alternate content layouts and installed staged/dynamic PHP transport remain
+unqualified. Explicit embedded-stdapi Meterpreter and Unix shell success does not
+qualify defaults. The production owner retains created accounts; lab cleanup is
+explicit and selected-state equality is not a complete database restore.
+
+Prior Pie-tip native Mettle CI times out in a reverse-HTTP file operation. The
+workflow is from fork f3ac but its actual Framework checkout is upstream e238ece;
+that job cannot validate the fork revision. Captured TLVs end with an unanswered
+core_channel_open, while native debug output continues HTTP polling. The initiating
+transport cause remains unverified; no retry/cancellation or timeout increase is
+dispatched. This separate evidence adds no module qualification.
