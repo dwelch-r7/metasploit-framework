@@ -43,6 +43,11 @@ class MetasploitModule < Msf::Auxiliary
         OptString.new('EMAIL', [false, 'Email to register (blank will auto generate)', ''])
       ]
     )
+    register_advanced_options(
+      [
+        OptString.new('DB_PREFIX', [true, 'WordPress table prefix (letters, numbers and underscores)', 'wp_'], regex: /\A[a-zA-Z0-9_]*\z/)
+      ]
+    )
   end
 
   def check
@@ -100,7 +105,7 @@ class MetasploitModule < Msf::Auxiliary
       'additional' => [],
       'additional_instructors' => [],
       'profile_default_fields_for_register' => {
-        'wp_capabilities' => {
+        "#{datastore['DB_PREFIX']}capabilities" => {
           'value' => { 'administrator' => 1 }
         }
       }
