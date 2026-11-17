@@ -64,7 +64,7 @@ session exists. The retained owned PNG is recorded and removed through the real
 vendor Delete endpoint. This is operator recovery, not automatic module cleanup.
 
 Actual PostgreSQL observations contain 12 distinct scoped vulnerability
-findings, including 10 in contexts without a session;
+findings, including four in workspaces without an observed session;
 they are not that many exploitation proofs. Credentials and loot remain empty,
 as expected for this owner. Physical FileDropper removal is verified independently
 before a normal shortcode view refreshes the vendor file-list index. Selected
@@ -116,3 +116,8 @@ and declared input manifests pass preflight. No full RSpec suite is run. Private
 source/native/public archives retain immutable inputs, raw results, transcripts,
 resource observations and exact cleanup queries with SHA256 manifests. Publication
 CI is reported separately and is not evidence of executing these opt-in labs.
+
+A later session-ledger audit corrects the no-session context count from ten to
+four. Ten stored finding descriptions lack a session marker, which does not
+mean their workspaces lack actual sessions. The 17-case/ten-session result and
+all original immutable archives are unchanged.
