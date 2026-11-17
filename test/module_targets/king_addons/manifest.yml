@@ -39,6 +39,7 @@
     "lib/msf/core/auxiliary/report.rb",
     "lib/msf/core/auxiliary/scanner.rb",
     "lib/msf/core/db_manager/cred.rb",
+    "lib/msf/core/db_manager/session.rb",
     "lib/msf/core/encoded_payload.rb",
     "lib/msf/core/exploit.rb",
     "lib/msf/core/exploit/file_dropper.rb",
