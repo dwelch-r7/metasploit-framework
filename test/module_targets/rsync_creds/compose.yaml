@@ -1,0 +1,30 @@
+services:
+  linux:
+    platform: linux/amd64
+    build: ../rsync
+    hostname: module-target-rsync-creds
+    command: [sh, /opt/rsync-creds-init.sh]
+    volumes:
+    - ./rsyncd.conf:/etc/rsyncd.conf:ro
+    - ./rsyncd.conf:/root/rsyncd.conf:ro
+    - ./rsyncd.conf:/root/rsync-user.conf:ro
+    - ./init.sh:/opt/rsync-creds-init.sh:ro
+    - ./native_probe.py:/opt/rsync-creds-native.py:ro
+    - ../linux_post/launch_session.py:/opt/launch_session.py:ro
+    ports: ["127.0.0.1::873"]
+    cpus: 0.5
+    mem_limit: 256m
+    memswap_limit: 256m
+    pids_limit: 128
+    init: true
+    healthcheck:
+      test: [CMD, rsync, --contimeout=2, --timeout=2, --list-only, 'rsync://127.0.0.1/']
+      interval: 3s
+      timeout: 4s
+      retries: 40
+  reporting_db:
+    platform: linux/amd64
+    extends: {file: ../elasticsearch_memory/services.yaml, service: db}
+networks:
+  default: {}
+  public: {}

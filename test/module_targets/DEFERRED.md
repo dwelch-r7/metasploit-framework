@@ -4,6 +4,18 @@ These findings do not count as passing functional qualification. The
 [campaign](CAMPAIGN.md) and individual verification records retain other
 coverage limits and ongoing investigations.
 
+## Rsync credential configuration scope
+
+The [rsync credential checkpoint](VERIFICATION-20261117-rsync-creds.md) repairs
+the confirmed host-local configuration read and guards missing/unreadable target
+files. Its final five Linux shell cases, native daemon controls and real reporting
+pass. Original owner, cleanup-harness and focused-contract setup failures remain
+separate evidence; they are not all owner defects. Alternate daemon ports,
+global INI inheritance, other configuration/credential grammar, other operating
+systems/architectures and transport loss remain unqualified. The original port
+873 reporting assumption and omitted realm key are unchanged. Those remaining
+paths require native controls before any future defect classification.
+
 ## Ray startup and remaining version coverage
 
 The [Ray job investigation](VERIFICATION-20261111-ray-jobs.md) preserves an

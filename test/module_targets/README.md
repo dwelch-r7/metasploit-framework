@@ -1,6 +1,17 @@
 # Container module acceptance tests
 
-Latest: [WP GDPR Compliance configuration and registration](VERIFICATION-20261117-gdpr-compliance.md)
+Latest: [Rsync credential collection through shell sessions](VERIFICATION-20261117-rsync-creds.md)
+adds one owner, one qualified profile and five cases, reaching **284 runtime
+owners in covered paths, 578 qualified profiles and 4,012 historical functional
+cases**. A confirmed host-local configuration read is repaired with an unchanged
+source-only replay. Six public calls use five genuine shell sessions and persist
+three session-origin credential/Untried-login pairs. Native authentication,
+downloads, repeated collection, missing/unreadable paths and custom home options
+pass. All five sessions/artifacts and three attached Docker objects are recovered,
+with at most two capped containers. The broader campaign remains active; no PR
+is created.
+
+Previous: [WP GDPR Compliance configuration and registration](VERIFICATION-20261117-gdpr-compliance.md)
 adds one owner, four qualified profiles and 22 cases in one passing aggregate,
 reaching **283 runtime owners in covered paths, 577 qualified profiles and 4,007
 historical functional cases**. Nine actual administrators and one subscriber are
