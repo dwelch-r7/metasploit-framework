@@ -539,3 +539,78 @@ cancellation or added functional case is involved.
 The six-entry terminal seal is
 `/Users/dwelch/.codex/reports/cp-calendar-publication-terminal-20261116`,
 manifest SHA256 `79c9e021154a04f15addb32b6c3b7c3d2438a3f3a9e0848e3d7385c30a89bc53`.
+
+
+## Secure Copy selected unit results
+
+The selected Ruby 3.3 jobs check out the exact fork publication
+`6e5974271f6a1e9cafa8982991086fba51033556`. Both non-content logs visibly execute
+all twelve new Secure Copy table-selection examples. Each selected log has one
+RSpec summary with zero failures and no visible built-in retry.
+
+| Ruby 3.3 job | Result | Seed |
+| --- | --- | ---: |
+| [Normal](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43964824320/job/133641374128) | 19,993 examples, zero failures, 33 pending | 45514 |
+| [REMOTE_DB](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43964824320/job/133641374581) | 19,806 examples, zero failures, 664 pending | 33259 |
+| [Content](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43964824320/job/133641374453) | 6,781 examples, zero failures | 23374 |
+| [Content REMOTE_DB](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43964824320/job/133641374238) | 6,781 examples, zero failures | 26866 |
+
+Verify finishes all fourteen jobs successfully. At the retained snapshot, nine
+workflows succeed and Meterpreter Acceptance is queued. These unit transport/UI/
+reporting doubles are separate from the twenty genuine local public cases. No
+functional case is added, and no agent retry or cancellation is performed.
+The six-entry exact-checkout seal is
+`/Users/dwelch/.codex/reports/secure-copy-publication-unit33-20261116`,
+manifest SHA256 `cbb9e04f3fb651d441822f03e7b1bb45cd417fa989167d9483254e78d8148d13`.
+
+## Brother native file-test failures
+
+The Brother publication's Meterpreter Acceptance run has two failed native jobs.
+The [Linux Mettle job](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43951388642/job/133594484554)
+reports 51 examples and two failures, seed 35799. A reverse HTTPS session using
+`base64_transforms.profile` times out during `post/test/file` file-existence
+operations. The following `post/test/cmd_exec` example cannot obtain a console
+prompt; its remaining buffer still contains the preceding file-test output.
+The [macOS Mettle job](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43951388642/job/133594484610)
+reports 46 examples and one failure, seed 50061. Its reverse HTTP session using
+the same profile times out at the file-test move operation and does not reach
+the expected post-module completion marker.
+
+Both actual Framework checkouts are upstream `rapid7/metasploit-framework` at
+`aa9ce416588a2d6fb97423d23591089aff2c8c3e`. Payload/package source bytes were not
+audited. The underlying native cause and base-versus-fork causality remain
+unverified. These results are distinct from the exact-fork passing Brother unit
+jobs and nineteen genuine supplied-serial generation/reporting cases above.
+The retained matrix snapshot has twenty-three completed jobs and Generate report
+queued; no terminal workflow conclusion is inferred. No agent retry or
+cancellation is performed and no local functional case is added.
+
+The four-entry read-only native-failure seal is
+`/Users/dwelch/.codex/reports/brother-password-publication-native-failures-20261116`,
+manifest SHA256 `fb618f7f43ded6acd8f4654bb158bd8bb8ff69471a307a9a83808dff77d7aa28`.
+
+
+The final Brother snapshot is terminal: nine workflows succeed and Meterpreter
+Acceptance fails. Its final matrix has twenty-one successful jobs, the two failed
+Mettle jobs above and one skip. Generate report completes successfully. This
+confirms the workflow conclusion without changing the unverified native cause
+or assigning the upstream-checkout failures to the Brother module repair.
+The four-entry terminal seal is
+`/Users/dwelch/.codex/reports/brother-password-publication-terminal-20261116`,
+manifest SHA256 `61b60b80292a33955458ac5f75e23148c4036863338a87f68de5e6fda0101da3`.
+
+## Secure Copy terminal native timeout
+
+The Secure Copy publication finishes with nine successful workflows and
+[Meterpreter Acceptance cancelled](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43964824933).
+Its final matrix has twenty-two successes, one skip and one cancelled Linux Mettle
+job; macOS Mettle succeeds. The [Linux job](https://github.com/dwelch-r7/metasploit-framework/actions/runs/43964824933/job/133641378181)
+actually checks out upstream Framework `aa9ce416588a2d6fb97423d23591089aff2c8c3e`.
+The reverse HTTP/base64_transforms file test accumulates send timeouts and later
+console-prompt failures. GitHub annotations confirm the sixty-minute job limit
+causes cancellation. There is no completed suite total. Native root cause,
+payload/package provenance and base-versus-fork causality remain unverified.
+No agent retry or cancellation is performed and no local case is added.
+
+The six-entry terminal seal is `/Users/dwelch/.codex/reports/secure-copy-publication-terminal-20261116`,
+manifest SHA256 `4fc23a36160fa7a256612a7714340d05a1024261434cd4ad786a2b8497d1333e`.

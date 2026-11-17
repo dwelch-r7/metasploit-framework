@@ -1,6 +1,17 @@
 # Container module acceptance tests
 
-Latest: [Secure Copy Content Protection SQLi](VERIFICATION-20261116-secure-copy.md)
+Latest: [Ultimate Member sorting SQLi](VERIFICATION-20261117-ultimate-member.md)
+adds one owner, eleven profiles and fifteen cases, reaching **271 runtime owners
+in covered paths, 487 profiles and 3,678 historical functional cases**. All public
+runs pass, including complete hashes/loot, repeat reporting, paths, prefixes,
+plain/default discovery, two users and negative prerequisites. Native evidence
+exposes two owner defects: ignored canonical redirects and randomized SQL aliases
+that can corrupt extraction. Both repairs pass unchanged public replays. All
+three-container stacks and attached objects are removed. Scanner fanout and
+cracking-format metadata remain separate follow-ups. The human guide is preserved;
+the broader campaign remains active. No PR is created.
+
+Previous: [Secure Copy Content Protection SQLi](VERIFICATION-20261116-secure-copy.md)
 adds one owner, eight profiles and twenty cases, reaching **270 runtime owners
 in covered paths, 476 profiles and 3,663 historical functional cases**. All
 public checks/runs pass, including six complete extractions, repeat reporting,
