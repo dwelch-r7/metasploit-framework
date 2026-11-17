@@ -1,0 +1,10 @@
+#!/bin/sh
+set -eu
+su -s /bin/sh www-data -c 'php /opt/module-target/seed.php'
+su -s /bin/sh www-data -c 'php /opt/module-target/activate.php'
+su -s /bin/sh www-data -c 'php /opt/module-target/configure.php'
+case "${HF_SERVER:-apache}" in
+  apache) exec /usr/local/bin/module-target-apache "$@" ;;
+  phpdev) exec su -s /bin/sh www-data -c 'PHP_CLI_SERVER_WORKERS=4 exec php -S 0.0.0.0:80 -t "$PWD"' ;;
+  *) exit 2 ;;
+esac

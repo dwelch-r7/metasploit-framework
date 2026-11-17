@@ -1,0 +1,38 @@
+{
+  "services": {
+    "db": {
+      "extends": {
+        "file": "../hash_form/services.yaml",
+        "service": "db"
+      }
+    },
+    "app": {
+      "extends": {
+        "file": "../hash_form/services.yaml",
+        "service": "app"
+      },
+      "environment": {
+        "HF_RELEASE": "1.1.0",
+        "HF_SERVER": "apache",
+        "LAB_PREFIX": "/portal",
+        "LAB_PLAIN": "0"
+      },
+      "volumes": [
+        "../../../tmp/module-target-hash-form-sources/1.1.0.zip:/opt/module-target/plugin.zip:ro"
+      ],
+      "working_dir": "/var/www/html/portal"
+    },
+    "reporting_db": {
+      "extends": {
+        "file": "../hash_form/services.yaml",
+        "service": "reporting_db"
+      }
+    }
+  },
+  "networks": {
+    "default": {
+      "internal": true
+    },
+    "public": {}
+  }
+}

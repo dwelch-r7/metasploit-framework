@@ -1,6 +1,19 @@
 # Container module acceptance tests
 
-Latest: [Simple File List upload/rename RCE](VERIFICATION-20261117-simple-file-list.md)
+Latest: [Hash Form upload and check repair](VERIFICATION-20261117-hash-form.md)
+adds one owner, nine qualified profiles and 37 cases in one passing aggregate,
+reaching **281 runtime owners in covered paths, 566 qualified profiles and 3,947
+historical functional cases**. Twenty-one typed PHP/Bash/fetched Linux sessions,
+589 native HTTP controls and exact state/resource/teardown checks pass. A real
+false-negative version check is repaired with source-only four-case causality.
+The 1.1.5 Apache literal-source guard and conditional PHP-server execution are
+verified separately; broken vendor prerequisites remain recorded. All stacks
+stay at three containers and all 45 attached objects are removed. Human Scenarios
+remain unchanged. The earlier Simple File List finding-context wording is
+corrected from ten to four using actual session workspaces, without changing its
+17-case/ten-session result. The broader campaign remains active. No PR is created.
+
+Previous: [Simple File List upload/rename RCE](VERIFICATION-20261117-simple-file-list.md)
 adds one unchanged owner, five qualified profiles and 17 cases in one passing
 aggregate, reaching **280 runtime owners in covered paths, 557 qualified profiles
 and 3,910 historical functional cases**. Ten actual PHP Meterpreter/command-shell

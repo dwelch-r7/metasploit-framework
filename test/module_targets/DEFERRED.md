@@ -746,3 +746,32 @@ FileDropper cleanup. Successful session paths physically remove their PHP file;
 a normal shortcode view then refreshes the plugin's file index. Vendor logs and
 `eeSFL-Log` remain outside selected-state restoration. The preserved first native
 failure was a two-log catalog expectation, not a module defect.
+
+
+## Hash Form backend conditions and vendor prerequisites
+
+The [Hash Form checkpoint](VERIFICATION-20261117-hash-form.md) passes 37 cases in
+nine profiles after a confirmed passive-check false-negative repair. Only the
+owner changes in the strict four-case before/after replay. Windows,
+default/staged/dynamic PHP, other runtimes, TLS, multisite, Nginx/IIS and other
+upload/server settings remain unqualified.
+
+The genuine 1.1.5 Apache handler serves uploaded PHP as literal bytes; the same
+vendor files on the real PHP development server permit execution. A version
+Appears result is conditional, not a guaranteed session. The original failed
+execution expectation, literal-source control and actual alternative-backend
+execution are all preserved.
+
+The advertised fixed 1.1.1 archive fails ordinary GIF upload with a vendor
+TypeError on this runtime. 1.1.2/.3 argument inconsistencies are source-only
+observations. None is silently used as a healthy patched target. 1.1.6/.9 have a
+separate non-PHP TXT allowlist gap and no multipart fallback; ordinary XHR and
+exact PHP-path denial are verified, without claiming the whole plugin is secure.
+
+The production owner retains uploads. Tests record and recover 22 owned PHP
+files through the native Delete API after UID/path/hash checks; this is operator
+recovery. All seven fetched binaries and remote processes disappear. Unrelated
+WordPress state and complete database restoration are outside the selected-state
+claim. The Simple File List report's earlier no-session count is also corrected:
+a missing marker in a finding description did not mean its workspace had no
+actual session; the verified count is four, with tests/sessions unchanged.
