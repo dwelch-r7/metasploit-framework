@@ -651,3 +651,22 @@ execution against a fixed target remain unqualified. Native and diagnostic split
 runs add no qualified profile/case counts. Selected state comparisons exclude
 auto-increment growth and filesystem free-space changes; complete database
 restoration is not claimed. The broader campaign remains active.
+## Pie Register deployment and transport coverage
+
+The [Pie Register checkpoint](VERIFICATION-20261117-pie-register.md) qualifies
+five profiles and 25 cases with explicit embedded-stdapi Meterpreter and PHP
+command-shell payloads. The original nonexistent-ID case leaves a real vendor
+orphan session_tokens row; its failure, skipped zero-ID case and outside error
+remain retained. Fixture cleanup now accepts only the reserved absent ID with
+the exact current test agent and bounded count/age, then uses WordPress APIs.
+Selected-state restoration remains strict. This establishes no production
+Framework owner defect, and the original failed cohort adds no counts.
+
+Version 3.7.1.5 fixes the numeric-ID branch but retains a separate username bypass.
+The tested public request refuses upload with the fixture users; an administrator
+named `null` remains untested. Version 3.7.1.6 is tested without its optional social
+addon. Neither later version is claimed universally immune to authentication
+bypass. Installed staged/dynamic-extension PHP transport, other runtime releases,
+Windows PHP, TLS, multisite and alternate content layouts remain unqualified.
+No default or dependency changes conceal those limits. Complete database
+restoration is not claimed.

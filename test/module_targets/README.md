@@ -1,6 +1,17 @@
 # Container module acceptance tests
 
-Latest: [User Registration membership RCE](VERIFICATION-20261117-user-registration.md)
+Latest: [Pie Register authentication bypass RCE](VERIFICATION-20261117-pie-register.md)
+adds one owner, five qualified profiles and 25 cases, reaching **277 runtime
+owners in covered paths, 532 qualified profiles and 3,816 historical functional
+cases**. Thirteen typed sessions, routing, repeats, permission negatives and
+selected-state restoration pass with 152 native HTTP controls.
+A real orphan-session side effect exposes a fixture cleanup gap; its original
+failed cohort is retained before strict native-API cleanup and a full passing
+replay. The production owner remains unchanged. Stacks stay at three capped
+containers and all attached resources are removed. The broader campaign remains
+active; no PR is created.
+
+Previous: [User Registration membership RCE](VERIFICATION-20261117-user-registration.md)
 adds one owner, four qualified profiles and nineteen cases, reaching **276 runtime
 owners in covered paths, 527 qualified profiles and 3,791 historical functional
 cases**. Thirteen typed sessions, six successful credential/login pairs, thirteen
