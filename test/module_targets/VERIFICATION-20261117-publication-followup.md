@@ -115,3 +115,16 @@ buffer. The initiating cause is unverified, and the second timeout does not
 independently establish an environment-module defect. These native results do
 not establish a regression in the fork changes. No agent retry or cancellation
 is dispatched. The newer `9256714` Meterpreter workflow remains separate.
+
+The `9256714` cohort subsequently finishes with all ten workflows successful.
+Its [Meterpreter workflow](https://github.com/dwelch-r7/metasploit-framework/actions/runs/44023139435)
+has 23 successful jobs and one optional skipped build. Its
+[Linux Mettle job](https://github.com/dwelch-r7/metasploit-framework/actions/runs/44023139435/job/133837045902)
+actually checks out the same upstream Framework revision `aa9ce416588` and passes
+51 examples with zero failures. Native binary provenance has not been compared
+between these two runs, so the initiating timeout cause remains unverified.
+Other native-job checkouts have not been inspected for this cohort; workflow
+metadata is not candidate-source proof. The Ruby 3.4 normal unit checkout and
+zero-failure result above are independently verified against the exact fork
+revision. These CI results add no local functional cases and do not erase the
+prior failures.
