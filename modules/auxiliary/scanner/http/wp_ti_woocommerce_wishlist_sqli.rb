@@ -30,7 +30,7 @@ class MetasploitModule < Msf::Auxiliary
           ['Retrieve Share Key and Perform SQLi', { 'Description' => 'Retrieve share key and perform SQL Injection' }]
         ],
         'DefaultAction' => 'Retrieve Share Key and Perform SQLi',
-        'DefaultOptions' => { 'VERBOSE' => true, 'COUNT' => 1 },
+        'DefaultOptions' => { 'VERBOSE' => true },
         'DisclosureDate' => '2024-09-25',
         'Notes' => {
           'Stability' => [CRASH_SAFE],
@@ -41,6 +41,7 @@ class MetasploitModule < Msf::Auxiliary
     )
 
     register_options [
+      OptInt.new('COUNT', [false, 'Number of user rows to retrieve (0 for all)', 1]),
       OptInt.new('PRODUCT_ID_MIN', [true, 'Minimum Product ID to bruteforce', 0]),
       OptInt.new('PRODUCT_ID_MAX', [true, 'Maximum Product ID to bruteforce', 100])
     ]

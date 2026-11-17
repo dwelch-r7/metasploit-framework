@@ -1,6 +1,7 @@
 require 'rspec'
 require 'msfenv'
 require 'msf/base'
+require 'msf/ui/console/module_option_validation'
 require 'json'
 
 RSpec.describe 'TI WooCommerce Wishlist share key discovery' do
@@ -36,6 +37,38 @@ RSpec.describe 'TI WooCommerce Wishlist share key discovery' do
   # HTTP/Framework/UI doubles. The fixture contains complete native JSON and a
   # verbatim absent-plugin HTML prefix; malformed variants below are synthetic.
   # No WordPress installation, SQL injection or credential reporting runs here.
+
+  describe 'COUNT option' do
+    it 'registers the count as an integer option' do
+      expect(mod.options['COUNT']).to be_a(Msf::OptInt)
+    end
+
+    it 'recognizes COUNT through the real console option validator' do
+      validator = Object.new.extend(Msf::Ui::Console::ModuleOptionValidation)
+
+      expect(validator.unknown_datastore_option_message(mod, 'COUNT')).to be_nil
+    end
+
+    it 'keeps the existing default of one user' do
+      expect(mod.datastore['COUNT']).to eq(1)
+    end
+
+    it 'normalizes an operator-supplied count of two' do
+      mod.datastore['COUNT'] = '2'
+
+      expect(mod.datastore['COUNT']).to eq(2)
+    end
+
+    it 'rejects a noninteger count on assignment' do
+      expect { mod.datastore['COUNT'] = 'many' }.to raise_error(Msf::OptionValidateError)
+    end
+
+    it 'keeps accepting zero to retrieve all users' do
+      mod.datastore['COUNT'] = 0
+
+      expect(mod.datastore['COUNT']).to eq(0)
+    end
+  end
 
   it 'returns the key from captured JSON with products keyed by product ID' do
     expect(share_key).to eq(expected_key)
