@@ -1,0 +1,37 @@
+{
+  "services": {
+    "db": {
+      "extends": {
+        "file": "../suretriggers/services.yaml",
+        "service": "db"
+      }
+    },
+    "app": {
+      "extends": {
+        "file": "../suretriggers/services.yaml",
+        "service": "app"
+      },
+      "environment": {
+        "SURE_RELEASE": "1.0.83",
+        "SURE_CONFIGURED_TOKEN": "",
+        "LAB_PREFIX": "",
+        "LAB_PLAIN": "0"
+      },
+      "volumes": [
+        "../../../tmp/module-target-suretriggers-sources/1.0.83.zip:/opt/module-target/plugin.zip:ro"
+      ]
+    },
+    "reporting_db": {
+      "extends": {
+        "file": "../suretriggers/services.yaml",
+        "service": "reporting_db"
+      }
+    }
+  },
+  "networks": {
+    "default": {
+      "internal": true
+    },
+    "public": {}
+  }
+}

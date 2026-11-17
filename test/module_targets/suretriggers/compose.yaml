@@ -1,0 +1,31 @@
+{
+  "services": {
+    "db": {
+      "extends": {
+        "file": "services.yaml",
+        "service": "db"
+      }
+    },
+    "app": {
+      "extends": {
+        "file": "services.yaml",
+        "service": "app"
+      },
+      "volumes": [
+        "../../../tmp/module-target-suretriggers-sources/1.0.82.zip:/opt/module-target/plugin.zip:ro"
+      ]
+    },
+    "reporting_db": {
+      "extends": {
+        "file": "services.yaml",
+        "service": "reporting_db"
+      }
+    }
+  },
+  "networks": {
+    "default": {
+      "internal": true
+    },
+    "public": {}
+  }
+}

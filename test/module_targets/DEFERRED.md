@@ -700,3 +700,30 @@ that job cannot validate the fork revision. Captured TLVs end with an unanswered
 core_channel_open, while native debug output continues HTTP polling. The initiating
 transport cause remains unverified; no retry/cancellation or timeout increase is
 dispatched. This separate evidence adds no module qualification.
+
+
+## SureTriggers actions, CLI setup and payload limits
+
+The [SureTriggers checkpoint](VERIFICATION-20261117-suretriggers.md) qualifies ten
+profiles and 41 cases in one all-green public aggregate. Two real owner defects
+are fixed: authenticated credentials remained Untried, and a successful outer
+response could contain a WordPress account error while still producing a false
+account/credential/loot claim. The source-only 6/5 to 6/0 proof is retained alongside
+16 focused contracts and the final evidence from 18 typed sessions.
+
+Configured 1.0.78 still receives passive version Appears for the empty-bearer
+action, while actual execution denies creation. Version 1.0.79 denies that action
+but retains key-reset exposure; 1.0.83 denies reset. Passive findings, including
+invalid-user check results, are not execution proofs. Original harness action
+and message failures are sealed before correction and add no counts.
+
+Standalone check's inline ACTION is parsed separately and discarded by the current
+console check parser. The fixture uses documented public set ACTION before check
+and verifies actual execution-clone actions for sessions. Its intended inline-CLI
+contract remains uninvestigated; no Framework core defect or fix is claimed.
+
+Default/staged/dynamic PHP transport, existing-account collision/update behavior,
+Windows, authenticated fixed-release SaaS positives, other runtime/version sets,
+TLS, multisite and alternate delivery families remain unqualified. Production
+retains created accounts and reset keys. Strict ownership-checked lab cleanup
+restores selected state, not a complete database. Human Scenarios remain intact.

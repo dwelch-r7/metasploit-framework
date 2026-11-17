@@ -1,6 +1,17 @@
 # Container module acceptance tests
 
-Latest: [King Addons registration and RCE](VERIFICATION-20261117-king-addons.md)
+Latest: [SureTriggers authentication bypasses](VERIFICATION-20261117-suretriggers.md)
+adds one owner, ten qualified profiles and 41 cases in one passing aggregate,
+reaching **279 runtime owners in covered paths, 552 qualified profiles and 3,893
+historical functional cases**. Eighteen real sessions, 14 Successful credential/login
+pairs, 18 credential loot files, 576 native HTTP controls and strict selected-state
+restoration pass. Confirmed reporting and false-account claims are repaired;
+source-only before/after proof and exploratory harness failures are preserved.
+Both actions, fixed/configured denials, routing and `AutoCheck=false` are exercised.
+All three-container stacks and 50 attached objects are removed. Human Scenarios
+remain unchanged; the broader campaign remains active. No PR is created.
+
+Previous: [King Addons registration and RCE](VERIFICATION-20261117-king-addons.md)
 adds one owner, ten qualified profiles and 36 selected cases, reaching **278 runtime
 owners in covered paths, 542 qualified profiles and 3,852 historical functional
 cases**. Seventeen real sessions, thirteen scoped credential/login pairs, 459
