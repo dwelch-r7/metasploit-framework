@@ -1,0 +1,37 @@
+{
+  "services": {
+    "db": {
+      "extends": {
+        "file": "../woocommerce_payments/services.yaml",
+        "service": "db"
+      }
+    },
+    "app": {
+      "extends": {
+        "file": "../woocommerce_payments/services.yaml",
+        "service": "app"
+      },
+      "environment": {
+        "WOO_PAYMENTS_RELEASE": "5.6.1",
+        "WOO_PAYMENTS_MODE": "enabled",
+        "LAB_PREFIX": "",
+        "LAB_PLAIN": "0"
+      },
+      "volumes": [
+        "../../../tmp/module-target-woocommerce-payments-sources/5.6.1.zip:/opt/module-target/plugin.zip:ro"
+      ]
+    },
+    "reporting_db": {
+      "extends": {
+        "file": "../woocommerce_payments/services.yaml",
+        "service": "reporting_db"
+      }
+    }
+  },
+  "networks": {
+    "default": {
+      "internal": true
+    },
+    "public": {}
+  }
+}

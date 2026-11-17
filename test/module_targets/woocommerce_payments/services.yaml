@@ -1,0 +1,38 @@
+services:
+  db:
+    extends: {file: ../wordpress/compose.yaml, service: db}
+    cpus: 0.5
+    mem_limit: 512m
+    memswap_limit: 512m
+    pids_limit: 128
+    init: true
+    networks: [default]
+  app:
+    extends: {file: ../wordpress/compose.yaml, service: root}
+    environment:
+      WOO_PAYMENTS_RELEASE: '5.6.1'
+      WOO_PAYMENTS_MODE: enabled
+    volumes:
+    - ../wordpress/seed.php:/opt/module-target/seed-base.php:ro
+    - ./apache2-foreground:/usr/local/bin/apache2-foreground:ro
+    - ./seed.php:/opt/module-target/seed.php:ro
+    - ./activate.php:/opt/module-target/activate.php:ro
+    - ./finish.php:/opt/module-target/finish.php:ro
+    - ./control.php:/opt/module-target/control.php:ro
+    - ./php.ini:/usr/local/etc/php/conf.d/module-target-payments.ini:ro
+    - ./releases.json:/opt/module-target/releases.json:ro
+    cpus: 1.0
+    mem_limit: 512m
+    memswap_limit: 512m
+    pids_limit: 128
+    init: true
+    networks:
+      default: {aliases: [module-target.test]}
+      public: {aliases: [module-target.test]}
+    healthcheck:
+      test: [CMD-SHELL, 'test -f /tmp/module-target-woo-payments-ready && curl --fail --silent http://127.0.0.1$${LAB_PREFIX}/wp-login.php >/dev/null']
+      interval: 3s
+      timeout: 5s
+      retries: 70
+  reporting_db:
+    extends: {file: ../elasticsearch_memory/services.yaml, service: db}
