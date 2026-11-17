@@ -76,6 +76,13 @@ module PieRegisterNative
       cleared = chain_identity(label + '-' + user.fetch('user_login'), 'clear-sessions', user.fetch('user_login'), agent)
       @chain.fetch(:operator_cleanup) << { label: label, result: cleared.fetch('operation_result') }
     end
+    # The vendor creates session metadata before validating a numeric user ID.
+    identifiers = current.fetch('users').map { |user| user.fetch('ID') }
+    current.fetch('usermeta').reject { |entry| identifiers.include?(entry.fetch('user_id').to_i) }.each do |entry|
+      expect(entry.values_at('user_id', 'meta_key')).to eq(['424242', 'session_tokens'])
+      cleared = chain_identity(label + '-orphan', 'clear-orphan-sessions', entry.fetch('user_id'), agent)
+      @chain.fetch(:operator_cleanup) << { label: label, result: cleared.fetch('operation_result') }
+    end
     chain_save
     chain_identity(label + '-after')
   end

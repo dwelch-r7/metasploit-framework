@@ -32,6 +32,9 @@ proof, reporting, repeat execution and FileDropper cleanup of the actual plugin.
 The owner creates authentication sessions on existing accounts; test-owned
 cleanup removes only fixture sessions with the exact expected user agent,
 bounded count and recent timestamps. Both tokens created by a login are handled.
+The invalid-ID case also verifies the vendor's orphan session metadata for the
+reserved nonexistent ID. Cleanup accepts only that absent ID and the exact
+current test agent, then removes its token through the WordPress session API.
 
 | Profile | Cases | Purpose |
 | --- | ---: | --- |

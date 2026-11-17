@@ -9,19 +9,25 @@ require_once ABSPATH . 'wp-admin/includes/file.php';
 $bootstrap = ob_get_clean();
 $operation = $argv[1] ?? '';
 $operation_result = null;
-if ($operation === 'clear-sessions') {
+if ($operation === 'clear-sessions' || $operation === 'clear-orphan-sessions') {
     $name = $argv[2] ?? '';
     $agent = $argv[3] ?? '';
-    if (!in_array($name, ['module_admin','module_author','module_subscriber','module_editor'], true) || !preg_match('/^module-target-pie-(?:native|public)-[a-z0-9_-]+$/D', $agent)) { throw new RuntimeException('Refusing unowned session cleanup'); }
-    $user = get_user_by('login', $name);
-    $manager = WP_Session_Tokens::get_instance($user->ID);
+    $orphan = $operation === 'clear-orphan-sessions';
+    if ($orphan) {
+        if ($name !== '424242' || get_userdata((int)$name) || !preg_match('/^module-target-pie-public-\d+-nonexistent$/D', $agent)) { throw new RuntimeException('Refusing unowned orphan session cleanup'); }
+        $identifier = (int)$name;
+    } else {
+        if (!in_array($name, ['module_admin','module_author','module_subscriber','module_editor'], true) || !preg_match('/^module-target-pie-(?:native|public)-[a-z0-9_-]+$/D', $agent)) { throw new RuntimeException('Refusing unowned session cleanup'); }
+        $identifier = get_user_by('login', $name)->ID;
+    }
+    $manager = WP_Session_Tokens::get_instance($identifier);
     $sessions = $manager->get_all();
-    if (count($sessions) > 4) { throw new RuntimeException('Unexpected owned session count'); }
+    if (count($sessions) > 4 || ($orphan && !$sessions)) { throw new RuntimeException('Unexpected owned session count'); }
     foreach ($sessions as $session) {
         if (($session['ua'] ?? '') !== $agent || $session['login'] < time()-300 || $session['login'] > time()+5) { throw new RuntimeException('Refusing cleanup of an unrelated session'); }
     }
     $manager->destroy_all();
-    $operation_result = ['removed'=>count($sessions),'username'=>$name,'agent'=>$agent];
+    $operation_result = ['removed'=>count($sessions),'username'=>$orphan ? null : $name,'user_id'=>$identifier,'orphan'=>$orphan,'agent'=>$agent];
 }
 if ($operation === 'delete-plugin') {
     $path = WP_PLUGIN_DIR . '/native_pie_probe/native-proof.php';
