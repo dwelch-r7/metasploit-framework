@@ -1,0 +1,36 @@
+{
+  "services": {
+    "db": {
+      "extends": {
+        "file": "../simple_file_list/services.yaml",
+        "service": "db"
+      }
+    },
+    "app": {
+      "extends": {
+        "file": "../simple_file_list/services.yaml",
+        "service": "app"
+      },
+      "environment": {
+        "SFL_RELEASE": "4.2.2",
+        "LAB_PREFIX": "",
+        "LAB_PLAIN": "1"
+      },
+      "volumes": [
+        "../../../tmp/module-target-simple-file-list-sources/4.2.2.zip:/opt/module-target/plugin.zip:ro"
+      ]
+    },
+    "reporting_db": {
+      "extends": {
+        "file": "../simple_file_list/services.yaml",
+        "service": "reporting_db"
+      }
+    }
+  },
+  "networks": {
+    "default": {
+      "internal": true
+    },
+    "public": {}
+  }
+}

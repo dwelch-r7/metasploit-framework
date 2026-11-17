@@ -1,6 +1,17 @@
 # Container module acceptance tests
 
-Latest: [SureTriggers authentication bypasses](VERIFICATION-20261117-suretriggers.md)
+Latest: [Simple File List upload/rename RCE](VERIFICATION-20261117-simple-file-list.md)
+adds one unchanged owner, five qualified profiles and 17 cases in one passing
+aggregate, reaching **280 runtime owners in covered paths, 557 qualified profiles
+and 3,910 historical functional cases**. Ten actual PHP Meterpreter/command-shell
+sessions, repeats, routing, fixed denials, reporting and physical payload cleanup
+pass with 262 native HTTP controls. A vendor-log integrity expectation is corrected
+after preserving its native failure; no production module repair is needed.
+All three-container stacks and 25 attached objects are removed. The fixed forced
+attempt's retained PNG and operator recovery remain explicit. The human guide is
+unchanged; the broader campaign remains active. No PR is created.
+
+Previous: [SureTriggers authentication bypasses](VERIFICATION-20261117-suretriggers.md)
 adds one owner, ten qualified profiles and 41 cases in one passing aggregate,
 reaching **279 runtime owners in covered paths, 552 qualified profiles and 3,893
 historical functional cases**. Eighteen real sessions, 14 Successful credential/login

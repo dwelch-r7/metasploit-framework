@@ -727,3 +727,22 @@ Windows, authenticated fixed-release SaaS positives, other runtime/version sets,
 TLS, multisite and alternate delivery families remain unqualified. Production
 retains created accounts and reset keys. Strict ownership-checked lab cleanup
 restores selected state, not a complete database. Human Scenarios remain intact.
+
+
+## Simple File List transport and fixed-attempt artifacts
+
+The [Simple File List checkpoint](VERIFICATION-20261117-simple-file-list.md)
+passes 17 cases in five profiles with the production owner unchanged. The explicit
+PHP Meterpreter/embedded stdapi and PHP command-shell paths are qualified;
+default/staged/dynamic PHP transport remains part of the separate investigation.
+Other plugin/runtime releases, TLS, multisite, custom upload directories and
+other security configurations remain unqualified.
+
+A forced 4.2.3 attempt uploads a PNG, then the genuine rename endpoint returns
+HTTP500 and logs the extension veto. No PHP file or session is created. The owner
+retains the PNG without a session; tests record it and remove that owned file
+through the real vendor Delete endpoint. This operator recovery is not automatic
+FileDropper cleanup. Successful session paths physically remove their PHP file;
+a normal shortcode view then refreshes the plugin's file index. Vendor logs and
+`eeSFL-Log` remain outside selected-state restoration. The preserved first native
+failure was a two-log catalog expectation, not a module defect.
