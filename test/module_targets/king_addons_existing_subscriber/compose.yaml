@@ -1,0 +1,39 @@
+{
+  "services": {
+    "db": {
+      "extends": {
+        "file": "../king_addons/services.yaml",
+        "service": "db"
+      }
+    },
+    "app": {
+      "extends": {
+        "file": "../king_addons/services.yaml",
+        "service": "app"
+      },
+      "environment": {
+        "KING_RELEASE": "51.1.14",
+        "KING_REGISTRATION": "1",
+        "KING_EXISTING_ROLE": "subscriber",
+        "LAB_PREFIX": "",
+        "LAB_PLAIN": "0"
+      },
+      "volumes": [
+        "../../../tmp/module-target-king-addons-sources/51.1.14.zip:/opt/module-target/king-addons.zip:ro",
+        "../../../tmp/module-target-elementor-sources/3.21.0.zip:/opt/module-target/elementor.zip:ro"
+      ]
+    },
+    "reporting_db": {
+      "extends": {
+        "file": "../king_addons/services.yaml",
+        "service": "reporting_db"
+      }
+    }
+  },
+  "networks": {
+    "default": {
+      "internal": true
+    },
+    "public": {}
+  }
+}
