@@ -28,6 +28,16 @@ $wishlistFile = WP_PLUGIN_DIR . '/ti-woocommerce-wishlist/ti-woocommerce-wishlis
 $wishlistInstalled = is_file($wishlistFile);
 $routes = rest_get_server()->get_routes();
 $wishlistRoute = '/wc/v3/wishlist/(?P<share_key>[A-Fa-f0-9]{6})/get_products';
+$prefixLookup = null;
+if ($wpdb->prefix === 'wp_native_') {
+    // Exact encoded query captured from the original failed public run.
+    $query = file_get_contents('/opt/module-target/prefix-query.sql');
+    $prefixLookup = [
+        'value' => $wpdb->get_var($query),
+        'byte5_gt127' => $wpdb->get_var('SELECT ord(mid(cast((' . $query . ') as binary),5,1))>127'),
+        'byte5_gt96' => $wpdb->get_var('SELECT ord(mid(cast((' . $query . ') as binary),5,1))>96')
+    ];
+}
 echo json_encode([
     'core' => get_bloginfo('version'), 'php' => PHP_VERSION, 'uid' => posix_geteuid(),
     'woocommerce' => WC()->version,
@@ -39,7 +49,7 @@ echo json_encode([
     'active_plugins' => array_values(get_option('active_plugins')), 'active_plugins_option' => get_option('active_plugins'), 'installed_sha256' => $hashes,
     'product' => $product ? ['id' => $product->get_id(), 'name' => $product->get_name(), 'status' => $product->get_status(), 'type' => $product->get_type(), 'price' => $product->get_price(), 'permalink' => $product->get_permalink()] : null,
     'database' => DB_NAME, 'role' => $wpdb->get_var('SELECT CURRENT_USER()'), 'grants' => $wpdb->get_col('SHOW GRANTS'), 'server' => $wpdb->get_var('SELECT VERSION()'),
-    'table_prefix' => $wpdb->prefix, 'permalink_structure' => get_option('permalink_structure'),
+    'table_prefix' => $wpdb->prefix, 'prefix_lookup' => $prefixLookup, 'permalink_structure' => get_option('permalink_structure'),
     'prefix' => getenv('LAB_PREFIX') ?: '', 'config_sha256' => hash_file('sha256', ABSPATH . 'wp-config.php'),
     'archive_sha256' => ['woocommerce' => hash_file('sha256', '/opt/module-target/woocommerce.zip'), 'ti-woocommerce-wishlist' => hash_file('sha256', '/opt/module-target/wishlist.zip')],
     'published_product_ids' => wc_get_products(['status' => 'publish', 'limit' => -1, 'return' => 'ids']),

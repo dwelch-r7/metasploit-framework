@@ -34,8 +34,13 @@ database and console configuration.
 
 The host console keeps WordPress, MariaDB and reporting PostgreSQL at three
 containers. Published ports bind loopback; containers have explicit CPU, memory,
-swap and PID caps. A measured 0.5-second SQL delay keeps complete native hash
-checks bounded while avoiding short-delay calibration failures. Guest wishlist
+swap and PID caps. Successful short profiles use a 0.5-second SQL delay. The
+custom-prefix and two-user profiles use Framework's one-second default after
+the original lower-delay attempt records slow false responses and corrupted
+bytes. Native controls use the same delay as the selected public run. The prefix
+profile additionally evaluates the captured lookup in MariaDB and over HTTP;
+`prefix-query.sql` is the exact encoded query from that failed run, with its
+original alias retained for reproduction. Guest wishlist
 records are retained until stack teardown; original users and product/source
 state must remain intact. Registration and independent native proofs do not
 establish accepted module coverage. See the

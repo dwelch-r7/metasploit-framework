@@ -12,7 +12,9 @@
     "TI_WISHLIST_PLAIN": "0",
     "TI_WISHLIST_REPEATS": "1",
     "TI_WISHLIST_NEGATIVES": "0",
-    "TI_WISHLIST_COUNT": "2"
+    "TI_WISHLIST_COUNT": "2",
+    "TI_WISHLIST_DELAY": "1.0",
+    "TI_WISHLIST_COMMAND_TIMEOUT": "1200"
   },
   "modules": [
     "auxiliary/scanner/http/wp_ti_woocommerce_wishlist_sqli"
@@ -68,6 +70,7 @@
     "test/module_targets/ti_wishlist/manifest.yml",
     "test/module_targets/ti_wishlist/native.rb",
     "test/module_targets/ti_wishlist/php.ini",
+    "test/module_targets/ti_wishlist/prefix-query.sql",
     "test/module_targets/ti_wishlist/prepare.rb",
     "test/module_targets/ti_wishlist/releases.json",
     "test/module_targets/ti_wishlist/seed.php",

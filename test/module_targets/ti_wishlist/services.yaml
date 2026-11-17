@@ -19,6 +19,7 @@ services:
     - ./activate.php:/opt/module-target/activate.php:ro
     - ./finish.php:/opt/module-target/finish.php:ro
     - ./control.php:/opt/module-target/control.php:ro
+    - ./prefix-query.sql:/opt/module-target/prefix-query.sql:ro
     - ./php.ini:/usr/local/etc/php/conf.d/module-target-wishlist.ini:ro
     - ./timing.conf:/etc/apache2/conf-enabled/module-target-timing.conf:ro
     - ./releases.json:/opt/module-target/ti-releases.json:ro

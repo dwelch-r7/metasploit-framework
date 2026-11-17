@@ -66,6 +66,7 @@
     "test/module_targets/ti_wishlist/finish.php",
     "test/module_targets/ti_wishlist/native.rb",
     "test/module_targets/ti_wishlist/php.ini",
+    "test/module_targets/ti_wishlist/prefix-query.sql",
     "test/module_targets/ti_wishlist/prepare.rb",
     "test/module_targets/ti_wishlist/releases.json",
     "test/module_targets/ti_wishlist/seed.php",

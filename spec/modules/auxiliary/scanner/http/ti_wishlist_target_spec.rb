@@ -13,6 +13,7 @@ RSpec.describe 'TI WooCommerce Wishlist genuine SQLi targets', acceptance: true,
     @prefix = ENV.fetch('TI_WISHLIST_PREFIX', '')
     @vulnerable = @release == '2.8.2' && @mode == 'enabled'
     @count = Integer(ENV.fetch('TI_WISHLIST_COUNT', '1'))
+    @delay = Float(ENV.fetch('TI_WISHLIST_DELAY', '0.5'))
     begin
       @baseline = wl_identity('before')
       wl_controls('before')
@@ -86,7 +87,7 @@ RSpec.describe 'TI WooCommerce Wishlist genuine SQLi targets', acceptance: true,
   def wl_call(label, overrides, expected:, reuse: false)
     skip 'Console was lost during a previous public call' if @wl[:console_lost]
 
-    options = { 'TARGETURI' => @prefix + '/', 'VHOST' => 'module-target.test', 'SqliDelay' => 0.5, 'HttpClientTimeout' => 5, 'THREADS' => 1, 'VERBOSE' => true }
+    options = { 'TARGETURI' => @prefix + '/', 'VHOST' => 'module-target.test', 'SqliDelay' => @delay, 'HttpClientTimeout' => 5, 'THREADS' => 1, 'VERBOSE' => true }
     options['COUNT'] = @count if ENV.key?('TI_WISHLIST_COUNT')
     options.merge!(overrides)
     if @mode == 'no_products' || %w[inactive absent].include?(@mode)
@@ -98,7 +99,7 @@ RSpec.describe 'TI WooCommerce Wishlist genuine SQLi targets', acceptance: true,
     @wl.fetch(:calls) << call
     wl_save
     started = Process.clock_gettime(Process::CLOCK_MONOTONIC)
-    output = run_target_module(wl_fullname, 'app', options, allow_errors: true, command_timeout: 900, reuse_module: reuse) do |returned|
+    output = run_target_module(wl_fullname, 'app', options, allow_errors: true, command_timeout: Integer(ENV.fetch('TI_WISHLIST_COMMAND_TIMEOUT', '900')), reuse_module: reuse) do |returned|
       call.merge!(state: 'returned', seconds: Process.clock_gettime(Process::CLOCK_MONOTONIC) - started, output_base64: Base64.strict_encode64(returned.b))
       wl_save
     end

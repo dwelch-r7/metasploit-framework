@@ -88,3 +88,94 @@ audit. All four projects and twenty attached volumes/networks are removed and
 individually verified absent. Each stack stays at three capped containers;
 the final global inventory is empty. No image pruning, PR, CI retry or CI
 cancellation is performed. The broader campaign remains active.
+
+## First complete matrix: two failures retained
+
+Committed fixture `b1a760881c1` runs all nine profiles in one serial invocation,
+`20261117T060523-140d2e`. Its aggregate CLI exits 1. Seven profiles pass eleven
+public cases: inactive, absent, fixed, empty catalog, the five-case default
+profile, subdirectory and plain permalinks. The repeated default extractions
+take 259.3 and 263.9 seconds on the same console module object, preserve credential
+IDs and create two exact loot files. All seven include passing native after
+checks and cleanup. No all-green aggregate or new campaign count is claimed.
+
+The custom-prefix case passes native before/after gates but recovers byte five
+of `wp_native_` as `0x80` instead of `a`. It subsequently queries a nonexistent
+table, reports zero credentials and saves an empty loot. The full-data assertion
+fails. Reconstructing all eighty captured prefix-character comparisons identifies
+one disagreement with the native prefix: the `>127` comparison for byte five
+takes 727,578 microseconds on the server, exceeding the configured 0.5-second
+cutoff. The bisection therefore follows the upper branch and returns `0x80`.
+The captured encoded SQL and all raw bytes are retained; independent evaluation
+of that exact predicate is still pending. This is separate from reserved alias
+grammar: the actual alias is quoted `kc`, and the query returns nine other prefix
+bytes correctly. No wall-clock change is needed to explain the observed branch.
+
+The two-user case takes 511.3 seconds and reports `Unknown datastore option:
+COUNT`. The owner reads that datastore value but never registers its option.
+Independent comparison of the returned credential rows also finds one wrong
+byte in the administrator hash: offset 49 is `x` instead of native `u`; the
+author hash matches. The test does not accept these rows. Its native after check
+additionally records a false response taking 0.545 seconds, beyond the short
+delay's safety margin. This profile remains unqualified for both reasons.
+
+All nine original attempts are sealed before changing fixture parameters.
+All 45 attached volumes/networks are individually absent and the global Docker
+inventory is empty before transferring the lane to the native investigation.
+The original seal index is retained in
+`tmp/ti-wishlist-feasibility/public-trial-20261117T060518/seals.json`.
+Subsequent work must distinguish the option-registration repair, conservative
+delay configuration and unchanged original results. The seven passing profiles
+retain their exact `b1a760881c1` inputs; targeted replays of the two failures are
+pending. The broader campaign remains active.
+
+## Targeted repair and delay qualification — pending public replay
+
+The COUNT repair `30a5bebbe7630a18e8ae2de419c3679fe39d0a9a` registers the
+existing setting as an optional integer and keeps its default of one. The
+duplicate metadata default is removed. Zero still follows the shared MySQL
+helper's existing all-rows behavior. Same-seed tests produce 42 examples with
+four failures on the predecessor and zero after the repair, seed 29761:
+35 owner contracts and seven support examples. They include the actual console
+option validator, integer normalization, noninteger rejection and preserved
+defaults. Changed owner/spec lint and module msftidy pass. Public `COUNT=2`
+replay remains pending.
+
+The 27-entry COUNT repair seal is independently rehashed at
+`/Users/dwelch/.codex/reports/ti-wishlist-count-option-registration-20261117T070247Z-seal`,
+manifest SHA256 `8a401e95900d573a7f828caef0cdaea69c0b79ca5f7827bfdc69e2366d3c20ef`.
+
+The two original corruptions have independent request traces. All eighty prefix
+and 1,232 credential-character comparisons are reconstructed from captured
+requests. In each set one comparison disagrees with the native data, and every
+inferred client branch agrees with the server duration crossing 500,000
+microseconds. For the administrator hash, global character 63 is native 117
+(`u`), but its `>119` comparison takes 699,682 microseconds, selecting the branch
+that ultimately returns 120 (`x`). These observations do not identify the source
+of the slow server responses or justify a production bisection/timing change.
+
+The frozen native replay `run-20261117T065359Z` independently executes the
+exact captured literal and encoded prefix queries as the ordinary database
+role. Both return `wp_native_`; byte five is 97, `>127` is zero and `>96` is one.
+Three HTTP false/true pairs at each delay pass: median 0.185/0.640 seconds at
+0.5 and 0.144/1.125 seconds at 1.0. Nineteen HTTP requests, eight zero resource
+snapshots, two capped containers and four individually absent attached objects
+are retained. Twenty-nine inputs are verified before startup; all twelve runtime
+bind files are frozen from the recorded `b1a760881c1` inputs.
+
+The first proof run is excluded because the parent changed a shared diagnostic
+file during its after gate. Two further frozen-controller startup failures
+(executable mode and Compose dollar escaping) reach no SQL/HTTP proof and are
+retained separately. The final exact 300-entry seal is independently rehashed at
+`/Users/dwelch/.codex/reports/ti-wishlist-prefix-native-proof-20261117T065923Z-seal`,
+manifest SHA256 `a4cf789a01101dd41db350d4d5489270b7765baa18f9d4838b8b4465b5748958`.
+This native proof adds no Framework cases.
+
+The two failed profiles now select Framework's existing one-second delay,
+exceeding the observed slow false responses. Their independent HTTP gates use
+the same setting. The prefix case also evaluates the captured lookup and byte
+predicates directly in MariaDB and over HTTP. The other seven profiles retain
+the earlier half-second setting and their exact tested revision. Their default
+COUNT remains one; the fixture's new delay/timeout parameters preserve the old
+defaults. No all-green original aggregate is claimed, and campaign counts remain
+unchanged until the two targeted public replays pass.
