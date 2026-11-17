@@ -11,6 +11,11 @@ exact loot files are verified. Work stacks stay at three containers and clean up
 fully. Staged PHP remains unqualified and under separate investigation. The human
 guide is preserved; the broader campaign remains active. No PR is created.
 
+Follow-up: [WordPress SQLi prefix alias](VERIFICATION-20261117-wordpress-prefix-alias.md)
+quotes random identifiers that can otherwise be reserved SQL words. A genuine
+MariaDB comparison and 161 focused unit examples verify the repair; no module
+coverage or historical totals are added by that helper qualification.
+
 Previous: [Blind SQLi monotonic timing and replay](VERIFICATION-20261117-blind-sqli-clock.md)
 adds one qualified subdirectory profile and two cases, reaching **272 runtime
 owners in covered paths, 497 qualified profiles and 3,702 historical functional

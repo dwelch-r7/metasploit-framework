@@ -82,8 +82,8 @@ The fixture now advances explicit wall and monotonic clocks together. Production
 module/library code and assertions are unchanged. The parent combined SQLi,
 alias and LiteLLM set passes 141 examples with no failures, pending or outside
 errors, seed 39309, on Ruby 3.3.13; changed-spec lint is clean. The consumer audit
-finds no other necessary migration. Ruby 3.4 confirmation requires the new CI
-run. No functional module cases or campaign counts are added.
+finds no other necessary migration. No functional module cases or campaign
+counts are added.
 
 The eight-entry parent checkpoint is
 `/Users/dwelch/.codex/reports/clock-consumer-followup-qualified-20261117`,
@@ -91,3 +91,27 @@ manifest SHA256 `4e041cc83e0862527b329df6d26f69d181a975adf6ca0e2c94c7a045337b70e
 Its full file set and bytes are independently rehashed, as are the referenced
 40-entry worker and 325-entry upstream protocol seals. The exact failed job log,
 before/after evidence and local-check results remain preserved.
+
+Publication `9256714ecf7d312980a068729695e2873b7c9fbd` subsequently passes
+[Verify](https://github.com/dwelch-r7/metasploit-framework/actions/runs/44023139196),
+including all thirteen Ruby matrix jobs and the Docker build. The
+[Ruby 3.4 normal unit job](https://github.com/dwelch-r7/metasploit-framework/actions/runs/44023139196/job/133837044175)
+logs an actual checkout of that exact fork commit and 20,064 examples with
+zero failures and 33 pending. This supplies Ruby 3.4 confirmation after the
+fixture repair. It does not establish completion of the separate acceptance
+workflows or add local functional qualification.
+
+The earlier `61647b9` cohort is now terminal: eight workflows succeed, Verify
+has the four repaired fixture failures above, and
+[Meterpreter acceptance](https://github.com/dwelch-r7/metasploit-framework/actions/runs/44017929315)
+fails one Linux job. That
+[job](https://github.com/dwelch-r7/metasploit-framework/actions/runs/44017929315/job/133820232126)
+actually checks out `rapid7/metasploit-framework` at
+`aa9ce416588a2d6fb97423d23591089aff2c8c3e`, and reports 51 examples with two
+failures. The `linux/x64/meterpreter_reverse_http` file suite with
+`base64_transforms.profile` times out waiting for completion; the subsequent
+environment suite times out waiting for a prompt while retaining that file-suite
+buffer. The initiating cause is unverified, and the second timeout does not
+independently establish an environment-module defect. These native results do
+not establish a regression in the fork changes. No agent retry or cancellation
+is dispatched. The newer `9256714` Meterpreter workflow remains separate.
