@@ -1,6 +1,17 @@
 # Container module acceptance tests
 
-Latest: [.netrc collection and parser repair](VERIFICATION-20261117-netrc-creds.md)
+Latest: [PostgreSQL password-file collection and parser repair](VERIFICATION-20261117-pgpass-creds.md)
+adds one owner, one qualified profile and sixteen cases, reaching **286 runtime
+owners in covered paths, 580 qualified profiles and 4,036 historical functional
+cases**. Native-accepted blank/incomplete and escaped-field parsing is repaired;
+an unchanged six-case source-only replay proves causality. Eighteen owning calls
+use sixteen genuine shell/Meterpreter sessions and persist sixteen session-origin
+credential/Untried-login pairs and eighteen exact raw loot files. Sixty native SQL
+controls, repeats and complete selected-state recovery pass. All three capped
+containers and attached Docker objects are removed. The wider campaign remains
+active; no PR is created.
+
+Previous: [.netrc collection and parser repair](VERIFICATION-20261117-netrc-creds.md)
 adds one owner, one qualified profile and eight cases, reaching **285 runtime
 owners in covered paths, 579 qualified profiles and 4,020 historical functional
 cases**. Native-verified tab and comment defects are repaired with an unchanged

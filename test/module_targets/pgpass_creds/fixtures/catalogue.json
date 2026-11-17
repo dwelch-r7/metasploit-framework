@@ -1,0 +1,42 @@
+{
+  "plain.pgpass": {
+    "user": "pgpass_user",
+    "database": "pgpass_lab",
+    "password": "pgpass-lab-password"
+  },
+  "comments.pgpass": {
+    "user": "pgpass_user",
+    "database": "pgpass_lab",
+    "password": "pgpass-lab-password"
+  },
+  "blanks.pgpass": {
+    "user": "pgpass_user",
+    "database": "pgpass_lab",
+    "password": "pgpass-lab-password"
+  },
+  "wildcard.pgpass": {
+    "user": "pgpass_user",
+    "database": "pgpass_lab",
+    "password": "pgpass-lab-password"
+  },
+  "escaped-db.pgpass": {
+    "user": "pgpass_user",
+    "database": "pgpass:db",
+    "password": "pgpass-lab-password"
+  },
+  "escaped-user.pgpass": {
+    "user": "pgpass:user",
+    "database": "pgpass_lab",
+    "password": "pgpass-lab-password"
+  },
+  "escaped-password.pgpass": {
+    "user": "escape_user",
+    "database": "pgpass_lab",
+    "password": "pg:pass\\word:tail"
+  },
+  "incomplete.pgpass": {
+    "user": "pgpass_user",
+    "database": "pgpass_lab",
+    "password": "pgpass-lab-password"
+  }
+}

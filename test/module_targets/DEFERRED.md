@@ -4,6 +4,19 @@ These findings do not count as passing functional qualification. The
 [campaign](CAMPAIGN.md) and individual verification records retain other
 coverage limits and ongoing investigations.
 
+## PostgreSQL password-file remaining scope
+
+The [pgpass checkpoint](VERIFICATION-20261117-pgpass-creds.md) repairs native-proven
+blank/incomplete line handling and escaped-field parsing. Sixteen Linux/amd64
+root shell/Meterpreter cases pass with native SQL controls and real reporting.
+Original network/port and Meterpreter proof/artifact harness failures remain
+separate from the clean four-failure owner cohort. Windows/BSD/macOS, other
+architectures/releases, ordinary-user owning sessions, further grammar and
+transport loss remain unqualified. IPv6, empty-password and extra escape
+boundaries have source-backed unit contracts, without native authentication
+claims. Legacy unescaped password-colon collection is preserved and differs
+from libpq. Remaining failures need native prerequisites before attribution.
+
 ## .netrc remaining grammar and platform scope
 
 The [netrc checkpoint](VERIFICATION-20261117-netrc-creds.md) repairs native-proven

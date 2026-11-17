@@ -1,0 +1,74 @@
+{
+  "services": {
+    "linux": {
+      "platform": "linux/amd64",
+      "build": ".",
+      "hostname": "module-target-pgpass",
+      "environment": {
+        "POSTGRES_PASSWORD": "module-target-pg-admin-password",
+        "POSTGRES_INITDB_ARGS": "--auth-host=scram-sha-256 --auth-local=scram-sha-256",
+        "POSTGRES_HOST_AUTH_METHOD": "scram-sha-256"
+      },
+      "command": [
+        "postgres",
+        "-c",
+        "shared_buffers=32MB",
+        "-c",
+        "max_connections=25",
+        "-c",
+        "listen_addresses=*"
+      ],
+      "volumes": [
+        "./fixtures:/opt/pgpass-fixtures:ro",
+        "./fixture_native.py:/opt/pgpass-fixture-native.py:ro",
+        "./native_probe.py:/opt/pgpass-native.py:ro",
+        "./case_state.py:/opt/pgpass-case-state.py:ro",
+        "./process_state.py:/opt/pgpass-process-state.py:ro",
+        "../linux_post/launch_session.py:/opt/launch_session.py:ro",
+        "${MODULE_TARGET_ARTIFACTS:?Set by the module target runner}:/opt/module-target-artifacts:ro"
+      ],
+      "ports": [
+        "127.0.0.1::5432"
+      ],
+      "cpus": 0.5,
+      "mem_limit": "512m",
+      "memswap_limit": "512m",
+      "pids_limit": 128,
+      "init": true,
+      "healthcheck": {
+        "test": [
+          "CMD-SHELL",
+          "PGPASSWORD=module-target-pg-admin-password psql -X -w -h 127.0.0.1 -U postgres -d postgres -Atc 'SELECT 1' | grep -qx 1"
+        ],
+        "interval": "3s",
+        "timeout": "4s",
+        "retries": 50
+      },
+      "networks": [
+        "default",
+        "public"
+      ]
+    },
+    "reporting_db": {
+      "platform": "linux/amd64",
+      "extends": {
+        "file": "../elasticsearch_memory/services.yaml",
+        "service": "db"
+      }
+    },
+    "framework": {
+      "platform": "linux/amd64",
+      "cpus": 1.0,
+      "mem_limit": "1536m",
+      "memswap_limit": "1536m",
+      "pids_limit": 256,
+      "init": true
+    }
+  },
+  "networks": {
+    "default": {
+      "internal": true
+    },
+    "public": {}
+  }
+}
