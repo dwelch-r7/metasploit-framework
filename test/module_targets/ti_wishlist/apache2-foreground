@@ -1,0 +1,9 @@
+#!/bin/sh
+set -eu
+php /opt/module-target/seed.php
+php /opt/module-target/activate.php woocommerce/woocommerce.php
+if [ "${TI_WISHLIST_MODE:-enabled}" != absent ]; then
+  php /opt/module-target/activate.php ti-woocommerce-wishlist/ti-woocommerce-wishlist.php
+fi
+php /opt/module-target/finish.php
+exec /usr/local/bin/module-target-apache "$@"

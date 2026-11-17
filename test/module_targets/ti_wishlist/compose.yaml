@@ -1,0 +1,12 @@
+services:
+  db:
+    extends: {file: ./services.yaml, service: db}
+  app:
+    extends: {file: ./services.yaml, service: app}
+    volumes:
+    - ../../../tmp/module-target-ti-wishlist-sources/2.8.2.zip:/opt/module-target/wishlist.zip:ro
+  reporting_db:
+    extends: {file: ./services.yaml, service: reporting_db}
+networks:
+  default: {internal: true}
+  public: {}
