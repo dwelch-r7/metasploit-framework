@@ -1,6 +1,17 @@
 # Container module acceptance tests
 
-Latest: [Rsync credential collection through shell sessions](VERIFICATION-20261117-rsync-creds.md)
+Latest: [.netrc collection and parser repair](VERIFICATION-20261117-netrc-creds.md)
+adds one owner, one qualified profile and eight cases, reaching **285 runtime
+owners in covered paths, 579 qualified profiles and 4,020 historical functional
+cases**. Native-verified tab and comment defects are repaired with an unchanged
+source-only replay. Nine owning calls use eight genuine shell sessions and save
+eight exact CSV loot files. Native authentication, root/ordinary permissions,
+repeats, formatting and multiple-machine cases pass. The shared rsync helper also
+passes its five-case regression. All owned home files, sessions and Docker objects
+are recovered, with at most three capped containers. The campaign remains active;
+no PR is created.
+
+Previous: [Rsync credential collection through shell sessions](VERIFICATION-20261117-rsync-creds.md)
 adds one owner, one qualified profile and five cases, reaching **284 runtime
 owners in covered paths, 578 qualified profiles and 4,012 historical functional
 cases**. A confirmed host-local configuration read is repaired with an unchanged

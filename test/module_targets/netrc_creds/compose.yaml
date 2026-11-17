@@ -1,0 +1,85 @@
+{
+  "services": {
+    "linux": {
+      "platform": "linux/amd64",
+      "build": {
+        "context": "../linux_post",
+        "args": {
+          "EXTRA_PACKAGES": "curl=7.81.0-1ubuntu1.30"
+        }
+      },
+      "hostname": "module-target-netrc-client",
+      "command": [
+        "sh",
+        "/opt/netrc-init.sh"
+      ],
+      "volumes": [
+        "./fixtures:/opt/netrc-fixtures:ro",
+        "./fixture_native.py:/opt/netrc-fixture-native.py:ro",
+        "./native_probe.py:/opt/netrc-native.py:ro",
+        "./case_state.py:/opt/netrc-case-state.py:ro",
+        "./init.sh:/opt/netrc-init.sh:ro",
+        "../http/htdocs/protected/index.html:/opt/protected-source.html:ro"
+      ],
+      "ports": [
+        "127.0.0.1::8080"
+      ],
+      "cpus": 0.5,
+      "mem_limit": "256m",
+      "memswap_limit": "256m",
+      "pids_limit": 128,
+      "init": true,
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "python3",
+          "-c",
+          "import socket;s=socket.create_connection((\"127.0.0.1\",8080),2);s.close()"
+        ],
+        "interval": "3s",
+        "timeout": "4s",
+        "retries": 40
+      }
+    },
+    "auth": {
+      "platform": "linux/amd64",
+      "build": "../http",
+      "networks": {
+        "default": {
+          "aliases": [
+            "netrc-auth",
+            "netrc-alias"
+          ]
+        }
+      },
+      "ports": [
+        "127.0.0.1::80"
+      ],
+      "cpus": 0.25,
+      "mem_limit": "128m",
+      "memswap_limit": "128m",
+      "pids_limit": 128,
+      "init": true,
+      "healthcheck": {
+        "test": [
+          "CMD-SHELL",
+          "httpd -t && kill -0 1"
+        ],
+        "interval": "3s",
+        "timeout": "4s",
+        "retries": 40
+      }
+    },
+    "reporting_db": {
+      "platform": "linux/amd64",
+      "extends": {
+        "file": "../elasticsearch_memory/services.yaml",
+        "service": "db"
+      }
+    }
+  },
+  "networks": {
+    "default": {},
+    "public": {}
+  }
+}

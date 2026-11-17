@@ -4,6 +4,18 @@ These findings do not count as passing functional qualification. The
 [campaign](CAMPAIGN.md) and individual verification records retain other
 coverage limits and ongoing investigations.
 
+## .netrc remaining grammar and platform scope
+
+The [netrc checkpoint](VERIFICATION-20261117-netrc-creds.md) repairs native-proven
+tab omission and comment false positives. Eight final Linux shell cases and the
+existing five-case rsync shared-helper regression pass. The nil-read guard has a
+synthetic boundary contract; no native disappearance race is claimed. Other
+platforms/architectures, consumers/releases, quoted credentials, macros/default
+entries, inline comments, token case/order and additional formats remain
+unqualified. Native acceptance and an actual owning result are needed before
+classifying a failure in those remaining paths. CSV loot is collected data,
+not an authentication-success claim or credential-core reporting qualification.
+
 ## Rsync credential configuration scope
 
 The [rsync credential checkpoint](VERIFICATION-20261117-rsync-creds.md) repairs

@@ -34,7 +34,7 @@ module RsyncCredentialTarget
   end
 
   def rc_resources(phase)
-    %w[linux reporting_db].each do |role|
+    rc_resource_roles.each do |role|
       %w[memory.events pids.events].each do |name|
         output, = rc_command(phase + '-' + role + '-' + name, role, 'cat', '/sys/fs/cgroup/' + name)
         values = output.lines.to_h do |line|
@@ -45,6 +45,14 @@ module RsyncCredentialTarget
         expect(values.fetch('max')).to eq(0) if name == 'pids.events'
       end
     end
+  end
+
+  def rc_resource_roles
+    %w[linux reporting_db]
+  end
+
+  def rc_owner
+    'post/multi/gather/rsyncd_creds'
   end
 
   def rc_poll(seconds = 15)
@@ -177,8 +185,12 @@ module RsyncCredentialTarget
     @rc.fetch(:sessions) << { label: label, user: user, session: @session, proof: proof, launch: @launch, payload_sha256: @payload_sha }
     rc_save
     console_command('back')
-    console_command('use post/multi/gather/rsyncd_creds')
+    console_command('use ' + rc_owner)
     console_command("set SESSION #{@session.fetch('id')}")
+    rc_observe_owner(label, user)
+  end
+
+  def rc_observe_owner(label, user)
     observed = rc_json('{owner_sha256:Digest::SHA256.file("modules/post/multi/gather/rsyncd_creds.rb").hexdigest,owner_source:active_module.method(:run).source_location,host_config_exists:File.exist?("/etc/rsyncd.conf"),config_sha256:Digest::SHA256.hexdigest(active_module.read_file("/etc/rsyncd.conf")),secret:active_module.read_file("/etc/rsyncd.secrets")}')
     @rc.fetch(:session_reads) << { label: label, data: observed }
     expect(observed.fetch('host_config_exists')).to be(false)
