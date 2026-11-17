@@ -1,6 +1,17 @@
 # Container module acceptance tests
 
-Latest: [Blind SQLi monotonic timing and replay](VERIFICATION-20261117-blind-sqli-clock.md)
+Latest: [WordPress batch desync RCE](VERIFICATION-20261117-wordpress-batch-rce.md)
+adds one owner, eleven qualified profiles and 36 cases, reaching **273 runtime
+owners in covered paths, 508 qualified profiles and 3,738 historical functional
+cases**. Both session families prove native UID-33 execution, reporting, repeats
+and account/plugin cleanup. Native setup gates distinguish a profile configuration
+defect from owner behavior; its targeted replay passes after the original mixed
+aggregate is retained. Sixteen typed sessions, fifteen credentials and eighteen
+exact loot files are verified. Work stacks stay at three containers and clean up
+fully. Staged PHP remains unqualified and under separate investigation. The human
+guide is preserved; the broader campaign remains active. No PR is created.
+
+Previous: [Blind SQLi monotonic timing and replay](VERIFICATION-20261117-blind-sqli-clock.md)
 adds one qualified subdirectory profile and two cases, reaching **272 runtime
 owners in covered paths, 497 qualified profiles and 3,702 historical functional
 cases**. The shared timer now uses the existing monotonic stopwatch. Deterministic
