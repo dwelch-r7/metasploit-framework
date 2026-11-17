@@ -1,0 +1,24 @@
+services:
+  db:
+    extends: {file: ../wp_batch_desync_rce/services.yaml, service: db}
+  app:
+    extends: {file: ../wp_batch_desync_rce/services.yaml, service: app}
+    entrypoint: [/bin/sh, /opt/module-target/uploads-entrypoint.sh]
+    environment:
+      WORDPRESS_CONFIG_EXTRA_FILE: /tmp/module-target-wordpress-config-extra.php
+      WORDPRESS_CORE_RELEASE: "6.9.4"
+      WORDPRESS_TABLE_PREFIX: "wp_"
+      LAB_PREFIX: ""
+      LAB_PLAIN: "0"
+      WP2SHELL_SINGLE_USER: "0"
+      WP2SHELL_NO_POSTS: "0"
+      LAB_PAGE_ONLY: "0"
+      LAB_UPLOADS_DISABLED: "1"
+    volumes:
+    - ./uploads-entrypoint.sh:/opt/module-target/uploads-entrypoint.sh:ro
+    - ../../../tmp/module-target-wordpress-core-sources/6.9.4.tar.gz:/opt/module-target/core.tar.gz:ro
+  reporting_db:
+    extends: {file: ../wp_batch_desync_rce/services.yaml, service: reporting_db}
+networks:
+  default: {internal: true}
+  public: {}

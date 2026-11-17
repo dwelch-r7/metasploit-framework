@@ -53,11 +53,13 @@ RSpec.shared_context 'module target' do
     output.gsub(/\e\[[0-9;]*m/, '')
   end
 
-  def run_target_module(fullname, service, options = {}, action: 'run', allow_errors: false, endpoint_options: nil, command_timeout: 40)
+  def run_target_module(fullname, service, options = {}, action: 'run', allow_errors: false, endpoint_options: nil, command_timeout: 40, reuse_module: false)
     endpoint = target_runtime.fetch('module_endpoints', target_runtime.fetch('endpoints')).fetch(service)
-    console_command('back')
-    selected = console_command("use #{fullname}")
-    expect(selected).not_to match(/Failed to load|Unknown command|No results/)
+    unless reuse_module
+      console_command('back')
+      selected = console_command("use #{fullname}")
+      expect(selected).not_to match(/Failed to load|Unknown command|No results/)
+    end
     # Select the payload before passing payload-specific run options such as CMD.
     # Otherwise the console validates those options against the default payload.
     %w[TARGET PAYLOAD].each do |name|
@@ -71,6 +73,8 @@ RSpec.shared_context 'module target' do
     endpoint_values = endpoint_options || { 'RHOSTS' => endpoint.fetch('host'), 'RPORT' => endpoint.fetch('port') }
     datastore = endpoint_values.merge('VERBOSE' => true).merge(options)
     output = console_command("#{action} #{format_datastore_options(datastore)}", timeout: command_timeout)
+    # Preserve returned bytes for functional evidence before output assertions.
+    yield output if block_given?
     expect(output).not_to match(/Exception|undefined method|Unknown command|Msf::OptionValidateError/)
     expect(output).not_to include('[-]') unless allow_errors
     expect(output).to include('Auxiliary module execution completed') if action == 'run' && fullname.start_with?('auxiliary/')

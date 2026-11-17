@@ -1,0 +1,97 @@
+---
+spec: spec/modules/exploits/multi/http/wp_batch_desync_rce_target_spec.rb
+expected_examples: 2
+console: false
+health_timeout: 180
+test_timeout: 1800
+test_env:
+  WP_CHAIN_PLAIN: "0"
+  WP_CHAIN_RELEASE: "6.9.5"
+  WP_CHAIN_PREFIX: ""
+  WP_CHAIN_TABLE_PREFIX: "wp_"
+  WP_CHAIN_MODE: "fixed"
+  WP_CHAIN_SEED: "normal"
+modules:
+- exploit/multi/http/wp_batch_desync_rce
+ports:
+  app: 80
+  reporting_db: 5432
+support_files:
+- .ruby-gemset
+- .ruby-version
+- Gemfile
+- Gemfile.lock
+- lib/msf/core/auxiliary/report.rb
+- lib/msf/core/auxiliary/scanner.rb
+- lib/msf/core/exploit/remote/auto_check.rb
+- lib/msf/core/exploit/remote/http/wordpress.rb
+- lib/msf/core/exploit/remote/http/wordpress/sqli.rb
+- lib/msf/core/exploit/remote/http_client.rb
+- lib/msf/core/exploit/sqli.rb
+- lib/msf/core/exploit/sqli/mysqli/common.rb
+- lib/msf/core/exploit/sqli/mysqli/time_based_blind.rb
+- lib/msf/core/exploit/sqli/time_based_blind_mixin.rb
+- lib/msf/core/exploit/sqli/utils/common.rb
+- metasploit-framework.gemspec
+- msfconsole
+- spec/acceptance_spec_helper.rb
+- spec/spec_helper.rb
+- spec/support/acceptance/datastore_formatting.rb
+- test/module_targets/elasticsearch_memory/init.sql
+- test/module_targets/elasticsearch_memory/services.yaml
+- test/module_targets/cp_calendar/services.yaml
+- test/module_targets/wordpress/Dockerfile
+- test/module_targets/wordpress/README.md
+- test/module_targets/wordpress/apache2-foreground
+- test/module_targets/wordpress/compose.yaml
+- test/module_targets/wordpress/db.Dockerfile
+- test/module_targets/wordpress/init.sql
+- test/module_targets/wordpress/plugin_sources.rb
+- test/module_targets/wordpress/seed.php
+- lib/msf/core/auxiliary/multiple_target_hosts.rb
+- lib/msf/core/exploit.rb
+- tmp/module-target-wordpress-core-sources/6.9.4.tar.gz
+- tmp/module-target-wordpress-core-sources/6.9.5.tar.gz
+- tmp/module-target-wordpress-core-sources/7.0.1.tar.gz
+- tmp/module-target-wordpress-core-sources/7.0.2.tar.gz
+- lib/msf/core/exploit/remote/http/wordpress/admin.rb
+- lib/msf/core/exploit/remote/http/wordpress/base.rb
+- lib/msf/core/exploit/remote/http/wordpress/helpers.rb
+- lib/msf/core/exploit/remote/http/wordpress/login.rb
+- lib/msf/core/exploit/remote/http/wordpress/posts.rb
+- lib/msf/core/exploit/remote/http/wordpress/register.rb
+- lib/msf/core/exploit/remote/http/wordpress/uris.rb
+- lib/msf/core/exploit/remote/http/wordpress/users.rb
+- lib/msf/core/exploit/remote/http/wordpress/version.rb
+- lib/msf/core/exploit/remote/http/wordpress/xml_rpc.rb
+- test/module_targets/wp2shell/native.rb
+- test/module_targets/wp2shell/README.md
+- test/module_targets/wp2shell/apache2-foreground
+- test/module_targets/wp2shell/compose.yaml
+- test/module_targets/wp2shell/control.php
+- test/module_targets/wp2shell/core-entrypoint.sh
+- test/module_targets/wp2shell/manifest.yml
+- test/module_targets/wp2shell/php.ini
+- test/module_targets/wp2shell/prepare.rb
+- test/module_targets/wp2shell/releases.json
+- test/module_targets/wp2shell/seed.php
+- test/module_targets/wp2shell/services.yaml
+- test/module_targets/wp2shell/verify-archive.php
+- documentation/modules/exploit/multi/http/wp_batch_desync_rce.md
+- lib/msf/core/exploit/file_dropper.rb
+- lib/msf/core/payload/php.rb
+- lib/msf/core/handler/reverse_tcp.rb
+- lib/msf/core/handler/reverse.rb
+- lib/msf/base/sessions/meterpreter_php.rb
+- lib/msf/base/sessions/command_shell.rb
+- lib/msf/base/sessions/command_shell_unix.rb
+- modules/payloads/singles/php/meterpreter_reverse_tcp.rb
+- modules/payloads/singles/cmd/unix/reverse_bash.rb
+- lib/msf/base/sessions/meterpreter.rb
+- test/module_targets/wp_batch_desync_rce/services.yaml
+- test/module_targets/wp_batch_desync_rce/rce-entrypoint.sh
+- test/module_targets/wp_batch_desync_rce/rce-config.php
+- test/module_targets/wp_batch_desync_rce/seed.php
+- test/module_targets/wp_batch_desync_rce/control.php
+- test/module_targets/wp_batch_desync_rce/native.rb
+- test/module_targets/wp_batch_desync_rce/README.md

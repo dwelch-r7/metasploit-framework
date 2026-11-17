@@ -1,0 +1,17 @@
+services:
+  db:
+    extends: {file: ../wp_batch_desync_rce/services.yaml, service: db}
+  app:
+    extends: {file: ../wp_batch_desync_rce/services.yaml, service: app}
+    environment:
+      WORDPRESS_CORE_RELEASE: "6.9.4"
+      WORDPRESS_TABLE_PREFIX: wp_
+      LAB_PREFIX: ""
+      WP2SHELL_NO_POSTS: "0"
+      LAB_PAGE_ONLY: "0"
+      LAB_UPLOADS_DISABLED: "0"
+    volumes:
+    - ../../../tmp/module-target-wordpress-core-sources/6.9.4.tar.gz:/opt/module-target/core.tar.gz:ro
+networks:
+  default: {internal: true}
+  public: {}

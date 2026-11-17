@@ -1,0 +1,15 @@
+services:
+  db:
+    extends: {file: ../wp2shell/services.yaml, service: db}
+  app:
+    extends: {file: ../wp2shell/services.yaml, service: app}
+    entrypoint: [/bin/sh, /opt/module-target/rce-entrypoint.sh]
+    volumes:
+    - ./rce-entrypoint.sh:/opt/module-target/rce-entrypoint.sh:ro
+    - ./rce-config.php:/opt/module-target/rce-config.php:ro
+    - ../wp2shell/seed.php:/opt/module-target/seed-core.php:ro
+    - ./seed.php:/opt/module-target/seed.php:ro
+    - ../wp2shell/control.php:/opt/module-target/control-base.php:ro
+    - ./control.php:/opt/module-target/control.php:ro
+  reporting_db:
+    extends: {file: ../wp2shell/services.yaml, service: reporting_db}
