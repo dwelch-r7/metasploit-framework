@@ -1,0 +1,12 @@
+#!/bin/sh
+set -eu
+php /opt/module-target/seed.php
+if [ "${ULTIMATE_MEMBER_MODE:-enabled}" = enabled ]; then
+  php /opt/module-target/setup.php
+  if [ "${ULTIMATE_MEMBER_CUSTOM_META:-1}" = 1 ]; then
+    php /opt/module-target/migrate.php um_usermeta_fields > /tmp/ultimate-member-fields.json
+    php /opt/module-target/migrate.php um_update_metadata_per_page > /tmp/ultimate-member-rows.json
+  fi
+fi
+php /opt/module-target/finish.php
+exec /usr/local/bin/module-target-apache "$@"

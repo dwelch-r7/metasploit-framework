@@ -1,0 +1,19 @@
+services:
+  db:
+    extends: {file: ../ultimate_member/services.yaml, service: db}
+  app:
+    extends: {file: ../ultimate_member/services.yaml, service: app}
+    environment:
+      ULTIMATE_MEMBER_RELEASE: "2.8.2"
+      ULTIMATE_MEMBER_MODE: "enabled"
+      ULTIMATE_MEMBER_DIRECTORY_ROLES: "all"
+      ULTIMATE_MEMBER_CUSTOM_META: "1"
+      LAB_PREFIX: ""
+      WORDPRESS_TABLE_PREFIX: "wp_"
+    volumes:
+    - ../../../tmp/module-target-ultimate-member-sources/2.8.2.zip:/opt/module-target/plugin.zip:ro
+  reporting_db:
+    extends: {file: ../ultimate_member/services.yaml, service: reporting_db}
+networks:
+  default: {internal: true}
+  public: {}
