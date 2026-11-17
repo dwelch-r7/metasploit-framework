@@ -1,17 +1,20 @@
-# TI WooCommerce Wishlist validation — in progress
+# TI WooCommerce Wishlist qualification — 2026-11-17
 
-This work is not yet added to the campaign totals. The planned matrix has nine
-profiles and thirteen public cases for
-`auxiliary/scanner/http/wp_ti_woocommerce_wishlist_sqli`. The module has no public
-`check`. The existing human module guide and its Scenarios are unchanged.
+This checkpoint adds one owner, nine qualified profiles and thirteen public
+cases for `auxiliary/scanner/http/wp_ti_woocommerce_wishlist_sqli`, reaching
+**274 runtime owners, 517 qualified profiles and 3,751 historical functional
+cases**. Seven profiles retain their exact earlier inputs; two targeted replays
+pass after an option repair and conservative delay configuration. The original
+aggregate remains failed. The module has no public `check`. The existing human
+module guide and its Scenarios are unchanged.
 
 ## Genuine target and native proof
 
 Official Wishlist 2.8.2 and fixed 2.9.0 archives run with WooCommerce 9.3.3,
 WordPress 6.8.3, PHP 8.3.28 and MariaDB 11.2.2. Native WordPress installation,
 plugin activation, schema and real published product creation precede testing.
-Vendor code is unmodified; every installed vendor file is hashed against the
-pinned catalogs. The ordinary database role is `module_target@%` on `wp_root`.
+Vendor code is unmodified; all 4,609 catalogued vendor files are hashed against
+the pinned catalogs. The ordinary database role is `module_target@%` on `wp_root`.
 Four native users retain complete modern 63-byte password hashes.
 
 Before public module execution, independent HTTP requests verify the login,
@@ -77,7 +80,8 @@ include seven support examples. Related owner/prefix contracts pass 56 examples
 with zero failures. Baseline and final owner lint/msftidy pass. The transport,
 Framework/UI objects and malformed variants in these contracts are doubled;
 the multipart builder and Rex JSON parser run intact over captured native JSON
-and a disclosed native HTML prefix. Native public replay of the repair is pending.
+and a disclosed native HTML prefix. Subsequent inactive and absent public
+replays pass as recorded below.
 
 The parent independently rehashes the exact 42-entry worker seal at
 `/Users/dwelch/.codex/reports/ti-wishlist-response-contract-fix-20261117T060347Z-seal`,
@@ -107,7 +111,7 @@ one disagreement with the native prefix: the `>127` comparison for byte five
 takes 727,578 microseconds on the server, exceeding the configured 0.5-second
 cutoff. The bisection therefore follows the upper branch and returns `0x80`.
 The captured encoded SQL and all raw bytes are retained; independent evaluation
-of that exact predicate is still pending. This is separate from reserved alias
+of that exact predicate is recorded in the frozen proof below. This is separate from reserved alias
 grammar: the actual alias is quoted `kc`, and the query returns nine other prefix
 bytes correctly. No wall-clock change is needed to explain the observed branch.
 
@@ -117,7 +121,7 @@ Independent comparison of the returned credential rows also finds one wrong
 byte in the administrator hash: offset 49 is `x` instead of native `u`; the
 author hash matches. The test does not accept these rows. Its native after check
 additionally records a false response taking 0.545 seconds, beyond the short
-delay's safety margin. This profile remains unqualified for both reasons.
+delay's safety margin. This original attempt remains unqualified for both reasons.
 
 All nine original attempts are sealed before changing fixture parameters.
 All 45 attached volumes/networks are individually absent and the global Docker
@@ -127,9 +131,9 @@ The original seal index is retained in
 Subsequent work must distinguish the option-registration repair, conservative
 delay configuration and unchanged original results. The seven passing profiles
 retain their exact `b1a760881c1` inputs; targeted replays of the two failures are
-pending. The broader campaign remains active.
+recorded below. The broader campaign remains active.
 
-## Targeted repair and delay qualification — pending public replay
+## Targeted repair and delay qualification
 
 The COUNT repair `30a5bebbe7630a18e8ae2de419c3679fe39d0a9a` registers the
 existing setting as an optional integer and keeps its default of one. The
@@ -139,7 +143,7 @@ four failures on the predecessor and zero after the repair, seed 29761:
 35 owner contracts and seven support examples. They include the actual console
 option validator, integer normalization, noninteger rejection and preserved
 defaults. Changed owner/spec lint and module msftidy pass. Public `COUNT=2`
-replay remains pending.
+replay passes as recorded below.
 
 The 27-entry COUNT repair seal is independently rehashed at
 `/Users/dwelch/.codex/reports/ti-wishlist-count-option-registration-20261117T070247Z-seal`,
@@ -177,5 +181,69 @@ the same setting. The prefix case also evaluates the captured lookup and byte
 predicates directly in MariaDB and over HTTP. The other seven profiles retain
 the earlier half-second setting and their exact tested revision. Their default
 COUNT remains one; the fixture's new delay/timeout parameters preserve the old
-defaults. No all-green original aggregate is claimed, and campaign counts remain
-unchanged until the two targeted public replays pass.
+defaults. These changes precede the two-case public replay below. The original
+failed aggregate remains retained.
+
+## Qualified public replays and retained source revisions
+
+The two-case invocation `20261117T070436-1eb146` exits 0 with no failures,
+pending cases or outside errors, using clean committed fixture
+`f602bc60b23d00715464d58b201cccf085189dcd`. The prefix call takes 472.7 seconds
+and returns the exact complete native row. The two-user call takes 817.9 seconds,
+recognizes COUNT without a console warning and returns both complete native
+hashes. Each saves exact loot and correct scoped credentials/findings; all
+independent native before/after checks pass. The prefix controls include the
+actual encoded lookup and independently evaluated byte predicates. The one-second
+setting is validated for these cases; the original latency source is unverified.
+
+The qualified cohort consists of eleven passing cases from seven profiles at
+`b1a760881c19756f577460bebeba0d31ae4d04a6`, plus those two current replays.
+The production delta between the revisions is exactly COUNT registration and
+default deduplication. Its integer default remains one, verified in focused
+contracts and the new default-count prefix run. The common fixture's delay and
+command timeout retain 0.5/900 defaults for the earlier seven; only the two
+replays choose one second, and COUNT=2 allows a 1,200-second command bound.
+Earlier profiles do not have identical current input bytes and are not presented
+as a new all-green thirteen-case invocation. Their archived input bytes match
+their exact tested Git revision; the two replays also match current bytes.
+
+The parent independently verifies all thirteen returned public calls, both
+complete-row results, repeat module identity and credential deduplication,
+native before/after identity, report scope, loot contents and actual Docker
+inspection limits. The selected cohort has six deduplicated credential cores,
+five findings, six exact loot files, 238 independent native HTTP requests and
+108 zero OOM/PID-limit snapshots. Seven complete user rows are extracted across
+six successful calls; one row is a repeat. Qualified profiles have 45 attached
+objects individually absent. Including both original failed profiles, the full
+original matrix and replays remove 55 attached objects. Both local Docker
+contexts resolve to one empty engine. Images and unrelated volumes are retained.
+
+The prefix replay's 108-entry seal has manifest SHA256
+`fdef5de86f173c83f47d44f21a45bd1f448ce86e55b65bf2782275adbf7a005a`;
+the two-user replay's 110-entry seal has manifest SHA256
+`9d6bd196e2467d5a3fe3514b4bc4ebbc5ba5fd2c3317110076ac6cbb7e613bda`.
+All nine selected profile seals, their complete 1,076-entry payload sets and
+recorded Git source blobs are independently verified. The 18-entry parent
+checkpoint is `/Users/dwelch/.codex/reports/ti-wishlist-qualified-checkpoint-20261117`,
+manifest SHA256 `fe2f538b92d80fa1b0b40d15553b36e0e7912aeb2b81696c003ff25c2a0944f5`.
+It references fifteen immutable seals, keeping failed attempts distinct from
+qualification. Preliminary/native-only attempts add no cases.
+
+## Review and remaining scope
+
+**Summary:** Reusable Compose targets and public automated tests qualify the
+selected owner behavior. Response-shape and COUNT declaration defects are
+repaired; the shared prefix alias fix has separate native/unit evidence.
+
+**What looks good:** Independent real application/data gates, full modern hashes,
+reporting and repeat checks prevent banner-only or exception-only success claims.
+Original failures, configuration drift and bootstrap failures remain preserved.
+Changed Ruby lint and owner msftidy pass. No PR is created.
+
+**Concerns:** The initiating server-latency cause remains unknown. Null modern-hash
+cracking-format metadata is unchanged. Other releases, core/PHP combinations,
+TLS, multisite and COUNT=0 functional extraction are not qualified here. No
+universal timing-reliability claim is made.
+
+**Suggestions:** Keep these operational limits visible and continue the broader
+module campaign; the next WooCommerce Payments candidate has source review only.

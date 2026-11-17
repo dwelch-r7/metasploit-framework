@@ -1,6 +1,18 @@
 # Container module acceptance tests
 
-Latest: [WordPress batch desync RCE](VERIFICATION-20261117-wordpress-batch-rce.md)
+Latest: [TI WooCommerce Wishlist SQLi](VERIFICATION-20261117-ti-wishlist.md)
+adds one owner, nine qualified profiles and thirteen cases, reaching **274 runtime
+owners in covered paths, 517 qualified profiles and 3,751 historical functional
+cases**. Genuine vendor apps, complete native hashes, reporting, repeats and
+missing prerequisites verify response-shape and COUNT declaration repairs.
+Seven original profiles pass; two targeted replays pass with a conservative
+delay after the original failed aggregate is retained. Six credentials, five
+findings, six exact loot files and 238 native HTTP controls are verified. All
+stacks stay at three containers and clean up; both local contexts show an empty
+engine. The human guide is preserved and the broader campaign remains active.
+No PR is created.
+
+Previous: [WordPress batch desync RCE](VERIFICATION-20261117-wordpress-batch-rce.md)
 adds one owner, eleven qualified profiles and 36 cases, reaching **273 runtime
 owners in covered paths, 508 qualified profiles and 3,738 historical functional
 cases**. Both session families prove native UID-33 execution, reporting, repeats

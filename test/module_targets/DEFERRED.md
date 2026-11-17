@@ -586,3 +586,21 @@ and rewritten-prefix expectation errors are preserved separately from the
 repaired public scanner check. Other releases, runtimes, content directories,
 transports, filesystem layouts and a broader vendor-patch audit remain pending.
 Eight baseline owner lint offenses remain; no new offense is introduced.
+
+## TI Wishlist timing and remaining deployment coverage
+
+The [TI Wishlist checkpoint](VERIFICATION-20261117-ti-wishlist.md) qualifies nine
+profiles and thirteen public cases, including separate successful replays of
+custom-prefix and COUNT=2 failures. Response-shape and COUNT declaration defects
+are repaired. The original half-second attempts remain excluded: one prefix
+comparison and one hash comparison take about 0.73 and 0.70 seconds on the server,
+crossing the chosen cutoff and corrupting one byte. An independent frozen native
+proof validates the exact SQL/predicate, and full one-second public replays pass.
+The initiating latency cause remains unknown; no production bisection/timing
+change or universal reliability claim is made.
+
+Modern hashes still have null cracking-format metadata. COUNT=0 full functional
+extraction, other plugin/core/PHP combinations, TLS and multisite remain
+unqualified. Seven profiles retain the recorded earlier revision with a reviewed
+default-preserving option/fixture delta; two use exact current replay inputs.
+The human guide is preserved. The broader campaign remains active.
