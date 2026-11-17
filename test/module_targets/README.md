@@ -1,6 +1,18 @@
 # Container module acceptance tests
 
-Latest: [WooCommerce Payments administrator creation](VERIFICATION-20261117-woocommerce-payments.md)
+Latest: [User Registration membership RCE](VERIFICATION-20261117-user-registration.md)
+adds one owner, four qualified profiles and nineteen cases, reaching **276 runtime
+owners in covered paths, 527 qualified profiles and 3,791 historical functional
+cases**. Thirteen typed sessions, six successful credential/login pairs, thirteen
+exact loot files, repeats and selected state restoration pass with 129 native
+HTTP controls. A confirmed authentication-reporting defect is repaired. The
+explicit embedded-stdapi PHP path is qualified; the original missing-extension
+failure and installed staged transport remain separately unqualified. All capped
+three-container stacks and attached objects are removed. The guide's version
+bounds and prerequisites are corrected; historical Scenarios remain unchanged.
+The broader campaign remains active. No PR is created.
+
+Previous: [WooCommerce Payments administrator creation](VERIFICATION-20261117-woocommerce-payments.md)
 adds one owner, six qualified profiles and 21 cases, reaching **275 runtime
 owners in covered paths, 523 qualified profiles and 3,772 historical functional
 cases**. Independent native controls and all public checks/runs pass after two

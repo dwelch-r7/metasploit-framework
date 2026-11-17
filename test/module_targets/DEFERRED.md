@@ -622,3 +622,32 @@ versions, TLS, multisite, custom REST restrictions, alternate content layouts an
 the required USERNAME option's internal blank/random branch remain unqualified.
 Test-owned deletion preserves original account state; the owner itself retains
 created administrators, and complete database restoration is not claimed.
+
+## User Registration PHP transport and deployment coverage
+
+The [User Registration checkpoint](VERIFICATION-20261117-user-registration.md)
+qualifies four profiles and nineteen cases with explicit embedded-stdapi PHP
+Meterpreter and Unix shell payloads. A separate reporting defect left genuinely
+authenticated credentials Untried; the focused repair and real database replay
+now record Successful with an attempt timestamp and stable core/login IDs.
+
+The original single PHP payload without embedded extensions opens no verified
+session, repeatedly reports dying sessions and leaves its console unresponsive.
+Native registration, role changes, password login, genuine plugin upload,
+PHP/shell execution and bounded TCP controls pass before and after that attempt.
+The exact uploaded source reconstructs from installed payloads 2.0.257 with no
+embedded extension. The later explicit-stdapi comparison succeeds, and actual
+cached bytes contain the exact installed stdapi source. Dynamic extension loading
+and the previously reproduced framing defect are a concrete investigation path;
+the initiating historical wire cause remains unverified. The comparison also
+contains the reporting-only owner repair. No default or dependency is changed,
+and success with embedding does not qualify the failing path or staged payload.
+The failed attempt relies on disposable teardown for its residual uploaded plugin;
+it does not claim FileDropper cleanup or complete state restoration.
+
+Commercial Pro, Windows execution, earlier plugin/core/PHP combinations, TLS,
+multisite, disabled or renamed membership forms, plain permalinks and forced
+execution against a fixed target remain unqualified. Native and diagnostic split
+runs add no qualified profile/case counts. Selected state comparisons exclude
+auto-increment growth and filesystem free-space changes; complete database
+restoration is not claimed. The broader campaign remains active.
