@@ -57,11 +57,16 @@ class MetasploitModule < Msf::Post
         next
       end
       print_status("Reading: #{netrc_file}")
-      read_file(netrc_file).each_line do |netrc_line|
+      netrc_data = read_file(netrc_file)
+      next if netrc_data.nil?
+
+      netrc_data.each_line do |netrc_line|
         # parse it
         netrc_line.strip!
+        next if netrc_line.start_with?('#')
+
         # get the machine name
-        if (netrc_line =~ /machine (\S+)/)
+        if (netrc_line =~ /machine\s+(\S+)/)
           # if we've already found a machine, save this cred and start over
           if (cred[:host])
             creds << cred
@@ -70,11 +75,11 @@ class MetasploitModule < Msf::Post
           cred[:host] = ::Regexp.last_match(1)
         end
         # get the user name
-        if (netrc_line =~ /login (\S+)/)
+        if (netrc_line =~ /login\s+(\S+)/)
           cred[:user] = ::Regexp.last_match(1)
         end
         # get the password
-        if (netrc_line =~ /password (\S+)/)
+        if (netrc_line =~ /password\s+(\S+)/)
           cred[:pass] = ::Regexp.last_match(1)
         end
       end
