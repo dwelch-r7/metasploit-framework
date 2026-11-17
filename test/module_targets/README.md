@@ -1,6 +1,16 @@
 # Container module acceptance tests
 
-Latest: [TI WooCommerce Wishlist SQLi](VERIFICATION-20261117-ti-wishlist.md)
+Latest: [WooCommerce Payments administrator creation](VERIFICATION-20261117-woocommerce-payments.md)
+adds one owner, six qualified profiles and 21 cases, reaching **275 runtime
+owners in covered paths, 523 qualified profiles and 3,772 historical functional
+cases**. Independent native controls and all public checks/runs pass after two
+repairs for exact JSON acknowledgement and plain REST routing. Seven genuine
+administrator credentials/logins, repeated account creation, permission negatives,
+159 native HTTP controls and complete cleanup are verified. Work stays at three
+capped containers. The human guide is preserved; the broader campaign remains
+active. No PR is created.
+
+Previous: [TI WooCommerce Wishlist SQLi](VERIFICATION-20261117-ti-wishlist.md)
 adds one owner, nine qualified profiles and thirteen cases, reaching **274 runtime
 owners in covered paths, 517 qualified profiles and 3,751 historical functional
 cases**. Genuine vendor apps, complete native hashes, reporting, repeats and

@@ -604,3 +604,21 @@ extraction, other plugin/core/PHP combinations, TLS and multisite remain
 unqualified. Seven profiles retain the recorded earlier revision with a reviewed
 default-preserving option/fixture delta; two use exact current replay inputs.
 The human guide is preserved. The broader campaign remains active.
+
+
+## WooCommerce Payments remaining deployment coverage
+
+The [WooPayments checkpoint](VERIFICATION-20261117-woocommerce-payments.md)
+qualifies six profiles and 21 public cases. Actual plus-address creation was
+misreported and omitted from credentials; a plain-permalink fallback stopped at
+a 200 homepage. Both owner defects are repaired and genuine public replays pass.
+An original public-check finding assertion and excluded prototype harness errors
+are preserved separately from those owner failures.
+
+Inactive affected metadata still produces a passive Appears check and finding,
+while independent native controls and public execution reject account creation.
+This is not runtime exploitation proof. Earlier release branches, other core/PHP
+versions, TLS, multisite, custom REST restrictions, alternate content layouts and
+the required USERNAME option's internal blank/random branch remain unqualified.
+Test-owned deletion preserves original account state; the owner itself retains
+created administrators, and complete database restoration is not claimed.
