@@ -1,6 +1,17 @@
 # Container module acceptance tests
 
-Latest: [Ultimate Member sorting SQLi](VERIFICATION-20261117-ultimate-member.md)
+Latest: [WordPress core SQLi](VERIFICATION-20261117-wordpress-core.md) adds
+one owner, nine qualified profiles and 22 cases, reaching **272 runtime owners
+in covered paths, 496 qualified profiles and 3,700 historical functional cases**.
+The ten-profile attempt exits 1: subdirectory extraction corrupts one hash byte
+and is explicitly excluded pending investigation. The other nine profiles pass,
+including both affected/fixed branches, native data/loot, repeat reporting,
+counts, prefixes and empty posts. A separately confirmed reserved SQL alias defect
+is repaired. All three-container stacks and attached resources are removed.
+The RCE owner and clock/timing cause remain unqualified; human guides are preserved.
+The broader campaign remains active. No PR is created.
+
+Previous: [Ultimate Member sorting SQLi](VERIFICATION-20261117-ultimate-member.md)
 adds one owner, eleven profiles and fifteen cases, reaching **271 runtime owners
 in covered paths, 487 profiles and 3,678 historical functional cases**. All public
 runs pass, including complete hashes/loot, repeat reporting, paths, prefixes,
