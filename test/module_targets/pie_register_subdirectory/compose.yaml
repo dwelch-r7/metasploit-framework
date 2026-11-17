@@ -1,0 +1,37 @@
+{
+  "services": {
+    "db": {
+      "extends": {
+        "file": "../pie_register/services.yaml",
+        "service": "db"
+      }
+    },
+    "app": {
+      "extends": {
+        "file": "../pie_register/services.yaml",
+        "service": "app"
+      },
+      "environment": {
+        "PIE_RELEASE": "3.7.1.4",
+        "LAB_PREFIX": "/portal",
+        "LAB_PLAIN": "0"
+      },
+      "volumes": [
+        "../../../tmp/module-target-pie-register-sources/3.7.1.4.zip:/opt/module-target/plugin.zip:ro"
+      ],
+      "working_dir": "/var/www/html/portal"
+    },
+    "reporting_db": {
+      "extends": {
+        "file": "../pie_register/services.yaml",
+        "service": "reporting_db"
+      }
+    }
+  },
+  "networks": {
+    "default": {
+      "internal": true
+    },
+    "public": {}
+  }
+}

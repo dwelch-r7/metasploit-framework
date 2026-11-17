@@ -51,18 +51,36 @@ module WordpressBatchChainTarget
     identity
   end
 
+  # Keep the original entry point positional, including unbraced Hash bodies.
   def chain_http(label, path, payload = nil)
+    chain_request(label, path, payload)
+  end
+
+  def chain_request(label, path, payload = nil, form: false, raw: false, headers: {})
+    raise ArgumentError, 'Native HTTP body cannot be both form and raw' if form && raw
+
     request = payload ? Net::HTTP::Post.new(path) : Net::HTTP::Get.new(path)
     request['Host'] = 'module-target.test'
-    request['Content-Type'] = 'application/json'
-    request.body = payload.to_json if payload
+    request['Content-Type'] = form ? 'application/x-www-form-urlencoded' : 'application/json'
+    if payload
+      request.body = if form
+                       URI.encode_www_form(payload)
+                     elsif raw
+                       payload.b
+                     else
+                       payload.to_json
+                     end
+    end
+    headers.each { |name, value| request[name] = value }
     endpoint = target_endpoint('app')
     connection = Net::HTTP.new(endpoint.fetch('host'), endpoint.fetch('port'), nil)
     connection.open_timeout = 5
     connection.read_timeout = 20
     connection.max_retries = 0
     response = connection.request(request)
-    @chain.fetch(:requests) << { label: label, path: path, payload: payload, code: response.code, headers: response.to_hash, body_base64: Base64.strict_encode64(response.body.to_s.b) }
+    # Multipart bodies contain ZIP bytes; preserve those as Base64 while keeping
+    # the existing JSON payload and response record fields for other consumers.
+    @chain.fetch(:requests) << { label: label, path: path, payload: raw ? nil : payload, method: request.method, request_headers: request.to_hash, request_body_base64: Base64.strict_encode64(request.body.to_s.b), code: response.code, headers: response.to_hash, body_base64: Base64.strict_encode64(response.body.to_s.b) }
     chain_save
     response
   end
