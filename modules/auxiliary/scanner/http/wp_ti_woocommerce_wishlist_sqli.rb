@@ -67,15 +67,22 @@ class MetasploitModule < Msf::Auxiliary
       next unless res&.code == 200
 
       json_body = res.get_json_document
-      wishlist_data = json_body['wishlists_data']['products']
+      next unless json_body.is_a?(Hash)
 
-      next unless wishlist_data && !wishlist_data.empty?
+      wishlist_data = json_body['wishlists_data']
+      next unless wishlist_data.is_a?(Hash)
 
-      share_key = json_body['wishlist']['share_key']
-      if share_key
-        print_good("Share key found: #{share_key}")
-        return share_key
-      end
+      products = wishlist_data['products']
+      next unless (products.is_a?(Hash) || products.is_a?(Array)) && !products.empty?
+
+      wishlist = json_body['wishlist']
+      next unless wishlist.is_a?(Hash)
+
+      share_key = wishlist['share_key']
+      next unless share_key.is_a?(String) && !share_key.strip.empty?
+
+      print_good("Share key found: #{share_key}")
+      return share_key
     end
 
     fail_with(Failure::NotFound, 'No valid product ID found.')

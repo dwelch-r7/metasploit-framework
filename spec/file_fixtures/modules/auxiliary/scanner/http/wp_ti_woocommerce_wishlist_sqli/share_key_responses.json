@@ -1,0 +1,36 @@
+{
+  "provenance": "Controlled native WordPress6.8.3/WooCommerce9.3.3 captures on2026-11-17. Successful/invalid-product JSON is complete TI Wishlist2.8.2 response data. HTML is a verbatim prefix of an independent native POST response with TI Wishlist absent, not a wire capture of the public Framework module request. Synthetic malformed variants are constructed explicitly in the spec.",
+  "responses": {
+    "successful_add": {
+      "code": 200,
+      "body": "{\"msg\":\"<div class=\\\"tinvwl_added_to_wishlist tinv-modal tinv-modal-open\\\">\\n\\t<div class=\\\"tinv-overlay\\\"><\\/div>\\n\\t<div class=\\\"tinv-table\\\">\\n\\t\\t<div class=\\\"tinv-cell\\\">\\n\\t\\t\\t<div class=\\\"tinv-modal-inner\\\">\\n\\t\\t\\t\\t<i class=\\\"icon_big_heart_check\\\"><\\/i>\\n\\t\\t\\t\\t<div class=\\\"tinv-txt\\\">Module target native wishlist product added to Default wishlist<\\/div>\\n\\t\\t\\t\\t<div class=\\\"tinvwl-buttons-group tinv-wishlist-clear\\\">\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t<button class=\\\"button tinvwl_button_view tinvwl-btn-onclick\\\"\\n\\t\\t\\t\\t\\t\\t\\t\\tdata-url=\\\"\\\" type=\\\"button\\\"><i\\n\\t\\t\\t\\t\\t\\t\\t\\tclass=\\\"ftinvwl ftinvwl-heart-o\\\"><\\/i>View Wishlist\\t\\t\\t\\t\\t\\t<\\/button>\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t<button class=\\\"button tinvwl_button_close\\\" type=\\\"button\\\"><i\\n\\t\\t\\t\\t\\t\\t\\tclass=\\\"ftinvwl ftinvwl-times\\\"><\\/i>Close\\t\\t\\t\\t\\t<\\/button>\\n\\t\\t\\t\\t<\\/div>\\n\\t\\t\\t\\t<div class=\\\"tinv-wishlist-clear\\\"><\\/div>\\n\\t\\t\\t<\\/div>\\n\\t\\t<\\/div>\\n\\t<\\/div>\\n<\\/div>\\n\",\"status\":true,\"wishlist_url\":\"\",\"icon\":\"icon_big_heart_check\",\"wishlist\":{\"author\":0,\"date\":\"2026-11-17 05:42:56\",\"status\":\"share\",\"share_key\":\"38f7ba\",\"title\":\"Default wishlist\",\"type\":\"default\",\"ID\":2},\"action\":\"add_to_wishlist\",\"wishlists_data\":{\"products\":{\"11\":{\"2\":{\"ID\":2,\"title\":\"Default wishlist\",\"status\":\"share\",\"share_key\":\"38f7ba\",\"in\":[0]}}},\"counter\":1}}",
+      "capture_label": "native-add-product",
+      "capture_seal_manifest_sha256": "698567895fbb3d0314e06c97c62803b00073fe15d5a667853606bf257a1e6ab0",
+      "captured_body_sha256": "3a757d38910f41af287864fdf73a1fcae2125590c324d34899b8d050d7bdd2cf",
+      "body_offset": 0,
+      "body_bytes": 1325,
+      "full_body": true
+    },
+    "invalid_product": {
+      "code": 200,
+      "body": "{\"msg\":\"<div class=\\\"tinvwl_added_to_wishlist tinv-modal tinv-modal-open\\\">\\n\\t<div class=\\\"tinv-overlay\\\"><\\/div>\\n\\t<div class=\\\"tinv-table\\\">\\n\\t\\t<div class=\\\"tinv-cell\\\">\\n\\t\\t\\t<div class=\\\"tinv-modal-inner\\\">\\n\\t\\t\\t\\t<i class=\\\"icon_big_times\\\"><\\/i>\\n\\t\\t\\t\\t<div class=\\\"tinv-txt\\\">Something went wrong<\\/div>\\n\\t\\t\\t\\t<div class=\\\"tinvwl-buttons-group tinv-wishlist-clear\\\">\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t<button class=\\\"button tinvwl_button_view tinvwl-btn-onclick\\\"\\n\\t\\t\\t\\t\\t\\t\\t\\tdata-url=\\\"\\\" type=\\\"button\\\"><i\\n\\t\\t\\t\\t\\t\\t\\t\\tclass=\\\"ftinvwl ftinvwl-heart-o\\\"><\\/i>View Wishlist\\t\\t\\t\\t\\t\\t<\\/button>\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t<button class=\\\"button tinvwl_button_close\\\" type=\\\"button\\\"><i\\n\\t\\t\\t\\t\\t\\t\\tclass=\\\"ftinvwl ftinvwl-times\\\"><\\/i>Close\\t\\t\\t\\t\\t<\\/button>\\n\\t\\t\\t\\t<\\/div>\\n\\t\\t\\t\\t<div class=\\\"tinv-wishlist-clear\\\"><\\/div>\\n\\t\\t\\t<\\/div>\\n\\t\\t<\\/div>\\n\\t<\\/div>\\n<\\/div>\\n\",\"status\":false,\"wishlist_url\":\"\",\"icon\":\"icon_big_times\",\"wishlist\":{\"author\":0,\"date\":\"2026-11-17 05:42:56\",\"status\":\"share\",\"share_key\":\"0caff9\",\"title\":\"Default wishlist\",\"type\":\"default\",\"ID\":1},\"action\":\"add_to_wishlist\",\"wishlists_data\":{\"products\":[],\"counter\":0}}",
+      "capture_label": "invalid-product-zero",
+      "capture_seal_manifest_sha256": "698567895fbb3d0314e06c97c62803b00073fe15d5a667853606bf257a1e6ab0",
+      "captured_body_sha256": "ba4bbb3484610bfe18a2e0c591a39dd2395f0f9f305622fa5715ee08c379ffc7",
+      "body_offset": 0,
+      "body_bytes": 1178,
+      "full_body": true
+    },
+    "absent_html_prefix": {
+      "code": "200",
+      "body": "<!DOCTYPE html>\n<html lang=\"en-US\">\n<head>\n\t<meta charset=\"UTF-8\" />\n",
+      "capture_label": "before-add-product",
+      "capture_seal_manifest_sha256": "18a69288114e76f05f2bfe13763714608731303eb7b0f69ffed13ef38ad403a6",
+      "captured_body_sha256": "5b3e8b3a12e9842d4ed1b70e6e191f4d25b5fb9c12d9b3e14c070c0a8cabd747",
+      "body_offset": 0,
+      "body_bytes": 69,
+      "captured_body_bytes": 55580,
+      "full_body": false
+    }
+  }
+}
