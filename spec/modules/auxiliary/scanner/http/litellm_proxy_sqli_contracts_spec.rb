@@ -11,7 +11,7 @@ RSpec.describe 'LiteLLM SQL injection probe contracts' do
     scope.module_eval(File.binread(source), source)
     scope.const_get(:MetasploitModule).tap { |klass| klass.include(Msf) }
   end
-  let(:clock) { [Time.at(1_700_000_000)] }
+  let(:clock) { { wall: Time.at(1_700_000_000), monotonic: 0.0 } }
   let(:requests) { [] }
   let(:proofs) { [] }
   let(:model) { 'gpt-3.5-turbo'.freeze }
@@ -27,16 +27,20 @@ RSpec.describe 'LiteLLM SQL injection probe contracts' do
     allow(mod).to receive(:print_status)
     allow(mod).to receive(:print_good)
     allow(mod).to receive(:report_vuln)
-    allow(Time).to receive(:now) { clock.first }
+    allow(Time).to receive(:now) { clock.fetch(:wall) }
+    allow(Process).to receive(:clock_gettime).and_call_original
+    allow(Process).to receive(:clock_gettime).with(Process::CLOCK_MONOTONIC, :float_second) { clock.fetch(:monotonic) }
     allow(Rex::Text).to receive(:rand_text_alphanumeric).with(8).and_return('ProbeOne', 'ProbeTwo')
-    # HTTP and elapsed time are controlled; the PostgreSQL SQLi object,
+    # HTTP and both clock sources are controlled; the PostgreSQL SQLi object,
     # true/false predicates, timing comparison and Rex serialization are real.
     allow(mod).to receive(:send_request_cgi) do |request, timeout = nil|
       requests << request
       if request.fetch('method') == 'GET'
         health_reply
       else
-        clock[0] += probe_seconds.shift
+        duration = probe_seconds.shift
+        clock[:wall] += duration
+        clock[:monotonic] += duration
         proofs << wire_proof(request).merge(timeout: timeout)
         probe_replies.shift
       end
