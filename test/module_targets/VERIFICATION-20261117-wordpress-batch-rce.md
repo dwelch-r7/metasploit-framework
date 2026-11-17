@@ -164,6 +164,23 @@ SHA256 `303430f6a53f965f47eb642c786a51b5c6f32948e9504b478ff5133d76dec300`.
 Its complete file set and all bytes, including the nested 99-entry original seal,
 are independently rehashed.
 
+A subsequent primary-source refresh finds that upstream
+[payloads PR 824](https://github.com/rapid7/metasploit-payloads/pull/824) already
+repairs this controlled defect. Exact public PHP source at
+`122bc37d53e9b1a261580897ac59d219c6e3b635`, SHA256
+`91bbb7785757f3d52fef69d0557b94df102944eafb1c52c609aa5c7b39fa0d0e`,
+passes all six unchanged protocol cases, actual exit zero. The parent verifies
+the complete 325-entry seal and independently decodes fourteen wire replies.
+No duplicate production repair is prepared. The source-only comparison is
+`/Users/dwelch/.codex/reports/php-staged-framing-upstream-qualified-20261117`,
+manifest SHA256 `f81a0ae9004deab207dea97bf3bc8edae2d665d811adca3351da09050cedf992`.
+
+At this refresh RubyGems reports published 2.0.259; 2.0.260 is a development
+source version and its gem endpoint returns 404. The released 2.0.259 embedded
+PHP bytes remain uninspected. This checkout still pins 2.0.257; no installed gem
+or dependency pin is changed. Package verification, genuine staged Framework
+sessions and historical RCE causation remain separate unverified follow-ups.
+
 ## Reproduction, source identity and limits
 
 ```sh

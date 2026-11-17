@@ -57,3 +57,37 @@ The three-entry terminal metadata seal is
 `/Users/dwelch/.codex/reports/wordpress-core-sqli-publication-terminal-20261117`,
 manifest SHA256 `51a15cba1e39be37b0e9142dbb3d085762fdbd50018fa34b2a64ef4449b2cb5c`.
 Both complete file sets and all bytes were independently rehashed.
+
+## Monotonic clock consumer fixture follow-up
+
+Publication `61647b9b423bfe29f54af1f605303a42965f39f9` has a
+[failed Ruby 3.4 Verify job](https://github.com/dwelch-r7/metasploit-framework/actions/runs/44017929207/job/133820231335).
+Its actual checkout is the fork commit. The full run has 20,064 examples, four
+failures and 33 pending, seed 27570; its automatic failed-example retry has
+eleven examples and four failures, seed 39309. All four failures are positive
+LiteLLM SQLi probe contracts. The eleven new monotonic-clock examples and fifteen
+alias examples visibly pass. Matrix `fail-fast: true` cancels five sibling jobs;
+no agent retry or cancellation is performed.
+
+The LiteLLM fixture advances wall time to simulate HTTP duration. After the
+library correctly switches to monotonic measurement, that fixture no longer
+simulates elapsed time for its real SQLi object. Identical owner/spec bytes
+reproduce the causal comparison locally: 28 examples pass on `2ddcc7f`, four
+fail on `61647b9`, and all pass after the fixture-only repair in
+`6e9d51a05e3d2a48a070090eb8f6a66044797955`. These are 21 LiteLLM examples plus
+seven support examples; the CI retry selects four LiteLLM failures plus the
+same seven support examples.
+
+The fixture now advances explicit wall and monotonic clocks together. Production
+module/library code and assertions are unchanged. The parent combined SQLi,
+alias and LiteLLM set passes 141 examples with no failures, pending or outside
+errors, seed 39309, on Ruby 3.3.13; changed-spec lint is clean. The consumer audit
+finds no other necessary migration. Ruby 3.4 confirmation requires the new CI
+run. No functional module cases or campaign counts are added.
+
+The eight-entry parent checkpoint is
+`/Users/dwelch/.codex/reports/clock-consumer-followup-qualified-20261117`,
+manifest SHA256 `4e041cc83e0862527b329df6d26f69d181a975adf6ca0e2c94c7a045337b70e0`.
+Its full file set and bytes are independently rehashed, as are the referenced
+40-entry worker and 325-entry upstream protocol seals. The exact failed job log,
+before/after evidence and local-check results remain preserved.
