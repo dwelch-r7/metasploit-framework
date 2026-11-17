@@ -54,7 +54,10 @@ class MetasploitModule < Msf::Post
 
     # read the rsync configuration file, extracting the 'secrets file'
     # directive for any rsync modules (shares) within
-    rsync_config = Rex::Parser::Ini.new(config_file)
+    config_data = read_file(config_file)
+    return if config_data.nil?
+
+    rsync_config = Rex::Parser::Ini.from_s(config_data)
     # https://github.com/rapid7/metasploit-framework/issues/6265
     rsync_config.each_key do |rmodule|
       # XXX: Ini assumes anything on either side of the = is the key and value,
@@ -62,7 +65,10 @@ class MetasploitModule < Msf::Post
       module_config = Hash[rsync_config[rmodule].map { |k, v| [ k.strip, v.strip ] }]
       next unless (secrets_file = module_config['secrets file'])
 
-      read_file(secrets_file).split(/\n/).map do |line|
+      secrets_data = read_file(secrets_file)
+      next if secrets_data.nil?
+
+      secrets_data.split(/\n/).map do |line|
         next if line =~ /^#/
 
         if /^(?<user>[^:]+):(?<password>.*)$/ =~ line
