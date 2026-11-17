@@ -1,0 +1,7 @@
+#!/bin/sh
+set -eu
+install -d -o www-data -g www-data -m 700 /tmp/module-target-gdpr-mail
+su -s /bin/sh www-data -c 'php /opt/module-target/seed.php'
+su -s /bin/sh www-data -c 'php /opt/module-target/activate.php'
+su -s /bin/sh www-data -c 'php /opt/module-target/configure.php'
+exec /usr/local/bin/module-target-apache "$@"

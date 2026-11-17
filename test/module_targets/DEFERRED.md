@@ -796,3 +796,26 @@ recovery is an explicit native operation with account/session ownership checks.
 Other plugin/runtime releases, TLS, multisite, CAPTCHA, email activation/
 premoderation, other locale behavior and arbitrary vendor-transformed password
 inputs remain unqualified. Mail transport is explicitly disabled in this lab.
+
+
+## WP GDPR Compliance retained state and mail limits
+
+The [WP GDPR Compliance checkpoint](VERIFICATION-20261117-gdpr-compliance.md)
+passes 22 cases in four profiles without changing the owner. A failed
+registration can retain earlier registration/default-role or administration-email
+changes. The owner does not restore these changes or capture the target-generated
+password. Test recovery is a separate native operator operation with exact
+account/password/session, named-option and captured-mail ownership checks.
+
+On 1.4.3 the former guest settings endpoint can return HTTP 200 without changing
+settings. When ordinary registration is already enabled, the module can register
+only a subscriber; its login works but administrator access is denied. Console
+progress and successful registration are not administrator proof. The login-page
+base negative is an invalid TARGETURI, not a direct missing-nonce handler test.
+Native gates independently verify nonce rejection at the real AJAX endpoint.
+
+The real local mail transport and password form are tested; external delivery,
+SMTP, activation configurations, other locales/email formats, TLS, multisite,
+other plugin/runtime versions, disconnect behavior and broader advisory SQL/RCE
+paths remain unqualified. All initial harness failures are preserved separately
+from owner behavior. Historical human Scenarios remain unchanged.

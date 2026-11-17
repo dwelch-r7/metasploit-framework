@@ -1,6 +1,17 @@
 # Container module acceptance tests
 
-Latest: [MasterStudy registration and privilege verification](VERIFICATION-20261117-masterstudy.md)
+Latest: [WP GDPR Compliance configuration and registration](VERIFICATION-20261117-gdpr-compliance.md)
+adds one owner, four qualified profiles and 22 cases in one passing aggregate,
+reaching **283 runtime owners in covered paths, 577 qualified profiles and 4,007
+historical functional cases**. Nine actual administrators and one subscriber are
+proved through genuine mail/password setup, native auth cookies and permission
+checks. All ten public accounts are recovered; 290 native HTTP controls, 48 zero
+resource snapshots and individual removal of 20 attached objects pass. No owner
+repair is claimed; first harness failures and corrected 6/0 are retained. At most
+three capped work containers run. Human Scenarios remain unchanged. The wider
+campaign remains active. No PR is created.
+
+Previous: [MasterStudy registration and privilege verification](VERIFICATION-20261117-masterstudy.md)
 adds one owner, seven qualified profiles and 38 cases in one passing aggregate,
 reaching **282 runtime owners in covered paths, 573 qualified profiles and 3,985
 historical functional cases**. Eighteen actual administrators, two intentional

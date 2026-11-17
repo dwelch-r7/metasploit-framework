@@ -1,14 +1,29 @@
-## Description
-
-This module exploits the [Wordpress GDPR compliance plugin](https://wordpress.org/plugins/wp-gdpr-compliance/) lack of validation ([WPVDB 9144](https://wpscan.com/vulnerability/9144)), which affects versions 1.4.2 and lower.
-
-When a user triggers GDPR-related actions, Wordpress's `admin-ajax.php` is called but fails to do validation and capacity checks regarding the asked actions. This leads to any unauthenticated user being able to modify any arbitrary settings on the targeted server.
-
-This module changes the admin email (optional) to prevent notification sending, enables new user registration, changes the default role of new users to Administrator, and registers a new user that can be used for authentication. The attacker can then log in and take any actions on the newly compromised site.
-
 ## Vulnerable Application
 
-[GDPR Compliance plugin <= 1.4.2](https://downloads.wordpress.org/plugin/wp-gdpr-compliance.1.4.2.zip)
+This module exploits the [WP GDPR Compliance plugin](https://wordpress.org/plugins/wp-gdpr-compliance/)
+lack of validation ([WPVDB 9144](https://wpscan.com/vulnerability/9144)), which affects versions 1.4.2 and lower.
+
+When a user triggers GDPR-related actions, WordPress's `admin-ajax.php` is called
+but the vulnerable plugin does not check capabilities before its `save_setting`
+action. An unauthenticated request with a public frontend nonce can change
+arbitrary WordPress settings. Version 1.4.3 moves settings changes to a separate
+authenticated action with capability and option checks.
+
+The module optionally changes the administration email, enables registration,
+changes the default role to Administrator, and registers a user. Receiving the
+WordPress account email and completing its password setup is separate from the
+module's registration request. Registration alone does not prove administrator
+access, particularly when testing fixed or differently configured installations.
+
+The module retains accounts and changed settings. A later registration failure
+can leave earlier configuration changes in place; operators must recover them.
+
+Download [WP GDPR Compliance 1.4.2](https://downloads.wordpress.org/plugin/wp-gdpr-compliance.1.4.2.zip).
+The [container targets](../../../../../test/module_targets/gdpr_compliance/README.md)
+provide pinned archives and independent settings, mail, login and privilege
+controls. The [verification report](../../../../../test/module_targets/VERIFICATION-20261117-gdpr-compliance.md)
+records 22 passing cases in four selected profiles. Mail is captured by a local
+transport inside the test container; external delivery is not tested.
 
 ## Verification Steps
 
@@ -19,6 +34,27 @@ This module changes the admin email (optional) to prevent notification sending, 
 5. `set RPORT [wp port]`
 6. `set EMAIL [email address]`
 7. `run`
+8. Receive the WordPress account email and complete password setup.
+9. Log in and verify the account's role and administrator access independently.
+10. Remove the test account and restore changed settings when finished.
+
+## Options
+
+### EMAIL
+
+Required email address for the new account. Use an address where the operator can
+receive WordPress account setup instructions.
+
+### USER
+
+Username to register, defaulting to `msfuser`. WordPress validates availability
+and permitted username characters during registration.
+
+### WPEMAIL
+
+Optional advanced setting for the WordPress administration email. A syntactically
+valid value is sent before registration settings are changed. The module does
+not restore its previous value or suppress WordPress notification behavior.
 
 ## Scenarios
 
