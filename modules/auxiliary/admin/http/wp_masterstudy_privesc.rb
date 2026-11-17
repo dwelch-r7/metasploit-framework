@@ -63,7 +63,13 @@ class MetasploitModule < Msf::Auxiliary
   end
 
   def get_password
-    datastore['PASSWORD'].blank? ? Rex::Text.rand_password : datastore['PASSWORD']
+    return datastore['PASSWORD'] unless datastore['PASSWORD'].blank?
+
+    # MasterStudy requires 8-20 characters, including lowercase, uppercase and a digit.
+    Rex::Text.rand_password(10) +
+      Rex::Text.rand_text_alpha_lower(1) +
+      Rex::Text.rand_text_alpha_upper(1) +
+      Rex::Text.rand_text_numeric(1)
   end
 
   def get_email
