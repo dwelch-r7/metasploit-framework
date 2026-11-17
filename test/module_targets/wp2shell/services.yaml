@@ -1,0 +1,28 @@
+services:
+  db:
+    extends: {file: ../cp_calendar/services.yaml, service: db}
+  app:
+    extends: {file: ../wordpress/compose.yaml, service: root}
+    entrypoint: [/bin/sh, /opt/module-target/core-entrypoint.sh]
+    command: [apache2-foreground]
+    environment:
+      WORDPRESS_CORE_RELEASE: "6.9.4"
+    volumes:
+    - ./core-entrypoint.sh:/opt/module-target/core-entrypoint.sh:ro
+    - ./verify-archive.php:/opt/module-target/verify-archive.php:ro
+    - ../wordpress/seed.php:/opt/module-target/seed-base.php:ro
+    - ./seed.php:/opt/module-target/seed.php:ro
+    - ./control.php:/opt/module-target/control.php:ro
+    - ./releases.json:/opt/module-target/releases.json:ro
+    - ./apache2-foreground:/usr/local/bin/apache2-foreground:ro
+    - ./php.ini:/usr/local/etc/php/conf.d/module-target-core.ini:ro
+    cpus: 1.0
+    mem_limit: 512m
+    memswap_limit: 512m
+    pids_limit: 128
+    init: true
+    networks:
+      default: {aliases: [module-target.test]}
+      public: {aliases: [module-target.test]}
+  reporting_db:
+    extends: {file: ../elasticsearch_memory/services.yaml, service: db}

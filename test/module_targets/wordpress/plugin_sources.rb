@@ -7,15 +7,17 @@ require 'open-uri'
 require 'open3'
 require_relative '../../../tools/dev/run_guarded_module_target_tests'
 
-# Prepares pinned official plugin archives without running a target container.
+# Prepares pinned official WordPress archives without running a target container.
 module WordpressPluginSources
   ROOT = File.expand_path('../../..', __dir__)
 
   # @param directory [String] Component directory containing releases.json
   # @param cache_name [String] Component-owned name for the ignored archive cache
+  # @param archive_extension [String] Catalog archive format, zip or tar.gz
   # @return [Hash] Verified release catalog; download/checksum failures raise
-  def self.prepare(directory:, cache_name:)
+  def self.prepare(directory:, cache_name:, archive_extension: 'zip')
     raise ArgumentError, 'Invalid plugin source cache name' unless cache_name.match?(/\A[a-z0-9]+(?:-[a-z0-9]+)*\z/)
+    raise ArgumentError, 'Invalid WordPress archive extension' unless %w[zip tar.gz].include?(archive_extension)
 
     catalog = JSON.parse(File.read(File.join(directory, 'releases.json')))
     cache = File.join(ROOT, 'tmp', "module-target-#{cache_name}-sources")
@@ -28,7 +30,7 @@ module WordpressPluginSources
       raise 'Finish existing containers before preparing plugin sources' unless status.success? && inventory.strip.empty?
 
       catalog.each do |version, release|
-        archive = File.join(cache, "#{version}.zip")
+        archive = File.join(cache, "#{version}.#{archive_extension}")
         unless File.file?(archive) && Digest::SHA256.file(archive).hexdigest == release.fetch('sha256')
           temporary = "#{archive}.partial"
           begin

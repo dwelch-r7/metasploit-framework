@@ -1,0 +1,71 @@
+---
+spec: spec/modules/auxiliary/scanner/http/wordpress_core_sqli_target_spec.rb
+expected_examples: 6
+console: false
+health_timeout: 180
+test_timeout: 1800
+test_env:
+  WP2SHELL_RELEASE: "6.9.4"
+  WP2SHELL_PREFIX: ""
+  WP2SHELL_TABLE_PREFIX: "wp_"
+  WP2SHELL_COUNT: "1"
+  WP2SHELL_REPEATS: "2"
+  WP2SHELL_NEGATIVES: "1"
+  WP2SHELL_SINGLE_USER: "0"
+  WP2SHELL_NO_POSTS: "0"
+modules:
+- auxiliary/scanner/http/wordpress_wp2shell_sqli
+ports:
+  app: 80
+  reporting_db: 5432
+support_files:
+- .ruby-gemset
+- .ruby-version
+- Gemfile
+- Gemfile.lock
+- lib/msf/core/auxiliary/report.rb
+- lib/msf/core/auxiliary/scanner.rb
+- lib/msf/core/exploit/remote/auto_check.rb
+- lib/msf/core/exploit/remote/http/wordpress.rb
+- lib/msf/core/exploit/remote/http/wordpress/sqli.rb
+- lib/msf/core/exploit/remote/http_client.rb
+- lib/msf/core/exploit/sqli.rb
+- lib/msf/core/exploit/sqli/mysqli/common.rb
+- lib/msf/core/exploit/sqli/mysqli/time_based_blind.rb
+- lib/msf/core/exploit/sqli/time_based_blind_mixin.rb
+- lib/msf/core/exploit/sqli/utils/common.rb
+- metasploit-framework.gemspec
+- msfconsole
+- spec/acceptance_spec_helper.rb
+- spec/spec_helper.rb
+- spec/support/acceptance/datastore_formatting.rb
+- test/module_targets/elasticsearch_memory/init.sql
+- test/module_targets/elasticsearch_memory/services.yaml
+- test/module_targets/cp_calendar/services.yaml
+- test/module_targets/wordpress/Dockerfile
+- test/module_targets/wordpress/README.md
+- test/module_targets/wordpress/apache2-foreground
+- test/module_targets/wordpress/compose.yaml
+- test/module_targets/wordpress/db.Dockerfile
+- test/module_targets/wordpress/init.sql
+- test/module_targets/wordpress/plugin_sources.rb
+- test/module_targets/wordpress/seed.php
+- lib/msf/core/auxiliary/multiple_target_hosts.rb
+- lib/msf/core/exploit.rb
+- documentation/modules/auxiliary/scanner/http/wordpress_wp2shell_sqli.md
+- test/module_targets/wordpress/plugin_sources.rb
+- tmp/module-target-wordpress-core-sources/6.9.4.tar.gz
+- tmp/module-target-wordpress-core-sources/6.9.5.tar.gz
+- tmp/module-target-wordpress-core-sources/7.0.1.tar.gz
+- tmp/module-target-wordpress-core-sources/7.0.2.tar.gz
+- lib/msf/core/exploit/remote/http/wordpress/admin.rb
+- lib/msf/core/exploit/remote/http/wordpress/base.rb
+- lib/msf/core/exploit/remote/http/wordpress/helpers.rb
+- lib/msf/core/exploit/remote/http/wordpress/login.rb
+- lib/msf/core/exploit/remote/http/wordpress/posts.rb
+- lib/msf/core/exploit/remote/http/wordpress/register.rb
+- lib/msf/core/exploit/remote/http/wordpress/uris.rb
+- lib/msf/core/exploit/remote/http/wordpress/users.rb
+- lib/msf/core/exploit/remote/http/wordpress/version.rb
+- lib/msf/core/exploit/remote/http/wordpress/xml_rpc.rb
+- test/module_targets/wp2shell/native.rb

@@ -1,0 +1,40 @@
+{
+  "services": {
+    "db": {
+      "extends": {
+        "file": "../wp2shell/services.yaml",
+        "service": "db"
+      }
+    },
+    "app": {
+      "extends": {
+        "file": "../wp2shell/services.yaml",
+        "service": "app"
+      },
+      "environment": {
+        "WORDPRESS_CORE_RELEASE": "6.9.4",
+        "WORDPRESS_TABLE_PREFIX": "wp_",
+        "LAB_PREFIX": "/wordpress",
+        "LAB_PLAIN": "0",
+        "WP2SHELL_SINGLE_USER": "0",
+        "WP2SHELL_NO_POSTS": "0"
+      },
+      "volumes": [
+        "../../../tmp/module-target-wordpress-core-sources/6.9.4.tar.gz:/opt/module-target/core.tar.gz:ro"
+      ],
+      "working_dir": "/var/www/html/wordpress"
+    },
+    "reporting_db": {
+      "extends": {
+        "file": "../wp2shell/services.yaml",
+        "service": "reporting_db"
+      }
+    }
+  },
+  "networks": {
+    "default": {
+      "internal": true
+    },
+    "public": {}
+  }
+}
