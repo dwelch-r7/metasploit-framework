@@ -1,0 +1,8 @@
+#!/bin/sh
+set -eu
+# Match the PHP web worker when native WordPress/plugin APIs create files.
+su -s /bin/sh www-data -c 'php /opt/module-target/seed.php'
+su -s /bin/sh www-data -c 'php /opt/module-target/activate.php user-registration/user-registration.php'
+su -s /bin/sh www-data -c 'php /opt/module-target/configure.php'
+su -s /bin/sh www-data -c 'php /opt/module-target/finish.php'
+exec /usr/local/bin/module-target-apache "$@"

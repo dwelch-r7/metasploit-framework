@@ -1,0 +1,38 @@
+{
+  "services": {
+    "db": {
+      "extends": {
+        "file": "../user_registration/services.yaml",
+        "service": "db"
+      }
+    },
+    "app": {
+      "extends": {
+        "file": "../user_registration/services.yaml",
+        "service": "app"
+      },
+      "environment": {
+        "UR_RELEASE": "4.1.1",
+        "LAB_PREFIX": "/portal",
+        "LAB_PLAIN": "0",
+        "UR_AUTH_MODE": "plugin"
+      },
+      "volumes": [
+        "../../../tmp/module-target-user-registration-sources/4.1.1.zip:/opt/module-target/plugin.zip:ro"
+      ],
+      "working_dir": "/var/www/html/portal"
+    },
+    "reporting_db": {
+      "extends": {
+        "file": "../user_registration/services.yaml",
+        "service": "reporting_db"
+      }
+    }
+  },
+  "networks": {
+    "default": {
+      "internal": true
+    },
+    "public": {}
+  }
+}
