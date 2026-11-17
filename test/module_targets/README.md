@@ -1,6 +1,16 @@
 # Container module acceptance tests
 
-Latest: [WordPress core SQLi](VERIFICATION-20261117-wordpress-core.md) adds
+Latest: [Blind SQLi monotonic timing and replay](VERIFICATION-20261117-blind-sqli-clock.md)
+adds one qualified subdirectory profile and two cases, reaching **272 runtime
+owners in covered paths, 497 qualified profiles and 3,702 historical functional
+cases**. The shared timer now uses the existing monotonic stopwatch. Deterministic
+clock regressions and 120 parent unit examples pass; the genuine subdirectory
+replay returns the exact native hash and passes cleanup. The original corruption
+and its unverified cause remain recorded. The other nine core profiles retain
+their earlier tested revision; no all-green 24-case aggregate is claimed.
+The broader campaign remains active. No PR is created.
+
+Previous: [WordPress core SQLi](VERIFICATION-20261117-wordpress-core.md) adds
 one owner, nine qualified profiles and 22 cases, reaching **272 runtime owners
 in covered paths, 496 qualified profiles and 3,700 historical functional cases**.
 The ten-profile attempt exits 1: subdirectory extraction corrupts one hash byte
