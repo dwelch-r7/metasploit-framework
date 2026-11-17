@@ -775,3 +775,24 @@ WordPress state and complete database restoration are outside the selected-state
 claim. The Simple File List report's earlier no-session count is also corrected:
 a missing marker in a finding description did not mean its workspace had no
 actual session; the verified count is four, with tests/sessions unchanged.
+
+## MasterStudy partial registration and configuration limits
+
+The [MasterStudy checkpoint](VERIFICATION-20261117-masterstudy.md) passes 38 cases
+in seven profiles after real password-policy and database-prefix repairs. The
+original `lab_` cohort produces subscribers; changing only the owner among 111
+inputs makes the same three cases pass with administrators. Empty-prefix tables
+also work through the real console. A wrong supplied prefix can still register a
+subscriber; the operator must configure the actual prefix, and registration
+success alone does not establish administrator access.
+
+The genuine 2.7.6 selected request raises a vendor PHP TypeError after inserting
+a subscriber. Native login still works, administrator access is denied, owned
+recovery succeeds and ordinary registration remains functional. This is neither
+a clean rejection nor whole-product security evidence. All failed original
+expectations remain preserved. The production owner retains accounts; test
+recovery is an explicit native operation with account/session ownership checks.
+
+Other plugin/runtime releases, TLS, multisite, CAPTCHA, email activation/
+premoderation, other locale behavior and arbitrary vendor-transformed password
+inputs remain unqualified. Mail transport is explicitly disabled in this lab.

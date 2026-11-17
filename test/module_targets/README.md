@@ -1,6 +1,17 @@
 # Container module acceptance tests
 
-Latest: [Hash Form upload and check repair](VERIFICATION-20261117-hash-form.md)
+Latest: [MasterStudy registration and privilege verification](VERIFICATION-20261117-masterstudy.md)
+adds one owner, seven qualified profiles and 38 cases in one passing aggregate,
+reaching **282 runtime owners in covered paths, 573 qualified profiles and 3,985
+historical functional cases**. Eighteen actual administrators, two intentional
+subscriber controls, 19 credential-core/Untried-login pairs and 329 native HTTP
+controls pass. Generated-password and database-prefix defects are repaired;
+source-only replay, deterministic contracts and all original failures are
+preserved. All 20 public accounts and 35 attached objects are removed, with at
+most three capped work containers. Human Scenarios remain unchanged. The wider
+campaign remains active. No PR is created.
+
+Previous: [Hash Form upload and check repair](VERIFICATION-20261117-hash-form.md)
 adds one owner, nine qualified profiles and 37 cases in one passing aggregate,
 reaching **281 runtime owners in covered paths, 566 qualified profiles and 3,947
 historical functional cases**. Twenty-one typed PHP/Bash/fetched Linux sessions,

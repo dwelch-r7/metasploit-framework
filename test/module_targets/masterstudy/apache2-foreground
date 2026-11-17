@@ -1,0 +1,6 @@
+#!/bin/sh
+set -eu
+su -s /bin/sh www-data -c 'php /opt/module-target/seed.php'
+su -s /bin/sh www-data -c 'php /opt/module-target/activate.php'
+su -s /bin/sh www-data -c 'php /opt/module-target/configure.php'
+exec /usr/local/bin/module-target-apache "$@"
