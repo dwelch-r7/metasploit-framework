@@ -1,0 +1,13 @@
+services:
+  app:
+    extends: {file: ../suitecrm/compose.yaml, service: app}
+    image: module-target-suitecrm:7.12.5-names
+    environment:
+      MODULE_SUITECRM_NAMES: '1'
+  db:
+    extends: {file: ../suitecrm/compose.yaml, service: db}
+  reporting_db:
+    extends: {file: ../suitecrm/compose.yaml, service: reporting_db}
+networks:
+  default: {internal: true}
+  public: {}

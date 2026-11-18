@@ -13,6 +13,9 @@ if [[ ! -f /opt/module-target/installed ]]; then
  test -s config.php
  php -r 'require "config.php";exit(empty($sugar_config["installer_locked"])?1:0);'
  su -s /bin/bash www-data -c 'php /opt/module-target/seed.php' > /tmp/module-target-seed.json 2> /tmp/module-target-seed.stderr
+ if [[ ${MODULE_SUITECRM_NAMES:-0} == 1 ]]; then
+  su -s /bin/bash www-data -c 'php /opt/module-target/names.php' > /tmp/module-target-names.json 2> /tmp/module-target-names.stderr
+ fi
  rm -- config_si.php
  touch /opt/module-target/installed
 fi

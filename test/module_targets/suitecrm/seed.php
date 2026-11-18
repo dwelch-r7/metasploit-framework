@@ -19,7 +19,8 @@ $user->is_admin = 0;
 $user->employee_status = 'Active';
 // Supply a native password hash before save to select explicit-password creation
 // instead of the application's form-driven GeneratePassword workflow.
-$user->user_hash = User::getPasswordHash('Module-suite-viewer42!');
+$fixture = json_decode(file_get_contents('/opt/module-target/names.json'), true);
+$user->user_hash = User::getPasswordHash($fixture['password']);
 $user->save();
-$user->setNewPassword('Module-suite-viewer42!');
+$user->setNewPassword($fixture['password']);
 echo json_encode(array('account' => $account->id, 'viewer' => $user->id, 'admin' => $current_user->id)), "\n";

@@ -125,10 +125,12 @@ The following setup was installed on Ubuntu 20.04:
 
 The [native SuiteCRM lab](../../../../test/module_targets/suitecrm/README.md) tests official 7.12.5 and fixed 7.12.6
 with genuine installation, login and Account export controls. It verifies
-passive check results, COUNT limits, exact persisted bcrypt credentials,
-repeated execution, bad credentials and unavailable endpoints. Three capped
-services run per profile and only their created project and volumes are removed.
-Other versions, URL prefixes and authentication roles need separate evidence.
+passive checks, COUNT limits, exact persisted bcrypt records, repeats and errors.
+An additional profile covers a UTF-8 username containing a comma and apostrophe,
+administrator/nonadministrator collection and native byte/length inference.
+Three capped services run per profile; only their created projects and volumes
+are removed. Other releases, URL prefixes, TLS and further authorization modes
+need separate evidence. Existing human Scenarios are retained below.
 
 ## Scenarios
 

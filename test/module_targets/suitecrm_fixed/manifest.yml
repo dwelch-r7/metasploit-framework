@@ -30,6 +30,7 @@
     "spec/file_fixtures/modules/auxiliary/gather/suite_crm_export_sqli/about_header.html",
     "spec/modules/auxiliary/gather/suite_crm_export_check_spec.rb",
     "spec/modules/auxiliary/gather/suite_crm_export_count_spec.rb",
+    "spec/modules/auxiliary/gather/suite_crm_export_names_spec.rb",
     "spec/spec_helper.rb",
     "spec/support/acceptance/datastore_formatting.rb",
     "spec/support/acceptance/module_target.rb",
@@ -44,13 +45,15 @@
     "test/module_targets/suitecrm/config_si.php",
     "test/module_targets/suitecrm/control.php",
     "test/module_targets/suitecrm/install.php",
+    "test/module_targets/suitecrm/names.json",
+    "test/module_targets/suitecrm/names.php",
     "test/module_targets/suitecrm/native.py",
     "test/module_targets/suitecrm/observe.rb",
     "test/module_targets/suitecrm/releases.json",
     "test/module_targets/suitecrm/seed.php",
     "test/module_targets/suitecrm/start.sh",
-    "tools/dev/run_guarded_module_target_tests.rb",
+    "test/module_targets/suitecrm_fixed/README.md",
     "test/module_targets/suitecrm_fixed/compose.yaml",
-    "test/module_targets/suitecrm_fixed/README.md"
+    "tools/dev/run_guarded_module_target_tests.rb"
   ]
 }

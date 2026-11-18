@@ -22,5 +22,5 @@ RUN curl --fail --location --silent --show-error "https://github.com/SuiteCRM/Su
  && unzip -q /tmp/suitecrm.zip -d /opt/release \
  && cp -a /opt/release/SuiteCRM-${SUITECRM_VERSION}/. /var/www/html/ \
  && rm -rf /opt/release /tmp/suitecrm.zip
-COPY config_si.php install.php seed.php start.sh control.php /opt/module-target/
+COPY config_si.php install.php seed.php names.php names.json start.sh control.php /opt/module-target/
 CMD ["bash", "/opt/module-target/start.sh"]

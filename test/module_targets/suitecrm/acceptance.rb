@@ -7,6 +7,7 @@ module SuiteCrmTarget
   include RsyncCredentialTarget
 
   OWNER = 'auxiliary/gather/suite_crm_export_sqli'
+  NAMES = JSON.parse(File.read(File.join(__dir__, 'names.json'))).freeze
 
   def rc_save
     File.write(File.join(target_runtime.fetch('artifacts'), 'suitecrm.json'), JSON.pretty_generate(@rc)) if @rc
@@ -16,8 +17,12 @@ module SuiteCrmTarget
     %w[app db reporting_db]
   end
 
+  def sc_native_variant
+    'standard'
+  end
+
   def sc_native(phase)
-    argv = ['python3', '-B', 'test/module_targets/suitecrm/native.py', ENV.fetch('MODULE_TARGET_RUNTIME'), phase]
+    argv = ['python3', '-B', 'test/module_targets/suitecrm/native.py', ENV.fetch('MODULE_TARGET_RUNTIME'), phase, sc_native_variant]
     output, error, status = Open3.capture3(*argv)
     @rc.fetch(:native) << { phase: phase, argv: argv, stdout: output, stderr: error, exit: status.exitstatus }
     rc_save
@@ -79,11 +84,11 @@ module SuiteCrmTarget
   end
 
   def sc_success(record, count:)
-    expected = @baseline.fetch('users').sort_by { |row| row.fetch('user_name') }.first(count)
+    expected = @baseline.fetch('users').first(count)
     rows = record.fetch(:credentials)
     expect(rows.length).to eq(expected.length)
     names = record.fetch(:events).find { |event| event.values_at('event', 'method') == %w[return get_user_names] }.fetch('names_base64')
-    expect(names.map { |name| Base64.strict_decode64(name) }).to eq(expected.map { |row| row.fetch('user_name') })
+    expect(names.map { |name| Base64.strict_decode64(name) }).to eq(expected.map { |row| row.fetch('user_name').b })
     expect(rows.to_h { |row| row.values_at('username', 'private_data') }).to eq(expected.to_h { |row| row.values_at('user_name', 'user_hash') })
     endpoint = target_endpoint('app')
     rows.each do |row|

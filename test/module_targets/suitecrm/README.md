@@ -10,7 +10,7 @@ Run from the Framework root with Docker Compose and the repository Ruby bundle:
 
 ```sh
 MODULE_TARGET_NAMESPACE=local-suitecrm bundle exec ruby \
-  tools/dev/run_guarded_module_target_tests.rb suitecrm suitecrm_fixed
+  tools/dev/run_guarded_module_target_tests.rb suitecrm suitecrm_fixed suitecrm_names
 ```
 
 The guarded runner serializes the profiles, builds and installs the real product,
@@ -43,7 +43,7 @@ checked before and after Framework execution.
 
 ## Automated coverage
 
-Each profile has eight cases. The vulnerable profile verifies passive `Appears`,
+The baseline and fixed profiles each have eight cases. The vulnerable profile verifies passive `Appears`,
 `COUNT=1` twice with both AutoCheck modes on the same configured console module,
 `COUNT=0`, the actual default count, wrong credentials with AutoCheck on/off,
 negative COUNT and an unavailable endpoint. Framework may replicate the selected
@@ -55,13 +55,17 @@ cardinality, hash type, JtR format, origin module and service endpoint. Repeats
 must not add duplicate credentials. The fixed profile verifies reason-bearing
 `Safe` and AutoCheck refusal without collection, plus authentication/connection
 errors. Selected user/Account state, resource events, empty session/job sets and
-owned Docker teardown are checked. The latest qualified run is **16/0**, plus
-**36/0** focused check/count regressions; see the
-[verification record](../VERIFICATION-20261118-suitecrm.md).
+owned Docker teardown are checked. The latest replay is **22/0**, plus **70/0** focused regressions; see the
+[current verification record](../VERIFICATION-20261118-suitecrm-names.md).
+The [names profile](../suitecrm_names/README.md) adds six cases for native UTF-8,
+commas/apostrophes, administrator and nonadministrator collection, repeated
+configuration and long/byte inference controls. Usernames are selected as
+individual HEX rows, avoiding delimiter and server aggregation limits.
 
-Only the root application path, these two releases, this MariaDB/PHP combination
-and the seeded ASCII usernames are qualified. Other versions, URL prefixes,
-TLS, alternative database engines, special usernames and nonadministrator
-collector authentication need separate native evidence. The existing CVE mapping
+Only the root application path, these two releases and this MariaDB/PHP
+combination are qualified. The names profile adds the seeded UTF-8 username
+with a comma and apostrophe, using both administrator and local nonadministrator
+collectors. Other names, versions, URL prefixes, TLS, database engines and
+additional authentication/authorization configurations need separate evidence. The existing CVE mapping
 is an explicitly unresolved metadata investigation in the verification record.
 Existing human-written module Scenarios are unchanged.

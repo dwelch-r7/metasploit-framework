@@ -6,7 +6,20 @@ sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 The module qualification totals below are unchanged.
 
-Latest: [Native SuiteCRM export collection](VERIFICATION-20261118-suitecrm.md)
+Latest: [SuiteCRM usernames and collector roles](VERIFICATION-20261118-suitecrm-names.md)
+adds one profile and six cases for an existing owner, reaching **301 runtime
+owners in covered paths, 614 qualified profiles and 4,305 historical functional
+cases**. The complete three-profile replay passes 22/0; sixteen existing cases
+are regressions. Exact native UTF-8/comma/apostrophe names and bcrypt records,
+local nonadministrator access, COUNT transitions, repeats and 1600-byte inference
+pass. An actual wire regression invalidated an earlier direct-only candidate:
+the first candidate passed 62/0 focused cases but was interrupted after SuiteCRM
+escaped its predicates. The corrected source passes 70/0 focused cases and real
+native replay. All 36 resource captures are zero and all 50 owned Docker objects
+are independently absent. Three capped containers run serially; unrelated
+containers are preserved. CVE mapping remains an explicit investigation; no PR.
+
+Previous: [Native SuiteCRM export collection](VERIFICATION-20261118-suitecrm.md)
 adds one owner and two profiles with 16/0, reaching **301 runtime owners in covered
 paths, 613 qualified profiles and 4,299 historical functional cases**. Genuine
 vulnerable/fixed Account exports, exact native bcrypt records, bounded and
