@@ -1,0 +1,34 @@
+{
+  "services": {
+    "db": {
+      "extends": {
+        "file": "../backup_migration/services.yaml",
+        "service": "db"
+      }
+    },
+    "app": {
+      "extends": {
+        "file": "../backup_migration/services.yaml",
+        "service": "app"
+      },
+      "environment": {
+        "BACKUP_MIGRATION_RELEASE": "1.3.7",
+        "LAB_PREFIX": "/wordpress"
+      },
+      "volumes": [
+        "../../../tmp/module-target-backup-migration-sources/1.3.7.zip:/opt/module-target/plugin.zip:ro"
+      ],
+      "working_dir": "/var/www/html/wordpress"
+    }
+  },
+  "networks": {
+    "default": {
+      "internal": true
+    },
+    "public": {}
+  },
+  "volumes": {
+    "database": {},
+    "wordpress": {}
+  }
+}

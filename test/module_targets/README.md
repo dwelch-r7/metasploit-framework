@@ -1,6 +1,16 @@
 # Container module acceptance tests
 
-Latest: [Legacy Selenium execution and detection](VERIFICATION-20261118-selenium-legacy.md)
+Latest: [Backup Migration execution](VERIFICATION-20261118-backup-migration.md)
+adds one owner, three profiles and 21 passing cases, reaching **292 runtime owners
+in covered paths, 590 qualified profiles and 4,111 historical functional cases**.
+Twelve genuine PHP stageless, Bash and Linux fetch Meterpreter sessions cover
+repeats, both AutoCheck modes and a subdirectory. Independent vulnerable/fixed
+controls, selected recovery and all 18 Docker object removals pass with two
+capped containers. Original harness failures and an intermittent staged PHP
+bootstrap burst remain separately preserved; staged execution is unqualified.
+No owner repair or PR is created. The broader campaign remains active.
+
+Previous: [Legacy Selenium execution and detection](VERIFICATION-20261118-selenium-legacy.md)
 adds one profile and seven cases for an already covered owner, reaching **291
 runtime owners in covered paths, 587 qualified profiles and 4,090 historical
 functional cases**. A 57-input owner-only replay repairs false NoResponse detection

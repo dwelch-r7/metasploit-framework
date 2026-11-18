@@ -15,7 +15,7 @@ the author's Framework fork without creating a pull request.
 
 The current campaign runs one test Compose project at a time, normally with at
 most three running test containers including Framework and helpers. The current
-Selenium execution profile uses one capped target and a host console. Builds, native smoke
+Backup Migration profiles use two capped targets and a host console. Builds, native smoke
 projects and cold console starts share the same serial queue. Confirm the prior
 project is down before starting another. Larger profiles must be split into
 sequential releases/scenarios or remain queued; the resource limit is not evidence
@@ -1497,3 +1497,15 @@ API discovery and honest automatic-selection rejection pass. Selected native,
 file/session and Docker recovery pass with one capped container. A generated
 FileDropper path warning remains unverified. The broader goal remains active;
 no PR is created.
+
+
+The [Backup Migration checkpoint](VERIFICATION-20261118-backup-migration.md)
+adds one owner, three profiles and 21 cases, reaching **292 runtime owners in
+covered paths, 590 profiles and 4,111 historical functional cases**. Twelve real
+PHP stageless, Bash and Linux fetch Meterpreter sessions prove repeats and both
+AutoCheck modes on root/subdirectory installations. Independent 1.3.7/1.3.8
+native controls, selected file/process recovery, zero resource-limit events and
+all 18 individual Docker object removals pass with two capped containers. Earlier
+harness failures remain sealed. Staged PHP bootstrap remains an unqualified
+investigation; no owner fix is claimed. The broader goal remains active and no
+PR is created.

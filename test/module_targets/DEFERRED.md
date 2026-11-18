@@ -4,6 +4,40 @@ These findings do not count as passing functional qualification. The
 [campaign](CAMPAIGN.md) and individual verification records retain other
 coverage limits and ongoing investigations.
 
+## Backup Migration staged PHP and remaining paths
+
+The [Backup Migration checkpoint](VERIFICATION-20261118-backup-migration.md)
+qualifies 21 cases on unchanged 1.3.7 root/subdirectory and 1.3.8 fixed targets,
+with twelve real PHP stageless/Bash/Mettle-fetch sessions and complete selected
+recovery. No owner source changes. Staged PHP works once in the original cohort,
+then a cleanup-only replay produces 1,407 stage sends and 88 invalid-session
+messages. Only its console is stopped; both containers and their objects are
+removed. Native setup/control and resource evidence distinguish this from an
+unavailable target; the initiating cause remains unverified.
+
+Invalid-session labeling occurs during TLV-encryption negotiation, before
+Framework-side stdapi loading. The installed PHP source identity matches the
+previously verified payload, with no Framework/config override. Similar earlier
+WordPress-upload bursts do not establish an identical initiating failure.
+Unchecked header reads and reconnect-to-staged-listener behavior are static
+candidates, not reproduced causes or repairs. Reuse the existing labeled observer,
+stop at the first failed bootstrap or a small connection/time ceiling, and test
+atomic versus fragmented headers independently before changing production code.
+
+The separate `backup_migration_staged` definition is unqualified and not rerun
+under its new 120-second RSpec-phase cap. Setup/teardown have separate bounds.
+It remains excluded from the three-profile qualification command and totals.
+Earlier native setup/login assumptions, idle-shell registration and premature
+fetch-deletion assertions are corrected harness failures, preserved separately.
+Windows, other releases/architectures, TLS/proxies, blocked metadata and transport
+loss remain unqualified. Human Scenarios are unchanged.
+The prior published head `4ac43b127796` also has an actual-source-verified Linux
+Mettle acceptance timeout during `post/test/file` recursive directory removal
+(reverse HTTP / minimal_uris_headers.profile), 51/1. macOS passes 46/0 and its
+final report proves the same source. This is a separate unresolved CI result;
+no Backup Migration causality, retry or workflow cancellation is claimed.
+
+
 ## Selenium remaining backend scope and cleanup warning
 
 The [legacy checkpoint](VERIFICATION-20261118-selenium-legacy.md) repairs false
