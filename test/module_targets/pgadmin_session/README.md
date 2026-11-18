@@ -43,11 +43,14 @@ each command; its public session termination closes the receive loop's peer.
 Proof/upload files are checked absent, local sessions/jobs are cleared and native
 health plus OOM/PID-limit checks cover the selected scope.
 
-The separate [Meterpreter diagnostic](../pgadmin_session_meterpreter/README.md)
-is unqualified. It retains strict staged/inline session/file/API/closure tests,
-including repeats and channel checks. Earlier staged sessions work but retain
-target sockets beyond the shutdown bound; the worker is never forcibly signalled.
-This is preserved for investigation, rather than counted as complete recovery.
+The separate [Meterpreter recovery regression](../pgadmin_session_meterpreter/README.md)
+retains strict staged/inline session/file/API/closure tests, including repeats and
+channel checks. Earlier staged sessions retain target sockets beyond the shutdown
+bound. A source-only BentoML reproduction identifies a connected descriptor
+inherited by the service parent; the shared Python TCP stager closes that copy
+when stage execution returns. The worker is never forcibly signalled. See the
+[BentoML verification record](../VERIFICATION-20261118-bentoml.md) for the replay
+and subsequent cross-owner regression results.
 
 The authenticated owner uses the actual uploaded storage path and quotes Cookie
 values. Native Request.cookies captures establish octal escaping for UTF-8 bytes;

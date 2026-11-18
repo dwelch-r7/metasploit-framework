@@ -1,0 +1,5 @@
+*
+!Dockerfile
+!requirements-*.txt
+!*.py
+!bentofile.yaml

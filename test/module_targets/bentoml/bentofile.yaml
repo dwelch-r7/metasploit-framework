@@ -1,0 +1,10 @@
+service: legacy_service:svc
+name: module_runner_lab
+include:
+  - "*.py"
+models:
+  - module_target:latest
+python:
+  packages:
+    - bentoml
+    - numpy

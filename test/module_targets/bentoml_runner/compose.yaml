@@ -1,0 +1,47 @@
+{
+  "services": {
+    "app": {
+      "image": "msf-module-target-bentoml:1.4.2",
+      "platform": "linux/amd64",
+      "build": {
+        "context": "../bentoml",
+        "dockerfile": "Dockerfile",
+        "args": {
+          "BENTOML_VERSION": "1.4.2"
+        }
+      },
+      "command": [
+        "bentoml",
+        "start-runner-server",
+        "legacy_service:svc",
+        "--runner-name",
+        "module_target",
+        "--working-dir",
+        "/lab",
+        "--host",
+        "0.0.0.0",
+        "--port",
+        "3000"
+      ],
+      "ports": [
+        "127.0.0.1::3000"
+      ],
+      "cpus": 1.0,
+      "mem_limit": "512m",
+      "memswap_limit": "512m",
+      "pids_limit": 128,
+      "init": true,
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "python3",
+          "-c",
+          "import urllib.request;assert urllib.request.urlopen('http://127.0.0.1:3000/readyz',timeout=3).status==200"
+        ],
+        "interval": "3s",
+        "timeout": "5s",
+        "retries": 40
+      }
+    }
+  }
+}

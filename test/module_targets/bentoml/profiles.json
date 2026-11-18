@@ -1,0 +1,21 @@
+{
+  "port": 3000,
+  "uid": 1000,
+  "cache_dir": "tmp/module-target-bentoml-sources",
+  "owners": {
+    "api": "exploit/linux/http/bentoml_rce_cve_2025_27520",
+    "runner": "exploit/linux/http/bentoml_runner_server_rce_cve_2025_32375"
+  },
+  "releases": {
+    "1.4.2": {
+      "filename": "bentoml-1.4.2-py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/d1/bb/54cc91840209e155c6e7092dc865bad8df5dc1ecaf24cc54f8bf32cca03f/bentoml-1.4.2-py3-none-any.whl",
+      "sha256": "bec93162c1115461b9f60147d0dbb370a467b26c723f58556c023b4b7d96be8c"
+    },
+    "1.4.8": {
+      "filename": "bentoml-1.4.8-py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/cb/3e/c4adc9c48ceab6bfd8735f125f1b2ec58c6a636b4f2c092349c02e1beb71/bentoml-1.4.8-py3-none-any.whl",
+      "sha256": "b33765e15101348fa6ca1fe68f07b3309ad4ea5c8823e56c2358a1b09b29edbb"
+    }
+  }
+}

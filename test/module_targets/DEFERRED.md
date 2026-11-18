@@ -1041,3 +1041,26 @@ SMTP, activation configurations, other locales/email formats, TLS, multisite,
 other plugin/runtime versions, disconnect behavior and broader advisory SQL/RCE
 paths remain unqualified. All initial harness failures are preserved separately
 from owner behavior. Historical human Scenarios remain unchanged.
+
+## BentoML and staged Python recovery follow-up
+
+The [BentoML checkpoint](VERIFICATION-20261118-bentoml.md) confirms and repairs the
+plain-TCP stager's inherited parent descriptor. The earlier pgAdmin staged 9/2
+diagnostic now passes 9/0 in the final 44/0 aggregate. Original failures remain
+preserved. Native file/socket recovery and repeat execution pass; fork-child
+zombies can remain until complete disposable-container teardown. Broader child
+reaping and the separate SSL generator remain future work, with no SSL runtime
+failure inferred from source similarity.
+
+BentoML 1.4.8 removes the public legacy-runner launch command; this unavailable
+target is excluded from runtime-safe comparisons. The API's explicit unrelated
+endpoint returns 404 without execution, but its owner does not classify that reply
+as an exploit failure. Other versions, architectures, TLS/proxy configurations
+and transport-loss behavior remain unqualified.
+
+The prior 6fd3d8 Meterpreter CI run has two verified-checkout native Mettle worker
+failures: [macOS 46/1](https://github.com/dwelch-r7/metasploit-framework/actions/runs/44285946744/job/134738553165)
+for double-quoted echo, and [Linux 51/3](https://github.com/dwelch-r7/metasploit-framework/actions/runs/44285946744/job/134738553319)
+for HTTPS minimal-URI receive bounds in post/test/meterpreter,unix,search. Causes
+remain unverified; the report job is queued at this observation. Nine other
+workflows succeed. No reruns or cancellations are performed.

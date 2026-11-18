@@ -1,6 +1,17 @@
 # Container module acceptance tests
 
-Latest: [pgAdmin execution and repairs](VERIFICATION-20261118-pgadmin-session.md)
+Latest: [BentoML sessions and Python stager recovery](VERIFICATION-20261118-bentoml.md)
+adds two owners and four qualified profiles, passing 44/0 with 24 real sessions.
+Three BentoML targets and the earlier pgAdmin staged diagnostic reach **295
+runtime owners in covered paths, 598 qualified profiles and 4,186 historical
+functional cases**. A native inode probe confirms a fork-parent TCP descriptor
+leak; changing only the stager among 65 inputs repairs 10/2 to 10/0. Final selected
+recovery, 64 zero resource-event files and all nine Docker object removals pass.
+One capped work container runs at a time; unrelated MCP restarts are cleaned up.
+Prior native Mettle CI failures retain unverified causes. The campaign remains
+active; no PR is created.
+
+Previous: [pgAdmin execution and repairs](VERIFICATION-20261118-pgadmin-session.md)
 adds one owner, four profiles and 31 passing cases, reaching **293 runtime owners
 in covered paths, 594 qualified profiles and 4,142 historical functional cases**.
 Twelve real inline Python Meterpreter/shell sessions cover repeats, both AutoCheck
