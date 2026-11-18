@@ -2,7 +2,12 @@ name: Shared SMB Acceptance
 on:
   workflow_call:
     inputs:
-      # Defaults set as '' will use the current branch as their commit
+      # Empty refs retain actions/checkout's event-ref/default-branch behavior.
+      metasploit_framework_repository:
+        description: "metasploit-framework repository to build with"
+        default: 'rapid7/metasploit-framework'
+        required: false
+        type: string
       metasploit_framework_commit:
         description: "metasploit-framework commit to build with"
         default: ''
@@ -67,7 +72,7 @@ jobs:
       - name: Checkout metasploit-framework code
         uses: actions/checkout@v4
         with:
-          repository: rapid7/metasploit-framework
+          repository: ${{ inputs.metasploit_framework_repository }}
           path: metasploit-framework
           ref: ${{ inputs.metasploit_framework_commit }}
 
@@ -144,7 +149,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          repository: rapid7/metasploit-framework
+          repository: ${{ inputs.metasploit_framework_repository }}
           path: metasploit-framework
           ref: ${{ inputs.metasploit_framework_commit }}
 

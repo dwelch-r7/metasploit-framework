@@ -65,6 +65,9 @@ jobs:
   build:
     uses: ./.github/workflows/shared_meterpreter_acceptance.yml
     with:
+      # Keep fork runs and PR merge commits tied to the triggering Framework revision.
+      metasploit_framework_repository: ${{ github.repository }}
+      metasploit_framework_commit: ${{ github.sha }}
       metasploit_payloads_commit: ${{ github.event.inputs.metasploit_payloads_commit }}
       mettle_commit: ${{ github.event.inputs.mettle_commit }}
       build_metasploit_payloads: ${{ contains(github.event.pull_request.labels.*.name, 'payload-testing-branch') }}

@@ -51,3 +51,7 @@ env:
 jobs:
   build:
     uses: ./.github/workflows/shared_smb_acceptance.yml
+    with:
+      # Keep fork runs and PR merge commits tied to the triggering Framework revision.
+      metasploit_framework_repository: ${{ github.repository }}
+      metasploit_framework_commit: ${{ github.sha }}
