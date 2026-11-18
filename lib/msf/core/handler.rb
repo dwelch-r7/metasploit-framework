@@ -82,6 +82,10 @@ module Handler
     # Create the waiter event with auto_reset set to false so that
     # if a session is ever created, waiting on it returns immediately.
     self.session_waiter_event = Rex::Sync::Event.new(false, false)
+
+    @session_registration_mutex = Mutex.new
+    @session_registration_condition = ConditionVariable.new
+    @session_wait_interrupted = false
   end
 
   #
@@ -146,19 +150,20 @@ module Handler
   # nil if the timeout expires.
   #
   def wait_for_session(t = wfs_delay)
-    session = nil
-
     begin
-      session = session_waiter_event.wait(t)
+      return session_waiter_event.wait(t)
     rescue ::Timeout::Error
     end
 
-    # If a connection has arrived, wait longer...
-    if (pending_connections > 0)
-      session = session_waiter_event.wait
-    end
+    @session_registration_mutex.synchronize do
+      # Failed registration must release an extended wait without signaling a
+      # failed result during the original grace period for new connections.
+      @session_registration_condition.wait(@session_registration_mutex) while pending_connections > 0 && sessions == 0 && !@session_wait_interrupted
 
-    return session
+      # Successful registration and explicit interruption have already signaled
+      # this event. A failed registration alone must return without waiting.
+      session_waiter_event.wait if sessions > 0 || @session_wait_interrupted
+    end
   end
 
   #
@@ -167,6 +172,10 @@ module Handler
   def interrupt_wait_for_session
     return unless session_waiter_event
     session_waiter_event.notify(nil)
+    @session_registration_mutex.synchronize do
+      @session_wait_interrupted = true
+      @session_registration_condition.broadcast
+    end
   end
 
   #
@@ -299,12 +308,13 @@ protected
     # Notify waiters that they should be ready to rock
     session_waiter_event.notify(session)
 
-    # Decrement the pending connections counter now that we've processed
-    # one session.
-    self.pending_connections -= 1
-
     # Count the number of sessions we have registered
     self.sessions += 1
+  ensure
+    @session_registration_mutex.synchronize do
+      self.pending_connections -= 1
+      @session_registration_condition.broadcast
+    end
   end
 
   attr_accessor :session_waiter_event # :nodoc:
