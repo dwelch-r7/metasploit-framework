@@ -1,0 +1,49 @@
+{
+  "services": {
+    "linux": {
+      "platform": "linux/amd64",
+      "build": ".",
+      "hostname": "module-target-gpg",
+      "volumes": [
+        "../generic_env/launch_with_env.py:/opt/launch_session.py:ro",
+        "../linux_post/launch_session.py:/opt/shared-launch-session.py:ro",
+        "../pgpass_creds/process_state.py:/opt/process-state.py:ro",
+        "../generic_env/descendants.py:/opt/descendants.py:ro",
+        "../generic_env/env_values.py:/opt/env_values.py:ro",
+        "../generic_env/native_probe.py:/opt/native_probe.py:ro",
+        "./case_state.py:/opt/gpg-case-state.py:ro",
+        "../generic_env/artifacts.py:/opt/artifacts.py:ro"
+      ],
+      "ports": [
+        "127.0.0.1::8080"
+      ],
+      "cpus": 0.5,
+      "mem_limit": "512m",
+      "memswap_limit": "512m",
+      "pids_limit": 128,
+      "init": true,
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "python3",
+          "-c",
+          "import urllib.request;assert urllib.request.urlopen(\"http://127.0.0.1:8080\",timeout=2).status==200"
+        ],
+        "interval": "3s",
+        "timeout": "4s",
+        "retries": 40
+      }
+    },
+    "reporting_db": {
+      "platform": "linux/amd64",
+      "extends": {
+        "file": "../elasticsearch_memory/services.yaml",
+        "service": "db"
+      }
+    }
+  },
+  "networks": {
+    "default": {},
+    "public": {}
+  }
+}

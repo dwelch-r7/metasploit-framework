@@ -160,18 +160,19 @@ module GenericEnvironmentTarget
     console_command('back')
     console_command('use ' + rc_owner)
     console_command("set SESSION #{@session.fetch('id')}")
-    source = rc_json('begin;source="modules/post/multi/gather/env.rb";{sha256:Digest::SHA256.file(source).hexdigest,source:active_module.method(:run).source_location};end')
+    owner_path = 'modules/' + rc_owner + '.rb'
+    source = rc_json('begin;source=' + owner_path.inspect + ';{sha256:Digest::SHA256.file(source).hexdigest,source:active_module.method(:run).source_location};end')
     @rc.fetch(:sources) << source
     rc_save
-    expect(source.fetch('sha256')).to eq(Digest::SHA256.file('modules/post/multi/gather/env.rb').hexdigest)
-    expect(File.realpath(source.fetch('source').first)).to eq(File.realpath('modules/post/multi/gather/env.rb'))
+    expect(source.fetch('sha256')).to eq(Digest::SHA256.file(owner_path).hexdigest)
+    expect(File.realpath(source.fetch('source').first)).to eq(File.realpath(owner_path))
   end
 
   def ge_reports
     expect(@workspace).to match(/\Age_\d+_[a-z_]+\z/)
     rows = JSON.parse(rc_sql(<<~SQL))
       SELECT coalesce(json_agg(row ORDER BY row.id),'[]'::json) FROM (
-        SELECT l.id,l.ltype,l.content_type,l.path,host(h.address::inet) AS address
+        SELECT l.id,l.ltype,l.content_type,l.path,l.info,host(h.address::inet) AS address
         FROM loots l JOIN workspaces w ON w.id=l.workspace_id
         LEFT JOIN hosts h ON h.id=l.host_id WHERE w.name='#{@workspace}'
       ) row

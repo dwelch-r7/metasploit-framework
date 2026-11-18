@@ -4,6 +4,21 @@ These findings do not count as passing functional qualification. The
 [campaign](CAMPAIGN.md) and individual verification records retain other
 coverage limits and ongoing investigations.
 
+## GnuPG remaining versions, platforms and native boundaries
+
+The [GnuPG checkpoint](VERIFICATION-20261118-gpg-creds.md) repairs native-proven
+space-home listing failures for shell and Meterpreter with a strict 58-input
+owner-only replay and ten final Linux/amd64 cases. GnuPG 2.2.27 sign/verify and
+protected-key wrong-passphrase controls, root/ordinary access, unreadable keys,
+missing keyrings, raw metadata/bytes and repeats pass. The shared environment
+regression passes 6/0. Initial copy-directory and cleanup-mount fixture failures
+remain preserved and add no qualification. Other GPG/OS/architecture versions,
+BSD/macOS, legacy 1.x/2.0 layouts, additional payloads/transports, broader directory
+traversal and transport loss remain unqualified. Selected native file/process
+APIs pass, and the earlier environment-profile stdapi_fs warning is not observed
+in GPG source cohorts; that separate investigation remains open. Raw collection
+does not establish key cracking or importing.
+
 ## Generic environment compatibility warning and remaining platforms
 
 The [environment checkpoint](VERIFICATION-20261118-generic-env.md) repairs the
@@ -28,7 +43,14 @@ owner result. A green SMB job also checked out that upstream revision. Both
 attempts remain intact. The source-selection repair preserves external caller
 defaults. Subsequent SMB test/report logs prove the intended fork and exact
 `0fc4834ef4cb1705b60ff6d7eef6ee3cb308243f` checkout, with 20/0. Two completed Meterpreter jobs likewise prove that fork/SHA and pass 91/0
-and 100/0; the remaining matrix and final report are separate observations. Another preserved upstream run has 46 examples,
+and 100/0. Its terminal Linux Mettle job has 51/two failures in cmd_exec upload
+and file-directory setup; macOS has 46/one failure in recursive removal with
+Send timed out. Timeout recovery interrupts the modules; underlying causes
+remain unverified. The final report also proves the intended fork/SHA. These
+examples predate and do not invoke the environment-owner repair. Subsequent
+NickServ Mettle jobs prove their own fork/SHA and pass Linux 51/0 and macOS 46/0;
+these successes do not establish the earlier timeout causes. Another
+preserved upstream run has 46 examples,
 one macOS HTTPS/minimal-profile `post/test/cmd_exec` single-quoted echo failure;
 actual mismatched bytes and root cause remain unverified. It does not establish
 a Fetchmail defect. CI provenance cases add no module qualification.

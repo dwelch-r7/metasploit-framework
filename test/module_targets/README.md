@@ -1,6 +1,17 @@
 # Container module acceptance tests
 
-Latest: [Generic environment collection and Meterpreter repair](VERIFICATION-20261118-generic-env.md)
+Latest: [GnuPG collection and home-path repair](VERIFICATION-20261118-gpg-creds.md)
+adds one owner, one profile and ten cases, reaching **290 runtime owners in covered
+paths, 585 qualified profiles and 4,078 historical functional cases**. Native
+GnuPG signing/verification and protected-key controls prove a space-home defect
+in both genuine session types; an unchanged 58-input owner-only replay repairs
+it. Twelve calls through ten root/ordinary shell/Meterpreter sessions save 38
+exact raw files. Protected keys, permissions, absent keyrings, empty-file
+handling and repeats pass. All selected native/file/session recovery and Docker
+checks pass with at most two capped containers. Fixture failures remain
+preserved separately. The campaign remains active; no PR is created.
+
+Previous: [Generic environment collection and Meterpreter repair](VERIFICATION-20261118-generic-env.md)
 adds one owner, one profile and six cases, reaching **289 runtime owners in covered
 paths, 584 qualified profiles and 4,068 historical functional cases**. A native
 Meterpreter nil-read/unclosed-channel defect is repaired with an unchanged
@@ -42,7 +53,11 @@ An original green SMB job and failed Mettle job both executed upstream master,
 so their workflow heads do not establish branch validation. External callers'
 defaults are preserved. A subsequent SMB test/report pair proves the intended
 fork and exact checkout, with 20/0. Two completed Meterpreter jobs also prove
-the fork/SHA and pass 91/0 and 100/0; the remaining matrix/report remain observed.
+the fork/SHA and pass 91/0 and 100/0. Two terminal Mettle jobs retain three
+unresolved timeout failures; the final report proves the same source. A later
+SMB test/report pair proves the environment-checkpoint source with 20/0.
+A later NickServ Mettle test/report set proves its actual fork revision and
+passes Linux 51/0 and macOS 46/0; earlier timeout causes remain unverified.
 CI provenance adds no module functional qualification.
 
 Previous: [Fetchmail credential collection and quote repair](VERIFICATION-20261118-fetchmailrc-creds.md)
