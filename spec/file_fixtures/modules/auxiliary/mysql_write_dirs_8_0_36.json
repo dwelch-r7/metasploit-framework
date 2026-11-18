@@ -1,0 +1,68 @@
+{
+  "provenance": "MySQL 8.0.36 native-client and real module filesystem capture, mysql-write-functional-20261118T162636-5fd005; manifest56af2fcbe024afff90e10d56eb57f6eb3e1ce1c86e71184c037f892f04e47198. Query adapters in unit specs are synthetic; native before/after exact-path writes and actual wrong-path bytes are recorded separately. Mode contrast also uses mysql-file-enum-functional-20261118T160319-ca6c33 native MySQL control; manifestf236f257f40e3b0b742057f5383a88fa34a2d7bc4dd5bcf6bfb3520743e19940.",
+  "errors": [
+    {
+      "label": "collision",
+      "code": 1086,
+      "message": "File '/var/lib/mysql-files/module-write/ordinary/native-probe.txt' already exists"
+    },
+    {
+      "label": "file-permission",
+      "code": 1227,
+      "message": "Access denied; you need (at least one of) the FILE privilege(s) for this operation"
+    }
+  ],
+  "module_outcomes": [
+    {
+      "label": "quoted-filename",
+      "filename_hex": "6d6f64756c652d77726974652771756f74652e747874",
+      "directories_hex": [
+        "2f7661722f6c69622f6d7973716c2d66696c65732f6d6f64756c652d77726974652f6f7264696e617279"
+      ],
+      "actual_files": []
+    },
+    {
+      "label": "quoted-directory",
+      "filename_hex": "6d6f64756c652d77726974652d746573742e747874",
+      "directories_hex": [
+        "2f7661722f6c69622f6d7973716c2d66696c65732f6d6f64756c652d77726974652f71756f746527646972"
+      ],
+      "actual_files": []
+    },
+    {
+      "label": "backslash-filename",
+      "filename_hex": "6d6f64756c652d77726974655c6261636b2e747874",
+      "directories_hex": [
+        "2f7661722f6c69622f6d7973716c2d66696c65732f6d6f64756c652d77726974652f6f7264696e617279"
+      ],
+      "actual_files": [
+        {
+          "path_hex": "2f7661722f6c69622f6d7973716c2d66696c65732f6d6f64756c652d77726974652f6f7264696e6172792f6d6f64756c652d77726974650861636b2e747874",
+          "bytes_hex": "74657374",
+          "owner": "mysql",
+          "mode": "640"
+        }
+      ]
+    },
+    {
+      "label": "backslash-directory",
+      "filename_hex": "6d6f64756c652d77726974652d746573742e747874",
+      "directories_hex": [
+        "2f7661722f6c69622f6d7973716c2d66696c65732f6d6f64756c652d77726974652f6261636b5c736c6173682d646972"
+      ],
+      "actual_files": []
+    },
+    {
+      "label": "backslash-quote-filename",
+      "filename_hex": "6d6f64756c652d77726974655c6261636b2771756f74652e747874",
+      "directories_hex": [
+        "2f7661722f6c69622f6d7973716c2d66696c65732f6d6f64756c652d77726974652f6f7264696e617279"
+      ],
+      "actual_files": []
+    }
+  ],
+  "sql_modes": {
+    "default": "ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION",
+    "no_backslash_escapes": "ONLY_FULL_GROUP_BY,NO_BACKSLASH_ESCAPES,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION"
+  }
+}

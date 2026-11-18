@@ -42,7 +42,7 @@ class MetasploitModule < Msf::Auxiliary
   end
 
   def run_host(ip)
-    @mysql_no_backslash_escapes = nil
+    @mysql_file_sql_mode = nil
     vprint_status("Login...") unless session
 
     # If we have a session make use of it
@@ -134,18 +134,12 @@ class MetasploitModule < Msf::Auxiliary
 
   private
 
-  # The client escape API always uses backslashes, regardless of server SQL mode.
-  # https://dev.mysql.com/doc/refman/8.0/en/string-literals.html
   def mysql_file_literal(value)
-    if @mysql_no_backslash_escapes.nil?
-      result = mysql_query('SELECT @@SESSION.sql_mode')
-      mode = result&.first&.first
-      fail_with(Failure::UnexpectedReply, 'Unable to determine the MySQL session SQL mode') unless mode.is_a?(String)
-
-      @mysql_no_backslash_escapes = mode.split(',').include?('NO_BACKSLASH_ESCAPES')
+    if @mysql_file_sql_mode.nil?
+      @mysql_file_sql_mode = mysql_session_sql_mode
+      fail_with(Failure::UnexpectedReply, 'Unable to determine the MySQL session SQL mode') unless @mysql_file_sql_mode.is_a?(String)
     end
 
-    escaped = @mysql_no_backslash_escapes ? value.gsub("'", "''") : mysql_conn.escape_string(value)
-    "'#{escaped}'"
+    mysql_quote_literal(value, sql_mode: @mysql_file_sql_mode)
   end
 end

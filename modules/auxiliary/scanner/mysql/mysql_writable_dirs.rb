@@ -51,15 +51,22 @@ class MetasploitModule < Msf::Auxiliary
       return unless mysql_login_datastore
     end
 
+    sql_mode = mysql_session_sql_mode
+    fail_with(Failure::UnexpectedReply, 'Unable to determine the MySQL session SQL mode') unless sql_mode
+
     File.read(datastore['DIR_LIST']).each_line do |dir|
-      check_dir(dir.chomp)
+      check_dir(dir.chomp, sql_mode: sql_mode)
     end
   end
 
-  def check_dir(dir)
+  def check_dir(dir, sql_mode: nil)
+    sql_mode = mysql_session_sql_mode if sql_mode.nil?
+    fail_with(Failure::UnexpectedReply, 'Unable to determine the MySQL session SQL mode') unless sql_mode
+
     begin
       print_status("Checking #{dir}...")
-      res = mysql_query_no_handle("SELECT _utf8'test' INTO DUMPFILE '#{dir}/" + datastore['FILE_NAME'] + "'")
+      path = "#{dir}/#{datastore['FILE_NAME']}"
+      mysql_query_no_handle("SELECT _utf8'test' INTO DUMPFILE #{mysql_quote_literal(path, sql_mode: sql_mode)}")
     rescue ::Rex::Proto::MySQL::Client::ServerError => e
       print_warning(e.to_s)
     rescue Rex::ConnectionTimeout => e
