@@ -1,0 +1,9 @@
+services:
+  app:
+    extends: {file: ../mysql_authbypass/services.yaml, service: app}
+    environment: {NATIVE_MYSQL_MODE: policy, NATIVE_MYSQL_ADMIN_HOST: 127.0.0.1}
+  reporting_db:
+    extends: {file: ../mysql_authbypass/services.yaml, service: reporting_db}
+networks:
+  default: {internal: true}
+  public: {}

@@ -1,6 +1,24 @@
 # Individual source-reviewed target requirements; these are not blanket exclusions.
 ---
 modules:
+  auxiliary/scanner/mysql/mysql_authbypass_hashdump:
+    source_sha256: 826c4c045367b25874d820cf24379843c337bd990e5fdc633e9845b92be1eb8a
+    disposition: container_lab
+    lab_profiles:
+      mysql_authbypass: [native_bypass, root_repeat, select_only, select_denied, closed_port]
+      mysql_authbypass_open: [grants_disabled, immediate_login, nonexistent_user, repeat]
+      mysql_authbypass_policy: [host_rejection, repeat, closed_port]
+      mysql_authbypass_fixed: [mariadb_11_2_denial, repeat, closed_port]
+    reason: >-
+      The unchanged owner passes 16 cases on genuine MySQL 5.5.23 and MariaDB11.2.2.
+      Actual native wrong-password acceptance/refusal and privilege controls
+      precede classification. Seven CSV files retain 77 native rows; seven real
+      service records, repeated console configurations and all non-system
+      server-client recovery pass. The probabilistic owner allows at most
+      three retained acquisitions with native revalidation after exhaustion.
+      Different build/CPU combinations require a native gate; historical
+      fixed-version boundaries remain unqualified. All 21 owned Docker objects
+      are removed. See VERIFICATION-20261118-mysql-authbypass.md.
   auxiliary/gather/osticket_arbitrary_file_read:
     source_sha256: 3813208e2f65ea40b667503d9f48266681a335f59bb0d4956917a4b72d4c915e
     disposition: container_lab_investigation

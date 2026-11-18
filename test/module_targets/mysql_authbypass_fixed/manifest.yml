@@ -1,0 +1,45 @@
+{
+  "spec": "spec/modules/auxiliary/scanner/mysql/mysql_authbypass_target_spec.rb",
+  "expected_examples": 3,
+  "console": false,
+  "health_timeout": 120,
+  "test_timeout": 600,
+  "modules": [
+    "auxiliary/scanner/mysql/mysql_authbypass_hashdump"
+  ],
+  "ports": {
+    "app": 3306,
+    "reporting_db": 5432
+  },
+  "support_files": [
+    ".ruby-version",
+    ".ruby-gemset",
+    "Gemfile",
+    "Gemfile.lock",
+    "metasploit-framework.gemspec",
+    "msfconsole",
+    "spec/acceptance_spec_helper.rb",
+    "spec/spec_helper.rb",
+    "spec/support/acceptance/datastore_formatting.rb",
+    "lib/msf/core/exploit/remote/mysql.rb",
+    "lib/msf/core/exploit/remote/tcp.rb",
+    "lib/msf/core/auxiliary/scanner.rb",
+    "lib/msf/core/auxiliary/report.rb",
+    "test/module_targets/rsync_creds/native.rb",
+    "test/module_targets/elasticsearch_memory/services.yaml",
+    "test/module_targets/elasticsearch_memory/init.sql",
+    "tools/dev/run_guarded_module_target_tests.rb",
+    "lib/rex/proto/mysql/client.rb",
+    "test/module_targets/mysql_authbypass/README.md",
+    "test/module_targets/mysql_authbypass/acceptance.rb",
+    "test/module_targets/mysql_authbypass/compose.yaml",
+    "test/module_targets/mysql_authbypass/manifest.yml",
+    "test/module_targets/mysql_authbypass/native.sh",
+    "test/module_targets/mysql_authbypass/open.sh",
+    "test/module_targets/mysql_authbypass/seed.sql",
+    "test/module_targets/mysql_authbypass/services.yaml"
+  ],
+  "test_env": {
+    "MYSQL_AUTHBYPASS_MODE": "fixed"
+  }
+}

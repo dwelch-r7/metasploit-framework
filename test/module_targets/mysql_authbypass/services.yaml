@@ -1,0 +1,22 @@
+services:
+  app:
+    image: vulhub/mysql@sha256:5bbb7570f16526da1de61e84487daade5614eb2a9bfd28a87bcf4d6795b94463
+    platform: linux/amd64
+    ports: ["127.0.0.1::3306"]
+    volumes:
+    - ./native.sh:/opt/module-target/native.sh:ro
+    - ./seed.sql:/opt/module-target/seed.sql:ro
+    networks: [default, public]
+    cpus: 1.0
+    mem_limit: 384m
+    memswap_limit: 384m
+    pids_limit: 128
+    init: true
+    healthcheck:
+      test: [CMD-SHELL, '/usr/local/mysql/bin/mysql --protocol=TCP --host=127.0.0.1 --user=root --password=123456 --batch --skip-column-names --execute="SELECT 1" | grep -q 1']
+      interval: 3s
+      timeout: 5s
+      retries: 40
+  reporting_db:
+    platform: linux/amd64
+    extends: {file: ../elasticsearch_memory/services.yaml, service: db}

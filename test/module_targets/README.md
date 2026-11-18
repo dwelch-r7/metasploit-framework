@@ -6,13 +6,23 @@ sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 The module qualification totals below are unchanged.
 
+Latest: [MySQL authentication bypass and hash collection](VERIFICATION-20261118-mysql-authbypass.md)
+adds one owner and four qualified profiles with 16/0, reaching **296 runtime owners
+in covered paths, 602 qualified profiles and 4,202 historical functional cases**.
+Seven exact CSV files retain 77 native rows; seven service records, both login
+paths, permission/host/patched/closed-port refusals and selected client recovery
+pass. All 32 resource-event captures are zero and all 21 owned Docker objects are
+removed. Two capped containers run at once; unrelated containers are preserved.
+Build/CPU and probabilistic acquisition limits remain explicit. No PR is created;
+the broader campaign remains active.
+
 Investigation: [osTicket file collection](VERIFICATION-20261118-osticket.md)
 adds three native diagnostic profiles and two verified repairs. Supported
 root/prefix runs each6/2 and the fixed target3/0; strict file truncation and
 credential-persistence failures remain enabled. All native gates and24owned
 Docker object removals pass. Qualified breadth totals remain unchanged.
 
-Latest: [BentoML sessions and Python stager recovery](VERIFICATION-20261118-bentoml.md)
+Previous: [BentoML sessions and Python stager recovery](VERIFICATION-20261118-bentoml.md)
 adds two owners and four qualified profiles, passing 44/0 with 24 real sessions.
 Three BentoML targets and the earlier pgAdmin staged diagnostic reach **295
 runtime owners in covered paths, 598 qualified profiles and 4,186 historical

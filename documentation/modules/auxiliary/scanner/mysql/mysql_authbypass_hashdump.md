@@ -19,6 +19,12 @@ And MariaDB versions:
 
 ### Docker
 
+The [automated native targets](../../../../../test/module_targets/mysql_authbypass/README.md)
+provide pinned images, actual wrong-password controls, CSV/reporting assertions,
+repeated executions and task-namespaced resource cleanup. They cover the real
+bypass, grants-disabled login, host-policy refusal and a patched service.
+
+
 ```
 docker run -it --rm -p 3306:3306 vulhub/mysql:5.5.23
 ```

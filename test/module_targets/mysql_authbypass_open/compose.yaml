@@ -1,0 +1,13 @@
+services:
+  app:
+    extends: {file: ../mysql_authbypass/services.yaml, service: app}
+    environment: {NATIVE_MYSQL_MODE: open}
+    volumes: [../mysql_authbypass/open.sh:/opt/module-target/open.sh:ro]
+    command: [bash, /opt/module-target/open.sh]
+    healthcheck:
+      test: [CMD-SHELL, 'test -f /tmp/module-target-open-ready && mysql --protocol=TCP --host=127.0.0.1 --user=root --password=123456 --batch --skip-column-names --execute="SELECT 1" | grep -q 1']
+  reporting_db:
+    extends: {file: ../mysql_authbypass/services.yaml, service: reporting_db}
+networks:
+  default: {internal: true}
+  public: {}
