@@ -1,0 +1,105 @@
+{
+  "plain.fetchmailrc": {
+    "accounts": [
+      {
+        "host": "localhost",
+        "protocol": "POP3",
+        "port": "110",
+        "user": "module_target",
+        "password": "module-target-password"
+      }
+    ],
+    "sha256": "956a9571a80e86daa7ee79763890d3eaa9414e9a3d08e5ccd69e0a139a0d23a8"
+  },
+  "imap.fetchmailrc": {
+    "accounts": [
+      {
+        "host": "localhost",
+        "protocol": "IMAP",
+        "port": "143",
+        "user": "module_target",
+        "password": "module-target-password"
+      }
+    ],
+    "sha256": "eb0279b0c3074606c6af4dd338c58e29b064ea7e60082f8db0a808279f34dfbf"
+  },
+  "comments.fetchmailrc": {
+    "accounts": [
+      {
+        "host": "localhost",
+        "protocol": "POP3",
+        "port": "110",
+        "user": "module_target",
+        "password": "module-target-password"
+      }
+    ],
+    "sha256": "adb6b1f5e1ac00c8e18a3325cf3832d2eba9381c1c0d696c567bf42abbaf90df"
+  },
+  "blanks.fetchmailrc": {
+    "accounts": [
+      {
+        "host": "localhost",
+        "protocol": "POP3",
+        "port": "110",
+        "user": "module_target",
+        "password": "module-target-password"
+      }
+    ],
+    "sha256": "f794db99debf3564f0b013020b8e738ccda5e1e215355be427cf8461f9922ab7"
+  },
+  "multiline.fetchmailrc": {
+    "accounts": [
+      {
+        "host": "localhost",
+        "protocol": "POP3",
+        "port": "110",
+        "user": "module_target",
+        "password": "module-target-password"
+      }
+    ],
+    "sha256": "5fecaeb6da386b8017161d4a5aa339d301e9b4c15138fb4f518bd5464ee75f44"
+  },
+  "defaults.fetchmailrc": {
+    "accounts": [
+      {
+        "host": "localhost",
+        "protocol": "POP3",
+        "port": "110",
+        "user": "module_target",
+        "password": "module-target-password"
+      }
+    ],
+    "sha256": "2119dbbe5f2ba2f537fe47a29f176b8e2203011a0bd9343a52a0c217b5f72422"
+  },
+  "quoted-password.fetchmailrc": {
+    "accounts": [
+      {
+        "host": "localhost",
+        "protocol": "POP3",
+        "port": "110",
+        "user": "space_user",
+        "password": "module target password"
+      }
+    ],
+    "sha256": "4744a1703f01c9185583b31baa4a4ae88ebf9976d48748501e353ba0eb2c4ed8"
+  },
+  "multiple-users.fetchmailrc": {
+    "accounts": [
+      {
+        "host": "localhost",
+        "protocol": "POP3",
+        "port": "110",
+        "user": "module_target",
+        "password": "module-target-password"
+      },
+      {
+        "host": "localhost",
+        "protocol": "POP3",
+        "port": "110",
+        "user": "second_target",
+        "password": "module-second-password"
+      }
+    ],
+    "sha256": "bff9fedbace4f5ce3ae2a3b15301e8dcd60b76e4567b3b89f67eb9ece18fbbd8"
+  }
+}
