@@ -55,17 +55,20 @@ class MetasploitModule < Msf::Post
     data = read_file(path)
     return false if data.nil?
 
-    identify_passwords = data.scan(%r{/\^?msg nickserv identify ([^\s]+)})
+    identify_arguments = data.scan(%r{/\^?msg[ \t]+nickserv[ \t]+identify[ \t]+([^";\r\n]+)}i).flatten.map(&:strip).reject(&:empty?)
+    identify_passwords, identify_authentication = identify_arguments.partition { |arguments| arguments.split.one? }
     network_passwords = data.scan(/password\s*=\s*"([^\s]+)"/)
 
-    passwords = identify_passwords.flatten + network_passwords.flatten
+    passwords = identify_passwords + network_passwords.flatten
+    return false if passwords.empty? && identify_authentication.empty?
 
-    if passwords.any?
-      print_good("Found IRC password(s) of #{passwords.join(',')} in irssi config at #{path}")
-      return true
-    end
+    print_good("Found IRC password(s) of #{passwords.join(',')} in irssi config at #{path}") unless passwords.empty?
 
-    false
+    # Services disagree on nick/password argument order, so retain both.
+    # https://irssi.org/documentation/manual/automation/#automatic-log-in-to-nickserv
+    print_good("Found NickServ IDENTIFY authentication data of #{identify_authentication.join(',')} in irssi config at #{path}") unless identify_authentication.empty?
+
+    true
   end
 
   def download_passwords(paths)
