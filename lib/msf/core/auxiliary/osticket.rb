@@ -194,8 +194,12 @@ module Msf
     # @param prefix        [String] portal prefix ('/scp' or '')
     # @param ticket_number [String] visible ticket number (e.g. '978554')
     # @param cookies       [String] session cookies
+    # @param max_id        [Integer] highest internal ticket ID to try in the fallback
     # @return [String, nil] internal ticket ID or nil
     def find_ticket_id(base_uri, prefix, ticket_number, cookies, max_id)
+      ticket_number = ticket_number.to_s
+      return nil if ticket_number.empty?
+
       tickets_uri = normalize_uri(base_uri, prefix, 'tickets.php')
       vprint_status("find_ticket_id: GET #{tickets_uri} (looking for ticket ##{ticket_number})")
       vprint_status("find_ticket_id: Using cookies=#{cookies}")
@@ -213,10 +217,16 @@ module Msf
       vprint_status("find_ticket_id: Body Length:\n#{res.body.length}")
       return nil unless res.code == 200
 
-      match = res.body.match(/tickets\.php\?id=(\d+)[^>]*>.*?#?#{Regexp.escape(ticket_number.to_s)}/m)
-      if match
-        vprint_good("find_ticket_id: Found ticket ID=#{match[1]} from listing page")
-        return match[1]
+      # Keep each number associated with its own link; matching across rows can
+      # otherwise select an unrelated ticket for the state-changing reply.
+      res.get_html_document.css('a[href]').each do |link|
+        next unless link.text.strip.delete_prefix('#') == ticket_number
+
+        ticket_id = ticket_id_from_link(link, tickets_uri)
+        next unless ticket_id
+
+        vprint_good("find_ticket_id: Found ticket ID=#{ticket_id} from listing page")
+        return ticket_id
       end
       vprint_status("find_ticket_id: Ticket ##{ticket_number} not found in listing, trying brute-force IDs 1-#{max_id}...")
 
@@ -229,7 +239,9 @@ module Msf
           'cookie' => cookies,
           'vars_get' => { 'id' => tid.to_s }
         )
-        if res&.code == 200 && res.body.include?(ticket_number.to_s)
+        next unless res&.code == 200
+
+        if ticket_id_from_page(res, tickets_uri: tickets_uri, ticket_number: ticket_number, staff: prefix == '/scp') == tid.to_s
           vprint_good("find_ticket_id: Found ticket ##{ticket_number} at id=#{tid}")
           return tid.to_s
         end
@@ -237,6 +249,37 @@ module Msf
 
       vprint_error("find_ticket_id: Could not locate ticket ##{ticket_number}")
       nil
+    end
+
+    # Extracts a same-endpoint internal ticket ID from a ticket link.
+    #
+    # @param link [Nokogiri::XML::Element, nil] parsed ticket link
+    # @param tickets_uri [String] normalized ticket endpoint
+    # @return [String, nil] internal ticket ID or nil
+    def ticket_id_from_link(link, tickets_uri)
+      link&.[]('href').to_s[/\A(?:#{Regexp.escape(tickets_uri)}|tickets\.php)\?id=(\d+)(?:&|\z)/, 1]
+    end
+
+    # Identifies a ticket from its detail heading, excluding body mentions and lists.
+    #
+    # @param response [Rex::Proto::Http::Response] successful ticket detail response
+    # @param tickets_uri [String] normalized ticket endpoint
+    # @param ticket_number [String] requested visible ticket number
+    # @param staff [Boolean] whether the response uses the staff detail template
+    # @return [String, nil] internal ticket ID or nil
+    def ticket_id_from_page(response, tickets_uri:, ticket_number:, staff:)
+      document = response.get_html_document
+      if staff
+        heading = document.at_css('h2 a[href]')
+        return nil unless heading&.text&.strip&.end_with?(" ##{ticket_number}")
+
+        return ticket_id_from_link(heading, tickets_uri)
+      end
+
+      heading = document.at_css('#ticketInfo h1')
+      return nil unless heading&.at_css('small')&.text&.strip == "##{ticket_number}"
+
+      heading.css('a[href]').filter_map { |link| ticket_id_from_link(link, tickets_uri) }.first
     end
 
     # Acquires a ticket lock via the SCP AJAX endpoint, which is required

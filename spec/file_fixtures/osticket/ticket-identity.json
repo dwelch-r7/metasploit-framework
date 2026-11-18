@@ -1,0 +1,40 @@
+{
+  "provenance": {
+    "target": "Official osTicket v1.18.1, PHP8.3.28, MariaDB11.2.2",
+    "run": "20261118T133006-8c893e",
+    "origin": "Independent native HTTP controls in the module container validation campaign",
+    "transformation": "Only complete listing rows or ticket identity headings retained. Session, CSRF and other unrelated page data removed. IDs and visible numbers remain unchanged."
+  },
+  "staff_listing": {
+    "source_path": "native-after/staff-login.body",
+    "source_sha256": "670a25bf70fe931088ed17f40d214b408d9fb36e94224924f4f00dfb69759a16",
+    "html_sha256": "0028f98ba95c1beb4a2e29655bfeb3eebf38586afdeae576239c4eefba42b9c7",
+    "html": "<table id=\"tickets\">\n<tr>        <td><input type=\"checkbox\" class=\"ckb\" name=\"tids[]\"\n            value=\"1\" /></td>\n<td><span class=\"Icon webTicket\"></span><a style=\"display: inline\" class=\"preview\" data-preview=\"#tickets/1/preview\" href=\"/scp/tickets.php?id=1\">320794</a></td><td>11/18/26 1:31\u202fPM</td><td><span class=\"pull-right\"><small class=\"faded-more\"><i class=\"icon-comments-alt\"></i> 2</small></span><span class=\"truncate\" style=\"max-width:275px\"><a style=\"display:inline\" href=\"/scp/tickets.php?id=1\">osTicket Installed!</a></span></td><td>osTicket Team</td><td></td><td>Module Target</td></tr>\n<tr>        <td><input type=\"checkbox\" class=\"ckb\" name=\"tids[]\"\n            value=\"9\" /></td>\n<td style=\"font-weight:bold\"><div style=\"font-weight:bold\"><span class=\"Icon webTicket\"></span><a style=\"display: inline\" class=\"preview\" data-preview=\"#tickets/9/preview\" href=\"/scp/tickets.php?id=9\">201891</a></div></td><td>11/18/26 1:32\u202fPM</td><td style=\"font-weight:bold\"><div style=\"font-weight:bold\"><span class=\"truncate\" style=\"max-width:300px\"><a style=\"display:inline\" href=\"/scp/tickets.php?id=9\">MCV osTicket case</a></span></div></td><td>Module Target Client</td><td style=\"background-color:#FFFFF0\"><div style=\"background-color:#FFFFF0\">Normal</div></td><td></td></tr>\n</table>",
+    "tickets": [
+      {
+        "id": "1",
+        "number": "320794"
+      },
+      {
+        "id": "9",
+        "number": "201891"
+      }
+    ]
+  },
+  "staff_ticket": {
+    "source_path": "native-after/staff-protected-ticket.body",
+    "source_sha256": "47e130cbc0e517ed4997ca0568b13cd4bc6c1fd41669d807abae2c45be07598e",
+    "html_sha256": "152f523b3b945f29879086e2ba73347a1b83970d531b147cec69787fb7e9434f",
+    "html": "<h2><a href=\"tickets.php?id=9\"\n             title=\"Reload\"><i class=\"icon-refresh\"></i>\n             Ticket #201891</a>\n            </h2>",
+    "ticket_id": "9",
+    "ticket_number": "201891"
+  },
+  "client_ticket": {
+    "source_path": "native-before/client-protected-ticket.body",
+    "source_sha256": "6b52888a00473b9658c7c5c20ead8e53e18cac48bcaa23fc3b2e2530f0ad42cd",
+    "html_sha256": "e49dbccdc98dde731e6e412263cde3c9f5f98708b4abf52cf67fb74769fa735b",
+    "html": "<table id=\"ticketInfo\"><h1>\n                <a href=\"tickets.php?id=2\" title=\"Reload\"><i class=\"refresh icon-refresh\"></i></a>\n                <b>\n                Module target native ticket                </b>\n                <small>#325258</small>\n<div class=\"pull-right\">\n      <a class=\"action-button\" href=\"tickets.php?a=print&id=2\"><i class=\"icon-print\"></i> Print</a>\n\n                <a class=\"action-button\" href=\"tickets.php?a=edit&id=2\"><i class=\"icon-edit\"></i> Edit</a>\n</div>\n            </h1></table>",
+    "ticket_id": "2",
+    "ticket_number": "325258"
+  }
+}
