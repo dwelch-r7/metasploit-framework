@@ -1,6 +1,17 @@
 # Container module acceptance tests
 
-Latest: [PostgreSQL password-file collection and parser repair](VERIFICATION-20261117-pgpass-creds.md)
+Latest: [Fetchmail credential collection and quote repair](VERIFICATION-20261118-fetchmailrc-creds.md)
+adds one owner, one qualified profile and ten cases, reaching **287 runtime owners
+in covered paths, 581 qualified profiles and 4,046 historical functional cases**.
+A genuine quoted-password truncation is repaired with an unchanged two-case
+source-only replay. Eleven calls use ten real root/ordinary-user shells and save
+ten exact CSV files containing eleven rows. Native Fetchmail/Dovecot authentication,
+multiple users, defaults, IMAP, permissions and repeat pass with 54 native client
+invocations. All selected files, sessions and Docker objects are recovered. Two
+capped containers and a host Framework console run serially. The broader campaign
+remains active; no PR is created.
+
+Previous: [PostgreSQL password-file collection and parser repair](VERIFICATION-20261117-pgpass-creds.md)
 adds one owner, one qualified profile and sixteen cases, reaching **286 runtime
 owners in covered paths, 580 qualified profiles and 4,036 historical functional
 cases**. Native-accepted blank/incomplete and escaped-field parsing is repaired;

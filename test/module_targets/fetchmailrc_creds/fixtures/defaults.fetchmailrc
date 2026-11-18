@@ -1,0 +1,2 @@
+defaults protocol POP3 port 110 timeout 20 sslproto "TLS1.2+" sslcertck sslcertfile "/etc/dovecot/certificates/server.crt"
+poll localhost user "module_target" password "module-target-password"

@@ -4,6 +4,18 @@ These findings do not count as passing functional qualification. The
 [campaign](CAMPAIGN.md) and individual verification records retain other
 coverage limits and ongoing investigations.
 
+## Fetchmail remaining grammar and platform scope
+
+The [Fetchmail checkpoint](VERIFICATION-20261118-fetchmailrc-creds.md) repairs
+native-proven quoted-password truncation. Ten Linux/amd64 shell cases cover eight
+native file variants, root/ordinary access, CSV persistence and repeat. Matching
+6.4.27 source backs additional single-quote/username/ESMTP unit cases; their native
+authentication remains unqualified. C/numeric escape decoding, further quoted
+metadata/comment/separator grammar, other platforms/releases and transport loss
+remain unqualified. Legacy escape bytes are preserved. Initial native option-order
+and artifact-mount preflight errors remain separate from the original owning
+truncation failure. Those setup failures add no passing qualification.
+
 ## PostgreSQL password-file remaining scope
 
 The [pgpass checkpoint](VERIFICATION-20261117-pgpass-creds.md) repairs native-proven

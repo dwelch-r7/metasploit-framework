@@ -1,0 +1,3 @@
+module_target:{PLAIN}module-target-password
+space_user:{PLAIN}module target password
+second_target:{PLAIN}module-second-password

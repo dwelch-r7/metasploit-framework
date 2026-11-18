@@ -1,0 +1,1 @@
+poll localhost protocol IMAP port 143 timeout 20 user "module_target" password "module-target-password" sslproto "TLS1.2+" sslcertck sslcertfile "/etc/dovecot/certificates/server.crt"

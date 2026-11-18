@@ -1,0 +1,7 @@
+*
+!Dockerfile
+!.dockerignore
+!dovecot.conf
+!required.conf
+!users
+!message.eml
