@@ -53,8 +53,10 @@ class MetasploitModule < Msf::Post
   #
   def contains_passwords?(path)
     data = read_file(path)
+    return false if data.nil?
+
     identify_passwords = data.scan(%r{/\^?msg nickserv identify ([^\s]+)})
-    network_passwords = data.scan(/^?password = "([^\s]+)"/)
+    network_passwords = data.scan(/password\s*=\s*"([^\s]+)"/)
 
     passwords = identify_passwords.flatten + network_passwords.flatten
 
