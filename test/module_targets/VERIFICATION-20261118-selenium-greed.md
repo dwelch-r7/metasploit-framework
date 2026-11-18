@@ -55,3 +55,9 @@ Two genuine native browser/handler pairs make 18 HTTP requests. All eight cgroup
 New functional Ruby files pass scoped RuboCop and syntax; the Python helpers pass AST syntax; guarded preflight, module-documentation tidy and whitespace checks pass. Owner/unit full RuboCop exits 1 and msftidy exits 2 with the **same three pre-existing owner offenses**: redundant top-level Platform/Arch and duplicate RPORT. There are no new final spec offenses. Full owner lint is not claimed green. Existing human-written module Scenarios remain byte-for-byte identical (3,977 bytes).
 
 Other Grid/Firefox releases, Chrome, Selenoid, authentication, other architectures/platforms, transport loss, forced cleanup and automatic removal of Firefox handler scripts remain unqualified. Historical broad version claims in the existing module documentation are not expanded or revalidated by this single-version fixture. The [deferred investigations](DEFERRED.md) retain those limits. The [acceptance checkout record](VERIFICATION-20261118-acceptance-checkout.md) records the previous published GPG head's actual-source Linux Mettle file/reset failures and macOS success; the underlying timeout cause remains unverified, and those jobs do not invoke this owner. No PR is created; the broader campaign remains active.
+
+
+A subsequent [legacy checkpoint](VERIFICATION-20261118-selenium-legacy.md) adds
+Grid3/Firefox92 coverage and repairs passive identification. Its source/helper
+successors requalify all five Grid4 cases in the same serial aggregate as seven
+legacy cases. The historical hashes/results above retain their original scope.

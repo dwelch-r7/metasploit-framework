@@ -1,6 +1,17 @@
 # Container module acceptance tests
 
-Latest: [Selenium Firefox execution and browser cleanup](VERIFICATION-20261118-selenium-greed.md)
+Latest: [Legacy Selenium execution and detection](VERIFICATION-20261118-selenium-legacy.md)
+adds one profile and seven cases for an already covered owner, reaching **291
+runtime owners in covered paths, 587 qualified profiles and 4,090 historical
+functional cases**. A 57-input owner-only replay repairs false NoResponse detection
+without inventing browser availability. The final serial aggregate passes legacy
+7/0 and Grid 4 regression 5/0, with twelve real sessions, repeats, root API
+discovery and selected recovery. All containers/networks are removed, at most one
+at a time. A sessionless FileDropper path warning remains unverified; three old
+lint offenses remain. Human Scenarios are unchanged. The campaign remains active;
+no PR is created.
+
+Previous: [Selenium Firefox execution and browser cleanup](VERIFICATION-20261118-selenium-greed.md)
 adds one owner, one profile and five cases, reaching **291 runtime owners in covered
 paths, 586 qualified profiles and 4,083 historical functional cases**. Independent
 browser/handler controls prove a browser leak despite successful code execution;

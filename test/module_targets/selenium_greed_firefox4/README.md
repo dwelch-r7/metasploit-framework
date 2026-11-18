@@ -81,3 +81,7 @@ Only the exact selected Grid/Firefox version, platform and payload paths can be
 qualified by this profile. Other releases, Chrome, Selenoid, authentication,
 other architectures, transport loss and forced cleanup remain unqualified.
 Consult the campaign verification record for actual completed results.
+
+The native/session helpers also serve the [legacy Firefox profile](../selenium_greed_firefox3/README.md).
+Its different status format, explicit browser choice and API routing are tracked
+separately; its results do not qualify other versions in this Grid 4 profile.

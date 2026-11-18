@@ -1,0 +1,11 @@
+{
+  "services": {
+    "target": {
+      "extends": {
+        "file": "../selenium_greed_firefox4/compose.yaml",
+        "service": "target"
+      },
+      "image": "selenium/standalone-firefox:3.141.59@sha256:738eeec4eba6e44d0e5f0697e36b77b907e3c6fb647759a82fe47dec0d188abf"
+    }
+  }
+}

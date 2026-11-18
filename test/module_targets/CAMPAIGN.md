@@ -1486,3 +1486,14 @@ handler scripts is disclosed. Native browser/handler controls, invalid-timeout
 rejection and all selected recovery pass with one capped container. Other browser
 paths and production automatic handler-script removal remain unqualified. The
 broader campaign remains active and no PR is created.
+
+
+The [legacy Selenium checkpoint](VERIFICATION-20261118-selenium-legacy.md)
+adds one profile and seven cases for an existing owner, reaching **291 runtime
+owners in covered paths, 587 profiles and 4,090 historical functional cases**.
+A strict 57-input replay repairs false NoResponse identification. The final serial
+7+5 aggregate proves twelve genuine sessions and preserves Grid4 behavior; root
+API discovery and honest automatic-selection rejection pass. Selected native,
+file/session and Docker recovery pass with one capped container. A generated
+FileDropper path warning remains unverified. The broader goal remains active;
+no PR is created.

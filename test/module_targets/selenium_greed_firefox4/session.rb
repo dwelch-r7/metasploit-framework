@@ -59,7 +59,7 @@ module SeleniumSessionTarget
     sockets = Array.new(2) { TCPServer.new(callback.fetch(:bind), 0) }
     ports = sockets.map { |socket| socket.local_address.ip_port }
     sockets.each(&:close)
-    options = { 'TARGET' => target, 'PAYLOAD' => payload, 'BROWSER' => browser, 'HttpClientTimeout' => 30, 'LHOST' => callback.fetch(:host), 'LPORT' => ports.first, 'ReverseListenerBindAddress' => callback.fetch(:bind), 'DisablePayloadHandler' => false, 'AllowNoCleanup' => false, 'AutoCheck' => auto_check, 'WfsDelay' => 30 }
+    options = { 'TARGETURI' => sg_target_uri, 'TARGET' => target, 'PAYLOAD' => payload, 'BROWSER' => browser, 'HttpClientTimeout' => 30, 'LHOST' => callback.fetch(:host), 'LPORT' => ports.first, 'ReverseListenerBindAddress' => callback.fetch(:bind), 'DisablePayloadHandler' => false, 'AllowNoCleanup' => false, 'AutoCheck' => auto_check, 'WfsDelay' => 30 }
     if payload == 'cmd/unix/reverse_bash'
       options.merge!('BashPath' => '/bin/bash', 'ShellPath' => '/bin/sh', 'FD' => 120)
     elsif payload.start_with?('cmd/linux/http/')
@@ -102,6 +102,16 @@ module SeleniumSessionTarget
     uid, = rc_command('session-proof-uid', 'target', 'stat', '-c', '%u', @sg_run.fetch(:proof_path))
     expect(uid.strip).to eq('1200')
     rc_save
+  end
+
+  def sg_canary_start
+    sg_canary_artifact_start
+    @marker = "/tmp/module-target-selenium-owner-#{Process.pid}"
+    expect(sg_marker.fetch('exists')).to be(false)
+  end
+
+  def sg_canary_options(overrides = {})
+    { 'TARGETURI' => sg_target_uri, 'TARGET' => 1, 'PAYLOAD' => 'cmd/unix/generic', 'BROWSER' => sg_browser_choice, 'HttpClientTimeout' => 30, 'CMD' => 'printf %s owner-canary > ' + @marker, 'DisablePayloadHandler' => true, 'AllowNoCleanup' => true, 'AutoCheck' => false }.merge(overrides)
   end
 
   def sg_canary_artifact_start

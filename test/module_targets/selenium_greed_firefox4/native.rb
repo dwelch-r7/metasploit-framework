@@ -6,6 +6,26 @@ require_relative '../rsync_creds/native'
 module SeleniumExecutionTarget
   include RsyncCredentialTarget
 
+  def sg_profile_key
+    ENV.fetch('SELENIUM_GREED_PROFILE', 'firefox4')
+  end
+
+  def sg_profile
+    @sg_profile ||= JSON.parse(File.read(File.expand_path('../selenium_file/profiles.json', __dir__))).fetch(sg_profile_key)
+  end
+
+  def sg_legacy?
+    sg_profile.fetch('version').start_with?('3.')
+  end
+
+  def sg_browser_choice
+    sg_legacy? ? 'firefox' : 'auto'
+  end
+
+  def sg_target_uri
+    sg_legacy? ? '/wd/hub/' : '/'
+  end
+
   def rc_owner
     'exploit/linux/http/selenium_greed_rce'
   end
@@ -46,7 +66,7 @@ module SeleniumExecutionTarget
   def sg_control(phase)
     directory = File.join(target_runtime.fetch('artifacts'), 'native-' + phase)
     Dir.mkdir(directory)
-    runtime = { directory: directory, compose: target_runtime.fetch('compose'), port: target_endpoint('target').fetch('port'), stamp: "#{Process.pid}-#{phase}", profile: JSON.parse(File.read(File.expand_path('../selenium_file/profiles.json', __dir__))).fetch('firefox4') }
+    runtime = { directory: directory, compose: target_runtime.fetch('compose'), port: target_endpoint('target').fetch('port'), stamp: "#{Process.pid}-#{phase}", profile: sg_profile }
     path = File.join(directory, 'runtime.json')
     File.write(path, JSON.pretty_generate(runtime))
     argv = ['python3', File.expand_path('native_control.py', __dir__), path]
@@ -61,8 +81,17 @@ module SeleniumExecutionTarget
   end
 
   def sg_browser_state
-    code = 'import json,sys,urllib.request;r=json.load(urllib.request.urlopen("http://127.0.0.1:"+sys.argv[1]+"/status",timeout=10));v=r["value"];print(json.dumps({"ready":v["ready"],"nodes":v["nodes"],"sessions":[slot["session"]["sessionId"] for node in v["nodes"] for slot in node["slots"] if slot["session"]]}))'
-    output, error, status = Open3.capture3('python3', '-c', code, target_endpoint('target').fetch('port').to_s)
+    code = <<~PYTHON
+      import json,sys,urllib.request
+      base = 'http://127.0.0.1:' + sys.argv[1]
+      legacy = sys.argv[2] == 'true'
+      def request(path):
+          return json.load(urllib.request.urlopen(base + path, timeout=10))['value']
+      value = request('/wd/hub/status' if legacy else '/status')
+      sessions = [row['id'] for row in request('/wd/hub/sessions')] if legacy else [slot['session']['sessionId'] for node in value['nodes'] for slot in node['slots'] if slot['session']]
+      print(json.dumps({'ready': value['ready'], 'status': value, 'sessions': sessions}))
+    PYTHON
+    output, error, status = Open3.capture3('python3', '-c', code, target_endpoint('target').fetch('port').to_s, sg_legacy?.to_s)
     expect(status.success?).to be(true), error
     JSON.parse(output)
   end

@@ -51,5 +51,8 @@
     "lib/msf/base/sessions/command_shell_options.rb",
     "lib/msf/base/sessions/mettle_config.rb",
     "lib/msf/base/sessions/meterpreter_options/linux.rb"
-  ]
+  ],
+  "test_env": {
+    "SELENIUM_GREED_PROFILE": "firefox4"
+  }
 }

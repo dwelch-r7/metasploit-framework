@@ -4,19 +4,26 @@ These findings do not count as passing functional qualification. The
 [campaign](CAMPAIGN.md) and individual verification records retain other
 coverage limits and ongoing investigations.
 
-## Selenium execution versions, browser paths and artifact recovery
+## Selenium remaining backend scope and cleanup warning
 
-The [Selenium checkpoint](VERIFICATION-20261118-selenium-greed.md) qualifies five
-Grid 4.27.0 / Firefox 133.0.3 Linux/amd64 cases and repairs a native-proven browser
-leak with a strict 31-input owner-only replay. Six genuine sessions across three
-payload families operate and exit cleanly; repeated console configurations and
-invalid-timeout rejection pass. Firefox's seven downloaded handler scripts are
-removed by explicit exact-hash harness recovery. Production automatic removal
-of those scripts is not established, and repeats include that recovery between
-calls. Other releases, Chrome/Selenoid, authentication, architectures/platforms,
-transport loss and forced cleanup remain unqualified. Three pre-existing owner
-lint offenses remain. MIME/archive-reader/FileDropper/callback-helper failures
-are preserved separately and add no qualification. Human Scenarios are unchanged.
+The [legacy checkpoint](VERIFICATION-20261118-selenium-legacy.md) repairs false
+NoResponse detection with matching native status/help evidence and a 57-input
+owner-only replay. Final legacy 7/0 and Grid4 5/0 operate twelve genuine sessions,
+repeat three configurations per profile and verify real server-root API discovery.
+Legacy check honestly reports Detected; explicit Firefox works with AutoCheck,
+while automatic selection rejects unknown browser availability. API-only services
+without confirming help HTML remain Unknown. Real proxies, other releases,
+Chrome/Selenoid, authentication, other platforms/architectures and transport loss
+remain unqualified. Proxy-path contracts are synthetic.
+
+The final legacy root command case emits a FileDropper warning for a generated
+/tmp path. Existence and registration cause were not independently observed;
+this is not proof of a retained file. Preserve its exact trace and check native
+existence before teardown in a future reproduction. Grid4 harness recovery
+removes seven observed-script files; legacy selected scopes retain none. Neither
+result proves production-wide artifact cleanup. Both complete containers are
+removed. Three pre-existing owner lint offenses and the earlier capture/setup
+failures remain separately recorded. Human Scenarios are unchanged.
 
 ## GnuPG remaining versions, platforms and native boundaries
 

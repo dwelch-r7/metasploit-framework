@@ -11,6 +11,8 @@ import zipfile
 
 runtime = json.loads(Path(sys.argv[1]).read_text())
 out = Path(runtime['directory'])
+legacy = runtime['profile']['version'].startswith('3.')
+api = '/wd/hub' if legacy else ''
 record = {'passed': False, 'owner_calls': 0, 'requests': [], 'commands': []}
 active = None
 root = '/tmp/module-target-selenium-native-' + runtime['stamp']
@@ -28,7 +30,7 @@ def command(label, *argv, required=True):
         assert p.returncode == 0, (label, p.stderr.decode(errors='replace'))
     return p
 
-def request(method, path, payload=None):
+def request(method, path, payload=None, json_response=True):
     connection = http.client.HTTPConnection('127.0.0.1', runtime['port'], timeout=60)
     started = time.monotonic()
     try:
@@ -38,7 +40,7 @@ def request(method, path, payload=None):
         row = {'method': method, 'path': path, 'payload': payload, 'status': response.status, 'body_base64': base64.b64encode(raw).decode(), 'seconds': time.monotonic() - started}
         record['requests'].append(row)
         save()
-        return response.status, json.loads(raw)
+        return response.status, json.loads(raw) if json_response else raw
     except BaseException as error:
         record['requests'].append({'method': method, 'path': path, 'payload': payload, 'error': type(error).__name__, 'message': str(error), 'seconds': time.monotonic() - started})
         save()
@@ -52,6 +54,10 @@ def ok(method, path, payload=None):
     return data['value']
 
 def sessions():
+    if legacy:
+        status = ok('GET', api + '/status')
+        assert status['build']['version'] == runtime['profile']['version']
+        return [row['id'] for row in ok('GET', api + '/sessions')], status
     status = ok('GET', '/status')
     assert len(status['nodes']) == 1
     node = status['nodes'][0]
@@ -72,7 +78,10 @@ try:
         time.sleep(1)
     assert ids == []
     record['initial_status'] = status
-    native = command('identity', 'python3', '-c', "import json,os,subprocess; print(json.dumps({'uid':os.getuid(),'machine':os.uname().machine,'firefox':subprocess.check_output(['firefox','--version'],stderr=subprocess.STDOUT,text=True),'python':subprocess.check_output(['python3','--version'],text=True)}))")
+    if legacy:
+        for path in ['/', '/status', api + '/']:
+            request('GET', path, json_response=False)
+    native = command('identity', 'python3', '-c', "import json,os,subprocess; print(json.dumps({'uid':os.getuid(),'machine':os.uname().machine,'firefox':subprocess.check_output(['firefox','--version'],stderr=subprocess.STDOUT,universal_newlines=True),'python':subprocess.check_output(['python3','--version'],universal_newlines=True)}))")
     record['identity'] = json.loads(native.stdout)
     assert record['identity']['uid'] == 1200 and record['identity']['machine'] == 'x86_64'
     command('create-owned-directory', 'python3', '-c', 'import os,sys;os.mkdir(sys.argv[1],0o700)', root)
@@ -83,28 +92,34 @@ try:
     record['profile_sha256'] = hashlib.sha256(buffer.getvalue()).hexdigest()
     profile = base64.b64encode(buffer.getvalue()).decode()
     capabilities = {'browserName': 'firefox', 'moz:firefoxOptions': {'profile': profile, 'prefs': {'browser.download.folderList': 2, 'browser.download.dir': root}}}
-    created = ok('POST', '/session', {'capabilities': {'alwaysMatch': capabilities}})
-    active = created['sessionId']
+    create_status, envelope = request('POST', api + '/session', {'capabilities': {'alwaysMatch': capabilities}})
+    assert create_status == 200, envelope
+    created = envelope.get('value', {})
+    active = envelope.get('sessionId') or created.get('sessionId')
+    assert active, ('Native session ID absent', envelope)
+    created = {'sessionId': active, 'capabilities': created.get('capabilities', created)}
+    record['create_envelope'] = envelope
     record['session'] = {'id': active, 'capabilities': created['capabilities']}
     save()
     assert created['capabilities']['browserName'] == 'firefox'
-    assert created['capabilities']['browserVersion'] in record['identity']['firefox']
-    ok('POST', '/session/' + active + '/url', {'url': 'data:text/html,<title>Native Selenium control</title><p>module-target-browser</p>'})
-    assert ok('GET', '/session/' + active + '/title') == 'Native Selenium control'
-    assert ok('POST', '/session/' + active + '/execute/sync', {'script': 'return document.body.textContent;', 'args': []}) == 'module-target-browser'
+    browser_version = created['capabilities'].get('browserVersion') or created['capabilities'].get('version')
+    assert browser_version and browser_version in record['identity']['firefox']
+    ok('POST', api + '/session/' + active + '/url', {'url': 'data:text/html,<title>Native Selenium control</title><p>module-target-browser</p>'})
+    assert ok('GET', api + '/session/' + active + '/title') == 'Native Selenium control'
+    assert ok('POST', api + '/session/' + active + '/execute/sync', {'script': 'return document.body.textContent;', 'args': []}) == 'module-target-browser'
     record['ordinary_browser_passed'] = True
     save()
     profile_path = created['capabilities']['moz:profile']
     observed = command('effective-browser-profile', 'python3', '-c', (Path(__file__).parent / 'inspect_profile.py').read_text(), profile_path)
     record['effective_profile'] = json.loads(observed.stdout)
-    ok('POST', '/session/' + active + '/timeouts', {'pageLoad': 5000})
+    ok('POST', api + '/session/' + active + '/timeouts', {'pageLoad': 5000})
     save()
     script = "printf 'native-handler\\n' > " + marker + '\n'
     raw = script.encode()
     record['canary'] = {'marker': marker, 'expected_base64': base64.b64encode(expected).decode(), 'script_base64': base64.b64encode(raw).decode()}
     save()
     try:
-        status, navigation = request('POST', '/session/' + active + '/url', {'url': 'data:application/sh;charset=utf-8;base64,' + base64.b64encode(raw).decode()})
+        status, navigation = request('POST', api + '/session/' + active + '/url', {'url': 'data:application/sh;charset=utf-8;base64,' + base64.b64encode(raw).decode()})
         record['handler_navigation'] = {'status': status, 'data': navigation}
     except TimeoutError as error:
         record['handler_navigation'] = {'error': type(error).__name__, 'message': str(error)}
@@ -132,7 +147,7 @@ finally:
         record['marker_observation_error'] = {'type': type(error).__name__, 'message': str(error)}
     if active:
         try:
-            record['browser_cleanup'] = {'id': active, 'response': ok('DELETE', '/session/' + active)}
+            record['browser_cleanup'] = {'id': active, 'response': ok('DELETE', api + '/session/' + active)}
             active = None
         except BaseException as error:
             record['browser_cleanup_error'] = {'type': type(error).__name__, 'message': str(error)}
