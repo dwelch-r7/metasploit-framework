@@ -6,7 +6,17 @@ sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 The module qualification totals below are unchanged.
 
-Latest: [Native MySQL file enumeration](VERIFICATION-20261118-mysql-file-enum.md)
+Latest: [Native MySQL directory writes](VERIFICATION-20261118-mysql-write.md)
+adds one owner and three qualified profiles with 27/0, reaching **299 runtime
+owners in covered paths, 610 qualified profiles and 4,274 historical functional
+cases**. Three file-enumeration profiles also pass 33/0 after reusing literal
+quoting. Sixty native-gated cases cover six genuine MySQL sessions, exact bytes/
+paths/ownership/modes, typed notes, collisions, explicit resets and denials.
+All 48 resource-event captures are zero and all thirty-six owned Docker objects
+are removed. Two capped containers run at once; unrelated containers are
+preserved. The broader campaign remains active; no PR is created.
+
+Previous: [Native MySQL file enumeration](VERIFICATION-20261118-mysql-file-enum.md)
 adds one owner and three qualified profiles with 33/0, reaching **298 runtime
 owners in covered paths, 607 qualified profiles and 4,247 historical functional
 cases**. Both existing schema profiles also pass 12/0 after sharing identifier

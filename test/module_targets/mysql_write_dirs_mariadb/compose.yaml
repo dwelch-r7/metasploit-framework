@@ -1,0 +1,11 @@
+services:
+  app:
+    extends: {file: ../mysql_file_enum_mariadb/compose.yaml, service: app}
+    volumes:
+    - ../mysql_write_dirs/native.sh:/opt/module-target/native.sh:ro
+    - ../mysql_file_enum/native.sh:/opt/module-target/file-enum-native.sh:ro
+  reporting_db:
+    extends: {file: ../mysql_write_dirs/services.yaml, service: reporting_db}
+networks:
+  default: {internal: true}
+  public: {}

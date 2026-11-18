@@ -1,0 +1,8 @@
+services:
+  app:
+    extends: {file: ../mysql_file_enum/services.yaml, service: app}
+    volumes:
+    - ./native.sh:/opt/module-target/native.sh:ro
+    - ../mysql_file_enum/native.sh:/opt/module-target/file-enum-native.sh:ro
+  reporting_db:
+    extends: {file: ../mysql_file_enum/services.yaml, service: reporting_db}

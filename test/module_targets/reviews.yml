@@ -1,8 +1,26 @@
 # Individual source-reviewed target requirements; these are not blanket exclusions.
 ---
 modules:
+  auxiliary/scanner/mysql/mysql_writable_dirs:
+    source_sha256: 814bbe94d7c38ed51fffab883b3dc00d6511deacd96fa6273d3a8898ec7a8130
+    disposition: container_lab
+    lab_profiles:
+      mysql_write_dirs: [mysql_8, standalone, genuine_mysql_session, bytes_paths_modes, collisions, reset_repeat, quotes_backslashes, denials]
+      mysql_write_dirs_mariadb: [mariadb_11, standalone, genuine_mysql_session, bytes_paths_modes, collisions, reset_repeat, quotes_backslashes, denials]
+      mysql_write_dirs_nobackslash: [mysql_8, no_backslash_escapes, standalone, genuine_mysql_session, quotes_backslashes, reset_repeat, denials]
+    reason: >-
+      Twenty-seven cases and thirty-nine actual owner calls qualify exact
+      four-byte writes, path/ownership/mode, genuine MySQL sessions, typed notes,
+      collisions and repeated execution after explicit lab reset. Native CLI
+      paths and permission controls expose the original quote/backslash defects,
+      including a real wrong-name backspace file. Shared literal quoting repairs
+      them; three file-enumerator profiles also pass thirty-three regressions.
+      All native states, selected connection recovery and owned-resource teardown
+      pass. Intentional artifacts are recorded before explicit task-owned reset;
+      automatic module cleanup is not claimed. Other versions, Unicode names,
+      filesystems/transports and concurrent changes remain unqualified.
   auxiliary/scanner/mysql/mysql_file_enum:
-    source_sha256: f7bdda94220e0019c9ccd745c16bb118267d0677996ce28a40498218ed0d84c2
+    source_sha256: b9abdd737f50ec5e102a3b8a5a0e3be84e5ea1866cfef533c8b5984bac1bf9e4
     disposition: container_lab
     lab_profiles:
       mysql_file_enum: [mysql_8, standalone, genuine_mysql_session, repeat, content_types, quoted_names, permissions, existing_table, rejection]
