@@ -1,0 +1,37 @@
+{
+  "services": {
+    "app": {
+      "extends": {
+        "file": "../airflow_dag/compose.yaml",
+        "service": "app"
+      },
+      "build": {
+        "context": "../airflow_dag"
+      },
+      "environment": {
+        "MODULE_TARGET_MODE": "prefix",
+        "AIRFLOW__WEBSERVER__BASE_URL": "http://localhost:8080/airflow"
+      },
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "curl",
+          "-fsS",
+          "http://127.0.0.1:8080/airflow/health"
+        ]
+      }
+    },
+    "reporting_db": {
+      "extends": {
+        "file": "../airflow_dag/compose.yaml",
+        "service": "reporting_db"
+      }
+    }
+  },
+  "networks": {
+    "default": {
+      "internal": true
+    },
+    "public": {}
+  }
+}

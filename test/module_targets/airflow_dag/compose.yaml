@@ -1,0 +1,73 @@
+{
+  "services": {
+    "app": {
+      "cpus": 1,
+      "environment": {
+        "AIRFLOW__API__AUTH_BACKEND": "airflow.api.auth.backend.default",
+        "AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION": "True",
+        "AIRFLOW__CORE__DAGS_FOLDER": "/opt/airflow/module-target-dags",
+        "AIRFLOW__CORE__DAG_CONCURRENCY": "1",
+        "AIRFLOW__CORE__EXECUTOR": "SequentialExecutor",
+        "AIRFLOW__CORE__LOAD_EXAMPLES": "False",
+        "AIRFLOW__CORE__MAX_ACTIVE_RUNS_PER_DAG": "1",
+        "AIRFLOW__CORE__PARALLELISM": "1",
+        "AIRFLOW__CORE__SQL_ALCHEMY_CONN": "sqlite:////opt/airflow/airflow.db",
+        "AIRFLOW__SCHEDULER__DAG_DIR_LIST_INTERVAL": "2",
+        "AIRFLOW__SCHEDULER__JOB_HEARTBEAT_SEC": "1",
+        "AIRFLOW__SCHEDULER__MAX_THREADS": "1",
+        "AIRFLOW__SCHEDULER__MIN_FILE_PROCESS_INTERVAL": "1",
+        "AIRFLOW__SCHEDULER__SCHEDULER_HEARTBEAT_SEC": "1",
+        "AIRFLOW__WEBSERVER__AUTHENTICATE": "True",
+        "AIRFLOW__WEBSERVER__AUTH_BACKEND": "airflow.contrib.auth.backends.password_auth",
+        "AIRFLOW__WEBSERVER__BASE_URL": "http://localhost:8080",
+        "AIRFLOW__WEBSERVER__RBAC": "False",
+        "AIRFLOW__WEBSERVER__SECRET_KEY": "module-target-airflow-disposable-secret",
+        "AIRFLOW__WEBSERVER__WORKERS": "1",
+        "AIRFLOW__WEBSERVER__WORKER_REFRESH_INTERVAL": "0",
+        "MODULE_TARGET_MODE": "vulnerable"
+      },
+      "image": "module-target-airflow-dag:1.10.10",
+      "mem_limit": "1024m",
+      "memswap_limit": "1024m",
+      "pids_limit": 128,
+      "platform": "linux/amd64",
+      "build": {
+        "context": ".",
+        "additional_contexts": {
+          "password_package": "../../../tmp/module-target-airflow-sources"
+        }
+      },
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "curl",
+          "-fsS",
+          "http://127.0.0.1:8080/health"
+        ],
+        "timeout": "5s",
+        "interval": "3s",
+        "retries": 70
+      },
+      "ports": [
+        "127.0.0.1::8080"
+      ],
+      "networks": [
+        "default",
+        "public"
+      ]
+    },
+    "reporting_db": {
+      "platform": "linux/amd64",
+      "extends": {
+        "file": "../elasticsearch_memory/services.yaml",
+        "service": "db"
+      }
+    }
+  },
+  "networks": {
+    "default": {
+      "internal": true
+    },
+    "public": {}
+  }
+}

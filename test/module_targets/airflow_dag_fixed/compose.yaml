@@ -1,0 +1,35 @@
+{
+  "services": {
+    "app": {
+      "extends": {
+        "file": "../airflow_dag/compose.yaml",
+        "service": "app"
+      },
+      "build": {
+        "context": "../airflow_dag",
+        "args": {
+          "AIRFLOW_IMAGE": "apache/airflow:1.10.11@sha256:5b43a4b820eb229ea6910aafcddc2d18de745a69817c0256cadc74f6faa2d3f5"
+        },
+        "additional_contexts": {
+          "password_package": "../../../tmp/module-target-airflow-sources"
+        }
+      },
+      "image": "module-target-airflow-dag:1.10.11",
+      "environment": {
+        "MODULE_TARGET_MODE": "fixed"
+      }
+    },
+    "reporting_db": {
+      "extends": {
+        "file": "../airflow_dag/compose.yaml",
+        "service": "reporting_db"
+      }
+    }
+  },
+  "networks": {
+    "default": {
+      "internal": true
+    },
+    "public": {}
+  }
+}

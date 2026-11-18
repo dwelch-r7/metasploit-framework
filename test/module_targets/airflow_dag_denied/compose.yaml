@@ -1,0 +1,29 @@
+{
+  "services": {
+    "app": {
+      "extends": {
+        "file": "../airflow_dag/compose.yaml",
+        "service": "app"
+      },
+      "build": {
+        "context": "../airflow_dag"
+      },
+      "environment": {
+        "MODULE_TARGET_MODE": "denied",
+        "AIRFLOW__API__AUTH_BACKEND": "airflow.api.auth.backend.deny_all"
+      }
+    },
+    "reporting_db": {
+      "extends": {
+        "file": "../airflow_dag/compose.yaml",
+        "service": "reporting_db"
+      }
+    }
+  },
+  "networks": {
+    "default": {
+      "internal": true
+    },
+    "public": {}
+  }
+}

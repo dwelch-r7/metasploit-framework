@@ -6,7 +6,19 @@ sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 The module qualification totals below are unchanged.
 
-Latest: [SuiteCRM usernames and collector roles](VERIFICATION-20261118-suitecrm-names.md)
+Latest: [Native Apache Airflow DAG execution](VERIFICATION-20261118-airflow-dag.md)
+adds one owner and six profiles with **38/0**, reaching **302 runtime owners in
+covered paths, 620 qualified profiles and 4,343 historical functional cases**.
+Twelve real session lifecycles cover command Python Meterpreter, Python/Bash
+shells, Linux fetch, repeats, prefix routing and persisted reports. Two separate
+repairs honor failed check prerequisites and initialize paused DAGs even with
+AutoCheck disabled. Native fixed, denied, missing and backported-DAG controls
+pass; earlier source/fixture failures remain sealed and unqualified. Parent
+45/0 focused cases, 81 current inputs, 200 zero resource captures and all 55
+owned Docker object removals verify. Only two capped containers run at once;
+unrelated containers are preserved. The broader campaign stays active; no PR.
+
+Previous: [SuiteCRM usernames and collector roles](VERIFICATION-20261118-suitecrm-names.md)
 adds one profile and six cases for an existing owner, reaching **301 runtime
 owners in covered paths, 614 qualified profiles and 4,305 historical functional
 cases**. The complete three-profile replay passes 22/0; sixteen existing cases

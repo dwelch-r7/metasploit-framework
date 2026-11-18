@@ -1,0 +1,29 @@
+{
+  "dag_id": "example_trigger_target_dag",
+  "task_id": "bash_task",
+  "username": "labadmin",
+  "password": "Module-airflow-admin42!",
+  "email": "labadmin@example.invalid",
+  "uid": 50000,
+  "versions": {
+    "1.10.10": "1b38ffe56685a5adb07d140906fa738c4b082a36dea9d1e3aad5030dc9eda9ea",
+    "1.10.11": "0dcc077cc03220033a039ca9aa35b39143326e049893d5a05370067ebb5841f8"
+  },
+  "owner": "exploit/linux/http/apache_airflow_dag_rce",
+  "cache_dir": "tmp/module-target-airflow-sources",
+  "images": {
+    "1.10.10": "apache/airflow:1.10.10@sha256:b67062e5c67906391f7023b1c0ec7b51f8d4d4be1230e96c1e375d98e696f02a",
+    "1.10.11": "apache/airflow:1.10.11@sha256:5b43a4b820eb229ea6910aafcddc2d18de745a69817c0256cadc74f6faa2d3f5"
+  },
+  "password_package": {
+    "at": "2026-11-18T20:30:13.572071+00:00",
+    "metadata_url": "https://pypi.org/pypi/Flask-Bcrypt/0.7.1/json",
+    "version": "0.7.1",
+    "filename": "Flask-Bcrypt-0.7.1.tar.gz",
+    "url": "https://files.pythonhosted.org/packages/1d/c0/6d4c04d007d72b355de24e7a223978d1a95732245f9e9becbf45d3024bf8/Flask-Bcrypt-0.7.1.tar.gz",
+    "sha256": "d71c8585b2ee1c62024392ebdbc447438564e2c8c02b4e57b56a4cafd8d13c5f",
+    "bytes": 5051,
+    "license": "BSD",
+    "host_install": false
+  }
+}

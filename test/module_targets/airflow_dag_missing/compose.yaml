@@ -1,0 +1,28 @@
+{
+  "services": {
+    "app": {
+      "extends": {
+        "file": "../airflow_dag/compose.yaml",
+        "service": "app"
+      },
+      "build": {
+        "context": "../airflow_dag"
+      },
+      "environment": {
+        "MODULE_TARGET_MODE": "missing"
+      }
+    },
+    "reporting_db": {
+      "extends": {
+        "file": "../airflow_dag/compose.yaml",
+        "service": "reporting_db"
+      }
+    }
+  },
+  "networks": {
+    "default": {
+      "internal": true
+    },
+    "public": {}
+  }
+}
