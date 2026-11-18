@@ -1,0 +1,8 @@
+services:
+  app:
+    extends: {file: ../mysql_schema/services.yaml, service: app}
+  reporting_db:
+    extends: {file: ../mysql_schema/services.yaml, service: reporting_db}
+networks:
+  default: {internal: true}
+  public: {}

@@ -1,0 +1,17 @@
+services:
+  app:
+    extends: {file: ../mysql_schema/services.yaml, service: app}
+    image: mariadb:11.2.2@sha256:c5077bb44d13a3f34dadb5a15861149e29b3251d1e24036d2dad9611dc9d940b
+    environment:
+      MARIADB_ROOT_PASSWORD: password
+      MARIADB_ROOT_HOST: '%'
+      NATIVE_MYSQL_CLIENT: mariadb
+    mem_limit: 512m
+    memswap_limit: 512m
+    healthcheck:
+      test: [CMD-SHELL, 'mariadb --protocol=TCP --host=127.0.0.1 --user=root --password=password --batch --skip-column-names --execute="SELECT 1" | grep -q 1']
+  reporting_db:
+    extends: {file: ../mysql_schema/services.yaml, service: reporting_db}
+networks:
+  default: {internal: true}
+  public: {}

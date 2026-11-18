@@ -1,0 +1,23 @@
+services:
+  app:
+    image: mysql:8.0.36@sha256:a532724022429812ec797c285c1b540a644c15e248579c6bfdf12a8fbaab4964
+    platform: linux/amd64
+    environment: {MYSQL_ROOT_PASSWORD: password, MYSQL_ROOT_HOST: '%'}
+    ports: ["127.0.0.1::3306"]
+    volumes:
+    - ./native.sh:/opt/module-target/native.sh:ro
+    - ./seed.sql:/opt/module-target/seed.sql:ro
+    networks: [default, public]
+    cpus: 1.0
+    mem_limit: 640m
+    memswap_limit: 640m
+    pids_limit: 128
+    init: true
+    healthcheck:
+      test: [CMD-SHELL, 'mysql --protocol=TCP --host=127.0.0.1 --user=root --password=password --batch --skip-column-names --execute="SELECT 1" | grep -q 1']
+      interval: 3s
+      timeout: 5s
+      retries: 50
+  reporting_db:
+    platform: linux/amd64
+    extends: {file: ../elasticsearch_memory/services.yaml, service: db}

@@ -1,6 +1,22 @@
 # Individual source-reviewed target requirements; these are not blanket exclusions.
 ---
 modules:
+  auxiliary/scanner/mysql/mysql_schemadump:
+    source_sha256: c0dbf9b3ac9059f698426f23ed97d2c933e20e602c09505ae79cdbeabd9e5f71
+    disposition: container_lab
+    lab_profiles:
+      mysql_schema: [mysql_8_0_36, standalone, genuine_mysql_session, quoted_names, repeat, empty, restricted, wrong_password]
+      mysql_schema_mariadb: [mariadb_11_2_2, standalone, genuine_mysql_session, quoted_names, repeat, empty, restricted, wrong_password]
+    reason: >-
+      Genuine native catalogs and grants qualify both connection paths across
+      twelve cases, twenty collector calls and four real MySQL sessions.
+      Eighteen YAML files match native ordered metadata without table rows;
+      persisted notes/services and strict repeat uniqueness pass. Separate
+      module repair quotes identifiers, guards nullable queries and anchors
+      notes to the exact named service. All native before/after gates, selected
+      connection recovery and independently verified owned-resource teardown
+      pass. Other releases, Unicode names, transports, concurrent DDL and
+      authentication plugins remain unqualified.
   auxiliary/scanner/mysql/mysql_authbypass_hashdump:
     source_sha256: 826c4c045367b25874d820cf24379843c337bd990e5fdc633e9845b92be1eb8a
     disposition: container_lab

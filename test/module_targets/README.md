@@ -6,7 +6,17 @@ sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 The module qualification totals below are unchanged.
 
-Latest: [MySQL authentication bypass and hash collection](VERIFICATION-20261118-mysql-authbypass.md)
+Latest: [Native MySQL schema collection](VERIFICATION-20261118-mysql-schema.md)
+adds one owner and two qualified profiles with 12/0, reaching **297 runtime owners
+in covered paths, 604 qualified profiles and 4,214 historical functional cases**.
+Twenty collector calls, four genuine MySQL sessions and eighteen exact metadata
+files cover standalone/session paths, quoted identifiers, views, empty/restricted
+schemas, credentials and strict repeats. Two confirmed module defects are repaired
+in a separate worktree. All 16 resource-event captures are zero and all twelve
+owned Docker objects are removed. Two capped containers run at once; unrelated
+containers are preserved. The broader campaign remains active; no PR is created.
+
+Previous: [MySQL authentication bypass and hash collection](VERIFICATION-20261118-mysql-authbypass.md)
 adds one owner and four qualified profiles with 16/0, reaching **296 runtime owners
 in covered paths, 602 qualified profiles and 4,202 historical functional cases**.
 Seven exact CSV files retain 77 native rows; seven service records, both login
