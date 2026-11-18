@@ -64,7 +64,7 @@ class MetasploitModule < Msf::Post
     paths.each do |path|
       path.chomp!
       sep = '/'
-      files = cmd_exec("ls -1 #{path}").split(/\r\n|\r|\n/)
+      files = create_process('ls', args: ['-1', path]).split(/\r\n|\r|\n/)
 
       files.each do |file|
         target = "#{path}#{sep}#{file}"
