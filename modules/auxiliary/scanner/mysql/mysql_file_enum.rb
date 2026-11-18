@@ -42,6 +42,7 @@ class MetasploitModule < Msf::Auxiliary
   end
 
   def run_host(ip)
+    @mysql_no_backslash_escapes = nil
     vprint_status("Login...") unless session
 
     # If we have a session make use of it
@@ -54,7 +55,7 @@ class MetasploitModule < Msf::Auxiliary
     end
 
     begin
-      mysql_query_no_handle("USE " + datastore['DATABASE_NAME'])
+      mysql_query_no_handle("USE #{mysql_quote_identifier(datastore['DATABASE_NAME'])}")
     rescue ::Rex::Proto::MySQL::Client::Error => e
       vprint_error("MySQL Error: #{e.class} #{e.to_s}")
       return
@@ -63,12 +64,14 @@ class MetasploitModule < Msf::Auxiliary
       return
     end
 
-    res = mysql_query("SELECT * FROM information_schema.TABLES WHERE TABLE_SCHEMA = '" + datastore['DATABASE_NAME'] + "' AND TABLE_NAME = '" + datastore['TABLE_NAME'] + "';")
+    res = mysql_query("SELECT * FROM information_schema.TABLES WHERE TABLE_SCHEMA = #{mysql_file_literal(datastore['DATABASE_NAME'])} AND TABLE_NAME = #{mysql_file_literal(datastore['TABLE_NAME'])};")
+    fail_with(Failure::UnexpectedReply, 'Unable to inspect the MySQL enumeration table') unless res
+
     table_exists = (res.size == 1)
 
     if !table_exists
       vprint_status("Table doesn't exist so creating it")
-      mysql_query("CREATE TABLE " + datastore['TABLE_NAME'] + " (brute int);")
+      mysql_query("CREATE TABLE #{mysql_quote_identifier(datastore['TABLE_NAME'])} (brute int);")
     end
 
     file = File.new(datastore['FILE_LIST'], "r")
@@ -79,13 +82,13 @@ class MetasploitModule < Msf::Auxiliary
 
     if !table_exists
       vprint_status("Cleaning up the temp table")
-      mysql_query("DROP TABLE " + datastore['TABLE_NAME'])
+      mysql_query("DROP TABLE #{mysql_quote_identifier(datastore['TABLE_NAME'])}")
     end
   end
 
   def check_dir dir
     begin
-      res = mysql_query_no_handle("LOAD DATA INFILE '" + dir + "' INTO TABLE " + datastore['TABLE_NAME'])
+      mysql_query_no_handle("LOAD DATA INFILE #{mysql_file_literal(dir)} INTO TABLE #{mysql_quote_identifier(datastore['TABLE_NAME'])}")
     rescue ::Rex::Proto::MySQL::Client::TextfileNotReadable
       print_good("#{dir} is a directory and exists")
       report_note(
@@ -96,18 +99,18 @@ class MetasploitModule < Msf::Auxiliary
         :proto => 'tcp',
         :update => :unique_data
       )
-    rescue ::Rex::Proto::MySQL::Client::DataTooLong, ::Rex::Proto::MySQL::Client::TruncatedWrongValueForField
+    rescue ::Rex::Proto::MySQL::Client::DataTooLong, ::Rex::Proto::MySQL::Client::TruncatedWrongValueForField, ::Rex::Proto::MySQL::Client::WarnDataOutOfRange
       print_good("#{dir} is a file and exists")
       report_note(
         :host => mysql_conn.peerhost,
         :type => "filesystem.file",
-        :data => { :directory => dir },
+        :data => { :file => dir },
         :port => mysql_conn.peerport,
         :proto => 'tcp',
         :update => :unique_data
       )
-    rescue ::Rex::Proto::MySQL::Client::ServerError
-      vprint_warning("#{dir} does not exist")
+    rescue ::Rex::Proto::MySQL::Client::ServerError => e
+      vprint_warning("Unable to determine whether #{dir} exists: #{e.class} #{e.message}")
     rescue ::Rex::Proto::MySQL::Client::Error => e
       vprint_error("MySQL Error: #{e.class} #{e.to_s}")
       return
@@ -127,5 +130,22 @@ class MetasploitModule < Msf::Auxiliary
     end
 
     return
+  end
+
+  private
+
+  # The client escape API always uses backslashes, regardless of server SQL mode.
+  # https://dev.mysql.com/doc/refman/8.0/en/string-literals.html
+  def mysql_file_literal(value)
+    if @mysql_no_backslash_escapes.nil?
+      result = mysql_query('SELECT @@SESSION.sql_mode')
+      mode = result&.first&.first
+      fail_with(Failure::UnexpectedReply, 'Unable to determine the MySQL session SQL mode') unless mode.is_a?(String)
+
+      @mysql_no_backslash_escapes = mode.split(',').include?('NO_BACKSLASH_ESCAPES')
+    end
+
+    escaped = @mysql_no_backslash_escapes ? value.gsub("'", "''") : mysql_conn.escape_string(value)
+    "'#{escaped}'"
   end
 end

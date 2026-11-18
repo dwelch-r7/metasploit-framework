@@ -1,0 +1,35 @@
+{
+  "provenance": "MySQL8.0.36 native C-client TCP LOAD DATA captures, mysql-files-native-20261118T153829; manifest707b27de73015e1c3dd13778ea0dd39b05fceaf868b17e4093f7da75adfbfa5e. Server errors are reconstructed through the installed gem classes; query adapters in specs are synthetic.",
+  "errors": [
+    {
+      "label": "load-text",
+      "code": 1366,
+      "message": "Incorrect integer value: 'not-an-int' for column 'brute' at row 1"
+    },
+    {
+      "label": "load-range",
+      "code": 1264,
+      "message": "Out of range value for column 'brute' at row 1"
+    },
+    {
+      "label": "load-directory",
+      "code": 1085,
+      "message": "The file '/var/lib/mysql-files/module-target/read-dir' must be in the database directory or be readable by all"
+    },
+    {
+      "label": "load-private",
+      "code": 29,
+      "message": "File '/var/lib/mysql-files/module-target/private.txt' not found (OS errno 13 - Permission denied)"
+    },
+    {
+      "label": "load-missing",
+      "code": 13,
+      "message": "Can't get stat of '/var/lib/mysql-files/module-target/absent.txt' (OS errno 2 - No such file or directory)"
+    },
+    {
+      "label": "load-denied",
+      "code": 1045,
+      "message": "Access denied for user 'no_file'@'%' (using password: YES)"
+    }
+  ]
+}

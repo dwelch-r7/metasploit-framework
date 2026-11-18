@@ -134,11 +134,5 @@ class MetasploitModule < Msf::Auxiliary
     return tables
   end
 
-  private
-
-  # Embedded identifier quote characters must be doubled, not string-escaped.
-  # https://dev.mysql.com/doc/refman/8.0/en/identifiers.html
-  def mysql_quote_identifier(identifier)
-    "`#{identifier.gsub('`', '``')}`"
-  end
+  private :mysql_quote_identifier
 end
