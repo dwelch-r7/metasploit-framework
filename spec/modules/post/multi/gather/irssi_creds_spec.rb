@@ -140,4 +140,131 @@ RSpec.describe 'Irssi raw configuration collection' do
       ['irssi config file', 'text/plain', session, file_data, target, 'IRC Password']
     ])
   end
+
+  context 'with NickServ authentication commands' do
+    let(:fixtures) { File.expand_path('../../../../file_fixtures/modules/post/multi/gather/irssi_creds/nickserv', __dir__) }
+    let(:fixture_name) { 'autosend-lower.config' }
+
+    # Exact Irssi 1.2.3 files and IDENTIFY/STATUS wire excerpts from real
+    # ngIRCd 26.1/Atheme 7.2.12 controls are kept beside these fixtures.
+    # Session transport, Framework, output and persistence remain doubled.
+    # Wrong and commented credentials select raw evidence without proving auth.
+    before do
+      expect(mod).not_to receive(:create_credential)
+    end
+
+    shared_examples 'NickServ raw evidence' do |file_name, authentication_type, arguments|
+      let(:fixture_name) { file_name }
+
+      it "reports complete authentication data and raw evidence for #{file_name}" do
+        mod.run
+
+        if arguments
+          expect(mod).to have_received(:print_good).with("Found #{authentication_type} of #{arguments} in irssi config at #{target}")
+          expect(stored_loot).to eq([['irssi config file', 'text/plain', session, file_data, target, 'IRC Password']])
+        else
+          expect([mod.contains_passwords?(target), stored_loot]).to eq([false, []])
+        end
+      end
+    end
+
+    it_behaves_like 'NickServ raw evidence', 'autosend-lower.config', 'IRC password(s)', 'module-target-nickserv-password'
+    it_behaves_like 'NickServ raw evidence', 'autosend-caret.config', 'IRC password(s)', 'module-target-nickserv-password'
+    it_behaves_like 'NickServ raw evidence', 'autosend-capital.config', 'IRC password(s)', 'module-target-nickserv-password'
+    it_behaves_like 'NickServ raw evidence', 'autosend-command-case.config', 'IRC password(s)', 'module-target-nickserv-password'
+    it_behaves_like 'NickServ raw evidence', 'autosend-account.config', 'NickServ IDENTIFY authentication data', 'labguest module-target-nickserv-password'
+    it_behaves_like 'NickServ raw evidence', 'autosend-wrong.config', 'IRC password(s)', 'module-target-nickserv-wrong'
+    it_behaves_like 'NickServ raw evidence', 'commented-autosend.config', 'IRC password(s)', 'module-target-nickserv-comment'
+    it_behaves_like 'NickServ raw evidence', 'password-free.config', nil, nil
+
+    it 'retains the complete account-first arguments sent on the native wire' do
+      native_wire = JSON.parse(File.binread(File.join(fixtures, 'native-wire.json')))
+      # Literal wire capture, independent of the configuration matcher.
+      expect(native_wire.fetch('autosend-account.config').fetch('identify_sent')).to eq(['<< PRIVMSG nickserv :identify labguest module-target-nickserv-password'])
+    end
+
+    context 'with two IDENTIFY arguments' do
+      let(:fixture_name) { 'autosend-account.config' }
+
+      it 'does not label the first argument as a password' do
+        mod.run
+
+        expect(mod).not_to have_received(:print_good).with(a_string_starting_with('Found IRC password(s) of'))
+      end
+
+      it 'preserves password-before-nick arguments without guessing the order' do
+        # Synthetic compatibility variation from the official Irssi manual's
+        # OFTC ordering; an OFTC service was not run in the native cohort.
+        data = file_data.sub('labguest module-target-nickserv-password', 'module-target-nickserv-password labguest')
+        allow(mod).to receive(:read_file).with(target).and_return(data)
+
+        expect(mod).to receive(:print_good).with("Found NickServ IDENTIFY authentication data of module-target-nickserv-password labguest in irssi config at #{target}")
+
+        expect(mod.contains_passwords?(target)).to be(true)
+      end
+
+      it 'preserves internal whitespace in the complete authentication arguments' do
+        # Synthetic formatting variation; the native capture used one space.
+        data = file_data.sub('labguest module-target-nickserv-password', "labguest \t module-target-nickserv-password")
+        allow(mod).to receive(:read_file).with(target).and_return(data)
+
+        expect(mod).to receive(:print_good).with("Found NickServ IDENTIFY authentication data of labguest \t module-target-nickserv-password in irssi config at #{target}")
+
+        expect(mod.contains_passwords?(target)).to be(true)
+      end
+
+      it 'keeps network-password output separate from ambiguous IDENTIFY arguments' do
+        data = file_data + 'password = "network-secret";'
+        allow(mod).to receive(:read_file).with(target).and_return(data)
+        expect(mod).to receive(:print_good).with("Found IRC password(s) of network-secret in irssi config at #{target}")
+        expect(mod).to receive(:print_good).with("Found NickServ IDENTIFY authentication data of labguest module-target-nickserv-password in irssi config at #{target}")
+
+        expect(mod.contains_passwords?(target)).to be(true)
+      end
+
+      it 'preserves exact raw loot and metadata on a second invocation' do
+        2.times { mod.run }
+
+        expect(stored_loot).to eq([
+          ['irssi config file', 'text/plain', session, file_data, target, 'IRC Password'],
+          ['irssi config file', 'text/plain', session, file_data, target, 'IRC Password']
+        ])
+      end
+    end
+
+    it 'stops the single password before an adjacent command separator' do
+      # Synthetic command-boundary variation of the native lower-case config.
+      data = file_data.sub('module-target-nickserv-password"', 'module-target-nickserv-password;wait 2000"')
+      allow(mod).to receive(:read_file).with(target).and_return(data)
+      expect(mod).to receive(:print_good).with("Found IRC password(s) of module-target-nickserv-password in irssi config at #{target}")
+
+      expect(mod.contains_passwords?(target)).to be(true)
+    end
+
+    it 'trims command whitespace without adding it to the single password' do
+      data = file_data.sub('identify module-target-nickserv-password"', "identify\tmodule-target-nickserv-password \t\"")
+      allow(mod).to receive(:read_file).with(target).and_return(data)
+      expect(mod).to receive(:print_good).with("Found IRC password(s) of module-target-nickserv-password in irssi config at #{target}")
+
+      expect(mod.contains_passwords?(target)).to be(true)
+    end
+
+    shared_examples 'not a NickServ credential' do |command|
+      it "does not collect #{command}" do
+        # Synthetic negative boundaries, not native authentication claims.
+        allow(mod).to receive(:read_file).with(target).and_return("autosendcmd = \"#{command}\";")
+
+        mod.run
+
+        expect([mod.contains_passwords?(target), stored_loot]).to eq([false, []])
+      end
+    end
+
+    it_behaves_like 'not a NickServ credential', '/msg nickserv identify'
+    it_behaves_like 'not a NickServ credential', '/msg nickserv identify   '
+    it_behaves_like 'not a NickServ credential', '/msg nickserv identify ;wait 2000'
+    it_behaves_like 'not a NickServ credential', '/msg notnickserv identify example_password'
+    it_behaves_like 'not a NickServ credential', '/msg nickserv identifying example_password'
+    it_behaves_like 'not a NickServ credential', '/msg nickserv status example_password'
+  end
 end

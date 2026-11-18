@@ -1,0 +1,118 @@
+{
+  "autosend-lower.config": {
+    "file_sha256": "13ca142443fd922a184ae6f6d714795661796b5f23951af5e4234cfbdb8c46bb",
+    "identified": true,
+    "status_verified": true,
+    "configuration_unchanged": true,
+    "exit": 0,
+    "process_absent": true,
+    "temporary_home_absent": true,
+    "identify_sent": [
+      "<< PRIVMSG nickserv :identify module-target-nickserv-password"
+    ],
+    "status_reply": [
+      ">> :NickServ!NickServ@services.module.test NOTICE labguest :You are logged in as \u0002labguest\u0002."
+    ]
+  },
+  "autosend-caret.config": {
+    "file_sha256": "79ee09e3a6d2cb7ec42912974795e069c3770c5d2c949f6491b5c455ebf92415",
+    "identified": true,
+    "status_verified": true,
+    "configuration_unchanged": true,
+    "exit": 0,
+    "process_absent": true,
+    "temporary_home_absent": true,
+    "identify_sent": [
+      "<< PRIVMSG nickserv :identify module-target-nickserv-password"
+    ],
+    "status_reply": [
+      ">> :NickServ!NickServ@services.module.test NOTICE labguest :You are logged in as \u0002labguest\u0002."
+    ]
+  },
+  "autosend-capital.config": {
+    "file_sha256": "be3b084c97fa906b0dc284d35cda09174930ef0858fcb3ee037ca07c1c773d8e",
+    "identified": true,
+    "status_verified": true,
+    "configuration_unchanged": true,
+    "exit": 0,
+    "process_absent": true,
+    "temporary_home_absent": true,
+    "identify_sent": [
+      "<< PRIVMSG NickServ :identify module-target-nickserv-password"
+    ],
+    "status_reply": [
+      ">> :NickServ!NickServ@services.module.test NOTICE labguest :You are logged in as \u0002labguest\u0002."
+    ]
+  },
+  "autosend-command-case.config": {
+    "file_sha256": "34704253ef14324467528c8adec541805d78b188cff514985579bf66d1d3d437",
+    "identified": true,
+    "status_verified": true,
+    "configuration_unchanged": true,
+    "exit": 0,
+    "process_absent": true,
+    "temporary_home_absent": true,
+    "identify_sent": [
+      "<< PRIVMSG nickserv :IDENTIFY module-target-nickserv-password"
+    ],
+    "status_reply": [
+      ">> :NickServ!NickServ@services.module.test NOTICE labguest :You are logged in as \u0002labguest\u0002."
+    ]
+  },
+  "autosend-account.config": {
+    "file_sha256": "7e062244d954d8f48758314c9568e51632e8fabb7023a3e4f4a0d316ed6f3cc5",
+    "identified": true,
+    "status_verified": true,
+    "configuration_unchanged": true,
+    "exit": 0,
+    "process_absent": true,
+    "temporary_home_absent": true,
+    "identify_sent": [
+      "<< PRIVMSG nickserv :identify labguest module-target-nickserv-password"
+    ],
+    "status_reply": [
+      ">> :NickServ!NickServ@services.module.test NOTICE labguest :You are logged in as \u0002labguest\u0002."
+    ]
+  },
+  "autosend-wrong.config": {
+    "file_sha256": "8bcc2e8e1a0591c1745223e631cb5640b36bf4cc6d49a6e0c0cf8da888046036",
+    "identified": false,
+    "status_verified": true,
+    "configuration_unchanged": true,
+    "exit": 0,
+    "process_absent": true,
+    "temporary_home_absent": true,
+    "identify_sent": [
+      "<< PRIVMSG nickserv :identify module-target-nickserv-wrong"
+    ],
+    "status_reply": [
+      ">> :NickServ!NickServ@services.module.test NOTICE labguest :You are not logged in."
+    ]
+  },
+  "password-free.config": {
+    "file_sha256": "a80fdef4a115c4552f6f9aa8b1872dc1ee321f7c8ed806fec40f4bb8afe6673e",
+    "identified": false,
+    "status_verified": true,
+    "configuration_unchanged": true,
+    "exit": 0,
+    "process_absent": true,
+    "temporary_home_absent": true,
+    "identify_sent": [],
+    "status_reply": [
+      ">> :NickServ!NickServ@services.module.test NOTICE labguest :You are not logged in."
+    ]
+  },
+  "commented-autosend.config": {
+    "file_sha256": "8bc51c27044cb43bf9e02ff43b33c554ea91149ae8fb8b78513ddb97bcaed9d5",
+    "identified": false,
+    "status_verified": true,
+    "configuration_unchanged": true,
+    "exit": 0,
+    "process_absent": true,
+    "temporary_home_absent": true,
+    "identify_sent": [],
+    "status_reply": [
+      ">> :NickServ!NickServ@services.module.test NOTICE labguest :You are not logged in."
+    ]
+  }
+}

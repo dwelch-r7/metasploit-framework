@@ -1,0 +1,96 @@
+{
+  "autosend-lower.config": {
+    "sha256": "13ca142443fd922a184ae6f6d714795661796b5f23951af5e4234cfbdb8c46bb",
+    "command": "/msg nickserv identify module-target-nickserv-password",
+    "expected_identified": true,
+    "expected_nickname": "labguest",
+    "native_verified": true,
+    "origin": "Exact client file consumed by real Irssi1.2.3 against ngIRCd26.1/Atheme7.2.12; no server password fallback",
+    "expected_passwords": [
+      "module-target-nickserv-password"
+    ],
+    "native_run": "native-20261118T020330"
+  },
+  "autosend-caret.config": {
+    "sha256": "79ee09e3a6d2cb7ec42912974795e069c3770c5d2c949f6491b5c455ebf92415",
+    "command": "/^msg nickserv identify module-target-nickserv-password",
+    "expected_identified": true,
+    "expected_nickname": "labguest",
+    "native_verified": true,
+    "origin": "Exact client file consumed by real Irssi1.2.3 against ngIRCd26.1/Atheme7.2.12; no server password fallback",
+    "expected_passwords": [
+      "module-target-nickserv-password"
+    ],
+    "native_run": "native-20261118T020330"
+  },
+  "autosend-capital.config": {
+    "sha256": "be3b084c97fa906b0dc284d35cda09174930ef0858fcb3ee037ca07c1c773d8e",
+    "command": "/msg NickServ identify module-target-nickserv-password",
+    "expected_identified": true,
+    "expected_nickname": "labguest",
+    "native_verified": true,
+    "origin": "Exact client file consumed by real Irssi1.2.3 against ngIRCd26.1/Atheme7.2.12; no server password fallback",
+    "expected_passwords": [
+      "module-target-nickserv-password"
+    ],
+    "native_run": "native-20261118T020330"
+  },
+  "autosend-command-case.config": {
+    "sha256": "34704253ef14324467528c8adec541805d78b188cff514985579bf66d1d3d437",
+    "command": "/MSG nickserv IDENTIFY module-target-nickserv-password",
+    "expected_identified": true,
+    "expected_nickname": "labguest",
+    "native_verified": true,
+    "origin": "Exact client file consumed by real Irssi1.2.3 against ngIRCd26.1/Atheme7.2.12; no server password fallback",
+    "expected_passwords": [
+      "module-target-nickserv-password"
+    ],
+    "native_run": "native-20261118T020330"
+  },
+  "autosend-account.config": {
+    "sha256": "7e062244d954d8f48758314c9568e51632e8fabb7023a3e4f4a0d316ed6f3cc5",
+    "command": "/msg nickserv identify labguest module-target-nickserv-password",
+    "expected_identified": true,
+    "expected_nickname": "labguest",
+    "native_verified": true,
+    "origin": "Exact client file consumed by real Irssi1.2.3 against ngIRCd26.1/Atheme7.2.12; no server password fallback",
+    "expected_passwords": [
+      "module-target-nickserv-password"
+    ],
+    "native_run": "native-20261118T020330"
+  },
+  "autosend-wrong.config": {
+    "sha256": "8bcc2e8e1a0591c1745223e631cb5640b36bf4cc6d49a6e0c0cf8da888046036",
+    "command": "/msg nickserv identify module-target-nickserv-wrong",
+    "expected_identified": false,
+    "expected_nickname": "labguest",
+    "native_verified": true,
+    "origin": "Exact client file consumed by real Irssi1.2.3 against ngIRCd26.1/Atheme7.2.12; no server password fallback",
+    "expected_passwords": [
+      "module-target-nickserv-wrong"
+    ],
+    "native_run": "native-20261118T020330"
+  },
+  "password-free.config": {
+    "sha256": "a80fdef4a115c4552f6f9aa8b1872dc1ee321f7c8ed806fec40f4bb8afe6673e",
+    "command": null,
+    "expected_identified": false,
+    "expected_nickname": "labguest",
+    "native_verified": true,
+    "origin": "Exact client file consumed by real Irssi1.2.3 against ngIRCd26.1/Atheme7.2.12; no server password fallback",
+    "expected_passwords": [],
+    "native_run": "native-20261118T020330"
+  },
+  "commented-autosend.config": {
+    "sha256": "8bc51c27044cb43bf9e02ff43b33c554ea91149ae8fb8b78513ddb97bcaed9d5",
+    "command": null,
+    "expected_identified": false,
+    "expected_nickname": "labguest",
+    "native_verified": true,
+    "origin": "Exact client file consumed by real Irssi1.2.3 against ngIRCd26.1/Atheme7.2.12; no server password fallback",
+    "expected_passwords": [
+      "module-target-nickserv-comment"
+    ],
+    "native_run": "native-20261118T020330"
+  }
+}
