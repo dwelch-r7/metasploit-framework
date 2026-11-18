@@ -1,0 +1,101 @@
+{
+  "provenance": "Native MySQL 8.0.36 C client information_schema capture, 2026-11-18 run 20261118T151513-796dda; independent metadata fields decoded from HEX. Failure controls in the spec are synthetic.",
+  "databases": [
+    "module odd-db",
+    "module_basic",
+    "module_empty",
+    "module`quoted"
+  ],
+  "tables": {
+    "module odd-db": [
+      "order details",
+      "select"
+    ],
+    "module_basic": [
+      "empty_rows",
+      "normal_rows",
+      "summary_view"
+    ],
+    "module_empty": [],
+    "module`quoted": [
+      "table`quoted"
+    ]
+  },
+  "columns": {
+    "module odd-db": {
+      "order details": [
+        [
+          "first column",
+          "int"
+        ],
+        [
+          "text-value",
+          "varchar(11)"
+        ]
+      ],
+      "select": [
+        [
+          "from",
+          "smallint"
+        ]
+      ]
+    },
+    "module_basic": {
+      "empty_rows": [
+        [
+          "status",
+          "enum('new','done')"
+        ],
+        [
+          "updated",
+          "timestamp"
+        ]
+      ],
+      "normal_rows": [
+        [
+          "id",
+          "int unsigned"
+        ],
+        [
+          "entry",
+          "varchar(37)"
+        ],
+        [
+          "amount",
+          "decimal(10,2)"
+        ],
+        [
+          "binary_value",
+          "varbinary(8)"
+        ],
+        [
+          "notes",
+          "text"
+        ]
+      ],
+      "summary_view": [
+        [
+          "id",
+          "int unsigned"
+        ],
+        [
+          "entry",
+          "varchar(37)"
+        ]
+      ]
+    },
+    "module_empty": {},
+    "module`quoted": {
+      "table`quoted": [
+        [
+          "column`quoted",
+          "varchar(9)"
+        ],
+        [
+          "normal_column",
+          "bigint"
+        ]
+      ]
+    }
+  }
+}

@@ -38,24 +38,23 @@ class MetasploitModule < Msf::Auxiliary
     end
 
     mysql_schema = get_schema
+    this_service = report_service(
+      host: mysql_conn.peerhost,
+      port: mysql_conn.peerport,
+      name: 'mysql',
+      proto: 'tcp'
+    )
     mysql_schema.each do |db|
       report_note(
-        :host => mysql_conn.peerhost,
-        :type => "mysql.db.schema",
-        :data => { :database => db },
-        :port => mysql_conn.peerport,
-        :proto => 'tcp',
-        :update => :unique_data
+        host: mysql_conn.peerhost,
+        service: this_service,
+        type: 'mysql.db.schema',
+        data: { database: db },
+        update: :unique_data
       )
     end
     output = "MySQL Server Schema \n Host: #{mysql_conn.peerhost} \n Port: #{mysql_conn.peerport} \n ====================\n\n"
     output << YAML.dump(mysql_schema)
-    this_service = report_service(
-      :host => mysql_conn.peerhost,
-      :port => mysql_conn.peerport,
-      :name => 'mysql',
-      :proto => 'tcp'
-    )
     p = store_loot('mysql_schema', "text/plain", mysql_conn.peerhost, output, "#{mysql_conn.peerhost}_mysql_schema.txt", "MySQL Schema", this_service)
     print_good("Schema stored in: #{p}")
     print_good output if datastore['DISPLAY_RESULTS']
@@ -64,6 +63,8 @@ class MetasploitModule < Msf::Auxiliary
   def get_schema
     mysql_schema = []
     res = mysql_query("show databases")
+    fail_with(Failure::UnexpectedReply, 'Unable to enumerate MySQL databases') unless res
+
     if res.size > 0
       res.each do |row|
         next if row[0].nil?
@@ -103,7 +104,9 @@ class MetasploitModule < Msf::Auxiliary
   # Gets all of the Tables names inside the given Database
   def get_tbl_names(dbname)
     tables = []
-    res = mysql_query("SHOW tables from #{dbname}")
+    res = mysql_query("SHOW tables from #{mysql_quote_identifier(dbname)}")
+    fail_with(Failure::UnexpectedReply, "Unable to enumerate tables in database #{dbname}") unless res
+
     if res.size > 0
       res.each do |row|
         next if row[0].nil?
@@ -117,7 +120,9 @@ class MetasploitModule < Msf::Auxiliary
 
   def get_columns(db_name, tbl_name)
     tables = []
-    res = mysql_query("desc #{db_name}.#{tbl_name}")
+    res = mysql_query("desc #{mysql_quote_identifier(db_name)}.#{mysql_quote_identifier(tbl_name)}")
+    fail_with(Failure::UnexpectedReply, "Unable to enumerate columns in table #{db_name}.#{tbl_name}") unless res
+
     if res.size > 0
       res.each do |row|
         next if row[0].nil?
@@ -127,5 +132,13 @@ class MetasploitModule < Msf::Auxiliary
       end
     end
     return tables
+  end
+
+  private
+
+  # Embedded identifier quote characters must be doubled, not string-escaped.
+  # https://dev.mysql.com/doc/refman/8.0/en/identifiers.html
+  def mysql_quote_identifier(identifier)
+    "`#{identifier.gsub('`', '``')}`"
   end
 end
