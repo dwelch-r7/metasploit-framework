@@ -129,21 +129,11 @@ class MetasploitModule < Msf::Post
     creds = []
     cred = {}
     # parse and clean any users
-    users = line.scan(/\s+user(?:name)?\s+(\S+)/).flatten
-    unless users.empty?
-      cred[:users] = []
-      users.each do |user|
-        cred[:users] << user.gsub(/^"/, '').gsub(/"$/, '')
-      end
-    end
+    users = fetchmailrc_values(line, /user(?:name)?/)
+    cred[:users] = users unless users.empty?
     # parse and clean any passwords
-    passwords = line.scan(/\s+pass(?:word)?\s+(\S+)/).flatten
-    unless passwords.empty?
-      cred[:passwords] = []
-      passwords.each do |password|
-        cred[:passwords] << password.gsub(/^"/, '').gsub(/"$/, '')
-      end
-    end
+    passwords = fetchmailrc_values(line, /pass(?:word)?/)
+    cred[:passwords] = passwords unless passwords.empty?
     # parse any hosts, ports and protocols
     cred[:protocol] = ::Regexp.last_match(1) if (line =~ /\s+proto(?:col)?\s+(\S+)/)
     cred[:port] = ::Regexp.last_match(1) if (line =~ /\s+(?:port|service)\s+(\S+)/)
@@ -156,8 +146,10 @@ class MetasploitModule < Msf::Post
     # connecting to some SMTP server and sending it.  If ESMTP AUTH (RFC 2554) credentials
     # are specified, steal those too.
     cred = {}
-    cred[:users] = [ ::Regexp.last_match(1) ] if (line =~ /\s+esmtpname\s+(\S+)/)
-    cred[:passwords] = [ ::Regexp.last_match(1) ] if (line =~ /\s+esmtppassword\s+(\S+)/)
+    esmtp_user = fetchmailrc_values(line, /esmtpname/).first
+    esmtp_password = fetchmailrc_values(line, /esmtppassword/).first
+    cred[:users] = [esmtp_user] if esmtp_user
+    cred[:passwords] = [esmtp_password] if esmtp_password
     # XXX: what is the best way to get the host we are currently looting?  localhost is lame.
     cred[:host] = (line =~ /\s+smtphost\s+(\S+)/ ? ::Regexp.last_match(1) : 'localhost')
     cred[:protocol] = 'esmtp'
@@ -165,5 +157,18 @@ class MetasploitModule < Msf::Post
     creds << cred if cred[:users] && cred[:passwords] && cred[:host]
     # return all found credentials
     creds
+  end
+
+  def fetchmailrc_values(line, keyword)
+    quoted_string = /"[^"]*"|'[^']*'/
+    # Skip standalone quoted strings so their contents cannot become options.
+    # https://www.fetchmail.info/fetchmail-man.html#run-control-syntax
+    line.scan(/#{quoted_string}|\s+#{keyword}\s+(#{quoted_string}|\S+)/).flatten.compact.map do |value|
+      if value.start_with?('"', "'") && value.end_with?(value[0])
+        value[1...-1]
+      else
+        value
+      end
+    end
   end
 end
