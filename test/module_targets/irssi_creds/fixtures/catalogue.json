@@ -1,0 +1,48 @@
+{
+  "plain.config": {
+    "authenticated": true,
+    "password": "module-target-irc-password",
+    "sha256": "d21cf4417dcfc611896452dec791afe832a5f2ab3980fa3be1bb0bb60e4b4528",
+    "expected_passwords": [
+      "module-target-irc-password"
+    ]
+  },
+  "tabs.config": {
+    "authenticated": true,
+    "password": "module-target-irc-password",
+    "sha256": "ccd533747e782f406cf2b0ddf280787baecb53acc4928be2593c19eb8d886cf6",
+    "expected_passwords": [
+      "module-target-irc-password"
+    ]
+  },
+  "compact.config": {
+    "authenticated": true,
+    "password": "module-target-irc-password",
+    "sha256": "92e113e57e4c5d9a491c06019aa5d13028e7f079ce7ddd6a993c0d4b160805d1",
+    "expected_passwords": [
+      "module-target-irc-password"
+    ]
+  },
+  "wrong.config": {
+    "authenticated": false,
+    "password": null,
+    "sha256": "5d5eab2759a8b413aea343ffa4ec4d828b55f3f7dac964f36e7094ab39a38f56",
+    "expected_passwords": [
+      "module-target-wrong-password"
+    ]
+  },
+  "missing-password.config": {
+    "authenticated": false,
+    "password": null,
+    "sha256": "a80fdef4a115c4552f6f9aa8b1872dc1ee321f7c8ed806fec40f4bb8afe6673e",
+    "expected_passwords": []
+  },
+  "commented.config": {
+    "authenticated": false,
+    "password": null,
+    "sha256": "ce42edf3af14fda67b833236ef91a90c69c774db4c39240407fa7bb8c54ab73a",
+    "expected_passwords": [
+      "module-target-comment-password"
+    ]
+  }
+}

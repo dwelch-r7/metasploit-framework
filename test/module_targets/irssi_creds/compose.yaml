@@ -1,0 +1,46 @@
+{
+  "services": {
+    "linux": {
+      "platform": "linux/amd64",
+      "build": ".",
+      "hostname": "module-target-irssi",
+      "volumes": [
+        "./fixtures:/opt/irssi-fixtures:ro",
+        "./fixture_native.py:/opt/irssi-fixture-native.py:ro",
+        "./native_probe.py:/opt/irssi-native.py:ro",
+        "./case_state.py:/opt/irssi-case-state.py:ro",
+        "../linux_post/launch_session.py:/opt/launch_session.py:ro"
+      ],
+      "ports": [
+        "127.0.0.1::6667"
+      ],
+      "cpus": 0.5,
+      "mem_limit": "512m",
+      "memswap_limit": "512m",
+      "pids_limit": 128,
+      "init": true,
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "python3",
+          "-c",
+          "import socket;s=socket.create_connection((\"127.0.0.1\",6667),2);s.close()"
+        ],
+        "interval": "3s",
+        "timeout": "4s",
+        "retries": 40
+      }
+    },
+    "reporting_db": {
+      "platform": "linux/amd64",
+      "extends": {
+        "file": "../elasticsearch_memory/services.yaml",
+        "service": "db"
+      }
+    }
+  },
+  "networks": {
+    "default": {},
+    "public": {}
+  }
+}

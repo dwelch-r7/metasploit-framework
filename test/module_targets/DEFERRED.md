@@ -4,6 +4,20 @@ These findings do not count as passing functional qualification. The
 [campaign](CAMPAIGN.md) and individual verification records retain other
 coverage limits and ongoing investigations.
 
+## Irssi remaining authentication and platform scope
+
+The [Irssi checkpoint](VERIFICATION-20261118-irssi-creds.md) repairs native-proven
+tab/compact password-assignment omissions and guards nullable session reads.
+Seven Linux/amd64 shell cases cover raw collection, ordinary-user access, an
+existing unreadable file, password-free content and repeat. Genuine IRC services
+for NickServ remain a separate prerequisite; compatibility unit strings do not
+qualify that authentication path. Other platforms/architectures/releases,
+additional quoting/escaping/spacing/case/multiple-server grammar, inline owning
+collection, absent-home owning calls and transport loss remain unqualified.
+Commented or invalid password text is intentionally retained as raw evidence;
+it does not establish active authentication or successful-login reporting.
+Initial nickname and denial-observer failures are preserved as setup failures.
+
 ## Fetchmail remaining grammar and platform scope
 
 The [Fetchmail checkpoint](VERIFICATION-20261118-fetchmailrc-creds.md) repairs

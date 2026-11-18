@@ -1,6 +1,18 @@
 # Container module acceptance tests
 
-Latest: [Fetchmail credential collection and quote repair](VERIFICATION-20261118-fetchmailrc-creds.md)
+Latest: [Irssi configuration collection and whitespace repair](VERIFICATION-20261118-irssi-creds.md)
+adds one owner, one qualified profile and seven cases, reaching **288 runtime owners
+in covered paths, 582 qualified profiles and 4,053 historical functional cases**.
+Native-working tab/compact assignments now collect exact raw configurations;
+an unchanged four-case owner-only replay proves the repair. Eight actual calls
+use seven genuine root/ordinary shells and save six raw loot files. Real Irssi
+PTY/rawlog authentication, permissions, repeats and all selected-state recovery
+pass with 31 native client invocations. Commented secrets remain raw evidence,
+without successful-login claims; NickServ remains unqualified. Both capped
+containers and attached objects are removed. The campaign remains active; no PR
+is created.
+
+Previous: [Fetchmail credential collection and quote repair](VERIFICATION-20261118-fetchmailrc-creds.md)
 adds one owner, one qualified profile and ten cases, reaching **287 runtime owners
 in covered paths, 581 qualified profiles and 4,046 historical functional cases**.
 A genuine quoted-password truncation is repaired with an unchanged two-case

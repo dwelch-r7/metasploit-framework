@@ -1,0 +1,51 @@
+{
+  "spec": "spec/modules/post/multi/gather/irssi_creds_target_spec.rb",
+  "expected_examples": 7,
+  "console": false,
+  "health_timeout": 180,
+  "test_timeout": 900,
+  "modules": [
+    "post/multi/gather/irssi_creds"
+  ],
+  "ports": {
+    "linux": 6667,
+    "reporting_db": 5432
+  },
+  "support_files": [
+    ".ruby-gemset",
+    ".ruby-version",
+    "Gemfile",
+    "Gemfile.lock",
+    "lib/msf/base/sessions/command_shell.rb",
+    "lib/msf/core/db_manager/cred.rb",
+    "lib/msf/core/encoded_payload.rb",
+    "lib/msf/core/handler/reverse.rb",
+    "lib/msf/core/handler/reverse_tcp.rb",
+    "lib/msf/core/post.rb",
+    "lib/msf/core/post/file.rb",
+    "lib/msf/core/post/unix.rb",
+    "lib/msf/core/session.rb",
+    "metasploit-framework.gemspec",
+    "modules/exploits/multi/handler.rb",
+    "modules/payloads/singles/linux/x64/shell_reverse_tcp.rb",
+    "msfconsole",
+    "spec/acceptance_spec_helper.rb",
+    "spec/spec_helper.rb",
+    "spec/support/acceptance/child_process.rb",
+    "spec/support/acceptance/datastore_formatting.rb",
+    "spec/support/acceptance/module_target.rb",
+    "test/module_targets/druid_sessions/session_control.rb",
+    "test/module_targets/elasticsearch_memory/init.sql",
+    "test/module_targets/elasticsearch_memory/services.yaml",
+    "test/module_targets/linux_post/launch_session.py",
+    "test/module_targets/rsync_creds/native.rb",
+    "spec/modules/post/multi/gather/irssi_creds_spec.rb",
+    "spec/file_fixtures/modules/post/multi/gather/irssi_creds/catalogue.json",
+    "spec/file_fixtures/modules/post/multi/gather/irssi_creds/commented.config",
+    "spec/file_fixtures/modules/post/multi/gather/irssi_creds/compact.config",
+    "spec/file_fixtures/modules/post/multi/gather/irssi_creds/missing-password.config",
+    "spec/file_fixtures/modules/post/multi/gather/irssi_creds/plain.config",
+    "spec/file_fixtures/modules/post/multi/gather/irssi_creds/tabs.config",
+    "spec/file_fixtures/modules/post/multi/gather/irssi_creds/wrong.config"
+  ]
+}
