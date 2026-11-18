@@ -12,6 +12,12 @@ without successful-login claims; NickServ remains unqualified. Both capped
 containers and attached objects are removed. The campaign remains active; no PR
 is created.
 
+CI provenance: the [acceptance checkout repair](VERIFICATION-20261118-acceptance-checkout.md)
+pins SMB/Meterpreter test and report checkouts to the triggering Framework source.
+An original green SMB job and failed Mettle job both executed upstream master,
+so their workflow heads do not establish branch validation. External callers'
+defaults are preserved; static verification adds no functional qualification.
+
 Previous: [Fetchmail credential collection and quote repair](VERIFICATION-20261118-fetchmailrc-creds.md)
 adds one owner, one qualified profile and ten cases, reaching **287 runtime owners
 in covered paths, 581 qualified profiles and 4,046 historical functional cases**.

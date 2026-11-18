@@ -4,6 +4,17 @@ These findings do not count as passing functional qualification. The
 [campaign](CAMPAIGN.md) and individual verification records retain other
 coverage limits and ongoing investigations.
 
+## Acceptance search setup stall and source provenance
+
+The [acceptance checkout investigation](VERIFICATION-20261118-acceptance-checkout.md)
+records a Linux Mettle HTTP/base64 `post/test/search` setup timeout: 51 examples,
+one failure on actual upstream Framework `4f30a91e239b3cd3de5a7810b5dc28cd5586c1e4`.
+The underlying filesystem/transport stall remains unverified and is not a pgpass
+owner result. A green SMB job also checked out that upstream revision. Both
+attempts remain intact. The source-selection repair preserves external caller
+defaults; subsequent CI must prove its actual checkout before branch validation
+is claimed. Static checkout cases add no module qualification.
+
 ## Irssi remaining authentication and platform scope
 
 The [Irssi checkpoint](VERIFICATION-20261118-irssi-creds.md) repairs native-proven
