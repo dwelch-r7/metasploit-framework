@@ -4,6 +4,20 @@ These findings do not count as passing functional qualification. The
 [campaign](CAMPAIGN.md) and individual verification records retain other
 coverage limits and ongoing investigations.
 
+## Selenium execution versions, browser paths and artifact recovery
+
+The [Selenium checkpoint](VERIFICATION-20261118-selenium-greed.md) qualifies five
+Grid 4.27.0 / Firefox 133.0.3 Linux/amd64 cases and repairs a native-proven browser
+leak with a strict 31-input owner-only replay. Six genuine sessions across three
+payload families operate and exit cleanly; repeated console configurations and
+invalid-timeout rejection pass. Firefox's seven downloaded handler scripts are
+removed by explicit exact-hash harness recovery. Production automatic removal
+of those scripts is not established, and repeats include that recovery between
+calls. Other releases, Chrome/Selenoid, authentication, architectures/platforms,
+transport loss and forced cleanup remain unqualified. Three pre-existing owner
+lint offenses remain. MIME/archive-reader/FileDropper/callback-helper failures
+are preserved separately and add no qualification. Human Scenarios are unchanged.
+
 ## GnuPG remaining versions, platforms and native boundaries
 
 The [GnuPG checkpoint](VERIFICATION-20261118-gpg-creds.md) repairs native-proven
@@ -53,7 +67,12 @@ these successes do not establish the earlier timeout causes. Another
 preserved upstream run has 46 examples,
 one macOS HTTPS/minimal-profile `post/test/cmd_exec` single-quoted echo failure;
 actual mismatched bytes and root cause remain unverified. It does not establish
-a Fetchmail defect. CI provenance cases add no module qualification.
+a Fetchmail defect. The GnuPG checkpoint's actual fork/SHA Mettle run later has Linux 51/two
+failures and one outside error: reverse-HTTP/base64 file operations stall at
+symbolic-link directory recursion, followed by console-reset/get_env failures.
+macOS passes 46/0. Its underlying cause also remains unverified; these examples
+do not invoke the GPG collection owner. Full test/report logs are retained.
+CI provenance cases add no module qualification.
 
 ## Irssi remaining service, grammar and platform scope
 

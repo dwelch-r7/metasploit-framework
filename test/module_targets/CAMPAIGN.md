@@ -13,8 +13,9 @@ the author's Framework fork without creating a pull request.
 
 ## Local execution limit
 
-The current campaign runs one test Compose project at a time, with at most five
-running test containers including Framework and helpers. Builds, native smoke
+The current campaign runs one test Compose project at a time, normally with at
+most three running test containers including Framework and helpers. The current
+Selenium execution profile uses one capped target and a host console. Builds, native smoke
 projects and cold console starts share the same serial queue. Confirm the prior
 project is down before starting another. Larger profiles must be split into
 sequential releases/scenarios or remain queued; the resource limit is not evidence
@@ -23,8 +24,9 @@ may run on the development host. Remove unrelated containers before starting;
 preserve their images and volumes unless separately requested.
 
 Use `tools/dev/run_guarded_module_target_tests.rb` for subsequent local runs.
-Its user-scoped advisory lock spans worktrees and teardown, and its merged
-Compose preflight refuses more than five containers or any existing container.
+Its user-scoped advisory lock spans worktrees and teardown. Its existing hard
+Compose preflight cap remains five containers and refuses any existing container;
+the current operational policy above is tighter.
 Resource refusals carry no module verdict. The original runner and manual/native
 launchers remain outside the lock and require the same serial coordination.
 The guard counts all resolved services conservatively and does not impose CPU
@@ -1473,3 +1475,14 @@ failure remain sealed separately from the focused source repair. Every selected
 stack and volume is removed; Docker is empty. See [the qualification](VERIFICATION-20261115-simple-backup.md)
 for exact inputs, limits and original/final evidence. Older families retain frozen
 inputs; broader feasibility review and standing investigations remain open.
+
+
+The [Selenium execution checkpoint](VERIFICATION-20261118-selenium-greed.md)
+qualifies five Firefox/Grid cases and reaches **291 runtime owners in covered
+paths, 586 profiles and 4,083 historical functional cases**. A fresh same-engine
+31-input owner-only replay proves browser cleanup repair. Six genuine sessions
+cover three payload families and repeats; explicit harness recovery of downloaded
+handler scripts is disclosed. Native browser/handler controls, invalid-timeout
+rejection and all selected recovery pass with one capped container. Other browser
+paths and production automatic handler-script removal remain unqualified. The
+broader campaign remains active and no PR is created.

@@ -1,6 +1,19 @@
 # Container module acceptance tests
 
-Latest: [GnuPG collection and home-path repair](VERIFICATION-20261118-gpg-creds.md)
+Latest: [Selenium Firefox execution and browser cleanup](VERIFICATION-20261118-selenium-greed.md)
+adds one owner, one profile and five cases, reaching **291 runtime owners in covered
+paths, 586 qualified profiles and 4,083 historical functional cases**. Independent
+browser/handler controls prove a browser leak despite successful code execution;
+a same-engine 31-input owner-only replay repairs it. Seven successful executions
+include six genuine Python Meterpreter, command-shell and Linux fetch Meterpreter
+sessions. Three repeated console configurations, timeout rejection and all
+selected file/process/browser recovery pass. Seven downloaded handler scripts
+are explicitly recovered by the harness. One capped container and its network
+are removed, leaving both Docker contexts empty. Owner lint retains three old
+offenses; the prior GPG head retains an unresolved Linux Mettle CI timeout.
+The broader campaign remains active; no PR is created.
+
+Previous: [GnuPG collection and home-path repair](VERIFICATION-20261118-gpg-creds.md)
 adds one owner, one profile and ten cases, reaching **290 runtime owners in covered
 paths, 585 qualified profiles and 4,078 historical functional cases**. Native
 GnuPG signing/verification and protected-key controls prove a space-home defect
