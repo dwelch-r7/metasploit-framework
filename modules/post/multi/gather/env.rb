@@ -93,8 +93,7 @@ class MetasploitModule < Msf::Post
     else
       # Don't know what it is, hope it's unix
       print_status("Executing 'env' on #{sysinfo['OS']}")
-      chan = session.sys.process.execute('/bin/sh', '-c env', { 'Channelized' => true })
-      return chan.read
+      return create_process('/bin/sh', args: ['-c', 'env'])
     end
   end
 end
