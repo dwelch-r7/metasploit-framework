@@ -13,8 +13,8 @@ class GuardedModuleTargetTests < ModuleTargetTests
 
   class ResourceRefusal < StandardError; end
 
-  def initialize(lock_path: LOCK_PATH)
-    super()
+  def initialize(lock_path: LOCK_PATH, namespace: ENV['MODULE_TARGET_NAMESPACE'])
+    super(namespace: namespace)
     @lock_path = lock_path
   end
 
@@ -65,7 +65,9 @@ class GuardedModuleTargetTests < ModuleTargetTests
   def existing_containers!
     FileUtils.mkdir_p(@results)
     output = +''
-    passed = command(['docker', 'ps', '--all', '--quiet', '--no-trunc'], path: File.join(@results, 'resource-inventory.log'), timeout: 30, capture: output, quiet: true)
+    inventory = ['docker', 'ps', '--all', '--quiet', '--no-trunc']
+    inventory += ['--filter', "label=#{NAMESPACE_LABEL}=#{@namespace}"] if @namespace
+    passed = command(inventory, path: File.join(@results, 'resource-inventory.log'), timeout: 30, capture: output, quiet: true)
     raise ResourceRefusal, 'Container inventory failed; startup is unsafe' unless passed
 
     identifiers = output.lines.map(&:strip).reject(&:empty?)
@@ -96,7 +98,7 @@ class GuardedModuleTargetTests < ModuleTargetTests
     raise ResourceRefusal, "Manifest for #{family} is not a mapping" unless manifest.is_a?(Hash)
 
     directory = File.join(@results, family)
-    compose = ['docker', 'compose', '--project-name', "msf-target-#{@run_id.downcase}-#{family}", '--file', File.join(TARGETS, family, 'compose.yaml')]
+    compose = ['docker', 'compose', '--project-name', compose_project_name(family), '--file', File.join(TARGETS, family, 'compose.yaml')]
     environment = {}
     if manifest['console']
       environment = {
@@ -106,6 +108,7 @@ class GuardedModuleTargetTests < ModuleTargetTests
       }
       compose += ['--file', File.join(TARGETS, 'framework.compose.yaml')]
     end
+    compose = namespaced_compose(compose, directory, env: environment)
     preview = File.join(@results, 'resource-guard')
     FileUtils.mkdir_p(preview)
     resolved = File.join(preview, "#{family}.json")
@@ -119,7 +122,7 @@ class GuardedModuleTargetTests < ModuleTargetTests
     raise ResourceRefusal, "#{family} resolves to #{plan[:containers]} containers; limit is #{MAX_CONTAINERS}" if plan[:containers] > MAX_CONTAINERS
 
     existing_containers!
-  rescue JSON::ParserError, Psych::Exception, SystemCallError, IOError, Timeout::Error => e
+  rescue JSON::ParserError, Psych::Exception, SystemCallError, IOError, Timeout::Error, ArgumentError => e
     raise ResourceRefusal, "Invalid preflight for #{family}: #{e.message}"
   end
 
@@ -171,4 +174,11 @@ class GuardedModuleTargetTests < ModuleTargetTests
   end
 end
 
-exit GuardedModuleTargetTests.new.run(ARGV) if $PROGRAM_NAME == __FILE__
+if $PROGRAM_NAME == __FILE__
+  begin
+    exit GuardedModuleTargetTests.new.run(ARGV)
+  rescue ArgumentError => e
+    warn e.message
+    exit 2
+  end
+end

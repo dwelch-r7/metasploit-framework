@@ -15,6 +15,7 @@ require 'yaml'
 class ModuleTargetTests
   ROOT = File.expand_path('../..', __dir__)
   TARGETS = File.join(ROOT, 'test/module_targets')
+  NAMESPACE_LABEL = 'org.metasploit.module-targets.namespace'
   # The canonical Dockerfile's dependency-stage inputs plus the files its final
   # build steps require. Runtime source comes from the read-only worktree mount,
   # so editing a test/module does not rebuild or chown the entire Framework tree.
@@ -24,7 +25,13 @@ class ModuleTargetTests
     docker/entrypoint.sh docker/database.yml docker/msfconsole.rc docker/remove_distrusted_cas.rb
   ].freeze
 
-  def initialize
+  def initialize(namespace: ENV['MODULE_TARGET_NAMESPACE'])
+    namespace = nil if namespace == ''
+    if namespace && (!namespace.is_a?(String) || !namespace.match?(/\A[a-z0-9](?:[a-z0-9-]{0,30}[a-z0-9])?\z/))
+      raise ArgumentError, 'MODULE_TARGET_NAMESPACE must contain 1-32 lowercase letters, digits or hyphens and start and end with a letter or digit'
+    end
+
+    @namespace = namespace&.dup&.freeze
     @run_id = "#{Time.now.utc.strftime('%Y%m%dT%H%M%S')}-#{SecureRandom.hex(3)}"
     @results = File.join(ROOT, 'tmp/module-target-tests', @run_id)
   end
@@ -51,6 +58,31 @@ class ModuleTargetTests
   end
 
   private
+
+  def compose_project_name(family)
+    "msf-target-#{[@namespace, @run_id.downcase, family].compact.join('-')}"
+  end
+
+  # Label every resolved service, including database and Framework helpers.
+  # The override only adds ownership metadata; Compose merges the base settings.
+  def namespaced_compose(compose, directory, env: {})
+    return compose unless @namespace
+
+    FileUtils.mkdir_p(directory)
+    resolved = File.join(directory, 'namespace-config.json')
+    passed = command(compose + ['config', '--format', 'json', '--output', resolved], path: File.join(directory, 'namespace-config.log'), env: env, timeout: 30, quiet: true)
+    raise ArgumentError, 'Could not resolve Compose services for namespace labels' unless passed
+
+    definition = JSON.parse(File.read(resolved))
+    services = definition['services'] if definition.is_a?(Hash)
+    raise ArgumentError, 'Namespace labels require a nonempty Compose services mapping' unless services.is_a?(Hash) && !services.empty?
+
+    labels = { NAMESPACE_LABEL => @namespace, 'org.metasploit.module-targets.run' => @run_id }
+    override = { 'services' => services.keys.to_h { |service| [service, { 'labels' => labels }] } }
+    path = File.join(directory, 'namespace.compose.json')
+    File.write(path, JSON.pretty_generate(override))
+    compose + ['--file', path]
+  end
 
   def command(argv, path:, env: {}, timeout: 180, capture: nil, quiet: false)
     File.open(path, 'a') do |log|
@@ -130,8 +162,9 @@ class ModuleTargetTests
   def run_family(family)
     directory = File.join(@results, family)
     FileUtils.mkdir_p(directory)
-    compose = ['docker', 'compose', '--project-name', "msf-target-#{@run_id.downcase}-#{family}", '--file', File.join(TARGETS, family, 'compose.yaml')]
+    compose = ['docker', 'compose', '--project-name', compose_project_name(family), '--file', File.join(TARGETS, family, 'compose.yaml')]
     result = { family: family, status: 'setup_failed', started_at: Time.now.utc.iso8601 }
+    result[:namespace] = @namespace if @namespace
     begin
       manifest = YAML.safe_load_file(File.join(TARGETS, family, 'manifest.yml'))
       health_timeout = manifest.fetch('health_timeout', 120)
@@ -162,6 +195,7 @@ class ModuleTargetTests
         ENV['MODULE_TARGET_BUILD_CONTEXT'] = prepare_console_context(directory)
         compose += ['--file', File.join(TARGETS, 'framework.compose.yaml')]
       end
+      compose = namespaced_compose(compose, directory)
       result[:inputs_sha256] = input_digests(family, manifest)
       File.write(File.join(directory, 'compose.yaml'), compose_output(compose, 'config'))
       revision, = Open3.capture2('git', 'rev-parse', 'HEAD', chdir: ROOT)
@@ -318,4 +352,11 @@ class ModuleTargetTests
   end
 end
 
-exit ModuleTargetTests.new.run(ARGV) if $PROGRAM_NAME == __FILE__
+if $PROGRAM_NAME == __FILE__
+  begin
+    exit ModuleTargetTests.new.run(ARGV)
+  rescue ArgumentError => e
+    warn e.message
+    exit 2
+  end
+end

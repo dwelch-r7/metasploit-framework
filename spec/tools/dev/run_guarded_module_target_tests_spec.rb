@@ -2,6 +2,73 @@ require 'rspec'
 require 'tmpdir'
 require_relative '../../../tools/dev/run_guarded_module_target_tests'
 
+RSpec.shared_examples 'namespaced module target ownership' do
+  context 'with an explicit task namespace' do
+    let(:runner) { described_class.new(lock_path: lock_path, namespace: 'task-alpha') }
+
+    it 'scopes container inventory to its ownership label' do
+      expect(runner.run(['alpha'])).to eq(0)
+      inventories = calls.select { |call| call[:argv][0, 2] == ['docker', 'ps'] }
+
+      expect(inventories.map { |call| call[:argv] }.uniq).to eq([['docker', 'ps', '--all', '--quiet', '--no-trunc', '--filter', 'label=org.metasploit.module-targets.namespace=task-alpha']])
+    end
+
+    it 'keeps startup and cleanup in the same namespaced project' do
+      runner.run(['alpha'])
+      lifecycle = calls.select { |call| (call[:argv] & %w[up down]).any? }
+      projects = lifecycle.map { |call| call[:argv].fetch(call[:argv].index('--project-name') + 1) }
+
+      expect(projects).to match([a_string_starting_with('msf-target-task-alpha-'), projects.first])
+    end
+
+    it 'labels every resolved service including private helpers' do
+      family('alpha', console: true)
+      runner.run(['alpha'])
+      path = File.join(runner.instance_variable_get(:@results), 'alpha', 'namespace.compose.json')
+      services = JSON.parse(File.read(path)).fetch('services')
+
+      expect(services.transform_values { |service| service.fetch('labels').fetch('org.metasploit.module-targets.namespace') }).to eq(
+        'metadata' => 'task-alpha', 'zookeeper' => 'task-alpha', 'app' => 'task-alpha', 'gateway' => 'task-alpha', 'framework' => 'task-alpha'
+      )
+    end
+
+    context 'with an existing owned container' do
+      let(:inventory) { "#{'a' * 64}\n" }
+
+      it 'refuses startup and leaves cleanup to its owner' do
+        expect(runner.run(['alpha'])).to eq(1)
+        expect_no_start_or_cleanup
+      end
+    end
+
+    context 'when namespace service resolution fails' do
+      let(:preflight_success) { false }
+
+      it 'records a refusal without invoking startup or cleanup' do
+        expect(runner.run(['alpha'])).to eq(1)
+        expect(results.first).to include('status' => 'setup_resource_refused', 'module_verdict' => nil)
+        expect_no_start_or_cleanup
+      end
+    end
+  end
+
+  it 'rejects namespaces containing paths before inspecting Docker' do
+    expect { described_class.new(lock_path: lock_path, namespace: '../other-task') }.to raise_error(ArgumentError, /MODULE_TARGET_NAMESPACE/)
+  end
+
+  it 'rejects namespaces exceeding the length bound' do
+    expect { described_class.new(lock_path: lock_path, namespace: 'a' * 33) }.to raise_error(ArgumentError, /MODULE_TARGET_NAMESPACE/)
+  end
+
+  it 'keeps its ownership identity when the supplied string changes' do
+    namespace = String.new('task-original')
+    instance = described_class.new(lock_path: lock_path, namespace: namespace)
+    namespace.replace('task-changed')
+
+    expect(instance.send(:compose_project_name, 'alpha')).to start_with('msf-target-task-original-')
+  end
+end
+
 RSpec.describe GuardedModuleTargetTests do
   let(:lock_path) { File.join(@directory, 'shared', 'runner.lock') }
   let(:runner) { described_class.new(lock_path: lock_path) }
@@ -126,6 +193,8 @@ RSpec.describe GuardedModuleTargetTests do
     )
     expect_lock_released
   end
+
+  include_examples 'namespaced module target ownership'
 
   it 'keeps the lock across sequential cleanup and ordinary metadata reuse' do
     family('alpha', console: true)

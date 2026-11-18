@@ -1,5 +1,11 @@
 # Container module acceptance tests
 
+Runner ownership: [namespaced isolation](VERIFICATION-20261118-namespaces.md)
+passes 53 guard/network cases and a real 5/0 module replay beside a protected
+sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
+checks that preserve unrelated containers. Only created projects are cleaned up.
+The module qualification totals below are unchanged.
+
 Latest: [BentoML sessions and Python stager recovery](VERIFICATION-20261118-bentoml.md)
 adds two owners and four qualified profiles, passing 44/0 with 24 real sessions.
 Three BentoML targets and the earlier pgAdmin staged diagnostic reach **295
@@ -990,11 +996,22 @@ command and the shared guarded selector. Its manifest uses
 its two-network gateway. Unopted families retain the single-network rule.
 
 Use the guarded launcher for local campaign runs. It holds one user-scoped lock
-across worktrees until tests and teardown finish, requires an empty container
-inventory before startup, and refuses a resolved Compose plan exceeding five
-containers including Framework and helpers. A refusal records
-`setup_resource_refused` with no module verdict; it does not start or remove
-containers. Handle existing containers explicitly before retrying.
+across worktrees until tests and teardown finish, and refuses a resolved Compose
+plan exceeding five containers including Framework and helpers. By default its
+startup check requires an empty container inventory. To preserve unrelated Docker
+workloads, choose a unique namespace for your own task:
+
+```sh
+MODULE_TARGET_NAMESPACE=my-module-tests bundle exec ruby tools/dev/run_guarded_module_target_tests.rb redis
+```
+
+Namespaced projects include that identifier and a fresh run ID. Every resolved
+service, including private database and Framework helpers, receives the exact
+`org.metasploit.module-targets.namespace` ownership label and a run label. The
+startup guard then checks only that namespace for lingering containers. Cleanup
+uses the fresh Compose project; differently labelled and unlabelled containers
+are untouched. A refusal records `setup_resource_refused` with no module verdict
+and starts or removes no containers. Handle only containers you own before retrying.
 
 The guard counts every resolved service conservatively, including disabled
 profiles and zero replicas. Larger historical profiles need to be split before
