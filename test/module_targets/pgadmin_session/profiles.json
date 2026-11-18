@@ -1,0 +1,26 @@
+{
+  "8.3": {
+    "index_digest": "sha256:f1460b121383a5d61c20867ecd42535d4aabb385d32685b0e0845367ab9b86c4",
+    "image": "dpage/pgadmin4:8.3@sha256:e236e46939f471c74f79af34635052b5cb8851798eb8927ebf339f8e736952f1",
+    "manifest_digest": "sha256:e236e46939f471c74f79af34635052b5cb8851798eb8927ebf339f8e736952f1",
+    "expected_config_id": "sha256:a0786aa69feb7771fdc5f1d7392a846bd37c452f7b093ef9858989f5a125ccf3",
+    "platform": "linux/amd64",
+    "sources": {
+      "pgadmin/utils/session.py": "d44b729740a208ef13a9ed47d5f5d3cb8d99030f676728da91bc1e84d2bbd505",
+      "pgadmin/misc/file_manager/__init__.py": "f660c8bac5cf9b0005c34c9b4dc2f8c4985834a36542cde60822a6189773ecfb"
+    },
+    "upstream_commit": "c92e9c2953a7d18447e0b10a8f5454232531707c"
+  },
+  "8.4": {
+    "index_digest": "sha256:18cd5711fc9a7ed633a5c4b2b1a8f3e969d9262a94b8166c79fe0bba52697788",
+    "image": "dpage/pgadmin4:8.4@sha256:342bf8d699e7566eb8feeec34426876694a65433cd1ac85ae56ca3cf89d8fa06",
+    "manifest_digest": "sha256:342bf8d699e7566eb8feeec34426876694a65433cd1ac85ae56ca3cf89d8fa06",
+    "expected_config_id": "sha256:3158f8135bcd1a5712b9a5f3e1193a919237a8db9d3359e52300b96f1abe11cb",
+    "platform": "linux/amd64",
+    "sources": {
+      "pgadmin/utils/session.py": "14d076fc852c088165412d752a1c220bfd81eb23a753a867c46339de0af0de75",
+      "pgadmin/misc/file_manager/__init__.py": "f660c8bac5cf9b0005c34c9b4dc2f8c4985834a36542cde60822a6189773ecfb"
+    },
+    "upstream_commit": "8b130b335159953c2ecbdfb8d88856be37493c1a"
+  }
+}

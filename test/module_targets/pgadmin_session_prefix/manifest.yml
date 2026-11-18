@@ -1,0 +1,59 @@
+{
+  "spec": "spec/modules/exploits/multi/http/pgadmin_session_target_spec.rb",
+  "expected_examples": 9,
+  "console": false,
+  "health_timeout": 210,
+  "test_timeout": 420,
+  "modules": [
+    "exploit/multi/http/pgadmin_session_deserialization"
+  ],
+  "ports": {
+    "app": 80
+  },
+  "test_env": {
+    "PGADMIN_SESSION_RELEASE": "8.3",
+    "PGADMIN_SESSION_PREFIX": "/pgadmin",
+    "PGADMIN_SESSION_FAMILIES": "single,shell"
+  },
+  "support_files": [
+    ".ruby-gemset",
+    ".ruby-version",
+    "Gemfile",
+    "Gemfile.lock",
+    "data/meterpreter/python/met_aes.py",
+    "data/meterpreter/python/met_rsa.py",
+    "documentation/modules/exploit/multi/http/pgadmin_session_deserialization.md",
+    "lib/msf/base/sessions/command_shell.rb",
+    "lib/msf/base/sessions/meterpreter.rb",
+    "lib/msf/base/sessions/meterpreter_python.rb",
+    "lib/msf/base/simple/exploit.rb",
+    "lib/msf/core/encoded_payload.rb",
+    "lib/msf/core/exploit/pgadmin.rb",
+    "lib/msf/core/exploit/remote/auto_check.rb",
+    "lib/msf/core/exploit/remote/http_client.rb",
+    "lib/msf/core/exploit_driver.rb",
+    "lib/msf/core/handler/reverse_tcp.rb",
+    "lib/msf/core/payload/python.rb",
+    "lib/msf/core/payload/python/meterpreter_loader.rb",
+    "lib/msf/core/payload/python/reverse_tcp.rb",
+    "lib/msf/util/python_deserialization.rb",
+    "metasploit-framework.gemspec",
+    "modules/payloads/singles/python/exec.rb",
+    "modules/payloads/singles/python/meterpreter_reverse_tcp.rb",
+    "modules/payloads/singles/python/shell_reverse_tcp.rb",
+    "modules/payloads/stagers/python/reverse_tcp.rb",
+    "modules/payloads/stages/python/meterpreter.rb",
+    "msfconsole",
+    "spec/acceptance_spec_helper.rb",
+    "spec/spec_helper.rb",
+    "spec/support/acceptance/datastore_formatting.rb",
+    "test/module_targets/druid_sessions/session_control.rb",
+    "test/module_targets/pgadmin_session/README.md",
+    "test/module_targets/pgadmin_session/compose.yaml",
+    "test/module_targets/pgadmin_session/native.rb",
+    "test/module_targets/pgadmin_session/native_control.py",
+    "test/module_targets/pgadmin_session/profiles.json",
+    "test/module_targets/pgadmin_session/session.rb",
+    "test/module_targets/rsync_creds/native.rb"
+  ]
+}

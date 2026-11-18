@@ -1,0 +1,40 @@
+{
+  "services": {
+    "app": {
+      "image": "dpage/pgadmin4:8.3@sha256:e236e46939f471c74f79af34635052b5cb8851798eb8927ebf339f8e736952f1",
+      "platform": "linux/amd64",
+      "environment": {
+        "PGADMIN_DEFAULT_EMAIL": "module-admin@example.com",
+        "PGADMIN_DEFAULT_PASSWORD": "module-target-password",
+        "PGADMIN_DISABLE_POSTFIX": "1",
+        "GUNICORN_THREADS": "4",
+        "PGADMIN_CONFIG_STORAGE_DIR": "'/var/lib/pgadmin/Spaced caf\u00e9 storage'"
+      },
+      "ports": [
+        "127.0.0.1::80"
+      ],
+      "volumes": [
+        "pgadmin:/var/lib/pgadmin"
+      ],
+      "cpus": 1.0,
+      "mem_limit": "512m",
+      "memswap_limit": "512m",
+      "pids_limit": 128,
+      "init": true,
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "/venv/bin/python3",
+          "-c",
+          "import urllib.request;response=urllib.request.urlopen('http://127.0.0.1/login',timeout=4);assert response.status==200 and b'pgAdmin 4' in response.read()"
+        ],
+        "interval": "3s",
+        "timeout": "5s",
+        "retries": 60
+      }
+    }
+  },
+  "volumes": {
+    "pgadmin": {}
+  }
+}

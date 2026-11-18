@@ -4,6 +4,44 @@ These findings do not count as passing functional qualification. The
 [campaign](CAMPAIGN.md) and individual verification records retain other
 coverage limits and ongoing investigations.
 
+## pgAdmin staged Python Meterpreter recovery
+
+The [pgAdmin checkpoint](VERIFICATION-20261118-pgadmin-session.md) retains
+`pgadmin_session_meterpreter` as a strict, unqualified diagnostic. Run
+`bundle exec ruby tools/dev/run_guarded_module_target_tests.rb pgadmin_session_meterpreter`
+separately from the passing-path qualification command. Its RSpec phase has a
+240-second bound; setup and teardown have separate limits.
+
+Diagnostic `20261118T100318-0de573` finishes **9/2**. Both staged and inline
+Meterpreter open twice and perform real file operations with independently
+verified exact bytes/UID5050 and unchanged channel sets. Inline execution and
+socket recovery pass. Both staged cases retain target sockets in CLOSE_WAIT
+past fifteen seconds after the public session termination API closes the local
+peer. All native before/after controls pass; twelve resource-event captures
+remain zero and the container, data volume and network are independently removed.
+
+The earlier 29/9 aggregate distinguishes an inline EXPORTED_SYMBOLS error from
+staged closure failures and a prefix-login error. A helper-only 49-input replay
+changes local termination order but still finishes 11/4: staged socket state
+changes from ESTABLISHED to CLOSE_WAIT. The separate namespace repair restores
+inline execution and recovery in the 9/2 diagnostic. Do not describe that as a
+staged transport repair or weaken the socket assertion.
+
+Exact installed Python Meterpreter 2.0.257 source has no explicit normal-shutdown
+transport deactivation: `_core_shutdown` stops its loop and `run()` returns.
+Bound methods and stage globals provide retention cycles, but remote handler
+execution and the live retention cause remain unproven. TCP shutdown is
+send-and-forget. Successful stock `/login` healthchecks already occur every three
+seconds; more health traffic is not an established garbage-collection remedy.
+No worker PID is forcibly signalled and no garbage collection is injected.
+The smallest next discriminator is a bounded shutdown response captured before
+normal local close, followed by independent socket-state observation.
+
+Windows authenticated and UNC/SMB loading, other releases/architectures, TLS,
+real proxies and transport loss remain unqualified. The Python helper's other
+BentoML, Taiga and InvokeAI callers are not qualified by this repair alone.
+
+
 ## Backup Migration staged PHP and remaining paths
 
 The [Backup Migration checkpoint](VERIFICATION-20261118-backup-migration.md)
@@ -36,6 +74,14 @@ Mettle acceptance timeout during `post/test/file` recursive directory removal
 (reverse HTTP / minimal_uris_headers.profile), 51/1. macOS passes 46/0 and its
 final report proves the same source. This is a separate unresolved CI result;
 no Backup Migration causality, retry or workflow cancellation is claimed.
+
+The subsequent published head `dcf17cf944a3` finishes eight workflows successfully
+and two with failures. Command-shell Windows 2022 fails a Chocolatey 7zip feed
+request after a 100-second timeout, before checkout/acceptance. Actual-source-
+verified Windows PHP5.3 Meterpreter finishes 82/1 in `post/test/cmd_exec` with
+"Post interrupted by the console user" after uploading precompiled binaries;
+its initiating cause remains unverified. No reruns or cancellations are made.
+
 
 
 ## Selenium remaining backend scope and cleanup warning

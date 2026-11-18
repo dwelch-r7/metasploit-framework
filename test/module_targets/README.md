@@ -1,6 +1,16 @@
 # Container module acceptance tests
 
-Latest: [Backup Migration execution](VERIFICATION-20261118-backup-migration.md)
+Latest: [pgAdmin execution and repairs](VERIFICATION-20261118-pgadmin-session.md)
+adds one owner, four profiles and 31 passing cases, reaching **293 runtime owners
+in covered paths, 594 qualified profiles and 4,142 historical functional cases**.
+Twelve real inline Python Meterpreter/shell sessions cover repeats, both AutoCheck
+modes, a URL prefix and Unicode storage. Four separate repairs address storage
+location, Cookie encoding, authentication verification and threaded Python scope.
+Native vulnerable/fixed controls, selected recovery and all twelve Docker object
+removals pass with one capped container at a time. Staged Meterpreter recovery
+remains a strict unqualified 9/2 diagnostic. No PR is created; the goal stays active.
+
+Previous: [Backup Migration execution](VERIFICATION-20261118-backup-migration.md)
 adds one owner, three profiles and 21 passing cases, reaching **292 runtime owners
 in covered paths, 590 qualified profiles and 4,111 historical functional cases**.
 Twelve genuine PHP stageless, Bash and Linux fetch Meterpreter sessions cover

@@ -15,7 +15,8 @@ the author's Framework fork without creating a pull request.
 
 The current campaign runs one test Compose project at a time, normally with at
 most three running test containers including Framework and helpers. The current
-Backup Migration profiles use two capped targets and a host console. Builds, native smoke
+pgAdmin profiles use one capped app container and a host console, including the
+separate unqualified Meterpreter diagnostic. Builds, native smoke
 projects and cold console starts share the same serial queue. Confirm the prior
 project is down before starting another. Larger profiles must be split into
 sequential releases/scenarios or remain queued; the resource limit is not evidence
@@ -1509,3 +1510,16 @@ all 18 individual Docker object removals pass with two capped containers. Earlie
 harness failures remain sealed. Staged PHP bootstrap remains an unqualified
 investigation; no owner fix is claimed. The broader goal remains active and no
 PR is created.
+
+
+The [pgAdmin checkpoint](VERIFICATION-20261118-pgadmin-session.md) qualifies four
+stock-image profiles, one new owner and 31 cases, reaching **293 runtime owners in
+covered paths, 594 qualified profiles and 4,142 historical functional cases**.
+Twelve inline Python Meterpreter/shell sessions verify repeats, prefix/Unicode
+storage and selected recovery. Four isolated repairs have native/real-Python
+before/after evidence. Staged recovery remains a separate 9/2 diagnostic with
+actual file/API proofs; it is excluded from totals. Forty resource-event captures
+are zero, twelve Docker objects are independently removed and both contexts finish
+empty. The inventory retains 4,302 pending selectable candidates and 225 documented
+container hints, with zero stale source reviews. The broader campaign remains
+active and no PR is created.
