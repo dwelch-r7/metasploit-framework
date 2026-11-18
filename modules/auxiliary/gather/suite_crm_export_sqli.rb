@@ -53,7 +53,7 @@ class MetasploitModule < Msf::Auxiliary
 
   def check
     authenticated = authenticate
-    return Exploit::CheckCode::Safe('Unable to authenticate to SuiteCRM') unless authenticated
+    return Exploit::CheckCode::Unknown('Unable to authenticate to SuiteCRM') unless authenticated
 
     res = send_request_cgi(
       {
@@ -67,16 +67,25 @@ class MetasploitModule < Msf::Auxiliary
       }
     )
 
-    return Exploit::CheckCode::Safe('Trying to query the SuiteCRM version information failed') unless res&.body
+    return Exploit::CheckCode::Unknown('The SuiteCRM version page did not respond') unless res
+    return Exploit::CheckCode::Unknown("The SuiteCRM version page returned HTTP #{res.code}") unless res.code == 200
+    return Exploit::CheckCode::Unknown('The SuiteCRM version page has no response body') unless res.body
 
-    version = Rex::Version.new(res.body.match(/Version\s+((?:\d+\.)+\d+).*/)[1])
-    return Exploit::CheckCode::Safe('Could not find retrieve the version of SuiteCRM from the version page') unless version
+    # The About page also displays SugarCRM's version; inspect only SuiteCRM's
+    # own element, retaining localized labels and optional custom-build text.
+    version_text = res.get_html_document.at_css('#about_header > b')&.text
+    version_number = version_text&.match(/\A\D*(\d+(?:\.\d+)+)(?=[[:space:]]|\z)/)&.[](1)
+    return Exploit::CheckCode::Unknown('Could not determine the SuiteCRM version from the About page') unless version_number
 
+    version = Rex::Version.new(version_number)
     print_status "Version detected: #{version}"
 
-    return Exploit::CheckCode::Vulnerable("SuiteCRM version #{version} is vulnerable") if version <= Rex::Version.new('7.12.5')
+    return Exploit::CheckCode::Appears("SuiteCRM version #{version} appears to be vulnerable") if version <= Rex::Version.new('7.12.5')
 
     Exploit::CheckCode::Safe("SuiteCRM version #{version} is not vulnerable")
+  rescue Rex::ConnectionError => e
+    elog('SuiteCRM check request failed', error: e)
+    Exploit::CheckCode::Unknown("Could not complete the SuiteCRM check: #{e.message}")
   end
 
   def authenticate
