@@ -1,0 +1,19 @@
+services:
+  db:
+    extends: {file: ../osticket/services.yaml, service: db}
+  app:
+    extends: {file: ../osticket/services.yaml, service: app}
+    image: msf-module-target-osticket:1.18.3
+    build:
+      context: ../osticket
+      args:
+        OSTICKET_RELEASE: '1.18.3'
+        OSTICKET_SHA256: f61b672c3ecf47a3e546fab8c9e2206ca7b33f908518eda6675b269812ff0cb6
+  reporting_db:
+    extends: {file: ../osticket/services.yaml, service: reporting_db}
+networks:
+  default: {internal: true}
+  public: {}
+volumes:
+  database: {}
+  application: {}

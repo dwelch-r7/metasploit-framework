@@ -1,0 +1,13 @@
+services:
+  db:
+    extends: {file: ../osticket/services.yaml, service: db}
+  app:
+    extends: {file: ../osticket/services.yaml, service: app}
+  reporting_db:
+    extends: {file: ../osticket/services.yaml, service: reporting_db}
+networks:
+  default: {internal: true}
+  public: {}
+volumes:
+  database: {}
+  application: {}

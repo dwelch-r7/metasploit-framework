@@ -1,0 +1,52 @@
+{
+  "spec": "spec/modules/auxiliary/gather/osticket_target_spec.rb",
+  "expected_examples": 6,
+  "console": false,
+  "health_timeout": 150,
+  "test_timeout": 600,
+  "modules": [
+    "auxiliary/gather/osticket_arbitrary_file_read"
+  ],
+  "ports": {
+    "app": 80,
+    "reporting_db": 5432
+  },
+  "test_env": {
+    "OSTICKET_RELEASE": "1.18.2",
+    "OSTICKET_PREFIX": "/support",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "support_files": [
+    ".ruby-version",
+    ".ruby-gemset",
+    "Gemfile",
+    "Gemfile.lock",
+    "metasploit-framework.gemspec",
+    "msfconsole",
+    "spec/acceptance_spec_helper.rb",
+    "spec/spec_helper.rb",
+    "spec/support/acceptance/datastore_formatting.rb",
+    "spec/support/acceptance/module_target.rb",
+    "test/module_targets/rsync_creds/native.rb",
+    "lib/msf/core/auxiliary/osticket.rb",
+    "lib/msf/core/exploit/remote/auto_check.rb",
+    "lib/msf/core/exploit/remote/http_client.rb",
+    "test/module_targets/elasticsearch_memory/services.yaml",
+    "test/module_targets/elasticsearch_memory/init.sql",
+    "tmp/module-target-osticket-sources/osticket_ticket_payload_gen.py",
+    "test/module_targets/osticket/Dockerfile",
+    "test/module_targets/osticket/README.md",
+    "test/module_targets/osticket/acceptance.rb",
+    "test/module_targets/osticket/compose.yaml",
+    "test/module_targets/osticket/control.php",
+    "test/module_targets/osticket/entrypoint.sh",
+    "test/module_targets/osticket/http_controls.py",
+    "test/module_targets/osticket/install.py",
+    "test/module_targets/osticket/manifest.yml",
+    "test/module_targets/osticket/native_control.py",
+    "test/module_targets/osticket/native_http.py",
+    "test/module_targets/osticket/seed.php",
+    "test/module_targets/osticket/services.yaml",
+    "documentation/modules/auxiliary/gather/osticket_arbitrary_file_read.md"
+  ]
+}

@@ -11,6 +11,14 @@ In real-world deployments, this issue may be exploitable in default configuratio
 
 ## Installation
 
+### Automated Docker lab
+
+See the [native osTicket test targets](../../../../test/module_targets/osticket/README.md)
+for checksum-pinned vulnerable and fixed releases, staff/client authentication,
+real PDF exports, isolated reporting and reproducible module diagnostics.
+The lab retains strict failing cases for unresolved file recovery limitations.
+
+
 ### Using any Ubuntu VM (Recommended Way)
 
 1. OsTicket can be installed with the given script on any Ubuntu VM:

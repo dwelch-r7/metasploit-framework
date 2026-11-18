@@ -1,0 +1,45 @@
+services:
+  db:
+    image: mariadb:11.2.2@sha256:c5077bb44d13a3f34dadb5a15861149e29b3251d1e24036d2dad9611dc9d940b
+    platform: linux/amd64
+    environment:
+      MARIADB_ROOT_PASSWORD: module-target-root-password
+      MARIADB_DATABASE: osticket
+      MARIADB_USER: module_target
+      MARIADB_PASSWORD: module-target-db-password
+    volumes: [database:/var/lib/mysql]
+    cpus: 0.5
+    mem_limit: 512m
+    memswap_limit: 512m
+    pids_limit: 128
+    init: true
+    healthcheck:
+      test: [CMD, healthcheck.sh, --connect, --innodb_initialized]
+      interval: 2s
+      timeout: 5s
+      retries: 45
+  app:
+    image: msf-module-target-osticket:1.18.2
+    platform: linux/amd64
+    build: ../osticket
+    environment: {LAB_PREFIX: ''}
+    depends_on: {db: {condition: service_healthy}}
+    volumes:
+    - application:/var/www/html
+    - ./seed.php:/opt/module-target/seed.php:ro
+    - ./control.php:/opt/module-target/control.php:ro
+    networks: [default, public]
+    ports: ["127.0.0.1::80"]
+    cpus: 1.0
+    mem_limit: 512m
+    memswap_limit: 512m
+    pids_limit: 128
+    init: true
+    healthcheck:
+      test: [CMD-SHELL, 'curl --fail --silent "http://127.0.0.1$${LAB_PREFIX}/setup/install.php" >/dev/null']
+      interval: 3s
+      timeout: 5s
+      retries: 40
+  reporting_db:
+    platform: linux/amd64
+    extends: {file: ../elasticsearch_memory/services.yaml, service: db}

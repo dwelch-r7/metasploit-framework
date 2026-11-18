@@ -6,6 +6,12 @@ sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 The module qualification totals below are unchanged.
 
+Investigation: [osTicket file collection](VERIFICATION-20261118-osticket.md)
+adds three native diagnostic profiles and two verified repairs. Supported
+root/prefix runs each6/2 and the fixed target3/0; strict file truncation and
+credential-persistence failures remain enabled. All native gates and24owned
+Docker object removals pass. Qualified breadth totals remain unchanged.
+
 Latest: [BentoML sessions and Python stager recovery](VERIFICATION-20261118-bentoml.md)
 adds two owners and four qualified profiles, passing 44/0 with 24 real sessions.
 Three BentoML targets and the earlier pgAdmin staged diagnostic reach **295
@@ -13,7 +19,8 @@ runtime owners in covered paths, 598 qualified profiles and 4,186 historical
 functional cases**. A native inode probe confirms a fork-parent TCP descriptor
 leak; changing only the stager among 65 inputs repairs 10/2 to 10/0. Final selected
 recovery, 64 zero resource-event files and all nine Docker object removals pass.
-One capped work container runs at a time; unrelated MCP restarts are cleaned up.
+The run used one capped work container at a time. Current cleanup preserves all
+unrelated containers.
 Prior native Mettle CI failures retain unverified causes. The campaign remains
 active; no PR is created.
 
