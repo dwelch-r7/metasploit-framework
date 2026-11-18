@@ -1,6 +1,18 @@
 # Container module acceptance tests
 
-Latest: [Irssi configuration collection and whitespace repair](VERIFICATION-20261118-irssi-creds.md)
+Latest: [Irssi NickServ collection and detection repair](VERIFICATION-20261118-irssi-nickserv.md)
+adds one qualified profile and nine cases for an already covered owner, reaching
+**288 runtime owners in covered paths, 583 qualified profiles and 4,062 historical
+functional cases**. Genuine Irssi/ngIRCd/Atheme authentication proves quote/case
+and account-argument defects; an unchanged four-case owner-only replay passes.
+The final serial aggregate passes nine NickServ and seven server-password cases.
+Ten NickServ owning calls use nine genuine root/ordinary shells and store nine
+exact raw configurations. All selected native/file/session recovery and Docker
+teardown checks pass, with at most two capped containers. Raw evidence does not
+establish successful authentication. The broader campaign remains active; no PR
+is created.
+
+Previous: [Irssi configuration collection and whitespace repair](VERIFICATION-20261118-irssi-creds.md)
 adds one owner, one qualified profile and seven cases, reaching **288 runtime owners
 in covered paths, 582 qualified profiles and 4,053 historical functional cases**.
 Native-working tab/compact assignments now collect exact raw configurations;
@@ -16,7 +28,10 @@ CI provenance: the [acceptance checkout repair](VERIFICATION-20261118-acceptance
 pins SMB/Meterpreter test and report checkouts to the triggering Framework source.
 An original green SMB job and failed Mettle job both executed upstream master,
 so their workflow heads do not establish branch validation. External callers'
-defaults are preserved; static verification adds no functional qualification.
+defaults are preserved. A subsequent SMB test/report pair proves the intended
+fork and exact checkout, with 20/0. Two completed Meterpreter jobs also prove
+the fork/SHA and pass 91/0 and 100/0; the remaining matrix/report remain observed.
+CI provenance adds no module functional qualification.
 
 Previous: [Fetchmail credential collection and quote repair](VERIFICATION-20261118-fetchmailrc-creds.md)
 adds one owner, one qualified profile and ten cases, reaching **287 runtime owners

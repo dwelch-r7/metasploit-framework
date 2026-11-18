@@ -46,6 +46,17 @@
     "spec/file_fixtures/modules/post/multi/gather/irssi_creds/missing-password.config",
     "spec/file_fixtures/modules/post/multi/gather/irssi_creds/plain.config",
     "spec/file_fixtures/modules/post/multi/gather/irssi_creds/tabs.config",
-    "spec/file_fixtures/modules/post/multi/gather/irssi_creds/wrong.config"
+    "spec/file_fixtures/modules/post/multi/gather/irssi_creds/wrong.config",
+    "spec/file_fixtures/modules/post/multi/gather/irssi_creds/nickserv/autosend-account.config",
+    "spec/file_fixtures/modules/post/multi/gather/irssi_creds/nickserv/autosend-capital.config",
+    "spec/file_fixtures/modules/post/multi/gather/irssi_creds/nickserv/autosend-caret.config",
+    "spec/file_fixtures/modules/post/multi/gather/irssi_creds/nickserv/autosend-command-case.config",
+    "spec/file_fixtures/modules/post/multi/gather/irssi_creds/nickserv/autosend-lower.config",
+    "spec/file_fixtures/modules/post/multi/gather/irssi_creds/nickserv/autosend-wrong.config",
+    "spec/file_fixtures/modules/post/multi/gather/irssi_creds/nickserv/catalogue.json",
+    "spec/file_fixtures/modules/post/multi/gather/irssi_creds/nickserv/commented-autosend.config",
+    "spec/file_fixtures/modules/post/multi/gather/irssi_creds/nickserv/native-wire.json",
+    "spec/file_fixtures/modules/post/multi/gather/irssi_creds/nickserv/password-free.config",
+    "spec/file_fixtures/modules/post/multi/gather/irssi_creds/nickserv/provenance.json"
   ]
 }

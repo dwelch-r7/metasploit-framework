@@ -6,6 +6,7 @@ This module was successfully tested against:
 
 - OSX 10.10.5 and IRSSI version 0.8.19
 - Linux/amd64 with Ubuntu 22.04, Irssi 1.2.3 and ngIRCd 26.1
+- The same Linux client/server with Atheme 7.2.12 NickServ services
 
 ### Automated Linux target
 
@@ -25,8 +26,18 @@ containers, database volume and networks.
 
 Collected configuration can contain potentially sensitive commented or invalid
 passwords. Raw loot does not establish that a credential authenticates. The
-automated target does not supply NickServ services or qualify NickServ login.
-Other platforms, releases and configuration syntax remain separate tests.
+server-password profile has a separate [NickServ target](../../../../../test/module_targets/irssi_nickserv/README.md)
+using genuine Atheme services. Run both profiles serially with:
+
+```sh
+bundle exec ruby tools/dev/run_guarded_module_target_tests.rb irssi_nickserv irssi_creds
+```
+
+NickServ cases cover case/caret commands, explicit account arguments, denials,
+commented text, password-free content, ordinary-user collection and repeat.
+Services differ in IDENTIFY argument order, so multi-argument commands are printed
+as complete authentication data without guessing which argument is a password.
+Other platforms, releases, services and configuration syntax remain separate tests.
 
 ## Verification Steps
 

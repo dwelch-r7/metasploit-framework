@@ -15,7 +15,9 @@ client gate before the actual owning call. The unreadable case authenticates at
 0600, changes the file to 000 and proves the ordinary session sees an existing
 file with a nil read; it is not a file-disappearance race. Raw loot and source/session file
 bytes are verified; existing behavior does not create credential cores. No
-NickServ success is claimed: genuine IRC services are a separate prerequisite.
+NickServ success is claimed by this server-password profile. The separate
+[NickServ target](../irssi_nickserv/README.md) supplies genuine IRC services
+and its own authentication controls.
 
 One serial stack has two capped containers: target 512 MiB/0.5 CPU and reporting
 384 MiB/0.25 CPU, with equal memory/swap, PID128 and init. The Framework console

@@ -12,22 +12,28 @@ one failure on actual upstream Framework `4f30a91e239b3cd3de5a7810b5dc28cd5586c1
 The underlying filesystem/transport stall remains unverified and is not a pgpass
 owner result. A green SMB job also checked out that upstream revision. Both
 attempts remain intact. The source-selection repair preserves external caller
-defaults; subsequent CI must prove its actual checkout before branch validation
-is claimed. Static checkout cases add no module qualification.
+defaults. Subsequent SMB test/report logs prove the intended fork and exact
+`0fc4834ef4cb1705b60ff6d7eef6ee3cb308243f` checkout, with 20/0. Two completed Meterpreter jobs likewise prove that fork/SHA and pass 91/0
+and 100/0; the remaining matrix and final report are separate observations. Another preserved upstream run has 46 examples,
+one macOS HTTPS/minimal-profile `post/test/cmd_exec` single-quoted echo failure;
+actual mismatched bytes and root cause remain unverified. It does not establish
+a Fetchmail defect. CI provenance cases add no module qualification.
 
-## Irssi remaining authentication and platform scope
+## Irssi remaining service, grammar and platform scope
 
-The [Irssi checkpoint](VERIFICATION-20261118-irssi-creds.md) repairs native-proven
-tab/compact password-assignment omissions and guards nullable session reads.
-Seven Linux/amd64 shell cases cover raw collection, ordinary-user access, an
-existing unreadable file, password-free content and repeat. Genuine IRC services
-for NickServ remain a separate prerequisite; compatibility unit strings do not
-qualify that authentication path. Other platforms/architectures/releases,
-additional quoting/escaping/spacing/case/multiple-server grammar, inline owning
-collection, absent-home owning calls and transport loss remain unqualified.
-Commented or invalid password text is intentionally retained as raw evidence;
-it does not establish active authentication or successful-login reporting.
-Initial nickname and denial-observer failures are preserved as setup failures.
+The [server-password checkpoint](VERIFICATION-20261118-irssi-creds.md) and
+[NickServ checkpoint](VERIFICATION-20261118-irssi-nickserv.md) cover seven and
+nine Linux/amd64 shell cases, respectively. Genuine ngIRCd/Atheme services now
+qualify the selected NickServ paths and expose quote/case/account-argument
+extraction defects; their owner-only repair passes. Account/password argument
+order differs by service, so multi-argument data stays intact. Password-first
+ordering has a source-backed unit contract without native OFTC qualification.
+Other services/platforms/architectures/releases, additional escaping/grammar,
+inline owning collection, absent-home calls and transport loss remain
+unqualified. Matching commented or invalid text remains potential raw evidence,
+without successful-login claims. Native setup/observer failures are preserved
+separately from confirmed owner failures. All final native, home/session and
+Docker recovery checks pass.
 
 ## Fetchmail remaining grammar and platform scope
 
