@@ -1,6 +1,18 @@
 # Container module acceptance tests
 
-Latest: [Irssi NickServ collection and detection repair](VERIFICATION-20261118-irssi-nickserv.md)
+Latest: [Generic environment collection and Meterpreter repair](VERIFICATION-20261118-generic-env.md)
+adds one owner, one profile and six cases, reaching **289 runtime owners in covered
+paths, 584 qualified profiles and 4,068 historical functional cases**. A native
+Meterpreter nil-read/unclosed-channel defect is repaired with an unchanged
+53-input owner-only comparison. Eight calls use six genuine root/ordinary
+shell/Meterpreter sessions and save eight exact raw environment files. Empty,
+spaced, equals-containing, UTF8, multiline, large values and both repeats pass.
+Live getenv proof accounts for startup PATH/LANG changes. All selected recovery,
+channel/process and Docker checks pass, with at most two capped containers.
+The existing stdapi_fs warning remains deferred. The broader campaign remains
+active; no PR is created.
+
+Previous: [Irssi NickServ collection and detection repair](VERIFICATION-20261118-irssi-nickserv.md)
 adds one qualified profile and nine cases for an already covered owner, reaching
 **288 runtime owners in covered paths, 583 qualified profiles and 4,062 historical
 functional cases**. Genuine Irssi/ngIRCd/Atheme authentication proves quote/case

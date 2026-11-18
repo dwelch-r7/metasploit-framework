@@ -1,0 +1,52 @@
+{
+  "spec": "spec/modules/post/multi/gather/generic_env_target_spec.rb",
+  "expected_examples": 6,
+  "console": false,
+  "health_timeout": 180,
+  "test_timeout": 900,
+  "modules": [
+    "post/multi/gather/env"
+  ],
+  "ports": {
+    "linux": 8080,
+    "reporting_db": 5432
+  },
+  "support_files": [
+    ".ruby-gemset",
+    ".ruby-version",
+    "Gemfile",
+    "Gemfile.lock",
+    "metasploit-framework.gemspec",
+    "msfconsole",
+    "spec/acceptance_spec_helper.rb",
+    "spec/spec_helper.rb",
+    "spec/support/acceptance/child_process.rb",
+    "spec/support/acceptance/datastore_formatting.rb",
+    "spec/support/acceptance/module_target.rb",
+    "test/module_targets/druid_sessions/session_control.rb",
+    "test/module_targets/elasticsearch_memory/init.sql",
+    "test/module_targets/elasticsearch_memory/services.yaml",
+    "test/module_targets/linux_post/launch_session.py",
+    "test/module_targets/rsync_creds/native.rb",
+    "test/module_targets/pgpass_creds/process_state.py",
+    "modules/exploits/multi/handler.rb",
+    "modules/payloads/singles/cmd/unix/reverse_bash.rb",
+    "modules/payloads/singles/linux/x64/meterpreter_reverse_tcp.rb",
+    "lib/msf/core/post.rb",
+    "lib/msf/core/post/common.rb",
+    "lib/msf/core/post/windows/registry.rb",
+    "lib/msf/core/session.rb",
+    "lib/msf/base/sessions/command_shell.rb",
+    "lib/msf/base/sessions/meterpreter.rb",
+    "lib/msf/core/handler/reverse.rb",
+    "lib/msf/core/handler/reverse_tcp.rb",
+    "lib/msf/core/db_manager/loot.rb",
+    "lib/rex/post/meterpreter/extensions/stdapi/sys/process.rb",
+    "lib/rex/post/meterpreter/client.rb",
+    "lib/rex/post/meterpreter/channel.rb",
+    "lib/rex/post/channel/container.rb",
+    "lib/rex/post/meterpreter/object_aliases.rb",
+    "lib/rex/post/meterpreter/extensions/stdapi/sys/config.rb",
+    "spec/modules/post/multi/gather/env_spec.rb"
+  ]
+}

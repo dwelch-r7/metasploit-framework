@@ -2,6 +2,26 @@
 
 This module prints out the operating system environment variables.
 
+### Automated Linux target
+
+The [container target guide](../../../../../test/module_targets/generic_env/README.md)
+provides genuine root/ordinary shell and Meterpreter sessions, native environment
+controls and actual raw-loot reporting on pinned Ubuntu 22.04. Run from the
+Framework repository root:
+
+```sh
+bundle exec ruby tools/dev/run_guarded_module_target_tests.rb generic_env
+```
+
+Six cases cover empty, spaced, equals-containing, UTF8, multiline and large
+values, plus repeated collection under both session types. Native PID/UID,
+initial/current environment, exact loot, channels and complete selected-state
+recovery are checked. One serial stack uses two capped containers and a host
+Framework console, then removes its containers, database volume and networks.
+The existing stdapi_fs compatibility warning is retained for investigation.
+Other platforms/releases and genuine Windows/PowerShell sessions need separate
+verification. Historical human-written scenarios below remain unchanged.
+
 ## Verification Steps
 
 1. Start msfconsole
@@ -11,6 +31,8 @@ This module prints out the operating system environment variables.
 1. Do: `run`
 
 ## Options
+
+No specific options
 
 ## Scenarios
 

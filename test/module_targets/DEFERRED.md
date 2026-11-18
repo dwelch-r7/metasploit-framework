@@ -4,6 +4,20 @@ These findings do not count as passing functional qualification. The
 [campaign](CAMPAIGN.md) and individual verification records retain other
 coverage limits and ongoing investigations.
 
+## Generic environment compatibility warning and remaining platforms
+
+The [environment checkpoint](VERIFICATION-20261118-generic-env.md) repairs the
+Unix Meterpreter Process/read mismatch and unread channel, with a strict
+owner-only replay and six final Linux shell/Meterpreter cases. Current PATH/LANG
+uses independent native getenv proof rather than initial proc data. The existing
+`unloadable Meterpreter extension: stdapi_fs` warning remains in both source
+cohorts. Required APIs and all selected owner paths work, but the warning's root
+cause remains unverified. Windows registry and genuine Windows/PowerShell,
+other platforms/releases/architectures, further payloads and transport loss
+remain unqualified. Unit alternate-session contracts are synthetic. Initial
+shell/marker/channel harness failures and the stale-PATH observer mismatch are
+preserved separately and add no passing qualification.
+
 ## Acceptance search setup stall and source provenance
 
 The [acceptance checkout investigation](VERIFICATION-20261118-acceptance-checkout.md)
