@@ -1,0 +1,15 @@
+services:
+  app:
+    extends: {file: ../suitecrm/compose.yaml, service: app}
+    image: module-target-suitecrm:7.12.6
+    build:
+      args:
+        SUITECRM_VERSION: 7.12.6
+        SUITECRM_SHA256: 734bfe28e5a40a89b99b4551b2cfb04c94fc4eeae877281a3a886d17364dbe89
+  db:
+    extends: {file: ../suitecrm/compose.yaml, service: db}
+  reporting_db:
+    extends: {file: ../suitecrm/compose.yaml, service: reporting_db}
+networks:
+  default: {internal: true}
+  public: {}

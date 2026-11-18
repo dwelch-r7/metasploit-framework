@@ -440,3 +440,21 @@ modules:
       Windows, Linux x86 database servers, other database versions, TLS and
       staged payloads remain unqualified. The existing UDF is unchanged and its
       exact source/build provenance is not established by related upstream bytes.
+
+  auxiliary/gather/suite_crm_export_sqli:
+    source_sha256: be24e61fd7bd234df741833cde92480479aa2814e2298572f22cbe6d74702d44
+    disposition: container_lab
+    lab_profiles:
+      suitecrm: [official_7_12_5, native_boolean_controls, count_and_reporting, repeats_and_errors]
+      suitecrm_fixed: [official_7_12_6, native_fixed_control, autocheck_refusal]
+    reason: >-
+      Official SuiteCRM 7.12.5 and 7.12.6 qualify sixteen native-gated cases on
+      PHP 7.4.33 and MariaDB 10.6.19. Two separate repairs address passive check
+      evidence and ignored COUNT. Genuine installer and application APIs seed
+      two users and an Account; ordinary/Boolean exports precede owner verdicts.
+      Exact selected usernames and persisted bcrypt/type/origin/endpoint data,
+      repeated console configuration, authentication/connection errors, selected
+      data preservation, resource counters and owned teardown pass. Three capped
+      services run serially and unrelated containers are preserved. URL prefixes,
+      other releases/runtimes, special usernames and nonadministrator collector
+      authentication remain unqualified. Existing CVE mapping is unresolved.

@@ -1,0 +1,47 @@
+services:
+  app:
+    image: module-target-suitecrm:7.12.5
+    build:
+      context: .
+      dockerfile: Dockerfile
+    platform: linux/amd64
+    networks: [default, public]
+    cpus: 1.0
+    mem_limit: 768m
+    memswap_limit: 768m
+    pids_limit: 128
+    init: true
+    ports: ['127.0.0.1::80']
+    depends_on:
+      db: {condition: service_healthy}
+    healthcheck:
+      test: [CMD-SHELL, 'curl -fsS http://127.0.0.1/index.php?module=Users\&action=Login | grep -q SuiteCRM']
+      interval: 3s
+      timeout: 5s
+      retries: 80
+  db:
+    image: mariadb:10.6.19@sha256:dfc3273c65d43677180a2ce67ac8e941b1c5cfbea4027a2fc78842cfc8cde0b7
+    platform: linux/amd64
+    environment:
+      MARIADB_ROOT_PASSWORD: module-suite-db-root
+      MARIADB_ROOT_HOST: '%'
+      MARIADB_DATABASE: suitecrm
+      MARIADB_USER: suitecrm
+      MARIADB_PASSWORD: module-suite-db-password
+    command: [--innodb-buffer-pool-size=96M, --max-connections=25]
+    cpus: 0.5
+    mem_limit: 384m
+    memswap_limit: 384m
+    pids_limit: 128
+    init: true
+    healthcheck:
+      test: [CMD-SHELL, 'mariadb --user=root --password=module-suite-db-root --batch --execute="SELECT 1" | grep -q 1']
+      interval: 3s
+      timeout: 5s
+      retries: 50
+  reporting_db:
+    platform: linux/amd64
+    extends: {file: ../elasticsearch_memory/services.yaml, service: db}
+networks:
+  default: {internal: true}
+  public: {}

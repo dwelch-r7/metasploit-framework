@@ -1,0 +1,10 @@
+{
+  "7.12.5": {
+    "sha256": "d8bfa74a7d89f4e05b8f70f7409b9928bdbd690803453049e7b3c645e6a7b483",
+    "export_sha256": "14355afbca5ed5afc40ea749786af5bb9be3ecb96d9e5824cb6038bb7651f9fa"
+  },
+  "7.12.6": {
+    "sha256": "734bfe28e5a40a89b99b4551b2cfb04c94fc4eeae877281a3a886d17364dbe89",
+    "export_sha256": "9cdd24ed7fff62895303d89ed952c998267b0f9a4e26f6851cecc70fff850847"
+  }
+}

@@ -121,6 +121,15 @@ The following setup was installed on Ubuntu 20.04:
 1. Configure a user and password by setting `USERNAME` and `PASSWORD`.
 1. Do: `run`
 
+## Automated Container Tests
+
+The [native SuiteCRM lab](../../../../test/module_targets/suitecrm/README.md) tests official 7.12.5 and fixed 7.12.6
+with genuine installation, login and Account export controls. It verifies
+passive check results, COUNT limits, exact persisted bcrypt credentials,
+repeated execution, bad credentials and unavailable endpoints. Three capped
+services run per profile and only their created project and volumes are removed.
+Other versions, URL prefixes and authentication roles need separate evidence.
+
 ## Scenarios
 
 ### SuiteCRM 7.12.5 Bitnami Docker Image

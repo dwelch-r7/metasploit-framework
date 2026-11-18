@@ -6,7 +6,18 @@ sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 The module qualification totals below are unchanged.
 
-Latest: [Native MySQL UDF execution](VERIFICATION-20261118-mysql-udf.md)
+Latest: [Native SuiteCRM export collection](VERIFICATION-20261118-suitecrm.md)
+adds one owner and two profiles with 16/0, reaching **301 runtime owners in covered
+paths, 613 qualified profiles and 4,299 historical functional cases**. Genuine
+vulnerable/fixed Account exports, exact native bcrypt records, bounded and
+unlimited collection, repeats, authentication and connection errors pass.
+Two separate repairs fix passive check evidence and ignored COUNT; focused
+regressions pass 36/0. All 24 resource captures are zero and all
+62 owned Docker objects are independently absent. Three capped containers run
+serially, unrelated containers are preserved, and the CVE mapping remains an
+explicit metadata investigation. The broader campaign stays active; no PR.
+
+Previous: [Native MySQL UDF execution](VERIFICATION-20261118-mysql-udf.md)
 adds one owner and one profile with 9/0, reaching **300 runtime owners in covered
 paths, 611 qualified profiles and 4,283 historical functional cases**. Fourteen
 owner calls and twelve real shell/Meterpreter/MySQL sessions cover fresh/reused/
