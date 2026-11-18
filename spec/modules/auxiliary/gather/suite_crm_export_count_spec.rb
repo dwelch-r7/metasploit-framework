@@ -28,12 +28,14 @@ RSpec.describe 'SuiteCRM export user count' do
     allow(sqli).to receive(:run_sql) do |sql|
       queries << sql
       query = sql.downcase.gsub(/\s+/, ' ')
-      if query == 'select group_concat(distinct user_name) from users'
-        usernames.uniq.sort.join(',')
-      elsif (match = query.match(/\Aselect group_concat\(user_name order by user_name\) from \(select distinct user_name from users order by user_name(?: limit (\d+))?\) suitecrm_users\z/))
-        selected = usernames.uniq.sort
+      if (match = query.match(/\Aselect count\(user_name\) from \(select distinct user_name from users order by user_name(?: limit (\d+))?\) suitecrm_users\z/))
+        selected = usernames.uniq.sort_by { |name| [name.nil? ? 0 : 1, name.to_s] }
         selected = selected.first(match[1].to_i) if match[1]
-        selected.join(',')
+        selected.compact.length.to_s
+      elsif (match = query.match(/\Aselect hex\(user_name\) from \(select distinct user_name from users order by user_name(?: limit (\d+))?\) suitecrm_users where user_name is not null order by user_name limit 1 offset (\d+)\z/))
+        selected = usernames.uniq.sort_by { |name| [name.nil? ? 0 : 1, name.to_s] }
+        selected = selected.first(match[1].to_i) if match[1]
+        Rex::Text.to_hex(selected.compact.fetch(match[2].to_i), '')
       else
         raise ArgumentError, 'Unexpected synthetic query: ' + sql
       end
@@ -44,7 +46,7 @@ RSpec.describe 'SuiteCRM export user count' do
     expect(mod.get_user_names(sqli)).to eq(%w[alpha bravo charlie])
   end
 
-  it 'limits COUNT=1 before aggregating usernames' do
+  it 'limits COUNT=1 before extracting usernames' do
     mod.datastore['COUNT'] = 1
 
     expect(mod.get_user_names(sqli)).to eq(['alpha'])
@@ -79,7 +81,7 @@ RSpec.describe 'SuiteCRM export user count' do
     mod.datastore['COUNT'] = 0
     mod.get_user_names(sqli)
 
-    expect(queries.last).not_to match(/\blimit\b/i)
+    expect(queries.first).not_to match(/\blimit\b/i)
   end
 
   it 'preserves the transport constraint that SQL cannot contain a comma' do
@@ -134,6 +136,16 @@ RSpec.describe 'SuiteCRM export user count' do
 
     it 'preserves an empty array return' do
       expect(mod.get_user_names(sqli)).to eq([])
+    end
+  end
+
+  context 'with a NULL username alongside valid users' do
+    let(:usernames) { [nil, 'bravo', 'alpha'] }
+
+    it 'retains the previous aggregation behavior of ignoring NULL names' do
+      mod.datastore['COUNT'] = 0
+
+      expect(mod.get_user_names(sqli)).to eq(%w[alpha bravo])
     end
   end
 
