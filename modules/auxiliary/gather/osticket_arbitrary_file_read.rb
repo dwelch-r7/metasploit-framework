@@ -171,7 +171,7 @@ class MetasploitModule < Msf::Auxiliary
 
     # Step 5: Extract file from PDF
     print_status('Extracting file from PDF...')
-    extracted = extract_files_from_pdf(pdf_data)
+    extracted = extract_files_from_pdf(pdf_data, encoding: file_enc)
     if extracted.empty?
       print_error('No file could be extracted from the PDF')
       if datastore['STORE_LOOT']

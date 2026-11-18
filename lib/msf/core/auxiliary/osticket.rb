@@ -545,10 +545,12 @@ module Msf
     #   extract_data_from_bmp(bmp_data)          # find marker in BGR data
     #
     # @param pdf_data [String] raw PDF bytes
+    # @param encoding [String, nil] requested file encoding, or nil for legacy auto-detection
     # @return [Array<String>] array of extracted file contents
-    def extract_files_from_pdf(pdf_data)
+    def extract_files_from_pdf(pdf_data, encoding: nil)
       vprint_status("extract_files_from_pdf: Processing PDF (#{pdf_data.length} bytes)")
       results = []
+      encoded_file = %w[b64 b64zlib].include?(encoding)
 
       # Primary: Extract image XObjects, swap RGB for BGR, search for marker
       image_streams = extract_pdf_image_streams(pdf_data)
@@ -560,13 +562,16 @@ module Msf
         vprint_status("extract_files_from_pdf: Image ##{idx}: #{img_data.length} bytes, swapped to BGR")
 
         # Try BGR-swapped data first; fall back to raw if swap didn't help
-        content = extract_data_from_bmp_stream(bgr_data)
-        content ||= extract_data_from_bmp_stream(img_data)
+        content = extract_data_from_bmp_stream(bgr_data, encoding: encoding)
+        content ||= extract_data_from_bmp_stream(img_data, encoding: encoding)
         next unless content && !content.empty?
 
-        clean = content.sub(/\x00+\z/, ''.b)
-        pad_idx = clean.index('@C>=='.b)
-        clean = clean[0...pad_idx] if pad_idx && pad_idx > 0
+        clean = content
+        unless encoded_file
+          clean = clean.sub(/\x00+\z/, ''.b)
+          pad_idx = clean.index('@C>=='.b)
+          clean = clean[0...pad_idx] if pad_idx && pad_idx > 0
+        end
         unless clean.empty?
           vprint_good("extract_files_from_pdf: Image ##{idx} yielded #{clean.length} bytes of extracted data")
           results << clean
@@ -579,12 +584,15 @@ module Msf
       vprint_status("extract_files_from_pdf: Fallback - scanning #{streams.length} raw streams")
 
       streams.each_with_index do |stream, idx|
-        content = extract_data_from_bmp_stream(stream)
+        content = extract_data_from_bmp_stream(stream, encoding: encoding)
         next unless content && !content.empty?
 
-        clean = content.sub(/\x00+\z/, ''.b)
-        pad_idx = clean.index('@C>=='.b)
-        clean = clean[0...pad_idx] if pad_idx && pad_idx > 0
+        clean = content
+        unless encoded_file
+          clean = clean.sub(/\x00+\z/, ''.b)
+          pad_idx = clean.index('@C>=='.b)
+          clean = clean[0...pad_idx] if pad_idx && pad_idx > 0
+        end
         next if clean.empty?
 
         # Skip duplicates already found by the primary XObject path
@@ -721,8 +729,9 @@ module Msf
     # strips null bytes, and decodes (base64 + optional zlib).
     #
     # @param raw_data [String] raw stream bytes
+    # @param encoding [String, nil] requested file encoding, or nil for legacy auto-detection
     # @return [String, nil] extracted file content, or nil
-    def extract_data_from_bmp_stream(raw_data)
+    def extract_data_from_bmp_stream(raw_data, encoding: nil)
       marker = "\x1b$)C".b
       idx = raw_data.index(marker)
       unless idx
@@ -731,7 +740,22 @@ module Msf
       end
 
       vprint_status("extract_data_from_bmp_stream: ISO-2022-KR marker found at offset #{idx} in #{raw_data.length}-byte stream")
-      data = raw_data[(idx + marker.length)..].gsub("\x00".b, ''.b)
+      data = raw_data[(idx + marker.length)..]
+      if %w[b64 b64zlib].include?(encoding)
+        # iconv filter chains append non-file bytes after the Base64 value.
+        # Decode its prefix before removing any bytes from the file itself.
+        encoded = data[%r{\A[A-Za-z0-9+/]+={0,2}}]
+        return nil unless encoded
+
+        decoded = Rex::Text.decode_base64(encoded)
+        return nil if decoded.empty?
+        return decoded if encoding == 'b64'
+
+        decompressed = decompress_raw_deflate(decoded)
+        return decompressed.empty? ? nil : decompressed
+      end
+
+      data = data.gsub("\x00".b, ''.b)
       if data.empty?
         vprint_warning('extract_data_from_bmp_stream: No data after marker (empty after null-strip)')
         return nil
@@ -748,7 +772,7 @@ module Msf
       vprint_status("Data looks like base64? #{looks_like_base64?(data)}")
 
       # Conditional processing based on whether it's base64
-      if looks_like_base64?(data)
+      if encoding != 'plain' && looks_like_base64?(data)
         b64_decoded = decode_b64_permissive(data)
         vprint_status("extract_data_from_bmp_stream: b64 decoded=#{b64_decoded.length} bytes")
 
