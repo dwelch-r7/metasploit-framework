@@ -1,0 +1,8 @@
+services:
+  app:
+    extends: {file: services.yaml, service: app}
+  reporting_db:
+    extends: {file: services.yaml, service: reporting_db}
+networks:
+  default: {internal: true}
+  public: {}

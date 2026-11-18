@@ -1,8 +1,25 @@
 # Individual source-reviewed target requirements; these are not blanket exclusions.
 ---
 modules:
+  auxiliary/scanner/mysql/mysql_file_enum:
+    source_sha256: f7bdda94220e0019c9ccd745c16bb118267d0677996ce28a40498218ed0d84c2
+    disposition: container_lab
+    lab_profiles:
+      mysql_file_enum: [mysql_8, standalone, genuine_mysql_session, repeat, content_types, quoted_names, permissions, existing_table, rejection]
+      mysql_file_enum_mariadb: [mariadb_11, standalone, genuine_mysql_session, repeat, content_types, quoted_names, permissions, existing_table, rejection]
+      mysql_file_enum_nobackslash: [mysql_8, no_backslash_escapes, standalone, genuine_mysql_session, repeat, quoted_names, permissions, existing_table]
+    reason: >-
+      Thirty-three native-gated cases and forty-two actual owner calls qualify
+      selected file/directory notes, mode-aware quoting, real MySQL sessions,
+      temporary/existing-table behavior and permission/rejection contrasts.
+      Confirmed classification, note-field and quoting defects are repaired in
+      a separate worktree. Both prior schema profiles pass twelve regression
+      cases using the shared identifier helper. All native states, connection
+      recovery and owned-resource teardown pass. Other versions, Unicode or
+      backslash paths, transports, file types and concurrent changes remain
+      unqualified; standalone note-created service labels remain unnamed.
   auxiliary/scanner/mysql/mysql_schemadump:
-    source_sha256: c0dbf9b3ac9059f698426f23ed97d2c933e20e602c09505ae79cdbeabd9e5f71
+    source_sha256: dbb71cf654e197dff2af0668188fd2456c29a5c5a3399be9424a86f4f326acb6
     disposition: container_lab
     lab_profiles:
       mysql_schema: [mysql_8_0_36, standalone, genuine_mysql_session, quoted_names, repeat, empty, restricted, wrong_password]

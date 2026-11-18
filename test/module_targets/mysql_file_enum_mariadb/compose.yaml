@@ -1,0 +1,14 @@
+services:
+  app:
+    extends: {file: ../mysql_schema_mariadb/compose.yaml, service: app}
+    entrypoint: [bash, /opt/module-target/mariadb-entrypoint.sh]
+    command: [mariadbd, --secure-file-priv=/var/lib/mysql-files]
+    volumes:
+    - ../mysql_file_enum/native.sh:/opt/module-target/native.sh:ro
+    - ../mysql_file_enum/seed.sql:/opt/module-target/seed.sql:ro
+    - ./mariadb-entrypoint.sh:/opt/module-target/mariadb-entrypoint.sh:ro
+  reporting_db:
+    extends: {file: ../mysql_file_enum/services.yaml, service: reporting_db}
+networks:
+  default: {internal: true}
+  public: {}

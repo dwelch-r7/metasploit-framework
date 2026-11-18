@@ -1,0 +1,9 @@
+services:
+  app:
+    extends: {file: ../mysql_schema/services.yaml, service: app}
+    command: [--secure-file-priv=/var/lib/mysql-files]
+    volumes:
+    - ./native.sh:/opt/module-target/native.sh:ro
+    - ./seed.sql:/opt/module-target/seed.sql:ro
+  reporting_db:
+    extends: {file: ../mysql_schema/services.yaml, service: reporting_db}

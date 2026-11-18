@@ -1,0 +1,11 @@
+services:
+  app:
+    extends: {file: ../mysql_file_enum/services.yaml, service: app}
+    command:
+    - --secure-file-priv=/var/lib/mysql-files
+    - --sql-mode=ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION,NO_BACKSLASH_ESCAPES
+  reporting_db:
+    extends: {file: ../mysql_file_enum/services.yaml, service: reporting_db}
+networks:
+  default: {internal: true}
+  public: {}

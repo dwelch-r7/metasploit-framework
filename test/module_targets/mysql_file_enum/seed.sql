@@ -1,0 +1,11 @@
+CREATE DATABASE module_files;
+CREATE DATABASE `module files`;
+CREATE TABLE module_files.native_load (brute INT);
+CREATE TABLE module_files.existing_rows (brute INT);
+INSERT INTO module_files.existing_rows VALUES (777);
+CREATE TABLE `module files`.`native table` (brute INT);
+CREATE USER 'file_operator'@'%' IDENTIFIED BY 'Module-schema-password42!';
+CREATE USER 'no_file'@'%' IDENTIFIED BY 'Module-schema-password42!';
+GRANT SELECT,INSERT,CREATE,DROP ON module_files.* TO 'file_operator'@'%','no_file'@'%';
+GRANT SELECT,INSERT,CREATE,DROP ON `module files`.* TO 'file_operator'@'%';
+GRANT FILE ON *.* TO 'file_operator'@'%';
