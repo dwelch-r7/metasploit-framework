@@ -1,0 +1,97 @@
+{
+  "services": {
+    "broker": {
+      "image": "apache/kafka@sha256:3e324d2bd331570676436b24f625e5dcf1facdfbd62efcffabc6b69b1abc13cc",
+      "platform": "linux/amd64",
+      "cpus": 0.75,
+      "mem_limit": "768m",
+      "memswap_limit": "768m",
+      "pids_limit": 128,
+      "init": true,
+      "networks": [
+        "default"
+      ],
+      "environment": {
+        "CLUSTER_ID": "MkU3OEVBNTcwNTJENDM2Qk",
+        "KAFKA_NODE_ID": "1",
+        "KAFKA_PROCESS_ROLES": "broker,controller",
+        "KAFKA_LISTENERS": "PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093",
+        "KAFKA_ADVERTISED_LISTENERS": "PLAINTEXT://broker:9092",
+        "KAFKA_LISTENER_SECURITY_PROTOCOL_MAP": "CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT",
+        "KAFKA_CONTROLLER_LISTENER_NAMES": "CONTROLLER",
+        "KAFKA_CONTROLLER_QUORUM_VOTERS": "1@broker:9093",
+        "KAFKA_INTER_BROKER_LISTENER_NAME": "PLAINTEXT",
+        "KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR": "1",
+        "KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR": "1",
+        "KAFKA_TRANSACTION_STATE_LOG_MIN_ISR": "1",
+        "KAFKA_NUM_PARTITIONS": "1",
+        "KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS": "0",
+        "KAFKA_AUTO_CREATE_TOPICS_ENABLE": "false",
+        "KAFKA_DELETE_TOPIC_ENABLE": "true",
+        "KAFKA_NUM_NETWORK_THREADS": "2",
+        "KAFKA_NUM_IO_THREADS": "2",
+        "KAFKA_BACKGROUND_THREADS": "2",
+        "KAFKA_NUM_RECOVERY_THREADS_PER_DATA_DIR": "1",
+        "KAFKA_HEAP_OPTS": "-Xms128m -Xmx320m",
+        "KAFKA_JVM_PERFORMANCE_OPTS": "-XX:ActiveProcessorCount=1 -XX:+UseG1GC"
+      },
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "env",
+          "KAFKA_HEAP_OPTS=-Xms32m -Xmx64m",
+          "/opt/kafka/bin/kafka-topics.sh",
+          "--bootstrap-server",
+          "broker:9092",
+          "--list"
+        ],
+        "interval": "10s",
+        "timeout": "8s",
+        "retries": 30
+      }
+    },
+    "app": {
+      "image": "provectuslabs/kafka-ui@sha256:4346a0af1450f52286e671a6b49f701d069d7306a802f7cf6743bd27ac4dbcd1",
+      "platform": "linux/amd64",
+      "cpus": 0.75,
+      "mem_limit": "1024m",
+      "memswap_limit": "1024m",
+      "pids_limit": 128,
+      "init": true,
+      "networks": [
+        "default",
+        "public"
+      ],
+      "ports": [
+        "127.0.0.1::8080"
+      ],
+      "extra_hosts": [
+        "host.docker.internal:host-gateway"
+      ],
+      "depends_on": {
+        "broker": {
+          "condition": "service_healthy"
+        }
+      },
+      "environment": {
+        "KAFKA_CLUSTERS_0_NAME": "module-native",
+        "KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS": "broker:9092",
+        "DYNAMIC_CONFIG_ENABLED": "false",
+        "JAVA_OPTS": "-Xms128m -Xmx512m -XX:MaxMetaspaceSize=256m -XX:ActiveProcessorCount=1 -Dreactor.netty.ioWorkerCount=2"
+      },
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "wget",
+          "-q",
+          "-O",
+          "/dev/null",
+          "http://127.0.0.1:8080/actuator/health"
+        ],
+        "interval": "5s",
+        "timeout": "5s",
+        "retries": 60
+      }
+    }
+  }
+}

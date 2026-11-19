@@ -5,7 +5,19 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest: [Craft CMS image-transform investigation](VERIFICATION-20261119-craft-assets.md)
+Latest: [Native Kafka UI commands and sessions](VERIFICATION-20261119-kafka-ui.md)
+adds one owner and three qualified profiles with **29/0**, reaching **310 runtime
+owners in covered paths, 641 qualified profiles and 4,638 historical functional
+cases**. Twenty-one Kafka cases and eight independent handler controls cover
+exact command bytes, default/enabled Groovy, x86/x64 inline/staged Meterpreter,
+netcat, repeats and real reporting. Twelve owner sessions and eight controls are
+used and closed. Focused repairs pass **50/0**; earlier module/fixture failures
+remain sealed separately. All 77 runtime inputs, 842 native assertions, 152 zero
+resource captures and all 25 owned Docker object removals verify. Only three
+capped services run serially; unrelated initial containers remain. The broader
+goal stays active; no PR.
+
+Previous: [Craft CMS image-transform investigation](VERIFICATION-20261119-craft-assets.md)
 adds three pinned profiles and three confirmed source repairs. The maintained
 stock replay records **21 of 23 cases passing**: explicit session paths pass
 **7/0**, fixed-release denial passes **4/0**, and six Bash/Linux fetch sessions

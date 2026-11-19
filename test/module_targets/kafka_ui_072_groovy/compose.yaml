@@ -1,0 +1,32 @@
+{
+  "services": {
+    "broker": {
+      "extends": {
+        "file": "../kafka_ui/services.yaml",
+        "service": "broker"
+      }
+    },
+    "app": {
+      "extends": {
+        "file": "../kafka_ui/services.yaml",
+        "service": "app"
+      },
+      "environment": {
+        "FILTERING_GROOVY_ENABLED": "true"
+      }
+    },
+    "reporting_db": {
+      "platform": "linux/amd64",
+      "extends": {
+        "file": "../elasticsearch_memory/services.yaml",
+        "service": "db"
+      }
+    }
+  },
+  "networks": {
+    "default": {
+      "internal": true
+    },
+    "public": {}
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "services": {
+    "broker": {
+      "extends": {
+        "file": "../kafka_ui/services.yaml",
+        "service": "broker"
+      }
+    },
+    "app": {
+      "extends": {
+        "file": "../kafka_ui/services.yaml",
+        "service": "app"
+      },
+      "image": "provectuslabs/kafka-ui@sha256:f0ab0eae1fa7fba7d85bcb3e5b8f5a2ab9b8c0d1a2d5e24b9e3d477891eafe95"
+    },
+    "reporting_db": {
+      "platform": "linux/amd64",
+      "extends": {
+        "file": "../elasticsearch_memory/services.yaml",
+        "service": "db"
+      }
+    }
+  },
+  "networks": {
+    "default": {
+      "internal": true
+    },
+    "public": {}
+  }
+}

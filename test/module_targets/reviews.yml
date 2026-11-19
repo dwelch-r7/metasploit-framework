@@ -1,6 +1,28 @@
 # Individual source-reviewed target requirements; these are not blanket exclusions.
 ---
 modules:
+  exploit/linux/http/kafka_ui_unauth_rce_cve_2023_52251:
+    source_sha256: 24df3cad90fe9ad2e47e155f3825ab8ebcd8a76ba8233e1a81e5b5b824372c4d
+    disposition: container_lab
+    lab_profiles:
+      kafka_ui_071: [stock_0_7_1, native_broker_ui, exact_commands, check_modes, shell, inline_x86_x64, staged_x64, repeat, reporting, cleanup]
+      kafka_ui_072_groovy: [stock_0_7_2, explicitly_enabled_groovy, passive_detected, exact_commands, shell, inline_x86_x64, staged_x64, repeat, reporting, cleanup]
+      kafka_ui_072_default: [stock_0_7_2, default_disabled_groovy, passive_detected, exact_feature_denial, repeat, cleanup]
+    reason: >-
+      Twenty-nine maintained cases pass after genuine native broker, UI, Groovy,
+      callback and ELF controls. Twenty-one Kafka owner cases include twelve
+      used/closed owner sessions; eight independent handler cases add eight
+      used/closed prerequisite sessions. Exact command bytes, actual query
+      buffers, same-selection repeats, database owner/payload/workspace rows
+      and physical process/connection/file/topic cleanup are verified. Separate
+      repairs address passive conclusions, command literal/query encoding and
+      ignored failures with per-run topic cleanup; fifty focused cases pass.
+      All 77 runtime inputs remain unchanged, 152 resource captures are zero and
+      all 25 owned Docker objects are independently absent. Only three capped
+      services run serially. Other releases, authentication, nondefault cluster
+      names/routing, architectures/transports and concurrent changes remain
+      unqualified; native ACL/fault coverage is incomplete. See
+      VERIFICATION-20261119-kafka-ui.md.
   auxiliary/scanner/mysql/mysql_writable_dirs:
     source_sha256: 814bbe94d7c38ed51fffab883b3dc00d6511deacd96fa6273d3a8898ec7a8130
     disposition: container_lab

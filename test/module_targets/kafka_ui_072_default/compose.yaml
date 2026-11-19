@@ -1,0 +1,22 @@
+{
+  "services": {
+    "broker": {
+      "extends": {
+        "file": "../kafka_ui/services.yaml",
+        "service": "broker"
+      }
+    },
+    "app": {
+      "extends": {
+        "file": "../kafka_ui/services.yaml",
+        "service": "app"
+      }
+    }
+  },
+  "networks": {
+    "default": {
+      "internal": true
+    },
+    "public": {}
+  }
+}
