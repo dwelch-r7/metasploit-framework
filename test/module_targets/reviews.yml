@@ -1,6 +1,26 @@
 # Individual source-reviewed target requirements; these are not blanket exclusions.
 ---
 modules:
+  exploit/multi/http/kong_gateway_admin_api_rce:
+    source_sha256: 7b0d49e8f38f20c1159b2525397da8c0f09147b8656eb2b00161b94e9aa77e54
+    disposition: container_lab
+    lab_profiles:
+      kong_gateway_214: [stock_2_1_4, native_kong_postgres, exact_shell_lua_bytes, check, closed_port, bash, netcat, repeat, reporting, cleanup]
+      kong_gateway_no_plugin: [stock_2_1_4, disabled_plugin, native_api_rejection, safe_check, early_refusal, closed_port, no_mutation, cleanup]
+    reason: >-
+      Sixteen native-gated cases qualify fourteen owner cases and two independent
+      handler controls. Three owner sessions and two controls are used/closed;
+      SQL owner/payload/workspace rows, remote PID/file/connection cleanup and
+      actual host-listener refusals are verified. Same-byte commands cover
+      quotes, dollars, Lua delimiters, Unicode, LF/tab, CRLF and expansion.
+      Three focused repairs pass thirty-three cases. The public catalog permits
+      Bash/Netcat but rejects Linux fetch adapters; successful independent
+      Meterpreter controls add no owner qualification. All 76 declared inputs
+      stay unchanged, 116 resource captures are zero and ten owned Docker
+      objects are absent. Kafka's full twenty-nine-case regression also passes.
+      Other releases, macOS, authentication, TLS, prefix/proxy routing, payload
+      families, concurrent changes and cleanup faults remain unqualified.
+      See VERIFICATION-20261119-kong.md.
   exploit/linux/http/kafka_ui_unauth_rce_cve_2023_52251:
     source_sha256: 24df3cad90fe9ad2e47e155f3825ab8ebcd8a76ba8233e1a81e5b5b824372c4d
     disposition: container_lab

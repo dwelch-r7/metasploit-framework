@@ -1,0 +1,28 @@
+{
+  "spec": "spec/modules/exploits/multi/http/kong_gateway_admin_api_rce_target_spec.rb",
+  "expected_examples": 3,
+  "console": false,
+  "health_timeout": 240,
+  "test_timeout": 1500,
+  "modules": [
+    "exploit/multi/http/kong_gateway_admin_api_rce"
+  ],
+  "ports": {
+    "app": 8001
+  },
+  "test_env": {
+    "KONG_EXPECT_PLUGIN": "false"
+  },
+  "support_files": [
+    "test/module_targets/kafka_ui/observe.rb",
+    "test/module_targets/kafka_ui/sessions.rb",
+    "test/module_targets/kong_gateway/commands.rb",
+    "test/module_targets/kong_gateway/controls.py",
+    "test/module_targets/kong_gateway/native.py",
+    "test/module_targets/kong_gateway/observe.rb",
+    "test/module_targets/kong_gateway/services.yaml",
+    "test/module_targets/kong_gateway/sessions.rb",
+    "test/module_targets/kong_gateway_no_plugin/compose.yaml",
+    "test/module_targets/rsync_creds/native.rb"
+  ]
+}

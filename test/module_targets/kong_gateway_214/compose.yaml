@@ -1,0 +1,10 @@
+services:
+  database:
+    extends: {file: ../kong_gateway/services.yaml, service: database}
+  app:
+    extends: {file: ../kong_gateway/services.yaml, service: app}
+  reporting_db:
+    extends: {file: ../elasticsearch_memory/services.yaml, service: db}
+networks:
+  default: {internal: true}
+  public: {}

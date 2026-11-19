@@ -1,0 +1,55 @@
+services:
+  database:
+    image: postgres:9.6-alpine@sha256:8342bcb43446694428ec6594e72e4299692854f0fc3aca090b0ab46f4c7f32a1
+    platform: linux/amd64
+    environment:
+      POSTGRES_USER: kong
+      POSTGRES_DB: kong
+      POSTGRES_PASSWORD: module-target-kong-password
+    command: [postgres, -c, shared_buffers=16MB, -c, max_connections=30]
+    tmpfs: ['/var/lib/postgresql/data:rw,nosuid,size=192m']
+    cpus: 0.25
+    mem_limit: 384m
+    memswap_limit: 384m
+    pids_limit: 96
+    networks: [default]
+    healthcheck:
+      test: [CMD, pg_isready, -h, '127.0.0.1', -U, kong, -d, kong]
+      interval: 3s
+      timeout: 3s
+      retries: 40
+  app:
+    image: kong:2.1.4@sha256:0ea0ea0e794b215a76cd6f83f1f022d4c10c068fa10575670984b97b24aec01f
+    platform: linux/amd64
+    command: [sh, -ec, 'kong migrations bootstrap; exec /docker-entrypoint.sh kong docker-start']
+    depends_on:
+      database: {condition: service_healthy}
+    environment:
+      KONG_DATABASE: postgres
+      KONG_PG_HOST: database
+      KONG_PG_USER: kong
+      KONG_PG_DATABASE: kong
+      KONG_PG_PASSWORD: module-target-kong-password
+      KONG_ADMIN_LISTEN: '0.0.0.0:8001'
+      KONG_PROXY_LISTEN: '0.0.0.0:8000'
+      KONG_NGINX_WORKER_PROCESSES: '1'
+      KONG_MEM_CACHE_SIZE: 32m
+      KONG_DB_UPDATE_FREQUENCY: '1'
+      KONG_ANONYMOUS_REPORTS: 'off'
+      KONG_PROXY_ACCESS_LOG: /dev/stdout
+      KONG_ADMIN_ACCESS_LOG: /dev/stdout
+      KONG_PROXY_ERROR_LOG: /dev/stderr
+      KONG_ADMIN_ERROR_LOG: /dev/stderr
+    extra_hosts: ['host.docker.internal:host-gateway']
+    ports: ['127.0.0.1::8001', '127.0.0.1::8000']
+    networks: [default, public]
+    cpus: 0.75
+    mem_limit: 512m
+    memswap_limit: 512m
+    pids_limit: 128
+    init: true
+    healthcheck:
+      test: [CMD, kong, health]
+      interval: 3s
+      timeout: 5s
+      retries: 60

@@ -5,7 +5,20 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest: [Native Kafka UI commands and sessions](VERIFICATION-20261119-kafka-ui.md)
+Latest: [Native Kong Gateway commands and sessions](VERIFICATION-20261119-kong.md)
+adds one owner and two qualified profiles with **16/0**, reaching **311 runtime
+owners in covered paths, 643 qualified profiles and 4,654 historical functional
+cases**. Fourteen owner cases and two genuine handler controls cover exact shell/
+Lua bytes, plugin availability, closed ports, Bash/Netcat sessions and repeats.
+All five sessions are used/closed, persisted reports match, and independent TCP
+probes verify listener removal. Three source repairs pass **33/0** focused cases;
+failed fixtures/oracles remain separately sealed. All 76 inputs, 479 native
+assertions, 116 zero resource captures and ten owned Docker object removals verify.
+The shared session helper also passes the complete 29/0 Kafka regression. Only
+three capped services run serially. Linux fetch adapters remain outside Kong's
+public compatible-payload catalog. The broader goal stays active; no PR.
+
+Previous: [Native Kafka UI commands and sessions](VERIFICATION-20261119-kafka-ui.md)
 adds one owner and three qualified profiles with **29/0**, reaching **310 runtime
 owners in covered paths, 641 qualified profiles and 4,638 historical functional
 cases**. Twenty-one Kafka cases and eight independent handler controls cover

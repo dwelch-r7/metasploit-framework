@@ -55,8 +55,44 @@ module KafkaUiSessionTarget
     ks_inspect('connections', port).none? { |row| %w[01 08].include?(row.fetch('state')) }
   end
 
+  def ks_owner_fullname
+    KafkaUiObservation::OWNER
+  end
+
+  def ks_families
+    FAMILIES
+  end
+
+  def ks_owner_events
+    rc_json('framework.instance_variable_get(:@kafka_ui_events)')
+  end
+
+  # Application-specific delivery stays separate from the shared real-session
+  # proof, reporting, transport and physical cleanup assertions below.
+  def ks_start_owner(attempt, options, payload, reuse, offset)
+    before_files, = rc_command('owner-tmp-baseline', 'app', 'sh', '-c', 'printf "%s\\n" /tmp/*')
+    attempt[:tmp_baseline] = before_files.lines.map(&:strip)
+    attempt[:output_base64] = Base64.strict_encode64(run_target_module(ks_owner_fullname, 'app', options.except('ExitOnSession', 'ListenerTimeout').merge('AutoCheck' => true, 'ForceExploit' => false, 'WfsDelay' => 30), action: 'run -z', reuse_module: reuse, command_timeout: 120).b)
+    events = ks_owner_events.drop(offset)
+    attempt[:owner_events] = events
+    invoked = events.select { |event| event['event'] == 'call' && event['method'] == 'exploit' }
+    attempt[:owner_exploit_invoked] = invoked.length == 1
+    expect(attempt[:owner_exploit_invoked]).to be(true)
+    executions = events.select { |event| event['event'] == 'call' && event['method'] == 'execute_command' }
+    expect(executions.length).to eq(1)
+    command = Base64.strict_decode64(executions.first.fetch('command_base64'))
+    attempt[:generated] = { 'owner' => ks_owner_fullname, 'payload' => payload, 'base64' => Base64.strict_encode64(command), 'sha256' => Digest::SHA256.hexdigest(command) }
+    selection = rc_json('active_module.object_id')
+    expect(selection).to eq(@rc.fetch(:previous_owner_selection)) if reuse
+    @rc[:previous_owner_selection] = selection
+    attempt[:selection] = selection
+    checks = events.select { |event| event['event'] == 'return' && event['method'] == 'check' }
+    expect(checks.map { |event| event.fetch('check').fetch('code') }).to eq([ENV.fetch('KAFKA_UI_VERSION') == '0.7.1' ? 'appears' : 'detected'])
+    expect(events).to include(include('event' => 'return', 'method' => 'delete_topic', 'value' => true))
+  end
+
   def ks_session(family, owner: false, reuse: false, label: family)
-    payload, type, elf_class = FAMILIES.fetch(family)
+    payload, type, elf_class = ks_families.fetch(family)
     @workspace = "ks_#{Process.pid}_#{label}"
     expect(@workspace).to match(/\Aks_\d+_[a-z0-9_]+\z/)
     expect(console_command('workspace -a ' + @workspace)).to include(@workspace)
@@ -66,37 +102,18 @@ module KafkaUiSessionTarget
     fetched = "/tmp/module-target-kafka-sdk-fetch-#{Process.pid}-#{label}" if elf_class
     expect(ks_inspect('file', remote_script)).to eq('exists' => false) if remote_script
     expect(ks_inspect('file', fetched)).to eq('exists' => false) if fetched
-    expected_owner = owner ? KafkaUiObservation::OWNER : 'exploit/multi/handler'
+    expected_owner = owner ? ks_owner_fullname : 'exploit/multi/handler'
     attempt = { label: label, owner_path: owner, family: family, payload: payload, workspace: @workspace, status: 'starting', owner_exploit_invoked: false }
     @rc[:sdk] << attempt
     delivery_offset = rc_json('framework.instance_variable_get(:@kafka_payload_deliveries).length')
-    independent_owner_offset = rc_json('framework.instance_variable_get(:@kafka_ui_events).length') if !owner && @rc[:owner_observer]
+    independent_owner_offset = ks_owner_events.length if !owner && @rc[:owner_observer]
     options = { 'PAYLOAD' => payload, 'LHOST' => @callback.fetch('host'), 'LPORT' => port, 'ReverseListenerBindAddress' => @callback.fetch('bind'), 'ExitOnSession' => false, 'ListenerTimeout' => 60, 'VERBOSE' => true }
     if fetched
       options.merge!('FETCH_COMMAND' => 'WGET', 'FETCH_SRVHOST' => @callback.fetch('host'), 'FETCH_SRVPORT' => ks_port, 'FetchListenerBindAddress' => @callback.fetch('bind'), 'FETCH_WRITABLE_DIR' => '/tmp', 'FETCH_FILENAME' => File.basename(fetched), 'FETCH_URIPATH' => File.basename(fetched), 'FETCH_DELETE' => true)
     end
     if owner
-      before_files, = rc_command('owner-tmp-baseline', 'app', 'sh', '-c', 'printf "%s\\n" /tmp/*')
-      attempt[:tmp_baseline] = before_files.lines.map(&:strip)
-      offset = rc_json('framework.instance_variable_get(:@kafka_ui_events).length')
-      attempt[:output_base64] = Base64.strict_encode64(run_target_module(expected_owner, 'app', options.except('ExitOnSession', 'ListenerTimeout').merge('AutoCheck' => true, 'ForceExploit' => false, 'WfsDelay' => 30), action: 'run -z', reuse_module: reuse, command_timeout: 120).b)
-      events = rc_json("framework.instance_variable_get(:@kafka_ui_events).drop(#{offset})")
-      attempt[:owner_events] = events
-      invoked = events.select { |event| event['event'] == 'call' && event['method'] == 'exploit' }
-      attempt[:owner_exploit_invoked] = invoked.length == 1
-      expect(attempt[:owner_exploit_invoked]).to be(true)
-      executions = events.select { |event| event['event'] == 'call' && event['method'] == 'execute_command' }
-      expect(executions.length).to eq(1)
-      command = Base64.strict_decode64(executions.first.fetch('command_base64'))
-      generated = { 'owner' => expected_owner, 'payload' => payload, 'base64' => Base64.strict_encode64(command), 'sha256' => Digest::SHA256.hexdigest(command) }
-      attempt[:generated] = generated
-      selection = rc_json('active_module.object_id')
-      expect(selection).to eq(@rc.fetch(:previous_owner_selection)) if reuse
-      @rc[:previous_owner_selection] = selection
-      attempt[:selection] = selection
-      checks = events.select { |event| event['event'] == 'return' && event['method'] == 'check' }
-      expect(checks.map { |event| event.fetch('check').fetch('code') }).to eq([ENV.fetch('KAFKA_UI_VERSION') == '0.7.1' ? 'appears' : 'detected'])
-      expect(events).to include(include('event' => 'return', 'method' => 'delete_topic', 'value' => true))
+      offset = ks_owner_events.length
+      ks_start_owner(attempt, options, payload, reuse, offset)
     else
       console_command('back')
       expect(console_command('use exploit/multi/handler')).not_to match(/Failed to load|Unknown command|No results/)
@@ -110,7 +127,7 @@ module KafkaUiSessionTarget
       expect(Digest::SHA256.hexdigest(command)).to eq(generated.fetch('sha256'))
       attempt[:generated] = generated
       fifos = command.scan(%r{\bmkfifo (/tmp/[a-z]{4,7});}).flatten
-      expect(fifos.length).to eq(1) if type == 'shell'
+      expect(fifos.length).to eq(family == 'netcat' ? 1 : 0) if type == 'shell'
       fifos.each { |fifo| rc_command('native-sdk-fifo-absence', 'app', 'sh', '-c', '[ ! -e "$1" ] && [ ! -L "$1" ]', 'native-sdk-fifo', fifo) }
       attempt[:fifos] = fifos
       output, error, status = Open3.capture3(*target_runtime.fetch('compose'), 'exec', '-T', 'app', 'sh', '-c', 'cat > "$1"; chmod 700 "$1"; sha256sum "$1"; stat -c %u "$1"', 'native-sdk', remote_script, stdin_data: command)
@@ -136,7 +153,7 @@ module KafkaUiSessionTarget
       raw = rc_json("Base64.strict_encode64(framework.sessions.fetch(#{identifier}).exploit.payload.raw)")
       attempt[:raw_payload_base64] = raw
       fifos = Base64.strict_decode64(raw).scan(%r{\bmkfifo (/tmp/[a-z]{4,7});}).flatten
-      expect(fifos.length).to eq(1)
+      expect(fifos.length).to eq(family == 'netcat' ? 1 : 0)
       expect(fifos & attempt.fetch(:tmp_baseline)).to be_empty
       attempt[:fifos] = fifos
     end
@@ -164,7 +181,7 @@ module KafkaUiSessionTarget
     reports = JSON.parse(rc_sql("SELECT coalesce(json_agg(row),'[]'::json) FROM (SELECT s.id,s.stype,s.via_exploit,s.via_payload,w.name AS workspace FROM sessions s JOIN hosts h ON h.id=s.host_id JOIN workspaces w ON w.id=h.workspace_id WHERE s.id=#{metadata.fetch('db_id')}) row"))
     expect(reports).to include(include('id' => metadata.fetch('db_id'), 'stype' => type, 'via_exploit' => expected_owner, 'via_payload' => 'payload/' + payload, 'workspace' => @workspace))
     if independent_owner_offset
-      native_events = rc_json("framework.instance_variable_get(:@kafka_ui_events).drop(#{independent_owner_offset})")
+      native_events = ks_owner_events.drop(independent_owner_offset)
       expect(native_events.none? { |event| event['event'] == 'call' && event['method'] == 'exploit' }).to be(true)
       attempt[:native_owner_absence_verified] = true
     end
@@ -174,7 +191,7 @@ module KafkaUiSessionTarget
     begin
       if attempt
         attempt[:failure] = { type: primary_error.class.name, message: primary_error.message } if primary_error
-        attempt[:owner_events] ||= rc_json("framework.instance_variable_get(:@kafka_ui_events).drop(#{offset})") if owner && offset
+        attempt[:owner_events] ||= ks_owner_events.drop(offset) if owner && offset
         rc_command('remove-sdk-proof', 'app', 'rm', '-f', proof) if proof
         ks_sessions.each do |session|
           rc_json("DruidSessionControl.dispatch(framework,'exit',#{session.fetch('id')})")
