@@ -186,19 +186,24 @@ def audit():
     return {'checks': CHECKS, 'http': HTTP, 'snapshot': after, 'installed': installed, 'passed': all(row['passed'] for row in CHECKS)}
 
 
-try:
-    operation = sys.argv[2]
-    if operation == 'initialize':
-        result = initialize()
-    elif operation == 'snapshot':
-        result = state()
-    elif operation == 'audit':
-        result = audit()
-    else:
-        raise ValueError('Unknown native operation')
-    print(json.dumps(result))
-    if operation == 'audit' and not result['passed']:
-        raise SystemExit(1)
-except Exception as error:
-    print(json.dumps({'operation': sys.argv[2], 'checks': CHECKS, 'http': HTTP, 'error': {'type': type(error).__name__, 'message': str(error)}}))
-    raise
+def main():
+    try:
+        operation = sys.argv[2]
+        if operation == 'initialize':
+            result = initialize()
+        elif operation == 'snapshot':
+            result = state()
+        elif operation == 'audit':
+            result = audit()
+        else:
+            raise ValueError('Unknown native operation')
+        print(json.dumps(result))
+        if operation == 'audit' and not result['passed']:
+            raise SystemExit(1)
+    except Exception as error:
+        print(json.dumps({'operation': sys.argv[2], 'checks': CHECKS, 'http': HTTP, 'error': {'type': type(error).__name__, 'message': str(error)}}))
+        raise
+
+
+if __name__ == '__main__':
+    main()

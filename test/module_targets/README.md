@@ -5,7 +5,22 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest: [Native Craft FTP template execution](VERIFICATION-20261119-craft-ftp.md)
+Latest: [Craft CMS image-transform investigation](VERIFICATION-20261119-craft-assets.md)
+adds three pinned profiles and three confirmed source repairs. The maintained
+stock replay records **21 of 23 cases passing**: explicit session paths pass
+**7/0**, fixed-release denial passes **4/0**, and six Bash/Linux fetch sessions
+are used and closed. Both command targets pass exact bytes, repeat execution and
+fresh disabled checks. An independent native PHP Meterpreter readiness failure
+withholds the dependent PHP session case. Stock qualification remains unfinished;
+campaign totals stay **309 runtime owners, 638 qualified profiles and 4,609
+historical functional cases**. Native controls, 216 zero resource captures and
+all 18 owned Docker object removals pass; unrelated initial containers remain.
+The root focused suite passes 42/0. A separate explicit runtime comparison passes
+12/0, with eight used/closed owner sessions including first/repeated PHP
+Meterpreter; it adds no stock qualification. The broader goal remains active;
+no PR.
+
+Previous: [Native Craft FTP template execution](VERIFICATION-20261119-craft-ftp.md)
 adds one owner and three qualified profiles with **10/0**, reaching **309 runtime
 owners in covered paths, 638 qualified profiles and 4,609 historical functional
 cases**. Four used/closed inline/staged x86/x64 Meterpreter sessions, native

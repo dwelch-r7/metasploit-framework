@@ -1,0 +1,66 @@
+{
+  "owner": "exploit/linux/http/craftcms_preauth_rce_cve_2025_32432",
+  "expected_uid": 82,
+  "profiles": {
+    "craftcms_assets": {
+      "version": "4.14.14",
+      "vulnerable": false,
+      "asset_vulnerable": true
+    },
+    "craftcms_assets_fixed": {
+      "version": "4.14.15",
+      "vulnerable": false,
+      "asset_vulnerable": false
+    },
+    "craftcms_assets_session_path": {
+      "version": "4.14.14",
+      "vulnerable": false,
+      "asset_vulnerable": true,
+      "session_configuration": "explicit_path_with_spaces"
+    }
+  },
+  "releases": {
+    "4.14.14": {
+      "cms_reference": "9cf370a4dd4835ea4d4fa709da192a9d91de5109",
+      "critical_files": {
+        "/app/vendor/craftcms/cms/src/controllers/AssetsController.php": {
+          "sha256": "c33d5d158cbcdfa7a0fee9f29585a60319605e422bb41a08e60725eb96e66339",
+          "source": "https://raw.githubusercontent.com/craftcms/cms/9cf370a4dd4835ea4d4fa709da192a9d91de5109/src/controllers/AssetsController.php"
+        },
+        "/app/vendor/craftcms/cms/src/helpers/App.php": {
+          "sha256": "3be93ab341836729445977e388dd9b11e8ad12acba8e554f148bc98ddc9ea321",
+          "source": "https://raw.githubusercontent.com/craftcms/cms/9cf370a4dd4835ea4d4fa709da192a9d91de5109/src/helpers/App.php"
+        },
+        "/app/vendor/craftcms/cms/bootstrap/bootstrap.php": {
+          "sha256": "117fd6ea1531fea168187284bc84b16a2d1b8a0444721bbb2b9125dc19736590",
+          "source": "https://raw.githubusercontent.com/craftcms/cms/9cf370a4dd4835ea4d4fa709da192a9d91de5109/bootstrap/bootstrap.php"
+        },
+        "/app/vendor/craftcms/cms/src/controllers/ConditionsController.php": {
+          "sha256": "fddbba0394454a1cde545fc61f6246226fb280f9ac8f0ac5c1c884e037fa6ade",
+          "source": "https://raw.githubusercontent.com/craftcms/cms/9cf370a4dd4835ea4d4fa709da192a9d91de5109/src/controllers/ConditionsController.php"
+        }
+      },
+      "lock_sha256": "2f36590d537ece717ae1308b4cfb489743b198a190fe32b12c1ab202ad9782aa"
+    },
+    "4.14.15": {
+      "cms_reference": "84bda0c406cea052bdf6cd30b44a60e52757f9ee",
+      "critical_files": {
+        "/app/vendor/craftcms/cms/src/controllers/AssetsController.php": {
+          "sha256": "1a335603f9632c52bae0131950f0e4561a0cf73af1ed749cc658f706962d88f0",
+          "source": "https://raw.githubusercontent.com/craftcms/cms/84bda0c406cea052bdf6cd30b44a60e52757f9ee/src/controllers/AssetsController.php"
+        },
+        "/app/vendor/craftcms/cms/src/helpers/App.php": {
+          "sha256": "3be93ab341836729445977e388dd9b11e8ad12acba8e554f148bc98ddc9ea321",
+          "source": "https://raw.githubusercontent.com/craftcms/cms/84bda0c406cea052bdf6cd30b44a60e52757f9ee/src/helpers/App.php"
+        },
+        "/app/vendor/craftcms/cms/bootstrap/bootstrap.php": {
+          "sha256": "117fd6ea1531fea168187284bc84b16a2d1b8a0444721bbb2b9125dc19736590",
+          "source": "https://raw.githubusercontent.com/craftcms/cms/84bda0c406cea052bdf6cd30b44a60e52757f9ee/bootstrap/bootstrap.php"
+        }
+      },
+      "lock_sha256": "9a374e918a957e6575cc4135458f11d12173502936f2b125198ee0167ddd1eec"
+    }
+  },
+  "advisory": "https://github.com/craftcms/cms/security/advisories/GHSA-f3gw-9ww9-jmc3",
+  "native_vulnerable_flag_scope": "The shared vulnerable flag describes CVE-2023-41892 controls;asset_vulnerable describes this image-transform owner."
+}
