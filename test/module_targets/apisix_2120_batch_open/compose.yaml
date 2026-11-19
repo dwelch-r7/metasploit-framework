@@ -1,0 +1,11 @@
+services:
+  database:
+    extends: {file: ../apisix/services.yaml, service: database}
+  app:
+    extends: {file: ../apisix/services.yaml, service: app}
+    volumes: ['../apisix/open-batch.yaml:/usr/local/apisix/conf/config.yaml:ro']
+  reporting_db:
+    extends: {file: ../elasticsearch_memory/services.yaml, service: db}
+networks:
+  default: {internal: true}
+  public: {}

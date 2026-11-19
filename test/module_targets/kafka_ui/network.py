@@ -13,6 +13,8 @@ import threading
 
 import native as target
 
+EXPECTED_UID = getattr(target, 'expected_uid', 100)
+
 
 def callback_host():
     hosts = target.command('app', 'cat', '/etc/hosts').decode().splitlines()
@@ -75,7 +77,7 @@ def callback():
         target.check('native-callback-thread-finished', not thread.is_alive())
         target.check('native-callback-eof-no-error', state.get('eof') is True and 'error' not in state)
         lines = state['response'].splitlines()
-        target.check('native-shell-exact-token-and-user', len(lines) == 4 and lines[0] == token and lines[1] == '100' and lines[3] == token + '-done')
+        target.check('native-shell-exact-token-and-user', len(lines) == 4 and lines[0] == token and lines[1] == str(EXPECTED_UID) and lines[3] == token + '-done')
         pid = int(lines[2])
         target.check('native-shell-pid-valid', pid > 1)
         target.command('app', 'sh', '-c', '[ ! -e "/proc/$1" ]', 'native-process-closed', str(pid))
@@ -134,7 +136,7 @@ def fetch(bits):
         url = 'http://' + host + ':' + str(server.server_port) + path
         target.command('app', 'wget', '-q', '-T', '8', '-O', destination, url)
         actual = target.file_state(destination)
-        target.check('native-wget-exact-elf-and-user', actual['exists'] and actual['uid'] == 100 and hashlib.sha256(base64.b64decode(actual['base64'])).hexdigest() == digest)
+        target.check('native-wget-exact-elf-and-user', actual['exists'] and actual['uid'] == EXPECTED_UID and hashlib.sha256(base64.b64decode(actual['base64'])).hexdigest() == digest)
         target.command('app', 'chmod', '755', destination)
         target.command('app', destination, required=False)
         status = target.record['commands'][-1]['exit']

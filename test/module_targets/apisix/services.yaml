@@ -1,0 +1,37 @@
+services:
+  database:
+    platform: linux/amd64
+    image: quay.io/coreos/etcd:v3.5.18@sha256:d0a641d5fbcc89678c931a61b7de7b8a1cf097149f135c9c73bc81d076a1494b
+    entrypoint: [/usr/local/bin/etcd]
+    command: [--name=default, --data-dir=/etcd-data, --listen-client-urls=http://0.0.0.0:2379, --advertise-client-urls=http://database:2379, --listen-peer-urls=http://127.0.0.1:2380, --initial-advertise-peer-urls=http://127.0.0.1:2380, --initial-cluster=default=http://127.0.0.1:2380]
+    tmpfs: ['/etcd-data:rw,nosuid,size=96m']
+    cpus: 0.25
+    mem_limit: 192m
+    memswap_limit: 192m
+    pids_limit: 64
+    healthcheck:
+      test: [CMD, /usr/local/bin/etcdctl, --endpoints=http://127.0.0.1:2379, endpoint, health]
+      interval: 2s
+      timeout: 3s
+      retries: 40
+  app:
+    platform: linux/amd64
+    image: apache/apisix:2.12.0-alpine@sha256:a9fbab39043cd8c9abcb2bcc901aba6b876bce00edb0b14ada4880e561e97fe5
+    depends_on:
+      database: {condition: service_healthy}
+    networks: [default, public]
+    extra_hosts: ['host.docker.internal:host-gateway']
+    ports: ['127.0.0.1::9080']
+    volumes: ['./open-batch.yaml:/usr/local/apisix/conf/config.yaml:ro']
+    cpus: 0.75
+    mem_limit: 384m
+    memswap_limit: 384m
+    pids_limit: 96
+    healthcheck:
+      test: [CMD-SHELL, 'kill -0 $$(cat /usr/local/apisix/logs/nginx.pid)']
+      interval: 2s
+      timeout: 3s
+      retries: 40
+  app_2121:
+    extends: {service: app}
+    image: apache/apisix:2.12.1-alpine@sha256:6840fe58c214d06dadaa6e32e6d0cd0418d65d55471277f24cf8c903f573f496

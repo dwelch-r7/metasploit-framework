@@ -1,6 +1,29 @@
 # Individual source-reviewed target requirements; these are not blanket exclusions.
 ---
 modules:
+  exploit/multi/http/apache_apisix_api_default_token_rce:
+    source_sha256: 2ad0a220e70c0a01e9310960140fa5412d8b2fc12f9bcef558474d7f7115f4cc
+    disposition: container_lab
+    lab_profiles:
+      apisix_2120_batch_open: [stock_2_12_0, allowed_admin, native_etcd, batch, exact_bytes, bash, netcat, repeat, reporting, cleanup]
+      apisix_2121_direct: [stock_2_12_1, allowed_admin, disabled_batch, native_etcd, direct, exact_bytes, bash, netcat, repeat, reporting, cleanup]
+      apisix_2120_direct: [stock_2_12_0, allowed_admin, disabled_batch, native_etcd, direct, exact_bytes, check, repeat, cleanup]
+      apisix_2121_batch: [stock_2_12_1, restricted_admin, fixed_bypass, native_denial, safe_check, no_mutation, cleanup]
+    reason: >-
+      Thirty-three maintained cases qualify twenty-nine owner cases and four
+      genuine handler controls. Six owner sessions and four controls are used
+      and closed with exact UID 65534 files, one SQL row per workspace, physical
+      cleanup and real listener refusal. Twelve exact owner commands preserve
+      quotes, Unicode, LF/tab, CRLF and repeats; a pre-existing index route stays
+      unchanged. Five repairs address effective access responses, Lua bytes,
+      allocated-route ownership, blocking sessions and asynchronous activation.
+      Ninety-five focused module cases and seven support cases pass; all 87
+      published test inputs, 652 native assertions, 138 zero resource readings and all
+      20 owned Docker object removals verify. Kafka/Kong's shared regression
+      passes 45 cases and 25 session lifecycles. Restricted 2.12.0 bypass remains
+      variable and unqualified; other releases, ARM, TLS, prefixes, key roles,
+      runtime-dependent payloads, concurrent changes and injected failures are
+      outside these profiles. See VERIFICATION-20261119-apisix.md.
   exploit/multi/http/kong_gateway_admin_api_rce:
     source_sha256: 7b0d49e8f38f20c1159b2525397da8c0f09147b8656eb2b00161b94e9aa77e54
     disposition: container_lab

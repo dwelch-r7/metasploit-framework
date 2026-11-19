@@ -1,0 +1,14 @@
+apisix:
+  node_listen: 9080
+  enable_ipv6: false
+  enable_control: false
+  allow_admin: [0.0.0.0/0]
+nginx_config:
+  error_log: /dev/stderr
+  worker_processes: 1
+  enable_cpu_affinity: false
+etcd:
+  host: [http://database:2379]
+  prefix: /apisix
+  timeout: 10
+plugins: [batch-requests]

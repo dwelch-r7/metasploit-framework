@@ -63,6 +63,14 @@ module KafkaUiSessionTarget
     FAMILIES
   end
 
+  def ks_expected_uid
+    100
+  end
+
+  def ks_exec_user_options
+    []
+  end
+
   def ks_owner_events
     rc_json('framework.instance_variable_get(:@kafka_ui_events)')
   end
@@ -130,11 +138,11 @@ module KafkaUiSessionTarget
       expect(fifos.length).to eq(family == 'netcat' ? 1 : 0) if type == 'shell'
       fifos.each { |fifo| rc_command('native-sdk-fifo-absence', 'app', 'sh', '-c', '[ ! -e "$1" ] && [ ! -L "$1" ]', 'native-sdk-fifo', fifo) }
       attempt[:fifos] = fifos
-      output, error, status = Open3.capture3(*target_runtime.fetch('compose'), 'exec', '-T', 'app', 'sh', '-c', 'cat > "$1"; chmod 700 "$1"; sha256sum "$1"; stat -c %u "$1"', 'native-sdk', remote_script, stdin_data: command)
+      output, error, status = Open3.capture3(*target_runtime.fetch('compose'), 'exec', '-T', *ks_exec_user_options, 'app', 'sh', '-c', 'cat > "$1"; chmod 700 "$1"; sha256sum "$1"; stat -c %u "$1"', 'native-sdk', remote_script, stdin_data: command)
       attempt[:install] = { exit: status.exitstatus, stdout: output, stderr: error }
       expect(status.success?).to be(true), error
-      expect(ks_inspect('file', remote_script)).to eq('exists' => true, 'uid' => 100, 'base64' => generated.fetch('base64'))
-      output, error, status = Open3.capture3(*target_runtime.fetch('compose'), 'exec', '-T', '-d', 'app', '/bin/sh', remote_script)
+      expect(ks_inspect('file', remote_script)).to eq('exists' => true, 'uid' => ks_expected_uid, 'base64' => generated.fetch('base64'))
+      output, error, status = Open3.capture3(*target_runtime.fetch('compose'), 'exec', '-T', *ks_exec_user_options, '-d', 'app', '/bin/sh', remote_script)
       attempt[:launch] = { exit: status.exitstatus, stdout: output, stderr: error }
       expect(status.success?).to be(true), error
     end
@@ -164,9 +172,9 @@ module KafkaUiSessionTarget
     expect(result).not_to have_key('error')
     expected = type == 'shell' ? 'druid-session' : ''
     rc_poll { ks_inspect('file', proof).fetch('exists') }
-    expect(ks_inspect('file', proof)).to eq('exists' => true, 'uid' => 100, 'base64' => Base64.strict_encode64(expected))
+    expect(ks_inspect('file', proof)).to eq('exists' => true, 'uid' => ks_expected_uid, 'base64' => Base64.strict_encode64(expected))
     process = ks_inspect('process', result.fetch('pid'))
-    expect(process).to include('exists' => true, 'complete' => true, 'uid' => 100)
+    expect(process).to include('exists' => true, 'complete' => true, 'uid' => ks_expected_uid)
     if elf_class
       deliveries = rc_json("framework.instance_variable_get(:@kafka_payload_deliveries).drop(#{delivery_offset})")
       attempt[:deliveries] = deliveries
@@ -177,7 +185,7 @@ module KafkaUiSessionTarget
       end
       expect(deliveries).to include(include('sha256' => process.fetch('exe_sha256'))) unless family == 'staged64'
     end
-    expect(ks_inspect('connections', port)).to include(include('state' => '01', 'uid' => 100))
+    expect(ks_inspect('connections', port)).to include(include('state' => '01', 'uid' => ks_expected_uid))
     reports = JSON.parse(rc_sql("SELECT coalesce(json_agg(row),'[]'::json) FROM (SELECT s.id,s.stype,s.via_exploit,s.via_payload,w.name AS workspace FROM sessions s JOIN hosts h ON h.id=s.host_id JOIN workspaces w ON w.id=h.workspace_id WHERE s.id=#{metadata.fetch('db_id')}) row"))
     expect(reports).to include(include('id' => metadata.fetch('db_id'), 'stype' => type, 'via_exploit' => expected_owner, 'via_payload' => 'payload/' + payload, 'workspace' => @workspace))
     if independent_owner_offset

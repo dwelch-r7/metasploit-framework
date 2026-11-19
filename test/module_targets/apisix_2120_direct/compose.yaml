@@ -1,0 +1,9 @@
+services:
+  database:
+    extends: {file: ../apisix/services.yaml, service: database}
+  app:
+    extends: {file: ../apisix/services.yaml, service: app}
+    volumes: ['../apisix/direct.yaml:/usr/local/apisix/conf/config.yaml:ro']
+networks:
+  default: {internal: true}
+  public: {}

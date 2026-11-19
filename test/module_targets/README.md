@@ -5,7 +5,19 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest: [Native Kong Gateway commands and sessions](VERIFICATION-20261119-kong.md)
+Latest: [Native APISIX route commands and sessions](VERIFICATION-20261119-apisix.md)
+adds one owner and four profiles with **33/0**, reaching **312 runtime owners in
+covered paths, 647 qualified profiles and 4,687 historical functional cases**.
+Twenty-nine owner cases and four independent handler cases cover effective
+administration access, exact bytes, Bash/Netcat sessions, repeats and restricted-admin
+denial. All ten sessions are used/closed; all 87 published test inputs, 652 native
+assertions, 138 zero resource readings and 20 owned Docker object removals verify.
+Five source repairs pass 95 focused module cases (102/0 raw with seven support
+cases). The complete Kafka/Kong regression also passes 45/0. Restricted 2.12.0
+bypass variability remains separately recorded and unqualified. Only three capped
+services run serially; the broader goal remains active and no PR is created.
+
+Previous: [Native Kong Gateway commands and sessions](VERIFICATION-20261119-kong.md)
 adds one owner and two qualified profiles with **16/0**, reaching **311 runtime
 owners in covered paths, 643 qualified profiles and 4,654 historical functional
 cases**. Fourteen owner cases and two genuine handler controls cover exact shell/
