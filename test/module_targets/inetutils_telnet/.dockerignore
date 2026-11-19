@@ -1,0 +1,7 @@
+*
+!target.Dockerfile
+!inetd.conf
+!native.py
+!snapshot.py
+!fragment.py
+!inspect.py

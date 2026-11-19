@@ -5,7 +5,19 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest: [Native pyLoad command and Python execution](VERIFICATION-20261119-pyload.md)
+Latest: [Native GNU Inetutils Telnet execution](VERIFICATION-20261119-inetutils.md)
+adds one owner and three profiles with **33/0**, reaching **305 runtime owners in
+covered paths, 627 qualified profiles and 4,435 historical functional cases**.
+Eight used Bash/fetch Meterpreter sessions cover first/repeat execution; genuine
+PAM login, fixed-package refusals, split server writes and exact command bytes
+provide independent contrasts. Two source repairs fix premature banner handling
+and callback hangup; setup and oracle failures remain sealed and unqualified.
+The final audit verifies 98 unchanged inputs, 156 zero resource captures and all
+15 owned Docker object removals. Only two capped containers run serially; the
+namespace ends empty and unrelated initial containers are preserved. The broader
+goal remains active; no PR.
+
+Previous: [Native pyLoad command and Python execution](VERIFICATION-20261119-pyload.md)
 adds two owners and four profiles with **59/0**, reaching **304 runtime owners in
 covered paths, 624 qualified profiles and 4,402 historical functional cases**.
 Eighteen used sessions cover command, Python and Linux-dropper paths, both x86

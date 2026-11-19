@@ -1,0 +1,46 @@
+{
+  "snapshot": "20260210T000000Z",
+  "bootstrap_ca": {
+    "version": "20240203",
+    "url": "https://archive.ubuntu.com/ubuntu/pool/main/c/ca-certificates/ca-certificates_20240203_all.deb",
+    "sha256": "641de77d8f142cfd62a1a6f964ba67b20754d3337c480efb529d086075a06c9a"
+  },
+  "profiles": {
+    "inetutils_telnet": {
+      "base": {
+        "tag": "24.04",
+        "index": "sha256:cd1dba651b3080c3686ecf4e3c4220f026b521fb76978881737d24f200828b2b",
+        "amd64": "sha256:a4453623f2f8319cfff65c43da9be80fe83b1a7ce689579b475867d69495b782",
+        "pinned_tag": "noble-20260113"
+      },
+      "distro": "noble",
+      "version": "2:2.5-3ubuntu4",
+      "fixed": false
+    },
+    "inetutils_telnet_fixed": {
+      "base": {
+        "tag": "24.04",
+        "index": "sha256:cd1dba651b3080c3686ecf4e3c4220f026b521fb76978881737d24f200828b2b",
+        "amd64": "sha256:a4453623f2f8319cfff65c43da9be80fe83b1a7ce689579b475867d69495b782",
+        "pinned_tag": "noble-20260113"
+      },
+      "distro": "noble",
+      "version": "2:2.5-3ubuntu4.1",
+      "fixed": true
+    },
+    "inetutils_telnet_bionic": {
+      "base": {
+        "tag": "18.04",
+        "index": "sha256:152dc042452c496007f07ca9127571cb9c29697f42acbfad72324b2bb2e43c98",
+        "amd64": "sha256:dca176c9663a7ba4c1f0e710986f5a25e672842963d95b960191e2d9f7185ebe"
+      },
+      "distro": "bionic",
+      "version": "2:1.9.4-3ubuntu0.1",
+      "fixed": false
+    }
+  },
+  "primary_sources": [
+    "https://www.openwall.com/lists/oss-security/2026/01/20/2",
+    "https://ubuntu.com/security/CVE-2026-24061"
+  ]
+}

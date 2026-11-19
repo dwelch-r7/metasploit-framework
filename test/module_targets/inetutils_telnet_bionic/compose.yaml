@@ -1,0 +1,62 @@
+{
+  "services": {
+    "app": {
+      "build": {
+        "context": "../inetutils_telnet",
+        "dockerfile": "target.Dockerfile",
+        "args": {
+          "BASE_IMAGE": "ubuntu:18.04@sha256:dca176c9663a7ba4c1f0e710986f5a25e672842963d95b960191e2d9f7185ebe",
+          "DISTRO": "bionic",
+          "SNAPSHOT": "20260210T000000Z",
+          "INETUTILS_VERSION": "2:1.9.4-3ubuntu0.1"
+        }
+      },
+      "platform": "linux/amd64",
+      "cpus": 1,
+      "mem_limit": "512m",
+      "memswap_limit": "512m",
+      "pids_limit": 128,
+      "init": true,
+      "ports": [
+        "127.0.0.1::23",
+        "127.0.0.1::2323"
+      ],
+      "command": [
+        "/bin/sh",
+        "-c",
+        "/usr/sbin/inetutils-inetd --debug /opt/module-target-inetd.conf & exec python3 /opt/module-target/fragment.py"
+      ],
+      "networks": [
+        "default",
+        "public"
+      ],
+      "extra_hosts": [
+        "host.docker.internal:host-gateway"
+      ],
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "python3",
+          "-c",
+          "import socket; s=socket.create_connection(('127.0.0.1',23),2); assert s.recv(100).startswith(b'\\xff'); s.close(); t=socket.create_connection(('127.0.0.1',2323),2); assert t.recv(100).startswith(b'\\xff'); t.close()"
+        ],
+        "interval": "3s",
+        "timeout": "6s",
+        "retries": 40
+      }
+    },
+    "reporting_db": {
+      "platform": "linux/amd64",
+      "extends": {
+        "file": "../elasticsearch_memory/services.yaml",
+        "service": "db"
+      }
+    }
+  },
+  "networks": {
+    "default": {
+      "internal": true
+    },
+    "public": {}
+  }
+}
