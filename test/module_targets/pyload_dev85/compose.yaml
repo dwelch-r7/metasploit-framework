@@ -1,0 +1,56 @@
+{
+  "services": {
+    "app": {
+      "image": "linuxserver/pyload-ng:version-0.5.0b3.dev85@sha256:38b4576838cc11841440c195c9ea7854f2e6abbff02f9e443b6931aaee689c26",
+      "platform": "linux/amd64",
+      "cpus": 1,
+      "mem_limit": "768m",
+      "memswap_limit": "768m",
+      "pids_limit": 128,
+      "ports": [
+        "127.0.0.1::8000",
+        "127.0.0.1::9666"
+      ],
+      "environment": {
+        "PUID": "1000",
+        "PGID": "1000",
+        "TZ": "Etc/UTC",
+        "PYTHONUNBUFFERED": "1"
+      },
+      "networks": [
+        "default",
+        "public"
+      ],
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "python3",
+          "-c",
+          "import urllib.request;assert urllib.request.urlopen(\"http://127.0.0.1:8000/login\",timeout=3).status==200;assert b\"JDownloader\" in urllib.request.urlopen(\"http://127.0.0.1:9666/flash/\",timeout=3).read()"
+        ],
+        "interval": "3s",
+        "timeout": "8s",
+        "retries": 60
+      },
+      "extra_hosts": [
+        "host.docker.internal:host-gateway"
+      ],
+      "ulimits": {
+        "core": 0
+      }
+    },
+    "reporting_db": {
+      "platform": "linux/amd64",
+      "extends": {
+        "file": "../elasticsearch_memory/services.yaml",
+        "service": "db"
+      }
+    }
+  },
+  "networks": {
+    "default": {
+      "internal": true
+    },
+    "public": {}
+  }
+}

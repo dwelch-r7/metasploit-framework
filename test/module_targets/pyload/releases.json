@@ -1,0 +1,57 @@
+{
+  "owners": {
+    "classic": "exploit/linux/http/pyload_js2py_exec",
+    "sandbox": "exploit/linux/http/pyload_js2py_cve_2024_39205"
+  },
+  "uid": 1000,
+  "versions": {
+    "0.5.0b3.dev30": {
+      "image": "linuxserver/pyload-ng:version-0.5.0b3.dev30@sha256:f239c5f9c7ed3921f3afa0c73a249360b60feea32a0e62f2725f8e2499bb47d4",
+      "linuxserver_revision": "ff04536d4a902b4764a38175529c3a5fd6b62e56",
+      "sources": {
+        "core/utils/misc.py": "e2cea73d28ee2710c48f159ef82e05e0c3376ac733e54ac033b59884bb6e3089",
+        "webui/app/blueprints/cnl_blueprint.py": "fc642d586b45923c7002b4de56475b64d24ee13f59003134f6a99cbb0d3f0a66",
+        "plugins/addons/ClickNLoad.py": "06fc45f03f41bf09eabb6a831b3ace37aaea5a1f82f3d2f92d5816a1a07ce889",
+        "plugins/addons/UpdateManager.py": "2198a949202aa46c917403770dd0b636b12edda21f2e4db53bde3223fa24f0fb"
+      },
+      "classic": true,
+      "sandbox": true
+    },
+    "0.5.0b3.dev31": {
+      "image": "linuxserver/pyload-ng:version-0.5.0b3.dev31@sha256:a0f9d450ca8cfa33e2aad0e8e035ecb6f68218885fce06ff6cf103c079d55caa",
+      "linuxserver_revision": "9f8285648f0d71f4ceeffee77a3faf36c60e84b6",
+      "sources": {
+        "core/utils/misc.py": "d3befaee2cef5b1fc39d3cd7edd4950e805c95e7c051c7966af3dfccc0b05181",
+        "webui/app/blueprints/cnl_blueprint.py": "fc642d586b45923c7002b4de56475b64d24ee13f59003134f6a99cbb0d3f0a66",
+        "plugins/addons/ClickNLoad.py": "06fc45f03f41bf09eabb6a831b3ace37aaea5a1f82f3d2f92d5816a1a07ce889",
+        "plugins/addons/UpdateManager.py": "2198a949202aa46c917403770dd0b636b12edda21f2e4db53bde3223fa24f0fb"
+      },
+      "classic": false,
+      "sandbox": true
+    },
+    "0.5.0b3.dev85": {
+      "image": "linuxserver/pyload-ng:version-0.5.0b3.dev85@sha256:38b4576838cc11841440c195c9ea7854f2e6abbff02f9e443b6931aaee689c26",
+      "linuxserver_revision": "155907681087a624e9ac3fa173e4527c9eefed83",
+      "sources": {
+        "core/utils/misc.py": "a5ee979d761d4c61b7b26129fb8c989370f146739ae9b74513be72277dd33067",
+        "webui/app/blueprints/cnl_blueprint.py": "6f940ada21e21627bf7c53780e71cc6f9a1cce481b395102f874316bb4f67192",
+        "plugins/addons/ClickNLoad.py": "06fc45f03f41bf09eabb6a831b3ace37aaea5a1f82f3d2f92d5816a1a07ce889",
+        "plugins/addons/UpdateManager.py": "2198a949202aa46c917403770dd0b636b12edda21f2e4db53bde3223fa24f0fb"
+      },
+      "classic": false,
+      "sandbox": true
+    },
+    "0.5.0b3.dev87": {
+      "image": "linuxserver/pyload-ng:version-0.5.0b3.dev87@sha256:1182b8b3854203332f3baf3c2df098659192eadc3c75d8ed39978d07b5d91ded",
+      "linuxserver_revision": "9c202c8f7430b45bac2192ab995b2c01bf150fb1",
+      "sources": {
+        "core/utils/misc.py": "97c9083bf559b331e1eee656fb73d6112b363674723ddcc5300b4b13ba747cfe",
+        "webui/app/blueprints/cnl_blueprint.py": "6f940ada21e21627bf7c53780e71cc6f9a1cce481b395102f874316bb4f67192",
+        "plugins/addons/ClickNLoad.py": "6a197effba89807de7f22cffa14021ab4011d6173444a7f5a45bb9e3d85e6dd3",
+        "plugins/addons/UpdateManager.py": "2198a949202aa46c917403770dd0b636b12edda21f2e4db53bde3223fa24f0fb"
+      },
+      "classic": false,
+      "sandbox": false
+    }
+  }
+}

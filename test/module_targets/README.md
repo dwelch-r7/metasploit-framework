@@ -4,9 +4,21 @@ Runner ownership: [namespaced isolation](VERIFICATION-20261118-namespaces.md)
 passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
-The module qualification totals below are unchanged.
 
-Latest: [Native Apache Airflow DAG execution](VERIFICATION-20261118-airflow-dag.md)
+Latest: [Native pyLoad command and Python execution](VERIFICATION-20261119-pyload.md)
+adds two owners and four profiles with **59/0**, reaching **304 runtime owners in
+covered paths, 624 qualified profiles and 4,402 historical functional cases**.
+Eighteen used sessions cover command, Python and Linux-dropper paths, both x86
+and x64, repeated execution and persisted reports. Native AES collection,
+authentication and genuine mitigated/fixed releases distinguish application
+prerequisites from owner failures. Three focused module repairs and a handler
+bootstrap-wait repair retain their original failing evidence. The final replay
+verifies 68 unchanged inputs, 268 zero resource captures and all 24 owned Docker
+object removals. Only two capped containers run serially; the namespace finishes
+empty and unrelated initial containers are preserved. The broader goal remains
+active; no PR.
+
+Previous: [Native Apache Airflow DAG execution](VERIFICATION-20261118-airflow-dag.md)
 adds one owner and six profiles with **38/0**, reaching **302 runtime owners in
 covered paths, 620 qualified profiles and 4,343 historical functional cases**.
 Twelve real session lifecycles cover command Python Meterpreter, Python/Bash
