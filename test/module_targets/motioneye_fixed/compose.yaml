@@ -1,0 +1,61 @@
+{
+  "services": {
+    "app": {
+      "image": "ghcr.io/motioneye-project/motioneye@sha256:f187d072f6d738f84aca95f3d0fe4bdf1de235a7a81e9ec921a0142edc3c716c",
+      "platform": "linux/amd64",
+      "cpus": 0.75,
+      "mem_limit": "512m",
+      "memswap_limit": "512m",
+      "pids_limit": 128,
+      "init": true,
+      "entrypoint": [
+        "/bin/sh",
+        "/opt/module-target/start.sh"
+      ],
+      "ports": [
+        "127.0.0.1::8765"
+      ],
+      "extra_hosts": [
+        "host.docker.internal:host-gateway"
+      ],
+      "volumes": [
+        "../motioneye/start.sh:/opt/module-target/start.sh:ro",
+        "../motioneye/camera.py:/opt/module-target/camera.py:ro",
+        "../motioneye/native.py:/opt/module-target/native.py:ro",
+        "../motioneye/releases.json:/opt/module-target/releases.json:ro",
+        "../inetutils_telnet/inspect.py:/opt/module-target/proof_inspection.py:ro"
+      ],
+      "networks": [
+        "default",
+        "public"
+      ],
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "curl",
+          "--silent",
+          "--fail",
+          "--output",
+          "/dev/null",
+          "http://127.0.0.1:8765/"
+        ],
+        "interval": "3s",
+        "timeout": "4s",
+        "retries": 40
+      }
+    },
+    "reporting_db": {
+      "platform": "linux/amd64",
+      "extends": {
+        "file": "../elasticsearch_memory/services.yaml",
+        "service": "db"
+      }
+    }
+  },
+  "networks": {
+    "default": {
+      "internal": true
+    },
+    "public": {}
+  }
+}

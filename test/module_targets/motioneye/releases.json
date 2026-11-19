@@ -1,0 +1,87 @@
+{
+  "releases": {
+    "vulnerable": {
+      "version": "0.43.1b4",
+      "image": "ghcr.io/motioneye-project/motioneye@sha256:debe958e9ba37579bd1969f718c1c0e632a2089a2a018d372f1771fa3d977903",
+      "source_revision": "b005727d22521f32c44f0ae5531e5440735ffded",
+      "source_files": {
+        "motioneye/__init__.py": "c212a5824b82332891d225e053680c473e4a6a255607f3c7cac3c34382f51eeb",
+        "motioneye/config.py": "1b1f6ebc678ea1d36206e85e4f1baeaa1a0962be2444cae41be058f577fe3203",
+        "motioneye/utils/__init__.py": "201fd17d89e1a49e438755ad4e4b01e11784cad608fcbbe54390272d92b8a48b",
+        "motioneye/handlers/config.py": "725f646c3975b78000a32f692dfe544d6fc2500b8cafc6964b320d4f226af80b",
+        "motioneye/handlers/action.py": "4f56a0de7cf01f7d5734b87abfc89fc58b5a1ea949f86b28ec7bcf906b6575cd",
+        "motioneye/handlers/base.py": "a512e48196dc05d26e83cb258ab861d839afd36b0c005426cadb1e0c0192aff9",
+        "motioneye/handlers/main.py": "3b8b2466c83f41b1dc6f884971222ae785de3b45ff51df7b90b38ad736b764ad",
+        "motioneye/handlers/picture.py": "401f85b54877501ada1b730db2cb2ed204b582bda24ee102797f0aa8c9321bc9",
+        "motioneye/mediafiles.py": "c797bb2bff30add85dc456024497ac665eabeefe69e2a26c72497c4a6661eeb0",
+        "motioneye/motionctl.py": "dbc8b55b8ade6aa9281d0adba973a2f776565a8d4e8706b7a2209ea016cc8f51"
+      },
+      "entrypoint_sha256": "04d3199137b5a572afd75de47ad59af763ee16aea80478b4fd319afd8fd61411"
+    },
+    "fixed": {
+      "version": "0.43.1",
+      "image": "ghcr.io/motioneye-project/motioneye@sha256:f187d072f6d738f84aca95f3d0fe4bdf1de235a7a81e9ec921a0142edc3c716c",
+      "source_revision": "358fb6df047a097e8670166635efa32ef6ad33de",
+      "source_files": {
+        "motioneye/__init__.py": "206337d1951bf01cc585532b96b029583b9bbecb454a08b51ac3ddd6da08c0b3",
+        "motioneye/config.py": "516f4dbe670c8a661e74be889c4267a80a71461bb93feac84f48acce4c5f3010",
+        "motioneye/utils/__init__.py": "201fd17d89e1a49e438755ad4e4b01e11784cad608fcbbe54390272d92b8a48b",
+        "motioneye/handlers/config.py": "725f646c3975b78000a32f692dfe544d6fc2500b8cafc6964b320d4f226af80b",
+        "motioneye/handlers/action.py": "4f56a0de7cf01f7d5734b87abfc89fc58b5a1ea949f86b28ec7bcf906b6575cd",
+        "motioneye/handlers/base.py": "a512e48196dc05d26e83cb258ab861d839afd36b0c005426cadb1e0c0192aff9",
+        "motioneye/handlers/main.py": "3b8b2466c83f41b1dc6f884971222ae785de3b45ff51df7b90b38ad736b764ad",
+        "motioneye/handlers/picture.py": "e816fe6f34fb7536fb818fe7bb7661bc1dd15aa76d2d150dc8cb30483f88fd72",
+        "motioneye/mediafiles.py": "877504cbcc1b9b7949599d9718f9d3c805bcd7d16ea6641d20a85508efeb36a8",
+        "motioneye/motionctl.py": "dbc8b55b8ade6aa9281d0adba973a2f776565a8d4e8706b7a2209ea016cc8f51"
+      },
+      "entrypoint_sha256": "04d3199137b5a572afd75de47ad59af763ee16aea80478b4fd319afd8fd61411"
+    }
+  },
+  "profiles": {
+    "motioneye": {
+      "release": "vulnerable",
+      "password": "",
+      "command": true
+    },
+    "motioneye_password": {
+      "release": "vulnerable",
+      "password": "module-target-admin",
+      "command": true
+    },
+    "motioneye_fixed": {
+      "release": "fixed",
+      "password": "module-target-admin",
+      "command": false
+    },
+    "motioneye_fixed_blank": {
+      "release": "fixed",
+      "password": "",
+      "command": false
+    }
+  },
+  "camera": {
+    "port": 8888,
+    "path": "/camera.mjpeg",
+    "width": 640,
+    "height": 480,
+    "fps": 10,
+    "background": [
+      20,
+      60,
+      180
+    ],
+    "foreground": [
+      220,
+      30,
+      20
+    ]
+  },
+  "fixed_version": "0.43.1b5",
+  "advisory_url": "https://github.com/motioneye-project/motioneye/security/advisories/GHSA-j945-qm58-4gjx",
+  "fix_commit": "f47d20088de1c15fba93c42e8a3ba4d888cc9a13",
+  "faker_loopback_seed": 247,
+  "expected_camera_host": "127.235.216.81",
+  "owners": {
+    "command": "exploit/linux/http/motioneye_auth_rce_cve_2025_60787"
+  }
+}

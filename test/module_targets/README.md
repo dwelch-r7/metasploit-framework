@@ -5,7 +5,20 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest: [Native Apache OFBiz execution and release controls](VERIFICATION-20261119-ofbiz.md)
+Latest: [Native motionEye execution and release controls](VERIFICATION-20261119-motioneye.md)
+adds one execution owner and four qualified profiles with **64/0**, reaching
+**308 runtime owners in covered paths, 635 qualified profiles and 4,599 historical
+functional cases**. Sixteen used and closed Bash/fetch sessions and twelve exact
+command proofs cover repeated execution, authentication and release controls.
+Genuine decoded camera media, source hashes and native administration calibrate
+the target before owner verdicts. Two focused repairs pass 19/0 regressions;
+failed setups remain preserved and unqualified. The final replay verifies 79
+unchanged inputs, 288 zero resource-event captures and all 28 owned Docker object
+removals. Only two capped task containers run serially; the namespace finishes
+empty and unrelated initial containers remain. The broader goal stays active;
+no PR.
+
+Previous: [Native Apache OFBiz execution and release controls](VERIFICATION-20261119-ofbiz.md)
 adds two execution owners and four qualified profiles with **100/0**, reaching
 **307 runtime owners in covered paths, 631 qualified profiles and 4,535 historical
 functional cases**. Eighteen used and closed sessions cover command, Bash,
