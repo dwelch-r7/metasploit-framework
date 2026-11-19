@@ -5,7 +5,18 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest: [Native motionEye execution and release controls](VERIFICATION-20261119-motioneye.md)
+Latest: [Native Craft CMS targets and PHP runtime investigation](VERIFICATION-20261119-craftcms.md)
+adds pinned vulnerable/fixed fixtures and two focused source repairs. The stock
+vulnerable profile passes **20 of 21 cases**, with twelve used/closed non-PHP
+owner sessions; an independent native PHP bootstrap failure stops the last case
+before the Craft PHP owner runs. The fixed profile passes **21/0**. A disclosed
+experimental receive patch also supports actual PHP session use, including a
+corrected first/repeat replay. These results add **no qualified campaign counts**;
+stock PHP remains unqualified. All 95 recorded inputs are unchanged, 184 resource
+captures are zero, and all ten owned Docker objects are independently absent.
+The namespace is empty and unrelated initial containers remain. No PR.
+
+Previous: [Native motionEye execution and release controls](VERIFICATION-20261119-motioneye.md)
 adds one execution owner and four qualified profiles with **64/0**, reaching
 **308 runtime owners in covered paths, 635 qualified profiles and 4,599 historical
 functional cases**. Sixteen used and closed Bash/fetch sessions and twelve exact

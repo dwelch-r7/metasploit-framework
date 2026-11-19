@@ -1,0 +1,64 @@
+{
+  "owner": "exploit/linux/http/craftcms_unauth_rce_cve_2023_41892",
+  "base_image": "craftcms/nginx@sha256:695b27dabef25d6d07025b1b13e15a05a2494eb7137b823d7cf81515bb6284b5",
+  "base_vcs_reference": "3d27ef3a354200cce630ec69e694452e85306e86",
+  "starter_reference": "8b56598dde738e4de18b710d4a5061fea175099b",
+  "advisory": "https://github.com/craftcms/cms/security/advisories/GHSA-4w8r-3xrw-v25g",
+  "expected_uid": 82,
+  "profiles": {
+    "craftcms": {
+      "version": "4.4.14",
+      "vulnerable": true
+    },
+    "craftcms_fixed": {
+      "version": "4.4.15",
+      "vulnerable": false
+    }
+  },
+  "releases": {
+    "4.4.14": {
+      "cms_reference": "31c6d400ca40f72062e8e7a00d31e1bfd462597d",
+      "critical_files": {
+        "/app/vendor/craftcms/cms/src/controllers/ConditionsController.php": {
+          "sha256": "f837d676f1c771f7d93356023029037cad776f400dedc3c1b6ad221f14584927",
+          "source": "https://raw.githubusercontent.com/craftcms/cms/31c6d400ca40f72062e8e7a00d31e1bfd462597d/src/controllers/ConditionsController.php"
+        },
+        "/app/vendor/yiisoft/yii2/BaseYii.php": {
+          "sha256": "4d002095067861daba02cf3c0b6e5ca7be7714e92af116d78ad4b010b645df0f",
+          "source": "https://raw.githubusercontent.com/yiisoft/yii2-framework/8ecf57895d9c4b29cf9658ffe57af5f3d0e25254/BaseYii.php"
+        },
+        "/app/vendor/yiisoft/yii2/base/Component.php": {
+          "sha256": "458770e044d3e3400c7c485953660394bf19a17705a97a4e71ccf8afb60bdf0f",
+          "source": "https://raw.githubusercontent.com/yiisoft/yii2-framework/8ecf57895d9c4b29cf9658ffe57af5f3d0e25254/base/Component.php"
+        },
+        "/app/vendor/guzzlehttp/psr7/src/FnStream.php": {
+          "sha256": "ce4726e3d9ddc69590951b1bb0f4eb024b66093f99baab7819924ef7524ef427",
+          "source": "https://raw.githubusercontent.com/guzzle/psr7/ad5e3f872690e1151e1171de2963150fc45ea1e3/src/FnStream.php"
+        }
+      },
+      "lock_sha256": "c21bcdec9159acc8afa5948f7d17f77c666814d916811c951295b75533ff8147"
+    },
+    "4.4.15": {
+      "cms_reference": "273dfd3dadbb404f69ffd6d7f93451497bbd811c",
+      "critical_files": {
+        "/app/vendor/craftcms/cms/src/controllers/ConditionsController.php": {
+          "sha256": "fddbba0394454a1cde545fc61f6246226fb280f9ac8f0ac5c1c884e037fa6ade",
+          "source": "https://raw.githubusercontent.com/craftcms/cms/273dfd3dadbb404f69ffd6d7f93451497bbd811c/src/controllers/ConditionsController.php"
+        },
+        "/app/vendor/yiisoft/yii2/BaseYii.php": {
+          "sha256": "4d002095067861daba02cf3c0b6e5ca7be7714e92af116d78ad4b010b645df0f",
+          "source": "https://raw.githubusercontent.com/yiisoft/yii2-framework/8ecf57895d9c4b29cf9658ffe57af5f3d0e25254/BaseYii.php"
+        },
+        "/app/vendor/yiisoft/yii2/base/Component.php": {
+          "sha256": "458770e044d3e3400c7c485953660394bf19a17705a97a4e71ccf8afb60bdf0f",
+          "source": "https://raw.githubusercontent.com/yiisoft/yii2-framework/8ecf57895d9c4b29cf9658ffe57af5f3d0e25254/base/Component.php"
+        },
+        "/app/vendor/guzzlehttp/psr7/src/FnStream.php": {
+          "sha256": "ce4726e3d9ddc69590951b1bb0f4eb024b66093f99baab7819924ef7524ef427",
+          "source": "https://raw.githubusercontent.com/guzzle/psr7/ad5e3f872690e1151e1171de2963150fc45ea1e3/src/FnStream.php"
+        }
+      },
+      "lock_sha256": "f350e2889c8178fd892b750f465ba1b58b53b4e78fd44ddfa88d3c5943cfdb80"
+    }
+  }
+}
