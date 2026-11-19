@@ -1,0 +1,101 @@
+{
+  "profiles": {
+    "ofbiz_17": {
+      "version": "17.12.01",
+      "image": "vulhub/ofbiz:17.12.01@sha256:14cd06df39e281a3a3dd1655cb0d91ef07a5b7a880f3ab25c699a2ebfb38032b",
+      "archive_url": "https://archive.apache.org/dist/ofbiz/apache-ofbiz-17.12.01.zip",
+      "archive_sha512": "3e92df0f92e71b330fef2b7cfbee2e5188f98e3b766148242a40c84f922ddb08b0760b768667eaf4e35f293944757cd7658c9a725b8a535836208f4ad26deb40",
+      "source_files": {
+        "framework/webtools/webapp/webtools/WEB-INF/controller.xml": "05e03f8151fc0599b6d564004eddd8ef7cddf03332708a39bd6ea9df7b6e2626",
+        "framework/service/src/main/java/org/apache/ofbiz/service/engine/SoapSerializer.java": "efa28ee2a490272abc29de39abf0e6a494a9ba5e4503b4f268d2cd393e26a2d9",
+        "framework/base/src/main/java/org/apache/ofbiz/base/util/UtilObject.java": "b4d9621cc53fc4853a5f51141217d3aeb9fc583bdd0d43e9d864cd7f5e240349",
+        "framework/base/src/main/java/org/apache/ofbiz/base/util/SafeObjectInputStream.java": "4593964cb58ffeb4493215b71b4dc95464fdf3fd771fa5170e0c675950e84213",
+        "framework/webtools/groovyScripts/entity/ProgramExport.groovy": "08f953f4199b93c695b1fc579bfdcce0a50483dc54a5e9ef08f9e283fd955a6a",
+        "framework/webapp/src/main/java/org/apache/ofbiz/webapp/control/RequestHandler.java": "bfbcb7152bbcd8bffb0ba06c6c491805f20e2cef2559c28e7402407e7dbca5c4",
+        "framework/service/src/main/java/org/apache/ofbiz/service/engine/XMLRPCClientEngine.java": "63a9d21a1f098583801cdac027c92a627b30629e8f94092da3780c5659cb5d2d"
+      },
+      "xmlrpc": true,
+      "soap": true,
+      "program_export": true,
+      "legacy_xmlrpc": true
+    },
+    "ofbiz_18": {
+      "version": "18.12.09",
+      "image": "vulhub/ofbiz:18.12.09@sha256:da00cb0c1ca9cf2d74171e211482db2e90af0dc7308fdb2c23b1e722d347bef3",
+      "archive_url": "https://archive.apache.org/dist/ofbiz/apache-ofbiz-18.12.09.zip",
+      "archive_sha512": "d0596d2a599c0b1bdf1afc50404bbf507191b72a38093a57d75629e3dea52da041cad8108371f9b150f05d9f8b439a24f8e260ff4d6dcc7b1064d7cbb3618c25",
+      "source_files": {
+        "framework/webtools/webapp/webtools/WEB-INF/controller.xml": "c6ce205685b5f3b88f8084448a06f946967e351ae607780099ac8ec97c7a98d8",
+        "framework/service/src/main/java/org/apache/ofbiz/service/engine/SoapSerializer.java": "efa28ee2a490272abc29de39abf0e6a494a9ba5e4503b4f268d2cd393e26a2d9",
+        "framework/base/src/main/java/org/apache/ofbiz/base/util/UtilObject.java": "bf551ef61698a9ed87a846416f17716c1206a1e2ea5ad39958af5d41a08408ef",
+        "framework/base/src/main/java/org/apache/ofbiz/base/util/SafeObjectInputStream.java": "a932a550b73c4e2748889a700047053aabc1add03a9b499d916a67991a631506",
+        "framework/webtools/groovyScripts/entity/ProgramExport.groovy": "cd32b1186bb59aa03011a9b1d79c8a07e1642e8a29d6967d50cd210872028286",
+        "framework/webapp/src/main/java/org/apache/ofbiz/webapp/control/RequestHandler.java": "708e1ed379b542ecf1137320c90b9e786c48e0ecc6339a4d11d2ed006eccc739",
+        "framework/service/src/main/java/org/apache/ofbiz/service/engine/XMLRPCClientEngine.java": "51296faae4fa2c0f677c9874a6689beb121f19d53496cd4fb7194020be10adea"
+      },
+      "xmlrpc": true,
+      "soap": false,
+      "program_export": true,
+      "legacy_xmlrpc": false
+    },
+    "ofbiz_18_10": {
+      "version": "18.12.10",
+      "image": "vulhub/ofbiz:18.12.10@sha256:f85236ad1220f49f9c81f028afdf5362a3072cc6ab81fee671ae4561032b8172",
+      "archive_url": "https://archive.apache.org/dist/ofbiz/apache-ofbiz-18.12.10.zip",
+      "archive_sha512": "6cf77c7f22b9c7047a1805a20de38fa0754d2874fca5dcd514121808f49115f8a01c359b2ff722abf2e689cd2e09f00f75cee4e53b627f8493334a11ea2ab918",
+      "source_files": {
+        "framework/webtools/webapp/webtools/WEB-INF/controller.xml": "8fc8ab8eb3823e7f05a9e6c5f54836c8ca293dbf7814be290dece7c3c357be83",
+        "framework/service/src/main/java/org/apache/ofbiz/service/engine/SoapSerializer.java": "efa28ee2a490272abc29de39abf0e6a494a9ba5e4503b4f268d2cd393e26a2d9",
+        "framework/base/src/main/java/org/apache/ofbiz/base/util/UtilObject.java": "bf551ef61698a9ed87a846416f17716c1206a1e2ea5ad39958af5d41a08408ef",
+        "framework/base/src/main/java/org/apache/ofbiz/base/util/SafeObjectInputStream.java": "a932a550b73c4e2748889a700047053aabc1add03a9b499d916a67991a631506",
+        "framework/webtools/groovyScripts/entity/ProgramExport.groovy": "cd32b1186bb59aa03011a9b1d79c8a07e1642e8a29d6967d50cd210872028286",
+        "framework/webapp/src/main/java/org/apache/ofbiz/webapp/control/RequestHandler.java": "708e1ed379b542ecf1137320c90b9e786c48e0ecc6339a4d11d2ed006eccc739"
+      },
+      "xmlrpc": false,
+      "soap": false,
+      "program_export": true,
+      "legacy_xmlrpc": false
+    },
+    "ofbiz_18_14": {
+      "version": "18.12.14",
+      "image": "vulhub/ofbiz:18.12.14@sha256:a2dd4015f8d5a6526cdf7d82020968ff79ba599619ddf1f6e5282811df41af94",
+      "archive_url": "https://archive.apache.org/dist/ofbiz/apache-ofbiz-18.12.14.zip",
+      "archive_sha512": "c37ffcaa91a7227fb19a4eb9a97b3a2d4c93ef215f61dd493d66bd5eb7e4d3fe6c34b52e21c7cb0390b1360725048e0d66a9c632b8179237deae71c51b0172e7",
+      "source_files": {
+        "framework/webtools/webapp/webtools/WEB-INF/controller.xml": "8fc8ab8eb3823e7f05a9e6c5f54836c8ca293dbf7814be290dece7c3c357be83",
+        "framework/service/src/main/java/org/apache/ofbiz/service/engine/SoapSerializer.java": "efa28ee2a490272abc29de39abf0e6a494a9ba5e4503b4f268d2cd393e26a2d9",
+        "framework/base/src/main/java/org/apache/ofbiz/base/util/UtilObject.java": "bf551ef61698a9ed87a846416f17716c1206a1e2ea5ad39958af5d41a08408ef",
+        "framework/base/src/main/java/org/apache/ofbiz/base/util/SafeObjectInputStream.java": "a932a550b73c4e2748889a700047053aabc1add03a9b499d916a67991a631506",
+        "framework/webtools/groovyScripts/entity/ProgramExport.groovy": "cd32b1186bb59aa03011a9b1d79c8a07e1642e8a29d6967d50cd210872028286",
+        "framework/webapp/src/main/java/org/apache/ofbiz/webapp/control/RequestHandler.java": "60bd19ac9d0845a508b6be868b9f34985d7ef19598fd48b6e6782309c34d5500"
+      },
+      "xmlrpc": false,
+      "soap": false,
+      "program_export": true,
+      "legacy_xmlrpc": false
+    },
+    "ofbiz_fixed": {
+      "version": "18.12.15",
+      "image": "vulhub/ofbiz:18.12.15@sha256:eb6ed5a401d5fc15ea7854e29bd250d94053468a44a49f03ac1942d666c7fd8f",
+      "archive_url": "https://archive.apache.org/dist/ofbiz/apache-ofbiz-18.12.15.zip",
+      "archive_sha512": "b9c8952129c2108a505e70b9dde19885e4a6cb7d4b61df01b0b70af90f3052bfe29b6a77eb1713dff503533e3d0c50ff6318cb56e5b6f3832b92e55310620287",
+      "source_files": {
+        "framework/webtools/webapp/webtools/WEB-INF/controller.xml": "8fc8ab8eb3823e7f05a9e6c5f54836c8ca293dbf7814be290dece7c3c357be83",
+        "framework/service/src/main/java/org/apache/ofbiz/service/engine/SoapSerializer.java": "efa28ee2a490272abc29de39abf0e6a494a9ba5e4503b4f268d2cd393e26a2d9",
+        "framework/base/src/main/java/org/apache/ofbiz/base/util/UtilObject.java": "bf551ef61698a9ed87a846416f17716c1206a1e2ea5ad39958af5d41a08408ef",
+        "framework/base/src/main/java/org/apache/ofbiz/base/util/SafeObjectInputStream.java": "a932a550b73c4e2748889a700047053aabc1add03a9b499d916a67991a631506",
+        "framework/webtools/groovyScripts/entity/ProgramExport.groovy": "c05e0ee7c815f0c7b94d8ea551beb9b3f4c36a28cc53e985e071c3a33dd28643",
+        "framework/webapp/src/main/java/org/apache/ofbiz/webapp/control/RequestHandler.java": "60bd19ac9d0845a508b6be868b9f34985d7ef19598fd48b6e6782309c34d5500"
+      },
+      "xmlrpc": false,
+      "soap": false,
+      "program_export": false,
+      "legacy_xmlrpc": false
+    }
+  },
+  "owners": {
+    "xmlrpc": "exploit/linux/http/apache_ofbiz_deserialization",
+    "soap": "exploit/linux/http/apache_ofbiz_deserialization_soap",
+    "program_export": "exploit/multi/http/apache_ofbiz_forgot_password_directory_traversal"
+  }
+}

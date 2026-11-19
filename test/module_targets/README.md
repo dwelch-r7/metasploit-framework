@@ -5,7 +5,19 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest: [Native GNU Inetutils Telnet execution](VERIFICATION-20261119-inetutils.md)
+Latest: [Native Apache OFBiz execution and release controls](VERIFICATION-20261119-ofbiz.md)
+adds two execution owners and four qualified profiles with **100/0**, reaching
+**307 runtime owners in covered paths, 631 qualified profiles and 4,535 historical
+functional cases**. Eighteen used and closed sessions cover command, Bash,
+HTTP-fetch and x86/x64 dropper paths. An older 17.12.01 diagnostic retains eleven
+strict detection/gadget failures and four separate used sessions; SOAP execution
+remains unqualified. Five focused source repairs pass 39/0 regressions. The final
+matrix verifies 540 zero resource-event captures, unchanged tested inputs and all
+25 owned Docker object removals. Only two capped task containers run serially;
+the namespace ends empty and unrelated initial containers are preserved. The
+broader goal remains active; no PR.
+
+Previous: [Native GNU Inetutils Telnet execution](VERIFICATION-20261119-inetutils.md)
 adds one owner and three profiles with **33/0**, reaching **305 runtime owners in
 covered paths, 627 qualified profiles and 4,435 historical functional cases**.
 Eight used Bash/fetch Meterpreter sessions cover first/repeat execution; genuine

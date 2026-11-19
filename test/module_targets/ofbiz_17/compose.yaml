@@ -1,0 +1,64 @@
+{
+  "services": {
+    "app": {
+      "image": "vulhub/ofbiz:17.12.01@sha256:14cd06df39e281a3a3dd1655cb0d91ef07a5b7a880f3ab25c699a2ebfb38032b",
+      "platform": "linux/amd64",
+      "cpus": 1.5,
+      "mem_limit": "1536m",
+      "memswap_limit": "1536m",
+      "pids_limit": 256,
+      "init": true,
+      "command": [
+        "java",
+        "-Xms128m",
+        "-Xmx768m",
+        "-XX:MaxMetaspaceSize=256m",
+        "-jar",
+        "./build/libs/ofbiz.jar"
+      ],
+      "ports": [
+        "127.0.0.1::8443"
+      ],
+      "extra_hosts": [
+        "host.docker.internal:host-gateway"
+      ],
+      "volumes": [
+        "../ofbiz_17/native.py:/opt/module-target/native.py:ro",
+        "../ofbiz_17/releases.json:/opt/module-target/releases.json:ro",
+        "../inetutils_telnet/inspect.py:/opt/module-target/inspect.py:ro"
+      ],
+      "networks": [
+        "default",
+        "public"
+      ],
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "curl",
+          "--insecure",
+          "--silent",
+          "--fail",
+          "--output",
+          "/dev/null",
+          "https://127.0.0.1:8443/webtools/control/main"
+        ],
+        "interval": "5s",
+        "timeout": "5s",
+        "retries": 84
+      }
+    },
+    "reporting_db": {
+      "platform": "linux/amd64",
+      "extends": {
+        "file": "../elasticsearch_memory/services.yaml",
+        "service": "db"
+      }
+    }
+  },
+  "networks": {
+    "default": {
+      "internal": true
+    },
+    "public": {}
+  }
+}
