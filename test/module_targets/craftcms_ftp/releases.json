@@ -1,0 +1,63 @@
+{
+  "owner": "exploit/linux/http/craftcms_ftp_template",
+  "base_image": "craftcms/nginx@sha256:695b27dabef25d6d07025b1b13e15a05a2494eb7137b823d7cf81515bb6284b5",
+  "base_vcs_reference": "3d27ef3a354200cce630ec69e694452e85306e86",
+  "starter_reference": "8b56598dde738e4de18b710d4a5061fea175099b",
+  "advisory": "https://github.com/craftcms/cms/security/advisories/GHSA-2p6p-9rc9-62j9",
+  "expected_uid": 82,
+  "profiles": {
+    "craftcms_ftp": {
+      "version": "4.13.0",
+      "vulnerable": false,
+      "ftp_vulnerable": true,
+      "argv_enabled": true
+    },
+    "craftcms_ftp_fixed": {
+      "version": "4.13.2",
+      "vulnerable": false,
+      "ftp_vulnerable": false,
+      "argv_enabled": true
+    },
+    "craftcms_ftp_argv_off": {
+      "version": "4.13.0",
+      "vulnerable": false,
+      "ftp_vulnerable": false,
+      "argv_enabled": false
+    }
+  },
+  "releases": {
+    "4.13.2": {
+      "cms_reference": "b2515b0ce6ae02e8582ce5a10841cb933899cbe3",
+      "critical_files": {
+        "/app/vendor/craftcms/cms/bootstrap/bootstrap.php": {
+          "sha256": "117fd6ea1531fea168187284bc84b16a2d1b8a0444721bbb2b9125dc19736590",
+          "source": "https://raw.githubusercontent.com/craftcms/cms/b2515b0ce6ae02e8582ce5a10841cb933899cbe3/bootstrap/bootstrap.php"
+        },
+        "/app/vendor/craftcms/cms/src/controllers/ConditionsController.php": {
+          "sha256": "fddbba0394454a1cde545fc61f6246226fb280f9ac8f0ac5c1c884e037fa6ade",
+          "source": "https://raw.githubusercontent.com/craftcms/cms/b2515b0ce6ae02e8582ce5a10841cb933899cbe3/src/controllers/ConditionsController.php"
+        }
+      },
+      "lock_sha256": "e635e86a8b22bf3b6aef136db10c8c0d8e34726b149e023e43dc6ee041ba13b6"
+    },
+    "4.13.0": {
+      "cms_reference": "a69fb94ddb48ebf0bc5e7313cf21d943c196ecc3",
+      "critical_files": {
+        "/app/vendor/craftcms/cms/bootstrap/bootstrap.php": {
+          "sha256": "9a36dde4964468dbdb6219cd108c00b1ae93d0f06a05bcc21e3a2d82d33d6a1b",
+          "source": "https://raw.githubusercontent.com/craftcms/cms/a69fb94ddb48ebf0bc5e7313cf21d943c196ecc3/bootstrap/bootstrap.php"
+        },
+        "/app/vendor/craftcms/cms/src/controllers/ConditionsController.php": {
+          "sha256": "fddbba0394454a1cde545fc61f6246226fb280f9ac8f0ac5c1c884e037fa6ade",
+          "source": "https://raw.githubusercontent.com/craftcms/cms/a69fb94ddb48ebf0bc5e7313cf21d943c196ecc3/src/controllers/ConditionsController.php"
+        },
+        "/app/vendor/craftcms/cms/src/helpers/App.php": {
+          "sha256": "694704e68b0d273b5fc7c801856c2362423742f3d4b1be8414f703c28754b223",
+          "source": "https://raw.githubusercontent.com/craftcms/cms/a69fb94ddb48ebf0bc5e7313cf21d943c196ecc3/src/helpers/App.php"
+        }
+      },
+      "lock_sha256": "b40d0caba9ba8a22c9ac91f5ad8360322195bb15d250226ab7550ee594aa5657"
+    }
+  },
+  "native_vulnerable_flag_scope": "The shared native conditions controls refer to CVE-2023-41892; ftp_vulnerable describes the FTP owner."
+}

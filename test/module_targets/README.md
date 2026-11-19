@@ -5,7 +5,18 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest: [Native Craft CMS targets and PHP runtime investigation](VERIFICATION-20261119-craftcms.md)
+Latest: [Native Craft FTP template execution](VERIFICATION-20261119-craft-ftp.md)
+adds one owner and three qualified profiles with **10/0**, reaching **309 runtime
+owners in covered paths, 638 qualified profiles and 4,609 historical functional
+cases**. Four used/closed inline/staged x86/x64 Meterpreter sessions, native
+FTP/Twig/ELF controls and genuine fixed/disabled-setting contrasts pass. A
+confirmed false-Safe check is repaired with 14/0 focused regressions. All 127
+inputs remain unchanged, 108 resource captures are zero, and all 18 owned Docker
+objects are independently absent. Three capped services run serially; the task
+namespace finishes empty and unrelated initial containers remain. Failed setups
+are preserved separately. The broader goal remains active; no PR.
+
+Previous: [Native Craft CMS targets and PHP runtime investigation](VERIFICATION-20261119-craftcms.md)
 adds pinned vulnerable/fixed fixtures and two focused source repairs. The stock
 vulnerable profile passes **20 of 21 cases**, with twelve used/closed non-PHP
 owner sessions; an independent native PHP bootstrap failure stops the last case

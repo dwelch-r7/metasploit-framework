@@ -1,0 +1,100 @@
+{
+  "services": {
+    "app": {
+      "build": {
+        "context": "../craftcms",
+        "args": {
+          "CRAFT_VERSION": "4.13.0"
+        }
+      },
+      "platform": "linux/amd64",
+      "cpus": 0.75,
+      "mem_limit": "768m",
+      "memswap_limit": "768m",
+      "pids_limit": 128,
+      "init": true,
+      "entrypoint": [
+        "/bin/sh",
+        "/opt/module-target/start.sh"
+      ],
+      "ports": [
+        "127.0.0.1::8080"
+      ],
+      "extra_hosts": [
+        "host.docker.internal:host-gateway"
+      ],
+      "volumes": [
+        "../craftcms/start.sh:/opt/module-target/start.sh:ro",
+        "../craftcms/native.py:/opt/module-target/native.py:ro",
+        "../craftcms_ftp/releases.json:/opt/module-target/releases.json:ro",
+        "../inetutils_telnet/inspect.py:/opt/module-target/proof_inspection.py:ro",
+        "../craftcms_ftp/php-argv-on.conf:/usr/local/etc/php-fpm.d/zzz-module-target-argv.conf:ro"
+      ],
+      "networks": [
+        "default",
+        "public"
+      ],
+      "depends_on": {
+        "reporting_db": {
+          "condition": "service_healthy"
+        }
+      },
+      "environment": {
+        "CRAFT_ENVIRONMENT": "dev",
+        "CRAFT_DB_DRIVER": "pgsql",
+        "CRAFT_DB_SERVER": "reporting_db",
+        "CRAFT_DB_PORT": "5432",
+        "CRAFT_DB_DATABASE": "craft",
+        "CRAFT_DB_USER": "module_craft",
+        "CRAFT_DB_PASSWORD": "module-target-craft-db-password",
+        "CRAFT_SECURITY_KEY": "module-target-craft-security-key-20261119",
+        "CRAFT_APP_ID": "module-target-craft-native",
+        "DEV_MODE": "true",
+        "ALLOW_ADMIN_CHANGES": "true",
+        "PHP_MEMORY_LIMIT": "256M",
+        "PHP_OPCACHE_ENABLE": "0",
+        "XDEBUG_MODE": "off"
+      },
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "curl",
+          "--silent",
+          "--fail",
+          "--output",
+          "/dev/null",
+          "http://127.0.0.1:8080/"
+        ],
+        "interval": "3s",
+        "timeout": "5s",
+        "retries": 80
+      }
+    },
+    "reporting_db": {
+      "platform": "linux/amd64",
+      "extends": {
+        "file": "../elasticsearch_memory/services.yaml",
+        "service": "db"
+      },
+      "volumes": [
+        "../craftcms/init.sql:/docker-entrypoint-initdb.d/craft.sql:ro"
+      ]
+    },
+    "framework": {
+      "cpus": 1.0,
+      "mem_limit": "640m",
+      "memswap_limit": "640m",
+      "pids_limit": 128,
+      "init": true,
+      "networks": [
+        "default"
+      ]
+    }
+  },
+  "networks": {
+    "default": {
+      "internal": true
+    },
+    "public": {}
+  }
+}
