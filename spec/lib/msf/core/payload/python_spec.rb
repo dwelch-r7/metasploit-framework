@@ -1,4 +1,6 @@
 require 'spec_helper'
+require 'open3'
+require 'rex/text'
 
 RSpec.describe Msf::Payload::Python do
   describe '#create_exec_stub' do
@@ -70,6 +72,30 @@ RSpec.describe Msf::Payload::Python do
       it 'prefixes all three lines with the indent' do
         expect(stub.lines).to all(start_with("\t\t"))
       end
+    end
+  end
+
+  describe '.create_exec_process_stub' do
+    it 'preserves UTF-8 source and its line endings at the Python subprocess API' do
+      value = "quotes ' and snow 雪 and slash \\"
+      source = "value = #{value.to_json}\r\n# final backslash \\"
+      # Only subprocess.run is a recording double here. The owner execution
+      # specs separately exercise real interpreters, processes and reaping.
+      probe = <<~'PYTHON'
+        import json, subprocess, sys, threading
+        calls = []
+        subprocess.run = lambda *args, **kwargs: calls.append([args, kwargs])
+        baseline = set(threading.enumerate())
+        eval(json.load(sys.stdin))
+        for worker in set(threading.enumerate()) - baseline:
+            worker.join(5)
+        print(json.dumps({'calls': calls, 'executable': sys.executable}))
+      PYTHON
+      stdout, stderr, status = Open3.capture3(ENV.fetch('PYTHON', 'python3'), '-I', '-S', '-c', probe, stdin_data: described_class.create_exec_process_stub(source).to_json)
+
+      expect(status.exitstatus).to eq(0), stderr
+      result = JSON.parse(stdout)
+      expect(result.fetch('calls')).to eq([[[[result.fetch('executable'), '-c', source]], {}]])
     end
   end
 end

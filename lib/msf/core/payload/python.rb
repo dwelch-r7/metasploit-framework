@@ -1,5 +1,6 @@
 # -*- coding: binary -*-
 
+# Shared Python payload source generation and execution wrappers.
 module Msf::Payload::Python
   # Mark the payload as dynamic, as the zlib compression with a single char change can lead to size changes even if the original payload is the same length
   ForceDynamicCachedSize = true
@@ -22,6 +23,18 @@ module Msf::Payload::Python
 
   def py_create_exec_stub(python_code)
     Msf::Payload::Python.create_exec_stub(python_code)
+  end
+
+  # Start a separate interpreter without blocking the calling Python context.
+  # A daemon thread waits for and reaps the interpreter through subprocess.run.
+  # Requires Python 3.5 or newer; existing exec stubs retain their older support.
+  #
+  # @param python_code [String] UTF-8 Python source to execute unchanged.
+  # @return [String] Python expression that starts the waiting thread.
+  def self.create_exec_process_stub(python_code)
+    encoded_code = Rex::Text.encode_base64(python_code)
+    "__import__('threading').Thread(target=__import__('subprocess').run, " \
+      "args=([__import__('sys').executable, '-c', __import__('base64').b64decode('#{encoded_code}').decode('utf-8')],), daemon=True).start()"
   end
 
   # Generate a three-line Python snippet that wraps +in_var+ (a raw socket) into an SSL socket
@@ -50,5 +63,4 @@ module Msf::Payload::Python
   def py_ssl_wrap_socket(in_var, out_var = nil, indent = '')
     Msf::Payload::Python.ssl_wrap_socket_stub(in_var, out_var, indent: indent)
   end
-
 end
