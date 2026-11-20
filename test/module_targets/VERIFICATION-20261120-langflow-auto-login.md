@@ -235,3 +235,38 @@ No PR or external comment is part of this work.
 - **What looks good:** Independent native prerequisites, exact bytes/tokens, actual execution settings, repeated selection, original reporting rows and strict process cleanup all verify against unchanged inputs.
 - **Concerns:** The release/platform/protocol limits above remain. Failed source and fixture attempts are preserved separately; none count as passing qualification.
 - **Suggestions:** Use the short default profile routinely and the wider matrix for payload/process changes. Investigate other releases and remaining valuable owners separately.
+
+## Published commit CI follow-up
+
+The native fixtures were published as
+[`c963b802120`](https://github.com/dwelch-r7/metasploit-framework/commit/c963b8021209b454024e1215ecc1403e75471d38).
+[Verify](https://github.com/dwelch-r7/metasploit-framework/actions/runs/44787573572)
+passes all fourteen jobs; the Ruby 3.2 job checks out that exact head and reports
+21,199 examples, zero failures and 36 pending. Those pending unit cases are
+separate from the native profiles' zero pending cases.
+[Command Shell](https://github.com/dwelch-r7/metasploit-framework/actions/runs/44787573589)
+passes all ten jobs. The lint workflow's fixture-only HEAD^..HEAD range selected
+no exploit module; the independent source lint/tidy results above supply that
+validation.
+
+[Meterpreter attempt 1](https://github.com/dwelch-r7/metasploit-framework/actions/runs/44787574441/attempts/1)
+finishes with twenty successful jobs, two failures, one cancellation and one
+optional skipped job. Ubuntu Python 3.8 fails before checkout because apt cannot
+locate `libpcap-dev` and `graphviz`; exactly one targeted retry was requested for
+that job. Linux Mettle's HTTPS `base64_transforms.profile` cases time out during
+file operations and the job reaches its sixty-minute limit. macOS Mettle's HTTP
+cases using that profile report 46 examples with two failures (file and railgun).
+The transport causes remain unverified; neither result establishes a regression
+from these native-fixture changes. Their complete original logs and the Linux
+raw acceptance artifacts are retained. The workflow is not reported green.
+
+The single targeted retry completes **91 examples / zero failures** after
+checking out exact `c963b802120`. No other acceptance job is rerun. Its setup
+failure is resolved by that retry; the original Linux/macOS Mettle failures
+remain recorded and the overall workflow is not green. The one-retry budget is
+exhausted.
+
+Final Meterpreter attempt 2 concludes cancelled: 21 successful jobs, one macOS
+failure, one inherited Linux cancellation and one optional skip. The retained
+CI capsule is `langflow-auto-login-ci-c963b802120-20261120`: 286 files, manifest
+`ff8372da30aff3ccd59ed2e25355b805439f52694811f46f98aaf3d993ed9b8d`.
