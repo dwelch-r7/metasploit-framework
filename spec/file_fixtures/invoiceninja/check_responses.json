@@ -1,0 +1,21 @@
+{
+  "provenance": "Only the actual HTTP status and version header consumed by check are retained from the genuine vulnerable and fixed native login responses. Unit HTTP is explicitly doubled. Lower-bound unit cases change only the captured version value.",
+  "captures": {
+    "vulnerable": {
+      "status": 200,
+      "headers": {
+        "X-APP-VERSION": "5.10.10"
+      },
+      "source_phase": "20261120T212845-ee5606/invoiceninja",
+      "image": "invoiceninja/invoiceninja@sha256:1999d70953484cc49a3c9386ac8d8a6e8b2730c0302b9901ac14a074f7038fc9"
+    },
+    "fixed": {
+      "status": 200,
+      "headers": {
+        "X-APP-VERSION": "5.10.11"
+      },
+      "source_phase": "20261120T212845-ee5606/invoiceninja_fixed",
+      "image": "invoiceninja/invoiceninja@sha256:292ac305f2cec477870eb4973cf11f8d24879058154573bf1b2cef5d84f81684"
+    }
+  }
+}
