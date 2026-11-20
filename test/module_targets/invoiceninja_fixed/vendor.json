@@ -1,0 +1,26 @@
+{
+  "image": "invoiceninja/invoiceninja@sha256:292ac305f2cec477870eb4973cf11f8d24879058154573bf1b2cef5d84f81684",
+  "version": "5.10.11",
+  "php": "8.2.21",
+  "laravel": "11.15.0",
+  "route_registered": false,
+  "source_sha256": {
+    "/etc/os-release": "7fc612db41e98beadc1c33d213840271f475d3813ed372b1cefd99b353ea60d1",
+    "/usr/local/bin/docker-entrypoint": "f30bce1b611a43358acfc2d9cf1cf5a082924160d564906c3b2db59bd7a2e092",
+    "/var/www/app/composer.json": "37ef702b1695ad3e24ec54b6827659f8a5ae5725a7655cf91cba61d775106144",
+    "/var/www/app/composer.lock": "7d9fefa59aa5f70f458973617514cd5415e58367f9e60c712722256de37a2181",
+    "/var/www/app/.env.example": "476a90dd46f7427da32cf8408efe68c1421bd76dcb54364ff44a97fd2a133fb4",
+    "/var/www/app/routes/client.php": "e5e878c64e5645dac8a876659a586dc70c36bca0c31f7bcbfeaef81751adabdc",
+    "/var/www/app/routes/web.php": "81cb6e5bf6bf720dea211ef9eacdaef0a503d0e1262d9b4e171650c1e50d7ecd",
+    "/var/www/app/config/app.php": "e04b4fc6c25fb7988ef3086b404b61961b2c7deb740f19a751cefd4408634945",
+    "/var/www/app/config/database.php": "9daf6dd3be7e4d245b9b7e016b375dfd606c61f0a65d354c68aafc72a7211b9d",
+    "/var/www/app/config/session.php": "1aaeca5ea84e24d39ea5f1c83468faf35afa8aea6c1e4cd9814b9f9a1ed10a08",
+    "/var/www/app/bootstrap/app.php": "e346d041676171a900406bba87f0658b6d3aebef79bed7e7081213e7ac3c7951",
+    "/var/www/app/database/seeders/DatabaseSeeder.php": "0d3cef7717921b76b661d8aea9da9f2ad3eac0e86bbd9e7309d3eb17880b0fd6",
+    "/var/www/app/app/Http/Kernel.php": "d1a7dd8eeb167cff06d6dac3753a7d159a3453673858ba49d2d406f7f89accab",
+    "/var/www/app/vendor/composer/platform_check.php": "57a150fb2a31b8fe5f776ad0e6e305a1408b518abec690060d024cd6b631e1cc",
+    "/var/www/app/vendor/laravel/framework/src/Illuminate/Encryption/Encrypter.php": "ee92823415ea652ea74e60e985d24f9b497061a0d0e96bb4bcd127117f3cacd2",
+    "/var/www/app/vendor/laravel/framework/src/Illuminate/Database/DatabaseManager.php": "79476f47961a3f105eac9e5d7f5057428c5fffd7d75deeb6bf560841a4046413",
+    "/var/www/app/vendor/laravel/framework/src/Illuminate/Broadcasting/PendingBroadcast.php": "b3d1844689affaacfb1b8e4028f263605b92ec32582b6e0725bc2953ac73e616"
+  }
+}

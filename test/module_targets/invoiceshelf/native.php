@@ -1,16 +1,11 @@
 <?php
 require '/opt/InvoiceShelf/vendor/autoload.php';
+require '/opt/module-target-laravel-gadget.php';
 $app = require '/opt/InvoiceShelf/bootstrap/app.php';
 $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
 $input = json_decode(stream_get_contents(STDIN), true, 512, JSON_THROW_ON_ERROR);
 $mode = $argv[1];
 $encrypter = app('encrypter');
-
-function property_value(object $object, string $name, mixed $value): void
-{
-    $property = new ReflectionProperty($object, $name);
-    $property->setValue($object, $value);
-}
 
 if ($mode === 'verify') {
     $store = app('session')->driver();
@@ -45,24 +40,7 @@ if ($mode === 'verify') {
     if ($command === false || !str_contains($command, '/tmp/module-target-invoiceshelf-')) {
         throw new InvalidArgumentException('Native proof command must use its controlled path');
     }
-    $manager = (new ReflectionClass(Illuminate\Database\DatabaseManager::class))->newInstanceWithoutConstructor();
-    property_value($manager, 'app', ['config' => [
-        'database.default' => 'system',
-        'database.connections' => ['system' => [$command]],
-    ]]);
-    property_value($manager, 'extensions', ['system' => 'array_filter']);
-    $broadcast = (new ReflectionClass(Illuminate\Broadcasting\PendingBroadcast::class))->newInstanceWithoutConstructor();
-    property_value($broadcast, 'events', $manager);
-    try {
-        // PHP, rather than a copied serialized gadget string, computes all
-        // object/property/string lengths using the real installed classes.
-        $serialized = serialize([7 => $broadcast]);
-    } finally {
-        // Generation must not execute the gadget in this CLI process. The
-        // HTTP control separately requires its proof to remain absent here.
-        property_value($broadcast, 'events', new Illuminate\Events\Dispatcher());
-        property_value($broadcast, 'event', 'module-target-noop');
-    }
+    $serialized = module_target_laravel_command($command);
     if (isset($input['key'])) {
         $encrypter = new Illuminate\Encryption\Encrypter(base64_decode($input['key'], true), 'AES-256-CBC');
     }

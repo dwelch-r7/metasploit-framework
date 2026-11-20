@@ -41,7 +41,10 @@
     "lib/msf/core/payload/php.rb",
     "lib/msf/core/payload/php/reverse_tcp.rb",
     "lib/msf/core/exploit/remote/http/http_cookie_jar.rb",
-    "lib/msf/core/exploit/remote/http/http_cookie.rb"
+    "lib/msf/core/exploit/remote/http/http_cookie.rb",
+    "test/module_targets/laravel/native_gadget.php",
+    "test/module_targets/laravel/commands.rb",
+    "test/module_targets/laravel/observe.rb"
   ],
   "test_env": {
     "INVOICESHELF_SESSION_FAMILY": "php-shell"

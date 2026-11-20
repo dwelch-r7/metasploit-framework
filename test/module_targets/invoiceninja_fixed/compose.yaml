@@ -1,0 +1,12 @@
+services:
+  target:
+    extends: {file: ../invoiceninja/compose.yaml, service: target}
+    image: invoiceninja/invoiceninja@sha256:292ac305f2cec477870eb4973cf11f8d24879058154573bf1b2cef5d84f81684
+    volumes: ["./vendor.json:/opt/module-target-vendor.json:ro"]
+  database:
+    extends: {file: ../invoiceninja/compose.yaml, service: database}
+volumes:
+  database-data: {}
+networks:
+  default: {internal: true}
+  public: {}

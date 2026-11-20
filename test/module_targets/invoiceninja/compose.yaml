@@ -1,0 +1,70 @@
+services:
+  target:
+    image: invoiceninja/invoiceninja@sha256:1999d70953484cc49a3c9386ac8d8a6e8b2730c0302b9901ac14a074f7038fc9
+    platform: linux/amd64
+    init: true
+    cpus: 1
+    mem_limit: 1024m
+    memswap_limit: 1024m
+    pids_limit: 128
+    environment:
+      APP_NAME: InvoiceNinja
+      APP_ENV: production
+      APP_DEBUG: "false"
+      APP_KEY: base64:RR++yx2rJ9kdxbdh3+AmbHLDQu+Q76i++co9Y8ybbno=
+      APP_URL: http://127.0.0.1:8080
+      REACT_URL: http://127.0.0.1:8080
+      DB_CONNECTION: mysql
+      DB_DATABASE: ninja
+      DB_HOST: database
+      DB_PORT: "3306"
+      DB_USERNAME: ninja
+      DB_PASSWORD: module-ninja-db-password
+      CACHE_DRIVER: file
+      CACHE_STORE: file
+      QUEUE_CONNECTION: sync
+      SESSION_DRIVER: file
+      SESSION_DOMAIN: "127.0.0.1"
+      MAIL_MAILER: log
+      MAIL_DRIVER: log
+      MULTI_DB_ENABLED: "false"
+      NINJA_ENVIRONMENT: selfhost
+      PHP_CLI_SERVER_WORKERS: "2"
+    depends_on:
+      database: {condition: service_healthy}
+    command: [sh, /opt/module-target-invoiceninja-start.sh]
+    volumes:
+      - ./start.sh:/opt/module-target-invoiceninja-start.sh:ro
+      - ./native.php:/opt/module-target-native.php:ro
+      - ./vendor.json:/opt/module-target-vendor.json:ro
+      - ../laravel/native_gadget.php:/opt/module-target-laravel-gadget.php:ro
+    extra_hosts: ["host.docker.internal:host-gateway"]
+    networks: [default, public]
+    ports: ["127.0.0.1::8080"]
+    healthcheck:
+      test: [CMD, php, -r, "$$headers=@get_headers('http://127.0.0.1:8080/login');exit(is_array($$headers)&&strpos($$headers[0],'200')!==false?0:1);"]
+      interval: 2s
+      timeout: 5s
+      retries: 45
+  database:
+    extends:
+      file: ../suitecrm/compose.yaml
+      service: db
+    mem_limit: 512m
+    memswap_limit: 512m
+    environment:
+      MARIADB_ROOT_PASSWORD: module-ninja-db-root
+      MARIADB_DATABASE: ninja
+      MARIADB_USER: ninja
+      MARIADB_PASSWORD: module-ninja-db-password
+    volumes: [database-data:/var/lib/mysql]
+    healthcheck:
+      test: [CMD-SHELL, 'mariadb --user=root --password=module-ninja-db-root --batch --execute="SELECT 1" | grep -q 1']
+      interval: 2s
+      timeout: 5s
+      retries: 50
+volumes:
+  database-data: {}
+networks:
+  default: {internal: true}
+  public: {}

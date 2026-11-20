@@ -5,7 +5,19 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest: [InvoiceShelf cookie discovery](VERIFICATION-20261120-invoiceshelf-cookie-discovery.md)
+Latest: [Native Invoice Ninja execution and release controls](VERIFICATION-20261120-invoiceninja.md)
+adds one owner and two qualified profiles with **13/0**, reaching **316 runtime
+owners, 664 qualified profiles and 4,758 historical functional cases**. PHP shell
+quoting and unaffected-version detection repairs pass fourteen focused regressions
+(21/0 in the combined source run). The full maintained replay passes **33/0**,
+including twenty InvoiceShelf regressions and six used/closed shell sessions.
+Fourteen Ninja owner commands, four stock PHP controls, exact bytes, repeats,
+key-file/wrong-key paths and genuine patched-release denial pass. All 74 inputs,
+34 zero resource captures and 26 exact Docker object removals verify, with at most
+two capped containers and an empty final global container inventory. Ninja
+default/session delivery remains unqualified. The broader goal stays active; no PR.
+
+Previous: [InvoiceShelf cookie discovery](VERIFICATION-20261120-invoiceshelf-cookie-discovery.md)
 qualifies custom names and mismatched cookie domains after repairing the retained
 renamed-cookie failure. Seven profiles pass **20/0**, with six real shell sessions
 used and closed. Three newly qualified profiles add six historical cases, reaching
