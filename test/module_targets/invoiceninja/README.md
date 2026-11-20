@@ -48,3 +48,45 @@ use a shared Compose project. Follow the repository's container lifecycle policy
 Earlier feasibility runs are retained separately: SQLite migrations fail on
 MySQL prefix-index syntax, and migrations without account creation leave login
 unready. Those observations establish setup requirements, not module failures.
+
+## Real sessions
+
+Run each session family in a fresh serialized stack:
+
+```sh
+MODULE_TARGET_NAMESPACE=invoiceninja-local bundle exec ruby tools/dev/run_guarded_module_target_tests.rb invoiceninja_bash
+MODULE_TARGET_NAMESPACE=invoiceninja-local bundle exec ruby tools/dev/run_guarded_module_target_tests.rb invoiceninja_php_shell
+MODULE_TARGET_NAMESPACE=invoiceninja-local bundle exec ruby tools/dev/run_guarded_module_target_tests.rb invoiceninja_fetch
+MODULE_TARGET_NAMESPACE=invoiceninja-local bundle exec ruby tools/dev/run_guarded_module_target_tests.rb invoiceninja_php_staged
+MODULE_TARGET_NAMESPACE=invoiceninja-local bundle exec ruby tools/dev/run_guarded_module_target_tests.rb invoiceninja_php_inline
+```
+
+The session app derives from the pinned official image and adds only the pinned
+Alpine Bash package required by `reverse_bash`; app/vendor and payload sources
+remain unchanged. The official image's missing-Bash native failure is retained as
+a prerequisite failure. Installed package versions are recorded in each run.
+
+These profiles add the existing 0.2 CPU/128 MiB/64 PID ephemeral PostgreSQL
+reporting service, for a maximum of three capped containers. A native callback
+proves host reachability and UID 1500. An independent stock handler session must
+then pass real use, file/identity proof, original reporting-row closure and
+PID/birth/socket baseline restoration before the owner is exercised twice.
+Native readiness failure withholds owner execution and adds no qualification.
+
+The fetch profile uses the image's existing curl, serves the stock Linux x64
+Meterpreter payload, and verifies deletion of its downloaded file and closure of
+the HTTP listener. Its first owner attempt selects target 1 and leaves PAYLOAD
+unset; the actual selected payload must match the independent handler. The Bash
+and PHP shell profiles select their target/payload explicitly. Every owner path
+repeats on the same selected console object with AutoCheck disabled.
+
+The PHP staged and inline Meterpreter profiles remain unqualified: their native
+controls time out before a usable session, so owner execution is withheld. The
+inline control also leaves a target socket after local cleanup; the runner
+captures it and removes the entire stack. A staged owner attempt, if native
+readiness passes, omits TARGET and PAYLOAD to exercise normal PHP defaults.
+No private payload runtime patch or transport proxy is installed. Finished stacks,
+including the reporting service and database volume, are immediately removed.
+
+See the [session verification report](../VERIFICATION-20261120-invoiceninja-sessions.md)
+for qualified paths and the separately retained prerequisite/readiness failures.

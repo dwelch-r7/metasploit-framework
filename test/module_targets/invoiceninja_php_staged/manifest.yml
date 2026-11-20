@@ -1,0 +1,55 @@
+{
+  "spec": "spec/modules/exploits/linux/http/invoiceninja_sessions_target_spec.rb",
+  "console": false,
+  "expected_examples": 2,
+  "health_timeout": 240,
+  "test_timeout": 600,
+  "modules": [
+    "exploit/linux/http/invoiceninja_unauth_rce_cve_2024_55555"
+  ],
+  "ports": {
+    "target": 8080,
+    "reporting_db": 5432
+  },
+  "support_files": [
+    "lib/msf/core/exploit/laravel_crypto_killer.rb",
+    "lib/msf/core/exploit/remote/auto_check.rb",
+    "lib/msf/core/exploit/remote/http_client.rb",
+    "modules/payloads/singles/cmd/unix/generic.rb",
+    "modules/payloads/singles/php/exec.rb",
+    "test/module_targets/rsync_creds/native.rb",
+    "lib/msf/core/exploit/remote/http/http_cookie_jar.rb",
+    "lib/msf/core/exploit/remote/http/http_cookie.rb",
+    "test/module_targets/laravel/native_gadget.php",
+    "test/module_targets/laravel/commands.rb",
+    "test/module_targets/laravel/observe.rb",
+    "test/module_targets/invoiceninja/acceptance.rb",
+    "test/module_targets/invoiceninja/observe.rb",
+    "test/module_targets/invoiceninja/native.php",
+    "test/module_targets/invoiceninja/vendor.json",
+    "test/module_targets/invoiceninja/start.sh",
+    "test/module_targets/invoiceninja/compose.yaml",
+    "test/module_targets/suitecrm/compose.yaml",
+    "test/module_targets/invoiceninja/sessions.rb",
+    "test/module_targets/invoiceninja/session_control.rb",
+    "test/module_targets/laravel/sessions.rb",
+    "test/module_targets/laravel/session_control.rb",
+    "test/module_targets/invoiceshelf/process_state.php",
+    "test/module_targets/invoiceshelf/callback.php",
+    "test/module_targets/gopher/compose.yaml",
+    "test/module_targets/druid_sessions/session_control.rb",
+    "modules/exploits/multi/handler.rb",
+    "modules/payloads/stagers/php/reverse_tcp.rb",
+    "modules/payloads/stages/php/meterpreter.rb",
+    "modules/payloads/singles/php/meterpreter_reverse_tcp.rb",
+    "modules/payloads/singles/php/reverse_php.rb",
+    "modules/payloads/singles/cmd/unix/reverse_bash.rb",
+    "lib/msf/core/payload/php.rb",
+    "lib/msf/core/payload/php/reverse_tcp.rb",
+    "test/module_targets/invoiceninja_bash/compose.yaml",
+    "test/module_targets/invoiceninja_bash/Dockerfile"
+  ],
+  "test_env": {
+    "INVOICENINJA_SESSION_FAMILY": "staged"
+  }
+}

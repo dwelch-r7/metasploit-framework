@@ -1,0 +1,45 @@
+{
+  "services": {
+    "target": {
+      "extends": {
+        "file": "../invoiceninja/compose.yaml",
+        "service": "target"
+      },
+      "volumes": [
+        "../invoiceshelf/process_state.php:/opt/module-target-process_state.php:ro",
+        "../invoiceshelf/callback.php:/opt/module-target-callback.php:ro"
+      ],
+      "image": "metasploit-module-target-invoiceninja-sessions:5.10.10",
+      "build": {
+        "context": "../invoiceninja_bash"
+      }
+    },
+    "database": {
+      "extends": {
+        "file": "../invoiceninja/compose.yaml",
+        "service": "database"
+      }
+    },
+    "reporting_db": {
+      "extends": {
+        "file": "../gopher/compose.yaml",
+        "service": "reporting_db"
+      },
+      "ports": [
+        "127.0.0.1::5432"
+      ],
+      "networks": [
+        "public"
+      ]
+    }
+  },
+  "volumes": {
+    "database-data": {}
+  },
+  "networks": {
+    "default": {
+      "internal": true
+    },
+    "public": {}
+  }
+}

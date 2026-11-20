@@ -5,7 +5,18 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest: [Native Invoice Ninja execution and release controls](VERIFICATION-20261120-invoiceninja.md)
+Latest: [Invoice Ninja native-gated sessions](VERIFICATION-20261120-invoiceninja-sessions.md)
+adds three qualified profiles with **6/0**, reaching **316 runtime owners, 667
+qualified profiles and 4,764 historical functional cases**. The maintained shared
+helper replay passes **10/0** across five Ninja/InvoiceShelf profiles, using and
+closing fifteen real sessions. Bash, PHP shell and target 1's normal Linux fetch
+selection pass native readiness, physical proof, reporting, repeat and complete
+process/socket cleanup. Two native PHP Meterpreter failures remain retained and
+unqualified. All 74 wrapper inputs, 44 zero resource captures and 24 exact Docker
+object removals verify, with at most three capped containers running serially.
+No production source changes; the broader goal stays active and no PR is created.
+
+Previous: [Native Invoice Ninja execution and release controls](VERIFICATION-20261120-invoiceninja.md)
 adds one owner and two qualified profiles with **13/0**, reaching **316 runtime
 owners, 664 qualified profiles and 4,758 historical functional cases**. PHP shell
 quoting and unaffected-version detection repairs pass fourteen focused regressions

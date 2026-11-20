@@ -1,6 +1,10 @@
 <?php
 $host = gethostbyname('host.docker.internal');
-$socket = stream_socket_client('tcp://' . $host . ':4492', $code, $message, 5);
+$port = filter_var($argv[2], FILTER_VALIDATE_INT, ['options' => ['min_range' => 1, 'max_range' => 65535]]);
+if ($port === false) {
+    throw new InvalidArgumentException('Invalid callback port');
+}
+$socket = stream_socket_client('tcp://' . $host . ':' . $port, $code, $message, 5);
 if ($socket === false) {
     throw new RuntimeException('Callback failed: ' . $message);
 }

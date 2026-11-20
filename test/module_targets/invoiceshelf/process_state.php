@@ -1,6 +1,10 @@
 <?php
 // Match h2_console/process_state.py without adding an interpreter to the victim.
 // Field positions: https://docs.kernel.org/filesystems/proc.html
+$port = filter_var($argv[1], FILTER_VALIDATE_INT, ['options' => ['min_range' => 1, 'max_range' => 65535]]);
+if ($port === false) {
+    throw new InvalidArgumentException('Invalid observation port');
+}
 $processes = [];
 foreach (glob('/proc/[0-9]*') as $directory) {
     $pid = (int) basename($directory);
@@ -29,7 +33,7 @@ foreach (['tcp', 'tcp6'] as $name) {
     foreach (array_slice($lines, 1) as $line) {
         $fields = preg_split('/\s+/', trim($line));
         $remote = explode(':', $fields[2]);
-        if (hexdec(end($remote)) === 4492 && $fields[3] !== '06') {
+        if (hexdec(end($remote)) === $port && $fields[3] !== '06') {
             $connections[] = ['local' => $fields[1], 'remote' => $fields[2], 'state' => $fields[3]];
         }
     }
