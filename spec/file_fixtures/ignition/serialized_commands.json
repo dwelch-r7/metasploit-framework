@@ -1,0 +1,34 @@
+{
+  "provenance": {
+    "php": "7.4.15",
+    "image": "vulhub/laravel@sha256:afd50843b9b5dd42418e4abbb2dc0607ff80aa6a68a4722dc4832563c77a7ad5",
+    "method": "Native PHP serialize(); no dependency autoloader or command execution. First three commands are captured owner payloads; final two are explicit backslash boundaries."
+  },
+  "cases": [
+    {
+      "name": "unicode",
+      "command": "printf %s Ignition\\ \\雪\\😀 >> /tmp/module-target-ignition-owner-7315-unicode-0",
+      "serialized": "s:81:\"printf %s Ignition\\ \\雪\\😀 >> /tmp/module-target-ignition-owner-7315-unicode-0\";"
+    },
+    {
+      "name": "lf",
+      "command": "printf %s First'\n'Second\\\tend >> /tmp/module-target-ignition-owner-7315-lf-0",
+      "serialized": "s:76:\"printf %s First'\n'Second\\\tend >> /tmp/module-target-ignition-owner-7315-lf-0\";"
+    },
+    {
+      "name": "crlf-quoting",
+      "command": "printf %s Ignition\\ \\'single\\'\\ \\\"double\\\"\\ \\\\\\ \\$HOME\\ \\$\\{literal\\}\\ \\$\\(printf\\ nested\\)\\ \\雪\\😀\\\r'\n'End'\n' >> /tmp/module-target-ignition-owner-7315-crlf-quoting-0",
+      "serialized": "s:170:\"printf %s Ignition\\ \\'single\\'\\ \\\"double\\\"\\ \\\\\\ \\$HOME\\ \\$\\{literal\\}\\ \\$\\(printf\\ nested\\)\\ \\雪\\😀\\\r'\n'End'\n' >> /tmp/module-target-ignition-owner-7315-crlf-quoting-0\";"
+    },
+    {
+      "name": "literal-hex",
+      "command": "printf '%s' 'literal\\41\\00\\5c' > /tmp/module-target-ignition-hex",
+      "serialized": "s:64:\"printf '%s' 'literal\\41\\00\\5c' > /tmp/module-target-ignition-hex\";"
+    },
+    {
+      "name": "windows-path",
+      "command": "powershell -c \"Write-Output 'C:\\temp\\tools\\x41'\"",
+      "serialized": "s:48:\"powershell -c \"Write-Output 'C:\\temp\\tools\\x41'\"\";"
+    }
+  ]
+}
