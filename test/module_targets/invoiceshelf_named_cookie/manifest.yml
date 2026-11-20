@@ -24,7 +24,9 @@
     "test/module_targets/invoiceshelf/acceptance.rb",
     "test/module_targets/invoiceshelf/observe.rb",
     "test/module_targets/invoiceshelf/vendor.json",
-    "test/module_targets/invoiceshelf/compose.yaml"
+    "test/module_targets/invoiceshelf/compose.yaml",
+    "lib/msf/core/exploit/remote/http/http_cookie_jar.rb",
+    "lib/msf/core/exploit/remote/http/http_cookie.rb"
   ],
   "test_env": {
     "INVOICESHELF_DRIVER": "cookie",

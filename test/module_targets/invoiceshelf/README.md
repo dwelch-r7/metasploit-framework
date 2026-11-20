@@ -12,6 +12,8 @@ Run with Framework's bundle and Docker Compose v2 available:
 MODULE_TARGET_NAMESPACE=invoiceshelf-local bundle exec ruby tools/dev/run_guarded_module_target_tests.rb invoiceshelf
 MODULE_TARGET_NAMESPACE=invoiceshelf-local bundle exec ruby tools/dev/run_guarded_module_target_tests.rb invoiceshelf_file_sessions
 MODULE_TARGET_NAMESPACE=invoiceshelf-local bundle exec ruby tools/dev/run_guarded_module_target_tests.rb invoiceshelf_named_cookie
+MODULE_TARGET_NAMESPACE=invoiceshelf-local bundle exec ruby tools/dev/run_guarded_module_target_tests.rb invoiceshelf_custom_cookie
+MODULE_TARGET_NAMESPACE=invoiceshelf-local bundle exec ruby tools/dev/run_guarded_module_target_tests.rb invoiceshelf_cookie_domain
 ```
 
 The first profile tests the real version check, repeated Unix and PHP command
@@ -26,8 +28,15 @@ The file-session profile tests the 2.0 mitigation on the same 1.3.0 application:
 real file-backed sessions must ignore the forged data cookie, and the module must
 withhold execution. Its version-only check still returns Appears. The named-cookie
 profile uses `APP_NAME=InvoiceShelf`, letting Laravel choose
-`invoiceshelf_session`; native execution gates the owner test. A failure in that
-profile must remain visible for investigation.
+`invoiceshelf_session`; native execution gates the owner test. The custom-cookie profile selects
+`SESSION_COOKIE=module-target-cookie`, exercising a name without the default
+`_session` suffix. Both must retain their authenticated pointer/data relationship
+and repeat execution on the same selected module.
+
+The cookie-domain profile uses `SESSION_DOMAIN=localhost` while Framework targets
+its published IP address. The native control parses cookies against that declared
+origin and sends its HTTP proof to the real lab endpoint. This checks that forged
+requests retain server-issued cookies without imposing browser-domain storage.
 
 The session profiles `invoiceshelf_bash` and `invoiceshelf_php_shell` first use
 and close an independent handler, then use and close two real owner sessions.

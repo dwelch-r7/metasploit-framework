@@ -23,6 +23,8 @@
     "test/module_targets/invoiceshelf/native.php",
     "test/module_targets/invoiceshelf/acceptance.rb",
     "test/module_targets/invoiceshelf/observe.rb",
-    "test/module_targets/invoiceshelf/vendor.json"
+    "test/module_targets/invoiceshelf/vendor.json",
+    "lib/msf/core/exploit/remote/http/http_cookie_jar.rb",
+    "lib/msf/core/exploit/remote/http/http_cookie.rb"
   ]
 }

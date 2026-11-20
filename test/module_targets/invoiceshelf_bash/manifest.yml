@@ -39,7 +39,9 @@
     "modules/payloads/singles/php/reverse_php.rb",
     "modules/payloads/singles/cmd/unix/reverse_bash.rb",
     "lib/msf/core/payload/php.rb",
-    "lib/msf/core/payload/php/reverse_tcp.rb"
+    "lib/msf/core/payload/php/reverse_tcp.rb",
+    "lib/msf/core/exploit/remote/http/http_cookie_jar.rb",
+    "lib/msf/core/exploit/remote/http/http_cookie.rb"
   ],
   "test_env": {
     "INVOICESHELF_SESSION_FAMILY": "bash-shell"

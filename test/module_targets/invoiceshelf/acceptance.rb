@@ -47,6 +47,8 @@ module InvoiceShelfTarget
   def native_command(command, path, content)
     expect(file(path)).to include('exists' => false)
     uri = URI::HTTP.build(host: target_endpoint('target').fetch('host'), port: target_endpoint('target').fetch('port'), path: '/login')
+    # Parse against the declared cookie origin while HTTP stays on the lab endpoint.
+    uri = URI(ENV.fetch('INVOICESHELF_COOKIE_ORIGIN', uri.to_s))
     response = http('/login')
     expect(response.code).to eq('200')
     cookies = response.get_fields('set-cookie').flat_map { |header| HTTP::Cookie.parse(header, uri) }.to_h { |cookie| [cookie.name, cookie.value] }

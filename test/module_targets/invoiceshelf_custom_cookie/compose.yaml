@@ -1,0 +1,13 @@
+{
+  "services": {
+    "target": {
+      "extends": {
+        "file": "../invoiceshelf/compose.yaml",
+        "service": "target"
+      },
+      "environment": {
+        "SESSION_COOKIE": "module-target-cookie"
+      }
+    }
+  }
+}

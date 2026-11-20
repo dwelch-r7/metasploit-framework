@@ -5,7 +5,18 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest: [Native InvoiceShelf commands and sessions](VERIFICATION-20261120-invoiceshelf.md)
+Latest: [InvoiceShelf cookie discovery](VERIFICATION-20261120-invoiceshelf-cookie-discovery.md)
+qualifies custom names and mismatched cookie domains after repairing the retained
+renamed-cookie failure. Seven profiles pass **20/0**, with six real shell sessions
+used and closed. Three newly qualified profiles add six historical cases, reaching
+**315 runtime owners, 662 qualified profiles and 4,745 historical functional cases**.
+The source suites pass 53 focused cases (74 raw examples). Native staged/inline
+Meterpreter readiness failures withhold owner execution and add no qualification.
+All 60 inputs, 26 zero resource captures and 22 exact Docker object removals verify;
+at most two capped containers run, and the final global container inventory is
+empty. The broader goal stays active; no PR.
+
+Previous: [Native InvoiceShelf commands and sessions](VERIFICATION-20261120-invoiceshelf.md)
 adds one owner in covered paths and four qualified profiles with **14/0**, reaching
 **315 runtime owners, 659 qualified profiles and 4,739 historical functional cases**.
 Six shell sessions are used and closed; command bytes, key-file selection,
