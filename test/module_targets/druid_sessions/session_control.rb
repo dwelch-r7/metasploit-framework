@@ -2,6 +2,7 @@
 
 require 'json'
 require 'time'
+require 'msf/core/exploit/retry'
 
 # Passive events are emitted only after the real Framework session bootstrap.
 class DruidSessionObserver
@@ -19,6 +20,10 @@ end
 
 # Uses the public session API for remote proof and graceful remote shutdown.
 module DruidSessionControl
+  extend Msf::Exploit::Retry
+
+  PROOF_TIMEOUT = 5
+
   def self.install(framework)
     path = File.join(File.dirname(Msf::Config.config_directory), 'ready-sessions.jsonl')
     File.write(path, '')
@@ -33,9 +38,8 @@ module DruidSessionControl
     if session.type == 'meterpreter'
       pid = session.sys.process.getpid
       identity = session.sys.config.getuid
-      process = session.sys.process.execute('/bin/touch', path, 'Hidden' => true, 'Channelized' => false)
-      process.close
-      { id: identifier, type: session.type, pid: pid, identity: identity, command: "/bin/touch #{path}", expected: '' }
+      proof_process = touch_proof(session, path)
+      { id: identifier, type: session.type, pid: pid, identity: identity, command: "/bin/touch #{path}", expected: '', proof_process: proof_process }
     elsif session.type == 'shell'
       command = "printf %s druid-session > #{path}; id; echo $$"
       output = session.shell_command_token(command)
@@ -46,6 +50,39 @@ module DruidSessionControl
     else
       raise ArgumentError, "Unsupported real session type: #{session.type}"
     end
+  end
+
+  def self.touch_proof(session, path)
+    process = session.sys.process.execute('/bin/touch', path, 'Hidden' => true, 'Channelized' => false)
+    evidence = { pid: process.pid, file_observed: false }
+    begin
+      # Mettle's process.close sends SIGINT, so RPC acceptance must not be
+      # followed by close before touch has created its file. Callers still
+      # independently verify the physical file, bytes and owning UID.
+      observed = poll_until_truthy(timeout: PROOF_TIMEOUT, interval: 0.1) do
+        stat = session.fs.file.stat(path)
+        stat.file? && stat.size.zero? # rubocop:disable Style/ZeroLengthPredicate -- Remote FileStat does not implement empty?.
+      rescue Rex::Post::Meterpreter::RequestError => e
+        # Meterpreters differ in their missing-file error codes (PHP uses a
+        # generic failure). Retain the diagnostic if no valid stat arrives.
+        evidence[:stat_error] = e.message
+        false
+      end
+      evidence[:file_observed] = observed || false
+    ensure
+      process.close
+      evidence[:close_requested] = true
+      # Process.close does not wait for the remote response. Verify that the
+      # child is gone, including on timeout or an observation failure.
+      absent = poll_until_truthy(timeout: PROOF_TIMEOUT, interval: 0.1) do
+        session.sys.process.get_processes.none? { |entry| entry['pid'] == evidence[:pid] }
+      end
+      evidence[:cleanup] = absent ? 'child_absent' : 'child_still_present'
+      raise IOError, "Unable to clean up proof child #{evidence[:pid]}: #{evidence.to_json}" unless absent
+    end
+    raise IOError, "Remote touch proof was not established: #{evidence.to_json}" unless evidence[:file_observed]
+
+    evidence
   end
 
   def self.exit_remote(framework, identifier)
