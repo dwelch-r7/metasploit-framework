@@ -5,7 +5,19 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest: [Native Langflow auto-login commands and sessions](VERIFICATION-20261120-langflow-auto-login.md)
+Latest: [Native InvoiceShelf commands and sessions](VERIFICATION-20261120-invoiceshelf.md)
+adds one owner in covered paths and four qualified profiles with **14/0**, reaching
+**315 runtime owners, 659 qualified profiles and 4,739 historical functional cases**.
+Six shell sessions are used and closed; command bytes, key-file selection,
+file-session mitigation and repeated selection pass. A shared Laravel crypto
+repair passes 35 focused regressions. Renamed-cookie execution remains a confirmed
+owner failure. A separate native staged Meterpreter session passes, but its actual
+default owner attempt fails; inline readiness also fails. Those profiles add no
+qualification. All 54 recorded inputs, 22 resource captures and 18 exact Docker
+object removals verify. Stacks use at most two capped containers, and the final
+global container inventory is empty. The broader goal stays active; no PR.
+
+Previous: [Native Langflow auto-login commands and sessions](VERIFICATION-20261120-langflow-auto-login.md)
 adds one owner and four qualified profiles with **14/0**, reaching **314 runtime
 owners in covered paths, 655 qualified profiles and 4,725 historical functional
 cases**. Ten owner sessions and five independent handler sessions are used and

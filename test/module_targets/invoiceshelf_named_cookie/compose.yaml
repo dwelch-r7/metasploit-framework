@@ -1,0 +1,13 @@
+{
+  "services": {
+    "target": {
+      "extends": {
+        "file": "../invoiceshelf/compose.yaml",
+        "service": "target"
+      },
+      "environment": {
+        "APP_NAME": "InvoiceShelf"
+      }
+    }
+  }
+}

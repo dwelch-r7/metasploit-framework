@@ -1,0 +1,21 @@
+{
+  "release": "1.3.0",
+  "source_revision": "27a511bc091a5231c5c8932dc048990c2f8ca41d",
+  "archive_url": "https://github.com/InvoiceShelf/InvoiceShelf/releases/download/1.3.0/InvoiceShelf.zip",
+  "archive_sha256": "a803b3eae0a0e75e366764345bcb5e30a6d556332750ff964e37adb471ba0350",
+  "source_sha256": {
+    "composer.lock": "43fe3f6c31d370213a20889df29777f8d9fc7bdae6c79c5431d581bf726d17bf",
+    "app/Http/Controllers/AppVersionController.php": "4992a7bbbdb8404adf0894488621859970f369c09f241152a2338b252a814c91",
+    "app/Http/Kernel.php": "ea0149d2715ad94fbcf0a8f06939bcb15032597e2fa521dacc4dc19ce75a1bf9",
+    "app/Http/Middleware/InstallationMiddleware.php": "6de842d14e8bd87156161f537151d3f7859b3079eb3e2f517af1fd5e9dd27ed3",
+    "app/Space/InstallUtils.php": "c7a44fc828b2a2504a182a82be3fb443c5dc1c56d607795635a43842ee7ebc71",
+    "config/session.php": "b73b2cf1b812bc0bd348cad1106a2dc6e567a8bf5cd2f7372da52f704d91b844",
+    "config/app.php": "3a9e8376ce06a0073af37fae76a2d7a458436e2dfc6d20c5900f0ee7346e7f09",
+    "vendor/laravel/framework/src/Illuminate/Encryption/Encrypter.php": "aad5b723baae36a009323be321e0b81207ab5c5f7e61c38ce49a53d78dc10fed",
+    "vendor/laravel/framework/src/Illuminate/Cookie/CookieValuePrefix.php": "3525ca755eb5cca8e73b6cb7f1ae1816d0aef3e10778f352ffc3467b2ee93c42",
+    "vendor/laravel/framework/src/Illuminate/Session/CookieSessionHandler.php": "f36f51b175851d2ac9e715c29cca2dbecde3ea460aba026ac243d33bbc89a23c",
+    "vendor/laravel/framework/src/Illuminate/Session/Store.php": "186bc0500a10f81e6bf33ccc6517d6f65f20ce82ff5900e05edb16e9f658bbe7",
+    "vendor/laravel/framework/src/Illuminate/Broadcasting/PendingBroadcast.php": "b3d1844689affaacfb1b8e4028f263605b92ec32582b6e0725bc2953ac73e616",
+    "vendor/laravel/framework/src/Illuminate/Database/DatabaseManager.php": "e6743f0dc2579069b6174d1838f8eff6df96dcc1614f1ec5805bdfb1c2fb0a69"
+  }
+}

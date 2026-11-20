@@ -1,0 +1,28 @@
+{
+  "spec": "spec/modules/exploits/linux/http/invoiceshelf_target_spec.rb",
+  "console": false,
+  "expected_examples": 8,
+  "health_timeout": 240,
+  "test_timeout": 600,
+  "modules": [
+    "exploit/linux/http/invoiceshelf_unauth_rce_cve_2024_55556"
+  ],
+  "ports": {
+    "target": 8080
+  },
+  "support_files": [
+    "lib/msf/core/exploit/laravel_crypto_killer.rb",
+    "lib/msf/core/exploit/remote/auto_check.rb",
+    "lib/msf/core/exploit/remote/http_client.rb",
+    "modules/payloads/singles/cmd/unix/generic.rb",
+    "modules/payloads/singles/php/exec.rb",
+    "test/module_targets/rsync_creds/native.rb",
+    "test/module_targets/invoiceshelf/Dockerfile",
+    "test/module_targets/invoiceshelf/setup.php",
+    "test/module_targets/invoiceshelf/start.sh",
+    "test/module_targets/invoiceshelf/native.php",
+    "test/module_targets/invoiceshelf/acceptance.rb",
+    "test/module_targets/invoiceshelf/observe.rb",
+    "test/module_targets/invoiceshelf/vendor.json"
+  ]
+}
