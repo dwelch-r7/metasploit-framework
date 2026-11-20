@@ -5,7 +5,20 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest: [Native Cacti commands, discovery and sessions](VERIFICATION-20261120-cacti.md)
+Latest: [Native Langflow auto-login commands and sessions](VERIFICATION-20261120-langflow-auto-login.md)
+adds one owner and four qualified profiles with **14/0**, reaching **314 runtime
+owners in covered paths, 655 qualified profiles and 4,725 historical functional
+cases**. Ten owner sessions and five independent handler sessions are used and
+closed across automatic defaults, staged/forking, staged/nonforking, inline
+Meterpreter and Python shell paths. Exact command bytes, disabled auto-login and
+repeated selection pass. Two source repairs have focused regressions; the
+authenticated counterpart also passes **10/0** with six used/closed sessions.
+All 83 recorded inputs, twelve real token files and 86 observed Docker object
+removals verify. New profiles use at most two capped containers; the legacy
+regression uses three, with stacks run serially. The final global container
+inventory is empty. The broader goal remains active; no PR is created.
+
+Previous: [Native Cacti commands, discovery and sessions](VERIFICATION-20261120-cacti.md)
 adds one owner and four qualified profiles with **24/0**, reaching **313 runtime
 owners in covered paths, 651 qualified profiles and 4,711 historical functional
 cases**. Nine owner sessions and six independent handler sessions are used and

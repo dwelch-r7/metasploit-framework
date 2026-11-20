@@ -1,0 +1,26 @@
+{
+  "services": {
+    "target": {
+      "extends": {
+        "file": "../langflow/compose.yaml",
+        "service": "target"
+      },
+      "environment": {
+        "LANGFLOW_AUTO_LOGIN": "false"
+      },
+      "extra_hosts": [
+        "host.docker.internal:host-gateway"
+      ],
+      "networks": [
+        "default",
+        "public"
+      ]
+    }
+  },
+  "networks": {
+    "default": {
+      "internal": true
+    },
+    "public": {}
+  }
+}

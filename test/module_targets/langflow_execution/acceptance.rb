@@ -34,7 +34,7 @@ module Acceptance
       JSON.parse(captured)
     end
 
-    def call_owner(options = {}, action: 'run -z', reuse: false)
+    def call_owner(options = {}, action: 'run -z', reuse: false, select_defaults: false)
       @call = (@call || 0) + 1
       command_payload = self.class.metadata.fetch(:command_payload, 'python/exec')
       settings = {
@@ -49,21 +49,27 @@ module Acceptance
       end
       settings.delete('TARGETURI') unless self.class.metadata.fetch(:target_uri_option, true)
       settings.delete('CMD') unless settings.fetch('PAYLOAD') == command_payload
+      # A first-use default check must let the console import the owner's choices.
+      settings = settings.except('TARGET', 'PAYLOAD') if select_defaults
       output = nil
       begin
         if reuse
-          endpoint = target_runtime.fetch('module_endpoints').fetch('target')
+          endpoint = target_runtime.fetch('module_endpoints', target_runtime.fetch('endpoints')).fetch('target')
           datastore = { 'RHOSTS' => endpoint.fetch('host'), 'RPORT' => endpoint.fetch('port'), 'VERBOSE' => true }.merge(settings)
           output = console_command(action + ' ' + format_datastore_options(datastore), timeout: 45)
           expect(output).not_to match(/Exception|undefined method|Unknown command|Msf::OptionValidateError/)
         else
           output = run_target_module(owner_fullname, 'target', settings, action: action, allow_errors: true, command_timeout: 45)
         end
+        selection = rpc("{object:active_module.object_id,owner:active_module.fullname,options:{'TARGET'=>active_module.datastore['TARGET'],'PAYLOAD'=>active_module.datastore['PAYLOAD'],'MeterpreterTryToFork'=>active_module.datastore['MeterpreterTryToFork']}}")
+        expect(selection.fetch('object')).to eq(@previous_owner_selection) if reuse
+        @previous_owner_selection = selection.fetch('object')
       ensure
         captured = (output || console.all_data).dup.force_encoding(Encoding::UTF_8)
         encoding = captured.valid_encoding? ? 'utf-8' : 'base64'
         record('owning-calls.jsonl', owner: owner_fullname, workspace: @workspace, call: @call, action: action,
                                      options: settings, same_selected_instance: reuse, wrapper_returned: !output.nil?,
+                                     selection: selection, select_defaults: select_defaults,
                                      output_encoding: encoding, output: encoding == 'utf-8' ? captured : Base64.strict_encode64(captured))
       end
       expect(output).not_to include('Unknown datastore option')
