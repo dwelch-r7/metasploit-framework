@@ -1,0 +1,40 @@
+services:
+  db:
+    platform: linux/amd64
+    image: mysql:5.7.44@sha256:dab0a802b44617303694fb17d166501de279c3031ddeb28c56ecf7fcab5ef0da
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_DATABASE: cacti
+    command: [--innodb-buffer-pool-size=64M, --max-connections=25, --performance-schema=OFF, --max-allowed-packet=64M, --tmp-table-size=64M, --max-heap-table-size=64M, --character-set-server=utf8mb4, --collation-server=utf8mb4_unicode_ci]
+    mem_limit: 384m
+    memswap_limit: 384m
+    cpus: 0.5
+    pids_limit: 96
+    healthcheck:
+      test: [CMD-SHELL, 'mysql -h 127.0.0.1 -uroot -proot cacti -e "SELECT 1" >/dev/null 2>&1']
+      interval: 2s
+      timeout: 3s
+      retries: 60
+  app:
+    platform: linux/amd64
+    image: vulhub/cacti:1.2.22@sha256:5ff2bd5ee6091ea8823959cf41b29bfcf8290236d38588a05f187b66db28e025
+    depends_on:
+      db: {condition: service_healthy}
+    entrypoint: [/bin/bash, /fixture-bootstrap.sh]
+    volumes: ['./bootstrap.sh:/fixture-bootstrap.sh:ro']
+    networks: [default, public]
+    extra_hosts: ['host.docker.internal:host-gateway']
+    ports: ['127.0.0.1::80']
+    mem_limit: 512m
+    memswap_limit: 512m
+    cpus: 1.0
+    pids_limit: 128
+    healthcheck:
+      test: [CMD-SHELL, 'wget -q -O /dev/null http://127.0.0.1/']
+      interval: 2s
+      timeout: 3s
+      retries: 90
+networks:
+  default: {internal: true}
+  public: {}

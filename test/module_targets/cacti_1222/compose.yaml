@@ -1,0 +1,22 @@
+{
+  "services": {
+    "db": {
+      "extends": {
+        "file": "../cacti/services.yaml",
+        "service": "db"
+      }
+    },
+    "app": {
+      "extends": {
+        "file": "../cacti/services.yaml",
+        "service": "app"
+      }
+    }
+  },
+  "networks": {
+    "default": {
+      "internal": true
+    },
+    "public": {}
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "1.2.23": {
+    "revision": "aa48e25d81fef743021f50f9254ebbbd626a416c",
+    "url": "https://codeload.github.com/Cacti/cacti/tar.gz/aa48e25d81fef743021f50f9254ebbbd626a416c",
+    "sha256": "7757226f80b3793e4f794ef705946396c83f2d48a318f9d71c82d04804945b52",
+    "critical_sha256": {
+      "remote_agent.php": "d5d1ff5bd4c07e93d5846283583ba97305e85e361b45fec96f131c96330f0153",
+      "lib/functions.php": "fb28156978cb88026e27697c58afcae920e01e73686b252423d8c4b1c447c83e",
+      "script_server.php": "95b39dbd10781bb7b7d4aa5a743ca20223ed4b334614cdf749e8992d242bb34c"
+    }
+  },
+  "1.2.16": {
+    "revision": "4e97cd63862ac3a1dd7065f64ee3fa46dda637e1",
+    "url": "https://codeload.github.com/Cacti/cacti/tar.gz/4e97cd63862ac3a1dd7065f64ee3fa46dda637e1",
+    "sha256": "03b0fb4b2a5fb3e94883c02b20d9c280e8f2159b3274ac72511e7f191c5779f0",
+    "critical_sha256": {
+      "remote_agent.php": "d0464e3eb6c70e86d854bee9463ccde238497fac2b47c881ab3b82014eb3a479",
+      "lib/functions.php": "dd7fb6903d48c1533d5e35091e7dda780ef8da82606a7b9cc0952000e8895f93",
+      "script_server.php": "17e10415bdcce6cc80964d7b6e61b375f3fe886cf7653487c324f635b2272a7d"
+    }
+  },
+  "1.2.17": {
+    "revision": "c4cdb56644ec90738133f46ce3a78fbc4d3c157d",
+    "url": "https://codeload.github.com/Cacti/cacti/tar.gz/c4cdb56644ec90738133f46ce3a78fbc4d3c157d",
+    "sha256": "2e2d6510e39bdeae10be818385f2984bb2f373519c6bb69b622a3f98af4ffbe6",
+    "critical_sha256": {
+      "remote_agent.php": "7e1973d5b17246e5a7d16e68d9d0ad00c3e3fe2d336de65ba6b9e3a57721c46f",
+      "lib/functions.php": "588abd158ead40ef050d391a4fc20a3f547a630d441e237410b10aed7b2fca74",
+      "script_server.php": "1c97041372ab2856335ca7678db9f87c34744d7cb930cd2537b3db1d3ee33e65"
+    }
+  }
+}

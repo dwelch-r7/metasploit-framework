@@ -1,0 +1,31 @@
+{
+  "services": {
+    "db": {
+      "extends": {
+        "file": "../cacti/services.yaml",
+        "service": "db"
+      }
+    },
+    "app": {
+      "extends": {
+        "file": "../cacti/services.yaml",
+        "service": "app"
+      },
+      "image": "msf-module-target-cacti:1.2.23",
+      "build": {
+        "context": "../cacti",
+        "args": {
+          "CACTI_REVISION": "aa48e25d81fef743021f50f9254ebbbd626a416c",
+          "CACTI_ARCHIVE_SHA256": "7757226f80b3793e4f794ef705946396c83f2d48a318f9d71c82d04804945b52",
+          "CACTI_INSTALL_INTL_PCNTL": "true"
+        }
+      }
+    }
+  },
+  "networks": {
+    "default": {
+      "internal": true
+    },
+    "public": {}
+  }
+}

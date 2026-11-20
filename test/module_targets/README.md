@@ -5,7 +5,18 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest: [Native APISIX route commands and sessions](VERIFICATION-20261119-apisix.md)
+Latest: [Native Cacti commands, discovery and sessions](VERIFICATION-20261120-cacti.md)
+adds one owner and four qualified profiles with **24/0**, reaching **313 runtime
+owners in covered paths, 651 qualified profiles and 4,711 historical functional
+cases**. Nine owner sessions and six independent handler sessions are used and
+closed; command-byte, partial-ID, default/repeated selection and fixed-release
+AutoCheck paths pass. Two older native-only controls pass separately. The stock
+PHP readiness failure withholds two owner cases and adds no qualification.
+A confirmed discovery bug and proof-process harness race have focused regressions;
+all 41 observed Docker objects are absent after serial capped runs. The broader
+goal remains active; no PR is created.
+
+Previous: [Native APISIX route commands and sessions](VERIFICATION-20261119-apisix.md)
 adds one owner and four profiles with **33/0**, reaching **312 runtime owners in
 covered paths, 647 qualified profiles and 4,687 historical functional cases**.
 Twenty-nine owner cases and four independent handler cases cover effective

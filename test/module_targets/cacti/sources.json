@@ -1,0 +1,128 @@
+[
+  {
+    "repository": "vulhub/vulhub",
+    "ref": "heads/master",
+    "revision": "9b90d4276f84feed6333286afeb7e1250379a1da",
+    "path": "cacti/CVE-2022-46169/entrypoint.sh",
+    "file": "vulhub_vulhub-9b90d4276f84-cacti_CVE-2022-46169_entrypoint.sh",
+    "url": "https://raw.githubusercontent.com/vulhub/vulhub/9b90d4276f84feed6333286afeb7e1250379a1da/cacti/CVE-2022-46169/entrypoint.sh",
+    "sha256": "d902c7f9326906961af1f3619ac29a59e31813a23e9268d60ff18905db79b285"
+  },
+  {
+    "repository": "vulhub/vulhub",
+    "ref": "heads/master",
+    "revision": "9b90d4276f84feed6333286afeb7e1250379a1da",
+    "path": "cacti/CVE-2022-46169/docker-compose.yml",
+    "file": "vulhub_vulhub-9b90d4276f84-cacti_CVE-2022-46169_docker-compose.yml",
+    "url": "https://raw.githubusercontent.com/vulhub/vulhub/9b90d4276f84feed6333286afeb7e1250379a1da/cacti/CVE-2022-46169/docker-compose.yml",
+    "sha256": "c9803996fc807ad9f8dd201f151e3015ab5ebacff2ce4b02ef457d7eb2c5ef11"
+  },
+  {
+    "repository": "vulhub/vulhub",
+    "ref": "heads/master",
+    "revision": "9b90d4276f84feed6333286afeb7e1250379a1da",
+    "path": "base/cacti/1.2.22/config.php",
+    "file": "vulhub_vulhub-9b90d4276f84-base_cacti_1.2.22_config.php",
+    "url": "https://raw.githubusercontent.com/vulhub/vulhub/9b90d4276f84feed6333286afeb7e1250379a1da/base/cacti/1.2.22/config.php",
+    "sha256": "eefc107cdc573f7f6912b65cc2f5683545d524090c0c997b68f53eedc91afd8c"
+  },
+  {
+    "repository": "vulhub/vulhub",
+    "ref": "heads/master",
+    "revision": "9b90d4276f84feed6333286afeb7e1250379a1da",
+    "path": "base/cacti/1.2.22/cacti.ini",
+    "file": "vulhub_vulhub-9b90d4276f84-base_cacti_1.2.22_cacti.ini",
+    "url": "https://raw.githubusercontent.com/vulhub/vulhub/9b90d4276f84feed6333286afeb7e1250379a1da/base/cacti/1.2.22/cacti.ini",
+    "sha256": "451cb2c0f9c7803e1b51dbabba4779a96eda70db32653c556609546afbbf664b"
+  },
+  {
+    "repository": "vulhub/vulhub",
+    "ref": "heads/master",
+    "revision": "9b90d4276f84feed6333286afeb7e1250379a1da",
+    "path": "base/cacti/1.2.22/Dockerfile",
+    "file": "vulhub_vulhub-9b90d4276f84-base_cacti_1.2.22_Dockerfile",
+    "url": "https://raw.githubusercontent.com/vulhub/vulhub/9b90d4276f84feed6333286afeb7e1250379a1da/base/cacti/1.2.22/Dockerfile",
+    "sha256": "51517033fc2d548bcf0e4a4011b6a7da1ded3322428af850016378a6c65c62bd"
+  },
+  {
+    "repository": "Cacti/cacti",
+    "ref": "tags/release/1.2.22",
+    "revision": "a0a8b7d51dcbe1ac0f91788e3579ac8962ba66ad",
+    "path": "remote_agent.php",
+    "file": "Cacti_cacti-a0a8b7d51dcb-remote_agent.php",
+    "url": "https://raw.githubusercontent.com/Cacti/cacti/a0a8b7d51dcbe1ac0f91788e3579ac8962ba66ad/remote_agent.php",
+    "sha256": "2453928a78cb54bdab1a7396b2d0f5d38abe1dc5d3df4656fea5d63fded4e1ad"
+  },
+  {
+    "repository": "Cacti/cacti",
+    "ref": "tags/release/1.2.22",
+    "revision": "a0a8b7d51dcbe1ac0f91788e3579ac8962ba66ad",
+    "path": "lib/functions.php",
+    "file": "Cacti_cacti-a0a8b7d51dcb-lib_functions.php",
+    "url": "https://raw.githubusercontent.com/Cacti/cacti/a0a8b7d51dcbe1ac0f91788e3579ac8962ba66ad/lib/functions.php",
+    "sha256": "1769c471fda63f5d728525d8e322e9045f60ccbc811f70092e298f27b9dfca2a"
+  },
+  {
+    "repository": "Cacti/cacti",
+    "ref": "tags/release/1.2.22",
+    "revision": "a0a8b7d51dcbe1ac0f91788e3579ac8962ba66ad",
+    "path": "lib/installer.php",
+    "file": "Cacti_cacti-a0a8b7d51dcb-lib_installer.php",
+    "url": "https://raw.githubusercontent.com/Cacti/cacti/a0a8b7d51dcbe1ac0f91788e3579ac8962ba66ad/lib/installer.php",
+    "sha256": "b141bdcfc0197481c77ed31fb895f798e651f58c66556610b4eb733130a04c35"
+  },
+  {
+    "repository": "Cacti/cacti",
+    "ref": "tags/release/1.2.22",
+    "revision": "a0a8b7d51dcbe1ac0f91788e3579ac8962ba66ad",
+    "path": "cli/install_cacti.php",
+    "file": "Cacti_cacti-a0a8b7d51dcb-cli_install_cacti.php",
+    "url": "https://raw.githubusercontent.com/Cacti/cacti/a0a8b7d51dcbe1ac0f91788e3579ac8962ba66ad/cli/install_cacti.php",
+    "sha256": "af811eccf5eddf5d1f7caf7c365ce4ed42d69d193de9cc278deddf2ab703be4f"
+  },
+  {
+    "repository": "Cacti/cacti",
+    "ref": "tags/release/1.2.22",
+    "revision": "a0a8b7d51dcbe1ac0f91788e3579ac8962ba66ad",
+    "path": "cli/add_graphs.php",
+    "file": "Cacti_cacti-a0a8b7d51dcb-cli_add_graphs.php",
+    "url": "https://raw.githubusercontent.com/Cacti/cacti/a0a8b7d51dcbe1ac0f91788e3579ac8962ba66ad/cli/add_graphs.php",
+    "sha256": "acc593c17917a255533e87b970f48160d546fef549acdd3c1ee9b7be5358e0f6"
+  },
+  {
+    "repository": "Cacti/cacti",
+    "ref": "tags/release/1.2.22",
+    "revision": "a0a8b7d51dcbe1ac0f91788e3579ac8962ba66ad",
+    "path": "cli/add_device.php",
+    "file": "Cacti_cacti-a0a8b7d51dcb-cli_add_device.php",
+    "url": "https://raw.githubusercontent.com/Cacti/cacti/a0a8b7d51dcbe1ac0f91788e3579ac8962ba66ad/cli/add_device.php",
+    "sha256": "780a6003a0f10824bb59fc15fb8a8ae6375e215d645a8630d8141b1b9b34c8ce"
+  },
+  {
+    "repository": "Cacti/cacti",
+    "ref": "tags/release/1.2.22",
+    "revision": "a0a8b7d51dcbe1ac0f91788e3579ac8962ba66ad",
+    "path": "cli/poller_reindex_hosts.php",
+    "file": "Cacti_cacti-a0a8b7d51dcb-cli_poller_reindex_hosts.php",
+    "url": "https://raw.githubusercontent.com/Cacti/cacti/a0a8b7d51dcbe1ac0f91788e3579ac8962ba66ad/cli/poller_reindex_hosts.php",
+    "sha256": "425141bf3a85bddd511c92b9a843ea5c8ee4af7a425683573155cfa6a9b8b2af"
+  },
+  {
+    "repository": "Cacti/cacti",
+    "ref": "tags/release/1.2.22",
+    "revision": "a0a8b7d51dcbe1ac0f91788e3579ac8962ba66ad",
+    "path": "include/cacti_version",
+    "file": "Cacti_cacti-a0a8b7d51dcb-include_cacti_version",
+    "url": "https://raw.githubusercontent.com/Cacti/cacti/a0a8b7d51dcbe1ac0f91788e3579ac8962ba66ad/include/cacti_version",
+    "sha256": "552d1b0bcdbecc5cc39f8b9d98564f34edfaefeda6478e91eb54176935bde53a"
+  },
+  {
+    "repository": "Cacti/cacti",
+    "ref": "tags/release/1.2.22",
+    "revision": "a0a8b7d51dcbe1ac0f91788e3579ac8962ba66ad",
+    "path": "cacti.sql",
+    "file": "Cacti_cacti-a0a8b7d51dcb-cacti.sql",
+    "url": "https://raw.githubusercontent.com/Cacti/cacti/a0a8b7d51dcbe1ac0f91788e3579ac8962ba66ad/cacti.sql",
+    "sha256": "1251e9e09e90822ef695730aefa2059a670d788271b1a2a0c9b1b5f57f6f84ff"
+  }
+]

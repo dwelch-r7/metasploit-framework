@@ -1,0 +1,28 @@
+{
+  "services": {
+    "db": {
+      "extends": {
+        "file": "../cacti/services.yaml",
+        "service": "db"
+      }
+    },
+    "app": {
+      "extends": {
+        "file": "../cacti/services.yaml",
+        "service": "app"
+      }
+    },
+    "reporting_db": {
+      "extends": {
+        "file": "../elasticsearch_memory/services.yaml",
+        "service": "db"
+      }
+    }
+  },
+  "networks": {
+    "default": {
+      "internal": true
+    },
+    "public": {}
+  }
+}
