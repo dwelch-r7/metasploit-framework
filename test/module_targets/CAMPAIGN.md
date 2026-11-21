@@ -1547,3 +1547,15 @@ are zero, twelve Docker objects are independently removed and both contexts fini
 empty. The inventory retains 4,302 pending selectable candidates and 225 documented
 container hints, with zero stale source reviews. The broader campaign remains
 active and no PR is created.
+
+Ollama registry traversal adds two native-gated profiles and seven passing
+cases. Independent GCC loader, ordinary OCI pull/show and actual CPU runner
+identity precede the module's version checks, two exact-byte commands on one
+selection and repeated patched-release refusal. Harness failures remain
+separate from module verdicts. All 204 current inputs reconcile; coverage is
+323 owners in stated paths, 688 profiles and 4,835 historical cases. One capped
+container runs at a time; all 18 new/467 recorded Docker objects are absent,
+including a globally empty stopped/running inventory. Default Meterpreter and
+automatic FileDropper cleanup remain unqualified. Production source is unchanged.
+See [the verification report](VERIFICATION-20261121-ollama-rce.md). No PR;
+the broader inventory goal remains active.

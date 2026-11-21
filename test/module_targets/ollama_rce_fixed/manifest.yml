@@ -1,0 +1,32 @@
+{
+  "spec": "spec/modules/exploits/linux/http/ollama_rce_target_spec.rb",
+  "console": false,
+  "expected_examples": 3,
+  "health_timeout": 120,
+  "test_timeout": 480,
+  "test_env": {
+    "OLLAMA_VERSION": "0.1.34"
+  },
+  "modules": [
+    "exploit/linux/http/ollama_rce_cve_2024_37032"
+  ],
+  "ports": {
+    "target": 11434
+  },
+  "support_files": [
+    "lib/msf/core/exploit/remote/auto_check.rb",
+    "lib/msf/core/exploit/remote/http_client.rb",
+    "lib/msf/core/exploit/remote/http_server.rb",
+    "lib/msf/core/exploit/file_dropper.rb",
+    "modules/payloads/singles/linux/x64/exec.rb",
+    "test/module_targets/rsync_creds/native.rb",
+    "test/module_targets/ollama_rce/Dockerfile",
+    "test/module_targets/ollama_rce/acceptance.rb",
+    "test/module_targets/ollama_rce/compose.yaml",
+    "test/module_targets/ollama_rce/native_loader.c",
+    "test/module_targets/ollama_rce/native_probe.py",
+    "test/module_targets/ollama_rce/observe.rb",
+    "test/module_targets/ollama_rce/observer.py",
+    "test/module_targets/ollama_rce/vendor.json"
+  ]
+}

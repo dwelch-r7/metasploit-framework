@@ -5,7 +5,18 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest investigation: [TorchServe session readiness](VERIFICATION-20261121-torchserve-sessions.md)
+Latest qualification: [Ollama native-gated registry RCE](VERIFICATION-20261121-ollama-rce.md)
+adds two profiles with **7/0/0**, including independently proven native runner
+execution, two real command executions on one selected module and repeated
+patched-version refusal. Coverage reaches **323 owners in stated runtime paths,
+688 profiles and 4,835 historical cases**. The latest eighteen profiles retain
+**60 cases**, twenty-two used/closed sessions, 204 declared inputs and 100 zero
+cgroup captures. All 18 new and 467 recorded Docker objects are absent; the full
+global container inventory is empty. Each new stack uses one capped container.
+Default Meterpreter sessions and automatic library cleanup remain unqualified.
+Production source is unchanged; no PR. The broader inventory goal stays active.
+
+Previous investigation: [TorchServe session readiness](VERIFICATION-20261121-torchserve-sessions.md)
 retains three failed frames and five genuinely used/closed stock Java sessions.
 The final **4/1/1** frame proves direct JAR and ordinary HTTP loading, then
 withholds the owner after native MAR readiness fails. Two earlier actual default
@@ -16,7 +27,7 @@ objects are absent; the full global container inventory is empty. At most two
 capped containers run serially. No production changes or PR; the broader goal
 remains active.
 
-Latest qualification: [TorchServe native YAML boundary and actual checks](VERIFICATION-20261121-torchserve-checks.md)
+Previous qualification: [TorchServe native YAML boundary and actual checks](VERIFICATION-20261121-torchserve-checks.md)
 adds two native-gated profiles with **5/0**, reaching **322 runtime owners,
 686 profiles and 4,828 historical functional cases**. A real fixed-release
 false positive is repaired; original 0.8.1/0.8.2 checks and independent native

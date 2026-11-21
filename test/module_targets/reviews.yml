@@ -1,6 +1,26 @@
 # Individual source-reviewed target requirements; these are not blanket exclusions.
 ---
 modules:
+  exploit/linux/http/ollama_rce_cve_2024_37032:
+    source_sha256: 92748993751785fb01beb6ec2e59aad723c039b1dbe15101e84b2c3aa2cb2315
+    disposition: container_lab
+    lab_profiles:
+      ollama_rce: [pinned_0_1_33, native_loader, ordinary_oci, physical_traversal, api_runner_identity, actual_check, exact_commands, repeat, fixture_recovery]
+      ollama_rce_fixed: [pinned_0_1_34, native_loader, ordinary_oci, physical_denial, actual_safe, repeated_autocheck_refusal, fixture_recovery]
+    reason: >-
+      Seven maintained cases pass after independent native loader and genuine
+      Ollama OCI/runner controls. Two actual linux/x64/exec commands preserve
+      quotes, backslash, Unicode and CRLF on one selected module. Physical
+      libraries equal the original Metasm generator bytes; armed preload is
+      observed without launching helper processes. Fixed positive controls,
+      traversal denial, actual Safe and repeated refusal pass. Twelve fresh
+      cgroup captures are zero; all 204 current declared inputs reconcile and
+      all 18 new/467 recorded Docker objects are absent, with global containers
+      zero. One capped container runs at a time. Harness failures are retained
+      separately; production source is unchanged. Default Meterpreter sessions,
+      automatic FileDropper cleanup, other releases, nonroot deployments and
+      alternative model directories remain unqualified. See
+      VERIFICATION-20261121-ollama-rce.md.
   exploit/multi/http/apache_apisix_api_default_token_rce:
     source_sha256: 2ad0a220e70c0a01e9310960140fa5412d8b2fc12f9bcef558474d7f7115f4cc
     disposition: container_lab

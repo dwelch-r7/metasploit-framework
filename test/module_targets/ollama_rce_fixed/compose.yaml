@@ -1,0 +1,6 @@
+services:
+  target:
+    extends: {file: ../ollama_rce/compose.yaml, service: target}
+    build:
+      args:
+        OLLAMA_IMAGE: ollama/ollama@sha256:a92fbb914b7b766e1fdd55ee883c5de2bc7cf3792f001656131295f6060ff0ff
