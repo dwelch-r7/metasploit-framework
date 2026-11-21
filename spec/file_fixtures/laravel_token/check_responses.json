@@ -1,0 +1,22 @@
+{
+  "origin": {
+    "owner_revision": "4061b427548aa878d94e379ea3ac31b24fe7f07e",
+    "target": "PHP7.4.15 Laravel5.6.29 Faker1.9.2",
+    "negative_body_sha256": "1dca7d30c689598db30dbb445670ae3b08b4005873d1a12739be0d2c7f8d72e1",
+    "negative_body_artifact": "owner-http-0010.body",
+    "positive_body_sha256": "addb4aabf8e64592aa8557565b9240102c0e32df304a7688036b704f5f8eb4d5",
+    "positive_body_artifact": "2-ascii-http.body",
+    "native_gates": "Negative gadget1 no physical proof; positive gadget2 exact UID33 proof. Raw captures sealed separately."
+  },
+  "negative": {
+    "marker": "H3p3mGOmJeIf",
+    "response_excerpts_base64": [
+      "WzxzYW1wPgogIDxzcGFuIGNsYXNzPXNmLWR1bXAtaW5kZXg+MDwvc3Bhbj4gPT4gIjxzcGFuIGNsYXNzPXNmLWR1bXAtc3RyIHRpdGxlPSIxNyBjaGFyYWN0ZXJzIj5lY2hvIEgzcDNtR09tSmVJZjwvc3Bhbj4iCjwvc2FtcD5dCjwvcHJlPjxzY3JpcHQ+U2ZkdW1wKCJzZi1kdW1wLTUwMjE1ODI0NiIpPC9zY3JpcHQ+CjwvbGk+PC9vbD4gICAgICAgICAgPC9kaXY+CiAgICAgICAgCiAgICAgICAgICAgICAgIA==",
+      "WzxzYW1wPgogIDxzcGFuIGNsYXNzPXNmLWR1bXAtaW5kZXg+MDwvc3Bhbj4gPT4gIjxzcGFuIGNsYXNzPXNmLWR1bXAtc3RyIHRpdGxlPSIxNyBjaGFyYWN0ZXJzIj5lY2hvIEgzcDNtR09tSmVJZjwvc3Bhbj4iCjwvc2FtcD5dCjwvcHJlPjxzY3JpcHQ+U2ZkdW1wKCJzZi1kdW1wLTE1MTA4ODc2NSIpPC9zY3JpcHQ+CjwvbGk+PC9vbD4gICAgICAgICAgPC9kaXY+CiAgICAgICAgCiAgICAgICAgICAgICAgIA=="
+    ]
+  },
+  "positive": {
+    "marker": "native-echo-2-ascii",
+    "response_excerpt_base64": "bmF0aXZlLWVjaG8tMi1hc2NpaQo8IURPQ1RZUEUgaHRtbD4KPGh0bWwgbGFuZz0iZW4iPgogICAgPGhlYWQ+CiAgICAgICAgPG1ldGEgY2hhcnNldD0idXRmLTgiPgogICAgICAgIDxtZXRhIGh0dHAtZXF1aXY9IlgtVUEtQ29tcGF0aWJsZSIgY29udGVudD0iSUU9ZWRnZSI+CiAgICAgICAgPG1ldGEgbmFtZT0idmlld3BvcnQiIGNvbnRlbnQ9IndpZHRoPWRldmljZS13aWR0aCwgaW5pdGlhbC1zY2FsZT0xIj4KCiAgICAgICAgPHRpdGxlPlBhZ2UgRXhwaXJlZDwvdGl0bGU+CgogICAgICAgIDwhLS0gRm9udHMgLS0+CiAgICAgICAgPGxpbmsgaHJlZj0iaHR0cHM6Ly9mb250cy5nb29nbGVhcGlzLmNvbS9jc3M/ZmFtaWx5PVJhbGV3YXk6MTAwLDYwMCIgcmVsPSJzdHlsZXNoZWV0IiB0eXBlPSJ0ZXh0L2NzcyI+CgogICAgICAgIDwhLS0gU3R5bGVzIC0tPgogICAgICAgIDxzdHlsZT4KICAgICAgICAgICAgaHRtbCwgYm9keSB7CiAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjZmZmOwo="
+  }
+}
