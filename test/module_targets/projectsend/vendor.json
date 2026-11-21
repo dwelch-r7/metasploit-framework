@@ -1,0 +1,20 @@
+{
+  "image": "lscr.io/linuxserver/projectsend@sha256:10f8dd57a182d6815f12c01fd834849f8fd4ac9d7cf456ab99fc6e00957809b6",
+  "publisher_revision": "8d5e199388efbaeba365e78926f34c1edcca9996",
+  "build_version": "Linuxserver.io version:- r1605-ls199 Build-date:- 2024-07-29T21:26:10+00:00",
+  "version": "r1605",
+  "files_sha256": {
+    "bootstrap.php": "2e76c180c9068dcb67af03033a6b45a251274bcdf987ce7d307d02e889a58340",
+    "includes/app.php": "b85664644f83cfb1832a7f2fc1833a60a7d6b7bf5eb44ca0670691014504cd5d",
+    "includes/functions.options.php": "388b4322768727359793dcfb965def2a14d4a0c0d8c5c9be91f0425269f7ed22",
+    "includes/security/csrf.php": "df83212a2191c17f7340df2b30d8e6e5a17467f2e6facfbe608dd13dab387ca6",
+    "options.php": "f89534e96dd119b1f59366fe13badeb63a7c5e27bc2034e2397196fa1d3128a5",
+    "index.php": "5f4e552ac1dfe3a813cc0439c2dc892b1126621a734e1c585ec99cb821585bdd",
+    "register.php": "d322f621e522181b6b379b85202b1246144189a4ad022f4f5cea83d7c0de1aa8",
+    "includes/upload.process.php": "d43b0a17a36ec1aa3bc6deca670d937085fa38a68390f2bb5fd1d18a93cada70",
+    "install/index.php": "95ec84def099a27dbe22c1dbd4329f1b5f88d4ee11adfa3b7db1e4bd10cb6509",
+    "install/database.php": "90a957f1ff010684d31e977c0bbea1e2739f901b51172751b75a704fd4130d6a",
+    "header-unlogged.php": "dd8ab373ff6181ae7dbc581cdf6d108ac7fd7b72cc091b6adb16bb5ffdecc70a",
+    "includes/functions.php": "ebe038afcbab8c1221827d1c676db90031350b6514393bd3ac1d22c185f2b892"
+  }
+}

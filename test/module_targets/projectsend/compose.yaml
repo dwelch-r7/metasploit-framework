@@ -1,0 +1,39 @@
+services:
+  database:
+    image: mariadb@sha256:5e07c0d90fe1421e9b0b0114a7236eb519fdd873679bdb2ecc771d3c226c1f4e
+    platform: linux/amd64
+    cpus: 0.3
+    mem_limit: 256m
+    memswap_limit: 256m
+    pids_limit: 96
+    environment:
+      MARIADB_ROOT_PASSWORD: module-target-root-password
+      MARIADB_DATABASE: projectsend
+      MARIADB_USER: projectsend
+      MARIADB_PASSWORD: module-target-projectsend-password
+    command: [--innodb-buffer-pool-size=64M, --performance-schema=OFF, --max-connections=25]
+    tmpfs: ["/var/lib/mysql:rw,size=256m,mode=0755"]
+    healthcheck:
+      test: [CMD, mariadb, --host=127.0.0.1, --user=projectsend, --password=module-target-projectsend-password, --database=projectsend, --execute=SELECT 1]
+      interval: 2s
+      timeout: 4s
+      retries: 60
+  target:
+    image: lscr.io/linuxserver/projectsend@sha256:10f8dd57a182d6815f12c01fd834849f8fd4ac9d7cf456ab99fc6e00957809b6
+    platform: linux/amd64
+    cpus: 0.7
+    mem_limit: 384m
+    memswap_limit: 384m
+    pids_limit: 128
+    depends_on:
+      database: {condition: service_healthy}
+    environment: {PUID: '1000', PGID: '1000', TZ: Etc/UTC, MAX_UPLOAD: '16', PHP_MEMORY_LIMIT: 128M, PHP_MAX_FILE_UPLOAD: '20'}
+    tmpfs: ["/config:rw,size=64m,mode=0755", "/data:rw,size=64m,mode=0755"]
+    volumes: ["./observe.php:/opt/module-target-projectsend-observe.php:ro"]
+    extra_hosts: ["host.docker.internal:host-gateway"]
+    ports: ["127.0.0.1::80"]
+    healthcheck:
+      test: [CMD, curl, --fail, --silent, --output, /dev/null, http://127.0.0.1/favicon.ico]
+      interval: 3s
+      timeout: 5s
+      retries: 60

@@ -1,0 +1,36 @@
+{
+  "spec": "spec/modules/exploits/linux/http/projectsend_target_spec.rb",
+  "console": false,
+  "expected_examples": 3,
+  "health_timeout": 210,
+  "test_timeout": 480,
+  "modules": [
+    "exploit/linux/http/projectsend_unauth_rce"
+  ],
+  "ports": {
+    "target": 80
+  },
+  "support_files": [
+    "Gemfile.lock",
+    "lib/msf/base/simple/exploit.rb",
+    "lib/msf/core/exploit.rb",
+    "lib/msf/core/exploit/file_dropper.rb",
+    "lib/msf/core/exploit/php_exe.rb",
+    "lib/msf/core/exploit/remote/auto_check.rb",
+    "lib/msf/core/exploit/remote/http_client.rb",
+    "lib/msf/core/exploit_driver.rb",
+    "lib/msf/core/handler/none.rb",
+    "lib/msf/core/opt_int.rb",
+    "lib/msf/core/opt_string.rb",
+    "lib/msf/ui/console/command_dispatcher/exploit.rb",
+    "lib/rex/proto/http/client_request.rb",
+    "lib/rex/proto/http/packet.rb",
+    "modules/payloads/singles/cmd/unix/generic.rb",
+    "test/module_targets/projectsend/acceptance.rb",
+    "test/module_targets/projectsend/native_probe.py",
+    "test/module_targets/projectsend/observe.php",
+    "test/module_targets/projectsend/observe.rb",
+    "test/module_targets/projectsend/vendor.json",
+    "test/module_targets/rsync_creds/native.rb"
+  ]
+}

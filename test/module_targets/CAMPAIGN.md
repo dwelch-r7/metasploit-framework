@@ -1683,3 +1683,20 @@ inputs and 216 zero cgroup captures; history reaches 326 owners in stated paths,
 and both contexts finish globally empty. Only two capped services run at a time,
 with no production source change or PR. See [the report](VERIFICATION-20261121-dizquetv-sessions.md).
 The complete valuable/container-feasible inventory goal remains active.
+
+
+ProjectSend adds a native-gated check profile and fixes confirmed check damage.
+The original frame returns Appears while changing ten options, and refused-port
+checking invokes extra cleanup/error paths. With only the owning source changed,
+all three examples now pass, preserving all 134 options, rich title bytes and
+same-selection repeat. Twenty-seven focused owner regressions pass; review also
+caught and corrected title whitespace trimming. Separate genuine registration,
+login, multipart PHP denial/approval, UID1000 execution/self-unlink and portal-row
+cleanup controls pass. Owning RCE/session paths and other releases remain pending.
+The latest set reaches 110 cases, 47 used/closed sessions, 328 current inputs and
+222 zero resource captures. Two database memory records already have max=46
+before owning execution, unchanged afterward, with no OOM/PID-limit events.
+History reaches 327 owners in stated paths, 702 profiles and 4,885 cases. All 30
+new/612 recorded Docker objects are absent; two unused startup helpers were
+removed before the next two-service lab. No PR. See [the report](VERIFICATION-20261121-projectsend.md).
+The complete valuable/container-feasible inventory goal remains active.

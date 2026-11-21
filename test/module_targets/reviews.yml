@@ -1,6 +1,35 @@
 # Individual source-reviewed target requirements; these are not blanket exclusions.
 ---
 modules:
+  exploit/linux/http/projectsend_unauth_rce:
+    source_sha256: 6eb96c4110fa0a780948ebe196fbc14569766dfb88e63a093e8301ff471a3ce9
+    disposition: container_lab
+    lab_profiles:
+      projectsend: [check_only, pinned_r1605_ls199, real_http_installer, native_php_uid1000, exact_api_title_recovery, all_134_options, encoded_title, same_selection_repeat, refused_port_unknown, exploit_cleanup_gate, factory_restore]
+    reason: >-
+      Three check-only examples pass after independent installation/PHP/API
+      gates. The original check changed ten option names, including client
+      permissions, footer/language settings, an encoded title and added rows;
+      refused-port checking also made extra cleanup requests and raised a
+      failure. Only the owner source changes between original 3/2 and final
+      3/0 functional inputs. Query-only branding selection and minimal POST
+      fields preserve all 134 rows; decoded title restoration verifies, and
+      standalone checks avoid exploit cleanup. Twenty-seven focused owner
+      regressions pass, including whitespace and nullable/ambiguous responses.
+      Native registration, login, multipart PHP denial/approval, UID1000 web
+      execution, self-unlink and portal-row cleanup pass separately. Actual
+      owning RCE/session and other releases remain pending. Four native observer
+      assumptions and a cross-client cookie export fault are retained separately.
+      Normal unauthenticated option writes return HTTP 500 after persistence; a
+      separate temporary DEBUG diagnostic identifies the vendor undefined
+      CURRENT_USER_ID error, with original configuration/options restored.
+      The latest set has 328 current inputs and 222 zero cgroup captures.
+      Database memory.events max counter is 46 before/after module execution, with zero OOM or
+      PID-limit events and no counter increase. All 612 recorded Docker objects
+      are absent, including two unused agent-startup helpers. Only two capped
+      services run: application 384 MiB/0.7 CPU and database 256 MiB/0.3 CPU. One
+      inherited default-PAYLOAD lint/tidy warning remains. See
+      VERIFICATION-20261121-projectsend.md; registration is not full-owner coverage.
   exploit/multi/http/dizquetv_rce:
     source_sha256: f40ce29d339e63031c6a4ca268ed205602054e7205882f1bb2e17b54b83b2dcc
     disposition: container_lab
