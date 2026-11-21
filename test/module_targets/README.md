@@ -5,7 +5,18 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest qualification: [openDCIM SQL and command bytes](VERIFICATION-20261121-opendcim.md)
+Latest qualification: [Salt REST API checks and command bytes](VERIFICATION-20261121-salt-api.md)
+adds one native-gated profile with **4/0/0** in **88.40 seconds** and two original
+owning command executions. Real authentication, SSH key-generation and exact
+CLI/API controls precede checks, AutoCheck on/off delivery and refused-port
+handling. The final replay corrects a missing-roster setup fault found in a green
+preliminary run. The retained set reaches **114 cases across 33 profiles**,
+47 used/closed sessions and 373 current declared inputs. All 9 new/646 recorded
+Docker objects are absent; both contexts are globally empty. One capped
+container runs at a time. Module source is unchanged; sessions, dropper and fixed
+releases remain unqualified. No PR; the broader inventory goal remains active.
+
+Previous qualification: [openDCIM SQL and command bytes](VERIFICATION-20261121-opendcim.md)
 adds one profile with **6/0/0** and six real owning command executions. Independent
 SVG, stacked SQL and per-command controls precede actual checks, plain/quoted
 Unicode/CRLF cases, alias paths and same-selection repeats. A confirmed SQL

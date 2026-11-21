@@ -1,0 +1,28 @@
+services:
+  target:
+    image: msf-module-target-salt-api:3000.1
+    platform: linux/amd64
+    build:
+      context: ../saltstack_zeromq
+      dockerfile: ../salt_api/Dockerfile
+      args: {SALT_VERSION: '3000.1'}
+      additional_contexts: {api: .}
+    init: true
+    cpus: 0.7
+    mem_limit: 512m
+    memswap_limit: 512m
+    pids_limit: 160
+    tmpfs:
+      - /etc/salt/pki:rw,size=16m,mode=0700
+      - /var/cache/salt:rw,size=64m,mode=0700
+      - /var/run/salt:rw,size=8m,mode=0700
+      - /var/log/salt:rw,size=8m,mode=0700
+      - /tmp:rw,exec,nosuid,nodev,size=32m,mode=1777
+    extra_hosts: ["host.docker.internal:host-gateway"]
+    ports: ["127.0.0.1::8000"]
+    healthcheck:
+      test: [CMD, python, /opt/module-target/health.py]
+      interval: 4s
+      timeout: 5s
+      start_period: 20s
+      retries: 45

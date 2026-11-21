@@ -1,0 +1,259 @@
+{
+  "profiles": {
+    "3000.1": {
+      "url": "https://files.pythonhosted.org/packages/b5/7b/e591ad97f038f32298ee6303414767cdd8df811c9daf5b48c37afe9610c3/salt-3000.1.tar.gz",
+      "sha256": "5ad18044b4a47690d09c3ebc842a64d58144d63f40019e867683377dbf337aab",
+      "files_sha256": {
+        "netapi/__init__.py": "5f53e1fdf13cdcc1c1f1e91e57b69b9b9d80186b0c22e0e7f0c4da198f269300",
+        "netapi/rest_cherrypy/__init__.py": "6679fb448bd111817bab0a966577128e984536399a119a0a40e0737b0e4f834e",
+        "netapi/rest_cherrypy/app.py": "54952fa522d0f5c239ce6e196778eba82df3ee7c634d313c870ce8cd133fca2b",
+        "client/ssh/__init__.py": "d336d383e1d15763fcfb15ce60ab65611b65e24757530e7d7c356341ecd9a18c",
+        "client/ssh/shell.py": "df25ab40af0a87588065956f68d298987a8e8b3bd9854558daa34bf57849aed3",
+        "client/ssh/client.py": "54ca15a8f2eff0673a3bea18e19c5264a92c4f68446f7bbb4fbd0933cfe3552d",
+        "auth/sharedsecret.py": "12f465b7a359b1590ad5577f5e59436a4b8b6aea886dd75ef078ed05ea25aba0"
+      }
+    },
+    "3000.3": {
+      "url": "https://files.pythonhosted.org/packages/dd/af/a655b055173603f6b8dfb87202604076887d67f186f2f5aedd5a49a7dbe5/salt-3000.3.tar.gz",
+      "sha256": "fcca49985e697d914e5a7f34b2fd8bbd833bcf7779d30174a279a4de2294cea7",
+      "files_sha256": {
+        "netapi/__init__.py": "5f53e1fdf13cdcc1c1f1e91e57b69b9b9d80186b0c22e0e7f0c4da198f269300",
+        "netapi/rest_cherrypy/__init__.py": "6679fb448bd111817bab0a966577128e984536399a119a0a40e0737b0e4f834e",
+        "netapi/rest_cherrypy/app.py": "54952fa522d0f5c239ce6e196778eba82df3ee7c634d313c870ce8cd133fca2b",
+        "client/ssh/__init__.py": "d336d383e1d15763fcfb15ce60ab65611b65e24757530e7d7c356341ecd9a18c",
+        "client/ssh/shell.py": "df25ab40af0a87588065956f68d298987a8e8b3bd9854558daa34bf57849aed3",
+        "client/ssh/client.py": "54ca15a8f2eff0673a3bea18e19c5264a92c4f68446f7bbb4fbd0933cfe3552d",
+        "auth/sharedsecret.py": "12f465b7a359b1590ad5577f5e59436a4b8b6aea886dd75ef078ed05ea25aba0"
+      }
+    },
+    "3000.4": {
+      "url": "https://files.pythonhosted.org/packages/16/19/327331d8e31d3900ec30b8bd8dbdcc6038a001cb0ae6c642dd690e7bbcb4/salt-3000.4.tar.gz",
+      "sha256": "dfbed823e502258c2ddb96958f52c78e9adf405383f0929f52f3813b32730ef9",
+      "files_sha256": {
+        "netapi/__init__.py": "5f53e1fdf13cdcc1c1f1e91e57b69b9b9d80186b0c22e0e7f0c4da198f269300",
+        "netapi/rest_cherrypy/__init__.py": "6679fb448bd111817bab0a966577128e984536399a119a0a40e0737b0e4f834e",
+        "netapi/rest_cherrypy/app.py": "54952fa522d0f5c239ce6e196778eba82df3ee7c634d313c870ce8cd133fca2b",
+        "client/ssh/__init__.py": "d336d383e1d15763fcfb15ce60ab65611b65e24757530e7d7c356341ecd9a18c",
+        "client/ssh/shell.py": "533fc59989c2a6d0c9cb011a4c0b5adecc4a5d41ee396d0593d0cb2d3f4e88cc",
+        "client/ssh/client.py": "54ca15a8f2eff0673a3bea18e19c5264a92c4f68446f7bbb4fbd0933cfe3552d",
+        "auth/sharedsecret.py": "12f465b7a359b1590ad5577f5e59436a4b8b6aea886dd75ef078ed05ea25aba0"
+      }
+    }
+  },
+  "api_packages": {
+    "CherryPy": {
+      "version": "18.6.0",
+      "requires_python": ">=3.5",
+      "requires_dist": [
+        "cheroot (>=8.2.1)",
+        "portend (>=2.1.1)",
+        "more-itertools",
+        "zc.lockfile",
+        "jaraco.collections",
+        "pywin32 ; sys_platform == \"win32\"",
+        "sphinx ; extra == 'docs'",
+        "docutils ; extra == 'docs'",
+        "alabaster ; extra == 'docs'",
+        "rst.linker (>=1.11) ; extra == 'docs'",
+        "jaraco.packaging (>=3.2) ; extra == 'docs'",
+        "simplejson ; extra == 'json'",
+        "python-memcached (>=1.58) ; extra == 'memcached_session'",
+        "routes (>=2.3.1) ; extra == 'routes_dispatcher'",
+        "pyOpenSSL ; extra == 'ssl'",
+        "coverage ; extra == 'testing'",
+        "codecov ; extra == 'testing'",
+        "objgraph ; extra == 'testing'",
+        "pytest (<5.4.0,>=5.3.5) ; extra == 'testing'",
+        "pytest-cov ; extra == 'testing'",
+        "pytest-sugar ; extra == 'testing'",
+        "backports.unittest-mock ; extra == 'testing'",
+        "path.py ; extra == 'testing'",
+        "requests-toolbelt ; extra == 'testing'",
+        "pytest-services (>=2) ; extra == 'testing'",
+        "flup ; extra == 'xcgi'"
+      ],
+      "filename": "CherryPy-18.6.0-py2.py3-none-any.whl",
+      "sha256": "c0a7283f02a384c112a0a18404fd3abd849fc7fd4bec19378067150a2573d2e4",
+      "url": "https://files.pythonhosted.org/packages/a8/f9/e11f893dcabe6bc222a1442bf5e14f0322a2d363c92910ed41947078a35a/CherryPy-18.6.0-py2.py3-none-any.whl"
+    },
+    "cheroot": {
+      "version": "8.6.0",
+      "requires_python": "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,>=2.7",
+      "requires_dist": [
+        "six (>=1.11.0)",
+        "jaraco.functools",
+        "backports.functools-lru-cache ; python_version < \"3.3\"",
+        "selectors2 ; python_version < \"3.4\"",
+        "more-itertools (<8.11.0,>=2.6) ; python_version < \"3.6\"",
+        "more-itertools (>=2.6) ; python_version >= \"3.6\"",
+        "sphinx (>=1.8.2) ; extra == 'docs'",
+        "jaraco.packaging (>=3.2) ; extra == 'docs'",
+        "sphinx-tabs (>=1.1.0) ; extra == 'docs'",
+        "furo ; extra == 'docs'",
+        "python-dateutil ; extra == 'docs'",
+        "sphinxcontrib-apidoc (>=0.3.0) ; extra == 'docs'"
+      ],
+      "filename": "cheroot-8.6.0-py2.py3-none-any.whl",
+      "sha256": "62cbced16f07e8aaf512673987cd6b1fc5ad00073345e9ed6c4e2a5cc2a3a22d",
+      "url": "https://files.pythonhosted.org/packages/d3/87/8c5a471a82dfd1c82b4cb6605fcad90e1f0e938b14c0516da3504701a2b4/cheroot-8.6.0-py2.py3-none-any.whl"
+    },
+    "portend": {
+      "version": "2.7.1",
+      "requires_python": ">=3.6",
+      "requires_dist": [
+        "tempora (>=1.8)",
+        "sphinx ; extra == 'docs'",
+        "jaraco.packaging (>=8.2) ; extra == 'docs'",
+        "rst.linker (>=1.9) ; extra == 'docs'",
+        "pytest (!=3.7.3,>=3.5) ; extra == 'testing'",
+        "pytest-checkdocs (>=1.2.3) ; extra == 'testing'",
+        "pytest-flake8 ; extra == 'testing'",
+        "pytest-cov ; extra == 'testing'",
+        "pytest-enabler ; extra == 'testing'",
+        "pytest-black (>=0.3.7) ; (platform_python_implementation != \"PyPy\") and extra == 'testing'",
+        "pytest-mypy ; (platform_python_implementation != \"PyPy\") and extra == 'testing'"
+      ],
+      "filename": "portend-2.7.1-py3-none-any.whl",
+      "sha256": "add53a9e65d4022885f97de7895da583d0ed57df3eadb0b4d2ada594268cc0e6",
+      "url": "https://files.pythonhosted.org/packages/b8/a1/fd29409cced540facdd29abb986d988cb1f22c8170d10022ea73af77fa55/portend-2.7.1-py3-none-any.whl"
+    },
+    "more-itertools": {
+      "version": "8.7.0",
+      "requires_python": ">=3.5",
+      "requires_dist": null,
+      "filename": "more_itertools-8.7.0-py3-none-any.whl",
+      "sha256": "5652a9ac72209ed7df8d9c15daf4e1aa0e3d2ccd3c87f8265a0673cd9cbc9ced",
+      "url": "https://files.pythonhosted.org/packages/05/47/514062a0798c2e9bdfd4514bacf9971fc8961b715f01487e4cfda3cc45a7/more_itertools-8.7.0-py3-none-any.whl"
+    },
+    "zc.lockfile": {
+      "version": "2.0",
+      "requires_python": "",
+      "requires_dist": [
+        "setuptools",
+        "zope.testing ; extra == 'test'"
+      ],
+      "filename": "zc.lockfile-2.0-py2.py3-none-any.whl",
+      "sha256": "cc33599b549f0c8a248cb72f3bf32d77712de1ff7ee8814312eb6456b42c015f",
+      "url": "https://files.pythonhosted.org/packages/6c/2a/268389776288f0f26c7272c70c36c96dcc0bdb88ab6216ea18e19df1fadd/zc.lockfile-2.0-py2.py3-none-any.whl"
+    },
+    "jaraco.collections": {
+      "version": "3.3.0",
+      "requires_python": ">=3.6",
+      "requires_dist": [
+        "jaraco.text",
+        "jaraco.classes",
+        "sphinx ; extra == 'docs'",
+        "jaraco.packaging (>=8.2) ; extra == 'docs'",
+        "rst.linker (>=1.9) ; extra == 'docs'",
+        "pytest (>=4.6) ; extra == 'testing'",
+        "pytest-checkdocs (>=2.4) ; extra == 'testing'",
+        "pytest-flake8 ; extra == 'testing'",
+        "pytest-cov ; extra == 'testing'",
+        "pytest-enabler (>=1.0.1) ; extra == 'testing'",
+        "pytest-black (>=0.3.7) ; (platform_python_implementation != \"PyPy\" and python_version < \"3.10\") and extra == 'testing'",
+        "pytest-mypy ; (platform_python_implementation != \"PyPy\" and python_version < \"3.10\") and extra == 'testing'"
+      ],
+      "filename": "jaraco.collections-3.3.0-py3-none-any.whl",
+      "sha256": "fa45052d859a7c28aeef846abb5857b525a1b9ec17bd4118b78e43a222c5a2f1",
+      "url": "https://files.pythonhosted.org/packages/d5/1a/a0d6861d2aca6df92643c755966c8a60e40353e4c5e7a5c2f4e5ed733817/jaraco.collections-3.3.0-py3-none-any.whl"
+    },
+    "jaraco.functools": {
+      "version": "3.3.0",
+      "requires_python": ">=3.6",
+      "requires_dist": [
+        "more-itertools",
+        "sphinx ; extra == 'docs'",
+        "jaraco.packaging (>=8.2) ; extra == 'docs'",
+        "rst.linker (>=1.9) ; extra == 'docs'",
+        "pytest (>=4.6) ; extra == 'testing'",
+        "pytest-checkdocs (>=2.4) ; extra == 'testing'",
+        "pytest-flake8 ; extra == 'testing'",
+        "pytest-cov ; extra == 'testing'",
+        "pytest-enabler (>=1.0.1) ; extra == 'testing'",
+        "jaraco.classes ; extra == 'testing'",
+        "pytest-black (>=0.3.7) ; (platform_python_implementation != \"PyPy\" and python_version < \"3.10\") and extra == 'testing'",
+        "pytest-mypy ; (platform_python_implementation != \"PyPy\" and python_version < \"3.10\") and extra == 'testing'"
+      ],
+      "filename": "jaraco.functools-3.3.0-py3-none-any.whl",
+      "sha256": "7c788376d69cf41da675b186c85366fe9ac23c92a70697c455ef9135c25edf31",
+      "url": "https://files.pythonhosted.org/packages/b5/da/e51e7b58c8fe132990edd1e3ef25bcd9801eb7f91d0f642ac7f8d97e4a36/jaraco.functools-3.3.0-py3-none-any.whl"
+    },
+    "jaraco.text": {
+      "version": "3.5.0",
+      "requires_python": ">=3.6",
+      "requires_dist": [
+        "jaraco.functools",
+        "importlib-resources ; python_version < \"3.7\"",
+        "sphinx ; extra == 'docs'",
+        "jaraco.packaging (>=8.2) ; extra == 'docs'",
+        "rst.linker (>=1.9) ; extra == 'docs'",
+        "pytest (!=3.7.3,>=3.5) ; extra == 'testing'",
+        "pytest-checkdocs (>=1.2.3) ; extra == 'testing'",
+        "pytest-flake8 ; extra == 'testing'",
+        "pytest-cov ; extra == 'testing'",
+        "pytest-enabler ; extra == 'testing'",
+        "pytest-black (>=0.3.7) ; (platform_python_implementation != \"PyPy\") and extra == 'testing'",
+        "pytest-mypy ; (platform_python_implementation != \"PyPy\") and extra == 'testing'"
+      ],
+      "filename": "jaraco.text-3.5.0-py3-none-any.whl",
+      "sha256": "b647f2bf912e201bfefd01d691bf5d603a94f2b3f998129e4fea595873a25613",
+      "url": "https://files.pythonhosted.org/packages/c1/74/2a3c4835c079df16db8a9c50263eebb0125849fee5b16de353a059b7545d/jaraco.text-3.5.0-py3-none-any.whl"
+    },
+    "jaraco.classes": {
+      "version": "3.2.1",
+      "requires_python": ">=3.6",
+      "requires_dist": [
+        "more-itertools",
+        "sphinx ; extra == 'docs'",
+        "jaraco.packaging (>=8.2) ; extra == 'docs'",
+        "rst.linker (>=1.9) ; extra == 'docs'",
+        "pytest (!=3.7.3,>=3.5) ; extra == 'testing'",
+        "pytest-checkdocs (>=1.2.3) ; extra == 'testing'",
+        "pytest-flake8 ; extra == 'testing'",
+        "pytest-cov ; extra == 'testing'",
+        "pytest-enabler ; extra == 'testing'",
+        "pytest-black (>=0.3.7) ; (platform_python_implementation != \"PyPy\") and extra == 'testing'",
+        "pytest-mypy ; (platform_python_implementation != \"PyPy\") and extra == 'testing'"
+      ],
+      "filename": "jaraco.classes-3.2.1-py3-none-any.whl",
+      "sha256": "22ac35313cf4b145bf7b217cc51be2d98a3d2db1c8558a30ca259d9f0b9c0b7d",
+      "url": "https://files.pythonhosted.org/packages/b8/74/bee5fc11594974746535117546404678fc7b899476e769c3c55bc0cfaa02/jaraco.classes-3.2.1-py3-none-any.whl"
+    },
+    "tempora": {
+      "version": "4.1.1",
+      "requires_python": ">=3.6",
+      "requires_dist": [
+        "pytz",
+        "jaraco.functools (>=1.20)",
+        "sphinx ; extra == 'docs'",
+        "jaraco.packaging (>=8.2) ; extra == 'docs'",
+        "rst.linker (>=1.9) ; extra == 'docs'",
+        "pytest (>=4.6) ; extra == 'testing'",
+        "pytest-checkdocs (>=2.4) ; extra == 'testing'",
+        "pytest-flake8 ; extra == 'testing'",
+        "pytest-cov ; extra == 'testing'",
+        "pytest-enabler (>=1.0.1) ; extra == 'testing'",
+        "backports.unittest-mock ; extra == 'testing'",
+        "freezegun ; extra == 'testing'",
+        "pytest-freezegun ; extra == 'testing'",
+        "types-freezegun ; extra == 'testing'",
+        "types-pytz ; extra == 'testing'",
+        "pytest-black (>=0.3.7) ; (platform_python_implementation != \"PyPy\" and python_version < \"3.10\") and extra == 'testing'",
+        "pytest-mypy ; (platform_python_implementation != \"PyPy\" and python_version < \"3.10\") and extra == 'testing'"
+      ],
+      "filename": "tempora-4.1.1-py3-none-any.whl",
+      "sha256": "ef2d8bb35902d5ea7da95df33456685a6d305b97f311725c12e55c13d85c0938",
+      "url": "https://files.pythonhosted.org/packages/58/6e/928b4726ee2762efea4a84e8f5e73fb46b396636a5ec260d6274a1de24d5/tempora-4.1.1-py3-none-any.whl"
+    },
+    "pytz": {
+      "version": "2021.1",
+      "requires_python": "",
+      "requires_dist": null,
+      "filename": "pytz-2021.1-py2.py3-none-any.whl",
+      "sha256": "eb10ce3e7736052ed3623d49975ce333bcd712c7bb19a58b9e2089d4057d0798",
+      "url": "https://files.pythonhosted.org/packages/70/94/784178ca5dd892a98f113cdd923372024dc04b8d40abe77ca76b5fb90ca6/pytz-2021.1-py2.py3-none-any.whl"
+    }
+  },
+  "cherrypy": "18.6.0",
+  "python_base": "python@sha256:ea8897698c0955ba96144bd2b7310ef7884ccce4db7a1f97ffc21fb8b89d1673"
+}
