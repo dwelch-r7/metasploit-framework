@@ -1,0 +1,6 @@
+services:
+  target:
+    extends: {file: ../n8n_expression/compose.yaml, service: target}
+    image: n8nio/n8n@sha256:898053295b6fa2eee96dd4ed82ed7ea1fc7ba0beada336be14c3ca797c859a6e
+    healthcheck:
+      test: [CMD, node, -e, "fetch('http://127.0.0.1:5678/rest/settings').then(r=>r.json()).then(v=>{if(v.data.versionCli!=='1.120.4')process.exit(1)}).catch(()=>process.exit(1))"]

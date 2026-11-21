@@ -5,7 +5,20 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest qualification: [Ollama default Meterpreter and automatic cleanup](VERIFICATION-20261121-ollama-sessions.md)
+Latest qualification: [n8n expressions and check repairs](VERIFICATION-20261121-n8n-expression.md)
+adds two native-gated profiles with **8/0/0**, including two real command
+executions, incorrect credentials, a refused port and repeated fixed-release
+AutoCheck refusal. Independent normal-IIFE and physical file-write controls
+confirm the images' behavior before actual module verdicts. Two reproduced
+check defects are repaired with twelve focused passing regressions. The current
+set reaches **70 cases across 21 profiles**, twenty-five retained used/closed OS
+sessions, 230 declared inputs and 124 zero cgroup captures. Historical coverage
+is 324 owners in stated paths, 691 profiles and 4,845 cases. All 18 new/494 recorded
+Docker objects are absent; global containers are zero. One capped container runs
+at a time. Four pre-existing lint warnings remain disclosed; default fetch and
+Windows are unqualified. No PR; the broader inventory goal remains active.
+
+Previous qualification: [Ollama default Meterpreter and automatic cleanup](VERIFICATION-20261121-ollama-sessions.md)
 adds one profile with **2/0/0** and three fully used/closed Meterpreter sessions,
 including two actual owner runs on one selection. Independent stock ELF and
 native runner controls, exact generated/physical library bytes, normal
@@ -1825,7 +1838,7 @@ The [NiFi H2 checkpoint](VERIFICATION-20261110-nifi-h2.md) records
 **165 runtime modules, 95 families and 1,233 functional cases**. H2 adds13 cases;
 scanner15 and processor19 are requalified after the shared state-body repair.
 Native DTO/state/delay controls, parent37 focused examples,120 current inputs and
-all187 exact object checks pass. Shell-use and operator-cleanup limits remain
+all 187 exact object checks pass. Shell-use and operator-cleanup limits remain
 explicit.
 The [SMB directory checkpoint](VERIFICATION-20261110-smb-directory.md) records
 **168 runtime modules, 98 families and 1,265 functional cases**. Three SMB modules

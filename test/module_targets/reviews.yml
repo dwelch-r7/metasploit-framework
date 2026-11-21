@@ -1,6 +1,25 @@
 # Individual source-reviewed target requirements; these are not blanket exclusions.
 ---
 modules:
+  exploit/multi/http/n8n_workflow_expression_rce:
+    source_sha256: 056e55cd508718478ac6bcd4d3bc3df70f1d9669ba5fe88da283c4a6f417d227
+    disposition: container_lab
+    lab_profiles:
+      n8n_expression: [pinned_1_120_0, native_owner_login, normal_iife, physical_expression_proof, actual_check, bad_password, refused_port, exact_commands, same_selection_repeat, foreign_workflow_preservation, sqlite_cleanup]
+      n8n_expression_fixed: [pinned_1_120_4, native_positive_control, specific_sandbox_denial, actual_safe, repeated_autocheck_refusal, foreign_workflow_preservation]
+    reason: >-
+      Eight maintained cases pass after native first-owner/login, normal IIFE
+      and independent file-write expression controls on official images. Actual
+      command bytes, UID 1000 proof files, full foreign workflow records and
+      global SQLite workflow/execution cleanup verify. Two confirmed check
+      repairs exclude fixed 1.120.4 and handle an absent authentication response;
+      twelve unit cases change from two expected failures to zero. Four existing
+      metadata/default-payload lint offenses are unchanged, with no new offenses.
+      The current campaign set has 230 inputs and 124 zero cgroup captures. All 18
+      new/494 recorded Docker objects are absent, with global containers zero
+      and one capped application at a time. Default fetch/Meterpreter, Windows,
+      other releases, member roles, MFA, proxy and external-database modes remain
+      unqualified. See VERIFICATION-20261121-n8n-expression.md.
   exploit/linux/http/ollama_rce_cve_2024_37032:
     source_sha256: 92748993751785fb01beb6ec2e59aad723c039b1dbe15101e84b2c3aa2cb2315
     disposition: container_lab

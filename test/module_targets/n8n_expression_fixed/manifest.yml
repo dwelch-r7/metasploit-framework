@@ -1,0 +1,32 @@
+{
+  "spec": "spec/modules/exploits/multi/http/n8n_expression_target_spec.rb",
+  "console": false,
+  "expected_examples": 3,
+  "health_timeout": 180,
+  "test_timeout": 480,
+  "test_env": {
+    "N8N_TARGET_VERSION": "1.120.4"
+  },
+  "modules": [
+    "exploit/multi/http/n8n_workflow_expression_rce"
+  ],
+  "ports": {
+    "target": 5678
+  },
+  "support_files": [
+    "lib/msf/core/exploit/remote/auto_check.rb",
+    "lib/msf/core/exploit/remote/http_client.rb",
+    "lib/msf/core/handler/none.rb",
+    "lib/msf/ui/console/command_dispatcher/exploit.rb",
+    "modules/payloads/singles/cmd/unix/generic.rb",
+    "spec/modules/exploits/multi/http/n8n_workflow_expression_rce_spec.rb",
+    "test/module_targets/gopher/compose.yaml",
+    "test/module_targets/n8n_expression/acceptance.rb",
+    "test/module_targets/n8n_expression/compose.yaml",
+    "test/module_targets/n8n_expression/native_probe.py",
+    "test/module_targets/n8n_expression/observe.rb",
+    "test/module_targets/n8n_expression/vendor.json",
+    "test/module_targets/ni8mare/compose.yaml",
+    "test/module_targets/rsync_creds/native.rb"
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "1.120.0": {
+    "image": "n8nio/n8n@sha256:e5733e0dee8de5f7a96d950fdca2a8729bb56b8b5304d62e3a06feb703985136",
+    "installed": {
+      "node": "v22.21.0",
+      "uid": 1000,
+      "platform": "linux",
+      "arch": "x64",
+      "packages": {
+        "n8n": "1.120.0",
+        "n8n-workflow": "1.117.0",
+        "n8n-core": "1.119.0"
+      },
+      "sources": {
+        "n8n/dist/controllers/owner.controller.js": "6b6ab2c20cdb775f3e4f2e24cccb9c4146a1c5d5ff0e3126f165ff3387b0a43d",
+        "n8n/dist/workflows/workflows.controller.js": "79016258045b377ac62d643716985bf619bc1b7ab7be1684ed02b41b6f280bb5",
+        "n8n-workflow/dist/cjs/expression.js": "cc4555d375a863a229c655f72fd7c94bce469baeee97edef0bb2b07b5b3a530a",
+        "n8n-workflow/dist/cjs/expression-sandboxing.js": "8ebf008d1c16d46377cbee4b9e492bea47aa25812392d4f8fcf09d6bd1d9e1d3",
+        "n8n-workflow/dist/cjs/expression-evaluator-proxy.js": "0dc2b58bbea08a477ebf0fa630abba7116af7a8d452018a1f08a60e9b7b2004f",
+        "n8n-core/dist/execution-engine/workflow-execute.js": "f5ca8b951f601f83f1c6a0ff68265a49c5b19152aa5f933e12bb2fbc8f1823a8"
+      }
+    }
+  },
+  "1.120.4": {
+    "image": "n8nio/n8n@sha256:898053295b6fa2eee96dd4ed82ed7ea1fc7ba0beada336be14c3ca797c859a6e",
+    "installed": {
+      "node": "v22.21.0",
+      "uid": 1000,
+      "platform": "linux",
+      "arch": "x64",
+      "packages": {
+        "n8n": "1.120.4",
+        "n8n-workflow": "1.117.1",
+        "n8n-core": "1.119.3"
+      },
+      "sources": {
+        "n8n/dist/controllers/owner.controller.js": "6b6ab2c20cdb775f3e4f2e24cccb9c4146a1c5d5ff0e3126f165ff3387b0a43d",
+        "n8n/dist/workflows/workflows.controller.js": "5bab6b68114c2b8a67aeee722fd1d89347280818793cae3e69036cf34faa9d3f",
+        "n8n-workflow/dist/cjs/expression.js": "cc4555d375a863a229c655f72fd7c94bce469baeee97edef0bb2b07b5b3a530a",
+        "n8n-workflow/dist/cjs/expression-sandboxing.js": "54bb4270a02f11d652a408696afedaf06b3f4babdf94a7d0280dedab3633308a",
+        "n8n-workflow/dist/cjs/expression-evaluator-proxy.js": "4011ba4fa6572fef776223b2847b67298a3c51c07ca6926bb9d0c595c71f96bd",
+        "n8n-core/dist/execution-engine/workflow-execute.js": "f5ca8b951f601f83f1c6a0ff68265a49c5b19152aa5f933e12bb2fbc8f1823a8"
+      }
+    }
+  }
+}

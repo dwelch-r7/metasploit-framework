@@ -1572,3 +1572,16 @@ are zero, and all nine new/476 recorded Docker objects are absent with global
 containers zero. Coverage is 323 owners in stated paths, 689 profiles and 4,837
 historical cases. See [the report](VERIFICATION-20261121-ollama-sessions.md).
 No production source change or PR; the broader goal remains active.
+
+n8n workflow expressions add two native-gated profiles and eight passing cases.
+Independent owner login, normal IIFE and physical sandbox success/denial controls
+precede actual checks, bad-password/refused-port negatives, two commands and
+repeated fixed-release refusal. Complete foreign workflows and global SQLite
+rows are preserved/restored. Isolated fixes repair inclusive 1.120.4 detection
+and nil authentication responses; twelve focused regressions pass. Four existing
+metadata/default-payload lint warnings remain unchanged. The latest set has 230
+inputs and 124 zero cgroup captures; historical coverage is 324 owners in stated
+paths, 691 profiles and 4,845 cases. All 18 new/494 recorded Docker objects are
+absent, with global containers zero and one capped container serially. Default
+fetch sessions and Windows remain unqualified. See [the report](VERIFICATION-20261121-n8n-expression.md).
+No PR; the broader goal remains active.

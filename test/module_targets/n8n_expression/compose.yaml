@@ -1,0 +1,4 @@
+services:
+  target:
+    extends: {file: ../ni8mare/compose.yaml, service: target}
+    extra_hosts: ["host.docker.internal:host-gateway"]
