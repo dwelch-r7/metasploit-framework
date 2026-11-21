@@ -5,7 +5,19 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest: [Ignition native commands and debug-disabled controls](VERIFICATION-20261120-ignition.md)
+Latest: [Ignition default sessions](VERIFICATION-20261121-ignition-sessions.md)
+adds one qualified profile with **2/0**, reaching **317 runtime owners, 670
+qualified profiles and 4,775 historical functional cases**. Six current session
+profiles pass **12/0** in two serial phases, with eighteen real sessions used and
+closed. True default selection, same-console repeats, physical proofs, original
+report closure and full process/socket restoration pass. An invalid empty-log
+oracle and three native log-reset failures remain retained. All 87 declared
+inputs, 52 qualified zero resource captures and 37 new object removals verify;
+all 266 current/prior recorded Docker objects are absent and the global container
+inventory is empty. At most three capped containers run serially. No module
+source change or PR; the broader goal stays active.
+
+Previous: [Ignition native commands and debug-disabled controls](VERIFICATION-20261120-ignition.md)
 adds one owner and two qualified profiles with **9/0**, reaching **317 runtime
 owners, 669 qualified profiles and 4,773 historical functional cases**. The
 maintained set passes **27/0** in two serial phases, including eighteen unchanged

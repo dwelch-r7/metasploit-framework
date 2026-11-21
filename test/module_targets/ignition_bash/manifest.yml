@@ -1,0 +1,38 @@
+{
+  "spec": "spec/modules/exploits/multi/php/ignition_sessions_target_spec.rb",
+  "console": false,
+  "expected_examples": 2,
+  "health_timeout": 90,
+  "test_timeout": 600,
+  "modules": [
+    "exploit/multi/php/ignition_laravel_debug_rce"
+  ],
+  "ports": {
+    "target": 80,
+    "reporting_db": 5432
+  },
+  "support_files": [
+    "lib/msf/core/exploit/remote/auto_check.rb",
+    "lib/msf/core/exploit/remote/http_client.rb",
+    "modules/payloads/singles/cmd/unix/generic.rb",
+    "test/module_targets/rsync_creds/native.rb",
+    "test/module_targets/laravel/commands.rb",
+    "test/module_targets/ignition/acceptance.rb",
+    "test/module_targets/ignition/compose.yaml",
+    "test/module_targets/ignition/native.php",
+    "test/module_targets/ignition/observe.rb",
+    "test/module_targets/ignition/start.sh",
+    "test/module_targets/ignition/vendor.json",
+    "test/module_targets/laravel/sessions.rb",
+    "test/module_targets/laravel/session_control.rb",
+    "test/module_targets/gopher/compose.yaml",
+    "test/module_targets/druid_sessions/session_control.rb",
+    "test/module_targets/invoiceshelf/process_state.php",
+    "test/module_targets/invoiceshelf/callback.php",
+    "modules/exploits/multi/handler.rb",
+    "modules/payloads/singles/cmd/unix/reverse_bash.rb"
+  ],
+  "test_env": {
+    "IGNITION_DEBUG_EXPECTED": "true"
+  }
+}

