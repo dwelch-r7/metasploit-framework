@@ -35,7 +35,9 @@ def main():
         for role in ['master', 'api']:
             options = dict(base)
             if role == 'api':
-                options.update(pidfile='/var/run/salt/api.pid', api_pidfile='/var/run/salt/api.pid', cachedir='/var/cache/salt/api', pki_dir='/etc/salt/pki/api', log_file='/var/log/salt/api')
+                # Login tokens are minted by the master and validated by the
+                # API. Ordinary deployments share their cache and PKI paths.
+                options.update(pidfile='/var/run/salt/api.pid', api_pidfile='/var/run/salt/api.pid', log_file='/var/log/salt/api')
             directory = Path('/var/run/salt') / (role + '-config')
             directory.mkdir()
             config = directory / 'master'

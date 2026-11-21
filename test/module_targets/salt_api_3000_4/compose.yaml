@@ -1,0 +1,11 @@
+services:
+  target:
+    extends:
+      file: ../salt_api/compose.yaml
+      service: target
+    image: msf-module-target-salt-api:3000.4
+    build:
+      context: ../saltstack_zeromq
+      dockerfile: ../salt_api/Dockerfile
+      args: {SALT_VERSION: '3000.4'}
+      additional_contexts: {api: ../salt_api}

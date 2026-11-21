@@ -1,0 +1,13 @@
+{
+  "url": "https://files.pythonhosted.org/packages/14/99/2e5687a771d8f85cd2b17aa83cd0fddaecd6355c19ee314e3eef78a4eb99/salt-3000.5.tar.gz",
+  "sha256": "486310fca787eecbb0dd04d71af9ac0a163607f81719f815f8d4daa1c2b71bff",
+  "files_sha256": {
+    "netapi/__init__.py": "1ebff4dbbcf28f12e53f2d3611fa34d6a729257b5d1b9e091fe314d924b5bf5a",
+    "netapi/rest_cherrypy/__init__.py": "6679fb448bd111817bab0a966577128e984536399a119a0a40e0737b0e4f834e",
+    "netapi/rest_cherrypy/app.py": "54952fa522d0f5c239ce6e196778eba82df3ee7c634d313c870ce8cd133fca2b",
+    "client/ssh/__init__.py": "d336d383e1d15763fcfb15ce60ab65611b65e24757530e7d7c356341ecd9a18c",
+    "client/ssh/shell.py": "533fc59989c2a6d0c9cb011a4c0b5adecc4a5d41ee396d0593d0cb2d3f4e88cc",
+    "client/ssh/client.py": "54ca15a8f2eff0673a3bea18e19c5264a92c4f68446f7bbb4fbd0933cfe3552d",
+    "auth/sharedsecret.py": "12f465b7a359b1590ad5577f5e59436a4b8b6aea886dd75ef078ed05ea25aba0"
+  }
+}

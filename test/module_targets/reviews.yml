@@ -1,6 +1,31 @@
 # Individual source-reviewed target requirements; these are not blanket exclusions.
 ---
 modules:
+  exploit/linux/http/saltstack_salt_api_cmd_exec:
+    source_sha256: 973a6c6476e3a9a5e9cfb5e237ff0c97860870d48768796060b93d8b5f24d1da
+    disposition: container_lab
+    lab_profiles:
+      salt_api: [pinned_3000_1, real_https_and_auth, original_keygen, exact_cli_and_api_commands, uid0_proof, quoted_unicode_crlf, same_selection_repeat, autocheck_on_off, refused_port, config_roster_tls_device_preservation]
+      salt_api_3000_4: [pinned_3000_4, native_command_injection_block, native_eauth_and_token_bypass, literal_key_pair, existing_key_removed_before_api, auth_only_positive_check, ineffective_exploit_body, two_readiness_failures_retained]
+      salt_api_3000_5: [pinned_3000_5, native_valid_eauth_and_salt_token, web_session_and_salt_token_distinction, malformed_and_unknown_token_denial, native_command_injection_block, actual_safe, repeated_autocheck_refusal, preservation]
+    reason: >-
+      The vulnerable 3000.1 profile passes 4/0 after native CLI/API exact command
+      controls. Salt 3000.4 passes native fix controls but retains 3 examples
+      with 2 failures: the remaining auth bypass produces Vulnerable with reason
+      Auth bypass successful, then AutoCheck enters the original combined exploit
+      body twice without executing its command. This is an exploit-readiness
+      limitation; the auth flaw remains present while command injection is fixed.
+      Salt 3000.5 passes 3/0, with valid native credentials and real Salt tokens,
+      Safe checks and repeated AutoCheck refusal. Native token-format and
+      credential-type harness errors are retained separately and invoke no
+      owner on 3000.5. Shared fixture cache/PKI normalization is replayed against
+      the vulnerable control. Seven source files per release, original wire
+      bytes, actual literal keys and absent command proofs establish the fix
+      boundaries. Configuration, rosters, TLS and device metadata preserve;
+      vendor key artifacts are recorded before separate fixture removal.
+      One capped container runs at a time and is removed immediately afterward.
+      Default sessions, dropper and other branches remain pending. See
+      VERIFICATION-20261121-salt-api-fixed.md; the failing profile stays enabled.
   exploit/linux/http/projectsend_unauth_rce:
     source_sha256: 6eb96c4110fa0a780948ebe196fbc14569766dfb88e63a093e8301ff471a3ce9
     disposition: container_lab

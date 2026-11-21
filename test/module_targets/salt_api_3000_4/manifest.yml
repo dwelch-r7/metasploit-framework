@@ -1,0 +1,52 @@
+{
+  "spec": "spec/modules/exploits/linux/http/saltstack_salt_api_cmd_exec_fixed_target_spec.rb",
+  "console": false,
+  "expected_examples": 3,
+  "health_timeout": 180,
+  "test_timeout": 480,
+  "modules": [
+    "exploit/linux/http/saltstack_salt_api_cmd_exec"
+  ],
+  "ports": {
+    "target": 8000
+  },
+  "support_files": [
+    "Gemfile.lock",
+    "lib/msf/base/simple/exploit.rb",
+    "lib/msf/core/exploit.rb",
+    "lib/msf/core/exploit/cmd_stager.rb",
+    "lib/msf/core/exploit/remote/auto_check.rb",
+    "lib/msf/core/exploit/remote/http_client.rb",
+    "lib/msf/core/exploit_driver.rb",
+    "lib/msf/core/handler/none.rb",
+    "lib/msf/ui/console/command_dispatcher/exploit.rb",
+    "lib/rex/proto/http/client_request.rb",
+    "lib/rex/proto/http/packet.rb",
+    "modules/payloads/singles/cmd/unix/generic.rb",
+    "test/module_targets/rsync_creds/native.rb",
+    "test/module_targets/salt_api/Dockerfile",
+    "test/module_targets/salt_api/README.md",
+    "test/module_targets/salt_api/acceptance.rb",
+    "test/module_targets/salt_api/compose.yaml",
+    "test/module_targets/salt_api/dependencies.py",
+    "test/module_targets/salt_api/health.py",
+    "test/module_targets/salt_api/manifest.yml",
+    "test/module_targets/salt_api/native_probe.py",
+    "test/module_targets/salt_api/observe.py",
+    "test/module_targets/salt_api/observe.rb",
+    "test/module_targets/salt_api/requirements-api.txt",
+    "test/module_targets/salt_api/sources/3000.1.txt",
+    "test/module_targets/salt_api/sources/3000.3.txt",
+    "test/module_targets/salt_api/sources/3000.4.txt",
+    "test/module_targets/salt_api/sources/3000.5.txt",
+    "test/module_targets/salt_api/start.py",
+    "test/module_targets/salt_api/vendor.json",
+    "test/module_targets/salt_api_fixed/README.md",
+    "test/module_targets/salt_api_fixed/acceptance.rb",
+    "test/module_targets/salt_api_fixed/native_probe.py",
+    "test/module_targets/salt_api_fixed/vendor-3000.5.json",
+    "test/module_targets/saltstack_zeromq/master",
+    "test/module_targets/saltstack_zeromq/minion",
+    "test/module_targets/saltstack_zeromq/requirements-runtime.txt"
+  ]
+}

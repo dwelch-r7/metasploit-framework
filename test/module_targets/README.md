@@ -5,7 +5,18 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest qualification: [Salt REST API checks and command bytes](VERIFICATION-20261121-salt-api.md)
+Latest boundary validation: [Salt REST API fixed releases](VERIFICATION-20261121-salt-api-fixed.md)
+adds a passing **3/0/0** profile for Salt 3000.5 and retains **3/2/0** on 3000.4:
+its auth-only positive check permits an ineffective command-injection exploit
+after that prerequisite is fixed. Real native authentication, token types and
+literal key-generation controls establish the distinction. The vulnerable
+control remains **4/0/0** after shared fixture normalization. The retained fully
+passing set reaches **117 cases across 34 profiles**, 383 current declared inputs
+and 47 used/closed sessions. All 18 new/664 recorded Docker objects are absent;
+both contexts are globally empty. One capped container runs at a time. Module source
+and human scenarios are unchanged; the broader goal remains active. No PR.
+
+Previous qualification: [Salt REST API checks and command bytes](VERIFICATION-20261121-salt-api.md)
 adds one native-gated profile with **4/0/0** in **88.40 seconds** and two original
 owning command executions. Real authentication, SSH key-generation and exact
 CLI/API controls precede checks, AutoCheck on/off delivery and refused-port
