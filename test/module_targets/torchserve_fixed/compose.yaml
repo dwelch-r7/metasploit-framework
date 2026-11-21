@@ -1,0 +1,4 @@
+services:
+  target:
+    extends: {file: ../torchserve_check/compose.yaml, service: target}
+    image: pytorch/torchserve@sha256:23b0b49e9ec240085c046a918fb7a5f9af58e6ee93107689269b36edcf4aca18

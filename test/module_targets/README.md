@@ -5,7 +5,20 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest: [Lucee native Linux x64 and x86 droppers](VERIFICATION-20261121-lucee-droppers.md)
+Latest: [TorchServe native YAML boundary and actual checks](VERIFICATION-20261121-torchserve-checks.md)
+adds two native-gated profiles with **5/0**, reaching **322 runtime owners,
+686 profiles and 4,828 historical functional cases**. A real fixed-release
+false positive is repaired; original 0.8.1/0.8.2 checks and independent native
+controls distinguish constructor execution followed by HTTP 500 from denied
+execution followed by HTTP 200. Repeated fixed-release AutoCheck refusal passes.
+The latest sixteen stated profiles have **53 cases**, twenty-two retained
+used/closed sessions, 188 current declared inputs and 88 zero resource captures.
+All sixteen new and 440 recorded Docker objects are absent; the full global
+container inventory is empty. New stacks run serially with one capped container.
+Owner sessions and module artifact cleanup remain unqualified. No PR; the
+broader inventory goal stays active.
+
+Previous: [Lucee native Linux x64 and x86 droppers](VERIFICATION-20261121-lucee-droppers.md)
 adds two qualified profiles with **2/0 each**, reaching **321 runtime owners,
 684 qualified profiles and 4,823 historical functional cases**. The shared Bash
 consumer replays too: **6/0 and nine real sessions used/closed** in the fresh

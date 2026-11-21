@@ -1,0 +1,25 @@
+services:
+  target:
+    image: pytorch/torchserve@sha256:4135174332c7b92505659b4b38688e9c92576b3679a1358dfdb0bdece88e7491
+    platform: linux/amd64
+    init: true
+    cpus: 1
+    mem_limit: 1536m
+    memswap_limit: 1536m
+    pids_limit: 256
+    environment:
+      JAVA_TOOL_OPTIONS: -Xms64m -Xmx384m -XX:ActiveProcessorCount=2
+      OMP_NUM_THREADS: 1
+      MKL_NUM_THREADS: 1
+      OPENBLAS_NUM_THREADS: 1
+    extra_hosts: ["host.docker.internal:host-gateway"]
+    volumes:
+      - ./config.properties:/home/model-server/config.properties:ro
+      - ./NativeProbe.java:/opt/module-target/NativeProbe.java:ro
+      - ./NativeScriptEngineFactory.java:/opt/module-target/NativeScriptEngineFactory.java:ro
+    ports: ["127.0.0.1::8080", "127.0.0.1::8081"]
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; op=urllib.request.build_opener(urllib.request.ProxyHandler({})); assert op.open('http://127.0.0.1:8080/ping',timeout=3).status==200"]
+      interval: 2s
+      timeout: 4s
+      retries: 75

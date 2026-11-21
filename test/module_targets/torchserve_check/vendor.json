@@ -1,0 +1,14 @@
+{
+  "0.8.1": {
+    "image": "pytorch/torchserve@sha256:4135174332c7b92505659b4b38688e9c92576b3679a1358dfdb0bdece88e7491",
+    "jar_sha256": "10be387fc845cd90f0f138359b74330225a6d52c877b55e79d51db7e52590f71",
+    "java": "17.0.7",
+    "yaml_failure": "java.lang.ClassCastException"
+  },
+  "0.8.2": {
+    "image": "pytorch/torchserve@sha256:23b0b49e9ec240085c046a918fb7a5f9af58e6ee93107689269b36edcf4aca18",
+    "jar_sha256": "f68da38a62701a44bc4c3344a6ed8f7511e25d873c52b3aa6099a6788461b42a",
+    "java": "17.0.8",
+    "yaml_failure": "org.pytorch.serve.archive.model.InvalidModelException"
+  }
+}
