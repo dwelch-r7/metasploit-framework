@@ -5,7 +5,22 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest: [Lucee default Bash sessions and automatic cleanup](VERIFICATION-20261121-lucee-sessions.md)
+Latest: [Lucee native Linux x64 and x86 droppers](VERIFICATION-20261121-lucee-droppers.md)
+adds two qualified profiles with **2/0 each**, reaching **321 runtime owners,
+684 qualified profiles and 4,823 historical functional cases**. The shared Bash
+consumer replays too: **6/0 and nine real sessions used/closed** in the fresh
+frame. Independent native ELF controls gate both architectures; physical owner
+ELF/Base64 bytes match the real generators and CFML transport. Normal Bourne
+removal and FileDropper CFML/directory cleanup, effective defaults, repeats,
+original SQL row closure, PID birth/socket ownership and full process-set reset
+pass. Eleven retained profiles bring the latest set to **48 qualified cases and
+twenty-two used/closed sessions**. All 171 declared inputs and 80 qualified zero
+resource captures reconcile. All nine new and 424 recorded Docker objects are
+absent; the full global container inventory is empty. At most two capped
+containers run together. Production source is unchanged. No PR; the broader
+inventory goal remains active.
+
+Previous: [Lucee default Bash sessions and automatic cleanup](VERIFICATION-20261121-lucee-sessions.md)
 adds one profile with **2/0**, reaching **321 runtime owners, 682 qualified
 profiles and 4,819 historical functional cases**. Three fresh real sessions are
 used and closed, including two owner sessions with automatic FileDropper source

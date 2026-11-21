@@ -1,0 +1,6 @@
+{
+  "services": {
+    "target": { "extends": { "file": "../lucee_bash/compose.yaml", "service": "target" } },
+    "reporting_db": { "extends": { "file": "../lucee_bash/compose.yaml", "service": "reporting_db" } }
+  }
+}

@@ -96,7 +96,8 @@ module LuceeSessions
     expect(rc_json('framework.sessions.keys')).to eq([metadata.fetch('id')])
     if owner == laravel_owner
       attempt[:effective_selection] = rc_json('{raw_target:active_module.datastore["TARGET"],target:active_module.target_index,payload:active_module.datastore["PAYLOAD"],allow_no_cleanup:active_module.datastore["AllowNoCleanup"]}')
-      expect(attempt.fetch(:effective_selection)).to include('target' => 0, 'payload' => 'cmd/unix/reverse_bash', 'allow_no_cleanup' => be_falsey)
+      expected_target, expected_payload, = session_families.fetch(family)
+      expect(attempt.fetch(:effective_selection)).to include('target' => expected_target, 'payload' => expected_payload, 'allow_no_cleanup' => be_falsey)
       lifecycle = rc_poll(15) do
         values = rc_json('framework.instance_variable_get(:@lucee_lifecycle_events)')
         values if values.any? { |row| row['event'] == 'return' && row['method'] == 'on_new_session' && row['session'] == metadata.fetch('id') }
