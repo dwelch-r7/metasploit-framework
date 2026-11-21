@@ -26,7 +26,14 @@ exit. UID proof comes from the file owner; the stock optional POSIX extension is
 not installed to influence Meterpreter's best-effort getuid output.
 
 The full option-preservation assertion remains strict and separate from session
-success. The command profile already records a six-option preservation defect
-and remaining created clients. Actual state is retained before deliberate fixture
+success. The current command profile still records a deletion-permission
+preservation defect and remaining created clients; five earlier mutations were
+prevented by the module repair. Actual state is retained before deliberate fixture
 recovery. This profile's registration does not assert that it passes; consult the
 dated report and raw results. Other payload families/releases remain separate work.
+
+If console transport fails, the original error and partial output are retained.
+The fixture terminates and reaps that exact console before native recovery,
+avoids further session/job reset commands on it, and withholds dependent examples.
+This does not change owner execution, payloads, time bounds or successful-session
+checks. A working console still uses the original cleanup/reset path.

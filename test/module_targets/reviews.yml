@@ -58,8 +58,8 @@ modules:
     lab_profiles:
       projectsend: [check_only, pinned_r1605_ls199, real_http_installer, native_php_uid1000, exact_api_title_recovery, all_134_options, encoded_title, same_selection_repeat, refused_port_unknown, exploit_cleanup_gate, factory_restore]
       projectsend_rce: [native_stock_php_exec, native_registration_login, specific_extension_denial, exact_api_upload_and_execution, original_command_delivery, quoted_unicode_crlf, autocheck_on_off, same_selection_repeat, raw_payload_and_multipart, physical_and_portal_cleanup, preserved_existing_user_fields, five_option_mutations_prevented, deletion_permission_still_changes, created_clients_retained, explicit_fixture_recovery]
-      projectsend_sessions: [native_callback_uid1000, real_session_database, earlier_ordinary_bootstrap_failure, later_stock_cli_and_web_sessions, owner_timeout_and_console_cascade, fpm_worker_ancestry, callback_inode_closure, manifest_integrity, original_split_tcp_retirement_probe, native_fixture_recovery]
-      projectsend_sessions_control: [explicit_unmodified_source_override, actual_reader_and_generator, debug_disabled, native_bootstrap_failure, owner_withheld, full_gem_integrity, override_removed]
+      projectsend_sessions: [native_callback_uid1000, real_session_database, earlier_ordinary_bootstrap_failure, later_stock_cli_and_web_sessions, historical_owner_timeout_and_console_cascade, scoped_failed_console_recovery, real_console_timeout_probe, current_native_readiness_failure, fpm_worker_ancestry, callback_inode_closure, manifest_integrity, original_split_tcp_retirement_probe, native_fixture_recovery]
+      projectsend_sessions_control: [explicit_unmodified_source_override, actual_reader_and_generator, debug_disabled, native_bootstrap_failure, owner_withheld, remaining_callback_cleanup_failure, full_gem_integrity, override_removed]
       projectsend_sessions_candidate: [explicit_source_patch, native_cli_and_web_sessions, actual_default_owner_sessions, constrained_faker_registration, verified_login_before_creation_report, one_upload_login_and_one_cleanup_login, strict_deletion_preservation_failure, full_gem_integrity, override_removed]
     reason: >-
       Three check-only examples pass after independent installation/PHP/API
@@ -140,6 +140,24 @@ modules:
       parent units pass61/0, with only inherited default-payload lint. All735
       recorded objects are absent, both contexts empty and callback ports closed.
       See VERIFICATION-20261121-projectsend-registration.md; partial means partial.
+      A scoped failed-console helper now preserves transport errors, saves
+      partial output and reaps the exact console before native recovery. It
+      avoids broken reset/after-context I/O and withholds dependent examples;
+      successful cleanup, module execution, payloads and time bounds stay
+      unchanged. Identical process cases go from 15/6 to 15/0, and a real isolated
+      msfconsole timeout verifies reap-before-recovery in 1.52 seconds. Fresh
+      ordinary and explicit baseline-source frames are 4/1/2; both withhold
+      owners after native CLI readiness fails. The baseline control retains
+      one outside-example callback-socket assertion on a responsive console;
+      this is not a console transport error and is not suppressed. The
+      candidate is 4/1/0 with four used/closed sessions and the same strict
+      deletion-permission failure. No new native owner-timeout recovery is
+      claimed. Thirty-six cgroup captures are unchanged, with zero OOM/PID
+      events but initial database memory.max counters 104, 109, 108. The current
+      set has 416 inputs, 132 passing cases/37 profiles, 49 ordinary and 21 separate
+      candidate-source sessions. All 747 recorded objects are absent and both
+      contexts empty. Production module and generic console helpers remain
+      unchanged. See VERIFICATION-20261121-projectsend-recovery.md.
   exploit/multi/http/dizquetv_rce:
     source_sha256: f40ce29d339e63031c6a4ca268ed205602054e7205882f1bb2e17b54b83b2dcc
     disposition: container_lab

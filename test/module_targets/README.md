@@ -5,7 +5,20 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest partial repair: [ProjectSend registration and option prevention](VERIFICATION-20261121-projectsend-registration.md)
+Latest harness repair: [ProjectSend failed-console recovery](VERIFICATION-20261121-projectsend-recovery.md)
+preserves the first transport error, reaps the exact failed console before native
+fixture recovery, and withholds dependent examples. Identical process tests go
+from 15/6 to 15/0; a real isolated msfconsole timeout also verifies recovery.
+Fresh ordinary and explicit baseline-source profiles still fail native readiness;
+the latter retains a separate callback-socket cleanup assertion. The candidate
+uses/closes four real sessions but still fails strict deletion preservation.
+No native owner-timeout recovery is claimed from these fresh frames. The passing
+set remains **132 cases / 37 profiles**, with 416 current inputs, 49 retained
+ordinary sessions and 21 separate candidate-source sessions. All 12 new/747
+recorded Docker objects are absent and both contexts empty. No PR; full scope
+remains active.
+
+Previous partial repair: [ProjectSend registration and option prevention](VERIFICATION-20261121-projectsend-registration.md)
 verifies valid Faker registration and honest success reporting through actual
 commands and default candidate-source sessions. Five unintended option mutations
 are prevented; strict command/session preservation profiles still fail on the
