@@ -68,6 +68,7 @@
     "test/module_targets/projectsend_sessions/callback.php",
     "test/module_targets/projectsend_sessions/compose.yaml",
     "test/module_targets/projectsend_sessions/console_recovery.rb",
+    "test/module_targets/projectsend_sessions/examples.rb",
     "test/module_targets/projectsend_sessions/process_state.php",
     "test/module_targets/projectsend_sessions/session_control.rb",
     "test/module_targets/projectsend_sessions/session_native.py",
