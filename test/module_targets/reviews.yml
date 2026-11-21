@@ -2,24 +2,30 @@
 ---
 modules:
   exploit/multi/http/n8n_workflow_expression_rce:
-    source_sha256: 056e55cd508718478ac6bcd4d3bc3df70f1d9669ba5fe88da283c4a6f417d227
+    source_sha256: 743994f7158a719692f50c047a4f94d79f2d9c66261aee9276912a159a9698fd
     disposition: container_lab
     lab_profiles:
       n8n_expression: [pinned_1_120_0, native_owner_login, normal_iife, physical_expression_proof, actual_check, bad_password, refused_port, exact_commands, same_selection_repeat, foreign_workflow_preservation, sqlite_cleanup]
       n8n_expression_fixed: [pinned_1_120_4, native_positive_control, specific_sandbox_denial, actual_safe, repeated_autocheck_refusal, foreign_workflow_preservation]
+      n8n_expression_sessions: [native_stock_wget, default_inline_meterpreter, same_selection_repeat, live_api, foreign_workflow_preservation, exact_elf_bytes, pid_birth_socket, original_sql_closure, process_reset, explicit_fixture_removal]
     reason: >-
-      Eight maintained cases pass after native first-owner/login, normal IIFE
-      and independent file-write expression controls on official images. Actual
-      command bytes, UID 1000 proof files, full foreign workflow records and
-      global SQLite workflow/execution cleanup verify. Two confirmed check
-      repairs exclude fixed 1.120.4 and handle an absent authentication response;
-      twelve unit cases change from two expected failures to zero. Four existing
-      metadata/default-payload lint offenses are unchanged, with no new offenses.
-      The current campaign set has 230 inputs and 124 zero cgroup captures. All 18
-      new/494 recorded Docker objects are absent, with global containers zero
-      and one capped application at a time. Default fetch/Meterpreter, Windows,
-      other releases, member roles, MFA, proxy and external-database modes remain
-      unqualified. See VERIFICATION-20261121-n8n-expression.md.
+      Ten maintained cases across three profiles pass after native login,
+      ordinary IIFE, physical expression and stock wget session controls.
+      The native and two default owning Meterpreter sessions are used and closed;
+      exact ELF/proof bytes, live API/workflow preservation, UID/PID/birth/socket
+      ownership and original SQL row closure verify. An independent image-native
+      background-child control confirms inherited output pipes block the event
+      loop. Ignoring unused I/O fixes the default session stall while preserving
+      synchronous execution and payload defaults. Original command/check/fixed
+      refusal cases replay, and twelve unit cases pass. FETCH_DELETE=false
+      executable retention is distinguished from explicit fixture removal.
+      Four existing metadata/default-payload lint offenses remain unchanged.
+      The campaign set has 250 current inputs and 132 zero cgroup captures.
+      All 508 recorded Docker objects are absent, including unused tool helpers;
+      global containers are zero and capped profiles run serially with at most
+      two containers. Windows, other payloads/releases, member roles, MFA, proxy,
+      external databases and long-lived foreground commands remain unqualified.
+      See VERIFICATION-20261121-n8n-sessions.md.
   exploit/linux/http/ollama_rce_cve_2024_37032:
     source_sha256: 92748993751785fb01beb6ec2e59aad723c039b1dbe15101e84b2c3aa2cb2315
     disposition: container_lab
