@@ -23,8 +23,10 @@ if (mode == "verify") {
     output = "";
     errors = "";
     cfexecute(name="/bin/bash", arguments=["-c", command], timeout=5, variable="output", errorVariable="errors");
-    result["output_base64"] = toBase64(charsetDecode(output, "UTF-8"));
-    result["errors_base64"] = toBase64(charsetDecode(errors, "UTF-8"));
+    // Some 5.3.7 executions remove an empty output variable. Physical file
+    // proofs and exact nonempty output are checked independently by the caller.
+    result["output_base64"] = toBase64(charsetDecode(structKeyExists(variables, "output") ? output : "", "UTF-8"));
+    result["errors_base64"] = toBase64(charsetDecode(structKeyExists(variables, "errors") ? errors : "", "UTF-8"));
 } else if (mode == "configure") {
     cfadmin(action="updatePassword", type="web", oldPassword="", newPassword=form.password);
     result["configured"] = true;

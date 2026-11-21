@@ -1,0 +1,8 @@
+{
+  "services": {
+    "target": {
+      "extends": { "file": "../lucee/compose.yaml", "service": "target" },
+      "image": "lucee/lucee@sha256:233f371c2b77d3b69ae35edcf51123ab074480f76408d83399a5d9bd6d171de4"
+    }
+  }
+}

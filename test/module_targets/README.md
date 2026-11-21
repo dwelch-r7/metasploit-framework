@@ -5,7 +5,21 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest: [Lucee native-gated command owners](VERIFICATION-20261121-lucee.md)
+Latest: [Lucee genuine fixed-release controls](VERIFICATION-20261121-lucee-fixed.md)
+adds one profile with **3/0**, reaching **321 runtime owners, 681 qualified
+profiles and 4,817 historical functional cases**. Both existing Lucee profiles
+replay after correcting optional native output handling; the fresh frame passes
+**11/0**. Eight current-input retained profiles bring the latest set to **42
+qualified cases**, with thirteen retained sessions used and closed. Genuine
+context writes and real CFML interpretation precede endpoint denial, the actual
+Safe check and repeated AutoCheck refusal. The native fixture failure is retained
+without a module verdict. All 127 declared inputs and 56 qualified zero resource
+captures reconcile. All twelve new and 405 recorded Docker objects are absent;
+the full global container inventory is empty. Fresh phases use one capped
+container at a time. Production source is unchanged; default session and
+automatic cleanup paths remain unqualified. No PR; the broader goal stays active.
+
+Previous: [Lucee native-gated command owners](VERIFICATION-20261121-lucee.md)
 adds two owners and two qualified profiles, each at **4/0**, reaching **321 runtime
 owners, 680 qualified profiles and 4,814 historical functional cases**. The latest
 ten stated profiles have **39 qualified cases**, with thirteen retained sessions
