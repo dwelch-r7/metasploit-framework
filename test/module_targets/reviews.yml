@@ -1,6 +1,22 @@
 # Individual source-reviewed target requirements; these are not blanket exclusions.
 ---
 modules:
+  exploit/linux/local/sudo_chroot_cve_2025_32463:
+    source_sha256: 8b767bdc29e02b10f70656733998d769762a3777df3e4ec02c36020dcceabad4
+    disposition: container_lab
+    lab_profiles:
+      sudo_chroot: [genuine_source_built_1_9_16p2, native_compiler_and_nss_root_controls, real_shell_and_meterpreter_entry_sessions, repeated_original_checks_and_root_commands, exact_unicode_command_bytes, original_cwd_and_identity_preserved, strict_config_artifact_and_idle_state]
+      sudo_chroot_fixed: [genuine_source_built_1_9_17p1, positive_unprivileged_compiler_controls, native_nss_denied, original_autocheck_body_withheld, both_entry_apis_and_repeats]
+    reason: >-
+      Two four-case profiles pass after repairing the confirmed persistent-entry
+      cwd defect. Existing mkdir registration already removes staging; absolute
+      paths and command-local cd preserve the caller without relative cleanup
+      entries. Native prerequisites precede original owning calls. Finite
+      fetch/exec commands explicitly opt into AllowNoCleanup; retained payload
+      ELF removal is lab reset, separate from module wrapper/NSS cleanup. Default
+      new root callbacks, AutoCheck off, compiler denials, other delivery paths
+      and distro/backports remain unqualified. See
+      VERIFICATION-20261121-sudo-chroot.md; the full inventory goal stays active.
   auxiliary/scanner/redis/redis_server:
     source_sha256: 088d0b40f462918abaf873862a208c0395fa433c2e1b4846bab278b6147acf27
     disposition: container_lab

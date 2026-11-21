@@ -5,7 +5,21 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest qualification: [Redis protocol bytes and credential consumers](VERIFICATION-20261121-redis-protocol.md)
+Latest qualification: [Sudo chroot local owner and preservation](VERIFICATION-20261121-sudo-chroot.md)
+adds genuine affected/fixed builds and real shell/Meterpreter entry APIs.
+The original affected profile retains **4/2/0** because cleanup leaves the
+caller in a removed cwd. Absolute staging paths and command-local cd repair
+that defect; the serial matrix passes **8/0/0** with repeated UID0 commands,
+exact command bytes and strict state preservation. Source units improve
+**43/26 to 43/0**; combined focused units pass **60/0**, including a separate
+PHP-source content-discovery repair. The passing set reaches **184 cases /
+45 profiles / 523 retained inputs**, with 109 ordinary and 21 separate source
+sessions. All **31 new/837 recorded Docker objects** are absent and both contexts
+are empty. One capped target runs at a time; two unused automatic agent helpers
+were promptly removed. Default/new root callbacks, wider paths and the full
+valuable feasible-module inventory remain open. No PR.
+
+Previous qualification: [Redis protocol bytes and credential consumers](VERIFICATION-20261121-redis-protocol.md)
 adds ASCII/UTF-8 profiles for five real consumers. Corrected original profiles
 retain **14/7/0**; repaired protocol profiles pass **14/0/0**, and all three Lua
 profiles retain **24/0/0** against the shared-library repair. Identical source
