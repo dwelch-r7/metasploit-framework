@@ -2,21 +2,24 @@
 ---
 modules:
   exploit/linux/local/sudo_chroot_cve_2025_32463:
-    source_sha256: 8b767bdc29e02b10f70656733998d769762a3777df3e4ec02c36020dcceabad4
+    source_sha256: a6485d69dc16ad73ffe8133b3f77d6e5caedf23e2ff77ca7e06b6c547e8a9020
     disposition: container_lab
     lab_profiles:
       sudo_chroot: [genuine_source_built_1_9_16p2, native_compiler_and_nss_root_controls, real_shell_and_meterpreter_entry_sessions, repeated_original_checks_and_root_commands, exact_unicode_command_bytes, original_cwd_and_identity_preserved, strict_config_artifact_and_idle_state]
       sudo_chroot_fixed: [genuine_source_built_1_9_17p1, positive_unprivileged_compiler_controls, native_nss_denied, original_autocheck_body_withheld, both_entry_apis_and_repeats]
+      sudo_chroot_sessions: [genuine_source_built_1_9_16p2, native_default_fetch_and_staged_meterpreter_controls, actual_cold_default_payload, real_shell_and_meterpreter_entry_apis, repeated_uid0_callbacks, autocheck_on_and_off, true_default_relative_fetch, physical_executable_and_cwd_proof, strict_preservation_and_graceful_closure]
+      sudo_chroot_sessions_fixed: [genuine_source_built_1_9_17p1, native_unprivileged_callbacks_positive, native_nss_denied, repeated_original_autocheck_body_withheld, both_entry_apis]
     reason: >-
-      Two four-case profiles pass after repairing the confirmed persistent-entry
-      cwd defect. Existing mkdir registration already removes staging; absolute
-      paths and command-local cd preserve the caller without relative cleanup
-      entries. Native prerequisites precede original owning calls. Finite
-      fetch/exec commands explicitly opt into AllowNoCleanup; retained payload
-      ELF removal is lab reset, separate from module wrapper/NSS cleanup. Default
-      new root callbacks, AutoCheck off, compiler denials, other delivery paths
-      and distro/backports remain unqualified. See
-      VERIFICATION-20261121-sudo-chroot.md; the full inventory goal stays active.
+      Four profiles pass16/0 after independently repairing persistent-entry and
+      new-callback cwd defects. Absolute staging and command-local cd preserve
+      the entry; the NSS constructor moves to its WritableDir parent before
+      exec, preserving default relative fetch and the new root cwd. Genuine
+      compiler/NSS and native UID1001 default-payload controls precede owning
+      calls. Root callbacks keep AllowNoCleanup false; finite commands opt in
+      explicitly. Retained fetch ELF removal is lab reset, separate from module
+      wrapper/NSS cleanup. Wider payloads, writable paths, compiler-denial
+      recovery, distro/backports and release boundaries remain unqualified.
+      See VERIFICATION-20261121-sudo-callbacks.md; the full goal stays active.
   auxiliary/scanner/redis/redis_server:
     source_sha256: 088d0b40f462918abaf873862a208c0395fa433c2e1b4846bab278b6147acf27
     disposition: container_lab

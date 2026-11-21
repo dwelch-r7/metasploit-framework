@@ -5,7 +5,21 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest qualification: [Sudo chroot local owner and preservation](VERIFICATION-20261121-sudo-chroot.md)
+Latest qualification: [Sudo default root callbacks](VERIFICATION-20261121-sudo-callbacks.md)
+adds two profiles using the real default fetch/staged Meterpreter from both
+entry APIs. Original root callbacks inherit a deleted staging cwd; moving the
+constructor to its writable parent repairs them and preserves true default
+`./` delivery. Corrected callback profiles pass **8/0/0**, and both existing
+finite profiles replay **8/0/0** against the same source. Independent native
+controls, exact UID/executable proof, AutoCheck on/off, separate entry/callback
+cwd and strict final state verify. Observer/recording faults remain separate;
+focused units pass **64/0**, including inherited-selector CI isolation. The
+passing set reaches **192 cases / 47 profiles / 540 retained inputs**, with
+177 ordinary and 21 separate source sessions. All **24 new/861 recorded Docker
+objects** are absent and both contexts empty; this step's target/global peak is
+one. Wider paths and the full valuable feasible-module goal remain open. No PR.
+
+Previous qualification: [Sudo chroot local owner and preservation](VERIFICATION-20261121-sudo-chroot.md)
 adds genuine affected/fixed builds and real shell/Meterpreter entry APIs.
 The original affected profile retains **4/2/0** because cleanup leaves the
 caller in a removed cwd. Absolute staging paths and command-local cd repair
