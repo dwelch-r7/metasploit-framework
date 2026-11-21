@@ -26,9 +26,13 @@ module LaravelTokenTarget
     target_runtime.fetch('compose') + ['exec', '-T', '--user', 'www-data', 'target', 'php', '/opt/module-target-native.php', mode]
   end
 
+  def laravel_vendor_file
+    'test/module_targets/laravel_token/vendor.json'
+  end
+
   def native_verify(label)
     value = native('verify', {}, label)
-    vendor = JSON.parse(File.read('test/module_targets/laravel_token/vendor.json'))
+    vendor = JSON.parse(File.read(laravel_vendor_file))
     expect(value).to include('php' => vendor.fetch('php'), 'laravel' => vendor.fetch('laravel'), 'uid' => laravel_uid, 'debug' => true, 'environment' => 'local', 'cipher' => 'AES-256-CBC', 'key' => 'base64:' + KEY)
     expect(value.fetch('source_sha256')).to eq(vendor.fetch('source_sha256'))
     expect(value.fetch('packages')).to eq(vendor.fetch('packages').transform_values { |package| package.fetch('version') })

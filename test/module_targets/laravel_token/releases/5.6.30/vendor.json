@@ -1,0 +1,63 @@
+{
+  "php": "7.4.15",
+  "laravel": "5.6.30",
+  "project_revision": "3f92cf66f53b3b53467497acc0d2a00cbd7b65f0",
+  "project_archive_sha256": "8936265cfa793d6a4afba4835719c4a91eb1e532a546eddf855933fa45b498e4",
+  "packages": {
+    "filp/whoops": {
+      "version": "2.19.3",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/filp/whoops.git",
+        "reference": "d5480d53f10069dc4620a39f87e38e8945d47322"
+      }
+    },
+    "fzaninotto/faker": {
+      "version": "v1.9.2",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/fzaninotto/Faker.git",
+        "reference": "848d8125239d7dbf8ab25cb7f054f1a630e68c2e"
+      }
+    },
+    "laravel/framework": {
+      "version": "v5.6.30",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/laravel/framework.git",
+        "reference": "38506212abdfe489f7ec914f9c43c77e3347aebe"
+      }
+    },
+    "vlucas/phpdotenv": {
+      "version": "v2.6.9",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/phpdotenv/phpdotenv.git",
+        "reference": "2e93cc98e2e8e869f8d9cfa61bb3a99ba4fc4141"
+      }
+    }
+  },
+  "source_sha256": {
+    "composer.json": "078d9ed8166e652dc9edabf3ffe676b3db9c7cd947442120e8fa4de522e6629d",
+    "composer.lock": "d6c1796b4df916d22487c34c633199b0314c4f4a9a8d541d79ca9438c2ae5fd9",
+    "bootstrap/app.php": "c73acac55dd8e955eab6842fa21d52b3094199f6ec39bdac1f3532357ebd24e6",
+    "routes/web.php": "fe2ade25cee1ec2390e09a6369f4bc2d6c3e575db67c14a2071e3a6f6767ef7c",
+    "app/Http/Kernel.php": "580cd288458a8fd37b2c8189b1e6925f8c11eb2bc110a45fb519757b7e314694",
+    "app/Http/Middleware/VerifyCsrfToken.php": "5582b6ed9fce97124959649b95e178c5281b7cafc84c47a629c5bd02c08656a0",
+    "config/app.php": "912a7cbbcd7fccbe13182df333daeb2707c36412ed0430c2b33a6f63f842df76",
+    "config/session.php": "7606a8a24edd14534933e8a1cb1e40e7db419994599c75175c4ac29d0049667d",
+    "vendor/laravel/framework/src/Illuminate/Encryption/Encrypter.php": "3a84678c9e154e687f36608b79af12229ebfd96371fba9912c8256f3308498a3",
+    "vendor/laravel/framework/src/Illuminate/Broadcasting/PendingBroadcast.php": "1c724eca4ef0cefb038f68c3c36b144ed54e47bdda64ad01e92fe509e4916591",
+    "vendor/laravel/framework/src/Illuminate/Events/Dispatcher.php": "397a9abbfb3050cbbc934dfba73912d0e0950c5b9a14b067ff5c633e4a9c5887",
+    "vendor/laravel/framework/src/Illuminate/Support/Manager.php": "d076fb818ac97d821db2b3f1ba8ee01eede970f510ea7a0c555f8e01f7cf0b66",
+    "vendor/laravel/framework/src/Illuminate/Notifications/ChannelManager.php": "ebbf847562e2ea2096578af90632816d64423a0074d5fce9c31bc3656a6fd1ae",
+    "vendor/laravel/framework/src/Illuminate/Validation/Validator.php": "e6de2e9e7a83c62df0fac45f46be38126a662e3201c087941f0c5be5f8aeac24",
+    "vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/VerifyCsrfToken.php": "b5a92ffb6fe50526bc0a5ece7e191f6b9279955709a0186e3f8986ca98d06fe7",
+    "vendor/laravel/framework/src/Illuminate/Cookie/Middleware/EncryptCookies.php": "5c0073f855f40d7f425f879223632ea01cbccacf974445196f66a27a6620e4b3",
+    "vendor/fzaninotto/faker/src/Faker/Generator.php": "8d1b44227fe67da98fe2206deb59b121badc10a24bd82acb381fe75713961fbb"
+  },
+  "dependency_resolution_composer_version": "2.2.26",
+  "dependency_resolution_composer_sha256": "2f889b1d19666af6081448a526539f73b1d95d10f745536afd8132acb13743f3",
+  "composer_version": "1.10.27",
+  "composer_sha256": "230d28fb29f3c6c07ab2382390bef313e36de17868b2bd23b2e070554cae23d2"
+}

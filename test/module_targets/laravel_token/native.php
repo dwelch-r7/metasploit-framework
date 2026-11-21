@@ -68,6 +68,27 @@ if ($mode === 'verify') {
         assign_property($broadcast, 'event', 'module-target-noop');
     }
     echo json_encode(['uid' => posix_geteuid(), 'method' => $method, 'serialized_base64' => base64_encode($serialized), 'serialized_sha256' => hash('sha256', $serialized), 'token' => $token], JSON_THROW_ON_ERROR);
+} elseif ($mode === 'evaluate') {
+    // A local default-decrypt positive control separates gadget readiness from
+    // patched HTTP middleware that deliberately decrypts without unserializing.
+    $path = proof_path($input['path']);
+    $serialized = $app->make('encrypter')->decrypt($input['token'], false);
+    if (file_exists($path) || strpos($serialized, $path) === false) {
+        throw new InvalidArgumentException('Expected an absent controlled proof');
+    }
+    $class = null;
+    $error = null;
+    ob_start();
+    try {
+        $object = $app->make('encrypter')->decrypt($input['token']);
+        $class = is_object($object) ? get_class($object) : gettype($object);
+        unset($object);
+    } catch (Throwable $exception) {
+        $error = ['type' => get_class($exception), 'message' => $exception->getMessage()];
+    } finally {
+        $output = ob_get_clean();
+    }
+    echo json_encode(['uid' => posix_geteuid(), 'token_sha256' => hash('sha256', $input['token']), 'decoded_class' => $class, 'output_base64' => base64_encode($output), 'error' => $error], JSON_THROW_ON_ERROR);
 } elseif ($mode === 'decode') {
     // Inspect actual owner bytes without deserializing or executing a gadget.
     $serialized = $app->make('encrypter')->decrypt($input['token'], false);

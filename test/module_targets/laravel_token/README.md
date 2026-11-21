@@ -31,7 +31,10 @@ short-key rejection. Non-session payloads try all four fallbacks; three can
 execute in this pinned dependency tree. Append-only proof checks expose that
 multiplicity instead of hiding it through file overwrites. Controls must pass
 before an owner verdict is admitted; failed prerequisites withhold that verdict.
-Default session payloads and genuine fixed releases need separate qualification.
+The [default Perl profile](../laravel_token_perl/README.md) separately exercises
+session lifecycle. The [genuine fixed-release profile](../laravel_token_fixed/README.md)
+uses a separate 5.6.30 lock through the shared Dockerfile's dependency-file build
+argument. Native local execution of the same encrypted token gates HTTP denial.
 Human Scenarios remain separate from these automated observations.
 
 Only one application container runs: 1 CPU, 512 MiB memory/equal swap and

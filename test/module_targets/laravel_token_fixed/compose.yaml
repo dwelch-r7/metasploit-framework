@@ -1,0 +1,10 @@
+services:
+  target:
+    extends:
+      file: ../laravel_token/compose.yaml
+      service: target
+    image: metasploit-module-target-laravel-token:5.6.30
+    build:
+      context: ../laravel_token
+      args:
+        DEPENDENCY_FILES: releases/5.6.30

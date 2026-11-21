@@ -7,13 +7,14 @@ RUN printf '%s  %s\n' 8936265cfa793d6a4afba4835719c4a91eb1e532a546eddf855933fa45
     && find /var/www -mindepth 1 -maxdepth 1 -exec rm -rf -- {} + \
     && tar -xzf /tmp/module-target-project.tar.gz --strip-components=1 -C /var/www \
     && rm /tmp/module-target-project.tar.gz
-COPY composer.json composer.lock /var/www/
+ARG DEPENDENCY_FILES=.
+COPY ${DEPENDENCY_FILES}/composer.json ${DEPENDENCY_FILES}/composer.lock /var/www/
 ENV COMPOSER_ALLOW_SUPERUSER=1 COMPOSER_MAX_PARALLEL_HTTP=4 COMPOSER_PROCESS_TIMEOUT=90
 RUN php -d memory_limit=512M /opt/composer.phar install --no-interaction --prefer-dist --no-progress --no-scripts --no-plugins \
     && printf "\nRoute::post('/', function () { return view('welcome'); });\n" >> routes/web.php
 COPY apache.conf /etc/apache2/sites-enabled/000-default.conf
 COPY setup.php /opt/module-target-setup.php
 COPY native.php /opt/module-target-native.php
-COPY vendor.json /opt/module-target-vendor.json
+COPY ${DEPENDENCY_FILES}/vendor.json /opt/module-target-vendor.json
 COPY start.sh /opt/module-target-start.sh
 CMD ["sh", "/opt/module-target-start.sh"]

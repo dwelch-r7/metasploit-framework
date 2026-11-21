@@ -5,7 +5,20 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest: [Laravel token execution, discovery and sessions](VERIFICATION-20261121-laravel-token.md)
+Latest: [Genuine fixed Laravel token controls](VERIFICATION-20261121-laravel-token-fixed.md)
+adds one qualified profile with **3/0**, reaching **318 runtime owners, 674
+qualified profiles and 4,791 historical functional cases**. Four fresh profiles
+pass **16/0** with seven real sessions used and closed. Six unchanged profiles
+retain **12/0** after current-input and raw-proof audits, giving **28/0** across
+the latest ten profiles and 25 used/closed sessions. Local gadget execution gates
+denial of the identical encrypted tokens by genuine Laravel 5.6.30 middleware.
+The actual check and repeated command owner also withhold execution. All 121
+declared inputs, 72 qualified zero resource captures and thirteen new Docker
+object removals verify; all 325 recorded objects are absent and the final global
+container inventory is empty. Fresh stacks peak at two capped containers and
+run serially. No production module change or PR; the broader goal remains active.
+
+Previous: [Laravel token execution, discovery and sessions](VERIFICATION-20261121-laravel-token.md)
 adds one owner and three qualified profiles with **13/0**, reaching **318 runtime
 owners, 673 qualified profiles and 4,788 historical functional cases**. Nine
 current profiles pass **25/0** in three serial phases, using and closing 25 real
