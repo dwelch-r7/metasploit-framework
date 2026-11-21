@@ -1,0 +1,60 @@
+{
+  "spec": "spec/modules/exploits/multi/http/dizquetv_sessions_target_spec.rb",
+  "console": false,
+  "expected_examples": 4,
+  "health_timeout": 150,
+  "test_timeout": 480,
+  "test_env": {
+    "DIZQUETV_TARGET_VERSION": "1.5.3"
+  },
+  "modules": [
+    "exploit/multi/http/dizquetv_rce"
+  ],
+  "ports": {
+    "target": 8000,
+    "reporting_db": 5432
+  },
+  "support_files": [
+    "Gemfile.lock",
+    "lib/msf/base/sessions/command_shell.rb",
+    "lib/msf/base/sessions/command_shell_options.rb",
+    "lib/msf/base/sessions/command_shell_unix.rb",
+    "lib/msf/base/sessions/unix_escaping.rb",
+    "lib/msf/base/simple/exploit.rb",
+    "lib/msf/core/db_manager/session.rb",
+    "lib/msf/core/exploit.rb",
+    "lib/msf/core/exploit/file_dropper.rb",
+    "lib/msf/core/exploit/remote/auto_check.rb",
+    "lib/msf/core/exploit/remote/http_client.rb",
+    "lib/msf/core/exploit/retry.rb",
+    "lib/msf/core/exploit_driver.rb",
+    "lib/msf/core/handler/none.rb",
+    "lib/msf/core/handler/reverse_tcp.rb",
+    "lib/msf/core/opt_int.rb",
+    "lib/msf/core/opt_string.rb",
+    "lib/msf/core/session/provider/single_command_shell.rb",
+    "lib/msf/core/session_manager.rb",
+    "lib/msf/ui/console/command_dispatcher/exploit.rb",
+    "lib/rex/proto/http/client_request.rb",
+    "lib/rex/proto/http/packet.rb",
+    "modules/exploits/multi/handler.rb",
+    "modules/payloads/singles/cmd/unix/generic.rb",
+    "modules/payloads/singles/cmd/unix/reverse_bash.rb",
+    "test/module_targets/dizquetv/acceptance.rb",
+    "test/module_targets/dizquetv/compose.yaml",
+    "test/module_targets/dizquetv/health.pl",
+    "test/module_targets/dizquetv/native_probe.py",
+    "test/module_targets/dizquetv/observe.rb",
+    "test/module_targets/dizquetv/vendor.json",
+    "test/module_targets/dizquetv_sessions/acceptance.rb",
+    "test/module_targets/dizquetv_sessions/native_probe.py",
+    "test/module_targets/dizquetv_sessions/observe.pl",
+    "test/module_targets/dizquetv_sessions/session_control.rb",
+    "test/module_targets/druid_sessions/session_control.rb",
+    "test/module_targets/gopher/compose.yaml",
+    "test/module_targets/laravel/commands.rb",
+    "test/module_targets/laravel/session_control.rb",
+    "test/module_targets/laravel/sessions.rb",
+    "test/module_targets/rsync_creds/native.rb"
+  ]
+}

@@ -1668,3 +1668,18 @@ absent and both contexts finish globally empty, with one 384 MiB/0.7 CPU contain
 running serially. Sessions, default fetch, Windows and other releases remain
 unqualified. See [the report](VERIFICATION-20261121-dizquetv.md). No PR; the full
 inventory goal remains active.
+
+
+dizqueTV Bash sessions add four passing examples and four used/closed shells:
+stock CLI and independent real API controls, followed by two original owner
+sessions on one selection. Settings restore while shells remain live, and exact
+UID0 proof, PID/birth and callback socket-inode recovery, original reporting-row
+closure and full nine-store preservation verify. The default Linux target and
+empty COMMAND select an explicit Bash payload; default fetch and Windows remain
+unqualified. One harness metadata lookup failure is retained without an owner
+invocation. The latest set reaches 107 cases, 47 used/closed sessions, 317 current
+inputs and 216 zero cgroup captures; history reaches 326 owners in stated paths,
+701 profiles and 4,882 cases. All six new/582 recorded Docker objects are absent
+and both contexts finish globally empty. Only two capped services run at a time,
+with no production source change or PR. See [the report](VERIFICATION-20261121-dizquetv-sessions.md).
+The complete valuable/container-feasible inventory goal remains active.

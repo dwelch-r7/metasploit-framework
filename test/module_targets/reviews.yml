@@ -7,26 +7,28 @@ modules:
     lab_profiles:
       dizquetv: [pinned_1_5_3, binary_fingerprint, native_cli_and_api, exact_command_counterparts, actual_appears, refused_port, command_precedence, generic_payload_fallback, quoted_unicode_crlf, same_selection_repeat, invalid_poll_guards, nine_json_stores, factory_restore]
       dizquetv_fixed: [pinned_1_5_5, native_cli_positive, specific_path_validation_denial, actual_safe, repeated_autocheck_refusal, hidden_lock_timestamp, full_state_preservation]
+      dizquetv_sessions: [pinned_1_5_3, native_callback, stock_cli_and_api_sessions, original_bash_sessions, default_linux_target, empty_command, repeated_selection, live_settings_recovery, socket_inode_pid_birth, original_reporting_row_closure, factory_restore]
     reason: >-
-      Ten cases pass on the publisher's unchanged compiled 1.5.3/1.5.5 images.
-      Native exact-command CLI and real settings/version API controls precede
-      six owning Linux COMMAND/generic-payload executions. Exact stdout and
-      UID0 files, quotes/Unicode/CRLF, COMMAND precedence, same-selection repeats
-      and pre-request invalid-option guards verify. All nine JSON database
-      stores preserve; the vulnerable fixture's non-default thread count
-      survives, and factory values restore afterward. The fixed API rejects
-      the same command with its specific valid-file-path error, and two real
-      Safe AutoCheck refusals perform no owning mutation. Hidden path-lock
-      timestamps remain in the comparison. Three setup/harness faults are
-      retained separately: an absent optional image Cmd field, Compose health
-      interpolation, and a redundant native cleanup PUT extending the lock
-      timestamp. None invokes the module. The latest set has 309 current inputs
-      and 208 zero cgroup captures. All 576 recorded Docker objects are absent
-      with both contexts globally empty; new phases use one 384 MiB/0.7 CPU
-      container serially. Stock images lack curl/wget and standalone Node;
-      native observers use existing Perl core and host Python without installs.
-      Reverse sessions, default fetch, Windows and other releases remain
-      unqualified. See VERIFICATION-20261121-dizquetv.md.
+      Fourteen cases pass on the publisher's unchanged compiled 1.5.3/1.5.5
+      images. The command/fixed profiles retain six exact Linux COMMAND/generic
+      deliveries, quoted Unicode/CRLF, COMMAND precedence, actual checks,
+      invalid-option guards and repeated patched refusal. The Bash profile adds
+      a stock CLI session, an independent API session and two original owning
+      sessions with empty COMMAND, default target0 and AutoCheck on/off. Exact
+      UID0 proof, PID/birth and callback socket-inode recovery, original session
+      row closure and empty Framework jobs/sessions verify. Full API settings
+      and nine JSON stores preserve while shells are live and afterward; the
+      unrelated thread count survives, and factory values restore. Fixed hidden
+      lock timestamps remain in the comparison. Three command-setup faults and
+      a session-harness payload-metadata lookup fault remain separately retained;
+      none invokes the owner. The latest set has 317 current inputs and 216 zero
+      cgroup captures. All 582 recorded Docker objects are absent with both
+      contexts globally empty. New session phases use two capped services at
+      most: application 384 MiB/0.7 CPU and reporting database 128 MiB/0.2 CPU.
+      Stock images lack curl/wget and standalone Node; native observers use
+      existing Perl core and host Python without installs. Default fetch,
+      Windows, other payload families and other releases remain unqualified.
+      See VERIFICATION-20261121-dizquetv-sessions.md and the command report.
   exploit/linux/http/opendcim_install_sqli_rce:
     source_sha256: 7b348abe89bb7357f26a573025fcc015b4a95e4bd3dfd259ed7903e856e7ea4c
     disposition: container_lab
