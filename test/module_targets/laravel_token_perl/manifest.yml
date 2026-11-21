@@ -1,0 +1,42 @@
+{
+  "spec": "spec/modules/exploits/unix/http/laravel_token_sessions_target_spec.rb",
+  "console": false,
+  "expected_examples": 2,
+  "health_timeout": 90,
+  "test_timeout": 600,
+  "modules": [
+    "exploit/unix/http/laravel_token_unserialize_exec"
+  ],
+  "ports": {
+    "target": 80,
+    "reporting_db": 5432
+  },
+  "support_files": [
+    "lib/msf/core/exploit/remote/http_client.rb",
+    "modules/exploits/multi/handler.rb",
+    "modules/payloads/singles/cmd/unix/generic.rb",
+    "modules/payloads/singles/cmd/unix/reverse_perl.rb",
+    "test/module_targets/druid_sessions/session_control.rb",
+    "test/module_targets/gopher/compose.yaml",
+    "test/module_targets/ignition_bash/apache.conf",
+    "test/module_targets/invoiceshelf/callback.php",
+    "test/module_targets/invoiceshelf/process_state.php",
+    "test/module_targets/laravel/commands.rb",
+    "test/module_targets/laravel/session_control.rb",
+    "test/module_targets/laravel/sessions.rb",
+    "test/module_targets/laravel_token/Dockerfile",
+    "test/module_targets/laravel_token/README.md",
+    "test/module_targets/laravel_token/acceptance.rb",
+    "test/module_targets/laravel_token/apache.conf",
+    "test/module_targets/laravel_token/compose.yaml",
+    "test/module_targets/laravel_token/composer.json",
+    "test/module_targets/laravel_token/composer.lock",
+    "test/module_targets/laravel_token/manifest.yml",
+    "test/module_targets/laravel_token/native.php",
+    "test/module_targets/laravel_token/observe.rb",
+    "test/module_targets/laravel_token/setup.php",
+    "test/module_targets/laravel_token/start.sh",
+    "test/module_targets/laravel_token/vendor.json",
+    "test/module_targets/rsync_creds/native.rb"
+  ]
+}

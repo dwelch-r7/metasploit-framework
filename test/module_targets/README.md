@@ -5,7 +5,22 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest: [Ignition default sessions](VERIFICATION-20261121-ignition-sessions.md)
+Latest: [Laravel token execution, discovery and sessions](VERIFICATION-20261121-laravel-token.md)
+adds one owner and three qualified profiles with **13/0**, reaching **318 runtime
+owners, 673 qualified profiles and 4,788 historical functional cases**. Nine
+current profiles pass **25/0** in three serial phases, using and closing 25 real
+sessions. Native controls distinguish a blocked reflected gadget from three
+working paths; a confirmed check repair changes source tests from 12/4 to 12/0
+and the main owner profile from 9/1 to 9/0. Exact bytes, both key-discovery paths,
+default/repeated Perl selection and every emitted callback are verified. A
+one-session harness assumption is repaired with its failed frame retained.
+All 113 declared inputs, 68 qualified zero resource captures and 46 new object
+removals verify; all 312 recorded Docker objects are absent and the global
+container inventory is empty. At most three capped containers run serially.
+Fixed packages and duplicate-callback behavior need further investigation.
+No PR; the broader goal stays active.
+
+Previous: [Ignition default sessions](VERIFICATION-20261121-ignition-sessions.md)
 adds one qualified profile with **2/0**, reaching **317 runtime owners, 670
 qualified profiles and 4,775 historical functional cases**. Six current session
 profiles pass **12/0** in two serial phases, with eighteen real sessions used and

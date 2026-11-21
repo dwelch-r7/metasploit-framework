@@ -1,0 +1,7 @@
+services:
+  target:
+    extends:
+      file: ../laravel_token/compose.yaml
+      service: target
+    environment:
+      EXPOSE_ENV: "true"

@@ -1,0 +1,19 @@
+{
+  "spec": "spec/modules/exploits/unix/http/laravel_token_target_spec.rb",
+  "console": false,
+  "expected_examples": 9,
+  "health_timeout": 90,
+  "test_timeout": 600,
+  "modules": [
+    "exploit/unix/http/laravel_token_unserialize_exec"
+  ],
+  "ports": {
+    "target": 80
+  },
+  "support_files": [
+    "lib/msf/core/exploit/remote/http_client.rb",
+    "modules/payloads/singles/cmd/unix/generic.rb",
+    "test/module_targets/rsync_creds/native.rb",
+    "test/module_targets/laravel/commands.rb"
+  ]
+}

@@ -1,0 +1,21 @@
+services:
+  target:
+    image: metasploit-module-target-laravel-token:5.6.29
+    build: .
+    platform: linux/amd64
+    init: true
+    cpus: 1
+    mem_limit: 512m
+    memswap_limit: 512m
+    pids_limit: 128
+    environment:
+      APP_ENV: local
+      APP_DEBUG: "true"
+      APP_KEY: base64:MDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWY=
+    extra_hosts: ["host.docker.internal:host-gateway"]
+    ports: ["127.0.0.1::80"]
+    healthcheck:
+      test: [CMD, php, -r, "$$headers=@get_headers('http://127.0.0.1/index.php');exit(is_array($$headers)&&strpos($$headers[0],'200')!==false?0:1);"]
+      interval: 2s
+      timeout: 4s
+      retries: 30

@@ -33,6 +33,10 @@ module LaravelSessions
     { 'staged' => %w[TARGET PAYLOAD], 'fetch' => ['PAYLOAD'] }
   end
 
+  def session_owner_options(options)
+    options
+  end
+
   def session_fetch_path
     "/tmp/module-target-#{laravel_component}-fetch-#{Process.pid}"
   end
@@ -262,6 +266,7 @@ module LaravelSessions
       omitted = iteration.zero? ? session_default_options.fetch(family, []) : []
       select_defaults = omitted.any?
       options = options.except(*omitted)
+      options = session_owner_options(options)
       attempt = { family: family, owner: laravel_owner, payload: payload, iteration: iteration, select_defaults: select_defaults, options: options }
       @rc[:attempts] << attempt
       output = run_target_module(laravel_owner, 'target', options, action: 'run -z', reuse_module: iteration.positive?, allow_errors: true, command_timeout: 50)
