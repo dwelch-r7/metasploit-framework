@@ -1,0 +1,12 @@
+services:
+  target:
+    extends: {file: ../projectsend_rce/compose.yaml, service: target}
+    volumes:
+      - ./callback.php:/opt/module-target-projectsend-callback.php:ro
+      - ./process_state.php:/opt/module-target-projectsend-process.php:ro
+      - ../invoiceshelf/process_state.php:/opt/module-target-common-process.php:ro
+  database:
+    extends: {file: ../projectsend_rce/compose.yaml, service: database}
+  reporting_db:
+    extends: {file: ../gopher/compose.yaml, service: reporting_db}
+    ports: ["127.0.0.1::5432"]
