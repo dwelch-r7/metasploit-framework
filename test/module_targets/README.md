@@ -5,7 +5,19 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest module profile: [Node V8 debugger TCP/TLS sessions](VERIFICATION-20261121-nodejs-v8.md)
+Latest repair: [Node V8 check transport contracts](VERIFICATION-20261121-nodejs-v8-check.md)
+returns reason-bearing Unknown results for expected connection/read failures and
+attempts disconnect on every path. Identical corrected unit inputs go from
+36/17 to 36/0; the real profile now passes **6/0/0**, with its strict refused-port
+criterion preserved. A latent nested-matcher error is separately corrected and
+checked against real before/after captures and invalid-result controls. Twelve
+more native/owning sessions are used and closed across the two repair frames.
+The current passing set reaches **138 cases / 38 profiles / 435 inputs**, with
+73 retained ordinary sessions and 21 separate candidate-source sessions. All
+4 new/763 recorded Docker objects are absent and both contexts empty. The full
+inventory goal and untested default/bind/idle paths remain open.
+
+Previous module profile: [Node V8 debugger TCP/TLS sessions](VERIFICATION-20261121-nodejs-v8.md)
 uses one pinned Node 7.10.1 container capped at 128 MiB/0.5 CPU. Real protocol,
 native shell and callback gates precede four original owning sessions across TCP
 and TLS. All six sessions are used and closed, with UID1000 proof, PID/birth,

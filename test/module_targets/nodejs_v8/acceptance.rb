@@ -191,7 +191,7 @@ module NodejsV8Target
     server.close
     expect { TCPSocket.new('127.0.0.1', port) }.to raise_error(Errno::ECONNREFUSED)
     call = nv_call('refused-check', { 'RPORT' => port, 'ConnectTimeout' => 2 })
-    expect(call.fetch(:events).filter_map { |event| event['check'] }).to eq([include('code' => 'unknown', 'reason' => a_string_matching(/\S/))])
+    expect(call.fetch(:events).filter_map { |event| event['check'] }).to match([include('code' => 'unknown', 'reason' => a_string_matching(/\S/))])
   ensure
     server&.close unless server&.closed?
   end

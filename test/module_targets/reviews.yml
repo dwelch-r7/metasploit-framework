@@ -2,37 +2,38 @@
 ---
 modules:
   exploit/multi/misc/nodejs_v8_debugger:
-    source_sha256: cc88b32c25cac2a0ef3a3473b7db783916cdd32f8fcf38753ca44951f88e4573
+    source_sha256: acf8af4e97de97510feb6179be112525267c44d9b438fe80ed5909ac2dcce541
     disposition: container_lab
     lab_profiles:
-      nodejs_v8: [pinned_node_7_10_1, actual_legacy_v8_service, active_timer_program, uid1000, native_protocol_and_physical_unicode_controls, invalid_expression_negative, native_callback, actual_appears_same_selection, native_tcp_and_tls_shells, four_original_owner_shells, post_bootstrap_event_gate, exact_payload_and_protocol_bytes, pid_birth_and_parent, two_peer_shutdown, active_and_half_closed_socket_removal, foreign_file_preservation, refused_check_contract_failure]
+      nodejs_v8: [pinned_node_7_10_1, actual_legacy_v8_service, active_timer_program, uid1000, native_protocol_and_physical_unicode_controls, invalid_expression_negative, native_callback, actual_appears_same_selection, native_tcp_and_tls_shells, four_original_owner_shells, post_bootstrap_event_gate, exact_payload_and_protocol_bytes, pid_birth_and_parent, two_peer_shutdown, active_and_half_closed_socket_removal, foreign_file_preservation, historical_refused_check_contract_failure, reason_bearing_refused_unknown, expected_check_error_cleanup, composable_oracle_capture_controls]
     reason: >-
-      One official pinned linux/amd64 Node 7.10.1 image runs an ordinary timer
-      program with its actual legacy V8 debugger enabled. Independent native
-      version/evaluation, plain and quoted Unicode/CRLF physical writes, an
-      invalid-expression negative and UID1000 callback precede owner tests.
-      Stock TCP and TLS payload controls then gate two original owning sessions
-      per family. Six real shells are used and closed; PID/birth, UID/file bytes,
-      actual post-bootstrap events, parent identities and empty jobs/sessions
-      verify. FIN_WAIT2 after remote shell exit is retained before Framework
-      peer closure; native wrappers and all active callback sockets then vanish.
-      Both owner calls reuse one selection per family and actual message bytes
-      match stock generated payloads. Main program identity and the foreign file
-      preserve. Two complete frames retain twelve used/closed sessions, including
-      eight original owning calls. Final result is 6/1/0 in 137.44 seconds with no outside-example
-      errors: refused-port checking reports Rex::ConnectionRefused/undetermined
-      instead of returning a reason-bearing CheckCode. That strict failure
-      remains enabled. Four earlier selector, payload-prefix, bootstrap-race and
-      peer-close-order harness frames are separately retained. Production module
-      and shared helpers remain unchanged. Four cgroup captures are zero; one
-      container is capped at 128 MiB/0.5 CPU and removed immediately. All 759
-      recorded objects are absent in both contexts. Current inputs reach 434,
-      ordinary used/closed sessions 61 and separate candidate-source sessions 21;
-      the wholly passing set stays 132 cases/37 profiles. Default generic payload,
-      bind payload, idle REPL, other releases and Windows/macOS remain open.
-      No session database is claimed. Six inherited documentation warnings and
-      one informational missing-Options message are identical to baseline;
-      human Scenarios stay byte-identical. See VERIFICATION-20261121-nodejs-v8.md.
+      The repaired check passes the real pinned Node 7.10.1 profile 6/0/0 in
+      139.91 seconds, including strict reason-bearing Unknown on refused ports.
+      Only the production check method changes: expected connection/read errors
+      return Unknown, disconnect is attempted in ensure, diagnostics retain
+      exceptions, and unexpected programming errors/interrupts remain visible.
+      Corrected identical unit inputs reproduce 36/17 then pass 36/0. An initial
+      ModuleDataStore fixture error and concurrent constants-log startup race
+      are retained separately. The first repaired native frame returns correct
+      Unknown while its old nested eq matcher still fails; the composable match
+      preserves classification, nonempty reason and exact result count. Actual
+      before/after captures and wrong-code/blank/nil/duplicate controls verify
+      this correction. Two repair frames retain twelve more used/closed sessions,
+      including eight original owning calls. Native protocol/physical controls,
+      post-bootstrap readiness, exact payload/message bytes, repeated selection,
+      PID/birth, two-peer closure and main program/foreign-file preservation
+      still verify across TCP and TLS. Four final cgroup captures are zero.
+      One 128 MiB/0.5 CPU container runs at a time and is removed immediately;
+      all 763 recorded objects are absent in both contexts. Current passing
+      qualification reaches 138 cases/38 profiles/435 inputs, with 73 ordinary
+      used/closed and 21 separate candidate-source sessions. Ten Ruby offenses
+      are inherited, down from thirteen; no new offenses. Module tidy exits 0
+      with its existing no-CVE informational message. Six documentation warnings
+      and one informational missing-Options message are unchanged; human
+      Scenarios remain byte-identical. Default generic/bind/idle, further
+      releases/platforms, non-ASCII owner framing and session database reporting
+      remain unqualified. See VERIFICATION-20261121-nodejs-v8-check.md and the
+      original VERIFICATION-20261121-nodejs-v8.md; full inventory scope remains.
   exploit/multi/http/apache_commons_text4shell:
     source_sha256: f19e1259785df35a5c20a63f534504d31138f0adb450f94e3109951b70c8b235
     disposition: container_lab

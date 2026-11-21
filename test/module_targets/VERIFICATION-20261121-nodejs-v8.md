@@ -1,5 +1,9 @@
 # Node V8 debugger native-gated TCP/TLS sessions
 
+This report preserves the original module and its failing check. See the
+[later repair](VERIFICATION-20261121-nodejs-v8-check.md) for the source correction
+and the separate assertion fix.
+
 Date: 2026-11-21. The new profile exercises the original
 `exploit/multi/misc/nodejs_v8_debugger` against the actual Node 7.10.1 legacy
 debugger. All six native/owning TCP and TLS shells are used and closed. The
