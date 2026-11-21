@@ -247,13 +247,13 @@ module ProjectsendSessions
       @rc[:attempts] << call
       run_target_module(OWNER, 'target', options, action: 'run -z', reuse_module: index.positive?, allow_errors: true, command_timeout: 75) do |output|
         call[:output] = output
-        call[:selection] = rc_json('{object:active_module.object_id,target:active_module.datastore["TARGET"],target_name:active_module.target.name,payload:active_module.datastore["PAYLOAD"]}')
+        call[:selection] = rc_json('{object:active_module.object_id,raw_target:active_module.datastore["TARGET"],target:active_module.target_index,target_name:active_module.target.name,payload:active_module.datastore["PAYLOAD"]}')
         call[:events] = rc_json("framework.instance_variable_get(:@projectsend_rce_events).drop(#{offset})")
         call[:actual_state] = pr_native('state')
         rc_save
       end
       expect(call.fetch(:output)).not_to include('Exploit failed', 'Exploit aborted')
-      expect([0, '0']).to include(call.fetch(:selection).fetch('target'))
+      expect(call.fetch(:selection).fetch('target')).to eq(0)
       expect(call.fetch(:selection).values_at('target_name', 'payload')).to eq(['PHP Command', 'php/meterpreter/reverse_tcp'])
       expect(call.fetch(:selection).fetch('object')).to eq(@rc.fetch(:calls).first.fetch(:selection).fetch('object'))
       original = call.fetch(:events).select { |row| row['event'] == 'call' && row['method'] == 'exploit' && File.realpath(row.fetch('source')) == File.realpath('modules/exploits/linux/http/projectsend_unauth_rce.rb') }

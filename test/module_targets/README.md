@@ -5,7 +5,18 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest boundary validation: [Salt REST API fixed releases](VERIFICATION-20261121-salt-api-fixed.md)
+Latest investigation: [PHP source consumers and ProjectSend registration](VERIFICATION-20261121-php-source-consumer.md)
+adds reproducible opt-in original/candidate source comparisons. The ordinary
+bundle remains **4/1/2** with owners withheld. The candidate's maintained frame
+has **4/2/0** and three used/closed sessions; real native controls confirm a
+generated-username rejection, while an earlier four-session frame retains the
+six-option preservation defect. Nine source-variant sessions stay separate from
+the ordinary **117 cases / 34 profiles / 47 sessions**. The ledger has 394 current
+inputs. All 30 new/694 recorded Docker objects are absent; both contexts are
+globally empty. At most three capped services run serially. No PR; the broader
+goal remains active.
+
+Previous boundary validation: [Salt REST API fixed releases](VERIFICATION-20261121-salt-api-fixed.md)
 adds a passing **3/0/0** profile for Salt 3000.5 and retains **3/2/0** on 3000.4:
 its auth-only positive check permits an ineffective command-injection exploit
 after that prerequisite is fixed. Real native authentication, token types and

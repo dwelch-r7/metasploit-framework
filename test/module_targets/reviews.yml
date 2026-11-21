@@ -33,6 +33,8 @@ modules:
       projectsend: [check_only, pinned_r1605_ls199, real_http_installer, native_php_uid1000, exact_api_title_recovery, all_134_options, encoded_title, same_selection_repeat, refused_port_unknown, exploit_cleanup_gate, factory_restore]
       projectsend_rce: [native_stock_php_exec, native_registration_login, specific_extension_denial, exact_api_upload_and_execution, original_command_delivery, quoted_unicode_crlf, autocheck_on_off, same_selection_repeat, raw_payload_and_multipart, physical_and_portal_cleanup, preserved_existing_user_fields, six_option_preservation_failure, created_clients_retained, explicit_fixture_recovery]
       projectsend_sessions: [native_callback_uid1000, real_session_database, ordinary_stock_bootstrap_failure, owner_withheld, diagnostic_cli_and_web_sessions_only, fpm_worker_ancestry, callback_inode_closure, manifest_integrity, original_split_tcp_retirement_probe, native_fixture_recovery]
+      projectsend_sessions_control: [explicit_unmodified_source_override, actual_reader_and_generator, debug_disabled, native_bootstrap_failure, owner_withheld, full_gem_integrity, override_removed]
+      projectsend_sessions_candidate: [explicit_source_patch, native_cli_and_web_sessions, actual_default_owner_session, generated_username_rejection, dependent_owner_assertion_failure, strict_preservation_retained, full_gem_integrity, override_removed]
     reason: >-
       Three check-only examples pass after independent installation/PHP/API
       gates. The original check changed ten option names, including client
@@ -86,6 +88,17 @@ modules:
       One context-restoration harness fault is fixed and separately retained.
       No production code or shared gem is patched. See
       VERIFICATION-20261121-projectsend-sessions.md.
+      Opt-in source comparisons retain the normal installed-bundle failure.
+      The maintained candidate frame has 4/2/0 with three used/closed sessions;
+      an earlier private candidate has four sessions and the six-option
+      preservation failure. The second final owner generates an underscore
+      username rejected by the original backend, yet prints creation success.
+      A native same-fields dotted-username control proves account persistence
+      and genuine login; a post-persistence HTTP 500 remains unexplained.
+      Nine source-variant sessions do not add ordinary qualification totals.
+      A two-line harness correction observes effective target_index without
+      forcing the target or payload. No production module or shared gem changes.
+      See VERIFICATION-20261121-php-source-consumer.md; failures stay enabled.
   exploit/multi/http/dizquetv_rce:
     source_sha256: f40ce29d339e63031c6a4ca268ed205602054e7205882f1bb2e17b54b83b2dcc
     disposition: container_lab
