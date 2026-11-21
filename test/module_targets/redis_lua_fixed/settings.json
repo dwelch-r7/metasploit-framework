@@ -1,0 +1,7 @@
+{
+  "authenticated": true,
+  "vulnerable": false,
+  "version": "6.0.16",
+  "package": "5:6.0.16-1ubuntu1",
+  "binary_sha256": "5b32bead561165a61526914a7c5bd297ac42726bc0d52f5efc8bb604e4e406ef"
+}

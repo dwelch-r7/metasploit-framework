@@ -5,7 +5,23 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest repair: [Node V8 check transport contracts](VERIFICATION-20261121-nodejs-v8-check.md)
+Latest qualification: [Redis Lua package and session regressions](VERIFICATION-20261121-redis-lua.md)
+adds three pinned affected/authenticated, affected/open and patched-package
+profiles. Real CLI/Lua/physical controls precede owning checks, exact command
+bytes and default Bash sessions. Original profiles retain **24/5/0**; repaired
+profiles pass **24/0/0**, and combined root units pass **49/0**. A remembered
+payload selection and an early readiness flag are diagnosed separately; strict
+criteria remain enabled. Thirteen more sessions are used/closed across retained
+frames, including eight original owner sessions. The current passing set reaches
+**162 cases / 41 profiles / 457 inputs**, with 86 ordinary and 21 separate
+candidate-source sessions. All 18 new/781 recorded Docker objects are absent;
+both contexts are empty and callback ports closed. Profiles use one capped
+128 MiB/0.5 CPU service at a time; two unused automatic agent-startup helpers were
+removed promptly. Two inherited default-payload lint offenses remain; module docs
+pass and human Scenarios are unchanged. Dropper, other auth/runtime paths and the
+full valuable feasible-module inventory remain open. No PR.
+
+Previous repair: [Node V8 check transport contracts](VERIFICATION-20261121-nodejs-v8-check.md)
 returns reason-bearing Unknown results for expected connection/read failures and
 attempts disconnect on every path. Identical corrected unit inputs go from
 36/17 to 36/0; the real profile now passes **6/0/0**, with its strict refused-port

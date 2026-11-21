@@ -1,0 +1,7 @@
+{
+  "authenticated": false,
+  "vulnerable": true,
+  "version": "6.0.11",
+  "package": "5:6.0.11-1",
+  "binary_sha256": "1cb8f4858403452f867039cccb6cc39f6be6640927f0bfb8b8734f03d515a8a9"
+}

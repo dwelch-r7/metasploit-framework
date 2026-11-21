@@ -1,0 +1,25 @@
+services:
+  target:
+    image: ubuntu/redis@sha256:87f8d34dc0ae79bc3019b91bd008098d3b820e7e395e1e603f92b82ce5ce5f04
+    platform: linux/amd64
+    entrypoint: [sh, /opt/module-target-redis/start.sh]
+    init: true
+    user: '101:101'
+    read_only: true
+    cpus: 0.5
+    mem_limit: 128m
+    memswap_limit: 128m
+    pids_limit: 64
+    environment:
+      REDIS_LAB_PASSWORD: module-target-redis-password
+    volumes: ['./:/opt/module-target-redis:ro']
+    tmpfs:
+      - /tmp:rw,exec,nosuid,nodev,size=16m,mode=1777
+      - /data:rw,nosuid,nodev,size=1m,mode=1777
+    ports: ['127.0.0.1::6379']
+    extra_hosts: ['host.docker.internal:host-gateway']
+    healthcheck:
+      test: [CMD-SHELL, 'redis-cli --no-auth-warning -a "$$REDIS_LAB_PASSWORD" PING | grep -qx PONG']
+      interval: 2s
+      timeout: 2s
+      retries: 20

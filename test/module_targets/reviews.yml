@@ -1,6 +1,43 @@
 # Individual source-reviewed target requirements; these are not blanket exclusions.
 ---
 modules:
+  exploit/linux/redis/redis_debian_sandbox_escape:
+    source_sha256: 7f514b48e5685518b6bb2740abfbf64e0ea2015601a276f6750b76ac9d671e6a
+    disposition: container_lab
+    lab_profiles:
+      redis_lua: [pinned_ubuntu_6_0_11_package, uid101, actual_dynamic_lua, native_shell_and_exact_lua_controls, password_authentication, incorrect_credential_recovery, repeated_checks, native_and_default_bash_sessions, repeated_plain_and_quoted_unicode_crlf_commands, autocheck_on_off, missing_library_recovery, reason_bearing_refused_unknown, original_process_and_config_and_serialized_databases_preserved]
+      redis_lua_open: [same_affected_package, no_authentication, configured_password_ignored, identical_native_gates, native_and_default_bash_sessions, same_selection_repeats, exact_command_bytes, process_socket_file_and_key_preservation]
+      redis_lua_fixed: [pinned_ubuntu_6_0_16_package, native_shell_and_lua_arithmetic_positive, package_lookup_blocked, no_native_command_proof, actual_safe_checks, repeated_autocheck_refusal, exploit_body_withheld, reason_bearing_refused_unknown, preservation]
+    reason: >-
+      Three repaired native-gated profiles pass 24/0/0 after original 24/5/0.
+      Actual package and binary/library hashes, Redis authentication, stock
+      shell and same-command Lua controls separate setup from module behavior.
+      Original inline quoting fails rich commands despite native success;
+      binary operands through the existing RESP builder preserve command bytes
+      without changing the shared serializer. Expected check failures now return
+      reason-bearing Unknown and disconnect preserves unexpected faults and
+      interrupts. Identical source-level regressions go 45/24 to 45/0; root owner
+      and readiness units pass 49/0. Initial remembered generic-payload selection
+      was a harness fault; default sessions now run before overrides. Early
+      readiness is independently corrected 11/3 to 11/0, withholding owners after
+      resource/preservation failure or failed requalification. A missing runtime
+      stub in the first guard unit fixture is retained separately. Thirteen
+      additional real sessions are used/closed across retained frames, including
+      eight original owner calls. Actual post-bootstrap responses, UID 101 file
+      bytes, PID/birth and callback closure verify. Entire Redis configuration,
+      serialized databases 0/2 keys and foreign file preserve. All 28 fresh cgroup
+      captures are zero. One 128 MiB/0.5 CPU target runs at a time; two unused
+      automatic agent-startup helpers are removed promptly. All 781 recorded
+      Docker objects are absent and both contexts empty. Current passing
+      qualification reaches 162 cases / 41 profiles / 457 inputs, 86 ordinary and 21 separate
+      candidate-source sessions. Two default-payload offenses are inherited;
+      source tidy exits 2 for those, docs tidy exits 0, and 5,923 human Scenario bytes
+      preserve. Source targets/defaults and exploit dispatch remain unchanged.
+      Missing-library and nil-command-response Safe classifications are retained
+      behavior, not proof that all such targets are unaffected. Dropper/wget,
+      other payloads/releases/architectures, TLS/ACL users, non-ASCII AUTH through
+      the existing mixin, systemd restrictions and reporting remain open. See
+      VERIFICATION-20261121-redis-lua.md; full inventory scope remains active.
   exploit/multi/misc/nodejs_v8_debugger:
     source_sha256: acf8af4e97de97510feb6179be112525267c44d9b438fe80ed5909ac2dcce541
     disposition: container_lab
