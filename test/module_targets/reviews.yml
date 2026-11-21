@@ -7,19 +7,21 @@ modules:
     lab_profiles:
       ollama_rce: [pinned_0_1_33, native_loader, ordinary_oci, physical_traversal, api_runner_identity, actual_check, exact_commands, repeat, fixture_recovery]
       ollama_rce_fixed: [pinned_0_1_34, native_loader, ordinary_oci, physical_denial, actual_safe, repeated_autocheck_refusal, fixture_recovery]
+      ollama_sessions: [native_runner, stock_x64_elf, default_meterpreter, same_selection_repeat, exact_library_bytes, automatic_filedropper, pid_birth_socket, original_sql_closure, process_reset]
     reason: >-
-      Seven maintained cases pass after independent native loader and genuine
-      Ollama OCI/runner controls. Two actual linux/x64/exec commands preserve
-      quotes, backslash, Unicode and CRLF on one selected module. Physical
-      libraries equal the original Metasm generator bytes; armed preload is
-      observed without launching helper processes. Fixed positive controls,
-      traversal denial, actual Safe and repeated refusal pass. Twelve fresh
-      cgroup captures are zero; all 204 current declared inputs reconcile and
-      all 18 new/467 recorded Docker objects are absent, with global containers
-      zero. One capped container runs at a time. Harness failures are retained
-      separately; production source is unchanged. Default Meterpreter sessions,
-      automatic FileDropper cleanup, other releases, nonroot deployments and
-      alternative model directories remain unqualified. See
+      Nine maintained cases across three profiles cover real checks, command
+      execution, repeated patched refusal and default Linuxx64Meterpreter. An
+      independent stock ELF and both owner sessions are used and closed; exact
+      generated/physical libraries, normal AllowNoCleanup=false cleanup, original
+      SQL row closure and full process/source-listener reset pass. The constructor
+      already removes preload, whose absent name remains in FileDropper's retry
+      list; physical absence is verified separately. The current campaign set's
+      214 inputs reconcile and 116 cgroup captures are zero. All 476 recorded Docker
+      objects are absent, with global containers zero and at most two capped
+      services serially. Harness timeout/oracle failures remain separately
+      retained; production source is unchanged. Other payload families, releases,
+      nonroot deployments and alternative model directories remain unqualified.
+      See VERIFICATION-20261121-ollama-sessions.md and
       VERIFICATION-20261121-ollama-rce.md.
   exploit/multi/http/apache_apisix_api_default_token_rce:
     source_sha256: 2ad0a220e70c0a01e9310960140fa5412d8b2fc12f9bcef558474d7f7115f4cc

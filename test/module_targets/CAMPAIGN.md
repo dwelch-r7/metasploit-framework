@@ -1559,3 +1559,16 @@ including a globally empty stopped/running inventory. Default Meterpreter and
 automatic FileDropper cleanup remain unqualified. Production source is unchanged.
 See [the verification report](VERIFICATION-20261121-ollama-rce.md). No PR;
 the broader inventory goal remains active.
+
+Ollama's separate default-session profile adds two qualified cases and three
+used/closed Meterpreter sessions. Independent native runner and stock ELF
+readiness precede two actual owner sessions with normal FileDropper library
+cleanup. Exact bytes, UID/PID/birth/socket ownership, original SQL row closure,
+same-selection repeat and full process/source-listener reset pass. The absent
+preload pathname remains in FileDropper's retry list; physical absence is
+verified separately. Timeout/oracle failures are retained without inferring a
+production fault. All 214 current inputs reconcile, 116 current cgroup captures
+are zero, and all nine new/476 recorded Docker objects are absent with global
+containers zero. Coverage is 323 owners in stated paths, 689 profiles and 4,837
+historical cases. See [the report](VERIFICATION-20261121-ollama-sessions.md).
+No production source change or PR; the broader goal remains active.

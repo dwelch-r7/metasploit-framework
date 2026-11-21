@@ -5,7 +5,20 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest qualification: [Ollama native-gated registry RCE](VERIFICATION-20261121-ollama-rce.md)
+Latest qualification: [Ollama default Meterpreter and automatic cleanup](VERIFICATION-20261121-ollama-sessions.md)
+adds one profile with **2/0/0** and three fully used/closed Meterpreter sessions,
+including two actual owner runs on one selection. Independent stock ELF and
+native runner controls, exact generated/physical library bytes, normal
+`AllowNoCleanup=false` FileDropper removal, original SQL row closure and full
+process reset pass. Coverage reaches **323 owners in stated paths, 689 profiles
+and 4,837 historical cases**. The latest nineteen profiles have **62 cases**,
+twenty-five used/closed sessions, 214 declared inputs and 116 zero cgroup captures.
+All nine new and 476 recorded Docker objects are absent; the global container
+inventory is empty. At most two capped containers run serially. Failed setup
+and oracle frames remain separate from module verdicts. Production source is
+unchanged; no PR. The broader inventory goal stays active.
+
+Previous qualification: [Ollama native-gated registry RCE](VERIFICATION-20261121-ollama-rce.md)
 adds two profiles with **7/0/0**, including independently proven native runner
 execution, two real command executions on one selected module and repeated
 patched-version refusal. Coverage reaches **323 owners in stated runtime paths,
@@ -13,7 +26,7 @@ patched-version refusal. Coverage reaches **323 owners in stated runtime paths,
 **60 cases**, twenty-two used/closed sessions, 204 declared inputs and 100 zero
 cgroup captures. All 18 new and 467 recorded Docker objects are absent; the full
 global container inventory is empty. Each new stack uses one capped container.
-Default Meterpreter sessions and automatic library cleanup remain unqualified.
+Those command/fixed profiles cover no default sessions or automatic library cleanup.
 Production source is unchanged; no PR. The broader inventory goal stays active.
 
 Previous investigation: [TorchServe session readiness](VERIFICATION-20261121-torchserve-sessions.md)
