@@ -5,7 +5,19 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest qualification: [Commons Text checks and command delivery](VERIFICATION-20261121-text4shell.md)
+Latest partial repair: [ProjectSend registration and option prevention](VERIFICATION-20261121-projectsend-registration.md)
+verifies valid Faker registration and honest success reporting through actual
+commands and default candidate-source sessions. Five unintended option mutations
+are prevented; strict command/session preservation profiles still fail on the
+deletion-permission reset. Four real command executions, two ordinary native
+sessions and eight source-variant sessions are retained separately. A stock owner
+timeout and cascading harness errors remain recorded. The passing set stays
+**132 cases / 37 profiles**, with 412 current inputs and 49 retained ordinary
+sessions; 17 candidate-source sessions remain separate. All 26 new/735 recorded
+Docker objects are absent and both contexts empty. At most three capped services
+run serially. r1295 inspection is static only. No PR; the broader goal stays active.
+
+Previous qualification: [Commons Text checks and command delivery](VERIFICATION-20261121-text4shell.md)
 adds three pinned original GET, explicit POST and fixed-library profiles with
 **15/0/0** and four real owning command executions. Native shell/Nashorn and
 interpolator/HTTP controls distinguish execution from a disabled lookup. A cold

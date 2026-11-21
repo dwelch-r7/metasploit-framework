@@ -53,14 +53,14 @@ modules:
       Default sessions, dropper and other branches remain pending. See
       VERIFICATION-20261121-salt-api-fixed.md; the failing profile stays enabled.
   exploit/linux/http/projectsend_unauth_rce:
-    source_sha256: 6eb96c4110fa0a780948ebe196fbc14569766dfb88e63a093e8301ff471a3ce9
+    source_sha256: 2eba08bfb82a3ebcdca20aec942fef618e2edbdae9f1937529e69e599181f736
     disposition: container_lab
     lab_profiles:
       projectsend: [check_only, pinned_r1605_ls199, real_http_installer, native_php_uid1000, exact_api_title_recovery, all_134_options, encoded_title, same_selection_repeat, refused_port_unknown, exploit_cleanup_gate, factory_restore]
-      projectsend_rce: [native_stock_php_exec, native_registration_login, specific_extension_denial, exact_api_upload_and_execution, original_command_delivery, quoted_unicode_crlf, autocheck_on_off, same_selection_repeat, raw_payload_and_multipart, physical_and_portal_cleanup, preserved_existing_user_fields, six_option_preservation_failure, created_clients_retained, explicit_fixture_recovery]
-      projectsend_sessions: [native_callback_uid1000, real_session_database, ordinary_stock_bootstrap_failure, owner_withheld, diagnostic_cli_and_web_sessions_only, fpm_worker_ancestry, callback_inode_closure, manifest_integrity, original_split_tcp_retirement_probe, native_fixture_recovery]
+      projectsend_rce: [native_stock_php_exec, native_registration_login, specific_extension_denial, exact_api_upload_and_execution, original_command_delivery, quoted_unicode_crlf, autocheck_on_off, same_selection_repeat, raw_payload_and_multipart, physical_and_portal_cleanup, preserved_existing_user_fields, five_option_mutations_prevented, deletion_permission_still_changes, created_clients_retained, explicit_fixture_recovery]
+      projectsend_sessions: [native_callback_uid1000, real_session_database, earlier_ordinary_bootstrap_failure, later_stock_cli_and_web_sessions, owner_timeout_and_console_cascade, fpm_worker_ancestry, callback_inode_closure, manifest_integrity, original_split_tcp_retirement_probe, native_fixture_recovery]
       projectsend_sessions_control: [explicit_unmodified_source_override, actual_reader_and_generator, debug_disabled, native_bootstrap_failure, owner_withheld, full_gem_integrity, override_removed]
-      projectsend_sessions_candidate: [explicit_source_patch, native_cli_and_web_sessions, actual_default_owner_session, generated_username_rejection, dependent_owner_assertion_failure, strict_preservation_retained, full_gem_integrity, override_removed]
+      projectsend_sessions_candidate: [explicit_source_patch, native_cli_and_web_sessions, actual_default_owner_sessions, constrained_faker_registration, verified_login_before_creation_report, one_upload_login_and_one_cleanup_login, strict_deletion_preservation_failure, full_gem_integrity, override_removed]
     reason: >-
       Three check-only examples pass after independent installation/PHP/API
       gates. The original check changed ten option names, including client
@@ -125,6 +125,21 @@ modules:
       A two-line harness correction observes effective target_index without
       forcing the target or payload. No production module or shared gem changes.
       See VERIFICATION-20261121-php-source-consumer.md; failures stay enabled.
+      The current registration/partial-prevention replay supersedes those
+      historical source results. Check3/0, command3/1 and candidate-session4/1
+      retain exact controls and full-table expectations. Two commands and four
+      real candidate sessions work with valid generated clients and verified
+      login before creation reporting. Five unwanted row changes are prevented;
+      deletion permission still changes1to0 and general original registration/
+      security restoration remains unresolved. A registration-only stock frame
+      uses/closes two native sessions, then its owner times out and console
+      recovery cascades into a dependent failure and an outside-example error.
+      The actual uploaded URL was requested and its PHP file self-unlinked;
+      no stock owner is qualified and exact wire cause is unproven. Native
+      replay covers r1605; pinned r1295 inspection is source-only. Current
+      parent units pass61/0, with only inherited default-payload lint. All735
+      recorded objects are absent, both contexts empty and callback ports closed.
+      See VERIFICATION-20261121-projectsend-registration.md; partial means partial.
   exploit/multi/http/dizquetv_rce:
     source_sha256: f40ce29d339e63031c6a4ca268ed205602054e7205882f1bb2e17b54b83b2dcc
     disposition: container_lab
