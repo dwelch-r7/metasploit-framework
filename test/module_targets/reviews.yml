@@ -6,6 +6,7 @@ modules:
     disposition: container_lab
     lab_profiles:
       opendcim: [pinned_24_01, native_svg, native_stacked_sql, exact_native_command_controls, actual_timed_check, refused_port, quoted_unicode_crlf, same_selection_repeat, base_path, full_config_restore, backup_table_cleanup]
+      opendcim_sessions: [native_stock_bash, uid33_callback, actual_shell, autocheck_on_off, same_selection_repeat, exact_file_proof, pid_birth_connection_closure, original_sql_closure, full_config_restore]
     reason: >-
       Six maintained cases pass on the official 24.01 image with MariaDB
       10.11.9 and SetEnv REMOTE_USER=dcim. Each exact command first works through
@@ -18,11 +19,18 @@ modules:
       hex literal using Rex::Text repairs that transport without changing command
       bytes. The original 6/1 frame and harness-only failures remain separate.
       Seven source fingerprints and the actual installer remain unchanged.
-      The current set has 261 inputs and 140 zero cgroup captures. All 531 recorded
-      Docker objects are absent with global containers zero and at most two
-      capped services serially. Sessions, dropper architectures, authentication
-      variants, other releases and patched behavior remain unqualified.
-      See VERIFICATION-20261121-opendcim.md.
+      Three additional session cases use and close an independent stock Bash
+      session and two actual target-0 sessions, with AutoCheck enabled then
+      disabled on the same selection. Exact UID33 proof, PID/birth disappearance,
+      callback closure, original reporting-row closure and full configuration
+      preservation pass. The stock image lacks curl and wget; default fetch
+      remains a prerequisite gap. The current set has 270 inputs and 152 zero
+      cgroup captures. All 544 recorded Docker objects are absent with global
+      containers zero. Serial session qualification uses three capped services,
+      including a 128 MiB reporting database under the user's resource allowance.
+      Dropper architectures, authentication variants, other releases and patched
+      behavior remain unqualified. See VERIFICATION-20261121-opendcim.md and
+      VERIFICATION-20261121-opendcim-sessions.md.
   exploit/multi/http/n8n_workflow_expression_rce:
     source_sha256: 743994f7158a719692f50c047a4f94d79f2d9c66261aee9276912a159a9698fd
     disposition: container_lab

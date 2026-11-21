@@ -1,0 +1,52 @@
+{
+  "spec": "spec/modules/exploits/linux/http/opendcim_sessions_target_spec.rb",
+  "console": false,
+  "expected_examples": 3,
+  "health_timeout": 180,
+  "test_timeout": 480,
+  "modules": [
+    "exploit/linux/http/opendcim_install_sqli_rce"
+  ],
+  "ports": {
+    "target": 80,
+    "reporting_db": 5432
+  },
+  "support_files": [
+    "Gemfile.lock",
+    "lib/msf/base/sessions/command_shell.rb",
+    "lib/msf/base/sessions/command_shell_options.rb",
+    "lib/msf/base/sessions/command_shell_unix.rb",
+    "lib/msf/base/sessions/unix_escaping.rb",
+    "lib/msf/core/db_manager/session.rb",
+    "lib/msf/core/exploit.rb",
+    "lib/msf/core/exploit/cmd_stager.rb",
+    "lib/msf/core/exploit/remote/auto_check.rb",
+    "lib/msf/core/exploit/remote/http_client.rb",
+    "lib/msf/core/exploit/retry.rb",
+    "lib/msf/core/handler/none.rb",
+    "lib/msf/core/handler/reverse_tcp.rb",
+    "lib/msf/core/session/provider/single_command_shell.rb",
+    "lib/msf/core/session_manager.rb",
+    "lib/msf/ui/console/command_dispatcher/exploit.rb",
+    "lib/rex/proto/http/client_request.rb",
+    "lib/rex/proto/http/packet.rb",
+    "modules/exploits/multi/handler.rb",
+    "modules/payloads/singles/cmd/unix/generic.rb",
+    "modules/payloads/singles/cmd/unix/reverse_bash.rb",
+    "test/module_targets/druid_sessions/session_control.rb",
+    "test/module_targets/gopher/compose.yaml",
+    "test/module_targets/invoiceshelf/callback.php",
+    "test/module_targets/invoiceshelf/process_state.php",
+    "test/module_targets/laravel/commands.rb",
+    "test/module_targets/laravel/session_control.rb",
+    "test/module_targets/laravel/sessions.rb",
+    "test/module_targets/opendcim/acceptance.rb",
+    "test/module_targets/opendcim/apache.conf",
+    "test/module_targets/opendcim/compose.yaml",
+    "test/module_targets/opendcim/native.php",
+    "test/module_targets/opendcim/native_probe.py",
+    "test/module_targets/opendcim/observe.rb",
+    "test/module_targets/opendcim/vendor.json",
+    "test/module_targets/rsync_creds/native.rb"
+  ]
+}

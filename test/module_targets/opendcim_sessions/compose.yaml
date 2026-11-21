@@ -1,0 +1,11 @@
+services:
+  target:
+    extends: {file: ../opendcim/compose.yaml, service: target}
+    volumes:
+      - ../invoiceshelf/callback.php:/opt/module-target-callback.php:ro
+      - ../invoiceshelf/process_state.php:/opt/module-target-process_state.php:ro
+  database:
+    extends: {file: ../opendcim/compose.yaml, service: database}
+  reporting_db:
+    extends: {file: ../gopher/compose.yaml, service: reporting_db}
+    ports: ["127.0.0.1::5432"]

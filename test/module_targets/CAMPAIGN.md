@@ -16,8 +16,11 @@ the author's Framework fork without creating a pull request.
 The current campaign runs one test Compose project at a time, normally with at
 most two running capped containers including Framework and helpers. Builds, native smoke
 projects and cold console starts share the same serial queue. Confirm the prior
-project is down before starting another. Larger profiles must be split into
-sequential releases/scenarios or remain queued; the resource limit is not evidence
+project is down before starting another. The user's subsequent authorization to
+use more resources permits an active profile's required third service, such as
+the capped 128 MiB reporting database beside openDCIM and MariaDB. Record that
+exception and tear it down with the same phase. Other larger profiles must be
+split into sequential releases/scenarios or remain queued; the resource limit is not evidence
 that their modules are infeasible or broken. Apply the ownership and cleanup
 rule below; unrelated containers require separate explicit cleanup authorization.
 
@@ -1618,3 +1621,19 @@ objects are absent, global containers are zero and capped stacks remain serial
 with at most two containers. No new sessions are counted; sessions/dropper/auth
 variants and other releases remain unqualified. See
 [the report](VERIFICATION-20261121-opendcim.md). No PR; the broad goal stays active.
+
+The separate openDCIM Bash session profile adds three qualified cases and three
+used/closed shell sessions. Stock-image tools and a native stock-handler session
+gate two actual target-0 sessions with AutoCheck on/off and a same-selection
+repeat. UID-33 exact-file proof, PID/birth disappearance, callback/reporting-row
+closure and all 145 configuration rows verify. The first draft's cross-example
+state-sharing error is retained as a harness failure before payload execution.
+Default fetch remains a prerequisite gap because curl and wget are absent.
+The latest set has 81 cases, 31 used/closed sessions, 270 current inputs and 152
+zero cgroup captures; historical coverage is 325 owners in stated paths, 694
+profiles and 4,856 cases. All 13 new/544 recorded Docker objects are absent and
+both local contexts finish globally empty. The required third service is a
+128 MiB reporting database under the user's additional-resource authorization;
+stacks remain serial and fully capped. Dropper/auth/release variants remain
+unqualified. See [the report](VERIFICATION-20261121-opendcim-sessions.md).
+No production source change or PR; the broad goal remains active.
