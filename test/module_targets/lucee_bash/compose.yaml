@@ -1,0 +1,12 @@
+{
+  "services": {
+    "target": {
+      "extends": { "file": "../lucee/compose.yaml", "service": "target" },
+      "volumes": ["../freeswitch_sessions/process_state.pl:/opt/module-target-process-state.pl:ro"]
+    },
+    "reporting_db": {
+      "extends": { "file": "../gopher/compose.yaml", "service": "reporting_db" },
+      "ports": ["127.0.0.1::5432"]
+    }
+  }
+}

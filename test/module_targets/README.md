@@ -5,7 +5,23 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest: [Lucee genuine fixed-release controls](VERIFICATION-20261121-lucee-fixed.md)
+Latest: [Lucee default Bash sessions and automatic cleanup](VERIFICATION-20261121-lucee-sessions.md)
+adds one profile with **2/0**, reaching **321 runtime owners, 682 qualified
+profiles and 4,819 historical functional cases**. Three fresh real sessions are
+used and closed, including two owner sessions with automatic FileDropper source
+and directory removal at the normal `AllowNoCleanup=false` default. Independent
+stock payload readiness, effective console selection, same-selection repeat,
+exact physical source/proof bytes, PID birth/socket ownership, original SQL
+row closure and full process-set restoration pass. Eleven retained profiles
+bring the latest set to **44 qualified cases and sixteen used/closed sessions**.
+All 141 current declared inputs and 64 qualified zero resource captures reconcile.
+All ten new and 415 recorded Docker objects are absent; the full global container
+inventory is empty. At most two capped containers run together. The raw-TARGET
+setup failure and initial passing frame remain retained. Production source is
+unchanged; Linux dropper and scheduled-session variants remain unqualified.
+No PR; the broader inventory goal stays active.
+
+Previous: [Lucee genuine fixed-release controls](VERIFICATION-20261121-lucee-fixed.md)
 adds one profile with **3/0**, reaching **321 runtime owners, 681 qualified
 profiles and 4,817 historical functional cases**. Both existing Lucee profiles
 replay after correcting optional native output handling; the fresh frame passes
