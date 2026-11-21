@@ -1,0 +1,38 @@
+{
+  "spec": "spec/modules/exploits/multi/http/text4shell_target_spec.rb",
+  "console": false,
+  "expected_examples": 5,
+  "health_timeout": 180,
+  "test_timeout": 480,
+  "modules": [
+    "exploit/multi/http/apache_commons_text4shell"
+  ],
+  "ports": {
+    "target": 8080
+  },
+  "support_files": [
+    "Gemfile.lock",
+    "lib/msf/core/exploit.rb",
+    "lib/msf/core/exploit/cmd_stager.rb",
+    "lib/msf/core/exploit/remote/http_client.rb",
+    "lib/msf/core/exploit/remote/java/http/class_loader.rb",
+    "lib/msf/core/handler/none.rb",
+    "lib/msf/ui/console/command_dispatcher/exploit.rb",
+    "lib/rex/proto/http/client_request.rb",
+    "lib/rex/proto/http/packet.rb",
+    "modules/payloads/singles/cmd/unix/generic.rb",
+    "test/module_targets/dizquetv/native_probe.py",
+    "test/module_targets/rsync_creds/native.rb",
+    "test/module_targets/text4shell/Dockerfile",
+    "test/module_targets/text4shell/NativeControl.java",
+    "test/module_targets/text4shell/acceptance.rb",
+    "test/module_targets/text4shell/compose.yaml",
+    "test/module_targets/text4shell/native_probe.py",
+    "test/module_targets/text4shell/observe.rb",
+    "test/module_targets/text4shell/vendor.json"
+  ],
+  "test_env": {
+    "TEXT4SHELL_VERSION": "1.8",
+    "TEXT4SHELL_METHOD": "POST"
+  }
+}

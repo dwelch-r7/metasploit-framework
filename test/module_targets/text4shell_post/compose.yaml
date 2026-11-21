@@ -1,0 +1,7 @@
+services:
+  target:
+    extends: {file: ../text4shell/compose.yaml, service: target}
+    image: msf-module-target-text4shell:1.8-post
+    build:
+      context: ../text4shell
+      args: {TEXT_VERSION: '1.8', ALLOW_POST: 'true'}

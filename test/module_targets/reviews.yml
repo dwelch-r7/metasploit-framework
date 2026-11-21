@@ -1,6 +1,32 @@
 # Individual source-reviewed target requirements; these are not blanket exclusions.
 ---
 modules:
+  exploit/multi/http/apache_commons_text4shell:
+    source_sha256: f19e1259785df35a5c20a63f534504d31138f0adb450f94e3109951b70c8b235
+    disposition: container_lab
+    lab_profiles:
+      text4shell: [pinned_original_get_controller, commons_text_1_8, actual_java8_nashorn, exact_cli_engine_interpolator_http_controls, uid1000_command_proof, plain_quoted_unicode_crlf, repeated_selection, unused_parameter, unsupported_post_405, refused_check_and_exploit, preservation]
+      text4shell_post: [explicit_post_mapping_derivative, real_form_body, native_positive_controls, exact_owner_commands, cold_console_stopwatch_fix, repeated_checks_and_commands, preservation]
+      text4shell_fixed: [commons_text_1_10_0, original_get_controller, native_shell_and_engine_positive, literal_lookup_preserved, no_native_or_owner_execution, actual_safe_checks, no_autocheck_claim, preservation]
+    reason: >-
+      Three native-gated profiles pass 15/0 with four proven owning Unix Command
+      executions. Actual Java/library/engine identity and controller hashes
+      precede direct shell, Nashorn, interpolator and HTTP controls using the
+      same plain and quoted Unicode/CRLF commands. Physical bytes and UID1000
+      verify independently; a foreign file and application artifacts preserve.
+      Original POST checks reproduce a missing Rex::Stopwatch require after
+      native and owning command success. A two-line direct-require repair
+      passes cold seeded consoles without timing or response stubs. An initial
+      GET input-drift frame and fixed-library oracle assumption are retained
+      separately. The fixed library leaves its disabled lookup literal rather
+      than raising, and owner HTTP200 does not count as command success. The
+      source lacks AutoCheck; no automatic refusal is claimed. Twelve cgroup
+      captures are zero. All 709 recorded Docker objects are absent and both
+      contexts empty. One capped 384 MiB/0.7 CPU service runs at a time. One
+      inherited missing-AutoCheck informational offense and one existing
+      universal-option doc warning remain. Default Java native/owner sessions,
+      Linux dropper, Windows, further versions and inputs remain unqualified.
+      See VERIFICATION-20261121-text4shell.md; this is stated-path qualification.
   exploit/linux/http/saltstack_salt_api_cmd_exec:
     source_sha256: 973a6c6476e3a9a5e9cfb5e237ff0c97860870d48768796060b93d8b5f24d1da
     disposition: container_lab

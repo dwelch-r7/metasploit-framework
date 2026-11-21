@@ -1,0 +1,21 @@
+services:
+  target:
+    image: msf-module-target-text4shell:1.8-get
+    platform: linux/amd64
+    build:
+      context: .
+      args: {TEXT_VERSION: '1.8', ALLOW_POST: 'false'}
+    init: true
+    cpus: 0.7
+    mem_limit: 384m
+    memswap_limit: 384m
+    pids_limit: 128
+    ports: ["127.0.0.1::8080"]
+    extra_hosts: ["host.docker.internal:host-gateway"]
+    tmpfs: ["/tmp:rw,exec,nosuid,nodev,size=32m,mode=1777", "/opt/module-target-state:rw,nosuid,nodev,size=8m,uid=1000,gid=1000,mode=0700"]
+    healthcheck:
+      test: [CMD, curl, --fail, --silent, 'http://127.0.0.1:8080/text4shell/attack?search=readiness']
+      interval: 4s
+      timeout: 5s
+      start_period: 10s
+      retries: 40

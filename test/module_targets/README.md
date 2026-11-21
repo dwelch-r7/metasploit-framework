@@ -5,7 +5,18 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest investigation: [PHP source consumers and ProjectSend registration](VERIFICATION-20261121-php-source-consumer.md)
+Latest qualification: [Commons Text checks and command delivery](VERIFICATION-20261121-text4shell.md)
+adds three pinned original GET, explicit POST and fixed-library profiles with
+**15/0/0** and four real owning command executions. Native shell/Nashorn and
+interpolator/HTTP controls distinguish execution from a disabled lookup. A cold
+console exposes and verifies repair of the missing Stopwatch require; input
+drift and an incorrect fixed-library oracle remain separately recorded. The
+passing set reaches **132 cases / 37 profiles / 47 retained sessions**, with 411
+current inputs. All 15 new/709 recorded Docker objects are absent; both contexts
+are globally empty. One capped service runs at a time. Default Java sessions,
+droppers and Windows remain open; the broader goal stays active. No PR.
+
+Previous investigation: [PHP source consumers and ProjectSend registration](VERIFICATION-20261121-php-source-consumer.md)
 adds reproducible opt-in original/candidate source comparisons. The ordinary
 bundle remains **4/1/2** with owners withheld. The candidate's maintained frame
 has **4/2/0** and three used/closed sessions; real native controls confirm a
