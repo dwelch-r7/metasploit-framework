@@ -491,6 +491,10 @@ NAVIGATION_CONFIG = [
             nav_order: 4
           },
           {
+            path: 'dev/Static-Typing.md',
+            nav_order: 5
+          },
+          {
             old_wiki_path: "Navigating-and-Understanding-Metasploit's-Codebase.md",
             path: 'Navigating-and-Understanding-Metasploits-Codebase.md',
             title: 'Navigating the codebase'
