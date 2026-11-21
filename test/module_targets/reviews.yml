@@ -6,6 +6,7 @@ modules:
     disposition: container_lab
     lab_profiles:
       projectsend: [check_only, pinned_r1605_ls199, real_http_installer, native_php_uid1000, exact_api_title_recovery, all_134_options, encoded_title, same_selection_repeat, refused_port_unknown, exploit_cleanup_gate, factory_restore]
+      projectsend_rce: [native_stock_php_exec, native_registration_login, specific_extension_denial, exact_api_upload_and_execution, original_command_delivery, quoted_unicode_crlf, autocheck_on_off, same_selection_repeat, raw_payload_and_multipart, physical_and_portal_cleanup, preserved_existing_user_fields, six_option_preservation_failure, created_clients_retained, explicit_fixture_recovery]
     reason: >-
       Three check-only examples pass after independent installation/PHP/API
       gates. The original check changed ten option names, including client
@@ -18,7 +19,8 @@ modules:
       regressions pass, including whitespace and nullable/ambiguous responses.
       Native registration, login, multipart PHP denial/approval, UID1000 web
       execution, self-unlink and portal-row cleanup pass separately. Actual
-      owning RCE/session and other releases remain pending. Four native observer
+      owning PHP command paths pass in the separate RCE profile, while default
+      sessions and other releases remain pending. Four native observer
       assumptions and a cross-client cookie export fault are retained separately.
       Normal unauthenticated option writes return HTTP 500 after persistence; a
       separate temporary DEBUG diagnostic identifies the vendor undefined
@@ -30,6 +32,21 @@ modules:
       services run: application 384 MiB/0.7 CPU and database 256 MiB/0.3 CPU. One
       inherited default-PAYLOAD lint/tidy warning remains. See
       VERIFICATION-20261121-projectsend.md; registration is not full-owner coverage.
+      The command profile has 3 examples/1 failure/0 pending in 77.43 seconds:
+      native stock PHP and real registration/upload/execute/delete controls pass,
+      as do two original php/exec commands with exact UID1000 proof, AutoCheck
+      on/off and same-selection repeat. Portal and physical upload inventories
+      recover; existing user identity/role/activity/email fields preserve. Six option names change or are added
+      after both executions, with 136 rows versus 134 initially. Two created
+      active clients remain. This is a confirmed preservation defect, retained
+      before explicit fixture recovery; no production source changes here.
+      An earlier 3/1 native-gated frame matches the defect; an internal-network
+      unpublished-port setup failure invokes no module. Loopback SMTP settings
+      contain registration mail. Final counters remain unchanged, including
+      database memory.max 46. All nine new Docker objects are absent and both
+      contexts empty. The current combined input set is 337, while the prior
+      110 fully passing cases/32 profiles remain separately qualified. See
+      VERIFICATION-20261121-projectsend-rce.md.
   exploit/multi/http/dizquetv_rce:
     source_sha256: f40ce29d339e63031c6a4ca268ed205602054e7205882f1bb2e17b54b83b2dcc
     disposition: container_lab

@@ -1,0 +1,5 @@
+services:
+  database:
+    extends: {file: ../projectsend/compose.yaml, service: database}
+  target:
+    extends: {file: ../projectsend/compose.yaml, service: target}
