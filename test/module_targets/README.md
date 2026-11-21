@@ -5,7 +5,20 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest qualification: [n8n expressions and check repairs](VERIFICATION-20261121-n8n-expression.md)
+Latest qualification: [n8n default wget/Meterpreter sessions](VERIFICATION-20261121-n8n-sessions.md)
+adds a real native-gated session profile and repairs a confirmed live-session
+API stall. Three n8n profiles pass **10/0/0**, including three fully used/closed
+sessions: one stock native control and two default owner runs on one selection.
+Exact ELF/proof bytes, UID/PID/birth/socket ownership, responsive n8n, full foreign
+workflow preservation and original SQL row closure pass. The current set reaches
+**72 cases across 22 profiles**, twenty-eight used/closed OS sessions, 250 declared
+inputs and 132 zero cgroup captures. Historical coverage is 324 owners in stated
+paths, 692 profiles and 4,847 cases. All 14 new/508 recorded Docker objects,
+including two unused tool helpers, are absent; global containers are zero.
+Profiles run serially with at most two capped containers. Four existing lint
+warnings and untested paths remain disclosed. No PR; the broader goal stays active.
+
+Previous qualification: [n8n expressions and check repairs](VERIFICATION-20261121-n8n-expression.md)
 adds two native-gated profiles with **8/0/0**, including two real command
 executions, incorrect credentials, a refused port and repeated fixed-release
 AutoCheck refusal. Independent normal-IIFE and physical file-write controls

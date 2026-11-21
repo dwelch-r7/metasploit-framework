@@ -1585,3 +1585,20 @@ paths, 691 profiles and 4,845 cases. All 18 new/494 recorded Docker objects are
 absent, with global containers zero and one capped container serially. Default
 fetch sessions and Windows remain unqualified. See [the report](VERIFICATION-20261121-n8n-expression.md).
 No PR; the broader goal remains active.
+
+The n8n default wget/inline Meterpreter profile adds two qualified cases and
+three fully used/closed sessions. Native stock-payload readiness precedes two
+owning runs on one selection. Actual-image IIFE controls confirm that inherited
+output pipes block the event loop while a background child lives; ignoring
+unused I/O restores API responsiveness. An isolated minimal source fix preserves
+synchronous execution and payload defaults. The three n8n profiles replay 10/0/0,
+including original command and fixed-refusal cases. Live workflow preservation,
+exact ELF/proof bytes, UID/PID/birth/socket ownership and original SQL closure
+pass. FETCH_DELETE=false executable retention is recorded before fixture removal.
+The latest set has 72 cases, 28 used/closed sessions, 250 current inputs and 132
+zero cgroup captures. Historical coverage is 324 owners in stated paths, 692
+profiles and 4,847 cases. All 14 new/508 recorded Docker objects are independently
+absent, including two unused initialization helpers; global containers are zero.
+Serial profiles use at most two capped containers. Four pre-existing lint
+warnings, Windows and other payload paths remain disclosed. See
+[the report](VERIFICATION-20261121-n8n-sessions.md). No PR; the broad goal stays active.

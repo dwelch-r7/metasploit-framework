@@ -1,0 +1,7 @@
+services:
+  target:
+    extends: {file: ../n8n_expression/compose.yaml, service: target}
+    volumes: ["./native.cjs:/opt/module-target-n8n-session.cjs:ro"]
+  reporting_db:
+    extends: {file: ../gopher/compose.yaml, service: reporting_db}
+    ports: ["127.0.0.1::5432"]
