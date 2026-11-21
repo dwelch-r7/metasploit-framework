@@ -14,26 +14,50 @@ the author's Framework fork without creating a pull request.
 ## Local execution limit
 
 The current campaign runs one test Compose project at a time, normally with at
-most three running test containers including Framework and helpers. The current
-pgAdmin profiles use one capped app container and a host console, including the
-separate unqualified Meterpreter diagnostic. Builds, native smoke
+most two running capped containers including Framework and helpers. Builds, native smoke
 projects and cold console starts share the same serial queue. Confirm the prior
 project is down before starting another. Larger profiles must be split into
 sequential releases/scenarios or remain queued; the resource limit is not evidence
-that their modules are infeasible or broken. Only containers for this campaign
-may run on the development host. Remove unrelated containers before starting;
-preserve their images and volumes unless separately requested.
+that their modules are infeasible or broken. Apply the ownership and cleanup
+rule below; unrelated containers require separate explicit cleanup authorization.
 
 Use `tools/dev/run_guarded_module_target_tests.rb` for subsequent local runs.
 Its user-scoped advisory lock spans worktrees and teardown. Its existing hard
-Compose preflight cap remains five containers and refuses any existing container;
-the current operational policy above is tighter.
+Compose preflight cap remains five containers. With an explicit namespace, its
+startup guard checks that namespace and preserves unrelated resources. Without
+a namespace it retains the older global preflight. The current operational
+policy above is tighter.
 Resource refusals carry no module verdict. The original runner and manual/native
 launchers remain outside the lock and require the same serial coordination.
 The guard counts all resolved services conservatively and does not impose CPU
 or memory ceilings; retain those limits in each profile. Historical larger
 profiles remain qualified only for their recorded inputs and must be split for
 local replay.
+
+### Current ownership and cleanup rule
+
+Use a unique `MODULE_TARGET_NAMESPACE` and explicit Compose project names for
+every task and delegated agent. Run serial capped stacks, normally no more than
+two containers including the application and reporting database. Count any
+helper containers started by agent/tool initialization in the budget too.
+Start only what is needed for the active phase. An active goal, lockfile or
+healthy container alone does not establish active use.
+
+Arrange `ensure`/`finally`/signal cleanup before launch. When a phase finishes,
+fails or is handed back, remove its containers (including stopped ones), owned
+ephemeral networks and volumes immediately. Do not retain finished resources
+for future work; remove any unused owned container older than one hour on
+resume. Each agent must return exact resource IDs and verified absence, including
+attributable tool helpers. Inspect the full global inventory at startup and
+before finishing so unlabeled helpers are not missed.
+
+Routine cleanup removes only resources created by the task, verified through
+namespace/project labels or recorded IDs. Preserve unrelated resources and
+shared data. An explicit human request for broader cleanup applies to that
+operation only. Do not use unscoped prune commands or daemon restarts. Verify
+absence with recorded-ID inspection and `docker ps -a`, and report any leftovers.
+This ownership rule supersedes older global-cleanup statements in historical
+activity records.
 
 The [guard verification](VERIFICATION-20261110-resource-guard.md) records 21
 focused passing examples and a real nine-container Compose refusal with no

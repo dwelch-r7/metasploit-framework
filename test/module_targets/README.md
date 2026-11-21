@@ -5,7 +5,18 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest: [TorchServe native YAML boundary and actual checks](VERIFICATION-20261121-torchserve-checks.md)
+Latest investigation: [TorchServe session readiness](VERIFICATION-20261121-torchserve-sessions.md)
+retains three failed frames and five genuinely used/closed stock Java sessions.
+The final **4/1/1** frame proves direct JAR and ordinary HTTP loading, then
+withholds the owner after native MAR readiness fails. Two earlier actual default
+owner attempts produce no callback despite matching payload/configuration bytes;
+the cause remains unresolved. The strict diagnostic is deferred from automatic
+registration and adds no qualified totals. All nine new and 449 recorded Docker
+objects are absent; the full global container inventory is empty. At most two
+capped containers run serially. No production changes or PR; the broader goal
+remains active.
+
+Latest qualification: [TorchServe native YAML boundary and actual checks](VERIFICATION-20261121-torchserve-checks.md)
 adds two native-gated profiles with **5/0**, reaching **322 runtime owners,
 686 profiles and 4,828 historical functional cases**. A real fixed-release
 false positive is repaired; original 0.8.1/0.8.2 checks and independent native

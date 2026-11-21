@@ -1,0 +1,54 @@
+{
+  "spec": "spec/modules/exploits/multi/http/torchserve_sessions_target_spec.rb",
+  "console": false,
+  "expected_examples": 4,
+  "health_timeout": 180,
+  "test_timeout": 600,
+  "test_env": {
+    "TORCHSERVE_VERSION": "0.8.1"
+  },
+  "modules": [
+    "exploit/multi/http/torchserver_cve_2023_43654"
+  ],
+  "ports": {
+    "target": 8081,
+    "reporting_db": 5432
+  },
+  "support_files": [
+    "data/exploits/CVE-2022-1471/MyScriptEngineFactory.class",
+    "external/source/exploits/CVE-2022-1471/MyScriptEngineFactory.java",
+    "lib/msf/base/sessions/meterpreter_java.rb",
+    "lib/msf/core/db_manager/session.rb",
+    "lib/msf/core/exploit/java.rb",
+    "lib/msf/core/exploit/remote/auto_check.rb",
+    "lib/msf/core/exploit/remote/http_client.rb",
+    "lib/msf/core/exploit/remote/http_server.rb",
+    "lib/msf/core/exploit/remote/java/http/class_loader.rb",
+    "lib/msf/core/handler/reverse_tcp.rb",
+    "lib/msf/core/payload/java.rb",
+    "lib/msf/core/payload/java/meterpreter_loader.rb",
+    "lib/msf/core/payload/java/payload_options.rb",
+    "lib/msf/core/payload/java/reverse_tcp.rb",
+    "lib/msf/core/session_manager.rb",
+    "lib/rex/proto/http/client_request.rb",
+    "lib/rex/proto/http/packet.rb",
+    "modules/exploits/multi/handler.rb",
+    "modules/payloads/stagers/java/reverse_tcp.rb",
+    "modules/payloads/stages/java/meterpreter.rb",
+    "test/module_targets/druid_sessions/session_control.rb",
+    "test/module_targets/freeswitch_sessions/process_state.pl",
+    "test/module_targets/gopher/compose.yaml",
+    "test/module_targets/laravel/commands.rb",
+    "test/module_targets/laravel/session_control.rb",
+    "test/module_targets/laravel/sessions.rb",
+    "test/module_targets/rsync_creds/native.rb",
+    "test/module_targets/torchserve_check/NativeProbe.java",
+    "test/module_targets/torchserve_check/NativeScriptEngineFactory.java",
+    "test/module_targets/torchserve_check/acceptance.rb",
+    "test/module_targets/torchserve_check/compose.yaml",
+    "test/module_targets/torchserve_check/config.properties",
+    "test/module_targets/torchserve_check/native_probe.py",
+    "test/module_targets/torchserve_check/observe.rb",
+    "test/module_targets/torchserve_check/vendor.json"
+  ]
+}

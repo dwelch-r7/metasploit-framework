@@ -4,6 +4,27 @@ These findings do not count as passing functional qualification. The
 [campaign](CAMPAIGN.md) and individual verification records retain other
 coverage limits and ongoing investigations.
 
+## TorchServe native MAR Java Meterpreter readiness
+
+The [session investigation](VERIFICATION-20261121-torchserve-sessions.md) retains
+an explicitly enabled [diagnostic](torchserve_sessions/README.md). Standalone
+Java JAR and ordinary HTTP class-loader controls work with the normal Spawn=2
+setting, yielding five used/closed stock sessions across three failed frames.
+Two actual default owner attempts produce no callback despite serving identical
+payload class/configuration bytes. A stronger independent native MAR also
+produces no session in genuine TorchServe 0.8.1/JDK17; the final frame finishes
+4/1/1 and withholds the owner. This does not establish a module-specific HTTP
+delivery defect. Genuine application-context readiness and the initiating cause
+remain unresolved; zero memory/PID events do not exclude CPU/JVM differences.
+
+Physical owner/native MAR leftovers are recorded before fixture recovery.
+No production code changes or qualified totals are added. The four-case
+`manifest.deferred.yml` stays outside automatic registration. All six containers,
+three networks and native HTTP sources are removed. Compare actual JVM context
+and spawned file/process behavior before proposing a repair; preserve Spawn=2
+failure separately from any alternative payload setting. The earlier actual
+check and fixed-release AutoCheck controls remain qualified.
+
 ## pgAdmin staged Python Meterpreter recovery
 
 The [pgAdmin checkpoint](VERIFICATION-20261118-pgadmin-session.md) retains
