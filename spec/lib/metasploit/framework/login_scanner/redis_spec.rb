@@ -3,6 +3,10 @@ require 'metasploit/framework/login_scanner/redis'
 
 RSpec.describe Metasploit::Framework::LoginScanner::Redis do
   let(:socket) { double('Socket') }
+  let(:captures) do
+    path = File.expand_path('../../../../file_fixtures/redis/protocol_6_0_11.json', __dir__)
+    JSON.parse(File.read(path))
+  end
 
   def update_socket_res(*res)
     allow(socket).to receive(:put)
@@ -29,6 +33,21 @@ RSpec.describe Metasploit::Framework::LoginScanner::Redis do
 
     it 'returns a String' do
       expect(subject.redis_proto(command_parts)).to be_kind_of(String)
+    end
+
+    it 'matches the stock redis-cli default-user UTF-8 AUTH request' do
+      capture = captures.fetch('requests').fetch(2)
+      arguments = ['AUTH', capture.fetch('username'), capture.fetch('password')]
+
+      expect(subject.redis_proto(arguments)).to eq(Base64.strict_decode64(capture.fetch('packets_base64').first))
+    end
+
+    it 'retains the nil argument-list sentinel' do
+      expect(subject.redis_proto(nil)).to be_nil
+    end
+
+    it 'retains the empty argument-list sentinel' do
+      expect(subject.redis_proto([])).to be_nil
     end
   end
 
@@ -93,6 +112,48 @@ RSpec.describe Metasploit::Framework::LoginScanner::Redis do
     end
 
     context 'with Redis version > 6' do
+      context 'when a modern Redis reply ends with a period' do
+        let(:res) { Base64.strict_decode64(captures.fetch('authentication_responses').fetch('wrong_password_modern')) }
+
+        before { update_socket_res(res) }
+
+        it 'preserves INCORRECT classification and the complete proof' do
+          result = subject.attempt_login(credential)
+
+          expect([result.status, result.proof]).to eq([Metasploit::Model::Login::Status::INCORRECT, res])
+        end
+      end
+
+      context 'when Redis 6.0.11 returns its shorter invalid-password response' do
+        let(:res) { Base64.strict_decode64(captures.fetch('authentication_responses').fetch('wrong_password')) }
+
+        before { update_socket_res(res) }
+
+        it 'returns INCORRECT with the exact observed proof bytes' do
+          result = subject.attempt_login(credential)
+
+          expect([result.status, result.proof]).to eq([Metasploit::Model::Login::Status::INCORRECT, res])
+        end
+
+        it 'can subsequently authenticate valid credentials on the same scanner' do
+          update_socket_res(res, Base64.strict_decode64(captures.fetch('authentication_responses').fetch('okay')))
+          first = subject.attempt_login(credential)
+          second = subject.attempt_login(credential)
+
+          expect([first.status, second.status]).to eq([Metasploit::Model::Login::Status::INCORRECT, Metasploit::Model::Login::Status::SUCCESSFUL])
+        end
+      end
+
+      context 'when an unrelated response embeds a Redis-like error message' do
+        let(:res) { '-ERR unrelated product: WRONGPASS invalid username-password pair or user is disabled' }
+
+        before { update_socket_res(res) }
+
+        it 'retains unknown status rather than treating an embedded substring as an AUTH result' do
+          expect(subject.attempt_login(credential).status).to be_nil
+        end
+      end
+
       context 'when server returns no password is set' do
         let(:res) { '-ERR AUTH <password> called without any password configured for the default user. Are you sure your configuration is correct?' }
 

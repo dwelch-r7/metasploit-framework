@@ -1,4 +1,7 @@
 # -*- coding: binary -*-
+
+require 'rex/proto/redis'
+
 module Msf
   ###
   #
@@ -44,7 +47,7 @@ module Msf
     end
 
     def redis_command(*commands)
-      command_string = printable_redis_response(commands.join(' '))
+      command_string = printable_redis_response(commands.map(&:b).join(' '))
       unless (command_response = send_redis_command(*commands))
         vprint_error("No response to '#{command_string}'")
         return
@@ -93,20 +96,20 @@ module Msf
         response.match(Rex::Proto::Redis::Version6::Constants::AUTHENTICATION_REQUIRED)
     end
 
+    # @param command_parts [Array<String>, nil] Command name and operands
+    # @return [String, nil] Binary RESP packet, or nil for blank input
     def redis_proto(command_parts)
       return if command_parts.blank?
-      command = "*#{command_parts.length}\r\n"
-      command_parts.each do |c|
-        command << "$#{c.length}\r\n#{c}\r\n"
-      end
-      command
+
+      Rex::Proto::Redis::Base.serialize_command(command_parts)
     end
 
     def send_redis_command(*command_parts)
       sock.put(redis_proto(command_parts))
       command_response = sock.get(read_timeout)
       return unless command_response
-      command_response.strip
+
+      command_response.delete_suffix("\r\n")
     end
 
     class RESPParser
@@ -114,7 +117,8 @@ module Msf
       LINE_BREAK = "\r\n"
 
       def initialize(data)
-        @raw_data = data
+        # RESP lengths and offsets count bytes regardless of caller encoding.
+        @raw_data = data.b
         @counter = 0
       end
     
@@ -172,7 +176,7 @@ module Msf
 
         result = nil
         if str_len != -1
-          result = data_at_counter[0..str_len - 1]
+          result = str_len.zero? ? '' : data_at_counter[0..str_len - 1]
           @counter += str_len
           @counter += 2 # Skip over next CLRF
         end

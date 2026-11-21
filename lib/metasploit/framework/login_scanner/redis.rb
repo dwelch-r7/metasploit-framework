@@ -50,14 +50,12 @@ module Metasploit
         end
 
         # This method can create redis command which can be read by redis server
+        # @param command_parts [Array<String>, nil] Command name and operands
+        # @return [String, nil] Binary RESP packet, or nil for blank input
         def redis_proto(command_parts)
           return if command_parts.blank?
 
-          command = "*#{command_parts.length}\r\n"
-          command_parts.each do |p|
-            command << "$#{p.length}\r\n#{p}\r\n"
-          end
-          command
+          ::Rex::Proto::Redis::Base.serialize_command(command_parts)
         end
 
         # This method attempts a single login with a single credential against the target

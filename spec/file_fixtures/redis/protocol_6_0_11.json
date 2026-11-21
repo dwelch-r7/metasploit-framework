@@ -1,0 +1,45 @@
+{
+  "origin": "Actual stock redis-cli 6.0.11 request bytes and original real Redis 6.0.11 server responses, 2026-11-21; collector ACKs are fixture-only, real authentication separately verified; raw AUTH return bytes passively captured from original LoginScanner authenticate against the real server; modern WRONGPASS punctuation is captured from official Redis7.2.4 after real native authentication gates",
+  "requests": [
+    {
+      "producer": "stock redis-cli 6.0.11",
+      "fixture_only": true,
+      "password": "module-target-redis-password",
+      "username": null,
+      "packets_base64": [
+        "KjINCiQ0DQpBVVRIDQokMjgNCm1vZHVsZS10YXJnZXQtcmVkaXMtcGFzc3dvcmQNCg==",
+        "KjENCiQ0DQpQSU5HDQo="
+      ]
+    },
+    {
+      "producer": "stock redis-cli 6.0.11",
+      "fixture_only": true,
+      "password": "p\u00e4ss\u2603word",
+      "username": null,
+      "packets_base64": [
+        "KjINCiQ0DQpBVVRIDQokMTINCnDDpHNz4piDd29yZA0K",
+        "KjENCiQ0DQpQSU5HDQo="
+      ]
+    },
+    {
+      "producer": "stock redis-cli 6.0.11",
+      "fixture_only": true,
+      "password": "p\u00e4ss\u2603word",
+      "username": "default",
+      "packets_base64": [
+        "KjMNCiQ0DQpBVVRIDQokNw0KZGVmYXVsdA0KJDEyDQpww6Rzc+KYg3dvcmQNCg==",
+        "KjENCiQ0DQpQSU5HDQo="
+      ]
+    }
+  ],
+  "responses": {
+    "empty": "JDANCg0K",
+    "tail": "JDI1DQpsZWFkaW5nIGFuZCB0cmFpbGluZyANCgkgDQo=",
+    "hash": "KjQNCiQ4DQpjaGFtcOKYgw0KJDANCg0KJDUNCm90aGVyDQokMg0Kw6kNCg=="
+  },
+  "authentication_responses": {
+    "okay": "K09LDQo=",
+    "wrong_password": "LVdST05HUEFTUyBpbnZhbGlkIHVzZXJuYW1lLXBhc3N3b3JkIHBhaXINCg==",
+    "wrong_password_modern": "LVdST05HUEFTUyBpbnZhbGlkIHVzZXJuYW1lLXBhc3N3b3JkIHBhaXIgb3IgdXNlciBpcyBkaXNhYmxlZC4NCg=="
+  }
+}

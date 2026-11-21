@@ -7,7 +7,7 @@ module Rex
         module Constants
           AUTHENTICATION_REQUIRED = /(?<auth_response>NOAUTH Authentication required)/i
           NO_PASSWORD_SET         = /(?<auth_response>ERR AUTH <password> called without any password configured for the default user. Are you sure your configuration is correct?)/i
-          WRONG_PASSWORD          = /(?<auth_response>WRONGPASS invalid username-password pair or user is disabled)/i
+          WRONG_PASSWORD          = /\A-?(?<auth_response>WRONGPASS invalid username-password pair(?: or user is disabled)?)\.?(?:\r\n)?\z/i
         end
       end
     end
