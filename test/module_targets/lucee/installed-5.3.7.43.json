@@ -1,0 +1,9 @@
+{
+  "version": "5.3.7.43",
+  "java": "11.0.8",
+  "user": "root",
+  "webroot": "/var/www/",
+  "context": "/opt/lucee/web/context/",
+  "temp": "/opt/lucee/web/temp",
+  "jobs": []
+}

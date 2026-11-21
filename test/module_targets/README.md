@@ -5,7 +5,22 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest: [Calibre sessions and genuine fixed controls](VERIFICATION-20261121-calibre-sessions.md)
+Latest: [Lucee native-gated command owners](VERIFICATION-20261121-lucee.md)
+adds two owners and two qualified profiles, each at **4/0**, reaching **321 runtime
+owners, 680 qualified profiles and 4,814 historical functional cases**. The latest
+ten stated profiles have **39 qualified cases**, with thirteen retained sessions
+used and closed. Twenty native command proofs gate eight actual Lucee owner
+commands; exact CFML sources, repeats, actual scheduler deletion/listener closure
+and wrong-password rejection pass. Setup/harness failures remain retained,
+including the mixed frame whose image profile passes while scheduled setup
+fails; that whole frame remains failed. All 121 current declared inputs, 52
+qualified zero resource captures and nineteen new object removals verify. All
+393 recorded Docker objects are absent and the global container inventory is
+empty. New stacks use one capped container at a time. Production source is
+unchanged; default sessions and fixed-release runtimes remain unqualified.
+No PR; the broader inventory goal remains active.
+
+Previous: [Calibre sessions and genuine fixed controls](VERIFICATION-20261121-calibre-sessions.md)
 adds three qualified profiles with **7/0**, reaching **319 runtime owners, 678
 qualified profiles and 4,806 historical functional cases**. Three fresh profiles
 and five current-input/raw-proof-audited profiles pass **31/0**, with thirteen

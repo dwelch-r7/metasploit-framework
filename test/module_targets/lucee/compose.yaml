@@ -1,0 +1,25 @@
+{
+  "services": {
+    "target": {
+      "image": "lucee/lucee@sha256:2c4c766b5382e3969bc603803629ad28f5c6c26efc93e59b0be514b3c4aa498c",
+      "platform": "linux/amd64",
+      "init": true,
+      "cpus": 1,
+      "mem_limit": "768m",
+      "memswap_limit": "768m",
+      "pids_limit": 128,
+      "environment": {
+        "LUCEE_JAVA_OPTS": "-Xms64m -Xmx384m -XX:ActiveProcessorCount=2 -Dfile.encoding=UTF-8"
+      },
+      "extra_hosts": ["host.docker.internal:host-gateway"],
+      "volumes": ["./native.cfm:/var/www/module-target-native.cfm:ro"],
+      "ports": ["127.0.0.1::8888"],
+      "healthcheck": {
+        "test": ["CMD", "curl", "-fsS", "--max-time", "5", "http://127.0.0.1:8888/module-target-native.cfm?mode=health"],
+        "interval": "2s",
+        "timeout": "6s",
+        "retries": 50
+      }
+    }
+  }
+}

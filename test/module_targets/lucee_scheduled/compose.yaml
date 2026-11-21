@@ -1,0 +1,5 @@
+{
+  "services": {
+    "target": { "extends": { "file": "../lucee/compose.yaml", "service": "target" } }
+  }
+}
