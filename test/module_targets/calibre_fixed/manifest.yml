@@ -1,0 +1,31 @@
+{
+  "spec": "spec/modules/exploits/multi/misc/calibre_fixed_target_spec.rb",
+  "console": false,
+  "expected_examples": 3,
+  "health_timeout": 100,
+  "test_timeout": 600,
+  "modules": [
+    "exploit/multi/misc/calibre_exec"
+  ],
+  "ports": {
+    "target": 8080
+  },
+  "support_files": [
+    "lib/msf/core/exploit/remote/auto_check.rb",
+    "lib/msf/core/exploit/remote/http_client.rb",
+    "lib/rex/proto/http/client_request.rb",
+    "lib/rex/proto/http/packet.rb",
+    "modules/payloads/singles/cmd/unix/generic.rb",
+    "test/module_targets/calibre/Dockerfile",
+    "test/module_targets/calibre/README.md",
+    "test/module_targets/calibre/acceptance.rb",
+    "test/module_targets/calibre/compose.yaml",
+    "test/module_targets/calibre/installed-7.14.0.json",
+    "test/module_targets/calibre/manifest.yml",
+    "test/module_targets/calibre/native.py",
+    "test/module_targets/calibre/observe.rb",
+    "test/module_targets/calibre/start.sh",
+    "test/module_targets/laravel/commands.rb",
+    "test/module_targets/rsync_creds/native.rb"
+  ]
+}

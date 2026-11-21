@@ -1,0 +1,6 @@
+{
+  "services": {
+    "target": { "extends": { "file": "../calibre_python/compose.yaml", "service": "target" } },
+    "reporting_db": { "extends": { "file": "../calibre_python/compose.yaml", "service": "reporting_db" } }
+  }
+}

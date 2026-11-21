@@ -1,0 +1,21 @@
+{
+  "books": [
+    {
+      "id": 1,
+      "title": "Module target calibration"
+    }
+  ],
+  "python": [
+    3,
+    11,
+    5
+  ],
+  "source_sha256": {
+    "calibre.db.cli.cmd_list.implementation": "3352da8d498f09e80624a8c7337e7de3e550a233c69b80b137b1a17e61df5cfa",
+    "calibre.srv.cdb.cdb_run": "49de72326b42487209bed8ccbb3a2065792907bcc19a56bc112d931218c03533",
+    "calibre.utils.formatter.TemplateFormatter._eval_python_template": "1eae0930ee18436f1a540353dc173d40a4d59520b5fd588a96c1b758495c4585",
+    "calibre.utils.formatter.TemplateFormatter.safe_format": "f62722eb94226ca33004e76a3acc6eea766ca5872a16223ef4f8fb7950f19604"
+  },
+  "uid": 1000,
+  "version": "7.16.0"
+}

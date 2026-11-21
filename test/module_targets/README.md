@@ -5,7 +5,21 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest: [Calibre native execution and shared repairs](VERIFICATION-20261121-calibre.md)
+Latest: [Calibre sessions and genuine fixed controls](VERIFICATION-20261121-calibre-sessions.md)
+adds three qualified profiles with **7/0**, reaching **319 runtime owners, 678
+qualified profiles and 4,806 historical functional cases**. Three fresh profiles
+and five current-input/raw-proof-audited profiles pass **31/0**, with thirteen
+real sessions used and closed. The actual Linux default fetch payload and
+explicit Python Meterpreter pass independent readiness, physical proof, repeats,
+reporting and full process/socket cleanup. Genuine 7.16.0 local positives gate
+identical-template HTTP denial and repeated AutoCheck withholding. Both harness
+failures remain retained. All 102 declared inputs, 44 qualified zero resource
+captures and nineteen new Docker object removals verify; all 374 recorded objects
+are absent and the global container inventory is empty. At most two capped
+containers run serially. Production source is unchanged. No PR; the broader
+inventory goal remains active.
+
+Previous: [Calibre native execution and shared repairs](VERIFICATION-20261121-calibre.md)
 adds one owner and one qualified profile with **8/0**, reaching **319 runtime
 owners, 675 qualified profiles and 4,799 historical functional cases**. Five
 fresh profiles pass **24/0**, with seven real sessions used and closed. Genuine

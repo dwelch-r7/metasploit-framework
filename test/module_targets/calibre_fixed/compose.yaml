@@ -1,0 +1,14 @@
+{
+  "services": {
+    "target": {
+      "extends": { "file": "../calibre/compose.yaml", "service": "target" },
+      "image": "metasploit-module-target-calibre:7.16.0",
+      "build": {
+        "args": {
+          "CALIBRE_VERSION": "7.16.0",
+          "CALIBRE_SHA512": "238cc899c531a9f706cc73f539fa6603c7199b009988cd43aec1cfea2327121db6cdad4db780604ebc9a7606e57ac6ef60a74348286078e550793ba9daa3898d"
+        }
+      }
+    }
+  }
+}
