@@ -18,20 +18,23 @@ spec.loader.exec_module(base)
 
 PASSWORD = 'module-target-redis-password'
 LIBRARY = '/usr/lib/x86_64-linux-gnu/liblua5.1.so.0'
+CONFIGURED_PASSWORD = object()
 
 
 class Native(base.Native):
     def __init__(self, runtime, directory):
         super().__init__(runtime, directory)
         family = Path(runtime['artifacts']).name
-        assert family in ['redis_lua', 'redis_lua_open', 'redis_lua_fixed']
+        assert family in ['redis_lua', 'redis_lua_open', 'redis_lua_fixed', 'redis_protocol_utf8', 'redis_protocol_ascii']
         self.settings = json.loads((Path('test/module_targets') / family / 'settings.json').read_text())
 
-    def cli(self, *arguments, password=PASSWORD):
+    def cli(self, *arguments, password=CONFIGURED_PASSWORD, stdin=None):
+        if password is CONFIGURED_PASSWORD:
+            password = self.settings.get('password', PASSWORD)
         argv = ['redis-cli', '--raw', '--no-auth-warning']
         if password is not None:
             argv += ['-a', password]
-        return self.command('redis-cli', *argv, *arguments)
+        return self.command('redis-cli', *argv, *arguments, stdin=stdin)
 
     def file(self, path, remove=False):
         assert re.fullmatch(r'/tmp/module-target-redis-[a-zA-Z0-9_-]+', path), path
@@ -79,7 +82,7 @@ class Native(base.Native):
         assert len(config) % 2 == 0
         values = dict(zip(config[::2], config[1::2]))
         assert values['dir'] == '/tmp' and values['appendonly'] == 'no' and values['save'] == ''
-        assert values['requirepass'] == (PASSWORD if self.settings['authenticated'] else '')
+        assert values['requirepass'] == (self.settings.get('password', PASSWORD) if self.settings['authenticated'] else '')
         databases = {}
         for database in ['0', '2']:
             keys = self.cli('-n', database, 'KEYS', '*').decode().splitlines()

@@ -1,6 +1,66 @@
 # Individual source-reviewed target requirements; these are not blanket exclusions.
 ---
 modules:
+  auxiliary/scanner/redis/redis_server:
+    source_sha256: 088d0b40f462918abaf873862a208c0395fa433c2e1b4846bab278b6147acf27
+    disposition: container_lab
+    lab_profiles:
+      redis_protocol_ascii: [genuine_ubuntu_6_0_11, native_authenticated_positive_and_negative, actual_info_and_ping, console_and_typed_utf8_credentials, real_report_service_calls, complete_preservation]
+      redis_protocol_utf8: [nonascii_password, actual_native_authentication, same_original_entry_points, byte_counted_authentication, complete_preservation]
+    reason: >-
+      Both seven-case protocol profiles pass after the shared Redis-library
+      repair. Native package/auth/data/file gates precede actual INFO/PING and
+      reporting calls. Typed UTF-8 datastore credentials distinguish Ruby/API
+      callers from console binary strings; no module method is replaced.
+      Original typed authentication fails despite native success. Database
+      persistence, TLS, ACL users and other releases remain unqualified.
+      See VERIFICATION-20261121-redis-protocol.md; registration is not a pass
+      for every path and the full valuable feasible-module goal remains active.
+  auxiliary/scanner/redis/redis_login:
+    source_sha256: 5a70d6c56a48ea96a44a438965efca2b357f153b8116910cdc49cf9f63fcb55f
+    disposition: container_lab
+    lab_profiles:
+      redis_protocol_ascii: [genuine_ubuntu_6_0_11, native_authentication_controls, actual_success_and_incorrect_statuses, same_selection_successful_recovery, raw_authentication_replies]
+      redis_protocol_utf8: [nonascii_typed_utf8_password, actual_native_authentication, identical_result_and_recovery_contracts]
+    reason: >-
+      Actual LoginScanner results classify successful, incorrect and recovered
+      successful credentials on one selected module in both passing protocol
+      profiles. The original short WRONGPASS response is unclassified; original
+      typed Unicode AUTH fails despite native success. Real Redis6 short and
+      Redis7 punctuated replies also ground focused source regressions. No
+      reporting-database persistence, nondefault ACL users, TLS or other
+      releases are qualified. See VERIFICATION-20261121-redis-protocol.md.
+  auxiliary/gather/redis_extractor:
+    source_sha256: f23bb8aaf70c56cc4d281ed3397e418b1de40aa6917cd1ee4da11de172726965
+    disposition: container_lab
+    lab_profiles:
+      redis_protocol_ascii: [genuine_ubuntu_6_0_11, native_data_controls, exact_unicode_nul_crlf_and_tail_bytes, empty_and_structured_values, real_csv_loot, same_selection_repeat, complete_serialized_databases_and_config_preserved]
+      redis_protocol_utf8: [nonascii_typed_utf8_password, identical_data_and_repeat_contracts]
+    reason: >-
+      Both protocol profiles collect exact string/list/set/sorted-set/hash
+      values and real CSV loot twice on one selection. Stock CLI/Lua/cjson
+      reads independently establish expected values. Original trailing data
+      truncation and nested empty-value corruption are retained; the shared
+      library repair preserves bytes. A separate CSV reader auto-separator
+      fault is reproduced against captured valid loot and fixed with the
+      producer LF separator before replay. Limits, large/fragmented data,
+      TLS, ACL users and additional releases remain unqualified. See
+      VERIFICATION-20261121-redis-protocol.md.
+  auxiliary/scanner/redis/file_upload:
+    source_sha256: 66897cec498a1ac358f7c9a5dffb016f371816ed7ed24cd1a9b77904c5fbe289
+    disposition: container_lab
+    lab_profiles:
+      redis_protocol_ascii: [genuine_ubuntu_6_0_11, native_unicode_save_and_payload_control, actual_unicode_rdb_paths, physical_uid_and_exact_payload_bytes, same_selection_repeat, complete_config_and_serialized_key_recovery]
+      redis_protocol_utf8: [nonascii_typed_utf8_password, identical_native_file_and_recovery_contracts]
+    reason: >-
+      Both passing protocol profiles prove native SAVE before two original
+      owning uploads to absent-before Unicode filenames. Physical UID101 RDB
+      bytes contain the exact payload, and original config/keys preserve.
+      Only fixture-owned files are removed. A separate binary-output assertion
+      fault is retained from the first baseline; native physical proof already
+      succeeds there. Thirty-three existing source regressions also pass with
+      the repaired libraries. Other releases/auth modes, TLS and broader file
+      formats remain unqualified. See VERIFICATION-20261121-redis-protocol.md.
   exploit/linux/redis/redis_debian_sandbox_escape:
     source_sha256: 7f514b48e5685518b6bb2740abfbf64e0ea2015601a276f6750b76ac9d671e6a
     disposition: container_lab
@@ -8,36 +68,28 @@ modules:
       redis_lua: [pinned_ubuntu_6_0_11_package, uid101, actual_dynamic_lua, native_shell_and_exact_lua_controls, password_authentication, incorrect_credential_recovery, repeated_checks, native_and_default_bash_sessions, repeated_plain_and_quoted_unicode_crlf_commands, autocheck_on_off, missing_library_recovery, reason_bearing_refused_unknown, original_process_and_config_and_serialized_databases_preserved]
       redis_lua_open: [same_affected_package, no_authentication, configured_password_ignored, identical_native_gates, native_and_default_bash_sessions, same_selection_repeats, exact_command_bytes, process_socket_file_and_key_preservation]
       redis_lua_fixed: [pinned_ubuntu_6_0_16_package, native_shell_and_lua_arithmetic_positive, package_lookup_blocked, no_native_command_proof, actual_safe_checks, repeated_autocheck_refusal, exploit_body_withheld, reason_bearing_refused_unknown, preservation]
+      redis_protocol_ascii: [native_protocol_and_data_gates, repeated_real_id_checks, typed_utf8_authentication, complete_preservation]
+      redis_protocol_utf8: [nonascii_password, native_authentication_positive_and_negative, repeated_real_id_checks, same_selection, complete_preservation]
     reason: >-
-      Three repaired native-gated profiles pass 24/0/0 after original 24/5/0.
-      Actual package and binary/library hashes, Redis authentication, stock
-      shell and same-command Lua controls separate setup from module behavior.
-      Original inline quoting fails rich commands despite native success;
-      binary operands through the existing RESP builder preserve command bytes
-      without changing the shared serializer. Expected check failures now return
-      reason-bearing Unknown and disconnect preserves unexpected faults and
-      interrupts. Identical source-level regressions go 45/24 to 45/0; root owner
-      and readiness units pass 49/0. Initial remembered generic-payload selection
-      was a harness fault; default sessions now run before overrides. Early
-      readiness is independently corrected 11/3 to 11/0, withholding owners after
-      resource/preservation failure or failed requalification. A missing runtime
-      stub in the first guard unit fixture is retained separately. Thirteen
-      additional real sessions are used/closed across retained frames, including
-      eight original owner calls. Actual post-bootstrap responses, UID 101 file
-      bytes, PID/birth and callback closure verify. Entire Redis configuration,
-      serialized databases 0/2 keys and foreign file preserve. All 28 fresh cgroup
-      captures are zero. One 128 MiB/0.5 CPU target runs at a time; two unused
-      automatic agent-startup helpers are removed promptly. All 781 recorded
-      Docker objects are absent and both contexts empty. Current passing
-      qualification reaches 162 cases / 41 profiles / 457 inputs, 86 ordinary and 21 separate
-      candidate-source sessions. Two default-payload offenses are inherited;
-      source tidy exits 2 for those, docs tidy exits 0, and 5,923 human Scenario bytes
-      preserve. Source targets/defaults and exploit dispatch remain unchanged.
+      Three Lua profiles retain 24/0/0 against the subsequent shared binary
+      RESP/response/authentication repair, including six used/closed sessions
+      and four default owning sessions. Both new protocol profiles pass and
+      repeat genuine id-based checks with typed UTF-8/non-ASCII credentials.
+      Native package/library, shell/Lua, auth, data and file controls precede
+      owners. Earlier rich-command/refused-check repairs and readiness guards
+      retain their original failures and separate harness findings; see
+      VERIFICATION-20261121-redis-lua.md. The current five-profile matrix passes
+      38/0/0; identical shared-source units go 174/28 to 174/0, with repeated
+      support examples explicitly counted, and combined root units pass 143/0.
+      Complete configuration, serialized databases 0/2, daemon identity, foreign
+      file, UID/PID proof and callback closure verify. One capped target runs
+      at a time; all 806 recorded objects are absent and both contexts empty.
+      Module source/targets/defaults and human Scenarios remain unchanged.
       Missing-library and nil-command-response Safe classifications are retained
       behavior, not proof that all such targets are unaffected. Dropper/wget,
-      other payloads/releases/architectures, TLS/ACL users, non-ASCII AUTH through
-      the existing mixin, systemd restrictions and reporting remain open. See
-      VERIFICATION-20261121-redis-lua.md; full inventory scope remains active.
+      other payloads/releases/architectures, TLS/ACL users, systemd restrictions
+      and reporting remain open.
+      See VERIFICATION-20261121-redis-protocol.md; full inventory scope remains active.
   exploit/multi/misc/nodejs_v8_debugger:
     source_sha256: acf8af4e97de97510feb6179be112525267c44d9b438fe80ed5909ac2dcce541
     disposition: container_lab

@@ -20,6 +20,10 @@ echo 'auth abcde \n set key2 value2' | nc 127.0.0.1 6379 > /dev/null
 ``` 
 
 
+The [automated Redis protocol profiles](../../../../test/module_targets/redis_protocol_utf8/README.md) cover native authentication,
+Unicode/binary data and owning module entry points. See the
+[dated verification](../../../../test/module_targets/VERIFICATION-20261121-redis-protocol.md) for results and remaining coverage.
+
 ## Verification Steps
 
 1. Install Redis and add data as described above.

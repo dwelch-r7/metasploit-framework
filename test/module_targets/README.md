@@ -5,7 +5,22 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest qualification: [Redis Lua package and session regressions](VERIFICATION-20261121-redis-lua.md)
+Latest qualification: [Redis protocol bytes and credential consumers](VERIFICATION-20261121-redis-protocol.md)
+adds ASCII/UTF-8 profiles for five real consumers. Corrected original profiles
+retain **14/7/0**; repaired protocol profiles pass **14/0/0**, and all three Lua
+profiles retain **24/0/0** against the shared-library repair. Identical source
+units improve **174/28 to 174/0**; combined root units pass **143/0**. Native
+authentication, exact data/CSV, physical Unicode uploads, same-selection repeats
+and complete config/key/process preservation verify. Separate assertion/fixture
+faults remain recorded. Six more sessions are used/closed, including four owner
+sessions. The passing set reaches **176 cases / 43 profiles / 482 inputs**, with
+92 ordinary and 21 separate candidate-source sessions. All 25 new/806 recorded
+Docker objects are absent; both contexts have no running or stopped containers.
+One 128 MiB/0.5 CPU target runs at a time. Zero new lint/doc offenses; inherited
+warnings remain and human Scenarios preserve. Wider protocol/auth/release paths,
+Lua dropper and the full valuable feasible-module inventory remain open. No PR.
+
+Previous qualification: [Redis Lua package and session regressions](VERIFICATION-20261121-redis-lua.md)
 adds three pinned affected/authenticated, affected/open and patched-package
 profiles. Real CLI/Lua/physical controls precede owning checks, exact command
 bytes and default Bash sessions. Original profiles retain **24/5/0**; repaired

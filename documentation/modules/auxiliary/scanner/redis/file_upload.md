@@ -35,6 +35,10 @@ inspection and leaves it untouched because ownership is unconfirmed. A lost
 connection can also prevent configuration restoration; cleanup warnings identify
 the operations that failed.
 
+The [automated Redis protocol profiles](../../../../../test/module_targets/redis_protocol_utf8/README.md) cover native authentication,
+Unicode/binary data and owning module entry points. See the
+[dated verification](../../../../../test/module_targets/VERIFICATION-20261121-redis-protocol.md) for results and remaining coverage.
+
 ## Verification Steps
 
   1. Do: `use auxiliary/scanner/redis/file_upload`

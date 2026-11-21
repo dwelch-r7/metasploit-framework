@@ -16,6 +16,10 @@ Virtual testing environments (inside docker container):
 
 To start a docker iamge: `docker run --rm -p 6379:6379 redis:8.2.0`
 
+The [automated Redis protocol profiles](../../../../../test/module_targets/redis_protocol_utf8/README.md) cover native authentication,
+Unicode/binary data and owning module entry points. See the
+[dated verification](../../../../../test/module_targets/VERIFICATION-20261121-redis-protocol.md) for results and remaining coverage.
+
 ## Verification Steps
 
   1. Do: `use auxiliary/scanner/redis/redis_server`
