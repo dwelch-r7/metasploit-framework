@@ -1,0 +1,5 @@
+module Rex
+  module Ntpath
+    def self.as_ntpath: (string | Pathname path) -> String
+  end
+end
