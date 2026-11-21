@@ -1,0 +1,6 @@
+{
+  "status": "[*] Command shell session 6 opened (192.0.2.1:4492 -> 192.0.2.2:55753) at 2026-11-21 03:55:30 +0000",
+  "origin_line_sha256": "fea3048ae2459acbf6a75f2f77327aaac175afae46bd8d8705dad82c528d6343",
+  "origin_case": "laravel_token_sessions_target_spec.rb second owner invocation",
+  "sanitization": "Two captured loopback endpoints replaced with TEST-NET-1; framing and status adjacency preserved."
+}

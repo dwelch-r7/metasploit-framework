@@ -67,10 +67,16 @@ module RsyncCredentialTarget
   end
 
   def rc_json(code)
-    response = console_command("irb -e #{('puts "RSYNC_JSON=" + (' + code + ').to_json').inspect}")
-    match = response.match(/^RSYNC_JSON=(.+)$/)
+    token = Rex::Text.rand_text_alphanumeric(16)
+    prefix = "RSYNC_JSON_#{token}="
+    suffix = "=#{token}_END"
+    # Background session messages can arrive before puts writes its newline.
+    # Keep both delimiters in the same write as the encoded result.
+    producer = "puts #{prefix.inspect} + ::Base64.strict_encode64((#{code}).to_json) + #{suffix.inspect}"
+    response = console_command("irb -e #{producer.inspect}")
+    match = response.match(%r{#{Regexp.escape(prefix)}([A-Za-z0-9+/=]+)#{Regexp.escape(suffix)}})
     expect(match).not_to be_nil, response
-    JSON.parse(match[1])
+    JSON.parse(::Base64.strict_decode64(match[1]))
   end
 
   def rc_sql(query)
