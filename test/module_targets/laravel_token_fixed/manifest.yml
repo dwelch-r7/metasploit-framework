@@ -12,6 +12,8 @@
   },
   "support_files": [
     "lib/msf/core/exploit/remote/http_client.rb",
+    "lib/rex/proto/http/client_request.rb",
+    "lib/rex/proto/http/packet.rb",
     "modules/payloads/singles/cmd/unix/generic.rb",
     "test/module_targets/laravel/commands.rb",
     "test/module_targets/laravel_token/Dockerfile",

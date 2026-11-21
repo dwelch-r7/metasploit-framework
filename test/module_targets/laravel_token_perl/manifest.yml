@@ -13,6 +13,8 @@
   },
   "support_files": [
     "lib/msf/core/exploit/remote/http_client.rb",
+    "lib/rex/proto/http/client_request.rb",
+    "lib/rex/proto/http/packet.rb",
     "modules/exploits/multi/handler.rb",
     "modules/payloads/singles/cmd/unix/generic.rb",
     "modules/payloads/singles/cmd/unix/reverse_perl.rb",

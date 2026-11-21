@@ -1,0 +1,40 @@
+{
+  "services": {
+    "target": {
+      "image": "metasploit-module-target-calibre:7.14.0",
+      "build": {
+        "context": ".",
+        "args": {
+          "CALIBRE_VERSION": "7.14.0",
+          "CALIBRE_SHA512": "850633a741b162f1acb020f58209bda0e2d6f4191c07fed4232a83c5974a219d0f2a38d93270dfddc8bdb8c505345aa28553a9c4d8fe4b8034348d39a95e5b53"
+        }
+      },
+      "platform": "linux/amd64",
+      "init": true,
+      "cpus": 1,
+      "mem_limit": "768m",
+      "memswap_limit": "768m",
+      "pids_limit": 128,
+      "environment": {
+        "SEED_BOOK": "true"
+      },
+      "extra_hosts": [
+        "host.docker.internal:host-gateway"
+      ],
+      "ports": [
+        "127.0.0.1::8080"
+      ],
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "python3",
+          "-c",
+          "import urllib.request;assert urllib.request.urlopen('http://127.0.0.1:8080/',timeout=3).status==200"
+        ],
+        "interval": "2s",
+        "timeout": "4s",
+        "retries": 40
+      }
+    }
+  }
+}

@@ -5,7 +5,20 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest: [Genuine fixed Laravel token controls](VERIFICATION-20261121-laravel-token-fixed.md)
+Latest: [Calibre native execution and shared repairs](VERIFICATION-20261121-calibre.md)
+adds one owner and one qualified profile with **8/0**, reaching **319 runtime
+owners, 675 qualified profiles and 4,799 historical functional cases**. Five
+fresh profiles pass **24/0**, with seven real sessions used and closed. Genuine
+native controls expose Calibre command serialization and shared HTTP byte-length
+defects; a separately retained console-output race is repaired before the full
+five-profile replay. All 67 declared inputs, 24 zero resource captures and thirty
+new Docker object removals verify. All 355 recorded objects are absent and the
+global container inventory is empty. Serial stacks peak at two capped containers.
+Older profiles retain historical results without a current shared-source claim.
+Default Calibre sessions and release boundaries remain unqualified. No PR; the
+broader goal stays active.
+
+Previous: [Genuine fixed Laravel token controls](VERIFICATION-20261121-laravel-token-fixed.md)
 adds one qualified profile with **3/0**, reaching **318 runtime owners, 674
 qualified profiles and 4,791 historical functional cases**. Four fresh profiles
 pass **16/0** with seven real sessions used and closed. Six unchanged profiles
