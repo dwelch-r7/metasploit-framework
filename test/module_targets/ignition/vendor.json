@@ -1,0 +1,53 @@
+{
+  "php": "7.4.15",
+  "laravel": "8.26.1",
+  "packages": {
+    "facade/ignition": {
+      "version": "2.5.1",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/facade/ignition.git",
+        "reference": "3b3403f18bbdc0aeadf1ffaddf11a1588b12ec7a"
+      }
+    },
+    "guzzlehttp/guzzle": {
+      "version": "7.2.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/guzzle/guzzle.git",
+        "reference": "0aa74dfb41ae110835923ef10a9d803a22d50e79"
+      }
+    },
+    "laravel/framework": {
+      "version": "v8.26.1",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/laravel/framework.git",
+        "reference": "275c78c97e007e4a9d771d4d1caa1c77ebfdcf94"
+      }
+    },
+    "phpoption/phpoption": {
+      "version": "1.7.5",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/schmittjoh/php-option.git",
+        "reference": "994ecccd8f3283ecf5ac33254543eb0ac946d525"
+      }
+    }
+  },
+  "source_sha256": {
+    "vendor/guzzlehttp/guzzle/src/Cookie/FileCookieJar.php": "d5af41fa17385bf3f57049d3063e8d4028a9fcebb18df62487fc19bcab50fe30",
+    "vendor/laravel/framework/src/Illuminate/Validation/Rules/RequiredIf.php": "b0aa485cfe0a8159107f2fb4908fd5d86c9c42bffd8add17072cb8ba3245cd6d",
+    "vendor/phpoption/phpoption/src/PhpOption/LazyOption.php": "daf8245aaf62c5f119459fa0946dd914a36e723cec9f6a06524d307c83f3000d",
+    "vendor/facade/ignition/src/Solutions/MakeViewVariableOptionalSolution.php": "0890ec9facca1d5848b28072d53dc9a1d4417078462b4cca5b0f51dbf8178022",
+    "vendor/facade/ignition/src/SolutionProviders/SolutionProviderRepository.php": "c5e01f8753e3b879c3dd0346246d5a835f90377debe607e3dd69660895d929de",
+    "composer.json": "7c532dc5dae88e50a80bb76f44877dee1174bed7f0ad8655f90ec3e34f6c56c0",
+    "composer.lock": "a5004e40195a5ccb7ae9c341ea05ce9e04ddcb70c76130aa453ed238a4b7fd9e",
+    "bootstrap/app.php": "e346d041676171a900406bba87f0658b6d3aebef79bed7e7081213e7ac3c7951",
+    "config/app.php": "e669ebcc618f8d35ed275316aa859898663019abdda748ff34d16b50a05ea1e1",
+    "config/logging.php": "0c0de6361441e00681964c1476b7f0893c13d55a00374af478f89e72fea8ab74",
+    "routes/web.php": "9573436ed5a656303d6f03452830bb623a7380014006401a0e4f6506166d4029",
+    "vendor/facade/ignition/src/IgnitionServiceProvider.php": "99b2915c4e71d0b08179a99e2928ee271f5064ce6abbd003d27f91a4f70e3c27",
+    "vendor/facade/ignition/src/Http/Controllers/ExecuteSolutionController.php": "7a48d80dc3022b3327be913098b593075132a86d14adc9f977b87b3befa62f2d"
+  }
+}

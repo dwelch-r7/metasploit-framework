@@ -1,0 +1,7 @@
+services:
+  target:
+    extends:
+      file: ../ignition/compose.yaml
+      service: target
+    environment:
+      APP_DEBUG: "false"

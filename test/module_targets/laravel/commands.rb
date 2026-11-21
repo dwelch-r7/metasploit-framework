@@ -16,9 +16,12 @@ module LaravelCommandTarget
     ['target']
   end
 
+  def native_argv(mode)
+    target_runtime.fetch('compose') + ['exec', '-T', 'target', 'php', '/opt/module-target-native.php', mode]
+  end
+
   def native(mode, data, label)
-    command = target_runtime.fetch('compose') + ['exec', '-T', 'target', 'php', '/opt/module-target-native.php', mode]
-    output, error, status = Open3.capture3(*command, stdin_data: JSON.generate(data))
+    output, error, status = Open3.capture3(*native_argv(mode), stdin_data: JSON.generate(data))
     @rc[:native] << { label: label, mode: mode, input: data, exit: status.exitstatus, stdout: output, stderr: error }
     rc_save
     expect(status.success?).to be(true), output + error
@@ -83,6 +86,7 @@ module LaravelCommandTarget
         value if value.fetch('exists')
       end
       expect(actual).to eq('exists' => true, 'uid' => laravel_uid, 'base64' => Base64.strict_encode64(content.b))
+      yield if block_given?
     ensure
       rc_command('remove-owner-proof', 'target', 'rm', '-f', '--', path)
       expect(file(path)).to include('exists' => false)

@@ -5,7 +5,19 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest: [Invoice Ninja native-gated sessions](VERIFICATION-20261120-invoiceninja-sessions.md)
+Latest: [Ignition native commands and debug-disabled controls](VERIFICATION-20261120-ignition.md)
+adds one owner and two qualified profiles with **9/0**, reaching **317 runtime
+owners, 669 qualified profiles and 4,773 historical functional cases**. The
+maintained set passes **27/0** in two serial phases, including eighteen unchanged
+Ninja/Shelf regressions. A command-serialization repair changes the source suite
+from 14/6 to 14/0 and the genuine owner profile from 7/3 to 7/0. Exact bytes,
+repeats, log selection/cleanup and native-proven debug-disabled withholding pass.
+A pending readiness-flag attempt and other harness failures remain separately
+recorded; broader log states and sessions are unqualified. Test stacks peak at
+two capped containers. The global audit removes six unused tool helpers and
+verifies all 229 recorded Docker objects absent. No PR; the broader goal is active.
+
+Previous: [Invoice Ninja native-gated sessions](VERIFICATION-20261120-invoiceninja-sessions.md)
 adds three qualified profiles with **6/0**, reaching **316 runtime owners, 667
 qualified profiles and 4,764 historical functional cases**. The maintained shared
 helper replay passes **10/0** across five Ninja/InvoiceShelf profiles, using and
