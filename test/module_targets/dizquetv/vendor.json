@@ -1,0 +1,12 @@
+{
+  "1.5.3": {
+    "image": "vexorian/dizquetv@sha256:f93b5ba851fcd9ce120588abe3108bac30afd63921178870f646ed1258b64f35",
+    "binary_sha256": "e3caf71dfac8f1aec52d636a94b27fe69db0f296b5756cd0ff2636f1c633e8a8",
+    "upstream_commit": "869987bdb1a5aed1dbfdba5ab48329e1dc18410b"
+  },
+  "1.5.5": {
+    "image": "vexorian/dizquetv@sha256:1d26104a1bb417dca1124baf9ae2205b5837bc90723473c2e381d9fe603752c4",
+    "binary_sha256": "42ba6a642911092fa2639630ce1bc0a31470a39c9b7a4f48a7ea12853e5b34de",
+    "upstream_commit": "196033844ac9abfa32819653d221b3fff2696677"
+  }
+}

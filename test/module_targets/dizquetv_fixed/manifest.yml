@@ -1,0 +1,39 @@
+{
+  "spec": "spec/modules/exploits/multi/http/dizquetv_fixed_target_spec.rb",
+  "console": false,
+  "expected_examples": 3,
+  "health_timeout": 150,
+  "test_timeout": 480,
+  "test_env": {
+    "DIZQUETV_TARGET_VERSION": "1.5.5"
+  },
+  "modules": [
+    "exploit/multi/http/dizquetv_rce"
+  ],
+  "ports": {
+    "target": 8000
+  },
+  "support_files": [
+    "Gemfile.lock",
+    "lib/msf/base/simple/exploit.rb",
+    "lib/msf/core/exploit.rb",
+    "lib/msf/core/exploit/file_dropper.rb",
+    "lib/msf/core/exploit/remote/auto_check.rb",
+    "lib/msf/core/exploit/remote/http_client.rb",
+    "lib/msf/core/exploit_driver.rb",
+    "lib/msf/core/handler/none.rb",
+    "lib/msf/core/opt_int.rb",
+    "lib/msf/core/opt_string.rb",
+    "lib/msf/ui/console/command_dispatcher/exploit.rb",
+    "lib/rex/proto/http/client_request.rb",
+    "lib/rex/proto/http/packet.rb",
+    "modules/payloads/singles/cmd/unix/generic.rb",
+    "test/module_targets/dizquetv/acceptance.rb",
+    "test/module_targets/dizquetv/compose.yaml",
+    "test/module_targets/dizquetv/health.pl",
+    "test/module_targets/dizquetv/native_probe.py",
+    "test/module_targets/dizquetv/observe.rb",
+    "test/module_targets/dizquetv/vendor.json",
+    "test/module_targets/rsync_creds/native.rb"
+  ]
+}

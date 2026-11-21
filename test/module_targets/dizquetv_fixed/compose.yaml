@@ -1,0 +1,4 @@
+services:
+  target:
+    extends: {file: ../dizquetv/compose.yaml, service: target}
+    image: vexorian/dizquetv@sha256:1d26104a1bb417dca1124baf9ae2205b5837bc90723473c2e381d9fe603752c4

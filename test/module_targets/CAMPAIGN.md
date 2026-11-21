@@ -1652,3 +1652,19 @@ Docker objects are absent, both contexts finish globally empty and serial stacks
 use at most three capped services. Auth/release variants and stock target-0 fetch
 remain unqualified. See [the report](VERIFICATION-20261121-opendcim-dropper.md).
 No PR; the broad inventory goal remains active.
+
+
+dizqueTV adds two native-gated publisher-image profiles and ten passing examples.
+Six actual Linux COMMAND/generic-payload commands preserve quotes, Unicode/CRLF,
+returned stdout, UID0 proof and all nine JSON stores, with same-selection repeats
+and unrelated thread settings preserved. Native CLI/API counterparts precede
+owning execution. Version 1.5.5 specifically rejects injection, and the actual
+Safe check/refusal leaves its hidden path-lock timestamp untouched. Three
+setup/harness faults remain separately retained; production source is unchanged.
+The latest set has 103 cases, 43 retained used/closed sessions, 309 current inputs
+and 208 zero cgroup captures; historical coverage reaches 326 owners in stated
+paths, 700 profiles and 4,878 cases. All 16 new/576 recorded Docker objects are
+absent and both contexts finish globally empty, with one 384 MiB/0.7 CPU container
+running serially. Sessions, default fetch, Windows and other releases remain
+unqualified. See [the report](VERIFICATION-20261121-dizquetv.md). No PR; the full
+inventory goal remains active.
