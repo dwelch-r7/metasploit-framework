@@ -1,0 +1,46 @@
+services:
+  target:
+    image: opendcim/opendcim@sha256:1a3a5373b53bb1aaddfa3adf0e11f82deaab6d084b3b0df63bffba04eb6101c9
+    platform: linux/amd64
+    init: true
+    cpus: 0.8
+    mem_limit: 768m
+    memswap_limit: 768m
+    pids_limit: 128
+    environment:
+      OPENDCIM_DB_HOST: database
+      OPENDCIM_DB_NAME: dcim
+      OPENDCIM_DB_USER: dcim
+      OPENDCIM_DB_PASS: ModuleTarget-dcim-db-123!
+      OPENDCIM_ADMIN_USER: dcim
+    extra_hosts: ["host.docker.internal:host-gateway"]
+    volumes:
+      - ./apache.conf:/etc/apache2/sites-available/000-default.conf:ro
+      - ./native.php:/opt/module-target-dcim-native.php:ro
+    ports: ["127.0.0.1::80"]
+    depends_on:
+      database: {condition: service_healthy}
+    healthcheck:
+      test: [CMD, php, -r, "exit(strpos(file_get_contents('http://127.0.0.1/install.php'), 'openDCIM')===false?1:0);"]
+      interval: 2s
+      timeout: 5s
+      retries: 60
+  database:
+    image: mariadb@sha256:5e07c0d90fe1421e9b0b0114a7236eb519fdd873679bdb2ecc771d3c226c1f4e
+    platform: linux/amd64
+    cpus: 0.4
+    mem_limit: 384m
+    memswap_limit: 384m
+    pids_limit: 128
+    command: [mariadbd, --innodb-buffer-pool-size=64M, --innodb-log-file-size=16M, --max-connections=25]
+    environment:
+      MARIADB_ROOT_PASSWORD: ModuleTarget-dcim-root-123!
+      MARIADB_DATABASE: dcim
+      MARIADB_USER: dcim
+      MARIADB_PASSWORD: ModuleTarget-dcim-db-123!
+    tmpfs: ["/var/lib/mysql:rw,size=200m,mode=0755", "/run/mysqld:rw,size=8m,mode=0755"]
+    healthcheck:
+      test: [CMD, healthcheck.sh, --connect, --innodb_initialized]
+      interval: 2s
+      timeout: 5s
+      retries: 60

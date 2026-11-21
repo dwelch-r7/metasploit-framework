@@ -1,0 +1,16 @@
+{
+  "image": "opendcim/opendcim@sha256:1a3a5373b53bb1aaddfa3adf0e11f82deaab6d084b3b0df63bffba04eb6101c9",
+  "version": "24.01",
+  "sources": {
+    "version.php": "c45d8164085fea3f702ac687dfbac1eddbcc1120ec32c38d5fd417a679f502e6",
+    "container-install.php": "7cd1979a66a4babd80e14f98a068545de58a87db38f9b58f28fccd49858d67ce",
+    "config.inc.php": "c75ff188c4770904ce9c806d334df8476de62ca938cff15bc2189db032d0a51d",
+    "report_network_map.php": "db2e55ce2686d21f31b1f16b3f0b402694ca6825f146bf859f5fff7e18458788",
+    "db.inc.php": "4782910b97d31db9449d626055c63113a93574f0e4e150af30d41677b123864f",
+    "facilities.inc.php": "a9807faa48562acb65eecd881b68ac81bbddabdeb5d5c0d78f1ce3d31a29a3d4",
+    "classes/People.class.php": "0fc07198fb7129d230fadb06f29d3c9f558caa35317b15ae72d821f764df221a"
+  },
+  "php": "8.1.2-1ubuntu2.14",
+  "database_version": "10.11.9-MariaDB-ubu2204",
+  "configuration_rows": 145
+}

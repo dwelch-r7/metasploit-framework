@@ -5,7 +5,20 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest qualification: [n8n default wget/Meterpreter sessions](VERIFICATION-20261121-n8n-sessions.md)
+Latest qualification: [openDCIM SQL and command bytes](VERIFICATION-20261121-opendcim.md)
+adds one profile with **6/0/0** and six real owning command executions. Independent
+SVG, stacked SQL and per-command controls precede actual checks, plain/quoted
+Unicode/CRLF cases, alias paths and same-selection repeats. A confirmed SQL
+quoting fault is fixed separately; all 145 configuration rows and the complete
+table registry restore. The current set reaches **78 cases across 23 profiles**,
+twenty-eight retained used/closed sessions, 261 current inputs and 140 zero cgroup
+captures. Historical coverage is 325 owners in stated paths, 693 profiles and
+4,853 cases. All 23 new/531 recorded Docker objects are absent; global containers
+are zero. Serial profiles use at most two capped containers. Source/new Ruby and
+module docs pass lint/tidy. Sessions, dropper and auth variants remain unqualified.
+No PR; the broader goal remains active.
+
+Previous qualification: [n8n default wget/Meterpreter sessions](VERIFICATION-20261121-n8n-sessions.md)
 adds a real native-gated session profile and repairs a confirmed live-session
 API stall. Three n8n profiles pass **10/0/0**, including three fully used/closed
 sessions: one stock native control and two default owner runs on one selection.

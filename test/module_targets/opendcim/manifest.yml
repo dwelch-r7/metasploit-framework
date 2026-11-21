@@ -1,0 +1,26 @@
+{
+  "spec": "spec/modules/exploits/linux/http/opendcim_target_spec.rb",
+  "console": false,
+  "expected_examples": 6,
+  "health_timeout": 180,
+  "test_timeout": 480,
+  "modules": [
+    "exploit/linux/http/opendcim_install_sqli_rce"
+  ],
+  "ports": {
+    "target": 80
+  },
+  "support_files": [
+    "Gemfile.lock",
+    "lib/msf/core/exploit.rb",
+    "lib/msf/core/exploit/cmd_stager.rb",
+    "lib/msf/core/exploit/remote/auto_check.rb",
+    "lib/msf/core/exploit/remote/http_client.rb",
+    "lib/msf/core/handler/none.rb",
+    "lib/msf/ui/console/command_dispatcher/exploit.rb",
+    "lib/rex/proto/http/client_request.rb",
+    "lib/rex/proto/http/packet.rb",
+    "modules/payloads/singles/cmd/unix/generic.rb",
+    "test/module_targets/rsync_creds/native.rb"
+  ]
+}

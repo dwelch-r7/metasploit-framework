@@ -1602,3 +1602,19 @@ absent, including two unused initialization helpers; global containers are zero.
 Serial profiles use at most two capped containers. Four pre-existing lint
 warnings, Windows and other payload paths remain disclosed. See
 [the report](VERIFICATION-20261121-n8n-sessions.md). No PR; the broad goal stays active.
+
+openDCIM adds a native-gated 24.01 profile with six passing examples and six
+actual generic commands: plain, quoted/Unicode/CRLF and alias-base-path repeats.
+Native SVG/stacked-SQL controls and the exact same commands through a parameterized
+setter distinguish harness failures from a confirmed module SQL quoting defect.
+The original generated statement fails direct MariaDB parsing even though the
+installer reports 302; SQL hex strings preserve the command bytes. An isolated
+source fix passes standard lint/tidy and the repaired 6/0 replay. All 145 full
+configuration rows and the table registry preserve/restore; backup/proof artifacts
+are absent. The latest set has 78 cases, 28 retained used/closed sessions, 261
+current inputs and 140 zero cgroup captures. Historical coverage reaches 325
+owners in stated paths, 693 profiles and 4,853 cases. All 23 new/531 recorded Docker
+objects are absent, global containers are zero and capped stacks remain serial
+with at most two containers. No new sessions are counted; sessions/dropper/auth
+variants and other releases remain unqualified. See
+[the report](VERIFICATION-20261121-opendcim.md). No PR; the broad goal stays active.

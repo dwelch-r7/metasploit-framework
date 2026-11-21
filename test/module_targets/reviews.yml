@@ -1,6 +1,28 @@
 # Individual source-reviewed target requirements; these are not blanket exclusions.
 ---
 modules:
+  exploit/linux/http/opendcim_install_sqli_rce:
+    source_sha256: 7b348abe89bb7357f26a573025fcc015b4a95e4bd3dfd259ed7903e856e7ea4c
+    disposition: container_lab
+    lab_profiles:
+      opendcim: [pinned_24_01, native_svg, native_stacked_sql, exact_native_command_controls, actual_timed_check, refused_port, quoted_unicode_crlf, same_selection_repeat, base_path, full_config_restore, backup_table_cleanup]
+    reason: >-
+      Six maintained cases pass on the official 24.01 image with MariaDB
+      10.11.9 and SetEnv REMOTE_USER=dcim. Each exact command first works through
+      an independent parameterized setter and the real report endpoint; its
+      proof is removed before owning delivery. Six owning commands verify exact
+      UID33 bytes across plain, quoted/Unicode/CRLF and base-path repeats.
+      All 145 configuration rows, including thirteen seeded LDAP values, and the
+      table registry are preserved; factory settings restore afterward. Captured
+      original SQL independently fails native parsing on double quotes. A SQL
+      hex literal using Rex::Text repairs that transport without changing command
+      bytes. The original 6/1 frame and harness-only failures remain separate.
+      Seven source fingerprints and the actual installer remain unchanged.
+      The current set has 261 inputs and 140 zero cgroup captures. All 531 recorded
+      Docker objects are absent with global containers zero and at most two
+      capped services serially. Sessions, dropper architectures, authentication
+      variants, other releases and patched behavior remain unqualified.
+      See VERIFICATION-20261121-opendcim.md.
   exploit/multi/http/n8n_workflow_expression_rce:
     source_sha256: 743994f7158a719692f50c047a4f94d79f2d9c66261aee9276912a159a9698fd
     disposition: container_lab
