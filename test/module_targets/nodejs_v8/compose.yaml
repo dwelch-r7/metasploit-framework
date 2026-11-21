@@ -1,0 +1,22 @@
+services:
+  target:
+    image: node@sha256:4954ce53247180e207772f936223b11d52a7e4ee712dfe73fe2a75e39f785067
+    platform: linux/amd64
+    init: true
+    user: '1000:1000'
+    read_only: true
+    cpus: 0.5
+    mem_limit: 128m
+    memswap_limit: 128m
+    pids_limit: 64
+    command: [node, '--debug=0.0.0.0:5858', /opt/module-target-nodejs/application.js]
+    volumes: ['./:/opt/module-target-nodejs:ro']
+    tmpfs: ['/tmp:rw,exec,nosuid,nodev,size=16m,mode=1777']
+    ports: ['127.0.0.1::5858']
+    extra_hosts: ['host.docker.internal:host-gateway']
+    healthcheck:
+      # Opening the single-client debugger for health would race real tests.
+      test: [CMD-SHELL, 'kill -0 1 && grep -q ":16E2 .* 0A " /proc/net/tcp']
+      interval: 3s
+      timeout: 3s
+      retries: 30

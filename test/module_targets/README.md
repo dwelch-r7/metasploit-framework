@@ -5,7 +5,21 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest harness repair: [ProjectSend failed-console recovery](VERIFICATION-20261121-projectsend-recovery.md)
+Latest module profile: [Node V8 debugger TCP/TLS sessions](VERIFICATION-20261121-nodejs-v8.md)
+uses one pinned Node 7.10.1 container capped at 128 MiB/0.5 CPU. Real protocol,
+native shell and callback gates precede four original owning sessions across TCP
+and TLS. All six sessions are used and closed, with UID1000 proof, PID/birth,
+two-peer socket closure and program/foreign-file preservation. The profile stays
+failing at **6/1/0** because a refused-port check returns no reason-bearing
+CheckCode. Two full replays retain twelve sessions; four earlier harness faults
+remain separate. Current inputs reach
+434 and ordinary retained sessions 61; 21 candidate-source sessions stay separate.
+The wholly passing set remains **132 cases / 37 profiles**. All 12 new/759
+recorded Docker objects are absent; both contexts are empty. Full inventory
+scope remains active; default/bind/idle and other Node platforms/releases remain
+unqualified.
+
+Previous harness repair: [ProjectSend failed-console recovery](VERIFICATION-20261121-projectsend-recovery.md)
 preserves the first transport error, reaps the exact failed console before native
 fixture recovery, and withholds dependent examples. Identical process tests go
 from 15/6 to 15/0; a real isolated msfconsole timeout also verifies recovery.

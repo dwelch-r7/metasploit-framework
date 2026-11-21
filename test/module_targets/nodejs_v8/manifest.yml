@@ -1,0 +1,32 @@
+{
+  "spec": "spec/modules/exploits/multi/misc/nodejs_v8_target_spec.rb",
+  "console": false,
+  "expected_examples": 6,
+  "health_timeout": 100,
+  "test_timeout": 600,
+  "modules": ["exploit/multi/misc/nodejs_v8_debugger"],
+  "ports": {"target": 5858},
+  "support_files": [
+    "Gemfile.lock",
+    "spec/acceptance_spec_helper.rb",
+    "spec/support/acceptance/countdown.rb",
+    "lib/msf/core/exploit.rb",
+    "lib/msf/core/exploit/remote/tcp.rb",
+    "lib/msf/core/payload.rb",
+    "lib/msf/core/payload/nodejs.rb",
+    "lib/msf/core/handler/reverse_tcp.rb",
+    "lib/msf/core/handler/reverse_tcp_ssl.rb",
+    "lib/msf/core/handler.rb",
+    "lib/msf/core/session/provider/single_command_shell.rb",
+    "lib/msf/base/sessions/command_shell.rb",
+    "lib/msf/core/session_manager.rb",
+    "lib/msf/ui/console/command_dispatcher/exploit.rb",
+    "modules/exploits/multi/handler.rb",
+    "modules/payloads/singles/nodejs/shell_reverse_tcp.rb",
+    "modules/payloads/singles/nodejs/shell_reverse_tcp_ssl.rb",
+    "test/module_targets/dizquetv/native_probe.py",
+    "test/module_targets/druid_sessions/session_control.rb",
+    "test/module_targets/laravel/session_control.rb",
+    "test/module_targets/rsync_creds/native.rb"
+  ]
+}

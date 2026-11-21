@@ -1,0 +1,9 @@
+{
+  "image_tag": "docker.io/library/node:7.10.1-alpine",
+  "manifest_digest": "sha256:4954ce53247180e207772f936223b11d52a7e4ee712dfe73fe2a75e39f785067",
+  "image_config_digest": "sha256:4b72b56791f9a7b9a590774e1e31fea46e9805d18a51aeb9190092d5cc0ba5ee",
+  "platform": "linux/amd64",
+  "version": "v7.10.1",
+  "observed": "2026-11-21",
+  "verification": "docker buildx imagetools inspect node:7.10.1-alpine; runtime identity and binary fingerprint are independent native gates"
+}
