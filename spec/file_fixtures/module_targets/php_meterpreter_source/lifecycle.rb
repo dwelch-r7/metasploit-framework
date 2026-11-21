@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+# This runner owns its filters; the parent's SPEC_OPTS can conflict with them.
+ENV.delete('SPEC_OPTS')
+
 require 'rspec/core'
 require 'rspec/expectations'
 require 'json'
