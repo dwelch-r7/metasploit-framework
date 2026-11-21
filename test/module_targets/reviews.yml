@@ -7,9 +7,14 @@ modules:
     lab_profiles:
       opendcim: [pinned_24_01, native_svg, native_stacked_sql, exact_native_command_controls, actual_timed_check, refused_port, quoted_unicode_crlf, same_selection_repeat, base_path, full_config_restore, backup_table_cleanup]
       opendcim_sessions: [native_stock_bash, uid33_callback, actual_shell, autocheck_on_off, same_selection_repeat, exact_file_proof, pid_birth_connection_closure, original_sql_closure, full_config_restore]
+      opendcim_dropper_x64: [native_stock_printf, x64_meterpreter, default_payload, default_stager, exact_elf_bytes, normal_stager_cleanup, same_selection_repeat, original_sql_closure, full_config_restore]
+      opendcim_dropper_x64_bourne: [native_stock_bourne, x64_meterpreter, default_payload, exact_elf_base64_bytes, normal_stager_cleanup, same_selection_repeat, original_sql_closure, full_config_restore]
+      opendcim_dropper_x86: [native_stock_printf, x86_meterpreter, default_stager, exact_elf_bytes, normal_stager_cleanup, same_selection_repeat, original_sql_closure, full_config_restore]
+      opendcim_dropper_x86_bourne: [native_stock_bourne, x86_meterpreter, exact_elf_base64_bytes, normal_stager_cleanup, same_selection_repeat, original_sql_closure, full_config_restore]
     reason: >-
-      Six maintained cases pass on the official 24.01 image with MariaDB
-      10.11.9 and SetEnv REMOTE_USER=dcim. Each exact command first works through
+      Twenty-one maintained cases across six profiles pass on the official
+      24.01 image with MariaDB 10.11.9 and SetEnv REMOTE_USER=dcim.
+      Each exact generic command first works through
       an independent parameterized setter and the real report endpoint; its
       proof is removed before owning delivery. Six owning commands verify exact
       UID33 bytes across plain, quoted/Unicode/CRLF and base-path repeats.
@@ -23,14 +28,22 @@ modules:
       session and two actual target-0 sessions, with AutoCheck enabled then
       disabled on the same selection. Exact UID33 proof, PID/birth disappearance,
       callback closure, original reporting-row closure and full configuration
-      preservation pass. The stock image lacks curl and wget; default fetch
-      remains a prerequisite gap. The current set has 270 inputs and 152 zero
-      cgroup captures. All 544 recorded Docker objects are absent with global
+      preservation pass. Four dropper profiles add twelve used/closed
+      Meterpreter sessions across x64/x86 and printf/Bourne delivery. Actual
+      native stagers gate eight owner sessions. Generated/physical ELF and
+      base64 bytes, exact command transport, normal cleanup before fixture
+      removal, original SQL closure and complete configuration recovery pass.
+      Payload-fork and HttpClient defaults remain unchanged; the writable
+      directory is explicitly configured. All four first frames pass without
+      a production source change. The stock image lacks curl and wget; default
+      fetch remains a prerequisite gap. The current set has 291 inputs and 200
+      zero cgroup captures. All 560 recorded Docker objects are absent with global
       containers zero. Serial session qualification uses three capped services,
       including a 128 MiB reporting database under the user's resource allowance.
-      Dropper architectures, authentication variants, other releases and patched
-      behavior remain unqualified. See VERIFICATION-20261121-opendcim.md and
-      VERIFICATION-20261121-opendcim-sessions.md.
+      Authentication variants, other releases and patched behavior remain
+      unqualified. See VERIFICATION-20261121-opendcim.md,
+      VERIFICATION-20261121-opendcim-sessions.md and
+      VERIFICATION-20261121-opendcim-dropper.md.
   exploit/multi/http/n8n_workflow_expression_rce:
     source_sha256: 743994f7158a719692f50c047a4f94d79f2d9c66261aee9276912a159a9698fd
     disposition: container_lab

@@ -1,0 +1,7 @@
+services:
+  target:
+    extends: {file: ../opendcim_sessions/compose.yaml, service: target}
+  database:
+    extends: {file: ../opendcim_sessions/compose.yaml, service: database}
+  reporting_db:
+    extends: {file: ../opendcim_sessions/compose.yaml, service: reporting_db}

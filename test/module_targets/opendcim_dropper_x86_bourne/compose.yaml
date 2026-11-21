@@ -1,0 +1,7 @@
+services:
+  target:
+    extends: {file: ../opendcim_dropper_x64/compose.yaml, service: target}
+  database:
+    extends: {file: ../opendcim_dropper_x64/compose.yaml, service: database}
+  reporting_db:
+    extends: {file: ../opendcim_dropper_x64/compose.yaml, service: reporting_db}

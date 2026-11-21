@@ -1637,3 +1637,18 @@ both local contexts finish globally empty. The required third service is a
 stacks remain serial and fully capped. Dropper/auth/release variants remain
 unqualified. See [the report](VERIFICATION-20261121-opendcim-sessions.md).
 No production source change or PR; the broad goal remains active.
+
+Four openDCIM Linux dropper profiles add 12 qualified examples and 12 used/closed
+Meterpreter sessions across x64/x86 and printf/Bourne delivery. Real native stock
+stagers gate eight actual target-1 executions with AutoCheck on/off and
+same-selection repeats. Exact physical executable/base64 bytes, UID33,
+PID/birth/connection recovery, original reporting-row closure and all 145
+configuration rows verify. Normal stager cleanup removes payload files before
+the fixture removes its empty temporary directory. All four first frames pass;
+production source is unchanged. The latest set reaches 93 cases, 43 used/closed
+sessions, 291 current inputs and 200 zero cgroup captures; historical coverage is
+325 owners in stated paths, 698 profiles and 4,868 cases. All 16 new/560 recorded
+Docker objects are absent, both contexts finish globally empty and serial stacks
+use at most three capped services. Auth/release variants and stock target-0 fetch
+remain unqualified. See [the report](VERIFICATION-20261121-opendcim-dropper.md).
+No PR; the broad inventory goal remains active.
