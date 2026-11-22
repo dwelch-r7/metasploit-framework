@@ -1,6 +1,25 @@
 # Individual source-reviewed target requirements; these are not blanket exclusions.
 ---
 modules:
+  exploit/unix/ftp/proftpd_modcopy_exec:
+    source_sha256: 795700a8d6331492e9d7da10332314477ea5411636b9f18bb1090fb81e2428e8
+    disposition: container_lab
+    lab_profiles:
+      proftpd_modcopy: [genuine_source_built_1_3_5, native_ftp_auth_upload_download_delete, native_procfs_copy_php_execution, repeated_reason_bearing_checks, refused_connection_unknown, exact_command_bytes, repeated_cold_default_netcat_sessions, literal_temporary_php_cleanup, early_failure_socket_closure, strict_physical_preservation]
+      proftpd_modcopy_fixed: [genuine_source_built_1_3_5a, native_authenticated_copy_php_positive, unauthenticated_authentication_boundary, repeated_original_safe_checks, repeated_explicit_exploit_refusal, strict_socket_and_state_preservation]
+      proftpd_modcopy_disabled: [genuine_source_built_1_3_5a, native_ordinary_ftp_positive, copy_engine_off, repeated_original_safe_checks, repeated_explicit_exploit_refusal, strict_socket_and_state_preservation]
+    reason: >-
+      Three one-container profiles pass16/0 after the identical original matrix
+      retains16/5. Genuine native controls distinguish package/configuration
+      readiness from owning check, command, callback and cleanup failures.
+      Fixes close early-failure FTP sockets, return Unknown on refused checks,
+      detach the entire command program, register the temporary PHP copy and
+      quote raw Unix shell cleanup paths through owner-local FileDropper hooks.
+      Two current default sessions have exact UID33/PID/birth/argv/file proofs
+      and graceful closure; both PHP artifacts disappear before lab reset.
+      Finite commands explicitly allow manual cleanup. Wider PHP/web-server,
+      payload, release, distro/backport and Unix-platform paths remain open.
+      See VERIFICATION-20261122-proftpd-modcopy.md; the full goal stays active.
   exploit/linux/local/sudo_chroot_cve_2025_32463:
     source_sha256: a6485d69dc16ad73ffe8133b3f77d6e5caedf23e2ff77ca7e06b6c547e8a9020
     disposition: container_lab

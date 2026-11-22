@@ -5,7 +5,22 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest qualification: [Sudo default root callbacks](VERIFICATION-20261121-sudo-callbacks.md)
+Latest qualification: [ProFTPD copy execution and cleanup](VERIFICATION-20261122-proftpd-modcopy.md)
+adds genuine affected 1.3.5, fixed 1.3.5a and disabled-copy profiles. Independent
+FTP/PHP controls gate original checks, exact command bytes and default Netcat
+sessions. The same native matrix improves **16/5/0 to 16/0/0**; frozen source
+regressions improve **31/18 to 31/0**, with root integration **38/0**. Four owning
+sessions across retained frames are used and closed, including two current
+callbacks with automatic cleanup of both PHP files. Separate payload-cache,
+health-baseline and unit-FIFO fixture faults remain recorded. The passing set
+reaches **208 cases / 50 profiles / 560 retained inputs**, with 181 ordinary and
+21 separate source sessions. All **32 new/893 recorded Docker objects** are
+absent; both contexts are empty and seven new callback ports closed. One capped
+128 MiB/0.5 CPU target runs at a time. No new lint/doc offenses; four inherited
+module offenses remain. Wider runtime/payload paths and the full valuable
+feasible-module inventory remain open. No PR.
+
+Previous qualification: [Sudo default root callbacks](VERIFICATION-20261121-sudo-callbacks.md)
 adds two profiles using the real default fetch/staged Meterpreter from both
 entry APIs. Original root callbacks inherit a deleted staging cwd; moving the
 constructor to its writable parent repairs them and preserves true default

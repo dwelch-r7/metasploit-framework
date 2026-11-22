@@ -1,0 +1,12 @@
+{
+  "1.3.5": {
+    "url": "https://archive.debian.org/debian/pool/main/p/proftpd-dfsg/proftpd-dfsg_1.3.5.orig.tar.gz",
+    "archive_sha256": "8ac3104658b9ce7cf308d9abc3d4b38168f0a7fdc25c1d88c565dedf319ba287",
+    "mod_copy_sha256": "bf94afb2a4aedcf75b115e0568bed65943e1f724843b64d5f00345602cac3341"
+  },
+  "1.3.5a": {
+    "url": "https://api.github.com/repos/proftpd/proftpd/tarball/379bdb0d413f9489768c29c3a36e7bc854c85395",
+    "archive_sha256": "4f2c6fe7fde1954f5cbf76c826a67704d56f18208cbf5792fb4dd11a788290d0",
+    "mod_copy_sha256": "bbd8c8d9df2fa8f4aa6387c947c81c309c074edb01533ced108a8be2fb51f9b2"
+  }
+}

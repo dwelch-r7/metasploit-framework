@@ -1,0 +1,7 @@
+services:
+  target:
+    extends:
+      file: ../proftpd_modcopy_fixed/compose.yaml
+      service: target
+    environment:
+      COPY_ENGINE: 'off'

@@ -1,0 +1,27 @@
+services:
+  target:
+    platform: linux/amd64
+    build:
+      context: .
+      args:
+        PROFTPD_VERSION: 1.3.5
+    init: true
+    read_only: true
+    cpus: 0.5
+    mem_limit: 128m
+    memswap_limit: 128m
+    pids_limit: 64
+    tmpfs:
+      - /tmp:rw,exec,nosuid,nodev,size=16m,mode=1777
+      - /run:rw,nosuid,nodev,size=4m,mode=755
+      - /var/www/html/lab:rw,nosuid,nodev,size=16m,mode=1777,uid=33,gid=33
+    extra_hosts: ['host.docker.internal:host-gateway']
+    volumes:
+      - .:/opt/module-target-proftpd:ro
+      - ../sudo_chroot/native_state.py:/opt/native_metadata.py:ro
+    ports: ['127.0.0.1::2121', '127.0.0.1::8080']
+    healthcheck:
+      test: [CMD, python3, -c, "import urllib.request; assert urllib.request.urlopen('http://127.0.0.1:8080/health.php',timeout=2).read()==b'module-target-proftpd-ready\\n'; assert ':0849 ' in open('/proc/net/tcp').read()"]
+      interval: 3s
+      timeout: 4s
+      retries: 20
