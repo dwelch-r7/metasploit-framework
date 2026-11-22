@@ -1,0 +1,72 @@
+spec: spec/acceptance/module_targets/redis_replication_options_spec.rb
+expected_examples: 2
+health_timeout: 120
+test_timeout: 600
+console: true
+modules: [exploit/linux/redis/redis_replication_cmd_exec]
+ports: {target: 6379}
+support_files:
+  - lib/msf/base/simple/buffer.rb
+  - data/exploits/redis/Makefile
+  - data/exploits/redis/exp/Makefile
+  - data/exploits/redis/exp/exp.c
+  - data/exploits/redis/exp/exp.so
+  - data/exploits/redis/exp/readme.md
+  - data/exploits/redis/module.erb
+  - data/exploits/redis/redismodule.h
+  - data/exploits/redis/rmutil/Makefile
+  - data/exploits/redis/rmutil/alloc.c
+  - data/exploits/redis/rmutil/alloc.h
+  - data/exploits/redis/rmutil/heap.c
+  - data/exploits/redis/rmutil/heap.h
+  - data/exploits/redis/rmutil/logging.h
+  - data/exploits/redis/rmutil/periodic.c
+  - data/exploits/redis/rmutil/periodic.h
+  - data/exploits/redis/rmutil/priority_queue.c
+  - data/exploits/redis/rmutil/priority_queue.h
+  - data/exploits/redis/rmutil/sds.c
+  - data/exploits/redis/rmutil/sds.h
+  - data/exploits/redis/rmutil/sdsalloc.h
+  - data/exploits/redis/rmutil/strings.c
+  - data/exploits/redis/rmutil/strings.h
+  - data/exploits/redis/rmutil/test.h
+  - data/exploits/redis/rmutil/test_heap.c
+  - data/exploits/redis/rmutil/test_periodic.c
+  - data/exploits/redis/rmutil/test_priority_queue.c
+  - data/exploits/redis/rmutil/test_util.h
+  - data/exploits/redis/rmutil/test_vector.c
+  - data/exploits/redis/rmutil/util.c
+  - data/exploits/redis/rmutil/util.h
+  - data/exploits/redis/rmutil/vector.c
+  - data/exploits/redis/rmutil/vector.h
+  - lib/msf/base/sessions/meterpreter_options/linux.rb
+  - lib/msf/base/sessions/mettle_config.rb
+  - lib/msf/core/auxiliary/redis.rb
+  - lib/msf/core/exploit/cmd_stager.rb
+  - lib/msf/core/exploit/file_dropper.rb
+  - lib/msf/core/payload/linux/x64/prepends.rb
+  - lib/msf/core/payload/linux/x64/reverse_tcp.rb
+  - lib/msf/core/payload/transport_config.rb
+  - lib/msf/util/exe.rb
+  - lib/rex/proto/redis.rb
+  - lib/rex/proto/redis/base.rb
+  - modules/exploits/multi/handler.rb
+  - modules/payloads/stagers/linux/x64/reverse_tcp.rb
+  - modules/payloads/stages/linux/x64/meterpreter.rb
+  - spec/support/shared/contexts/wait_for_expect.rb
+  - test/module_targets/druid_sessions/session_control.rb
+  - test/module_targets/laravel/session_control.rb
+  - test/module_targets/redis_replication/acceptance.rb
+  - test/module_targets/redis_replication_custom/acceptance.rb
+  - test/module_targets/redis_replication_custom/compile_control.rb
+  - test/module_targets/redis_replication_custom/native_text.c
+  - test/module_targets/rocketmq_sessions/session_control.rb
+  - test/module_targets/redis_replication_custom/compose.yaml
+  - test/module_targets/redis_replication_options/acceptance.rb
+  - modules/encoders/x64/xor.rb
+  - lib/msf/core/encoded_payload.rb
+  - lib/msf/core/encoder.rb
+  - lib/msf/core/encoder/xor.rb
+  - lib/msf/core/session.rb
+  - lib/msf/core/exploit.rb
+  - lib/msf/base/simple/exploit.rb

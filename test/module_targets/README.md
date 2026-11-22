@@ -5,7 +5,21 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest qualification: [Redis default compiled extension](VERIFICATION-20261122-redis-custom.md)
+Latest qualification: [Redis encoder and custom names](VERIFICATION-20261122-redis-options.md)
+adds a genuine `x64/xor`/Unicode-filename profile. Actual encoder objects and
+matching compiled bytes precede public/physical session proofs; four distinct
+callback ports protect repeated generation. The serial matrix passes **4/0/0**,
+and the affected options profile replays **2/0/0** after a diagnostic string-encoding
+correction. Thirteen sessions across those runs are used and closed; only two
+cases and one profile are new. One helper input is refreshed by replay and 774
+others stay identical. The retained set reaches **334 cases / 75 profiles /
+783 inputs**, **327 ordinary used/closed sessions** and 21 source variants.
+All **12 new / 1,169 recorded Docker IDs** are absent; both contexts are empty
+with a two-container peak. Production source is unchanged. Other encoders,
+target/data-preservation paths and the full valuable feasible-module goal remain
+open. No PR.
+
+Previous qualification: [Redis default compiled extension](VERIFICATION-20261122-redis-custom.md)
 adds a genuine x64/Alpine profile passing **2/0/0**, with a native control and two
 owning sessions actually used and closed. CUSTOM, target and payload defaults
 stay untouched, and the second run reuses the selected console module. An SDK

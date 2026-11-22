@@ -63,12 +63,12 @@ module Acceptance
       rr_save
     end
 
-    def rr_native_payload
+    def rr_native_payload(native_options = {})
       console_command('use exploit/multi/handler')
       {
         'PAYLOAD' => RedisReplication::PAYLOAD, 'PrependFork' => true, 'LHOST' => listener_host, 'LPORT' => 4444,
         'ExitOnSession' => false, 'ReverseListenerBindAddress' => '0.0.0.0'
-      }.each { |name, value| console_command("set #{name} #{value}") }
+      }.merge(native_options).each { |name, value| console_command("set #{name} #{value}") }
       expect(console_command('run -j -z')).not_to match(/Exploit failed|Exploit aborted/)
       raw = rr_json("begin;job=framework.jobs.values.find{|j|j.ctx.first.fullname=='exploit/multi/handler'};raise 'No handler' unless job;RocketmqSessionControl.command(job,#{RedisReplication::PAYLOAD.inspect});end")
       @rr[:native_payload] = raw

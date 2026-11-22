@@ -7,6 +7,7 @@ modules:
     lab_profiles:
       redis_replication: [official_5_0_14_x64_glibc, native_bundled_extension_and_handler_controls, exact_unicode_crlf, staged_x64_meterpreter, check_and_two_owning_repeats, selected_state_recovery, physical_pid_closure]
       redis_replication_custom: [official_5_0_14_x64_musl, writable_sdk_tmpfs, independent_native_c_and_stock_handler_controls, actual_default_custom_target_payload, reused_console_module, generated_c_so_hashes, repeated_state_and_pid_closure]
+      redis_replication_options: [actual_x64_xor_encoder_and_compiled_bytes, native_encoded_handler_gate, native_unicode_filename_config_and_loader_roundtrip, custom_init_trigger_and_filename, fresh_callback_ports, repeated_selected_module_state_and_pid_closure]
     reason: >-
       The pinned genuine Redis target passes two native-gated cases. The original
       source obtains execution but leaves its filename, extension and transferred
@@ -25,12 +26,18 @@ modules:
       frozen native comparison. Dedicated writable executable memory, owned-child
       waits, guarded release and replies repair it; corrected units change22/14
       to22/0 and include actual self-modifying code. All739 previous inputs stay
-      unchanged. Explicit encoder selection, authentication, native replicas,
-      other releases, x86 execution, explicit fork overrides,
+      unchanged. The options profile later proves actual x64/xor encoding,
+      matching compiled bytes, native and owning physical session closure,
+      literal custom init/trigger names and a spaced Unicode filename. Distinct
+      callback ports validate fresh repeated generation. The default refresh
+      plus two options runs pass6/0 and prove thirteen further session lifecycles;
+      one helper input is refreshed. Other encoders/names, authentication,
+      native replicas, other releases, x86 execution, explicit fork overrides,
       existing database/overwritten-file preservation and peer identity across
       restarts/DNS changes remain unqualified. See
       VERIFICATION-20261122-redis-replication.md and
-      VERIFICATION-20261122-redis-custom.md; full inventory goal remains active.
+      VERIFICATION-20261122-redis-custom.md and
+      VERIFICATION-20261122-redis-options.md; full inventory goal remains active.
   exploit/multi/http/apache_couchdb_erlang_rce:
     source_sha256: 8d14108e76a44511eb2c019e70ff3ac001a40ba7996898320f546443d31ceeb8
     disposition: container_lab

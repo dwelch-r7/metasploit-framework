@@ -1,0 +1,9 @@
+services:
+  target:
+    extends:
+      file: ../redis_replication_custom/compose.yaml
+      service: target
+  framework:
+    extends:
+      file: ../redis_replication_custom/compose.yaml
+      service: framework

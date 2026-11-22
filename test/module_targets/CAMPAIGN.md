@@ -1803,3 +1803,19 @@ empty; 18 new and 1157 recorded resource IDs are absent, with a two-container
 peak. Explicit encoder and broader target/data-preservation paths remain open.
 See [the compiled Redis report](VERIFICATION-20261122-redis-custom.md). Full goal
 active; no PR.
+
+The Redis encoder/name profile qualifies actual x64/xor decoding, exact compiled
+bytes and literal custom init/trigger names with a spaced Unicode filename.
+Native encoded-handler and filename CONFIG/loader gates precede four owning
+executions on distinct callback ports. The serial default/options matrix passes
+4/0; an options-only diagnostic UTF8-copy correction replays 2/0 without changing
+production values. Thirteen further sessions are used/closed. Only two cases and
+one profile are new, bringing the retained set to 334 cases / 75 profiles / 783
+inputs, 327 ordinary closed sessions and 21 separate source variants. One helper
+input is refreshed by the default replay; 774 others stay identical. Both
+contexts are empty; 12 new and 1169 recorded Docker IDs are absent, with a
+two-container peak. A prelaunch inventory timeout creates no resources and gives
+no module verdict. The old unpinned Redis setup recipe now uses the verified
+managed command; human Scenarios remain unchanged. Wider encoder/target/data
+paths and the full module goal remain open. See
+[the options report](VERIFICATION-20261122-redis-options.md). No PR.
