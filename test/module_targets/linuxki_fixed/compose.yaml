@@ -1,0 +1,15 @@
+services:
+  target:
+    extends:
+      file: ../linuxki/compose.yaml
+      service: target
+    build:
+      context: ../linuxki
+      args:
+        LINUXKI_VERSION: 6.0-2
+        LINUXKI_REVISION: 10bef483d92a85a13a59ca65a288818e92f80d78
+        LINUXKI_SHA256: 1dcfe517a4c1176c7448aa5e1eadeab86687553fed852e73d2d551a319275f52
+  framework:
+    extends:
+      file: ../linuxki/compose.yaml
+      service: framework

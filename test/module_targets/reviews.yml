@@ -1,6 +1,31 @@
 # Individual source-reviewed target requirements; these are not blanket exclusions.
 ---
 modules:
+  exploit/linux/http/linuxki_rce:
+    source_sha256: 0bd446462ada508efcc94dc4f467a2b1710666333bbf38f70158eec60c6ee2b9
+    disposition: container_lab
+    lab_profiles:
+      linuxki: [genuine_vendor_6_0_1_deb, native_cli_abi_and_hashes, apache_uid33_exact_command_controls, actual_vulnerable_check, repeated_ascii_and_quoted_unicode_crlf, same_selected_module]
+      linuxki_fixed: [genuine_vendor_6_0_2_deb, valid_timestamp_numeric_pid_sanitation, missing_timestamp_refusal, safe_check_and_repeated_default_autocheck_refusal]
+      linuxki_errors: [native_positive_gate, real_apache_404_and_denied_traversal_403, independently_refused_target_socket, reason_bearing_unknown, frozen_owner_only_comparison]
+    reason: >-
+      Three serial capped profiles pass11/0 after independently proving the
+      actual vendor package, CLI help/ABI, PHP and exact UID33 shell/HTTP effects.
+      Four final owning commands preserve ASCII and quoted Unicode/CRLF bytes,
+      including same-selection repeats with AutoCheck disabled. Genuine6.0-2
+      rejects effects with a valid timestamp, independently of the owner's
+      omitted-timestamp refusal. Real403/404/refused-socket checks originally
+      abort without a CheckCode; the frozen error profile changes4/3 to4/0 with
+      only the owner changed. Check returns reason-bearing Unknown while
+      exploit transport failures retain Unreachable. Focused units change22/8
+      to22/0 (15 owner and7 automatically loaded formatting examples). Native
+      readiness URL, CLI stderr/exit10 and FileDropper invocation prerequisites
+      are retained as separate harness corrections. No sessions are credited.
+      PHP memory/dropper, default Bash sessions, Linux droppers, other releases,
+      kernel tracing and additional network/delivery paths remain unqualified.
+      The lab needs at most two containers; all temporary resources and two
+      automatically initialized unused connector helpers are removed. See
+      VERIFICATION-20261122-linuxki.md; full inventory goal remains active.
   encoder/x64/xor:
     source_sha256: 65eb55b020938ab5777a31704aa1a808dbfb002ffa2dca33c0e8f71c0f016ba3
     disposition: container_lab

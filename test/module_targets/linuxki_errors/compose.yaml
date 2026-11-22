@@ -1,0 +1,9 @@
+services:
+  target:
+    extends:
+      file: ../linuxki/compose.yaml
+      service: target
+  framework:
+    extends:
+      file: ../linuxki/compose.yaml
+      service: framework

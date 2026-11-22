@@ -1,0 +1,33 @@
+{
+  "spec": "spec/modules/exploits/linux/http/linuxki_target_spec.rb",
+  "console": true,
+  "expected_examples": 4,
+  "health_timeout": 120,
+  "test_timeout": 480,
+  "modules": [
+    "exploit/linux/http/linuxki_rce"
+  ],
+  "ports": {
+    "target": 80
+  },
+  "support_files": [
+    "lib/msf/base/simple/exploit.rb",
+    "lib/msf/core/exploit.rb",
+    "lib/msf/core/exploit/cmd_stager.rb",
+    "lib/msf/core/exploit/file_dropper.rb",
+    "lib/msf/core/exploit/php_exe.rb",
+    "lib/msf/core/exploit/remote/auto_check.rb",
+    "lib/msf/core/exploit/remote/http_client.rb",
+    "lib/msf/core/exploit_driver.rb",
+    "lib/rex/proto/http/client_request.rb",
+    "lib/rex/proto/http/packet.rb",
+    "modules/payloads/singles/cmd/unix/generic.rb",
+    "test/module_targets/linuxki/Dockerfile",
+    "test/module_targets/linuxki/README.md",
+    "test/module_targets/linuxki/acceptance.rb",
+    "test/module_targets/linuxki/compose.yaml",
+    "test/module_targets/linuxki/observe.rb",
+    "test/module_targets/linuxki/vendor.json",
+    "test/module_targets/rsync_creds/native.rb"
+  ]
+}

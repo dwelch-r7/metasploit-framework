@@ -5,7 +5,22 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest qualification: [Redis encoder and custom names](VERIFICATION-20261122-redis-options.md)
+Latest qualification: [LinuxKI genuine packages and check contracts](VERIFICATION-20261122-linuxki.md)
+adds three serial profiles passing **11/0/0**. Genuine affected/fixed packages,
+native CLI/interpreter and UID33 HTTP effects precede owning verdicts. Four
+final commands preserve exact ASCII/quoted Unicode/CRLF bytes and repeated
+module selection. Real missing/denied/refused checks improve **4/3 to4/0**, with
+only the owning source changed in the frozen comparison; focused units pass
+**22/0**. The retained set reaches **345 cases /78 profiles /801 inputs**, with
+all783 previous inputs unchanged and **327 ordinary used/closed sessions** plus
+21 separate source variants. No new session paths are claimed. All **37 new /
+1,206 recorded Docker IDs** are absent and both contexts are empty, including
+two unused automatic connector helpers removed after agent initialization.
+Each lab uses at most two capped containers. PHP/Bash sessions, Linux droppers,
+other versions/paths and the full valuable feasible-module goal remain open.
+No PR.
+
+Previous qualification: [Redis encoder and custom names](VERIFICATION-20261122-redis-options.md)
 adds a genuine `x64/xor`/Unicode-filename profile. Actual encoder objects and
 matching compiled bytes precede public/physical session proofs; four distinct
 callback ports protect repeated generation. The serial matrix passes **4/0/0**,

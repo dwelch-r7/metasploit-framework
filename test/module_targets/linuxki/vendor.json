@@ -1,0 +1,14 @@
+{
+  "6.0-1": {
+    "revision": "5b04f4b36fd85593cea628f04886a2f1dc6df68e",
+    "package_sha256": "953a9b597a8da51df89ac9e5dbe2e085e14d4bc39525811a87e8f22797a0ab08",
+    "page_sha256": "80b2faddbb546bbe1437e401561f838f26c2aaf365d06b11fb926c18727a15ed",
+    "binary_sha256": "c798fff3de717c652267c590f1064913600fc1c5bf911b07f1ae540e2b1c3ed5"
+  },
+  "6.0-2": {
+    "revision": "10bef483d92a85a13a59ca65a288818e92f80d78",
+    "package_sha256": "1dcfe517a4c1176c7448aa5e1eadeab86687553fed852e73d2d551a319275f52",
+    "page_sha256": "d8392279d29591f7bb0d4d099e3c36adfd8ebe534966b7bffbca371dc7773f5e",
+    "binary_sha256": "c798fff3de717c652267c590f1064913600fc1c5bf911b07f1ae540e2b1c3ed5"
+  }
+}

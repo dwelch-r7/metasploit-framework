@@ -1,0 +1,21 @@
+services:
+  target:
+    build: .
+    platform: linux/amd64
+    init: true
+    cpus: 0.5
+    mem_limit: 384m
+    memswap_limit: 384m
+    pids_limit: 128
+    ports: ["127.0.0.1::80"]
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "--silent", "--max-time", "5", "http://127.0.0.1/linuxki/experimental/vis/kivis.php?type=kitrace&pid=1&ts=1111_1111&start=0&end=1&iotime=0"]
+      interval: 2s
+      timeout: 6s
+      retries: 30
+  framework:
+    platform: linux/amd64
+    cpus: 1
+    mem_limit: 1g
+    memswap_limit: 1g
+    pids_limit: 256
