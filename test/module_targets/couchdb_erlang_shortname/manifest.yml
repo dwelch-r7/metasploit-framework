@@ -1,0 +1,18 @@
+spec: spec/acceptance/module_targets/couchdb_erlang_spec.rb
+expected_examples: 2
+health_timeout: 150
+test_timeout: 300
+console: true
+modules: [exploit/multi/http/apache_couchdb_erlang_rce]
+ports: {target: 4369}
+test_env:
+  MODULE_TARGET_COUCHDB_NODE: couchdb@db.test
+support_files:
+  - test/module_targets/couchdb_erlang/compose.yaml
+  - test/module_targets/couchdb_erlang/native_probe.rb
+  - test/module_targets/couchdb_erlang_named/compose.yaml
+  - lib/msf/core/exploit/remote/tcp.rb
+  - lib/msf/core/exploit/remote/auto_check.rb
+  - lib/msf/core/exploit/cmd_stager.rb
+  - modules/payloads/singles/cmd/unix/generic.rb
+  - spec/support/shared/contexts/wait_for_expect.rb

@@ -5,7 +5,20 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest qualification: [CouchDB initial defaults](VERIFICATION-20261122-couchdb-defaults.md)
+Latest qualification: [CouchDB node names](VERIFICATION-20261122-couchdb-names.md)
+adds two native DNS-name profiles and repairs a confirmed fixed-length challenge
+assumption. Both frozen comparisons change from 2/2 to 2/0 with only the owner
+changed. All five profiles pass **13/0/0**, including twelve used/closed sessions;
+focused handshake/Unicode units pass **40/0** with zero new lint offenses.
+The retained set reaches **328 cases / 72 profiles / 728 current inputs**,
+**301 ordinary used/closed sessions** and 21 separate source variants. Source and
+native-probe inputs are explicitly refreshed by replay; 720 other prior inputs are
+unchanged. Both Docker contexts are empty and all **30 new /1,111 recorded
+resource identifiers** are absent, with a two-container peak. Full framing,
+modern negotiation, acknowledgment validation and the complete valuable feasible-
+module inventory remain open. No PR.
+
+Previous qualification: [CouchDB initial defaults](VERIFICATION-20261122-couchdb-defaults.md)
 adds two cases and replays the five-case session profile, passing **7/0/0** with
 twelve actual used/closed sessions. Plain `use` selects OpenSSL; the earlier PHP
 observation followed an explicit `set TARGET 0`. The new initial-default owner

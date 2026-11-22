@@ -9,7 +9,10 @@ require 'timeout'
 
 # Vendor Erlang and real EPMD controls; no Framework protocol implementation.
 class NativeCouchdbErlangProbe
-  def initialize
+  def initialize(node: ENV.fetch('MODULE_TARGET_COUCHDB_NODE', 'couchdb@127.0.0.1'))
+    raise ArgumentError, 'Unexpected native CouchDB node name' unless node.match?(/\Acouchdb@[a-z0-9.-]+\z/)
+
+    @node = "'#{node}'"
     @runtime = JSON.parse(File.read(ENV.fetch('MODULE_TARGET_RUNTIME')))
     @records = { commands: [], proofs: [] }
   end
@@ -23,10 +26,13 @@ class NativeCouchdbErlangProbe
     command('test', '-f', @boot + '.boot')
     command('sh', '-c', 'test "$(cat /opt/couchdb/.erlang.cookie)" = monster')
     @records[:vm_args] = command('cat', '/opt/couchdb/etc/vm.args')
-    @records[:runtime] = remote('io:format("IDENTITY=~p~n", [rpc:call(\'couchdb@127.0.0.1\',erlang,system_info,[system_version])])')
+    @records[:node] = node = @node.delete("'")
+    raise 'Native CouchDB configured node mismatch' unless @records[:vm_args].lines.any? { |line| line.strip == "-name #{node}" }
+
+    @records[:runtime] = remote("io:format(\"IDENTITY=~p~n\", [rpc:call(#{@node},erlang,system_info,[system_version])])")
     raise 'Native Erlang identity mismatch' unless @records[:runtime].include?('Erlang/OTP 23')
 
-    @records[:wrong_cookie] = remote('io:format("PING=~p~n", [net_adm:ping(\'couchdb@127.0.0.1\')])', cookie: 'wrong-module-target-cookie')
+    @records[:wrong_cookie] = remote("io:format(\"PING=~p~n\", [net_adm:ping(#{@node})])", cookie: 'wrong-module-target-cookie')
     raise 'Native wrong cookie was accepted' unless @records[:wrong_cookie].include?('PING=pang')
 
     endpoint = @runtime.fetch('endpoints').fetch('target')
@@ -72,7 +78,7 @@ class NativeCouchdbErlangProbe
 
   def rpc(value)
     encoded = Base64.strict_encode64(value.b)
-    remote("[] = rpc:call('couchdb@127.0.0.1',os,cmd,[unicode:characters_to_list(base64:decode(#{encoded.inspect}))])")
+    remote("[] = rpc:call(#{@node},os,cmd,[unicode:characters_to_list(base64:decode(#{encoded.inspect}))])")
   end
 end
 

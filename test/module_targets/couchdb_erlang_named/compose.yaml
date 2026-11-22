@@ -1,0 +1,8 @@
+services:
+  target:
+    extends: {file: ../couchdb_erlang/compose.yaml, service: target}
+    hostname: couchdb.example.test
+    environment:
+      NODENAME: couchdb.example.test
+  framework:
+    extends: {file: ../couchdb_erlang/compose.yaml, service: framework}

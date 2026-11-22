@@ -1756,3 +1756,17 @@ sessions and21separate source variants. Both contexts are empty;8new and1081know
 resource IDs are absent, with a two-container peak. Reselected PHP and other
 native variants remain open. See [the default report](VERIFICATION-20261122-couchdb-defaults.md).
 The complete valuable feasible-module goal remains active; no PR.
+
+Two genuine DNS-named CouchDB targets reproduce the fixed 28-byte challenge
+assumption after independent vendor RPC, wrong-cookie and exact-byte controls
+pass. Actual shorter/longer challenges are 26/39 bytes. Both frozen owner profiles
+change from 2/2 to 2/0 with only the owning source changed. The repair validates
+legacy length/tag/version and retains the nonce/digest path; malformed capture
+units change 20/9 to 20/0. The final five-profile replay passes 13/0/0 and root
+handshake/Unicode units 40/0, with zero new lint offenses and six inherited.
+Twelve additional sessions have actual UID/PID/birth/byte and shutdown proofs.
+The retained set reaches328 cases / 72 profiles / 728 inputs, 301 ordinary closed
+sessions and 21 separate source variants. Both contexts are empty; 30 new and 1111
+recorded resource identifiers are absent, with a two-container peak. Broader
+protocol/cookie/release/Windows paths and the full inventory remain open. See
+[the node-name report](VERIFICATION-20261122-couchdb-names.md). No PR.
