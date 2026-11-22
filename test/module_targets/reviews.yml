@@ -1,6 +1,23 @@
 # Individual source-reviewed target requirements; these are not blanket exclusions.
 ---
 modules:
+  encoder/x64/xor:
+    source_sha256: 65eb55b020938ab5777a31704aa1a808dbfb002ffa2dca33c0e8f71c0f016ba3
+    disposition: container_lab
+    lab_profiles:
+      redis_replication_options: [actual_encoder_object, encoded_buffer_and_generated_c_match, self_writing_decoder, real_x64_staged_sessions, physical_pid_and_file_proof]
+    reason: >-
+      The encoder's main encode/decode path is exercised through the actual
+      Framework payload pipeline and genuine Redis SDK consumer. Two retained
+      options runs prove ten encoded session lifecycles, including native
+      stock-handler gates. The actual encoder object is x64/xor, its generated
+      decoder writes to its own payload mapping, and matching compiled bytes
+      produce usable sessions that are physically closed. This credits an
+      already executed module; no cases, profiles or sessions are counted again.
+      Scope is these Linux x64 staged payload inputs with no explicit bad-byte
+      constraints. Arbitrary lengths, bad-byte/key constraints, saved-register
+      requirements, iteration combinations and other platforms remain open.
+      See VERIFICATION-20261122-redis-options.md.
   exploit/linux/redis/redis_replication_cmd_exec:
     source_sha256: ded1ffb76accd4aa590db0f252d5dde9d63a3cb0d772d9c87ebe65fd72916078
     disposition: container_lab
