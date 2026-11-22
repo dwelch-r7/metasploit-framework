@@ -11,6 +11,9 @@ specification, the "server-properties":
 
 An isolated reusable container lab with independent native controls is available in
 [test/module_targets/rabbitmq](../../../../../test/module_targets/rabbitmq/README.md).
+The [serial AMQP validation](../../../../../test/module_targets/VERIFICATION-20261122-amqp.md)
+covers genuine RabbitMQ 3.8.16/3.12.14 over TCP and TLS, including database reporting
+and final native state checks.
 
 ## Verification Steps
 

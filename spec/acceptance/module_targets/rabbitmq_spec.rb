@@ -1,8 +1,12 @@
 require 'acceptance_spec_helper'
 require 'rbconfig'
+require 'digest'
 
 RSpec.describe 'Native RabbitMQ discovery and database-backed authentication' do
   include_context 'module target'
+
+  broker_services = ENV.key?('RABBITMQ_PROFILE') ? [ENV.fetch('RABBITMQ_PROFILE')] : %w[old new]
+  raise ArgumentError, 'Unknown RabbitMQ fixture profile' unless (broker_services - %w[old new]).empty?
 
   before(:all) do
     argv = [RbConfig.ruby, 'test/module_targets/rabbitmq/native_probe.rb']
@@ -11,6 +15,16 @@ RSpec.describe 'Native RabbitMQ discovery and database-backed authentication' do
     File.write(File.join(target_runtime.fetch('artifacts'), 'native-rabbitmq-status.json'), JSON.pretty_generate(argv: argv, stderr: stderr, exitstatus: status.exitstatus))
     expect(status.success?).to be(true), stderr
     @native = JSON.parse(stdout)
+    release_native_client if ENV.key?('RABBITMQ_PROFILE')
+    sources = %w[
+      modules/auxiliary/scanner/amqp/amqp_version.rb
+      modules/auxiliary/scanner/amqp/amqp_login.rb
+      lib/metasploit/framework/login_scanner/amqp.rb
+      lib/rex/proto/amqp/version_0_9_1/client.rb
+    ]
+    @source_hashes = sources.to_h { |path| [path, Digest::SHA256.file(path).hexdigest] }
+    expect(target_exec('framework', 'sha256sum', *sources).lines.map(&:split).to_h).to eq(@source_hashes.invert)
+    File.write(File.join(target_runtime.fetch('artifacts'), 'framework-source-hashes.json'), JSON.pretty_generate(@source_hashes))
     expect(report_sql('SELECT current_user, current_database()').strip).to eq('module_framework|module_targets')
     wrong = target_exec('reporting_db', 'env', 'PGPASSWORD=wrong-password', 'psql', '-h', '127.0.0.1', '-U', 'module_framework', '-d', 'module_targets', '-Atc', 'SELECT current_user', expected_exit: 2)
     expect(wrong).to include('password authentication failed')
@@ -26,7 +40,7 @@ RSpec.describe 'Native RabbitMQ discovery and database-backed authentication' do
     expect(credentials).to eq([])
   end
 
-  %w[old new].each do |service|
+  broker_services.each do |service|
     [false, true].each do |tls|
       it "reports actual #{service} AMQP properties over #{tls ? 'TLS' : 'TCP'}" do
         output = invoke('amqp_version', service, tls)
@@ -52,6 +66,8 @@ RSpec.describe 'Native RabbitMQ discovery and database-backed authentication' do
         expect(output).to include('LOGIN FAILED:', 'Incorrect', 'ACCESS_REFUSED')
         expect(output).not_to include('Login Successful:')
         expect(credentials.select { |row| row.fetch('status') == 'Successful' }).to eq([])
+        expect(login(service, tls)).to include('Login Successful: lab-amqp-user:module-target-amqp-password')
+        expect(credentials.select { |row| row.fetch('status') == 'Successful' }).to contain_exactly(credential_record(service, tls))
       end
     end
 
@@ -71,14 +87,51 @@ RSpec.describe 'Native RabbitMQ discovery and database-backed authentication' do
   end
 
   it 'keeps the same usable login isolated between workspaces' do
-    login('new', false)
+    service = broker_services.last
+    login(service, false)
     first = credentials
     @workspace = "#{@workspace}_other"
     expect(console_command("workspace -a #{@workspace}")).not_to include('[-]')
     expect(credentials).to eq([])
-    login('new', false)
-    expect(credentials).to contain_exactly(credential_record('new', false))
+    login(service, false)
+    expect(credentials).to contain_exactly(credential_record(service, false))
     expect(first.size).to eq(1)
+  end
+
+  if ENV.key?('RABBITMQ_PROFILE')
+    after(:all) do
+      next unless @native && @source_hashes
+
+      service = broker_services.fetch(0)
+      records = {}
+      %w[list_users list_connections].each do |operation|
+        records[operation] = JSON.parse(target_exec(service, 'gosu', 'rabbitmq', 'rabbitmqctl', '-q', operation, '--formatter=json'))
+      end
+      expect(records.fetch('list_users')).to eq(@native.fetch('profiles').fetch(service).fetch('users'))
+      expect(records.fetch('list_connections')).to eq([])
+      ['/', 'module-target'].each do |vhost|
+        queues = JSON.parse(target_exec(service, 'gosu', 'rabbitmq', 'rabbitmqctl', '-q', 'list_queues', '-p', vhost, 'name', '--formatter=json'))
+        expect(queues).to eq([])
+        records["queues:#{vhost}"] = queues
+      end
+      permissions = JSON.parse(target_exec(service, 'gosu', 'rabbitmq', 'rabbitmqctl', '-q', 'list_permissions', '-p', '/', '--formatter=json'))
+      expect(permissions).to eq(@native.fetch('profiles').fetch(service).fetch('permissions'))
+      records['permissions'] = permissions
+      expect(target_exec('framework', 'sha256sum', *@source_hashes.keys).lines.map(&:split).to_h).to eq(@source_hashes.invert)
+      File.write(File.join(target_runtime.fetch('artifacts'), 'native-preservation.json'), JSON.pretty_generate(records))
+    end
+  end
+
+  def release_native_client
+    compose = target_runtime.fetch('compose')
+    output, status = Open3.capture2e(*compose, 'ps', '--all', '--quiet', 'client')
+    identifier = output.strip
+    expect(status.success? && identifier.match?(/\A[0-9a-f]{64}\z/)).to be(true)
+    output, status = Open3.capture2e(*compose, 'rm', '--stop', '--force', '--volumes', 'client')
+    File.write(File.join(target_runtime.fetch('artifacts'), 'native-client-release.json'), JSON.pretty_generate(id: identifier, exitstatus: status.exitstatus, output: output))
+    expect(status.success?).to be(true), output
+    output, status = Open3.capture2e(*compose, 'ps', '--all', '--quiet', 'client')
+    expect(status.success? && output.strip.empty?).to be(true)
   end
 
   def invoke(name, service, tls, options = {}, allow_errors: false)

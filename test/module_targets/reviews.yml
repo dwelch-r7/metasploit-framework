@@ -1,6 +1,40 @@
 # Individual source-reviewed target requirements; these are not blanket exclusions.
 ---
 modules:
+  auxiliary/scanner/amqp/amqp_version:
+    source_sha256: b828b0a87912090cb0125ba81a81ad8714a468002548b7e8af652350be72f849
+    disposition: container_lab
+    lab_profiles:
+      rabbitmq_old: [genuine_3_8_16, independent_pika_controls, tcp_and_tls_discovery, exact_native_properties, real_service_rows, native_final_preservation]
+      rabbitmq_new: [genuine_3_12_14, independent_pika_controls, tcp_and_tls_discovery, exact_native_properties, real_service_rows, native_final_preservation]
+    reason: >-
+      Two serial profiles pass18/0 across this owner and the companion AMQP
+      scanner, with28 real console calls and20 independent Pika controls.
+      Covers actual product/version, cluster, platform and advertised mechanisms, plus database service records.
+      Exact checkout source hashes match inside the canonical Framework
+      container before and after execution. Native accounts, root permissions,
+      queues and connections preserve. The client container is removed before
+      owner calls; each complete capped stack is removed before the next.
+      Other brokers, AMQP1.0, SASL alternatives, TLS versions, release families
+      and network layouts remain unqualified. Production source is unchanged.
+      See VERIFICATION-20261122-amqp.md; the full inventory goal stays active.
+  auxiliary/scanner/amqp/amqp_login:
+    source_sha256: 9a6d51c1eb15dcb2ba475bc3f0ce9e377ce51149476592b619f37ebccd528451
+    disposition: container_lab
+    lab_profiles:
+      rabbitmq_old: [genuine_3_8_16, independent_pika_controls, tcp_and_tls_authentication, wrong_password_recovery, limited_vhost_credentials, remote_guest_refusal, exact_credential_rows, workspace_isolation, native_final_preservation]
+      rabbitmq_new: [genuine_3_12_14, independent_pika_controls, tcp_and_tls_authentication, wrong_password_recovery, limited_vhost_credentials, remote_guest_refusal, exact_credential_rows, workspace_isolation, native_final_preservation]
+    reason: >-
+      Two serial profiles pass18/0 across this owner and the companion AMQP
+      scanner, with28 real console calls and20 independent Pika controls.
+      Covers accepted and rejected credentials, incorrect-password recovery, duplicate prevention and workspace-isolated credential reporting.
+      Exact checkout source hashes match inside the canonical Framework
+      container before and after execution. Native accounts, root permissions,
+      queues and connections preserve. The client container is removed before
+      owner calls; each complete capped stack is removed before the next.
+      Other brokers, AMQP1.0, SASL alternatives, TLS versions, release families
+      and network layouts remain unqualified. Production source is unchanged.
+      See VERIFICATION-20261122-amqp.md; the full inventory goal stays active.
   exploit/multi/http/langflow_auth_rce_cve_2026_7873:
     source_sha256: 9dc4a99baa2c30f62466227798ae21a6a646b3e548dc809540a8bb4be0da6939
     disposition: container_lab

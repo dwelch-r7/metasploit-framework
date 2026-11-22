@@ -1,0 +1,35 @@
+spec: spec/acceptance/module_targets/rabbitmq_spec.rb
+expected_examples: 9
+health_timeout: 180
+test_timeout: 900
+test_env:
+  RABBITMQ_PROFILE: new
+  RABBITMQ_PROBE_SCOPE: amqp
+console: true
+modules:
+  - auxiliary/scanner/amqp/amqp_version
+  - auxiliary/scanner/amqp/amqp_login
+ports: {new: 5672}
+support_files:
+  - lib/metasploit/framework/data_service/proxy/login_data_proxy.rb
+  - lib/metasploit/framework/data_service/proxy/service_data_proxy.rb
+  - lib/msf/core/db_manager/service.rb
+  - test/module_targets/mqtt/certificates.rb
+  - lib/metasploit/framework/login_scanner/amqp.rb
+  - lib/rex/proto/amqp/version_0_9_1/client.rb
+  - lib/rex/proto/amqp/version_0_9_1/frames.rb
+  - lib/rex/proto/amqp/version_0_9_1/frames/method_arguments.rb
+  - lib/rex/proto/amqp/version_0_9_1/types.rb
+  - lib/rex/proto/amqp/version_0_9_1.rb
+  - lib/rex/proto/amqp/error.rb
+  - lib/rex/proto/amqp.rb
+  - test/module_targets/rabbitmq/Dockerfile
+  - test/module_targets/rabbitmq/README.md
+  - test/module_targets/rabbitmq/client.Dockerfile
+  - test/module_targets/rabbitmq/client.py
+  - test/module_targets/rabbitmq/compose.yaml
+  - test/module_targets/rabbitmq/definitions.json
+  - test/module_targets/rabbitmq/distribution.py
+  - test/module_targets/rabbitmq/manifest.yml
+  - test/module_targets/rabbitmq/native_probe.rb
+  - test/module_targets/rabbitmq/rabbitmq.conf

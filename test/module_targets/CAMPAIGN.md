@@ -1700,3 +1700,18 @@ History reaches 327 owners in stated paths, 702 profiles and 4,885 cases. All 30
 new/612 recorded Docker objects are absent; two unused startup helpers were
 removed before the next two-service lab. No PR. See [the report](VERIFICATION-20261121-projectsend.md).
 The complete valuable/container-feasible inventory goal remains active.
+
+
+Serial RabbitMQ profiles requalify AMQP discovery and login on genuine 3.8.16
+and 3.12.14: 18 cases pass with 28 actual console module calls. Twenty independent
+Pika controls precede real TCP/TLS owner execution; exact service/credential rows,
+wrong-password recovery, repeats, workspace isolation and final native state
+verify. Production source is unchanged. Randomized preservation ordering and a
+fixture closure-variable collision are retained separately from module results.
+The latest retained set reaches 297 cases / 65 profiles / 687 current inputs,
+with 219 ordinary used/closed Framework sessions and 21 separate source variants;
+AMQP adds no Framework session. All 35 new/998 recorded Docker objects are absent
+and both contexts finish empty. Stacks run serially with a four-container peak,
+then remove the native client before owner calls. Other brokers/protocols/auth
+paths and the complete valuable feasible-module inventory remain open. No PR.
+See [the AMQP report](VERIFICATION-20261122-amqp.md).

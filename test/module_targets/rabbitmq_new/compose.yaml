@@ -1,0 +1,24 @@
+services:
+  new:
+    extends: {file: ../rabbitmq/compose.yaml, service: new}
+    mem_limit: 768m
+    memswap_limit: 768m
+    cpus: 1.0
+    pids_limit: 256
+  client:
+    extends: {file: ../rabbitmq/compose.yaml, service: client}
+    mem_limit: 128m
+    memswap_limit: 128m
+    cpus: 0.25
+    pids_limit: 64
+  reporting_db:
+    extends: {file: ../rabbitmq/compose.yaml, service: reporting_db}
+    mem_limit: 256m
+    memswap_limit: 256m
+    cpus: 0.5
+    pids_limit: 128
+  framework:
+    mem_limit: 1536m
+    memswap_limit: 1536m
+    cpus: 1.0
+    pids_limit: 256

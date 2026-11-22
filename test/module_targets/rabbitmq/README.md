@@ -1,7 +1,20 @@
 # RabbitMQ discovery and credential reporting
 
-Run `bundle exec ruby tools/dev/run_module_target_tests.rb rabbitmq` from the
-repository root. This disposable lab uses the canonical Framework console and
+Run the two release profiles serially from the repository root:
+
+```sh
+MODULE_TARGET_NAMESPACE=my-amqp-lab bundle exec ruby tools/dev/run_guarded_module_target_tests.rb rabbitmq_old rabbitmq_new
+```
+
+Each profile has at most four capped containers: one broker, the native client,
+the reporting database and the canonical Framework console. The native client is
+removed immediately after its controls, leaving three services for module calls.
+The complete project and its volumes are removed before the next release starts.
+See [old](../rabbitmq_old/README.md) and [new](../rabbitmq_new/README.md) for limits.
+
+The original `rabbitmq` profile retains the combined 17-example, two-broker suite.
+The serial profiles each have nine examples plus final native preservation
+assertions. This disposable lab uses the canonical Framework console and
 its own PostgreSQL database. All published target ports bind randomly on
 127.0.0.1; no external broker or credentials are used.
 

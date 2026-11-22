@@ -5,7 +5,30 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest qualification: [ProFTPD copy execution and cleanup](VERIFICATION-20261122-proftpd-modcopy.md)
+Latest qualification: [serial AMQP discovery and authentication](VERIFICATION-20261122-amqp.md)
+adds two genuine RabbitMQ release profiles with **18/0/0** and **28 real console
+module calls**. Twenty independent Pika controls gate both TCP/TLS scanners,
+credential reporting, wrong-password recovery, repeats and workspace isolation.
+All native connections/queues close and accounts/root permissions preserve.
+Production source is unchanged. The retained set reaches **297 cases / 65
+profiles / 687 current inputs**, with **219 ordinary used/closed sessions**
+and 21 separate source-variant sessions; AMQP adds no Framework session.
+All **35 new/998 recorded Docker objects** are absent and both contexts are empty.
+Serial stacks peak at four capped containers, then immediately remove the native
+client before owner calls, leaving three. Two fixture faults are retained
+separately. Other broker/protocol/authentication paths and the full goal remain
+open. No PR.
+
+Previous qualification: [Werkzeug debugger owners](VERIFICATION-20261122-werkzeug.md)
+passes **53/0/0 across 11 profiles**, with a frozen legacy owner comparison of
+**11/4/0 to 11/0/0**. Cookie compatibility and isolated Python payload lifecycle
+repairs have genuine package/runtime controls. Two Langflow consumer profiles add
+18 qualified cases; Calibre's two cases replay without double counting. The
+checkpoint retains **279 cases / 63 profiles / 656 inputs**, **219 ordinary
+used/closed sessions** and 21 separate source variants. All **963 recorded Docker
+objects** are absent. Wider runtime/payload paths remain open; no PR.
+
+Previous qualification: [ProFTPD copy execution and cleanup](VERIFICATION-20261122-proftpd-modcopy.md)
 adds genuine affected 1.3.5, fixed 1.3.5a and disabled-copy profiles. Independent
 FTP/PHP controls gate original checks, exact command bytes and default Netcat
 sessions. The same native matrix improves **16/5/0 to 16/0/0**; frozen source

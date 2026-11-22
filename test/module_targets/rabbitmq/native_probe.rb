@@ -7,11 +7,17 @@ require 'open3'
 class NativeRabbitProbe
   def initialize
     @runtime = JSON.parse(File.read(ENV.fetch('MODULE_TARGET_RUNTIME')))
-    @records = { profiles: {}, commands: [] }
+    @profiles = { 'old' => ['3.8.16', '24'], 'new' => ['3.12.14', '25'] }
+    if ENV.key?('RABBITMQ_PROFILE')
+      service = ENV.fetch('RABBITMQ_PROFILE')
+      @profiles = { service => @profiles.fetch(service) }
+    end
+    @amqp_only = ENV.fetch('RABBITMQ_PROBE_SCOPE', 'all') == 'amqp'
+    @records = { scope: @amqp_only ? 'amqp' : 'all', profiles: {}, commands: [] }
   end
 
   def run
-    { 'old' => ['3.8.16', '24'], 'new' => ['3.12.14', '25'] }.each do |service, (version, otp)|
+    @profiles.each do |service, (version, otp)|
       actual = command(service, 'rabbitmq-diagnostics', '-q', 'server_version').strip
       raise "RabbitMQ version mismatch: #{actual}" unless actual == version
 
@@ -46,29 +52,7 @@ class NativeRabbitProbe
         end
         [tls ? 'tls' : 'plain', cases]
       end
-      distribution = [true, false].to_h do |legacy|
-        result = JSON.parse(command('client', 'python', '/opt/module-target-distribution.py', input: { host: service, legacy: legacy, cookie: 'MODULE_TARGET_ERLANG_COOKIE' }))
-        raise 'Native distribution handshake mismatch' unless result.fetch('authenticated') == (!legacy || service == 'old')
-
-        [legacy ? 'legacy' : 'v6', result]
-      end
-      wrong = JSON.parse(command('client', 'python', '/opt/module-target-distribution.py', input: { host: service, legacy: false, cookie: 'WRONG_MODULE_TARGET_COOKIE' }))
-      raise 'Native broker accepted wrong distribution cookie' if wrong.fetch('authenticated')
-
-      rpc = 2.times.map do |index|
-        path = "/tmp/module-target-native-rpc-#{index}"
-        command(service, 'test', '!', '-e', path)
-        value = remote(service, "rpc:call('rabbit@#{service}', os, cmd, [\"touch #{path}; id -un\"])")
-        raise 'Native remote command identity mismatch' unless value.include?('rabbitmq')
-
-        owner = command(service, 'stat', '-c', '%U', path).strip
-        raise 'Native command file owner mismatch' unless owner == 'rabbitmq'
-
-        command(service, 'rm', path)
-        { output: value, owner: owner }
-      end
-      rejected = remote(service, "net_adm:ping('rabbit@#{service}')", cookie: 'WRONG_MODULE_TARGET_COOKIE')
-      raise 'Native Erlang accepted wrong cookie' unless rejected.include?('pang')
+      distribution, wrong, rpc, rejected = erlang_controls(service)
 
       queues = command(service, 'rabbitmqctl', '-q', 'list_queues', '-p', '/', 'name', '--formatter=json')
       raise 'Native AMQP queue leaked' unless JSON.parse(queues).empty?
@@ -92,6 +76,36 @@ class NativeRabbitProbe
 
   def erl(service, expression, *options)
     command(service, 'erl', '+S', '1:1', '+A', '1', '-noshell', *options, '-eval', "#{expression}, halt().")
+  end
+
+  def erlang_controls(service)
+    return [nil, nil, nil, nil] if @amqp_only
+
+    distribution = [true, false].to_h do |legacy|
+      result = JSON.parse(command('client', 'python', '/opt/module-target-distribution.py', input: { host: service, legacy: legacy, cookie: 'MODULE_TARGET_ERLANG_COOKIE' }))
+      raise 'Native distribution handshake mismatch' unless result.fetch('authenticated') == (!legacy || service == 'old')
+
+      [legacy ? 'legacy' : 'v6', result]
+    end
+    wrong = JSON.parse(command('client', 'python', '/opt/module-target-distribution.py', input: { host: service, legacy: false, cookie: 'WRONG_MODULE_TARGET_COOKIE' }))
+    raise 'Native broker accepted wrong distribution cookie' if wrong.fetch('authenticated')
+
+    rpc = 2.times.map do |index|
+      path = "/tmp/module-target-native-rpc-#{index}"
+      command(service, 'test', '!', '-e', path)
+      value = remote(service, "rpc:call('rabbit@#{service}', os, cmd, [\"touch #{path}; id -un\"])")
+      raise 'Native remote command identity mismatch' unless value.include?('rabbitmq')
+
+      owner = command(service, 'stat', '-c', '%U', path).strip
+      raise 'Native command file owner mismatch' unless owner == 'rabbitmq'
+
+      command(service, 'rm', path)
+      { output: value, owner: owner }
+    end
+    rejected = remote(service, "net_adm:ping('rabbit@#{service}')", cookie: 'WRONG_MODULE_TARGET_COOKIE')
+    raise 'Native Erlang accepted wrong cookie' unless rejected.include?('pang')
+
+    [distribution, wrong, rpc, rejected]
   end
 
   def remote(service, expression, cookie: 'MODULE_TARGET_ERLANG_COOKIE')
