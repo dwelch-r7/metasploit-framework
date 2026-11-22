@@ -1,0 +1,8 @@
+services:
+  target:
+    extends:
+      file: ../werkzeug/compose.yaml
+      service: target
+    build:
+      args:
+        WERKZEUG_VERSION: 0.11.5

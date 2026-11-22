@@ -1,0 +1,5 @@
+services:
+  target:
+    extends:
+      file: ../werkzeug/compose.yaml
+      service: target

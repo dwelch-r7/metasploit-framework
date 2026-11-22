@@ -1,0 +1,37 @@
+{
+  "0.10": {
+    "package": "Werkzeug",
+    "version": "0.10",
+    "url": "https://files.pythonhosted.org/packages/32/d7/5648e058b7786f2f57480b415f369fc7ea8d51468c11b961eddef915891e/Werkzeug-0.10.tar.gz",
+    "filename": "Werkzeug-0.10.tar.gz",
+    "sha256": "9a97a6fcf87390172748da9e5250710b352dff18e979db925d276112cdcfa7ac"
+  },
+  "0.11.5": {
+    "package": "Werkzeug",
+    "version": "0.11.5",
+    "url": "https://files.pythonhosted.org/packages/10/25/9a27e9d35aa457b40ce3aebde9d7b2fefbee96937a59c4975752c5c10a62/Werkzeug-0.11.5-py2.py3-none-any.whl",
+    "filename": "Werkzeug-0.11.5-py2.py3-none-any.whl",
+    "sha256": "22218d2f8572575531e876dbeb26c8691d5e1a4f5d923324f045a6231ba03609"
+  },
+  "1.0.1": {
+    "package": "Werkzeug",
+    "version": "1.0.1",
+    "url": "https://files.pythonhosted.org/packages/cc/94/5f7079a0e00bd6863ef8f1da638721e9da21e5bacee597595b318f71d62e/Werkzeug-1.0.1-py2.py3-none-any.whl",
+    "filename": "Werkzeug-1.0.1-py2.py3-none-any.whl",
+    "sha256": "2de2a5db0baeae7b2d2664949077c2ac63fbd16d98da0ff71837f7d1dea3fd43"
+  },
+  "3.0.3": {
+    "package": "Werkzeug",
+    "version": "3.0.3",
+    "url": "https://files.pythonhosted.org/packages/9d/6e/e792999e816d19d7fcbfa94c730936750036d65656a76a5a688b57a656c4/werkzeug-3.0.3-py3-none-any.whl",
+    "filename": "werkzeug-3.0.3-py3-none-any.whl",
+    "sha256": "fc9645dc43e03e4d630d23143a04a7f947a9a3b5727cd535fdfe155a17cc48c8"
+  },
+  "markupsafe": {
+    "package": "MarkupSafe",
+    "version": "2.1.5",
+    "url": "https://files.pythonhosted.org/packages/c7/bd/50319665ce81bb10e90d1cf76f9e1aa269ea6f7fa30ab4521f14d122a3df/MarkupSafe-2.1.5-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+    "filename": "MarkupSafe-2.1.5-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+    "sha256": "fa9db3f79de01457b03d4f01b34cf91bc0048eb2c3846ff26f66687c2f6d16ab"
+  }
+}

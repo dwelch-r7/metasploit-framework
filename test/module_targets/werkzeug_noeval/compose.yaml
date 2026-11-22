@@ -1,0 +1,7 @@
+services:
+  target:
+    extends:
+      file: ../werkzeug/compose.yaml
+      service: target
+    environment:
+      WERKZEUG_EVALEX: "false"

@@ -1,0 +1,41 @@
+{
+  "spec": "spec/modules/exploits/multi/http/werkzeug_target_spec.rb",
+  "console": false,
+  "expected_examples": 8,
+  "health_timeout": 90,
+  "test_timeout": 900,
+  "test_env": {
+    "WERKZEUG_VERSION": "0.11.5",
+    "WERKZEUG_MODE": "auth"
+  },
+  "modules": [
+    "exploit/multi/http/werkzeug_debug_rce"
+  ],
+  "ports": {
+    "target": 8080
+  },
+  "support_files": [
+    "lib/msf/core/exploit/remote/auto_check.rb",
+    "lib/msf/core/exploit/remote/http_client.rb",
+    "lib/msf/core/payload/python.rb",
+    "lib/msf/core/payload/python/meterpreter_loader.rb",
+    "lib/msf/core/payload/python/reverse_tcp.rb",
+    "modules/payloads/singles/python/exec.rb",
+    "modules/payloads/stagers/python/reverse_tcp.rb",
+    "modules/payloads/stages/python/meterpreter.rb",
+    "test/module_targets/laravel/session_control.rb",
+    "test/module_targets/rsync_creds/native.rb",
+    "test/module_targets/sudo_chroot/native_state.py",
+    "test/module_targets/werkzeug/Dockerfile",
+    "test/module_targets/werkzeug/README.md",
+    "test/module_targets/werkzeug/acceptance.rb",
+    "test/module_targets/werkzeug/app.py",
+    "test/module_targets/werkzeug/compose.yaml",
+    "test/module_targets/werkzeug/install.py",
+    "test/module_targets/werkzeug/manifest.yml",
+    "test/module_targets/werkzeug/native_probe.py",
+    "test/module_targets/werkzeug/observe.rb",
+    "test/module_targets/werkzeug/packages.json",
+    "test/module_targets/werkzeug/session_control.rb"
+  ]
+}

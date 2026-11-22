@@ -1,6 +1,63 @@
 # Individual source-reviewed target requirements; these are not blanket exclusions.
 ---
 modules:
+  exploit/multi/http/langflow_auth_rce_cve_2026_7873:
+    source_sha256: 9dc4a99baa2c30f62466227798ae21a6a646b3e548dc809540a8bb4be0da6939
+    disposition: container_lab
+    lab_profiles:
+      langflow_execution: [genuine_1_8_4, native_source_and_execution_controls, repeated_reason_bearing_checks, incorrect_credentials_with_and_without_autocheck, exact_commands, python_shell_and_forked_and_nonforked_meterpreter, physical_process_and_database_closure]
+    reason: >-
+      Existing ten-case authenticated profile passes10/0 after the shared
+      Python helper change. Genuine native prerequisites precede real owner
+      calls, including repeated credentials, command and session paths. Six
+      owning sessions have process proofs, fresh shutdown responses and closed
+      reporting rows. The Framework container consumes the exact checkout
+      through a read-only bind; frozen source hashes remain unchanged. Other
+      releases, deployment layouts and payload families remain unqualified.
+      See VERIFICATION-20261122-werkzeug.md for the shared-helper qualification.
+  exploit/multi/http/langflow_unauth_rce_cve_2026_9198:
+    source_sha256: 5f97694098413a2b425aa4635971d14eeece5fc5927fd619b98647dfe57fe345
+    disposition: container_lab
+    lab_profiles:
+      langflow_auto_login_sessions: [genuine_1_8_4_auto_login, independent_staged_nonforked_inline_and_shell_controls, actual_cold_default_payload, repeated_owning_sessions, process_and_file_proofs, public_shutdown_and_database_closure]
+    reason: >-
+      Eight native-gated cases pass8/0 with the changed process helper. Four
+      independent controls precede eight real owning sessions across staged,
+      nonforked, inline and shell payload families; all twelve sessions close.
+      Failed native gates would withhold the corresponding owner. Exact input
+      hashes, idle restoration and reporting rows are retained. Other releases,
+      auto-login configurations and execution paths remain open; this is not
+      blanket qualification of every registered Langflow profile. See
+      VERIFICATION-20261122-werkzeug.md; the complete inventory goal is active.
+  exploit/multi/http/werkzeug_debug_rce:
+    source_sha256: 221a0df74eb494e5f612304adcfd20aba0d80376a8ecacc557c0737b96b3f262
+    disposition: container_lab
+    lab_profiles:
+      werkzeug: [genuine_3_0_3_sha1, native_pin_cookie_controls, repeated_checks_and_exact_commands, console_get_post_frames, trusted_host_boundary, strict_preservation]
+      werkzeug_md5: [genuine_1_0_1_md5, all_supported_authentication_modes, exact_command_bytes, repeated_selected_owner, strict_preservation]
+      werkzeug_legacy: [genuine_0_11_5_legacy_md5, native_timestamp_cookie, repaired_known_cookie_and_pin_paths, exact_command_bytes, repeated_execution]
+      werkzeug_noauth: [genuine_0_10, native_no_pin_execution, reason_bearing_checks, console_and_traceback_paths, strict_preservation]
+      werkzeug_sessions: [native_stock_handler_control, actual_cold_default_python_meterpreter, repeated_owning_sessions, physical_uid_pid_birth_file_proof, graceful_closure]
+      werkzeug_md5_sessions: [later_md5_default_sessions, native_control_before_owner, autocheck_on_and_off, strict_process_and_socket_closure]
+      werkzeug_legacy_sessions: [legacy_default_sessions, frozen_original_owner_zombie_reproduction, repaired_repeated_callbacks, strict_idle_preservation]
+      werkzeug_noauth_sessions: [no_pin_default_sessions, native_control_before_owner, actual_process_disappearance, repeated_execution]
+      werkzeug_noeval: [genuine_evaluation_disabled, native_interpreter_positive, safe_checks, autocheck_body_withheld]
+      werkzeug_pinoff: [genuine_pin_security_disabled, native_no_pin_positive, vulnerable_checks, repeated_commands]
+      werkzeug_custom_pin: [genuine_custom_pin, known_pin_success, environment_derived_cookie_denied, strict_preservation]
+    reason: >-
+      Eleven capped one-target profiles pass53/0, including sixteen used and
+      closed Framework sessions (eight native controls and eight owning).
+      An identical frozen legacy pair retains original11/4 versus current11/0;
+      only the owning source differs. Genuine PyPI code, real PIN/cookie HTTP
+      exchanges and independent interpreter controls qualify setup first.
+      Source fixes accept legacy cookies and isolate payload execution through
+      the shared waited-process helper. Separate Python exec fixes reap/drain
+      children and decode UTF-8 explicitly on Python2.7. Target profiles use
+      Python3.8.20; auxiliary real2.7/3.8 controls qualify the older APIs and
+      command bytes, not every payload on those runtimes. Other WSGI/Python/OS
+      deployments, Basic authentication, payload families, controller layouts
+      and release boundaries remain open. See VERIFICATION-20261122-werkzeug.md;
+      the complete valuable feasible-module goal stays active.
   exploit/unix/ftp/proftpd_modcopy_exec:
     source_sha256: 795700a8d6331492e9d7da10332314477ea5411636b9f18bb1090fb81e2428e8
     disposition: container_lab

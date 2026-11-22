@@ -1,0 +1,26 @@
+services:
+  target:
+    platform: linux/amd64
+    build:
+      context: .
+      args:
+        WERKZEUG_VERSION: 3.0.3
+    init: true
+    read_only: true
+    cpus: 0.5
+    mem_limit: 128m
+    memswap_limit: 128m
+    pids_limit: 64
+    tmpfs:
+      - /tmp:rw,exec,nosuid,nodev,size=16m,mode=1777
+      - /run:rw,nosuid,nodev,size=4m,mode=700,uid=1001,gid=1001
+    extra_hosts: ['host.docker.internal:host-gateway']
+    volumes:
+      - ./native_probe.py:/opt/module-target-werkzeug/native_probe.py:ro
+      - ../sudo_chroot/native_state.py:/opt/native_metadata.py:ro
+    ports: ['127.0.0.1::8080']
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; assert urllib.request.urlopen('http://127.0.0.1:8080/health',timeout=2).read()==b'module-target-werkzeug-ready\\n'"]
+      interval: 3s
+      timeout: 3s
+      retries: 20

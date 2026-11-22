@@ -1,0 +1,7 @@
+services:
+  target:
+    extends:
+      file: ../werkzeug/compose.yaml
+      service: target
+    environment:
+      WERKZEUG_DEBUG_PIN: "1234"

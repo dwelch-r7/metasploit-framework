@@ -1,0 +1,5 @@
+services:
+  target:
+    extends:
+      file: ../werkzeug_md5/compose.yaml
+      service: target
