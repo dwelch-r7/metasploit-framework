@@ -5,7 +5,24 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest qualification: [LinuxKI sessions and retained repeat failure](VERIFICATION-20261122-linuxki-sessions.md)
+Latest investigation: [LinuxKI bootstrap controls](VERIFICATION-20261122-linuxki-bootstrap.md)
+compares fresh and reused selections with ordinary package-verified payloads,
+native stock-handler controls and passive UUID/TLV observations. Fresh selection
+passes **4/0/0**; reused selection retains **4/1/0 plus one outside-example
+error**. Its second owner completes its UUID/initial handshake/core commands,
+then loses the stdapi load response. The source cause remains unclassified.
+The Bash refresh passes **4/0/0**; PHP fails its second native CLI control
+(**4/1/2 plus one outside-example error**), withholding owning calls. The PHP
+profile is excluded from current qualification; neither diagnostic adds cases.
+The current passing set is **349 cases /79 profiles /806 inputs**. Fourteen new
+actually used/closed sessions bring the cumulative ordinary count to **369**,
+plus21 separate source variants. All801 pre-session inputs remain identical;
+the shared helper is refreshed through Bash. Both Docker contexts are empty,
+all **12 new /1,254 recorded IDs** are absent, and stacks peak at two capped
+containers. No production source changes or PR. Other feasible modules and the
+retained failures remain open.
+
+Previous qualification: [LinuxKI sessions and retained repeat failure](VERIFICATION-20261122-linuxki-sessions.md)
 adds two qualified profiles passing **8/0/0**, with explicit Bash and untouched
 initial PHP target/payload sessions. Native CLI/page controls, ordinary package
 manifest checks and public/physical shutdown proofs gate owning repeats. A third

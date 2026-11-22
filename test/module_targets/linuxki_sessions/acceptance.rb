@@ -33,6 +33,15 @@ module LinuxkiSessions
     FAMILIES.fetch(ls_family).fetch(:session) == 'meterpreter'
   end
 
+  def ls_session_options
+    {}
+  end
+
+  def ls_select_handler
+    console_command('back')
+    console_command('use exploit/multi/handler')
+  end
+
   def ls_state
     output, = rc_command('session-process-state', 'target', 'php', '/opt/module-target-linuxki-process.php', @rc.fetch(:current_port, 4470).to_s)
     JSON.parse(output)
@@ -96,9 +105,8 @@ module LinuxkiSessions
   def ls_handler(port)
     @ls_port = port
     @rc[:current_port] = port
-    console_command('back')
-    console_command('use exploit/multi/handler')
-    { 'PAYLOAD' => ls_payload, 'LHOST' => listener_host, 'LPORT' => port, 'ReverseListenerBindAddress' => '0.0.0.0', 'ExitOnSession' => false }.each do |name, value|
+    ls_select_handler
+    { 'PAYLOAD' => ls_payload, 'LHOST' => listener_host, 'LPORT' => port, 'ReverseListenerBindAddress' => '0.0.0.0', 'ExitOnSession' => false }.merge(ls_session_options).each do |name, value|
       console_command("set #{name} #{value}")
     end
     if ls_php?
@@ -235,11 +243,11 @@ module LinuxkiSessions
     ls_recover($ERROR_INFO, task: task, request: request)
   end
 
-  def ls_owner
+  def ls_owner(reuse: true)
     2.times do |index|
       @ls_port = 4472 + index
       @rc[:current_port] = @ls_port
-      if index.zero?
+      if index.zero? || !reuse
         console_command('back')
         console_command('use ' + LinuxkiTarget::OWNER)
         console_command('set TARGET 2') unless ls_php?
@@ -247,10 +255,16 @@ module LinuxkiSessions
       end
       selected = rc_json('{object:active_module.object_id,target:active_module.target_index,payload:active_module.datastore["PAYLOAD"],source:active_module.method(:execute_command).source_location}')
       expect(selected.fetch('target')).to eq(FAMILIES.fetch(ls_family).fetch(:target))
-      expect(selected.fetch('object')).to eq(@rc.fetch(:selected_owner)) if index.positive?
+      if index.positive?
+        if reuse
+          expect(selected.fetch('object')).to eq(@rc.fetch(:selected_owner))
+        else
+          expect(selected.fetch('object')).not_to eq(@rc.fetch(:selected_owner))
+        end
+      end
       @rc[:selected_owner] = selected.fetch('object')
       offset = rc_json('framework.instance_variable_get(:@linuxki_events).length')
-      options = { 'LHOST' => listener_host, 'LPORT' => @ls_port, 'ReverseListenerBindAddress' => '0.0.0.0', 'AutoCheck' => index.zero?, 'ForceExploit' => false, 'AllowNoCleanup' => true, 'WfsDelay' => 1, 'HttpClientTimeout' => 45 }
+      options = { 'LHOST' => listener_host, 'LPORT' => @ls_port, 'ReverseListenerBindAddress' => '0.0.0.0', 'AutoCheck' => index.zero?, 'ForceExploit' => false, 'AllowNoCleanup' => true, 'WfsDelay' => 1, 'HttpClientTimeout' => 45 }.merge(ls_session_options)
       call = { label: 'owner-' + index.to_s, options: options, selected: selected }
       @rc[:calls] << call
       run_target_module(LinuxkiTarget::OWNER, 'target', options, action: 'run -j -z', reuse_module: true, allow_errors: true) { |output| call[:output] = output }

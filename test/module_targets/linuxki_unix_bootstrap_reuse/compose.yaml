@@ -1,0 +1,9 @@
+services:
+  target:
+    extends:
+      file: ../linuxki_unix_bootstrap_controls/compose.yaml
+      service: target
+  framework:
+    extends:
+      file: ../linuxki_unix_bootstrap_controls/compose.yaml
+      service: framework
