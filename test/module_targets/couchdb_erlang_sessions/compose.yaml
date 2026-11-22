@@ -1,0 +1,7 @@
+services:
+  target:
+    extends: {file: ../couchdb_erlang/compose.yaml, service: target}
+    build: .
+    image: msf-target-${MODULE_TARGET_NAMESPACE:-local}-couchdb-erlang-wget:3.2.1
+  framework:
+    extends: {file: ../couchdb_erlang/compose.yaml, service: framework}

@@ -1,0 +1,29 @@
+spec: spec/acceptance/module_targets/couchdb_erlang_sessions_spec.rb
+expected_examples: 5
+health_timeout: 150
+test_timeout: 900
+console: true
+modules: [exploit/multi/http/apache_couchdb_erlang_rce]
+ports: {target: 4369}
+support_files:
+  - test/module_targets/couchdb_erlang/compose.yaml
+  - test/module_targets/couchdb_erlang/native_probe.rb
+  - test/module_targets/laravel/session_control.rb
+  - test/module_targets/druid_sessions/session_control.rb
+  - test/module_targets/rocketmq_sessions/session_control.rb
+  - lib/msf/core/exploit/remote/tcp.rb
+  - lib/msf/core/exploit/remote/auto_check.rb
+  - lib/msf/core/exploit/cmd_stager.rb
+  - lib/msf/core/handler/reverse_tcp_double_ssl.rb
+  - lib/msf/util/exe.rb
+  - lib/msf/util/exe/linux/x86.rb
+  - lib/msf/util/exe/linux/x64.rb
+  - lib/msf/util/exe/linux/common.rb
+  - data/templates/template_x86_linux.bin
+  - data/templates/template_x64_linux.bin
+  - modules/exploits/multi/handler.rb
+  - modules/payloads/singles/cmd/unix/generic.rb
+  - modules/payloads/singles/cmd/unix/reverse_openssl.rb
+  - modules/payloads/singles/linux/x86/meterpreter_reverse_tcp.rb
+  - modules/payloads/singles/linux/x64/meterpreter_reverse_tcp.rb
+  - spec/support/shared/contexts/wait_for_expect.rb

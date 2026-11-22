@@ -1731,3 +1731,16 @@ it is excluded from exact-ID counts. The serial lab peaks at three capped
 containers and removes the native client before owner calls. Stock telnet,
 Windows, x86, other stagers and wider lifecycle paths remain unqualified. No PR.
 See [the Erlang report](VERIFICATION-20261122-erlang-cookie.md); full scope stays active.
+
+The CouchDB Erlang owner adds two genuine3.2.1/OTP23 serial profiles, passing7/0
+after separate native-proven capability and Unicode repairs. Frozen original
+comparisons retain2/2 to2/0 and5/1 to5/0 with only owner source changed. The
+default-selection oracle, clean-boot/cookie setup and package404 failures remain
+separate. Nine final, nine corrected-original and seven diagnostic sessions have
+physical UID5984/PID/birth/file proofs and public shutdown with PID disappearance.
+The retained set reaches322 cases /69 profiles /717 inputs,277 ordinary closed
+sessions and21 separate source variants. Both contexts finish empty;41 new and
+1073 recorded resource IDs are absent. Only one capped target/Framework pair
+runs at a time. Automatic PHP prerequisites, Windows, other names/releases/
+network layouts and full ancestry/reply robustness remain open. No PR. See
+[the CouchDB Erlang report](VERIFICATION-20261122-couchdb-erlang.md); full scope stays active.

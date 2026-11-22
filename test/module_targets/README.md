@@ -5,7 +5,21 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest qualification: [Erlang cookie commands and sessions](VERIFICATION-20261122-erlang-cookie.md)
+Latest qualification: [CouchDB Erlang commands and sessions](VERIFICATION-20261122-couchdb-erlang.md)
+adds two capped serial profiles with **7/0/0**, correcting a native-proven missing
+handshake capability and Unicode serialization. Frozen source comparisons retain
+**2/2 to 2/0** and **5/1 to 5/0**, with only the owner changed. Nine final,
+nine original and seven earlier diagnostic sessions have actual UID/PID/birth/
+bytes and shutdown proofs. Root units pass **30/0**; zero new lint offenses,
+six inherited owner offenses and matching baseline/candidate msftidy exit2 are
+explicit. The retained set reaches **322 cases / 69 profiles / 717 current
+inputs**, **277 ordinary used/closed sessions** and 21 separate source variants.
+All **41 new / 1,073 recorded Docker IDs** are absent, with both contexts empty.
+The stack peaks at two containers. Automatic PHP prerequisites, Windows, other
+node/release/network paths and the full valuable feasible-module goal remain open.
+No PR.
+
+Previous qualification: [Erlang cookie commands and sessions](VERIFICATION-20261122-erlang-cookie.md)
 adds two serial genuine RabbitMQ/OTP profiles and a Unicode serialization repair.
 The frozen native matrix improves **18/2/0 to 18/0/0**, with the owner as its sole
 changed input. Native protocol/RPC/handler controls gate repeated commands,

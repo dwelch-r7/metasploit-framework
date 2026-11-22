@@ -1,0 +1,27 @@
+services:
+  target:
+    image: couchdb:3.2.1@sha256:37a7a9aab050c8c376b012d9c52da58e2c94d221b0eb5567edb88d8ceca096ee
+    init: true
+    environment:
+      COUCHDB_USER: labadmin
+      COUCHDB_PASSWORD: labpassword
+      # This image removes the source package's old vm.args default. Opt into
+      # the affected historical setting through its supported entrypoint.
+      COUCHDB_ERLANG_COOKIE: monster
+      NODENAME: 127.0.0.1
+      ERL_FLAGS: "+S 2:2 +A 4"
+    mem_limit: 768m
+    memswap_limit: 768m
+    cpus: 1.0
+    pids_limit: 256
+    ports: ["127.0.0.1::4369"]
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "--silent", "--user", "labadmin:labpassword", "http://127.0.0.1:5984/_up"]
+      interval: 5s
+      timeout: 4s
+      retries: 24
+  framework:
+    mem_limit: 1536m
+    memswap_limit: 1536m
+    cpus: 1.0
+    pids_limit: 256

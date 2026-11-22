@@ -1,6 +1,25 @@
 # Individual source-reviewed target requirements; these are not blanket exclusions.
 ---
 modules:
+  exploit/multi/http/apache_couchdb_erlang_rce:
+    source_sha256: 8330c40c4625c8554464bf65e4447f38dd9690fbfbc2d1608dfe17bb52f46d69
+    disposition: container_lab
+    lab_profiles:
+      couchdb_erlang: [genuine_couchdb_3_2_1_otp23, explicit_historical_cookie, native_epmd_and_vendor_rpc, correct_wrong_cookie_controls, native_proven_capability_repair, check_and_repeated_uid_commands]
+      couchdb_erlang_sessions: [genuine_signed_snapshot_wget_prerequisite, stock_handler_controls, repeated_openssl_x86_x64_sessions, physical_pid_closure, exact_unicode_crlf, autocheck_disabled_commands]
+    reason: >-
+      Two capped serial profiles pass7/0 with original2/2 to2/0 capability and
+      corrected5/1 to5/0 Unicode comparisons; only owning source changes.
+      Vendor RPC and raw hello variants isolate the missing0x40000 capability.
+      Actual public input reaches authenticated owner then encoding failure;
+      genuine OTP23 terms and scalar serialization repair it. Nine final,
+      nine original and seven diagnostic sessions have UID5984/PID/birth/bytes,
+      fresh public shutdown and physical PID absence. Separate setup/default
+      oracle failures remain retained. Only a target/Framework pair runs;
+      all projects/helpers are removed. Automatic PHP prerequisites, Windows,
+      fixed releases/cookies, other node names, command boundaries, stream/
+      reply and full ancestor preservation remain open. See
+      VERIFICATION-20261122-couchdb-erlang.md; full inventory goal remains active.
   exploit/multi/misc/erlang_cookie_rce:
     source_sha256: b84706332b31cd44c37c0fb30c09b62d2bf3cda0ad7c4a81384f5dcc6f1df787
     disposition: container_lab
