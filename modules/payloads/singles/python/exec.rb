@@ -50,7 +50,8 @@ module MetasploitModule
       py_code << %(args=[r"""#{command}"""]\n)
     else
       encoded = Rex::Text.encode_base64(Rex::Text.zlib_deflate(command))
-      py_code << %{import zlib,base64;args=[zlib.decompress(base64.b64decode('#{encoded}')).decode()]\n}
+      # Python 2 defaults to ASCII, while the encoded command text is UTF-8.
+      py_code << %{import zlib,base64;args=[zlib.decompress(base64.b64decode('#{encoded}')).decode('utf-8')]\n}
     end
 
     # Drain/close pipes and reap without blocking a persistent interpreter.

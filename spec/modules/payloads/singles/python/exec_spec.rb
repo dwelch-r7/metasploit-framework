@@ -21,11 +21,11 @@ RSpec.describe 'singles/python/exec' do
   let(:executor) { File.expand_path('../../../../file_fixtures/python_exec/arguments.py', __dir__) }
 
   # The interpreter parses and executes the unmodified generated payload and
-  # compressed stub. Only subprocess.Popen is replaced, so these examples inspect
-  # the exact public API argument without running their command strings.
-  def interpreted_invocation(command)
+  # compressed stub. By default only subprocess.Popen is replaced to inspect its
+  # exact API arguments. Explicit codec-model cases also wrap decompressed bytes.
+  def interpreted_invocation(command, python2_ascii_decode: false)
     payload.datastore['CMD'] = command
-    output, error, status = Open3.capture3(python, executor, stdin_data: { payload: payload.generate }.to_json)
+    output, error, status = Open3.capture3(python, executor, stdin_data: { payload: payload.generate, python2_ascii_decode: python2_ascii_decode }.to_json)
     raise "Generated payload failed in Python: #{error}" unless status.success?
 
     JSON.parse(output).fetch(0)
@@ -90,6 +90,18 @@ RSpec.describe 'singles/python/exec' do
 
   it 'preserves shell dispatch and all three PIPE arguments' do
     expect(interpreted_invocation('printf ordinary').fetch('options')).to eq('shell' => true, 'stdin' => -1, 'stdout' => -1, 'stderr' => -1)
+  end
+
+  it 'retains ASCII fallback arguments under the explicit Python 2 default-codec model' do
+    command = "printf 'first' \"second\"\r\nprintf next"
+
+    expect(interpreted_invocation(command, python2_ascii_decode: true).fetch('arguments')).to eq([command])
+  end
+
+  it 'preserves UTF-8 fallback arguments under the explicit Python 2 default-codec model' do
+    command = "printf 'snow \u2603' \"quote\"\r\nprintf next"
+
+    expect(interpreted_invocation(command, python2_ascii_decode: true).fetch('arguments')).to eq([command])
   end
 
   it 'returns before completion and automatically reaps a real completed child and its pipes' do
