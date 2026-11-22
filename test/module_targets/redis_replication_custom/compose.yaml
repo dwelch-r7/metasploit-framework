@@ -1,0 +1,34 @@
+services:
+  target:
+    image: redis:5.0.14-alpine@sha256:1b24e5253e866e60e320446bd588407df499936bdc7d89fa52cd2772a4e3a162
+    platform: linux/amd64
+    init: true
+    user: '999:999'
+    command: [redis-server, --save, '', --appendonly, 'no', --protected-mode, 'no']
+    cpus: 0.5
+    mem_limit: 256m
+    memswap_limit: 256m
+    pids_limit: 128
+    ports: ['127.0.0.1::6379']
+    healthcheck:
+      test: [CMD, redis-cli, ping]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+  framework:
+    cpus: 1.0
+    mem_limit: 1536m
+    memswap_limit: 1536m
+    pids_limit: 256
+    volumes:
+      - ${MODULE_TARGET_ROOT}/data/exploits/redis:/module-target-redis-sdk:ro
+    tmpfs:
+      - /usr/src/metasploit-framework/data/exploits/redis:rw,size=64m,mode=1777
+    entrypoint:
+      - /bin/sh
+      - -ec
+      - |
+        cp -a /module-target-redis-sdk/. /usr/src/metasploit-framework/data/exploits/redis/
+        chown -R "$$MSF_UID:$$MSF_GID" /usr/src/metasploit-framework/data/exploits/redis
+        exec docker/entrypoint.sh "$$@"
+      - redis-sdk-framework

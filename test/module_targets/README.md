@@ -5,7 +5,21 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest qualification: [Redis replication execution and recovery](VERIFICATION-20261122-redis-replication.md)
+Latest qualification: [Redis default compiled extension](VERIFICATION-20261122-redis-custom.md)
+adds a genuine x64/Alpine profile passing **2/0/0**, with a native control and two
+owning sessions actually used and closed. CUSTOM, target and payload defaults
+stay untouched, and the second run reuses the selected console module. An SDK
+executable-stack assumption is repaired after independent compiler/loader/bytecode
+controls; only the SDK template and Makefile differ in the frozen native pair.
+Corrected SDK regressions pass **22/0**, retaining **22/14 to 22/0**, and preserve
+self-modifying payload support. The retained set reaches **332 cases / 74 profiles /
+775 current inputs**, **314 ordinary used/closed sessions** and 21 separate source
+variants; all 739 prior inputs remain unchanged. Both contexts are empty and all
+**18 new / 1,157 recorded Docker IDs** are absent, with a two-container peak.
+Explicit encoders, native x86, authentication, replicas, data preservation and
+the complete valuable feasible-module inventory remain open. No PR.
+
+Previous qualification: [Redis replication execution and recovery](VERIFICATION-20261122-redis-replication.md)
 adds one genuine Redis 5.0.14 profile passing **2/0/0**. The frozen original opens
 a working session but fails selected-state recovery; changing only the owner
 repairs **2/1 to 2/0**, with two proven owning repeats. Independent native

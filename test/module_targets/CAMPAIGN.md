@@ -1786,3 +1786,20 @@ resource IDs are absent, with a two-container peak. CUSTOM compiler/ABI/raw-buff
 execution and wider target/data-preservation variants remain open. See
 [the Redis report](VERIFICATION-20261122-redis-replication.md). Full goal active;
 no PR.
+
+The Redis default compiled-extension profile passes 2/0 with a genuine x64/musl
+target, a writable SDK tmpfs and native C/stock-handler gates. An executable-stack
+assumption fails after independent raw-byte and compiler/loader controls pass.
+The same native probe succeeds twice after only SDK template/Makefile changes;
+corrected rendered-C regressions change 22/14 to 22/0 and cover self-modifying
+code, returning/repeated payloads, exact-child waits and resource failures. Both
+owning default runs use and close actual Meterpreter sessions, including reuse
+of the selected console module, and restore selected state. Three session
+lifecycles add to the retained set: 332 cases / 74 profiles / 775 inputs,
+314 ordinary closed sessions and 21 separate source variants. All 739 prior
+inputs remain unchanged. Earlier fixture errors and a withdrawn exploratory
+signal claim stay separate from corrected evidence. Both Docker contexts are
+empty; 18 new and 1157 recorded resource IDs are absent, with a two-container
+peak. Explicit encoder and broader target/data-preservation paths remain open.
+See [the compiled Redis report](VERIFICATION-20261122-redis-custom.md). Full goal
+active; no PR.
