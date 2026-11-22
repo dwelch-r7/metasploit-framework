@@ -53,7 +53,9 @@ module MetasploitModule
       py_code << %{import zlib,base64;args=[zlib.decompress(base64.b64decode('#{encoded}')).decode()]\n}
     end
 
-    py_code << %{Popen(args,shell=True,stdin=PIPE,stdout=PIPE,stderr=PIPE)\n}
+    # Drain/close pipes and reap without blocking a persistent interpreter.
+    # Bind the process method now; keep the daemon waiter local for repeated execs.
+    py_code << %{(lambda waiter:(setattr(waiter,'daemon',True),waiter.start()))(__import__('threading').Thread(target=Popen(args,shell=True,stdin=PIPE,stdout=PIPE,stderr=PIPE).communicate))\n}
 
     py_create_exec_stub(py_code)
   end
