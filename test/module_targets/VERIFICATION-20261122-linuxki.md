@@ -65,7 +65,9 @@ their successful session/delivery paths remain unqualified here.
 
 The final frozen error comparison changes **4/3/0 to4/0/0**, and its sole changed
 declared input is `modules/exploits/linux/http/linuxki_rce.rb`. All three final
-profiles then pass11/0/0. Source hashes:
+profiles then pass11/0/0. Both target and Framework images have identical root
+filesystems and runtime configuration; their unique Compose project labels
+differ. Source hashes:
 
 ```text
 original   8c2c89d7d06e8d250c7b51cb51ec95bb2b465d914ef7ef69404d02ed9943ece4
@@ -105,9 +107,10 @@ previous runtime inputs remain byte-identical. Ordinary actually used/closed
 sessions remain327, with21 separate source-variant sessions; this milestone does
 not count commands or refusals as sessions.
 
-Every lab has one capped target and one capped Framework console. Wrappers record
-a two-container peak, zero OOM/PID-limit events, exact IDs and verified removal
-after each profile, including failed attempts. The post-agent global inventory
+Every lab has one capped target and one capped Framework console. The final
+profiles have zero OOM/PID-limit events. Wrappers record a two-container peak,
+exact IDs and verified removal after each profile, including failed attempts.
+The post-agent global inventory
 also exposed two automatically initialized unused GitHub/AWS connector helpers;
 both exact IDs were removed and independently checked absent. They had no mounts
 or task-owned networks. No image/cache pruning or daemon restart was performed.
