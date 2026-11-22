@@ -16,11 +16,13 @@ The former `monster` cookie is explicitly configured through the stock entrypoin
 Five cases cover explicit Unix OpenSSL sessions, explicit Linux
 x86/x64 Meterpreter payloads with automatic wget delivery, quoted ASCII commands
 with AutoCheck disabled, and Unicode/CRLF commands. Positive owner paths run
-twice. The ordering separately records an uncontaminated first automatic
-selection before explicit family tests. The first draft wrongly assumed that
-selection would be OpenSSL; the console instead selected a PHP payload. PHP is
-absent in the stock image, so that automatic path remains a separate prerequisite
-gap and is not qualified by the explicit OpenSSL case.
+twice. This fixture explicitly sets TARGET before selecting each payload family.
+Even `set TARGET 0` invokes the console's automatic payload selection, producing
+a PHP choice on this revision. That observation follows an explicit target
+command; it is not the untouched initial module default. The
+[initial-default profile](../couchdb_erlang_default/README.md) separates those
+paths. PHP is absent, so execution of the reselected PHP family remains a
+prerequisite gap and is not qualified by the explicit OpenSSL case.
 Each payload family first uses a stock handler/native vendor-RPC control; native
 Linux ELF files come from the handler's real encoded payload and Framework EXE
 helpers. Large control files use Docker copy and exact hashes rather than huge

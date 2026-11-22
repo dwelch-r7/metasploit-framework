@@ -1,0 +1,27 @@
+spec: spec/acceptance/module_targets/couchdb_erlang_default_spec.rb
+expected_examples: 2
+health_timeout: 150
+test_timeout: 600
+console: true
+modules: [exploit/multi/http/apache_couchdb_erlang_rce]
+ports: {target: 4369}
+support_files:
+  - test/module_targets/couchdb_erlang/compose.yaml
+  - test/module_targets/couchdb_erlang/native_probe.rb
+  - test/module_targets/couchdb_erlang_sessions/Dockerfile
+  - test/module_targets/couchdb_erlang_sessions/compose.yaml
+  - test/module_targets/couchdb_erlang_sessions/acceptance.rb
+  - test/module_targets/couchdb_erlang_sessions/README.md
+  - test/module_targets/laravel/session_control.rb
+  - test/module_targets/druid_sessions/session_control.rb
+  - test/module_targets/rocketmq_sessions/session_control.rb
+  - lib/msf/core/exploit/remote/tcp.rb
+  - lib/msf/core/exploit/remote/auto_check.rb
+  - lib/msf/core/handler/reverse_tcp_double_ssl.rb
+  - lib/msf/ui/console/command_dispatcher/core.rb
+  - lib/msf/ui/console/command_dispatcher/modules.rb
+  - lib/msf/core/payload.rb
+  - lib/msf/util/exe.rb
+  - modules/exploits/multi/handler.rb
+  - modules/payloads/singles/cmd/unix/reverse_openssl.rb
+  - spec/support/shared/contexts/wait_for_expect.rb

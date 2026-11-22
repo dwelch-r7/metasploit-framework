@@ -1,0 +1,6 @@
+services:
+  target:
+    extends: {file: ../couchdb_erlang_sessions/compose.yaml, service: target}
+    build: ../couchdb_erlang_sessions
+  framework:
+    extends: {file: ../couchdb_erlang/compose.yaml, service: framework}

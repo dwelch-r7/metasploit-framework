@@ -5,7 +5,19 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest qualification: [CouchDB Erlang commands and sessions](VERIFICATION-20261122-couchdb-erlang.md)
+Latest qualification: [CouchDB initial defaults](VERIFICATION-20261122-couchdb-defaults.md)
+adds two cases and replays the five-case session profile, passing **7/0/0** with
+twelve actual used/closed sessions. Plain `use` selects OpenSSL; the earlier PHP
+observation followed an explicit `set TARGET 0`. The new initial-default owner
+runs omit both TARGET and PAYLOAD and succeed twice. No production source changes
+are needed. The retained set reaches **324 cases / 70 profiles / 722 current
+inputs**, **289 ordinary used/closed sessions** and21 separate source variants.
+One README input is explicitly refreshed by replay; all other716 previous inputs
+remain byte-identical. All **8 new / 1,081 recorded Docker IDs** are absent, with
+both contexts empty and a two-container peak. PHP execution after explicit
+reselection and the full valuable feasible-module inventory remain open. No PR.
+
+Previous qualification: [CouchDB Erlang commands and sessions](VERIFICATION-20261122-couchdb-erlang.md)
 adds two capped serial profiles with **7/0/0**, correcting a native-proven missing
 handshake capability and Unicode serialization. Frozen source comparisons retain
 **2/2 to 2/0** and **5/1 to 5/0**, with only the owner changed. Nine final,
@@ -15,7 +27,7 @@ six inherited owner offenses and matching baseline/candidate msftidy exit2 are
 explicit. The retained set reaches **322 cases / 69 profiles / 717 current
 inputs**, **277 ordinary used/closed sessions** and 21 separate source variants.
 All **41 new / 1,073 recorded Docker IDs** are absent, with both contexts empty.
-The stack peaks at two containers. Automatic PHP prerequisites, Windows, other
+The stack peaks at two containers. Explicit-reselection PHP prerequisites, Windows, other
 node/release/network paths and the full valuable feasible-module goal remain open.
 No PR.
 
@@ -1829,6 +1841,10 @@ snapshot remains a setup failure and cannot qualify a module.
   whose registered server fields differ from RHOSTS/RPORT (for example NS or a
   single RHOST). Avoid injecting unknown endpoint fields or blank optional source
   addresses; keep normal module option validation enabled.
+- To test an initial default, use a fresh console and record the target/payload
+  before any TARGET or PAYLOAD setter. Omit both from execution options. Even
+  setting TARGET to its current index invokes automatic payload reselection;
+  qualify that transition separately from the initial module default.
 - Use an explicit bounded `command_timeout` for collection modules that perform
   many session round trips. Its ordinary default remains forty seconds.
 - Prefer one invocation with several families so metadata is reused. Concurrent

@@ -7,6 +7,7 @@ modules:
     lab_profiles:
       couchdb_erlang: [genuine_couchdb_3_2_1_otp23, explicit_historical_cookie, native_epmd_and_vendor_rpc, correct_wrong_cookie_controls, native_proven_capability_repair, check_and_repeated_uid_commands]
       couchdb_erlang_sessions: [genuine_signed_snapshot_wget_prerequisite, stock_handler_controls, repeated_openssl_x86_x64_sessions, physical_pid_closure, exact_unicode_crlf, autocheck_disabled_commands]
+      couchdb_erlang_default: [untouched_initial_target_payload, native_openssl_control, repeated_actual_default_sessions, source_and_pid_proof, explicit_same_target_reselection_control]
     reason: >-
       Two capped serial profiles pass7/0 with original2/2 to2/0 capability and
       corrected5/1 to5/0 Unicode comparisons; only owning source changes.
@@ -16,10 +17,13 @@ modules:
       nine original and seven diagnostic sessions have UID5984/PID/birth/bytes,
       fresh public shutdown and physical PID absence. Separate setup/default
       oracle failures remain retained. Only a target/Framework pair runs;
-      all projects/helpers are removed. Automatic PHP prerequisites, Windows,
+      all projects/helpers are removed. A later7/0 replay qualifies untouched
+      initial OpenSSL defaults twice; the prior PHP observation followed an
+      explicit TARGET setter, not plain use. PHP execution after reselection, Windows,
       fixed releases/cookies, other node names, command boundaries, stream/
       reply and full ancestor preservation remain open. See
-      VERIFICATION-20261122-couchdb-erlang.md; full inventory goal remains active.
+      VERIFICATION-20261122-couchdb-erlang.md and
+      VERIFICATION-20261122-couchdb-defaults.md; full inventory goal remains active.
   exploit/multi/misc/erlang_cookie_rce:
     source_sha256: b84706332b31cd44c37c0fb30c09b62d2bf3cda0ad7c4a81384f5dcc6f1df787
     disposition: container_lab

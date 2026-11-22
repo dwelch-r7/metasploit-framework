@@ -1744,3 +1744,15 @@ sessions and21 separate source variants. Both contexts finish empty;41 new and
 runs at a time. Automatic PHP prerequisites, Windows, other names/releases/
 network layouts and full ancestry/reply robustness remain open. No PR. See
 [the CouchDB Erlang report](VERIFICATION-20261122-couchdb-erlang.md); full scope stays active.
+
+The CouchDB initial-default follow-up resolves a fixture interpretation: plain
+use selects OpenSSL, while explicit set TARGET0 triggers PHP reselection. Two
+new native cases and the refreshed five-case profile pass7/0, with12additional
+used/closed sessions. The untouched target/payload default executes twice after
+an independent native control. No production source changes are needed. One
+README input is refreshed by replay;716other previous inputs remain identical.
+The retained set reaches324 cases /70 profiles /722 inputs,289ordinary closed
+sessions and21separate source variants. Both contexts are empty;8new and1081known
+resource IDs are absent, with a two-container peak. Reselected PHP and other
+native variants remain open. See [the default report](VERIFICATION-20261122-couchdb-defaults.md).
+The complete valuable feasible-module goal remains active; no PR.

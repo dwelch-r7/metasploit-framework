@@ -93,13 +93,16 @@ Correcting those prerequisites produced genuine RPC and physical command proof.
 Two wget builds received package404 responses using current HTTP/HTTPS security
 URLs; the verified dated snapshot supplies the required package instead.
 
-The first session draft expected OpenSSL as the fresh console default, but the
-datastore selected a PHP payload. That assertion stopped before any automatic-
-default owner call. It retains **5/2/0**, seven closed sessions and final
+The first session draft read payload selection after explicitly issuing
+`set TARGET 0`, then mistook the resulting PHP choice for the initial default.
+The raw log shows plain `use` first selecting OpenSSL; the target command invokes
+automatic reselection. That assertion stopped before any initial-default owner call. It retains **5/2/0**, seven closed sessions and final
 preservation; its other failure is the independently confirmed Unicode defect.
 A late PHP query after teardown was inconclusive. Subsequent live native checks
 prove PHP absent. The corrected fixture records automatic selection separately
-and explicitly chooses OpenSSL; it does not qualify the automatic PHP path.
+and explicitly chooses OpenSSL; it does not qualify PHP execution after target
+reselection. Initial-default execution is covered by the separate
+[default profile](couchdb_erlang_default/README.md).
 
 ## Resources and remaining scope
 
@@ -121,7 +124,7 @@ controls and console startup, is58.50s and156.77s. Raw receipts retain all input
 native controls, source binding, console output, physical session proofs and
 independent cleanup.
 
-Automatic PHP delivery, Windows, fixed-release/cookie controls, other node-name
+PHP delivery after explicit target reselection, Windows, fixed-release/cookie controls, other node-name
 lengths, native command-size boundaries, stream/reply robustness, other stagers
 and network layouts remain open. OpenSSL session-PID closure does not establish
 cleanup of every relay child; whole-container teardown removes target processes.
