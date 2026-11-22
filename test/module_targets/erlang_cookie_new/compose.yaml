@@ -1,0 +1,21 @@
+services:
+  new:
+    extends: {file: ../rabbitmq/compose.yaml, service: new}
+    init: true
+    mem_limit: 768m
+    memswap_limit: 768m
+    cpus: 1.0
+    pids_limit: 256
+    healthcheck:
+      interval: 10s
+  client:
+    extends: {file: ../rabbitmq/compose.yaml, service: client}
+    mem_limit: 128m
+    memswap_limit: 128m
+    cpus: 0.25
+    pids_limit: 64
+  framework:
+    mem_limit: 1536m
+    memswap_limit: 1536m
+    cpus: 1.0
+    pids_limit: 256

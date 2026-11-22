@@ -1715,3 +1715,19 @@ and both contexts finish empty. Stacks run serially with a four-container peak,
 then remove the native client before owner calls. Other brokers/protocols/auth
 paths and the complete valuable feasible-module inventory remain open. No PR.
 See [the AMQP report](VERIFICATION-20261122-amqp.md).
+
+
+The Erlang cookie owner adds two serial genuine OTP24/25 profiles and fixes
+Unicode command arguments. Corrected native/console prerequisites precede the
+frozen original18/2 versus repaired18/0 pair; only owning source changes.
+Root unit files pass65/0 and48/0; identical source regressions retain65/7 to65/0.
+Twelve candidate, twelve original-pair and nine earlier diagnostic sessions have
+physical UID/PID/birth/file proof and public shutdown with PID disappearance.
+The current set reaches315 cases /67 profiles /702 inputs,252 ordinary closed
+sessions and21 separate source variants. Both contexts finish empty;34 new and
+1032 recorded Docker IDs are absent. One supplemental pilot volume ID was missed
+before teardown; its absence follows from the global volume set comparison and
+it is excluded from exact-ID counts. The serial lab peaks at three capped
+containers and removes the native client before owner calls. Stock telnet,
+Windows, x86, other stagers and wider lifecycle paths remain unqualified. No PR.
+See [the Erlang report](VERIFICATION-20261122-erlang-cookie.md); full scope stays active.

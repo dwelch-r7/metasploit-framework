@@ -1,6 +1,25 @@
 # Individual source-reviewed target requirements; these are not blanket exclusions.
 ---
 modules:
+  exploit/multi/misc/erlang_cookie_rce:
+    source_sha256: b84706332b31cd44c37c0fb30c09b62d2bf3cda0ad7c4a81384f5dcc6f1df787
+    disposition: container_lab
+    lab_profiles:
+      erlang_cookie_old: [genuine_rabbitmq_3_8_16_otp24, native_protocol_and_rpc_gates, ascii_size_boundaries, exact_unicode_crlf_commands, wrong_cookie_refusal, independent_bash_and_x64_handler_controls, repeated_owner_sessions, physical_pid_closure]
+      erlang_cookie_new: [genuine_rabbitmq_3_12_14_otp25, native_protocol_and_rpc_gates, ascii_size_boundaries, exact_unicode_crlf_commands, wrong_cookie_refusal, independent_bash_and_x64_handler_controls, repeated_owner_sessions, physical_pid_closure]
+    reason: >-
+      Two capped serial profiles pass18/0 after the identical original pair
+      retains18/2; only the owning source changes. Corrected independent
+      Unicode and console-input gates first prove exact input/native bytes.
+      A focused serializer fixes UTF-8 octets being interpreted as characters.
+      Twelve candidate sessions and twelve original-pair sessions have actual
+      UID999/PID/birth/file proofs, fresh public shutdown and PID disappearance.
+      Earlier fixture/transport failures remain separate. Command boundaries,
+      repetition, temporary files and final service health verify. The client
+      is removed before owner calls; both contexts finish empty. Default telnet
+      delivery lacks its stock-image prerequisite. Windows, x86, other stagers,
+      releases, network layouts and full ancestor preservation remain open.
+      See VERIFICATION-20261122-erlang-cookie.md; the full goal stays active.
   auxiliary/scanner/amqp/amqp_version:
     source_sha256: b828b0a87912090cb0125ba81a81ad8714a468002548b7e8af652350be72f849
     disposition: container_lab

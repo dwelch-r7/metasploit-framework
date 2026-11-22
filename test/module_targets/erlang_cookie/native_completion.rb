@@ -9,7 +9,8 @@ require 'open3'
 runtime = JSON.parse(File.read(ENV.fetch('MODULE_TARGET_RUNTIME')))
 records = []
 begin
-  %w[old new].each do |service|
+  brokers = ENV.key?('RABBITMQ_PROFILE') ? [ENV.fetch('RABBITMQ_PROFILE')] : %w[old new]
+  brokers.each do |service|
     2.times do |index|
       path = "/tmp/module-target-native-launch-#{index}"
       active = "#{path}-active"
@@ -40,6 +41,14 @@ begin
         [] = Send("rm -f #{path} #{active}"),
         {ok, Final} = rpc:call(Node, file, list_dir, ["/tmp"]),
         Before = lists:sort(Final),
+        Gone = fun Again(0) -> erlang:error(background_process_still_present);
+                   Again(Attempts) ->
+                     case rpc:call(Node, file, read_file, ["/proc/" ++ Pid ++ "/status"]) of
+                       {error, enoent} -> gone;
+                       _ -> timer:sleep(50), Again(Attempts - 1)
+                     end
+               end,
+        gone = Gone(160),
         io:format("NATIVE_BACKGROUND=~p~n", [{Elapsed, Pid, Before}]),
         halt().
       ERLANG

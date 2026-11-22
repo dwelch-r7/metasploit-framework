@@ -5,7 +5,24 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest qualification: [serial AMQP discovery and authentication](VERIFICATION-20261122-amqp.md)
+Latest qualification: [Erlang cookie commands and sessions](VERIFICATION-20261122-erlang-cookie.md)
+adds two serial genuine RabbitMQ/OTP profiles and a Unicode serialization repair.
+The frozen native matrix improves **18/2/0 to 18/0/0**, with the owner as its sole
+changed input. Native protocol/RPC/handler controls gate repeated commands,
+65,535/65,536-byte boundaries and Bash/Linux x64 sessions. Corrected native and
+console-input fixture failures remain separate. Twelve candidate and twelve
+original-pair sessions are used/closed; nine additional earlier diagnostic
+sessions have separate proofs. Root unit files pass **65/0 and 48/0**; identical
+source regressions retain **65/7 to 65/0**, with zero new lint/doc offenses.
+The retained set reaches **315 cases / 67 profiles / 702 current inputs**,
+**252 ordinary used/closed sessions** and 21 separate source variants. All
+**34 new/1,032 recorded Docker objects** are absent; a supplemental pilot's
+uncaptured anonymous-volume ID is excluded, with no new global volume retained.
+Both contexts finish empty. Stacks peak at three capped containers, then remove
+the native client before owner calls. Default telnet delivery, other targets/
+stagers and the full valuable feasible-module goal remain open. No PR.
+
+Previous qualification: [serial AMQP discovery and authentication](VERIFICATION-20261122-amqp.md)
 adds two genuine RabbitMQ release profiles with **18/0/0** and **28 real console
 module calls**. Twenty independent Pika controls gate both TCP/TLS scanners,
 credential reporting, wrong-password recovery, repeats and workspace isolation.
