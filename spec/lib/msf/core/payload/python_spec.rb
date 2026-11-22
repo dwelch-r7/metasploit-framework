@@ -1,4 +1,6 @@
 require 'spec_helper'
+require 'msfenv'
+require 'msf/base'
 require 'open3'
 require 'rex/text'
 
@@ -79,12 +81,16 @@ RSpec.describe Msf::Payload::Python do
     it 'preserves UTF-8 source and its line endings at the Python subprocess API' do
       value = "quotes ' and snow 雪 and slash \\"
       source = "value = #{value.to_json}\r\n# final backslash \\"
-      # Only subprocess.run is a recording double here. The owner execution
-      # specs separately exercise real interpreters, processes and reaping.
+      # Record the real subprocess API without replacing process creation or
+      # waiting. Both subprocess.run and a direct waiter use this API.
       probe = <<~'PYTHON'
         import json, subprocess, sys, threading
         calls = []
-        subprocess.run = lambda *args, **kwargs: calls.append([args, kwargs])
+        original_popen = subprocess.Popen
+        def recording_popen(*args, **kwargs):
+            calls.append([args, kwargs])
+            return original_popen(*args, **kwargs)
+        subprocess.Popen = recording_popen
         baseline = set(threading.enumerate())
         eval(json.load(sys.stdin))
         for worker in set(threading.enumerate()) - baseline:
@@ -96,6 +102,32 @@ RSpec.describe Msf::Payload::Python do
       expect(status.exitstatus).to eq(0), stderr
       result = JSON.parse(stdout)
       expect(result.fetch('calls')).to eq([[[[result.fetch('executable'), '-c', source]], {}]])
+    end
+
+    it 'uses APIs available on Python 2.7 and 3.4 while retaining a daemon waiter' do
+      probe = <<~'PYTHON'
+        import json, subprocess, sys, threading
+        # Exercise the actual interpreter with the two newer APIs unavailable.
+        # Native Python 2.7 execution is separately required for qualification.
+        del subprocess.run
+        original_thread = threading.Thread
+        workers = []
+        def compatible_thread(*args, **kwargs):
+            assert 'daemon' not in kwargs, 'daemon constructor argument requires Python 3.3'
+            worker = original_thread(*args, **kwargs)
+            workers.append(worker)
+            return worker
+        threading.Thread = compatible_thread
+        result = eval(json.load(sys.stdin))
+        for worker in workers:
+            worker.join(5)
+        print(json.dumps({'result': result, 'daemon': workers[0].daemon,
+                          'worker_finished': not workers[0].is_alive()}))
+      PYTHON
+      stdout, stderr, status = Open3.capture3(ENV.fetch('PYTHON', 'python3'), '-I', '-S', '-c', probe, stdin_data: described_class.create_exec_process_stub('pass').to_json)
+
+      expect(status.exitstatus).to eq(0), stderr
+      expect(JSON.parse(stdout)).to eq('result' => nil, 'daemon' => true, 'worker_finished' => true)
     end
   end
 end

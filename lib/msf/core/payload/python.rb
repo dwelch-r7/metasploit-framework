@@ -26,15 +26,16 @@ module Msf::Payload::Python
   end
 
   # Start a separate interpreter without blocking the calling Python context.
-  # A daemon thread waits for and reaps the interpreter through subprocess.run.
-  # Requires Python 3.5 or newer; existing exec stubs retain their older support.
+  # A daemon thread waits for and reaps the interpreter through Popen.wait.
+  # Use the daemon property and Popen APIs for Python 2.7 and 3.4 compatibility.
   #
   # @param python_code [String] UTF-8 Python source to execute unchanged.
   # @return [String] Python expression that starts the waiting thread.
   def self.create_exec_process_stub(python_code)
     encoded_code = Rex::Text.encode_base64(python_code)
-    "__import__('threading').Thread(target=__import__('subprocess').run, " \
-      "args=([__import__('sys').executable, '-c', __import__('base64').b64decode('#{encoded_code}').decode('utf-8')],), daemon=True).start()"
+    "(lambda worker: (setattr(worker, 'daemon', True), worker.start())[-1])(" \
+      "__import__('threading').Thread(target=lambda: __import__('subprocess').Popen(" \
+      "[__import__('sys').executable, '-c', __import__('base64').b64decode('#{encoded_code}').decode('utf-8')]).wait()))"
   end
 
   # Generate a three-line Python snippet that wraps +in_var+ (a raw socket) into an SSL socket
