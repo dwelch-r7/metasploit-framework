@@ -5,7 +5,23 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest qualification: [LinuxKI genuine packages and check contracts](VERIFICATION-20261122-linuxki.md)
+Latest qualification: [LinuxKI sessions and retained repeat failure](VERIFICATION-20261122-linuxki-sessions.md)
+adds two qualified profiles passing **8/0/0**, with explicit Bash and untouched
+initial PHP target/payload sessions. Native CLI/page controls, ordinary package
+manifest checks and public/physical shutdown proofs gate owning repeats. A third
+profile preserves the actual automatic Unix/PHP selection: native controls and
+its first owning session pass, but the repeat fails bootstrap (**4/1/0 plus one
+outside-example baseline error**). That enabled failure remains unqualified.
+Twenty-eight new session lifecycles across retained runs have complete use and
+closure proofs; unproved callbacks are excluded. The retained set reaches
+**353 cases /80 profiles /811 current inputs**, **355 ordinary used/closed
+sessions** and21 separate source variants, with all801 previous inputs unchanged.
+No production or installed payload source changes. All **36 new /1,242 recorded
+Docker IDs** are absent; both contexts are empty and each stack peaks at two.
+The automatic repeat, shortened-native transport failures, droppers and the
+complete valuable feasible-module goal remain open. No PR.
+
+Previous qualification: [LinuxKI genuine packages and check contracts](VERIFICATION-20261122-linuxki.md)
 adds three serial profiles passing **11/0/0**. Genuine affected/fixed packages,
 native CLI/interpreter and UID33 HTTP effects precede owning verdicts. Four
 final commands preserve exact ASCII/quoted Unicode/CRLF bytes and repeated

@@ -8,24 +8,31 @@ modules:
       linuxki: [genuine_vendor_6_0_1_deb, native_cli_abi_and_hashes, apache_uid33_exact_command_controls, actual_vulnerable_check, repeated_ascii_and_quoted_unicode_crlf, same_selected_module]
       linuxki_fixed: [genuine_vendor_6_0_2_deb, valid_timestamp_numeric_pid_sanitation, missing_timestamp_refusal, safe_check_and_repeated_default_autocheck_refusal]
       linuxki_errors: [native_positive_gate, real_apache_404_and_denied_traversal_403, independently_refused_target_socket, reason_bearing_unknown, frozen_owner_only_comparison]
+      linuxki_sessions: [independent_callback_ack, native_cli_and_genuine_page_bash, explicit_bash_payload, repeated_selected_owner, fresh_ports, public_and_physical_session_closure]
+      linuxki_php_sessions: [ordinary_packaged_runtime_and_stdapi_manifests, native_cli_and_page_repeats, untouched_initial_target_and_payload, repeated_selected_owner, public_and_physical_session_closure]
+      linuxki_unix_default_sessions: [actual_automatic_payload_after_unix_reselection, repeated_native_cli_and_page_controls, first_owner_session_proved, repeated_owner_bootstrap_unqualified]
     reason: >-
-      Three serial capped profiles pass11/0 after independently proving the
-      actual vendor package, CLI help/ABI, PHP and exact UID33 shell/HTTP effects.
-      Four final owning commands preserve ASCII and quoted Unicode/CRLF bytes,
-      including same-selection repeats with AutoCheck disabled. Genuine6.0-2
-      rejects effects with a valid timestamp, independently of the owner's
-      omitted-timestamp refusal. Real403/404/refused-socket checks originally
-      abort without a CheckCode; the frozen error profile changes4/3 to4/0 with
-      only the owner changed. Check returns reason-bearing Unknown while
-      exploit transport failures retain Unreachable. Focused units change22/8
-      to22/0 (15 owner and7 automatically loaded formatting examples). Native
-      readiness URL, CLI stderr/exit10 and FileDropper invocation prerequisites
-      are retained as separate harness corrections. No sessions are credited.
-      PHP memory/dropper, default Bash sessions, Linux droppers, other releases,
-      kernel tracing and additional network/delivery paths remain unqualified.
-      The lab needs at most two containers; all temporary resources and two
-      automatically initialized unused connector helpers are removed. See
-      VERIFICATION-20261122-linuxki.md; full inventory goal remains active.
+      Five qualified profiles cover19 cases: genuine affected/fixed packages,
+      CLI/ABI/hash and UID33 shell/HTTP gates, exact command bytes, reason-bearing
+      checks, explicit Bash sessions and untouched initial PHP defaults. The
+      original error profile changes4/3 to4/0 with only the owner changed;
+      focused units change22/8 to22/0 (15 owner plus7 incidental examples).
+      Genuine6.0-2 rejects effects with a valid timestamp, independently of the
+      owner's omitted-timestamp refusal. Session controls use ordinary packaged
+      runtime/stdapi files with validated manifests. Twenty-eight new ordinary
+      session lifecycles across retained runs have public use, UID33/file bytes,
+      PID/birth, fresh shutdown and physical closure proofs. After Unix target
+      reselection the console chooses cmd/unix/php/meterpreter/reverse_tcp; its
+      native controls and first owner pass, but the reused owner's second session
+      fails bootstrap. That enabled sixth profile remains unqualified4/1 with
+      an outside-example baseline error. Earlier shortened-native transport
+      failures remain unclassified and are not a LinuxKI source verdict. No
+      source candidate is installed, and no production changes occur in the
+      session milestone. PHP/Linux droppers, other releases/platforms, kernel
+      tracing and further delivery branches remain unqualified. Every stack
+      is capped at two containers; all owned resources are verified removed.
+      See VERIFICATION-20261122-linuxki.md and
+      VERIFICATION-20261122-linuxki-sessions.md; full inventory goal remains active.
   encoder/x64/xor:
     source_sha256: 65eb55b020938ab5777a31704aa1a808dbfb002ffa2dca33c0e8f71c0f016ba3
     disposition: container_lab

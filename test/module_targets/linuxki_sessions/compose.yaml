@@ -1,0 +1,11 @@
+services:
+  target:
+    extends:
+      file: ../linuxki/compose.yaml
+      service: target
+    volumes:
+      - ../invoiceshelf/process_state.php:/opt/module-target-linuxki-process.php:ro
+  framework:
+    extends:
+      file: ../linuxki/compose.yaml
+      service: framework
