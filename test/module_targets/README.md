@@ -5,7 +5,20 @@ passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
 checks that preserve unrelated containers. Only created projects are cleaned up.
 
-Latest qualification: [CouchDB node names](VERIFICATION-20261122-couchdb-names.md)
+Latest qualification: [Redis replication execution and recovery](VERIFICATION-20261122-redis-replication.md)
+adds one genuine Redis 5.0.14 profile passing **2/0/0**. The frozen original opens
+a working session but fails selected-state recovery; changing only the owner
+repairs **2/1 to 2/0**, with two proven owning repeats. Independent native
+extension/handler controls precede the owner. Cleanup ownership and foreground
+payload isolation regressions pass **42/0**, with zero new lint offenses.
+The retained set reaches **330 cases / 73 profiles / 739 current inputs**,
+**311 ordinary used/closed sessions** and 21 separate source variants; all 728
+previous inputs remain byte-identical. All **28 new / 1,139 recorded resource
+identifiers** are absent and both Docker contexts are empty, with a two-container
+peak. CUSTOM compilation/ABI, authentication, replicas, existing data preservation
+and the full valuable feasible-module inventory remain open. No PR.
+
+Previous qualification: [CouchDB node names](VERIFICATION-20261122-couchdb-names.md)
 adds two native DNS-name profiles and repairs a confirmed fixed-length challenge
 assumption. Both frozen comparisons change from 2/2 to 2/0 with only the owner
 changed. All five profiles pass **13/0/0**, including twelve used/closed sessions;

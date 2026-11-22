@@ -1,0 +1,30 @@
+spec: spec/acceptance/module_targets/redis_replication_spec.rb
+expected_examples: 2
+health_timeout: 120
+test_timeout: 600
+console: true
+modules: [exploit/linux/redis/redis_replication_cmd_exec]
+ports: {target: 6379}
+support_files:
+  - test/module_targets/laravel/session_control.rb
+  - test/module_targets/druid_sessions/session_control.rb
+  - test/module_targets/rocketmq_sessions/session_control.rb
+  - lib/msf/core/auxiliary/redis.rb
+  - lib/rex/proto/redis.rb
+  - lib/rex/proto/redis/base.rb
+  - lib/msf/core/exploit/cmd_stager.rb
+  - lib/msf/core/exploit/file_dropper.rb
+  - lib/msf/util/exe.rb
+  - modules/exploits/multi/handler.rb
+  - modules/payloads/stagers/linux/x64/reverse_tcp.rb
+  - modules/payloads/stages/linux/x64/meterpreter.rb
+  - lib/msf/core/payload/linux/x64/reverse_tcp.rb
+  - lib/msf/core/payload/linux/x64/prepends.rb
+  - lib/msf/core/payload/transport_config.rb
+  - lib/msf/base/sessions/mettle_config.rb
+  - lib/msf/base/sessions/meterpreter_options/linux.rb
+  - spec/support/shared/contexts/wait_for_expect.rb
+  - data/exploits/redis/exp/exp.so
+  - data/exploits/redis/exp/exp.c
+  - data/exploits/redis/exp/Makefile
+  - data/exploits/redis/redismodule.h

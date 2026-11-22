@@ -1,0 +1,22 @@
+services:
+  target:
+    image: redis:5.0.14@sha256:0b2348685ec7cffd590b2d6bdc6d35ffbfd7f0cef90b5fe91591f40418aa0d94
+    platform: linux/amd64
+    init: true
+    user: '999:999'
+    command: [redis-server, --save, '', --appendonly, 'no', --protected-mode, 'no']
+    cpus: 0.5
+    mem_limit: 256m
+    memswap_limit: 256m
+    pids_limit: 128
+    ports: ['127.0.0.1::6379']
+    healthcheck:
+      test: [CMD, redis-cli, ping]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+  framework:
+    cpus: 1.0
+    mem_limit: 1536m
+    memswap_limit: 1536m
+    pids_limit: 256

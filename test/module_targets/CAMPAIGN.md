@@ -1770,3 +1770,19 @@ sessions and 21 separate source variants. Both contexts are empty; 30 new and 11
 recorded resource identifiers are absent, with a two-container peak. Broader
 protocol/cookie/release/Windows paths and the full inventory remain open. See
 [the node-name report](VERIFICATION-20261122-couchdb-names.md). No PR.
+
+The genuine Redis replication profile passes 2/0 with independent native loader,
+exact-byte command and stock-handler controls. The frozen original proves a
+working owning session but leaves its persistence filename, extension and file;
+changing only the owner repairs 2/1 to 2/0 and permits two owning repeats with
+selected state restored. An initial cleanup candidate's foreground blocking is
+retained separately; payload forking and synchronous grouped stdio closure repair
+it without accepting cleanup errors. Parent regressions pass 42/0, zero new lint
+offenses and two inherited findings. Ten sessions across attempts are actually
+used/closed; unproved callbacks are excluded. All 728 prior inputs remain unchanged,
+bringing the retained set to 330 cases / 73 profiles / 739 inputs, 311 ordinary closed
+sessions and 21 separate source variants. Both contexts are empty; 28 new and 1139 known
+resource IDs are absent, with a two-container peak. CUSTOM compiler/ABI/raw-buffer
+execution and wider target/data-preservation variants remain open. See
+[the Redis report](VERIFICATION-20261122-redis-replication.md). Full goal active;
+no PR.

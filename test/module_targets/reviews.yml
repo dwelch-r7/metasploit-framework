@@ -1,6 +1,27 @@
 # Individual source-reviewed target requirements; these are not blanket exclusions.
 ---
 modules:
+  exploit/linux/redis/redis_replication_cmd_exec:
+    source_sha256: ded1ffb76accd4aa590db0f252d5dde9d63a3cb0d772d9c87ebe65fd72916078
+    disposition: container_lab
+    lab_profiles:
+      redis_replication: [official_5_0_14_x64_glibc, native_bundled_extension_and_handler_controls, exact_unicode_crlf, staged_x64_meterpreter, check_and_two_owning_repeats, selected_state_recovery, physical_pid_closure]
+    reason: >-
+      The pinned genuine Redis target passes two native-gated cases. The original
+      source obtains execution but leaves its filename, extension and transferred
+      file; the frozen owner-only comparison changes 2/1 to 2/0. Absolute early
+      FileDropper registration, acknowledged ownership, endpoint-bound retained
+      cleanup and guarded state restoration repair recovery. Existing payload
+      forking and synchronous grouped stdio closure release the foreground Redis
+      call before cleanup. Parent regressions pass 42/0 with zero new lint
+      offenses and two inherited findings. Ten sessions across retained attempts
+      have actual public/physical use and closure proofs; unproved callbacks are
+      excluded. Only two capped containers run and all owned resources are
+      removed. CUSTOM compilation/ABI/raw-buffer execution, authentication,
+      native replicas, other releases, x86 execution, explicit fork overrides,
+      existing database/overwritten-file preservation and peer identity across
+      restarts/DNS changes remain unqualified. See
+      VERIFICATION-20261122-redis-replication.md; full inventory goal remains active.
   exploit/multi/http/apache_couchdb_erlang_rce:
     source_sha256: 8d14108e76a44511eb2c019e70ff3ac001a40ba7996898320f546443d31ceeb8
     disposition: container_lab
