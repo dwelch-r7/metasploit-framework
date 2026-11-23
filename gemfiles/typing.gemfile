@@ -1,7 +1,0 @@
-source 'https://rubygems.org'
-
-ruby '>= 3.3'
-
-# Keep the pilot independent of the Framework runtime bundle.
-gem 'rbs', '= 4.2.0', require: false
-gem 'steep', '= 2.1.0', require: false

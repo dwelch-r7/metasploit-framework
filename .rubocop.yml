@@ -9,9 +9,13 @@
 # inherit_from: .rubocop_todo.yml
 
 AllCops:
-  TargetRubyVersion: 3.2
+  TargetRubyVersion: 3.3
   SuggestExtensions: false
   NewCops: disable
+
+Layout/LeadingCommentSpace:
+  Description: 'Recognize the type assertions used by the Steep pilot'
+  AllowSteepAnnotation: true
 
 require:
   - ./lib/rubocop/cop/layout/module_hash_on_new_line.rb
