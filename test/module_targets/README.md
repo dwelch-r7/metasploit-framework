@@ -1,5 +1,13 @@
 # Container module acceptance tests
 
+Campaign-wide [coverage status](COVERAGE-20261123.md): **342 modules with recorded
+passing coverage in stated scenarios**, 343 registered in labs and 4,280
+candidates without credited coverage. Feasibility review is incomplete. Of the
+342, 205 have module-source changes and 137 have unchanged module source; shared
+Framework fixes prevent treating that as a strict out-of-box split. The smaller
+recent qualification figures below cover a hash-current subset, not the whole
+campaign.
+
 Runner ownership: [namespaced isolation](VERIFICATION-20261118-namespaces.md)
 passes 53 guard/network cases and a real 5/0 module replay beside a protected
 sentinel. Set `MODULE_TARGET_NAMESPACE` for task-labelled projects and startup
@@ -14,7 +22,7 @@ then loses the stdapi load response. The source cause remains unclassified.
 The Bash refresh passes **4/0/0**; PHP fails its second native CLI control
 (**4/1/2 plus one outside-example error**), withholding owning calls. The PHP
 profile is excluded from current qualification; neither diagnostic adds cases.
-The current passing set is **349 cases /79 profiles /806 inputs**. Fourteen new
+The recently requalified passing subset is **349 cases /79 profiles /806 inputs**. Fourteen new
 actually used/closed sessions bring the cumulative ordinary count to **369**,
 plus21 separate source variants. All801 pre-session inputs remain identical;
 the shared helper is refreshed through Bash. Both Docker contexts are empty,
