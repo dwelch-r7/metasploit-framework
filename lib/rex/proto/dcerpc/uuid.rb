@@ -20,15 +20,15 @@ class UUID
   }
 
   # Convert a UUID in binary format to the string representation
+  # @param uuid_bin [String] sixteen wire bytes, regardless of string encoding
+  # @return [String] the text representation
   def self.uuid_unpack(uuid_bin)
+    uuid_bin = uuid_bin.b
     raise ArgumentError if uuid_bin.length != 16
-    sprintf("%.8x-%.4x-%.4x-%.4x-%s",
-      uuid_bin[ 0, 4].unpack('V')[0],
-      uuid_bin[ 4, 2].unpack('v')[0],
-      uuid_bin[ 6, 2].unpack('v')[0],
-      uuid_bin[ 8, 2].unpack('n')[0],
-      uuid_bin[10, 6].unpack('H*')[0]
-    )
+
+    # Steep cannot infer unpack's tuple from the format and sixteen-byte guard.
+    fields = uuid_bin.unpack('VvvnH12') #: [Integer, Integer, Integer, Integer, String]
+    sprintf('%.8x-%.4x-%.4x-%.4x-%s', fields[0], fields[1], fields[2], fields[3], fields[4])
   end
 
   # Validate a text based UUID

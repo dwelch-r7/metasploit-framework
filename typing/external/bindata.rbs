@@ -1,0 +1,31 @@
+# Limited bridge for the inherited APIs used by MsTdsLogin7Password, checked
+# against bindata 2.4.15 and ruby_smb 3.3.25. These dependencies are not checked.
+# In particular, this does not model BinData's generated record/field DSL.
+module BinData
+  class Base
+    def self.default_parameter: (encode: bool) -> void
+    def get_parameter: (:encode key) -> top
+  end
+
+  class BasePrimitive < Base
+  end
+
+  class String < BasePrimitive
+    private
+    def read_and_return_value: (IO::Read io) -> ::String
+    def value_to_binary_string: (::String val) -> ::String
+  end
+
+  module IO
+    class Read
+    end
+  end
+end
+
+module RubySMB
+  module Field
+    class String16 < BinData::String
+      def read_and_return_value: (BinData::IO::Read io) -> String
+    end
+  end
+end

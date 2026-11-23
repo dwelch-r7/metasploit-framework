@@ -1,0 +1,29 @@
+module Rex
+  module Parser
+    # The parser calls Object predicates before passing paths to Ruby's IO API.
+    type ini_path = path & Object
+
+    class Ini < Hash[String, Hash[String, String]]
+      @path: ini_path?
+      attr_reader path: ini_path?
+      def self.from_file: (ini_path path) -> Ini
+      def self.from_s: (String str) -> Ini
+      def initialize: (?ini_path? path) -> void
+      def add_group: (?String name, ?bool reset) -> Hash[String, String]
+      def group?: (String name) -> bool
+      def from_file: (?ini_path? fpath) -> Array[String]
+      def from_s: (String str) -> Array[String]
+      def to_file: (?ini_path? tpath) -> nil
+      def to_s: () -> String
+      alias each_group each_key
+
+      # RBS has no protected visibility. Private rejects external calls, but also
+      # rejects otherwise-valid protected calls on a peer from inside this class.
+      # Runtime visibility remains protected.
+      private
+      attr_writer path: ini_path?
+      def read_groups: (ini_path? fpath) -> Array[String]
+      def read_groups_string: (Array[String] str) -> Array[String]
+    end
+  end
+end

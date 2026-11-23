@@ -1,0 +1,22 @@
+module Rex
+  module Proto
+    module DCERPC
+      interface _VersionNumber
+        def to_i: () -> Integer
+        def to_f: () -> Float
+      end
+
+      class UUID
+        @@known_uuids: Hash[String, [String, String]]
+        def self.uuid_unpack: (String uuid_bin) -> String
+        def self.is?: (String? uuid_str) -> bool
+        def self.uuid_pack: (String uuid_str) -> String
+        def self.xfer_syntax_uuid: () -> String
+        def self.xfer_syntax_vers: () -> String
+        def self.uuid_by_name: (String name) -> String?
+        def self.vers_by_name: (String name) -> String?
+        def self.vers_to_nums: (_VersionNumber vers) -> [Integer, Integer]
+      end
+    end
+  end
+end

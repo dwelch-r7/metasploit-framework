@@ -21,6 +21,8 @@ jobs:
       BUNDLE_WITHOUT: "coverage development pcap"
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Install bundle system dependencies
+        run: sudo apt-get install -y --no-install-recommends libpcap-dev
       - uses: ruby/setup-ruby@7f797815d8adceb1c412e7abefdd1ab4abc47a5f
         with:
           ruby-version: ${{ matrix.ruby }}

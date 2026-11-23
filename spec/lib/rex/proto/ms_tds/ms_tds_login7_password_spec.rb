@@ -40,6 +40,14 @@ RSpec.describe Rex::Proto::MsTds::MsTdsLogin7Password do
     it 'returns the value in UTF_16LE encoding' do
       expect(decoded.encoding).to eq Encoding::UTF_16LE
     end
+
+    it 'preserves non-ASCII characters when decoding an encoded password' do
+      expect(described_class.decode(described_class.encode("p\u00e4ss\u{1f512}"))).to eq("p\u00e4ss\u{1f512}".encode(Encoding::UTF_16LE))
+    end
+
+    it 'decodes an empty password' do
+      expect(described_class.decode('')).to eq(''.encode(Encoding::UTF_16LE))
+    end
   end
 
   describe '.encode' do
@@ -50,6 +58,10 @@ RSpec.describe Rex::Proto::MsTds::MsTdsLogin7Password do
 
     it 'returns the value in ASCII-8BIT encoding' do
       expect(encoded.encoding).to eq Encoding::ASCII_8BIT
+    end
+
+    it 'encodes an empty password' do
+      expect(described_class.encode('')).to eq(''.b)
     end
   end
 end
