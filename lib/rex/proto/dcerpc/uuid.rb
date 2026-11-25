@@ -5,7 +5,9 @@ module DCERPC
 class UUID
 
 
-  @@known_uuids =
+  # Contextual typing checks every literal UUID/version pair as a tuple.
+  # @type var known_uuids: Hash[String, [String, String]]
+  known_uuids =
   {
     'MGMT'      => [ 'afa8bd80-7d8a-11c9-bef4-08002b102989', '2.0' ],
     'REMACT'    => [ '4d9f4ab8-7d1c-11cf-861e-0020af6e7c57', '0.0' ],
@@ -18,6 +20,7 @@ class UUID
     'SRVSVC'    => [ '4b324fc8-1670-01d3-1278-5a47bf6ee188', '3.0' ],
     'PNP'       => [ '8d9f4e40-a03d-11ce-8f69-08003e30051b', '1.0' ]
   }
+  @@known_uuids = known_uuids
 
   # Convert a UUID in binary format to the string representation
   # @param uuid_bin [String] sixteen wire bytes, regardless of string encoding

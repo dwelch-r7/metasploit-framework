@@ -35,6 +35,14 @@ Metasploit Framework is an open-source penetration testing and exploitation fram
 - Remove unused code/options/mixins, unreachable/obsolete branches, and debugging remnants. Before removing library code, check public API and external consumers.
 - Call `super` from overridden cleanup methods to preserve parent connection/session cleanup.
 
+## Static Typing
+
+- Only implementations and callers selected in `Steepfile` are checked. Module contributions do not require signatures.
+- For changes to a checked API, read and update its RBS contract under `typing/` with the implementation. Run `bundle exec ruby tools/dev/check_types.rb`; a raw `steep check` does not enforce all project gates.
+- For contract, scope or typing-infrastructure changes, run `SPEC_HELPER_LOAD_METASPLOIT=false bundle exec rspec test/typing/contracts_spec.rb`. These checks mutate temporary copies of real production code to detect broken contracts and weakened checking.
+- Keep running the relevant runtime specs. Types do not prove packet bytes, encodings, lengths or exploit behavior.
+- The gate rejects owned `untyped` declarations/annotations and untyped calls. Prefer checked variable annotations to assertions. Any trusted assertion or partial dependency declaration needs a documented invariant and relevant runtime coverage; do not add one just to make the checker green.
+
 ## Reuse Before Implementing
 
 Keep modules focused on the exploit or task workflow, including metadata, options, reporting, and decisions specific to that workflow. Implement supporting capabilities such as protocol clients, parsers, and authentication helpers in libraries or mixins under `lib/`. Reuse or extend an existing library first; create a new library for a distinct supporting capability when none fits. Choose boundaries by responsibility and opportunities for reuse. A library may initially have one caller.

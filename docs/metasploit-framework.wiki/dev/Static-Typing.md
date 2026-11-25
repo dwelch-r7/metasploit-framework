@@ -10,8 +10,9 @@ Use Ruby 3.3 or newer. From the repository root:
 
 ```sh
 bundle install
-bundle exec steep check --no-daemon --jobs=1 --validate=library
-bundle exec steep stats --format=csv --jobs=1
+bundle exec ruby tools/dev/check_types.rb
+SPEC_HELPER_LOAD_METASPLOIT=false bundle exec rspec test/typing/contracts_spec.rb
+SPEC_HELPER_LOAD_METASPLOIT=false bundle exec rspec spec/lib/rex/proto/dcerpc/uuid_spec.rb spec/lib/rex/proto/dcerpc/packet_spec.rb
 ```
 
 RBS and Steep belong to the existing `:development, :test` group alongside
@@ -22,6 +23,15 @@ the same bundle exclusions as the test jobs. Framework requires Ruby 3.3 or
 newer; Framework CI and RuboCop use that minimum. Generic reusable gem-testing
 workflows retain their older Ruby lanes for other repositories.
 
+The gate runs Steep with library-signature validation and rejects unsuccessful
+analysis, missing UUID/Packet source coverage, any untyped calls, owned RBS
+`untyped` declarations, and `untyped` annotations in checked Ruby files. Strict
+diagnostics make incompatible assignments fail. Syntax, unsupported syntax and
+internal checker errors also fail; fatal checker logs cannot be accepted just
+because a process returned success. Ordinary comments mentioning untyped remain
+legal. Raw `steep check` and `steep stats --format=csv --jobs=1` remain useful for
+diagnosis, but a green raw check alone is not equivalent to passing this gate.
+
 Keep `--validate=library`: the default validation scope can miss invalid
 declarations that reopen dependency classes. During expansion, a duplicate
 RubyGems declaration produced a green default check and an unexpectedly accepted
@@ -30,7 +40,8 @@ RubyGems signatures; adding another copy was unnecessary.
 
 ## Checked libraries
 
-The expanded pilot spans utility, parser, protocol and Framework code:
+The pilot checks a connected production path from DCERPC packet construction
+through its UUID codec, alongside the existing utility/parser/mixin examples:
 
 | Source | What it exercises | Typed calls |
 | --- | --- | ---: |
@@ -38,13 +49,39 @@ The expanded pilot spans utility, parser, protocol and Framework code:
 | `lib/rex/version.rb` | Inheritance and a nullable constructor argument | 2 |
 | `lib/rex/parser/ini.rb` | A parameterized Hash, mutable state, path coercion and file IO | 58 |
 | `lib/rex/proto/dcerpc/uuid.rb` | Binary unpacking, tuples and nullable service lookups | 43 |
+| `lib/rex/proto/dcerpc/packet.rb` | Actual codec callers, wire fields and fragmentation | 101 |
 | `lib/rex/proto/ms_tds/ms_tds_login7_password.rb` | Byte arithmetic and an inherited BinData API | 35 |
 | `lib/msf/core/exploit/retry.rb` | Generic block results and a mixin's required output method | 21 |
 
-Steep 2.1.0 / RBS 4.2.0 reported 165 typed calls and zero untyped calls in this
+Steep 2.1.0 / RBS 4.2.0 reported 266 typed calls and zero untyped calls in this
 sample. Counts apply only to these files, not their tests or other callers.
 A typed call count does not prove the signatures, algorithm, binary encoding,
 or runtime behavior are correct.
+
+## The connected contract
+
+`Packet.make_bind`, `make_bind_fake_multi`, `make_alter_context` and request
+construction call the checked UUID methods. UUID wire-field locals have checked
+String annotations: changing both the codec's implementation and its RBS return
+type to Integer still fails at the real packet consumer. These annotations check
+assignments; they are not assertions that override inference. This matters because
+`Array#pack` itself accepts heterogeneous arrays and cannot prove their formats.
+
+The committed `test/typing/contracts_spec.rb` copies real source, signatures and
+configuration to temporary directories and deliberately breaks them. CI verifies
+that invalid production calls, changed return contracts, missing APIs or
+implementations, removed packet coverage, explicit type erasure, inferred untyped
+calls and Ruby syntax errors are rejected. It also verifies valid callers, the
+existing nullable/generic/visibility contracts, and rejection of a simulated
+fatal checker result with exit status zero. The working checkout is not mutated.
+
+Runtime packet specs independently verify wire bytes, bind/alter-context fields,
+fragment flags and reassembly, object UUIDs, empty and 4000-byte boundaries, and
+arbitrary binary/multibyte input. They reproduced character-count fragmentation
+and infinite loops for nonpositive sizes. Requests now count bytes and reject
+nonpositive sizes for nonempty payloads; empty requests still work with size zero.
+Types do not establish those protocol properties: both defective and correct
+implementations can manipulate Strings successfully.
 
 ## What expansion required
 
@@ -63,17 +100,27 @@ Other changes address checking limitations while preserving behavior:
   encoding, empty input and non-ASCII passwords.
 - UUID unpacking has one trusted tuple assertion after the length guard.
   Retry exponentiation has one trusted Integer assertion because the retry
-  count cannot be negative. Neither invariant is proved by Steep.
+  count cannot be negative. Packet fragmentation has one trusted String slice
+  assertion after positive-size and loop-bounds checks. These three invariants
+  are not proved by Steep. Checked annotations for collections, UUID/version
+  pairs and wire fields otherwise preserve checking instead of casting to pass.
 - `typing/external/bindata.rbs` declares only the inherited surface used by the
   password field, based on the locked BinData and RubySMB sources. Dependencies
   and their generated field DSL are not checked. `get_parameter(:encode)` has
   type `top`, preserving its arbitrary result while permitting a truthiness
   check; this does not validate the parameter's value.
+- `typing/external/rex_text.rbs` models the Integer-length `rand_text` call used
+  for fake bind contexts. It is a partial dependency declaration; the gem's
+  implementation and its output length are not proved by Steep.
 - RBS cannot express Ruby's protected visibility. The INI signature uses private
   conservatively: external calls are rejected, but otherwise-valid protected
   calls on a peer would also be rejected. Runtime visibility remains protected
   and is covered by a spec. The retry mixin uses an interface self type for `vprint_status`, rather
   than declaring a pretend implementation on the mixin.
+- Strict checking misses the INI class's attribute/alias implementations.
+  Only that class retains non-failing missing-implementation diagnostics;
+  its focused runtime specs cover those methods. Protocol methods treat missing
+  implementations as errors. Other strict assignment checks remain enabled.
 
 Checked-file caller probes also verify rejection of invalid input types,
 unguarded nullable lookups, and an invalid operation on an inferred retry result.

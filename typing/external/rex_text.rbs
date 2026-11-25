@@ -1,0 +1,7 @@
+# The only rex-text API called by the checked packet builder. This is a partial
+# declaration of its Integer-length overload, not a model of the whole gem.
+module Rex
+  module Text
+    def self.rand_text: (Integer length) -> String
+  end
+end

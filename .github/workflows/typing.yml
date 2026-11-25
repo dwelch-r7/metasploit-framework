@@ -27,4 +27,8 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true
-      - run: bundle exec steep check --no-daemon --jobs=1 --validate=library
+      - run: bundle exec ruby tools/dev/check_types.rb
+      - name: Verify typing contracts and regression guards
+        run: SPEC_HELPER_LOAD_METASPLOIT=false bundle exec rspec test/typing/contracts_spec.rb
+      - name: Verify DCERPC wire behavior
+        run: SPEC_HELPER_LOAD_METASPLOIT=false bundle exec rspec spec/lib/rex/proto/dcerpc/uuid_spec.rb spec/lib/rex/proto/dcerpc/packet_spec.rb

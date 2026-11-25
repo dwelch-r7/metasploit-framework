@@ -152,6 +152,7 @@ protected
     self.clear
 
     # The active group
+    # @type var active_group: String?
     active_group = nil
 
     # Walk each line initializing the groups
