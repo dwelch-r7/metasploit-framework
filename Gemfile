@@ -41,6 +41,9 @@ group :development, :test do
   gem 'rspec-rerun'
   # Required during CI as well local development
   gem 'rubocop', '1.75.7'
+  # Static checking for the library files selected in Steepfile.
+  gem 'rbs', '= 4.2.0', require: false
+  gem 'steep', '= 2.1.0', require: false
 end
 
 group :test do

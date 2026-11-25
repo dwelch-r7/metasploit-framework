@@ -19,6 +19,8 @@ For those of you who are looking to add code to Metasploit, your first step is t
 
 Once you have finished your new module and tested it locally to ensure it's working as expected, check out our [guide for accepting modules](https://docs.metasploit.com/docs/development/maintainers/process/guidelines-for-accepting-modules-and-enhancements.html#module-additions). This will give you a good idea of how to clean up your code so that it's likely to get accepted.
 
+Changes to selected library APIs use the incremental [static typing pilot](docs/metasploit-framework.wiki/dev/Static-Typing.md). Run `bundle exec ruby tools/dev/check_types.rb` for those changes and keep their RBS contracts in sync. Only explicitly selected library files and callers are checked; module contributions do not require type signatures.
+
 Finally, follow our short list of do's and don'ts below to make sure your valuable contributions actually make it into Metasploit's master branch! We try to consider all our pull requests fairly and in detail, but if you do not follow these rules, your contribution
 will be closed. We need to ensure the code we're adding to master is written to a high standard.
 

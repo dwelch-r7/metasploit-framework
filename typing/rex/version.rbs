@@ -1,0 +1,5 @@
+module Rex
+  class Version < Gem::Version
+    def initialize: (String | Integer | Float | Gem::Version | nil version) -> void
+  end
+end

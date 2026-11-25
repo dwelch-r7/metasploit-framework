@@ -20,6 +20,9 @@ require 'rex/text'
     end
 
     # Create the bind request packet
+    # Wire UUID fields must be strings; pack itself accepts heterogeneous arrays.
+    # @type var interface_uuid: String
+    interface_uuid = UUID.uuid_pack(uuid)
     buff =
     [
       5,      # major version 5
@@ -36,7 +39,7 @@ require 'rex/text'
       1,      # num ctx items
       0,      # context id
       1,      # num trans items
-      UUID.uuid_pack(uuid),   # interface uuid
+      interface_uuid,   # interface uuid
       bind_vers_maj,       # interface major version
       bind_vers_min,       # interface minor version
       xfer_syntax_uuid,  # transfer syntax
@@ -104,12 +107,14 @@ require 'rex/text'
     end
 
     # Stuff the real UUID onto the end of the buffer
+    # @type var interface_uuid: String
+    interface_uuid = UUID.uuid_pack(uuid)
     real_ctx = ctx;
     data +=
     [
       ctx,      # context id
       1,        # num trans items
-      UUID.uuid_pack(uuid),   # interface uuid
+      interface_uuid,   # interface uuid
       bind_vers_maj,       # interface major version
       bind_vers_min,       # interface minor version
       UUID.xfer_syntax_uuid,  # transfer syntax
@@ -152,6 +157,8 @@ require 'rex/text'
     bind_vers_maj, bind_vers_min = UUID.vers_to_nums(vers)
     xfer_vers_maj, xfer_vers_min = UUID.vers_to_nums(UUID.xfer_syntax_vers)
 
+    # @type var interface_uuid: String
+    interface_uuid = UUID.uuid_pack(uuid)
     buff =
     [
       5,      # major version 5
@@ -168,7 +175,7 @@ require 'rex/text'
       1,      # num ctx items
       0,      # context id
       1,      # num trans items
-      UUID.uuid_pack(uuid),   # interface uuid
+      interface_uuid,   # interface uuid
       bind_vers_maj,       # interface major version
       bind_vers_min,       # interface minor version
       UUID.xfer_syntax_uuid,  # transfer syntax
@@ -179,8 +186,15 @@ require 'rex/text'
 
 
   # Used to create a piece of a DCERPC REQUEST packet
+  # @param flags [#to_i] first/last fragment and object flags
+  # @param opnum [#to_i] operation number
+  # @param data [String] raw stub bytes, regardless of string encoding
+  # @param ctx [#to_i] presentation context
+  # @param object_id [String] optional textual object UUID
+  # @return [String] encoded request fragment
   def self.make_request_chunk(flags=3, opnum=0, data="", ctx=0, object_id = '')
 
+    data = data.b
     flags = flags.to_i
     opnum = opnum.to_i
     ctx   = ctx.to_i
@@ -215,18 +229,31 @@ require 'rex/text'
   end
 
   # Used to create standard DCERPC REQUEST packet(s)
-  def self.make_request(opnum=0, data="", size=data.length, ctx=0, object_id = '')
+  # @param opnum [#to_i] operation number
+  # @param data [String] raw stub bytes, regardless of string encoding
+  # @param size [#to_i] positive payload bytes per fragment, capped at 4000
+  # @param ctx [#to_i] presentation context
+  # @param object_id [String] optional textual object UUID
+  # @return [Array<String>] encoded fragments in wire order
+  # @raise [ArgumentError] if nonempty data has a nonpositive fragment size
+  def self.make_request(opnum=0, data="", size=data.bytesize, ctx=0, object_id = '')
 
+    data = data.b
     opnum = opnum.to_i
     size  = [4000, size.to_i].min
     ctx   = ctx.to_i
+    raise ::ArgumentError, 'Fragment size must be positive for nonempty data' if size <= 0 && !data.empty?
 
+    # @type var chunks: Array[String]
+    # @type var frags: Array[String]
     chunks, frags = [], []
     ptr = 0
 
     # Break the request into fragments of 'size' bytes
     while ptr < data.length
-      chunks.push( data[ ptr, size ] )
+      # The positive size and loop bounds guarantee this binary slice exists.
+      chunk = data[ptr, size] #: String
+      chunks.push(chunk)
       ptr += size
     end
 

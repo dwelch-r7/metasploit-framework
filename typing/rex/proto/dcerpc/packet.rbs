@@ -1,0 +1,18 @@
+module Rex
+  module Proto
+    module DCERPC
+      interface _PacketInteger
+        def to_i: () -> Integer
+      end
+
+      class Packet
+        UUID: singleton(::Rex::Proto::DCERPC::UUID)
+        def self.make_bind: (String uuid, _VersionNumber vers, ?String xfer_syntax_uuid, ?_VersionNumber xfer_syntax_vers) -> [String, Integer]
+        def self.make_bind_fake_multi: (String uuid, _VersionNumber vers, ?_PacketInteger bind_head, ?_PacketInteger bind_tail) -> [String, Integer]
+        def self.make_alter_context: (String uuid, _VersionNumber vers) -> String
+        def self.make_request_chunk: (?_PacketInteger flags, ?_PacketInteger opnum, ?String data, ?_PacketInteger ctx, ?String object_id) -> String
+        def self.make_request: (?_PacketInteger opnum, ?String data, ?_PacketInteger size, ?_PacketInteger ctx, ?String object_id) -> Array[String]
+      end
+    end
+  end
+end

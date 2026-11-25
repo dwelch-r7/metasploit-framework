@@ -94,8 +94,11 @@ class Ini < Hash
   #
   # Writes the group settings to a file.
   #
+  # @param tpath [String, #to_path, nil] output path, falling back to the stored path
+  # @return [nil]
   def to_file(tpath = nil)
     tpath = path if (!tpath)
+    raise TypeError, 'no implicit conversion of nil into String' if tpath.nil?
 
     f = File.new(tpath, "w")
     f.write(to_s)
@@ -149,6 +152,7 @@ protected
     self.clear
 
     # The active group
+    # @type var active_group: String?
     active_group = nil
 
     # Walk each line initializing the groups

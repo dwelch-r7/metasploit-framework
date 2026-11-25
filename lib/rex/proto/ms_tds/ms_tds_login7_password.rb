@@ -19,13 +19,17 @@ module Rex::Proto::MsTds
       super(val)
     end
 
+    # @param value [String] obfuscated password bytes
+    # @return [String] decoded UTF-16LE password
     def self.decode(value)
-      value.unpack("C*").map { |c| ((((c ^ 0xa5) & 0x0f) << 4) + (((c ^ 0xa5) & 0xf0) >> 4)) }.pack("C*").force_encoding(Encoding::UTF_16LE)
+      value.bytes.map { |c| ((((c ^ 0xa5) & 0x0f) << 4) + (((c ^ 0xa5) & 0xf0) >> 4)) }.pack('C*').force_encoding(Encoding::UTF_16LE)
     end
 
+    # @param value [String] plaintext password
+    # @return [String] obfuscated password bytes
     def self.encode(value)
       value = value.encode(Encoding::UTF_16LE)
-      value.unpack('C*').map { |c| (((c & 0x0f) << 4) + ((c & 0xf0) >> 4)) ^ 0xa5 }.pack('C*')
+      value.bytes.map { |c| (((c & 0x0f) << 4) + ((c & 0xf0) >> 4)) ^ 0xa5 }.pack('C*')
     end
   end
 end
